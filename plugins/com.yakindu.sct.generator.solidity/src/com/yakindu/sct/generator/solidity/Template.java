@@ -8,11 +8,13 @@
  */
 package com.yakindu.sct.generator.solidity;
 
+import org.yakindu.sct.model.sexec.ExecutionFlow;
+import org.yakindu.sct.model.sgen.GeneratorEntry;
+
 /**
  * @author Florian Antony
  */
-public interface IFeatureConstants {
-	public static final String LIBRARY_NAME = "Solidity generator for SCT";
-	public static final String SOLIDITY = "Solidity";
-	public static final String VERSION = "Version";
+public interface Template {
+	
+	String content(ExecutionFlow flow, GeneratorEntry entry);
 }

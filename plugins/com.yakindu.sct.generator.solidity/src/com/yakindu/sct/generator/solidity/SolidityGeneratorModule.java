@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2017 itemis AG - All rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * 
+ * Contributors:
+ * 	Florian Antony - itemis AG
+ * 
+ */
 package com.yakindu.sct.generator.solidity;
 
 import org.eclipse.emf.mwe2.language.scoping.QualifiedNameProvider;
@@ -10,6 +18,9 @@ import org.yakindu.sct.model.sgen.GeneratorEntry;
 import com.google.inject.Binder;
 import com.yakindu.sct.domain.solidity.typesystem.SolidityTypeSystem;
 
+/**
+ * @author Florian Antony
+ */
 public class SolidityGeneratorModule implements IGeneratorModule {
 
     public void configure(GeneratorEntry entry, Binder binder) {

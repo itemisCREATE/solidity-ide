@@ -25,7 +25,7 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 	private static val SolidityTypeSystem INSTANCE = new SolidityTypeSystem()
 
 	public static val String BOOL = "bool"
-	public static val String UINT = "unit"
+	public static val String UINT = "uint"
 	public static val String INT = "int"
 	public static val String BYTE = "byte"
 	public static val String ADDRESS = "address"
