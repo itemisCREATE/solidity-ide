@@ -1,9 +1,10 @@
 /**
- * Copyright (c) 2016 itemis AG - All rights Reserved
+ * Copyright (c) 2017 itemis AG - All rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * 
  * Contributors:
  * 	Andreas Muelder - itemis AG
+ * 	Florian Antony - itemis AG
  * 
  */
 package com.yakindu.sct.domain.solidity.typesystem;
@@ -15,6 +16,7 @@ import static org.yakindu.base.types.TypesFactory.*
 
 /**
  * @author andreas muelder - Initial contribution and API
+ * @author florian antony 
  * 
  */
 @Singleton
@@ -23,6 +25,12 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 	private static val SolidityTypeSystem INSTANCE = new SolidityTypeSystem()
 
 	public static val String BOOL = "bool"
+	public static val String UINT = "unit"
+	public static val String INT = "int"
+	public static val String BYTE = "byte"
+	public static val String ADDRESS = "address"
+	public static val String MESSAGE = "message"
+	public static val String MAPPING = "mapping"
 
 	protected new() {
 	}
@@ -37,32 +45,39 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 		getType(BOOLEAN).abstract = true
 		getType(INTEGER).abstract = true
 		getType(REAL).abstract = true
-		var lastType = "integer";
-		for (j : 1 .. 32) {
-			var type = "uint" + j * 8
-			declarePrimitive(type)
-			declareSuperType(getType(type), getType(lastType))
-			lastType = type
-		}
-
-		lastType = "integer";
-		for (j : 1 .. 32) {
-			var type = "int" + j * 8
-			declarePrimitive(type)
-			declareSuperType(getType(type), getType(lastType))
-			lastType = type
-		}
 
 		declarePrimitive(BOOL)
-		declareType(createAddress(), "address")
-		declareType(createMessage(), "message")
-		declareType(createMapping(), "mapping")
-
-		declareSuperType(getType("INTEGER"), getType("address"))
 		declareSuperType(getType(BOOL), getType(BOOLEAN))
 
+		declarePrimitive(UINT)
+		declareSuperType(getType(UINT), getType(INTEGER))
+		UINT.declareExplicitSizeTypes(8)
+
+		declarePrimitive(INT)
+		declareSuperType(getType(INT), getType(INTEGER))
+		INT.declareExplicitSizeTypes(8)
+
+		declarePrimitive(BYTE)
+		declareSuperType(getType(BYTE), getType(INTEGER))
+		BYTE.declareExplicitSizeTypes(1);
+
+		declareType(createAddress(), ADDRESS)
+		declareSuperType(getType(INTEGER), getType(ADDRESS))
+		
+		declareType(createMessage(), MESSAGE)
+		declareType(createMapping(), MAPPING)
 	}
-	
+
+	def declareExplicitSizeTypes(String superType,int bitPerStep) {
+		var lastType = superType
+		for (j : 1 .. 32) {
+			var type = superType + j * bitPerStep
+			declarePrimitive(type)
+			declareSuperType(getType(type), getType(lastType))
+			lastType = type
+		}
+	}
+
 	def createMapping() {
 		eINSTANCE.createComplexType => [ type |
 			type.name = "mapping"
