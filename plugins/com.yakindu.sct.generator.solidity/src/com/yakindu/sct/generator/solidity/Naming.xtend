@@ -11,6 +11,7 @@ package com.yakindu.sct.generator.solidity
 import org.yakindu.sct.model.sexec.ExecutionFlow
 import org.yakindu.sct.model.sexec.ExecutionState
 import org.yakindu.sct.model.sgraph.Vertex
+import org.yakindu.sct.model.stext.stext.EventDefinition
 
 /**
  * @author Florian Antony
@@ -19,6 +20,10 @@ class Naming {
 	
 	def dispatch String toName(Void woid) {
 		""
+	}
+
+	def dispatch String toName(EventDefinition eventdefinition) {
+		eventdefinition.name
 	}
 
 	def dispatch String toName(Vertex vertex) {

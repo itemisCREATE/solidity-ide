@@ -12,6 +12,7 @@ import com.google.inject.Inject
 import org.yakindu.sct.model.sexec.ExecutionFlow
 import org.yakindu.sct.model.sgen.GeneratorEntry
 import org.yakindu.sct.model.sgraph.Transition
+import org.yakindu.sct.model.stext.stext.EventDefinition
 
 /**
  * @author Florian Antony
@@ -20,6 +21,7 @@ class CombinedState implements Template {
 	@Inject extension Navigation
 	@Inject extension Naming
 	@Inject extension Declarations
+	@Inject extension ExpressionCode
 
 	override content(ExecutionFlow flow, GeneratorEntry entry) {
 		'''
@@ -30,35 +32,69 @@ class CombinedState implements Template {
 						«state.toName»
 					«ENDFOR» 
 				}
+				
+				enum Events {
+					«FOR scope : flow.interfaceScopes»
+						«FOR declaration : scope.declarations.filter[it instanceof EventDefinition] SEPARATOR ','»«declaration.toName»«ENDFOR»,nullEvent
+					«ENDFOR»
+				}
 					
 				// This is the current state.
 				States public activeState = States.«flow.states.get(0).toName»;
-				modifier atCurrentState(States _state) {
-					require(activeState == _state);
-					   _;
-				}
 				
-				function nextState(States _state) internal {
-					activeState = States(uint(_state));
-				}
-				
-				modifier runCycle() {
-					«FOR state : flow.states»
-						«FOR reaction: state.reactions»
-							«IF reaction.isTransition»
-								if (activeState == States.«(reaction.sourceElement as Transition).source.toName»){
-									nextState(States.«(reaction.sourceElement as Transition).target.toName»);
-								}
-							«ENDIF»
-						«ENDFOR» 
+				Events private lastEvent = Events.nullEvent;
+			
+				modifier exit() {
+					«FOR state : flow.states.filter[it.exitAction != null]»
+						if(activeState == States.«state.toName»){
+							«state.exitAction?.code»
+						}
 					«ENDFOR» 
 					_;
 				}
+				
+				modifier entry() {
+					_;
+					«FOR state : flow.states.filter[it.entryAction != null]»
+						if(activeState == States.«state.toName»){
+							«state.entryAction?.code» 
+						}
+					«ENDFOR» 
+				}
+				
+				function nextState(States _state) internal exit entry {
+					activeState = States(uint(_state));
+				}
+				
+				modifier react() {
+					_;
+					«FOR state : flow.states»
+						«FOR reaction: state.reactions.filter[it.isTransition]»
+							if(activeState == States.«(reaction.sourceElement as Transition).source.toName»){
+								«IF reaction?.check?.condition != null»
+									if(«reaction?.check?.condition?.code»){
+								«ENDIF»
+								nextState(States.«(reaction.sourceElement as Transition).target.toName»);
+								«IF reaction?.check?.condition != null»
+									}
+								«ENDIF»
+							}
+						«ENDFOR» 
+					«ENDFOR» 
+				}
+				
 				«FOR scope : flow.interfaceScopes»
 					«FOR declaration : scope.declarations»
 						«declaration.declaration»
 					«ENDFOR»
 				«ENDFOR»
+				
+				function «flow.toName»Statemachine()public {
+				}
+				
+				function() public payable {
+					
+				}
 			}
 		'''
 	}

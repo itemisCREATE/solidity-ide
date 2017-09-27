@@ -13,6 +13,7 @@ import org.yakindu.base.types.Enumerator
 import org.yakindu.base.types.Event
 import org.yakindu.base.types.Operation
 import org.yakindu.sct.model.stext.stext.VariableDefinition
+import org.yakindu.sct.model.stext.stext.EventDefinition
 
 /**
  * @author Florian Antony
@@ -21,6 +22,16 @@ class Declarations {
 
 	@Inject extension ExpressionCode
 
+	def dispatch declaration(EventDefinition definition) {
+		'''
+			«IF definition.direction.value == 1»
+			function «definition.name»() public react {
+				lastEvent = Events.«definition.name»;
+			}	
+			«ENDIF»
+		'''
+	}
+	
 	def dispatch declaration(Event declaration) {
 		''''''
 	}
