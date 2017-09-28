@@ -43,6 +43,13 @@ class CombinedState implements Template {
 				States public activeState = States.«flow.states.get(0).toName»;
 				
 				Events private lastEvent = Events.nullEvent;
+
+				address private owner; 
+				«FOR scope : flow.interfaceScopes»
+					«FOR declaration : scope.declarations»
+						«declaration.declaration»
+					«ENDFOR»
+				«ENDFOR»
 			
 				modifier exit() {
 					«FOR state : flow.states.filter[it.exitAction != null]»
@@ -51,6 +58,11 @@ class CombinedState implements Template {
 						}
 					«ENDFOR» 
 					_;
+				}
+				
+				modifier reset() {
+					_;
+					lastEvent = Events.nullEvent;
 				}
 				
 				modifier entry() {
@@ -83,13 +95,9 @@ class CombinedState implements Template {
 					«ENDFOR» 
 				}
 				
-				«FOR scope : flow.interfaceScopes»
-					«FOR declaration : scope.declarations»
-						«declaration.declaration»
-					«ENDFOR»
-				«ENDFOR»
 				
 				function «flow.toName»Statemachine()public {
+					owner = msg.sender;
 				}
 				
 				function() public payable {

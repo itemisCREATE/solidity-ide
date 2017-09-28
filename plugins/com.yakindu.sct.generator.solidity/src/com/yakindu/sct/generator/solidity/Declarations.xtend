@@ -25,7 +25,7 @@ class Declarations {
 	def dispatch declaration(EventDefinition definition) {
 		'''
 			«IF definition.direction.value == 1»
-			function «definition.name»() public react {
+			function «definition.name»() public react reset {
 				lastEvent = Events.«definition.name»;
 			}	
 			«ENDIF»
