@@ -9,9 +9,23 @@
 package com.yakindu.sct.generator.solidity
 
 import com.google.inject.Inject
+import org.yakindu.sct.model.sexec.Call
+import org.yakindu.sct.model.sexec.Check
+import org.yakindu.sct.model.sexec.CheckRef
+import org.yakindu.sct.model.sexec.EnterState
+import org.yakindu.sct.model.sexec.Execution
 import org.yakindu.sct.model.sexec.ExecutionFlow
+import org.yakindu.sct.model.sexec.ExitState
+import org.yakindu.sct.model.sexec.HistoryEntry
+import org.yakindu.sct.model.sexec.If
+import org.yakindu.sct.model.sexec.Reaction
+import org.yakindu.sct.model.sexec.SaveHistory
+import org.yakindu.sct.model.sexec.ScheduleTimeEvent
+import org.yakindu.sct.model.sexec.Sequence
+import org.yakindu.sct.model.sexec.StateSwitch
+import org.yakindu.sct.model.sexec.Step
+import org.yakindu.sct.model.sexec.UnscheduleTimeEvent
 import org.yakindu.sct.model.sgen.GeneratorEntry
-import org.yakindu.sct.model.sgraph.Transition
 import org.yakindu.sct.model.stext.stext.EventDefinition
 
 /**
@@ -27,23 +41,14 @@ class CombinedState implements Template {
 		'''
 			pragma solidity ^0.4.16;
 			contract «flow.toName»Statemachine {
-				enum States {
-					«FOR state : flow.states SEPARATOR ','»        
-						«state.toName»
-					«ENDFOR» 
-				}
+				«flow.generateStateEnum»
 				
-				enum Events {
-					«FOR scope : flow.interfaceScopes»
-						«FOR declaration : scope.declarations.filter[it instanceof EventDefinition] SEPARATOR ','»«declaration.toName»«ENDFOR»,nullEvent
-					«ENDFOR»
-				}
-					
+				«flow.generateEventEnum»
 				// This is the current state.
 				States public activeState = States.«flow.states.get(0).toName»;
 				
 				Events private lastEvent = Events.nullEvent;
-
+			
 				address private owner; 
 				«FOR scope : flow.interfaceScopes»
 					«FOR declaration : scope.declarations»
@@ -80,18 +85,12 @@ class CombinedState implements Template {
 				
 				modifier react() {
 					_;
-					«FOR state : flow.states»
-						«FOR reaction: state.reactions.filter[it.isTransition]»
-							if(activeState == States.«(reaction.sourceElement as Transition).source.toName»){
-								«IF reaction?.check?.condition != null»
-									if(«reaction?.check?.condition?.code»){
-								«ENDIF»
-								nextState(States.«(reaction.sourceElement as Transition).target.toName»);
-								«IF reaction?.check?.condition != null»
-									}
-								«ENDIF»
+					«FOR state : flow.states.filter[reactSequence !== null] SEPARATOR "else "»
+«««						«FOR reaction: state.reactions.filter[it.isTransition] SEPARATOR 'else '»
+							if(activeState == States.«state.toName»){
+									«state.reactSequence.code»
 							}
-						«ENDFOR» 
+«««						«ENDFOR» 
 					«ENDFOR» 
 				}
 				
@@ -103,6 +102,26 @@ class CombinedState implements Template {
 				function() public payable {
 					
 				}
+			}
+		'''
+	}
+
+	def protected generateStateEnum(ExecutionFlow flow) {
+		'''
+			enum States {
+				«FOR state : flow.states SEPARATOR ','»        
+					«state.toName»
+				«ENDFOR» 
+			}
+		'''
+	}
+
+	def protected generateEventEnum(ExecutionFlow flow) {
+		'''
+			enum Events {
+				«FOR scope : flow.interfaceScopes»
+					«FOR declaration : scope.declarations.filter[it instanceof EventDefinition] SEPARATOR ','»«declaration.toName»«ENDFOR»,nullEvent
+				«ENDFOR»
 			}
 		'''
 	}

@@ -7,8 +7,8 @@
 			executor="org.yakindu.sct.generator.core.execution.SExecGeneratorEntryExecutor"
             bindings="com.yakindu.sct.generator.solidity.SolidityGeneratorModule"
             description=""
-            id="com::yakindu::sct::solidity"
-            name="Solidity generator for SCT"
+            id="yakindu::solidity"
+            name="YAKINDU SCT Solidity Code Generator"
             contentType="statechart"
             elementRefType="org.yakindu.sct.model.sgraph.Statechart">
             <FeatureLibrary
@@ -28,7 +28,7 @@
    </FeatureLibrary>
 </extension>
  <extension point="org.yakindu.sct.generator.core.extensions">
-	 	<ExtensionGeneratorMapping fileExtension="sct" generatorId="com::yakindu::sct::solidity">
+	 	<ExtensionGeneratorMapping fileExtension="sct" generatorId="yakindu::solidity">
 	 	</ExtensionGeneratorMapping>
  	</extension>
 </plugin>
