@@ -9,15 +9,22 @@
 package com.yakindu.sct.generator.solidity
 
 import com.google.inject.Inject
+import java.util.List
 import org.yakindu.base.expressions.expressions.Argument
+import org.yakindu.base.expressions.expressions.ArgumentExpression
 import org.yakindu.base.expressions.expressions.AssignmentExpression
 import org.yakindu.base.expressions.expressions.BoolLiteral
 import org.yakindu.base.expressions.expressions.DoubleLiteral
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
+import org.yakindu.base.expressions.expressions.Expression
+import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.expressions.expressions.FloatLiteral
 import org.yakindu.base.expressions.expressions.IntLiteral
 import org.yakindu.base.expressions.expressions.ParenthesizedExpression
 import org.yakindu.base.expressions.expressions.PrimitiveValueExpression
+import org.yakindu.base.types.Declaration
+import org.yakindu.base.types.Operation
+import org.yakindu.base.types.Property
 import org.yakindu.sct.generator.core.templates.Expressions
 import org.yakindu.sct.model.sexec.Call
 import org.yakindu.sct.model.sexec.Check
@@ -29,22 +36,27 @@ import org.yakindu.sct.model.sexec.If
 import org.yakindu.sct.model.sexec.Sequence
 import org.yakindu.sct.model.sexec.StateSwitch
 import org.yakindu.sct.model.stext.stext.EventDefinition
-import org.yakindu.sct.model.stext.stext.OperationDefinition
+import org.yakindu.sct.model.stext.stext.EventValueReferenceExpression
 import org.yakindu.sct.model.stext.stext.VariableDefinition
+import org.yakindu.base.expressions.expressions.TypeCastExpression
 
 /**
  * @author Florian Antony
  */
 class ExpressionCode extends Expressions {
-	
+
 	@Inject extension Naming
 
 	def dispatch CharSequence code(PrimitiveValueExpression it) {
 		'''«it.value.code»'''
 	}
 
-	def dispatch CharSequence code(OperationDefinition it) {
+	def dispatch CharSequence code(Declaration it) {
 		'''«it.name»'''
+	}
+
+	def dispatch CharSequence code(EventDefinition it) {
+		'''(Events.«it.name» == lastEvent)'''
 	}
 
 	def dispatch CharSequence code(Sequence it) {
@@ -57,9 +69,6 @@ class ExpressionCode extends Expressions {
 		'''«it.statement.code»'''
 	}
 
-	def dispatch CharSequence code(EventDefinition it) {
-		'''(Events.«it.name» == lastEvent)'''
-	}
 
 	def dispatch CharSequence code(ExitState it) {
 		'''«it.name»'''
@@ -68,7 +77,7 @@ class ExpressionCode extends Expressions {
 	def dispatch CharSequence code(EnterState it) {
 		'''«it.name»'''
 	}
-	
+
 	def dispatch CharSequence code(StateSwitch it) '''
 		«FOR stateCase : cases SEPARATOR "else "»
 			if (activeState == States.«stateCase.state.toName»){
@@ -77,19 +86,36 @@ class ExpressionCode extends Expressions {
 		«ENDFOR»
 	'''
 
+	def protected dispatch String code(FeatureCall it) {
+		'''«owner.code».«(feature as Declaration).codeDeclaration(it)»'''
+	}
+
+	def protected codeDeclaration(Declaration it, ArgumentExpression exp) {
+		switch it {
+			Operation:
+				return functionCall(it, exp.expressions)
+			Property:
+				name
+		}
+	}
+
+	def protected String functionCall(Operation it, List<Expression> args) {
+		'''«code»(«FOR arg : args SEPARATOR ", "»«arg.code»«ENDFOR»)'''
+	}
+
 	def dispatch CharSequence code(If it) '''
 		if («check.code.toString.trim») {
 			«thenStep.code»
 		}«IF elseStep !== null» else {
-				«elseStep.code»
-			}
+			«elseStep.code»
+		}
 		«ENDIF»
 	'''
 
 	def dispatch CharSequence code(CheckRef it) '''
 		«IF check !== null»«comment»«check.code()»«ELSE»true«ENDIF»
 	'''
-	
+
 	def dispatch CharSequence code(Check it) '''
 		«condition.code()»
 	'''
@@ -118,6 +144,14 @@ class ExpressionCode extends Expressions {
 
 	def dispatch CharSequence code(Argument it) {
 		'''«it.value.code»'''
+	}
+	
+	def dispatch String code(EventValueReferenceExpression it) {
+		value.code.toString
+	}
+	
+	def dispatch String code(TypeCastExpression it) {
+		'''«type.name»(«it.operand.code»)'''
 	}
 
 	def dispatch CharSequence code(BoolLiteral it) '''«value.toString»'''

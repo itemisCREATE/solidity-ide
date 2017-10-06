@@ -14,11 +14,19 @@ import org.yakindu.sct.domain.generic.editor.EditorModuleProvider;
 
 import com.google.inject.Module;
 import com.yakindu.sct.domain.solidity.modules.SolidityRuntimeModule;
+import com.yakindu.sct.domain.solidity.ui.SolidityUIActivator;
+import com.yakindu.sct.domain.solidity.ui.SolidityUIModule;
 
 public class SolidityDomainEditorModuleProvider extends EditorModuleProvider implements IModuleProvider {
 
 	@Override
 	protected Module getLanguageRuntimeModule() {
 		return new SolidityRuntimeModule();
+	}
+
+	@Override
+	protected Module getLanguageUiModule() {
+		return new SolidityUIModule(SolidityUIActivator.getDefault());
+
 	}
 }
