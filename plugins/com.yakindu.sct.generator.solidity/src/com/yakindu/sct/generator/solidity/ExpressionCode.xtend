@@ -22,10 +22,11 @@ import org.yakindu.base.expressions.expressions.FloatLiteral
 import org.yakindu.base.expressions.expressions.IntLiteral
 import org.yakindu.base.expressions.expressions.ParenthesizedExpression
 import org.yakindu.base.expressions.expressions.PrimitiveValueExpression
+import org.yakindu.base.expressions.expressions.TypeCastExpression
+import org.yakindu.base.expressions.generator.ExpressionsGenerator
 import org.yakindu.base.types.Declaration
 import org.yakindu.base.types.Operation
 import org.yakindu.base.types.Property
-import org.yakindu.sct.generator.core.templates.Expressions
 import org.yakindu.sct.model.sexec.Call
 import org.yakindu.sct.model.sexec.Check
 import org.yakindu.sct.model.sexec.CheckRef
@@ -38,12 +39,11 @@ import org.yakindu.sct.model.sexec.StateSwitch
 import org.yakindu.sct.model.stext.stext.EventDefinition
 import org.yakindu.sct.model.stext.stext.EventValueReferenceExpression
 import org.yakindu.sct.model.stext.stext.VariableDefinition
-import org.yakindu.base.expressions.expressions.TypeCastExpression
 
 /**
  * @author Florian Antony
  */
-class ExpressionCode extends Expressions {
+class ExpressionCode extends ExpressionsGenerator {
 
 	@Inject extension Naming
 
