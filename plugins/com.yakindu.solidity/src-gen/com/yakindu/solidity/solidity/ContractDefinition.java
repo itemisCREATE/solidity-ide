@@ -3,7 +3,7 @@
  */
 package com.yakindu.solidity.solidity;
 
-import org.eclipse.emf.common.util.EList;
+import org.yakindu.base.types.ComplexType;
 
 /**
  * <!-- begin-user-doc -->
@@ -15,16 +15,13 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link com.yakindu.solidity.solidity.ContractDefinition#getType <em>Type</em>}</li>
- *   <li>{@link com.yakindu.solidity.solidity.ContractDefinition#getName <em>Name</em>}</li>
- *   <li>{@link com.yakindu.solidity.solidity.ContractDefinition#getSuperType <em>Super Type</em>}</li>
- *   <li>{@link com.yakindu.solidity.solidity.ContractDefinition#getParts <em>Parts</em>}</li>
  * </ul>
  *
  * @see com.yakindu.solidity.solidity.SolidityPackage#getContractDefinition()
  * @model
  * @generated
  */
-public interface ContractDefinition extends SourceUnit
+public interface ContractDefinition extends ComplexType
 {
   /**
    * Returns the value of the '<em><b>Type</b></em>' attribute.
@@ -54,63 +51,5 @@ public interface ContractDefinition extends SourceUnit
    * @generated
    */
   void setType(ContractType value);
-
-  /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see com.yakindu.solidity.solidity.SolidityPackage#getContractDefinition_Name()
-   * @model
-   * @generated
-   */
-  String getName();
-
-  /**
-   * Sets the value of the '{@link com.yakindu.solidity.solidity.ContractDefinition#getName <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
-   * @generated
-   */
-  void setName(String value);
-
-  /**
-   * Returns the value of the '<em><b>Super Type</b></em>' containment reference list.
-   * The list contents are of type {@link com.yakindu.solidity.solidity.InheritanceSpecifier}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Super Type</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Super Type</em>' containment reference list.
-   * @see com.yakindu.solidity.solidity.SolidityPackage#getContractDefinition_SuperType()
-   * @model containment="true"
-   * @generated
-   */
-  EList<InheritanceSpecifier> getSuperType();
-
-  /**
-   * Returns the value of the '<em><b>Parts</b></em>' containment reference list.
-   * The list contents are of type {@link com.yakindu.solidity.solidity.ContractPart}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Parts</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Parts</em>' containment reference list.
-   * @see com.yakindu.solidity.solidity.SolidityPackage#getContractDefinition_Parts()
-   * @model containment="true"
-   * @generated
-   */
-  EList<ContractPart> getParts();
 
 } // ContractDefinition

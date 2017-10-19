@@ -15,8 +15,8 @@ public abstract class AbstractSolidityValidator extends ExpressionsJavaValidator
 	protected List<EPackage> getEPackages() {
 		List<EPackage> result = new ArrayList<EPackage>(super.getEPackages());
 		result.add(com.yakindu.solidity.solidity.SolidityPackage.eINSTANCE);
-		result.add(EPackage.Registry.INSTANCE.getEPackage("http://www.yakindu.org/base/expressions/Expressions"));
 		result.add(EPackage.Registry.INSTANCE.getEPackage("http://www.yakindu.org/base/types/2.0.0"));
+		result.add(EPackage.Registry.INSTANCE.getEPackage("http://www.yakindu.org/base/expressions/Expressions"));
 		return result;
 	}
 	

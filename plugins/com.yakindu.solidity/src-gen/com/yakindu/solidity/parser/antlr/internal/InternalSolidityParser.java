@@ -23,7 +23,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalSolidityParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_VERSION", "RULE_STRING", "RULE_ID", "RULE_BOOL", "RULE_INT", "RULE_DOUBLE", "RULE_FLOAT", "RULE_HEX", "RULE_BINARY", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'pragma'", "'solidity'", "';'", "'import'", "'as'", "'is'", "','", "'{'", "'}'", "'='", "'struct'", "'modifier'", "'('", "')'", "'_;'", "'function'", "'external'", "'public'", "'internal'", "'private'", "'returns'", "'...'", "':'", "'event'", "'enum'", "'?'", "'.'", "'['", "']'", "'<'", "'>'", "'null'", "'&&'", "'||'", "'!'", "'^'", "'|'", "'&'", "'contract'", "'library'", "'interface'", "'constant'", "'*='", "'/='", "'%='", "'+='", "'-='", "'<<='", "'>>='", "'&='", "'^='", "'|='", "'<<'", "'>>'", "'+'", "'-'", "'*'", "'/'", "'%'", "'~'", "'<='", "'>='", "'=='", "'!='"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_VERSION", "RULE_STRING", "RULE_ID", "RULE_BOOL", "RULE_INT", "RULE_DOUBLE", "RULE_FLOAT", "RULE_HEX", "RULE_BINARY", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'pragma'", "'solidity'", "';'", "'import'", "'as'", "'is'", "','", "'{'", "'}'", "'='", "'modifier'", "'('", "')'", "'_;'", "'function'", "'external'", "'public'", "'internal'", "'private'", "'constant'", "'returns'", "'event'", "'?'", "':'", "'.'", "'['", "']'", "'<'", "'>'", "'null'", "'&&'", "'||'", "'!'", "'^'", "'|'", "'&'", "'contract'", "'library'", "'interface'", "'*='", "'/='", "'%='", "'+='", "'-='", "'<<='", "'>>='", "'&='", "'^='", "'|='", "'<<'", "'>>'", "'+'", "'-'", "'*'", "'/'", "'%'", "'~'", "'<='", "'>='", "'=='", "'!='"
     };
     public static final int RULE_HEX=11;
     public static final int T__50=50;
@@ -75,9 +75,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
     public static final int T__33=33;
     public static final int T__77=77;
     public static final int T__34=34;
-    public static final int T__78=78;
     public static final int T__35=35;
-    public static final int T__79=79;
     public static final int T__36=36;
     public static final int T__73=73;
     public static final int EOF=-1;
@@ -87,7 +85,6 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
     public static final int T__75=75;
     public static final int T__32=32;
     public static final int T__76=76;
-    public static final int T__80=80;
     public static final int RULE_WS=15;
     public static final int RULE_ANY_OTHER=16;
     public static final int RULE_BOOL=7;
@@ -204,7 +201,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( (LA1_0==17||LA1_0==20||(LA1_0>=55 && LA1_0<=57)) ) {
+                if ( (LA1_0==17) ) {
                     alt1=1;
                 }
 
@@ -313,119 +310,181 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSourceUnit"
-    // InternalSolidity.g:108:1: ruleSourceUnit returns [EObject current=null] : (this_PragmaDirective_0= rulePragmaDirective | this_ImportDirective_1= ruleImportDirective | this_ContractDefinition_2= ruleContractDefinition ) ;
+    // InternalSolidity.g:108:1: ruleSourceUnit returns [EObject current=null] : ( () ( (lv_pragma_1_0= rulePragmaDirective ) ) ( (lv_imports_2_0= ruleImportDirective ) )* ( (lv_member_3_0= ruleContractDefinition ) )* ) ;
     public final EObject ruleSourceUnit() throws RecognitionException {
         EObject current = null;
 
-        EObject this_PragmaDirective_0 = null;
+        EObject lv_pragma_1_0 = null;
 
-        EObject this_ImportDirective_1 = null;
+        EObject lv_imports_2_0 = null;
 
-        EObject this_ContractDefinition_2 = null;
+        EObject lv_member_3_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalSolidity.g:114:2: ( (this_PragmaDirective_0= rulePragmaDirective | this_ImportDirective_1= ruleImportDirective | this_ContractDefinition_2= ruleContractDefinition ) )
-            // InternalSolidity.g:115:2: (this_PragmaDirective_0= rulePragmaDirective | this_ImportDirective_1= ruleImportDirective | this_ContractDefinition_2= ruleContractDefinition )
+            // InternalSolidity.g:114:2: ( ( () ( (lv_pragma_1_0= rulePragmaDirective ) ) ( (lv_imports_2_0= ruleImportDirective ) )* ( (lv_member_3_0= ruleContractDefinition ) )* ) )
+            // InternalSolidity.g:115:2: ( () ( (lv_pragma_1_0= rulePragmaDirective ) ) ( (lv_imports_2_0= ruleImportDirective ) )* ( (lv_member_3_0= ruleContractDefinition ) )* )
             {
-            // InternalSolidity.g:115:2: (this_PragmaDirective_0= rulePragmaDirective | this_ImportDirective_1= ruleImportDirective | this_ContractDefinition_2= ruleContractDefinition )
-            int alt2=3;
-            switch ( input.LA(1) ) {
-            case 17:
-                {
-                alt2=1;
-                }
-                break;
-            case 20:
-                {
-                alt2=2;
-                }
-                break;
-            case 55:
-            case 56:
-            case 57:
-                {
-                alt2=3;
-                }
-                break;
-            default:
-                if (state.backtracking>0) {state.failed=true; return current;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 2, 0, input);
+            // InternalSolidity.g:115:2: ( () ( (lv_pragma_1_0= rulePragmaDirective ) ) ( (lv_imports_2_0= ruleImportDirective ) )* ( (lv_member_3_0= ruleContractDefinition ) )* )
+            // InternalSolidity.g:116:3: () ( (lv_pragma_1_0= rulePragmaDirective ) ) ( (lv_imports_2_0= ruleImportDirective ) )* ( (lv_member_3_0= ruleContractDefinition ) )*
+            {
+            // InternalSolidity.g:116:3: ()
+            // InternalSolidity.g:117:4: 
+            {
+            if ( state.backtracking==0 ) {
 
-                throw nvae;
+              				current = forceCreateModelElement(
+              					grammarAccess.getSourceUnitAccess().getSourceUnitAction_0(),
+              					current);
+              			
             }
 
-            switch (alt2) {
-                case 1 :
-                    // InternalSolidity.g:116:3: this_PragmaDirective_0= rulePragmaDirective
-                    {
-                    if ( state.backtracking==0 ) {
+            }
 
-                      			newCompositeNode(grammarAccess.getSourceUnitAccess().getPragmaDirectiveParserRuleCall_0());
-                      		
-                    }
-                    pushFollow(FOLLOW_2);
-                    this_PragmaDirective_0=rulePragmaDirective();
+            // InternalSolidity.g:123:3: ( (lv_pragma_1_0= rulePragmaDirective ) )
+            // InternalSolidity.g:124:4: (lv_pragma_1_0= rulePragmaDirective )
+            {
+            // InternalSolidity.g:124:4: (lv_pragma_1_0= rulePragmaDirective )
+            // InternalSolidity.g:125:5: lv_pragma_1_0= rulePragmaDirective
+            {
+            if ( state.backtracking==0 ) {
 
-                    state._fsp--;
-                    if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
+              					newCompositeNode(grammarAccess.getSourceUnitAccess().getPragmaPragmaDirectiveParserRuleCall_1_0());
+              				
+            }
+            pushFollow(FOLLOW_4);
+            lv_pragma_1_0=rulePragmaDirective();
 
-                      			current = this_PragmaDirective_0;
-                      			afterParserOrEnumRuleCall();
-                      		
-                    }
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
 
-                    }
-                    break;
-                case 2 :
-                    // InternalSolidity.g:125:3: this_ImportDirective_1= ruleImportDirective
-                    {
-                    if ( state.backtracking==0 ) {
+              					if (current==null) {
+              						current = createModelElementForParent(grammarAccess.getSourceUnitRule());
+              					}
+              					set(
+              						current,
+              						"pragma",
+              						lv_pragma_1_0,
+              						"com.yakindu.solidity.Solidity.PragmaDirective");
+              					afterParserOrEnumRuleCall();
+              				
+            }
 
-                      			newCompositeNode(grammarAccess.getSourceUnitAccess().getImportDirectiveParserRuleCall_1());
-                      		
-                    }
-                    pushFollow(FOLLOW_2);
-                    this_ImportDirective_1=ruleImportDirective();
+            }
 
-                    state._fsp--;
-                    if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
 
-                      			current = this_ImportDirective_1;
-                      			afterParserOrEnumRuleCall();
-                      		
-                    }
+            }
 
-                    }
-                    break;
-                case 3 :
-                    // InternalSolidity.g:134:3: this_ContractDefinition_2= ruleContractDefinition
-                    {
-                    if ( state.backtracking==0 ) {
+            // InternalSolidity.g:142:3: ( (lv_imports_2_0= ruleImportDirective ) )*
+            loop2:
+            do {
+                int alt2=2;
+                int LA2_0 = input.LA(1);
 
-                      			newCompositeNode(grammarAccess.getSourceUnitAccess().getContractDefinitionParserRuleCall_2());
-                      		
-                    }
-                    pushFollow(FOLLOW_2);
-                    this_ContractDefinition_2=ruleContractDefinition();
+                if ( (LA2_0==20) ) {
+                    alt2=1;
+                }
 
-                    state._fsp--;
-                    if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
 
-                      			current = this_ContractDefinition_2;
-                      			afterParserOrEnumRuleCall();
-                      		
-                    }
+                switch (alt2) {
+            	case 1 :
+            	    // InternalSolidity.g:143:4: (lv_imports_2_0= ruleImportDirective )
+            	    {
+            	    // InternalSolidity.g:143:4: (lv_imports_2_0= ruleImportDirective )
+            	    // InternalSolidity.g:144:5: lv_imports_2_0= ruleImportDirective
+            	    {
+            	    if ( state.backtracking==0 ) {
 
-                    }
-                    break;
+            	      					newCompositeNode(grammarAccess.getSourceUnitAccess().getImportsImportDirectiveParserRuleCall_2_0());
+            	      				
+            	    }
+            	    pushFollow(FOLLOW_4);
+            	    lv_imports_2_0=ruleImportDirective();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      					if (current==null) {
+            	      						current = createModelElementForParent(grammarAccess.getSourceUnitRule());
+            	      					}
+            	      					add(
+            	      						current,
+            	      						"imports",
+            	      						lv_imports_2_0,
+            	      						"com.yakindu.solidity.Solidity.ImportDirective");
+            	      					afterParserOrEnumRuleCall();
+            	      				
+            	    }
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop2;
+                }
+            } while (true);
+
+            // InternalSolidity.g:161:3: ( (lv_member_3_0= ruleContractDefinition ) )*
+            loop3:
+            do {
+                int alt3=2;
+                int LA3_0 = input.LA(1);
+
+                if ( ((LA3_0>=53 && LA3_0<=55)) ) {
+                    alt3=1;
+                }
+
+
+                switch (alt3) {
+            	case 1 :
+            	    // InternalSolidity.g:162:4: (lv_member_3_0= ruleContractDefinition )
+            	    {
+            	    // InternalSolidity.g:162:4: (lv_member_3_0= ruleContractDefinition )
+            	    // InternalSolidity.g:163:5: lv_member_3_0= ruleContractDefinition
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	      					newCompositeNode(grammarAccess.getSourceUnitAccess().getMemberContractDefinitionParserRuleCall_3_0());
+            	      				
+            	    }
+            	    pushFollow(FOLLOW_5);
+            	    lv_member_3_0=ruleContractDefinition();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      					if (current==null) {
+            	      						current = createModelElementForParent(grammarAccess.getSourceUnitRule());
+            	      					}
+            	      					add(
+            	      						current,
+            	      						"member",
+            	      						lv_member_3_0,
+            	      						"com.yakindu.solidity.Solidity.ContractDefinition");
+            	      					afterParserOrEnumRuleCall();
+            	      				
+            	    }
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop3;
+                }
+            } while (true);
+
 
             }
 
@@ -451,7 +510,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePragmaDirective"
-    // InternalSolidity.g:146:1: entryRulePragmaDirective returns [EObject current=null] : iv_rulePragmaDirective= rulePragmaDirective EOF ;
+    // InternalSolidity.g:184:1: entryRulePragmaDirective returns [EObject current=null] : iv_rulePragmaDirective= rulePragmaDirective EOF ;
     public final EObject entryRulePragmaDirective() throws RecognitionException {
         EObject current = null;
 
@@ -459,8 +518,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:146:56: (iv_rulePragmaDirective= rulePragmaDirective EOF )
-            // InternalSolidity.g:147:2: iv_rulePragmaDirective= rulePragmaDirective EOF
+            // InternalSolidity.g:184:56: (iv_rulePragmaDirective= rulePragmaDirective EOF )
+            // InternalSolidity.g:185:2: iv_rulePragmaDirective= rulePragmaDirective EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getPragmaDirectiveRule()); 
@@ -491,47 +550,60 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePragmaDirective"
-    // InternalSolidity.g:153:1: rulePragmaDirective returns [EObject current=null] : (otherlv_0= 'pragma' otherlv_1= 'solidity' ( (lv_id_2_0= RULE_VERSION ) ) otherlv_3= ';' ) ;
+    // InternalSolidity.g:191:1: rulePragmaDirective returns [EObject current=null] : ( () otherlv_1= 'pragma' otherlv_2= 'solidity' ( (lv_version_3_0= RULE_VERSION ) ) otherlv_4= ';' ) ;
     public final EObject rulePragmaDirective() throws RecognitionException {
         EObject current = null;
 
-        Token otherlv_0=null;
         Token otherlv_1=null;
-        Token lv_id_2_0=null;
-        Token otherlv_3=null;
+        Token otherlv_2=null;
+        Token lv_version_3_0=null;
+        Token otherlv_4=null;
 
 
         	enterRule();
 
         try {
-            // InternalSolidity.g:159:2: ( (otherlv_0= 'pragma' otherlv_1= 'solidity' ( (lv_id_2_0= RULE_VERSION ) ) otherlv_3= ';' ) )
-            // InternalSolidity.g:160:2: (otherlv_0= 'pragma' otherlv_1= 'solidity' ( (lv_id_2_0= RULE_VERSION ) ) otherlv_3= ';' )
+            // InternalSolidity.g:197:2: ( ( () otherlv_1= 'pragma' otherlv_2= 'solidity' ( (lv_version_3_0= RULE_VERSION ) ) otherlv_4= ';' ) )
+            // InternalSolidity.g:198:2: ( () otherlv_1= 'pragma' otherlv_2= 'solidity' ( (lv_version_3_0= RULE_VERSION ) ) otherlv_4= ';' )
             {
-            // InternalSolidity.g:160:2: (otherlv_0= 'pragma' otherlv_1= 'solidity' ( (lv_id_2_0= RULE_VERSION ) ) otherlv_3= ';' )
-            // InternalSolidity.g:161:3: otherlv_0= 'pragma' otherlv_1= 'solidity' ( (lv_id_2_0= RULE_VERSION ) ) otherlv_3= ';'
+            // InternalSolidity.g:198:2: ( () otherlv_1= 'pragma' otherlv_2= 'solidity' ( (lv_version_3_0= RULE_VERSION ) ) otherlv_4= ';' )
+            // InternalSolidity.g:199:3: () otherlv_1= 'pragma' otherlv_2= 'solidity' ( (lv_version_3_0= RULE_VERSION ) ) otherlv_4= ';'
             {
-            otherlv_0=(Token)match(input,17,FOLLOW_4); if (state.failed) return current;
+            // InternalSolidity.g:199:3: ()
+            // InternalSolidity.g:200:4: 
+            {
             if ( state.backtracking==0 ) {
 
-              			newLeafNode(otherlv_0, grammarAccess.getPragmaDirectiveAccess().getPragmaKeyword_0());
+              				current = forceCreateModelElement(
+              					grammarAccess.getPragmaDirectiveAccess().getPragmaDirectiveAction_0(),
+              					current);
+              			
+            }
+
+            }
+
+            otherlv_1=(Token)match(input,17,FOLLOW_6); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              			newLeafNode(otherlv_1, grammarAccess.getPragmaDirectiveAccess().getPragmaKeyword_1());
               		
             }
-            otherlv_1=(Token)match(input,18,FOLLOW_5); if (state.failed) return current;
+            otherlv_2=(Token)match(input,18,FOLLOW_7); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              			newLeafNode(otherlv_1, grammarAccess.getPragmaDirectiveAccess().getSolidityKeyword_1());
+              			newLeafNode(otherlv_2, grammarAccess.getPragmaDirectiveAccess().getSolidityKeyword_2());
               		
             }
-            // InternalSolidity.g:169:3: ( (lv_id_2_0= RULE_VERSION ) )
-            // InternalSolidity.g:170:4: (lv_id_2_0= RULE_VERSION )
+            // InternalSolidity.g:214:3: ( (lv_version_3_0= RULE_VERSION ) )
+            // InternalSolidity.g:215:4: (lv_version_3_0= RULE_VERSION )
             {
-            // InternalSolidity.g:170:4: (lv_id_2_0= RULE_VERSION )
-            // InternalSolidity.g:171:5: lv_id_2_0= RULE_VERSION
+            // InternalSolidity.g:215:4: (lv_version_3_0= RULE_VERSION )
+            // InternalSolidity.g:216:5: lv_version_3_0= RULE_VERSION
             {
-            lv_id_2_0=(Token)match(input,RULE_VERSION,FOLLOW_6); if (state.failed) return current;
+            lv_version_3_0=(Token)match(input,RULE_VERSION,FOLLOW_8); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              					newLeafNode(lv_id_2_0, grammarAccess.getPragmaDirectiveAccess().getIdVERSIONTerminalRuleCall_2_0());
+              					newLeafNode(lv_version_3_0, grammarAccess.getPragmaDirectiveAccess().getVersionVERSIONTerminalRuleCall_3_0());
               				
             }
             if ( state.backtracking==0 ) {
@@ -541,8 +613,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               					}
               					setWithLastConsumed(
               						current,
-              						"id",
-              						lv_id_2_0,
+              						"version",
+              						lv_version_3_0,
               						"com.yakindu.solidity.Solidity.VERSION");
               				
             }
@@ -552,10 +624,10 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,19,FOLLOW_2); if (state.failed) return current;
+            otherlv_4=(Token)match(input,19,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              			newLeafNode(otherlv_3, grammarAccess.getPragmaDirectiveAccess().getSemicolonKeyword_3());
+              			newLeafNode(otherlv_4, grammarAccess.getPragmaDirectiveAccess().getSemicolonKeyword_4());
               		
             }
 
@@ -583,7 +655,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleImportDirective"
-    // InternalSolidity.g:195:1: entryRuleImportDirective returns [EObject current=null] : iv_ruleImportDirective= ruleImportDirective EOF ;
+    // InternalSolidity.g:240:1: entryRuleImportDirective returns [EObject current=null] : iv_ruleImportDirective= ruleImportDirective EOF ;
     public final EObject entryRuleImportDirective() throws RecognitionException {
         EObject current = null;
 
@@ -591,8 +663,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:195:56: (iv_ruleImportDirective= ruleImportDirective EOF )
-            // InternalSolidity.g:196:2: iv_ruleImportDirective= ruleImportDirective EOF
+            // InternalSolidity.g:240:56: (iv_ruleImportDirective= ruleImportDirective EOF )
+            // InternalSolidity.g:241:2: iv_ruleImportDirective= ruleImportDirective EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getImportDirectiveRule()); 
@@ -623,42 +695,55 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleImportDirective"
-    // InternalSolidity.g:202:1: ruleImportDirective returns [EObject current=null] : (otherlv_0= 'import' ( (lv_importedNamespace_1_0= RULE_STRING ) ) (otherlv_2= 'as' ( (lv_alias_3_0= RULE_STRING ) ) )? otherlv_4= ';' ) ;
+    // InternalSolidity.g:247:1: ruleImportDirective returns [EObject current=null] : ( () otherlv_1= 'import' ( (lv_importedNamespace_2_0= RULE_STRING ) ) (otherlv_3= 'as' ( (lv_alias_4_0= RULE_STRING ) ) )? otherlv_5= ';' ) ;
     public final EObject ruleImportDirective() throws RecognitionException {
         EObject current = null;
 
-        Token otherlv_0=null;
-        Token lv_importedNamespace_1_0=null;
-        Token otherlv_2=null;
-        Token lv_alias_3_0=null;
-        Token otherlv_4=null;
+        Token otherlv_1=null;
+        Token lv_importedNamespace_2_0=null;
+        Token otherlv_3=null;
+        Token lv_alias_4_0=null;
+        Token otherlv_5=null;
 
 
         	enterRule();
 
         try {
-            // InternalSolidity.g:208:2: ( (otherlv_0= 'import' ( (lv_importedNamespace_1_0= RULE_STRING ) ) (otherlv_2= 'as' ( (lv_alias_3_0= RULE_STRING ) ) )? otherlv_4= ';' ) )
-            // InternalSolidity.g:209:2: (otherlv_0= 'import' ( (lv_importedNamespace_1_0= RULE_STRING ) ) (otherlv_2= 'as' ( (lv_alias_3_0= RULE_STRING ) ) )? otherlv_4= ';' )
+            // InternalSolidity.g:253:2: ( ( () otherlv_1= 'import' ( (lv_importedNamespace_2_0= RULE_STRING ) ) (otherlv_3= 'as' ( (lv_alias_4_0= RULE_STRING ) ) )? otherlv_5= ';' ) )
+            // InternalSolidity.g:254:2: ( () otherlv_1= 'import' ( (lv_importedNamespace_2_0= RULE_STRING ) ) (otherlv_3= 'as' ( (lv_alias_4_0= RULE_STRING ) ) )? otherlv_5= ';' )
             {
-            // InternalSolidity.g:209:2: (otherlv_0= 'import' ( (lv_importedNamespace_1_0= RULE_STRING ) ) (otherlv_2= 'as' ( (lv_alias_3_0= RULE_STRING ) ) )? otherlv_4= ';' )
-            // InternalSolidity.g:210:3: otherlv_0= 'import' ( (lv_importedNamespace_1_0= RULE_STRING ) ) (otherlv_2= 'as' ( (lv_alias_3_0= RULE_STRING ) ) )? otherlv_4= ';'
+            // InternalSolidity.g:254:2: ( () otherlv_1= 'import' ( (lv_importedNamespace_2_0= RULE_STRING ) ) (otherlv_3= 'as' ( (lv_alias_4_0= RULE_STRING ) ) )? otherlv_5= ';' )
+            // InternalSolidity.g:255:3: () otherlv_1= 'import' ( (lv_importedNamespace_2_0= RULE_STRING ) ) (otherlv_3= 'as' ( (lv_alias_4_0= RULE_STRING ) ) )? otherlv_5= ';'
             {
-            otherlv_0=(Token)match(input,20,FOLLOW_7); if (state.failed) return current;
+            // InternalSolidity.g:255:3: ()
+            // InternalSolidity.g:256:4: 
+            {
             if ( state.backtracking==0 ) {
 
-              			newLeafNode(otherlv_0, grammarAccess.getImportDirectiveAccess().getImportKeyword_0());
+              				current = forceCreateModelElement(
+              					grammarAccess.getImportDirectiveAccess().getImportDirectiveAction_0(),
+              					current);
+              			
+            }
+
+            }
+
+            otherlv_1=(Token)match(input,20,FOLLOW_9); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              			newLeafNode(otherlv_1, grammarAccess.getImportDirectiveAccess().getImportKeyword_1());
               		
             }
-            // InternalSolidity.g:214:3: ( (lv_importedNamespace_1_0= RULE_STRING ) )
-            // InternalSolidity.g:215:4: (lv_importedNamespace_1_0= RULE_STRING )
+            // InternalSolidity.g:266:3: ( (lv_importedNamespace_2_0= RULE_STRING ) )
+            // InternalSolidity.g:267:4: (lv_importedNamespace_2_0= RULE_STRING )
             {
-            // InternalSolidity.g:215:4: (lv_importedNamespace_1_0= RULE_STRING )
-            // InternalSolidity.g:216:5: lv_importedNamespace_1_0= RULE_STRING
+            // InternalSolidity.g:267:4: (lv_importedNamespace_2_0= RULE_STRING )
+            // InternalSolidity.g:268:5: lv_importedNamespace_2_0= RULE_STRING
             {
-            lv_importedNamespace_1_0=(Token)match(input,RULE_STRING,FOLLOW_8); if (state.failed) return current;
+            lv_importedNamespace_2_0=(Token)match(input,RULE_STRING,FOLLOW_10); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              					newLeafNode(lv_importedNamespace_1_0, grammarAccess.getImportDirectiveAccess().getImportedNamespaceSTRINGTerminalRuleCall_1_0());
+              					newLeafNode(lv_importedNamespace_2_0, grammarAccess.getImportDirectiveAccess().getImportedNamespaceSTRINGTerminalRuleCall_2_0());
               				
             }
             if ( state.backtracking==0 ) {
@@ -669,7 +754,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               					setWithLastConsumed(
               						current,
               						"importedNamespace",
-              						lv_importedNamespace_1_0,
+              						lv_importedNamespace_2_0,
               						"org.eclipse.xtext.common.Terminals.STRING");
               				
             }
@@ -679,33 +764,33 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:232:3: (otherlv_2= 'as' ( (lv_alias_3_0= RULE_STRING ) ) )?
-            int alt3=2;
-            int LA3_0 = input.LA(1);
+            // InternalSolidity.g:284:3: (otherlv_3= 'as' ( (lv_alias_4_0= RULE_STRING ) ) )?
+            int alt4=2;
+            int LA4_0 = input.LA(1);
 
-            if ( (LA3_0==21) ) {
-                alt3=1;
+            if ( (LA4_0==21) ) {
+                alt4=1;
             }
-            switch (alt3) {
+            switch (alt4) {
                 case 1 :
-                    // InternalSolidity.g:233:4: otherlv_2= 'as' ( (lv_alias_3_0= RULE_STRING ) )
+                    // InternalSolidity.g:285:4: otherlv_3= 'as' ( (lv_alias_4_0= RULE_STRING ) )
                     {
-                    otherlv_2=(Token)match(input,21,FOLLOW_7); if (state.failed) return current;
+                    otherlv_3=(Token)match(input,21,FOLLOW_9); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      				newLeafNode(otherlv_2, grammarAccess.getImportDirectiveAccess().getAsKeyword_2_0());
+                      				newLeafNode(otherlv_3, grammarAccess.getImportDirectiveAccess().getAsKeyword_3_0());
                       			
                     }
-                    // InternalSolidity.g:237:4: ( (lv_alias_3_0= RULE_STRING ) )
-                    // InternalSolidity.g:238:5: (lv_alias_3_0= RULE_STRING )
+                    // InternalSolidity.g:289:4: ( (lv_alias_4_0= RULE_STRING ) )
+                    // InternalSolidity.g:290:5: (lv_alias_4_0= RULE_STRING )
                     {
-                    // InternalSolidity.g:238:5: (lv_alias_3_0= RULE_STRING )
-                    // InternalSolidity.g:239:6: lv_alias_3_0= RULE_STRING
+                    // InternalSolidity.g:290:5: (lv_alias_4_0= RULE_STRING )
+                    // InternalSolidity.g:291:6: lv_alias_4_0= RULE_STRING
                     {
-                    lv_alias_3_0=(Token)match(input,RULE_STRING,FOLLOW_6); if (state.failed) return current;
+                    lv_alias_4_0=(Token)match(input,RULE_STRING,FOLLOW_8); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      						newLeafNode(lv_alias_3_0, grammarAccess.getImportDirectiveAccess().getAliasSTRINGTerminalRuleCall_2_1_0());
+                      						newLeafNode(lv_alias_4_0, grammarAccess.getImportDirectiveAccess().getAliasSTRINGTerminalRuleCall_3_1_0());
                       					
                     }
                     if ( state.backtracking==0 ) {
@@ -716,7 +801,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                       						setWithLastConsumed(
                       							current,
                       							"alias",
-                      							lv_alias_3_0,
+                      							lv_alias_4_0,
                       							"org.eclipse.xtext.common.Terminals.STRING");
                       					
                     }
@@ -732,10 +817,10 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_4=(Token)match(input,19,FOLLOW_2); if (state.failed) return current;
+            otherlv_5=(Token)match(input,19,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              			newLeafNode(otherlv_4, grammarAccess.getImportDirectiveAccess().getSemicolonKeyword_3());
+              			newLeafNode(otherlv_5, grammarAccess.getImportDirectiveAccess().getSemicolonKeyword_4());
               		
             }
 
@@ -763,7 +848,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleContractDefinition"
-    // InternalSolidity.g:264:1: entryRuleContractDefinition returns [EObject current=null] : iv_ruleContractDefinition= ruleContractDefinition EOF ;
+    // InternalSolidity.g:316:1: entryRuleContractDefinition returns [EObject current=null] : iv_ruleContractDefinition= ruleContractDefinition EOF ;
     public final EObject entryRuleContractDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -771,8 +856,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:264:59: (iv_ruleContractDefinition= ruleContractDefinition EOF )
-            // InternalSolidity.g:265:2: iv_ruleContractDefinition= ruleContractDefinition EOF
+            // InternalSolidity.g:316:59: (iv_ruleContractDefinition= ruleContractDefinition EOF )
+            // InternalSolidity.g:317:2: iv_ruleContractDefinition= ruleContractDefinition EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getContractDefinitionRule()); 
@@ -803,47 +888,56 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleContractDefinition"
-    // InternalSolidity.g:271:1: ruleContractDefinition returns [EObject current=null] : ( ( (lv_type_0_0= ruleContractType ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'is' ( (lv_superType_3_0= ruleInheritanceSpecifier ) ) (otherlv_4= ',' ( (lv_superType_5_0= ruleInheritanceSpecifier ) ) )* )? otherlv_6= '{' ( (lv_parts_7_0= ruleContractPart ) )* otherlv_8= '}' ) ;
+    // InternalSolidity.g:323:1: ruleContractDefinition returns [EObject current=null] : ( () ( (lv_type_1_0= ruleContractType ) ) ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= 'is' ( ( ruleQID ) ) (otherlv_5= ',' ( ( ruleQID ) ) )* )? otherlv_7= '{' ( (lv_features_8_0= ruleContractPart ) )* otherlv_9= '}' ) ;
     public final EObject ruleContractDefinition() throws RecognitionException {
         EObject current = null;
 
-        Token lv_name_1_0=null;
-        Token otherlv_2=null;
-        Token otherlv_4=null;
-        Token otherlv_6=null;
-        Token otherlv_8=null;
-        Enumerator lv_type_0_0 = null;
+        Token lv_name_2_0=null;
+        Token otherlv_3=null;
+        Token otherlv_5=null;
+        Token otherlv_7=null;
+        Token otherlv_9=null;
+        Enumerator lv_type_1_0 = null;
 
-        EObject lv_superType_3_0 = null;
-
-        EObject lv_superType_5_0 = null;
-
-        EObject lv_parts_7_0 = null;
+        EObject lv_features_8_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalSolidity.g:277:2: ( ( ( (lv_type_0_0= ruleContractType ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'is' ( (lv_superType_3_0= ruleInheritanceSpecifier ) ) (otherlv_4= ',' ( (lv_superType_5_0= ruleInheritanceSpecifier ) ) )* )? otherlv_6= '{' ( (lv_parts_7_0= ruleContractPart ) )* otherlv_8= '}' ) )
-            // InternalSolidity.g:278:2: ( ( (lv_type_0_0= ruleContractType ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'is' ( (lv_superType_3_0= ruleInheritanceSpecifier ) ) (otherlv_4= ',' ( (lv_superType_5_0= ruleInheritanceSpecifier ) ) )* )? otherlv_6= '{' ( (lv_parts_7_0= ruleContractPart ) )* otherlv_8= '}' )
+            // InternalSolidity.g:329:2: ( ( () ( (lv_type_1_0= ruleContractType ) ) ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= 'is' ( ( ruleQID ) ) (otherlv_5= ',' ( ( ruleQID ) ) )* )? otherlv_7= '{' ( (lv_features_8_0= ruleContractPart ) )* otherlv_9= '}' ) )
+            // InternalSolidity.g:330:2: ( () ( (lv_type_1_0= ruleContractType ) ) ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= 'is' ( ( ruleQID ) ) (otherlv_5= ',' ( ( ruleQID ) ) )* )? otherlv_7= '{' ( (lv_features_8_0= ruleContractPart ) )* otherlv_9= '}' )
             {
-            // InternalSolidity.g:278:2: ( ( (lv_type_0_0= ruleContractType ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'is' ( (lv_superType_3_0= ruleInheritanceSpecifier ) ) (otherlv_4= ',' ( (lv_superType_5_0= ruleInheritanceSpecifier ) ) )* )? otherlv_6= '{' ( (lv_parts_7_0= ruleContractPart ) )* otherlv_8= '}' )
-            // InternalSolidity.g:279:3: ( (lv_type_0_0= ruleContractType ) ) ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= 'is' ( (lv_superType_3_0= ruleInheritanceSpecifier ) ) (otherlv_4= ',' ( (lv_superType_5_0= ruleInheritanceSpecifier ) ) )* )? otherlv_6= '{' ( (lv_parts_7_0= ruleContractPart ) )* otherlv_8= '}'
+            // InternalSolidity.g:330:2: ( () ( (lv_type_1_0= ruleContractType ) ) ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= 'is' ( ( ruleQID ) ) (otherlv_5= ',' ( ( ruleQID ) ) )* )? otherlv_7= '{' ( (lv_features_8_0= ruleContractPart ) )* otherlv_9= '}' )
+            // InternalSolidity.g:331:3: () ( (lv_type_1_0= ruleContractType ) ) ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= 'is' ( ( ruleQID ) ) (otherlv_5= ',' ( ( ruleQID ) ) )* )? otherlv_7= '{' ( (lv_features_8_0= ruleContractPart ) )* otherlv_9= '}'
             {
-            // InternalSolidity.g:279:3: ( (lv_type_0_0= ruleContractType ) )
-            // InternalSolidity.g:280:4: (lv_type_0_0= ruleContractType )
-            {
-            // InternalSolidity.g:280:4: (lv_type_0_0= ruleContractType )
-            // InternalSolidity.g:281:5: lv_type_0_0= ruleContractType
+            // InternalSolidity.g:331:3: ()
+            // InternalSolidity.g:332:4: 
             {
             if ( state.backtracking==0 ) {
 
-              					newCompositeNode(grammarAccess.getContractDefinitionAccess().getTypeContractTypeEnumRuleCall_0_0());
+              				current = forceCreateModelElement(
+              					grammarAccess.getContractDefinitionAccess().getContractDefinitionAction_0(),
+              					current);
+              			
+            }
+
+            }
+
+            // InternalSolidity.g:338:3: ( (lv_type_1_0= ruleContractType ) )
+            // InternalSolidity.g:339:4: (lv_type_1_0= ruleContractType )
+            {
+            // InternalSolidity.g:339:4: (lv_type_1_0= ruleContractType )
+            // InternalSolidity.g:340:5: lv_type_1_0= ruleContractType
+            {
+            if ( state.backtracking==0 ) {
+
+              					newCompositeNode(grammarAccess.getContractDefinitionAccess().getTypeContractTypeEnumRuleCall_1_0());
               				
             }
-            pushFollow(FOLLOW_9);
-            lv_type_0_0=ruleContractType();
+            pushFollow(FOLLOW_11);
+            lv_type_1_0=ruleContractType();
 
             state._fsp--;
             if (state.failed) return current;
@@ -855,7 +949,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               					set(
               						current,
               						"type",
-              						lv_type_0_0,
+              						lv_type_1_0,
               						"com.yakindu.solidity.Solidity.ContractType");
               					afterParserOrEnumRuleCall();
               				
@@ -866,16 +960,16 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:298:3: ( (lv_name_1_0= RULE_ID ) )
-            // InternalSolidity.g:299:4: (lv_name_1_0= RULE_ID )
+            // InternalSolidity.g:357:3: ( (lv_name_2_0= RULE_ID ) )
+            // InternalSolidity.g:358:4: (lv_name_2_0= RULE_ID )
             {
-            // InternalSolidity.g:299:4: (lv_name_1_0= RULE_ID )
-            // InternalSolidity.g:300:5: lv_name_1_0= RULE_ID
+            // InternalSolidity.g:358:4: (lv_name_2_0= RULE_ID )
+            // InternalSolidity.g:359:5: lv_name_2_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_10); if (state.failed) return current;
+            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_12); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              					newLeafNode(lv_name_1_0, grammarAccess.getContractDefinitionAccess().getNameIDTerminalRuleCall_1_0());
+              					newLeafNode(lv_name_2_0, grammarAccess.getContractDefinitionAccess().getNameIDTerminalRuleCall_2_0());
               				
             }
             if ( state.backtracking==0 ) {
@@ -886,7 +980,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               					setWithLastConsumed(
               						current,
               						"name",
-              						lv_name_1_0,
+              						lv_name_2_0,
               						"org.eclipse.xtext.common.Terminals.ID");
               				
             }
@@ -896,49 +990,48 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:316:3: (otherlv_2= 'is' ( (lv_superType_3_0= ruleInheritanceSpecifier ) ) (otherlv_4= ',' ( (lv_superType_5_0= ruleInheritanceSpecifier ) ) )* )?
-            int alt5=2;
-            int LA5_0 = input.LA(1);
+            // InternalSolidity.g:375:3: (otherlv_3= 'is' ( ( ruleQID ) ) (otherlv_5= ',' ( ( ruleQID ) ) )* )?
+            int alt6=2;
+            int LA6_0 = input.LA(1);
 
-            if ( (LA5_0==22) ) {
-                alt5=1;
+            if ( (LA6_0==22) ) {
+                alt6=1;
             }
-            switch (alt5) {
+            switch (alt6) {
                 case 1 :
-                    // InternalSolidity.g:317:4: otherlv_2= 'is' ( (lv_superType_3_0= ruleInheritanceSpecifier ) ) (otherlv_4= ',' ( (lv_superType_5_0= ruleInheritanceSpecifier ) ) )*
+                    // InternalSolidity.g:376:4: otherlv_3= 'is' ( ( ruleQID ) ) (otherlv_5= ',' ( ( ruleQID ) ) )*
                     {
-                    otherlv_2=(Token)match(input,22,FOLLOW_9); if (state.failed) return current;
+                    otherlv_3=(Token)match(input,22,FOLLOW_11); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      				newLeafNode(otherlv_2, grammarAccess.getContractDefinitionAccess().getIsKeyword_2_0());
+                      				newLeafNode(otherlv_3, grammarAccess.getContractDefinitionAccess().getIsKeyword_3_0());
                       			
                     }
-                    // InternalSolidity.g:321:4: ( (lv_superType_3_0= ruleInheritanceSpecifier ) )
-                    // InternalSolidity.g:322:5: (lv_superType_3_0= ruleInheritanceSpecifier )
+                    // InternalSolidity.g:380:4: ( ( ruleQID ) )
+                    // InternalSolidity.g:381:5: ( ruleQID )
                     {
-                    // InternalSolidity.g:322:5: (lv_superType_3_0= ruleInheritanceSpecifier )
-                    // InternalSolidity.g:323:6: lv_superType_3_0= ruleInheritanceSpecifier
+                    // InternalSolidity.g:381:5: ( ruleQID )
+                    // InternalSolidity.g:382:6: ruleQID
                     {
                     if ( state.backtracking==0 ) {
 
-                      						newCompositeNode(grammarAccess.getContractDefinitionAccess().getSuperTypeInheritanceSpecifierParserRuleCall_2_1_0());
+                      						if (current==null) {
+                      							current = createModelElement(grammarAccess.getContractDefinitionRule());
+                      						}
                       					
                     }
-                    pushFollow(FOLLOW_11);
-                    lv_superType_3_0=ruleInheritanceSpecifier();
+                    if ( state.backtracking==0 ) {
+
+                      						newCompositeNode(grammarAccess.getContractDefinitionAccess().getSuperTypesComplexTypeCrossReference_3_1_0());
+                      					
+                    }
+                    pushFollow(FOLLOW_13);
+                    ruleQID();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      						if (current==null) {
-                      							current = createModelElementForParent(grammarAccess.getContractDefinitionRule());
-                      						}
-                      						add(
-                      							current,
-                      							"superType",
-                      							lv_superType_3_0,
-                      							"com.yakindu.solidity.Solidity.InheritanceSpecifier");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -948,53 +1041,52 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalSolidity.g:340:4: (otherlv_4= ',' ( (lv_superType_5_0= ruleInheritanceSpecifier ) ) )*
-                    loop4:
+                    // InternalSolidity.g:396:4: (otherlv_5= ',' ( ( ruleQID ) ) )*
+                    loop5:
                     do {
-                        int alt4=2;
-                        int LA4_0 = input.LA(1);
+                        int alt5=2;
+                        int LA5_0 = input.LA(1);
 
-                        if ( (LA4_0==23) ) {
-                            alt4=1;
+                        if ( (LA5_0==23) ) {
+                            alt5=1;
                         }
 
 
-                        switch (alt4) {
+                        switch (alt5) {
                     	case 1 :
-                    	    // InternalSolidity.g:341:5: otherlv_4= ',' ( (lv_superType_5_0= ruleInheritanceSpecifier ) )
+                    	    // InternalSolidity.g:397:5: otherlv_5= ',' ( ( ruleQID ) )
                     	    {
-                    	    otherlv_4=(Token)match(input,23,FOLLOW_9); if (state.failed) return current;
+                    	    otherlv_5=(Token)match(input,23,FOLLOW_11); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
-                    	      					newLeafNode(otherlv_4, grammarAccess.getContractDefinitionAccess().getCommaKeyword_2_2_0());
+                    	      					newLeafNode(otherlv_5, grammarAccess.getContractDefinitionAccess().getCommaKeyword_3_2_0());
                     	      				
                     	    }
-                    	    // InternalSolidity.g:345:5: ( (lv_superType_5_0= ruleInheritanceSpecifier ) )
-                    	    // InternalSolidity.g:346:6: (lv_superType_5_0= ruleInheritanceSpecifier )
+                    	    // InternalSolidity.g:401:5: ( ( ruleQID ) )
+                    	    // InternalSolidity.g:402:6: ( ruleQID )
                     	    {
-                    	    // InternalSolidity.g:346:6: (lv_superType_5_0= ruleInheritanceSpecifier )
-                    	    // InternalSolidity.g:347:7: lv_superType_5_0= ruleInheritanceSpecifier
+                    	    // InternalSolidity.g:402:6: ( ruleQID )
+                    	    // InternalSolidity.g:403:7: ruleQID
                     	    {
                     	    if ( state.backtracking==0 ) {
 
-                    	      							newCompositeNode(grammarAccess.getContractDefinitionAccess().getSuperTypeInheritanceSpecifierParserRuleCall_2_2_1_0());
+                    	      							if (current==null) {
+                    	      								current = createModelElement(grammarAccess.getContractDefinitionRule());
+                    	      							}
                     	      						
                     	    }
-                    	    pushFollow(FOLLOW_11);
-                    	    lv_superType_5_0=ruleInheritanceSpecifier();
+                    	    if ( state.backtracking==0 ) {
+
+                    	      							newCompositeNode(grammarAccess.getContractDefinitionAccess().getSuperTypesComplexTypeCrossReference_3_2_1_0());
+                    	      						
+                    	    }
+                    	    pushFollow(FOLLOW_13);
+                    	    ruleQID();
 
                     	    state._fsp--;
                     	    if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
-                    	      							if (current==null) {
-                    	      								current = createModelElementForParent(grammarAccess.getContractDefinitionRule());
-                    	      							}
-                    	      							add(
-                    	      								current,
-                    	      								"superType",
-                    	      								lv_superType_5_0,
-                    	      								"com.yakindu.solidity.Solidity.InheritanceSpecifier");
                     	      							afterParserOrEnumRuleCall();
                     	      						
                     	    }
@@ -1009,7 +1101,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop4;
+                    	    break loop5;
                         }
                     } while (true);
 
@@ -1019,37 +1111,37 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,24,FOLLOW_12); if (state.failed) return current;
+            otherlv_7=(Token)match(input,24,FOLLOW_14); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              			newLeafNode(otherlv_6, grammarAccess.getContractDefinitionAccess().getLeftCurlyBracketKeyword_3());
+              			newLeafNode(otherlv_7, grammarAccess.getContractDefinitionAccess().getLeftCurlyBracketKeyword_4());
               		
             }
-            // InternalSolidity.g:370:3: ( (lv_parts_7_0= ruleContractPart ) )*
-            loop6:
+            // InternalSolidity.g:423:3: ( (lv_features_8_0= ruleContractPart ) )*
+            loop7:
             do {
-                int alt6=2;
-                int LA6_0 = input.LA(1);
+                int alt7=2;
+                int LA7_0 = input.LA(1);
 
-                if ( (LA6_0==RULE_ID||(LA6_0>=27 && LA6_0<=28)||LA6_0==32||(LA6_0>=40 && LA6_0<=41)) ) {
-                    alt6=1;
+                if ( (LA7_0==RULE_ID||LA7_0==27||LA7_0==31||LA7_0==38) ) {
+                    alt7=1;
                 }
 
 
-                switch (alt6) {
+                switch (alt7) {
             	case 1 :
-            	    // InternalSolidity.g:371:4: (lv_parts_7_0= ruleContractPart )
+            	    // InternalSolidity.g:424:4: (lv_features_8_0= ruleContractPart )
             	    {
-            	    // InternalSolidity.g:371:4: (lv_parts_7_0= ruleContractPart )
-            	    // InternalSolidity.g:372:5: lv_parts_7_0= ruleContractPart
+            	    // InternalSolidity.g:424:4: (lv_features_8_0= ruleContractPart )
+            	    // InternalSolidity.g:425:5: lv_features_8_0= ruleContractPart
             	    {
             	    if ( state.backtracking==0 ) {
 
-            	      					newCompositeNode(grammarAccess.getContractDefinitionAccess().getPartsContractPartParserRuleCall_4_0());
+            	      					newCompositeNode(grammarAccess.getContractDefinitionAccess().getFeaturesContractPartParserRuleCall_5_0());
             	      				
             	    }
-            	    pushFollow(FOLLOW_12);
-            	    lv_parts_7_0=ruleContractPart();
+            	    pushFollow(FOLLOW_14);
+            	    lv_features_8_0=ruleContractPart();
 
             	    state._fsp--;
             	    if (state.failed) return current;
@@ -1060,8 +1152,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             	      					}
             	      					add(
             	      						current,
-            	      						"parts",
-            	      						lv_parts_7_0,
+            	      						"features",
+            	      						lv_features_8_0,
             	      						"com.yakindu.solidity.Solidity.ContractPart");
             	      					afterParserOrEnumRuleCall();
             	      				
@@ -1074,14 +1166,14 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop6;
+            	    break loop7;
                 }
             } while (true);
 
-            otherlv_8=(Token)match(input,25,FOLLOW_2); if (state.failed) return current;
+            otherlv_9=(Token)match(input,25,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              			newLeafNode(otherlv_8, grammarAccess.getContractDefinitionAccess().getRightCurlyBracketKeyword_5());
+              			newLeafNode(otherlv_9, grammarAccess.getContractDefinitionAccess().getRightCurlyBracketKeyword_6());
               		
             }
 
@@ -1108,113 +1200,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleContractDefinition"
 
 
-    // $ANTLR start "entryRuleInheritanceSpecifier"
-    // InternalSolidity.g:397:1: entryRuleInheritanceSpecifier returns [EObject current=null] : iv_ruleInheritanceSpecifier= ruleInheritanceSpecifier EOF ;
-    public final EObject entryRuleInheritanceSpecifier() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleInheritanceSpecifier = null;
-
-
-        try {
-            // InternalSolidity.g:397:61: (iv_ruleInheritanceSpecifier= ruleInheritanceSpecifier EOF )
-            // InternalSolidity.g:398:2: iv_ruleInheritanceSpecifier= ruleInheritanceSpecifier EOF
-            {
-            if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getInheritanceSpecifierRule()); 
-            }
-            pushFollow(FOLLOW_1);
-            iv_ruleInheritanceSpecifier=ruleInheritanceSpecifier();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               current =iv_ruleInheritanceSpecifier; 
-            }
-            match(input,EOF,FOLLOW_2); if (state.failed) return current;
-
-            }
-
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleInheritanceSpecifier"
-
-
-    // $ANTLR start "ruleInheritanceSpecifier"
-    // InternalSolidity.g:404:1: ruleInheritanceSpecifier returns [EObject current=null] : ( (lv_name_0_0= RULE_ID ) ) ;
-    public final EObject ruleInheritanceSpecifier() throws RecognitionException {
-        EObject current = null;
-
-        Token lv_name_0_0=null;
-
-
-        	enterRule();
-
-        try {
-            // InternalSolidity.g:410:2: ( ( (lv_name_0_0= RULE_ID ) ) )
-            // InternalSolidity.g:411:2: ( (lv_name_0_0= RULE_ID ) )
-            {
-            // InternalSolidity.g:411:2: ( (lv_name_0_0= RULE_ID ) )
-            // InternalSolidity.g:412:3: (lv_name_0_0= RULE_ID )
-            {
-            // InternalSolidity.g:412:3: (lv_name_0_0= RULE_ID )
-            // InternalSolidity.g:413:4: lv_name_0_0= RULE_ID
-            {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_2); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              				newLeafNode(lv_name_0_0, grammarAccess.getInheritanceSpecifierAccess().getNameIDTerminalRuleCall_0());
-              			
-            }
-            if ( state.backtracking==0 ) {
-
-              				if (current==null) {
-              					current = createModelElement(grammarAccess.getInheritanceSpecifierRule());
-              				}
-              				setWithLastConsumed(
-              					current,
-              					"name",
-              					lv_name_0_0,
-              					"org.eclipse.xtext.common.Terminals.ID");
-              			
-            }
-
-            }
-
-
-            }
-
-
-            }
-
-            if ( state.backtracking==0 ) {
-
-              	leaveRule();
-
-            }
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleInheritanceSpecifier"
-
-
     // $ANTLR start "entryRuleContractPart"
-    // InternalSolidity.g:432:1: entryRuleContractPart returns [EObject current=null] : iv_ruleContractPart= ruleContractPart EOF ;
+    // InternalSolidity.g:450:1: entryRuleContractPart returns [EObject current=null] : iv_ruleContractPart= ruleContractPart EOF ;
     public final EObject entryRuleContractPart() throws RecognitionException {
         EObject current = null;
 
@@ -1222,8 +1209,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:432:53: (iv_ruleContractPart= ruleContractPart EOF )
-            // InternalSolidity.g:433:2: iv_ruleContractPart= ruleContractPart EOF
+            // InternalSolidity.g:450:53: (iv_ruleContractPart= ruleContractPart EOF )
+            // InternalSolidity.g:451:2: iv_ruleContractPart= ruleContractPart EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getContractPartRule()); 
@@ -1254,258 +1241,146 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleContractPart"
-    // InternalSolidity.g:439:1: ruleContractPart returns [EObject current=null] : ( ( (lv_parts_0_1= ruleVariableDeclaration | lv_parts_0_2= ruleStructDefinition | lv_parts_0_3= ruleModifierDefinition | lv_parts_0_4= ruleFunctionDefinition | lv_parts_0_5= ruleEventDefinition | lv_parts_0_6= ruleEnumDefinition ) ) ) ;
+    // InternalSolidity.g:457:1: ruleContractPart returns [EObject current=null] : (this_VariableDefinition_0= ruleVariableDefinition | this_ModifierDefinition_1= ruleModifierDefinition | this_FunctionDefinition_2= ruleFunctionDefinition | this_EventDefinition_3= ruleEventDefinition ) ;
     public final EObject ruleContractPart() throws RecognitionException {
         EObject current = null;
 
-        EObject lv_parts_0_1 = null;
+        EObject this_VariableDefinition_0 = null;
 
-        EObject lv_parts_0_2 = null;
+        EObject this_ModifierDefinition_1 = null;
 
-        EObject lv_parts_0_3 = null;
+        EObject this_FunctionDefinition_2 = null;
 
-        EObject lv_parts_0_4 = null;
-
-        EObject lv_parts_0_5 = null;
-
-        EObject lv_parts_0_6 = null;
+        EObject this_EventDefinition_3 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalSolidity.g:445:2: ( ( ( (lv_parts_0_1= ruleVariableDeclaration | lv_parts_0_2= ruleStructDefinition | lv_parts_0_3= ruleModifierDefinition | lv_parts_0_4= ruleFunctionDefinition | lv_parts_0_5= ruleEventDefinition | lv_parts_0_6= ruleEnumDefinition ) ) ) )
-            // InternalSolidity.g:446:2: ( ( (lv_parts_0_1= ruleVariableDeclaration | lv_parts_0_2= ruleStructDefinition | lv_parts_0_3= ruleModifierDefinition | lv_parts_0_4= ruleFunctionDefinition | lv_parts_0_5= ruleEventDefinition | lv_parts_0_6= ruleEnumDefinition ) ) )
+            // InternalSolidity.g:463:2: ( (this_VariableDefinition_0= ruleVariableDefinition | this_ModifierDefinition_1= ruleModifierDefinition | this_FunctionDefinition_2= ruleFunctionDefinition | this_EventDefinition_3= ruleEventDefinition ) )
+            // InternalSolidity.g:464:2: (this_VariableDefinition_0= ruleVariableDefinition | this_ModifierDefinition_1= ruleModifierDefinition | this_FunctionDefinition_2= ruleFunctionDefinition | this_EventDefinition_3= ruleEventDefinition )
             {
-            // InternalSolidity.g:446:2: ( ( (lv_parts_0_1= ruleVariableDeclaration | lv_parts_0_2= ruleStructDefinition | lv_parts_0_3= ruleModifierDefinition | lv_parts_0_4= ruleFunctionDefinition | lv_parts_0_5= ruleEventDefinition | lv_parts_0_6= ruleEnumDefinition ) ) )
-            // InternalSolidity.g:447:3: ( (lv_parts_0_1= ruleVariableDeclaration | lv_parts_0_2= ruleStructDefinition | lv_parts_0_3= ruleModifierDefinition | lv_parts_0_4= ruleFunctionDefinition | lv_parts_0_5= ruleEventDefinition | lv_parts_0_6= ruleEnumDefinition ) )
-            {
-            // InternalSolidity.g:447:3: ( (lv_parts_0_1= ruleVariableDeclaration | lv_parts_0_2= ruleStructDefinition | lv_parts_0_3= ruleModifierDefinition | lv_parts_0_4= ruleFunctionDefinition | lv_parts_0_5= ruleEventDefinition | lv_parts_0_6= ruleEnumDefinition ) )
-            // InternalSolidity.g:448:4: (lv_parts_0_1= ruleVariableDeclaration | lv_parts_0_2= ruleStructDefinition | lv_parts_0_3= ruleModifierDefinition | lv_parts_0_4= ruleFunctionDefinition | lv_parts_0_5= ruleEventDefinition | lv_parts_0_6= ruleEnumDefinition )
-            {
-            // InternalSolidity.g:448:4: (lv_parts_0_1= ruleVariableDeclaration | lv_parts_0_2= ruleStructDefinition | lv_parts_0_3= ruleModifierDefinition | lv_parts_0_4= ruleFunctionDefinition | lv_parts_0_5= ruleEventDefinition | lv_parts_0_6= ruleEnumDefinition )
-            int alt7=6;
+            // InternalSolidity.g:464:2: (this_VariableDefinition_0= ruleVariableDefinition | this_ModifierDefinition_1= ruleModifierDefinition | this_FunctionDefinition_2= ruleFunctionDefinition | this_EventDefinition_3= ruleEventDefinition )
+            int alt8=4;
             switch ( input.LA(1) ) {
             case RULE_ID:
                 {
-                alt7=1;
+                alt8=1;
                 }
                 break;
             case 27:
                 {
-                alt7=2;
+                alt8=2;
                 }
                 break;
-            case 28:
+            case 31:
                 {
-                alt7=3;
+                alt8=3;
                 }
                 break;
-            case 32:
+            case 38:
                 {
-                alt7=4;
-                }
-                break;
-            case 40:
-                {
-                alt7=5;
-                }
-                break;
-            case 41:
-                {
-                alt7=6;
+                alt8=4;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 7, 0, input);
+                    new NoViableAltException("", 8, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt7) {
+            switch (alt8) {
                 case 1 :
-                    // InternalSolidity.g:449:5: lv_parts_0_1= ruleVariableDeclaration
+                    // InternalSolidity.g:465:3: this_VariableDefinition_0= ruleVariableDefinition
                     {
                     if ( state.backtracking==0 ) {
 
-                      					newCompositeNode(grammarAccess.getContractPartAccess().getPartsVariableDeclarationParserRuleCall_0_0());
-                      				
+                      			newCompositeNode(grammarAccess.getContractPartAccess().getVariableDefinitionParserRuleCall_0());
+                      		
                     }
                     pushFollow(FOLLOW_2);
-                    lv_parts_0_1=ruleVariableDeclaration();
+                    this_VariableDefinition_0=ruleVariableDefinition();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      					if (current==null) {
-                      						current = createModelElementForParent(grammarAccess.getContractPartRule());
-                      					}
-                      					add(
-                      						current,
-                      						"parts",
-                      						lv_parts_0_1,
-                      						"com.yakindu.solidity.Solidity.VariableDeclaration");
-                      					afterParserOrEnumRuleCall();
-                      				
+                      			current = this_VariableDefinition_0;
+                      			afterParserOrEnumRuleCall();
+                      		
                     }
 
                     }
                     break;
                 case 2 :
-                    // InternalSolidity.g:465:5: lv_parts_0_2= ruleStructDefinition
+                    // InternalSolidity.g:474:3: this_ModifierDefinition_1= ruleModifierDefinition
                     {
                     if ( state.backtracking==0 ) {
 
-                      					newCompositeNode(grammarAccess.getContractPartAccess().getPartsStructDefinitionParserRuleCall_0_1());
-                      				
+                      			newCompositeNode(grammarAccess.getContractPartAccess().getModifierDefinitionParserRuleCall_1());
+                      		
                     }
                     pushFollow(FOLLOW_2);
-                    lv_parts_0_2=ruleStructDefinition();
+                    this_ModifierDefinition_1=ruleModifierDefinition();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      					if (current==null) {
-                      						current = createModelElementForParent(grammarAccess.getContractPartRule());
-                      					}
-                      					add(
-                      						current,
-                      						"parts",
-                      						lv_parts_0_2,
-                      						"com.yakindu.solidity.Solidity.StructDefinition");
-                      					afterParserOrEnumRuleCall();
-                      				
+                      			current = this_ModifierDefinition_1;
+                      			afterParserOrEnumRuleCall();
+                      		
                     }
 
                     }
                     break;
                 case 3 :
-                    // InternalSolidity.g:481:5: lv_parts_0_3= ruleModifierDefinition
+                    // InternalSolidity.g:483:3: this_FunctionDefinition_2= ruleFunctionDefinition
                     {
                     if ( state.backtracking==0 ) {
 
-                      					newCompositeNode(grammarAccess.getContractPartAccess().getPartsModifierDefinitionParserRuleCall_0_2());
-                      				
+                      			newCompositeNode(grammarAccess.getContractPartAccess().getFunctionDefinitionParserRuleCall_2());
+                      		
                     }
                     pushFollow(FOLLOW_2);
-                    lv_parts_0_3=ruleModifierDefinition();
+                    this_FunctionDefinition_2=ruleFunctionDefinition();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      					if (current==null) {
-                      						current = createModelElementForParent(grammarAccess.getContractPartRule());
-                      					}
-                      					add(
-                      						current,
-                      						"parts",
-                      						lv_parts_0_3,
-                      						"com.yakindu.solidity.Solidity.ModifierDefinition");
-                      					afterParserOrEnumRuleCall();
-                      				
+                      			current = this_FunctionDefinition_2;
+                      			afterParserOrEnumRuleCall();
+                      		
                     }
 
                     }
                     break;
                 case 4 :
-                    // InternalSolidity.g:497:5: lv_parts_0_4= ruleFunctionDefinition
+                    // InternalSolidity.g:492:3: this_EventDefinition_3= ruleEventDefinition
                     {
                     if ( state.backtracking==0 ) {
 
-                      					newCompositeNode(grammarAccess.getContractPartAccess().getPartsFunctionDefinitionParserRuleCall_0_3());
-                      				
+                      			newCompositeNode(grammarAccess.getContractPartAccess().getEventDefinitionParserRuleCall_3());
+                      		
                     }
                     pushFollow(FOLLOW_2);
-                    lv_parts_0_4=ruleFunctionDefinition();
+                    this_EventDefinition_3=ruleEventDefinition();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      					if (current==null) {
-                      						current = createModelElementForParent(grammarAccess.getContractPartRule());
-                      					}
-                      					add(
-                      						current,
-                      						"parts",
-                      						lv_parts_0_4,
-                      						"com.yakindu.solidity.Solidity.FunctionDefinition");
-                      					afterParserOrEnumRuleCall();
-                      				
+                      			current = this_EventDefinition_3;
+                      			afterParserOrEnumRuleCall();
+                      		
                     }
 
                     }
                     break;
-                case 5 :
-                    // InternalSolidity.g:513:5: lv_parts_0_5= ruleEventDefinition
-                    {
-                    if ( state.backtracking==0 ) {
-
-                      					newCompositeNode(grammarAccess.getContractPartAccess().getPartsEventDefinitionParserRuleCall_0_4());
-                      				
-                    }
-                    pushFollow(FOLLOW_2);
-                    lv_parts_0_5=ruleEventDefinition();
-
-                    state._fsp--;
-                    if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      					if (current==null) {
-                      						current = createModelElementForParent(grammarAccess.getContractPartRule());
-                      					}
-                      					add(
-                      						current,
-                      						"parts",
-                      						lv_parts_0_5,
-                      						"com.yakindu.solidity.Solidity.EventDefinition");
-                      					afterParserOrEnumRuleCall();
-                      				
-                    }
-
-                    }
-                    break;
-                case 6 :
-                    // InternalSolidity.g:529:5: lv_parts_0_6= ruleEnumDefinition
-                    {
-                    if ( state.backtracking==0 ) {
-
-                      					newCompositeNode(grammarAccess.getContractPartAccess().getPartsEnumDefinitionParserRuleCall_0_5());
-                      				
-                    }
-                    pushFollow(FOLLOW_2);
-                    lv_parts_0_6=ruleEnumDefinition();
-
-                    state._fsp--;
-                    if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      					if (current==null) {
-                      						current = createModelElementForParent(grammarAccess.getContractPartRule());
-                      					}
-                      					add(
-                      						current,
-                      						"parts",
-                      						lv_parts_0_6,
-                      						"com.yakindu.solidity.Solidity.EnumDefinition");
-                      					afterParserOrEnumRuleCall();
-                      				
-                    }
-
-                    }
-                    break;
-
-            }
-
-
-            }
-
 
             }
 
@@ -1530,28 +1405,28 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleContractPart"
 
 
-    // $ANTLR start "entryRuleVariableDeclaration"
-    // InternalSolidity.g:550:1: entryRuleVariableDeclaration returns [EObject current=null] : iv_ruleVariableDeclaration= ruleVariableDeclaration EOF ;
-    public final EObject entryRuleVariableDeclaration() throws RecognitionException {
+    // $ANTLR start "entryRuleVariableDefinition"
+    // InternalSolidity.g:504:1: entryRuleVariableDefinition returns [EObject current=null] : iv_ruleVariableDefinition= ruleVariableDefinition EOF ;
+    public final EObject entryRuleVariableDefinition() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleVariableDeclaration = null;
+        EObject iv_ruleVariableDefinition = null;
 
 
         try {
-            // InternalSolidity.g:550:60: (iv_ruleVariableDeclaration= ruleVariableDeclaration EOF )
-            // InternalSolidity.g:551:2: iv_ruleVariableDeclaration= ruleVariableDeclaration EOF
+            // InternalSolidity.g:504:59: (iv_ruleVariableDefinition= ruleVariableDefinition EOF )
+            // InternalSolidity.g:505:2: iv_ruleVariableDefinition= ruleVariableDefinition EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getVariableDeclarationRule()); 
+               newCompositeNode(grammarAccess.getVariableDefinitionRule()); 
             }
             pushFollow(FOLLOW_1);
-            iv_ruleVariableDeclaration=ruleVariableDeclaration();
+            iv_ruleVariableDefinition=ruleVariableDefinition();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleVariableDeclaration; 
+               current =iv_ruleVariableDefinition; 
             }
             match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
@@ -1567,56 +1442,73 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleVariableDeclaration"
+    // $ANTLR end "entryRuleVariableDefinition"
 
 
-    // $ANTLR start "ruleVariableDeclaration"
-    // InternalSolidity.g:557:1: ruleVariableDeclaration returns [EObject current=null] : ( ( ( ruleQID ) ) ( (lv_visibility_1_0= ruleVisibility ) )? ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= '=' ( (lv_initialValue_4_0= ruleExpression ) ) )? ) ;
-    public final EObject ruleVariableDeclaration() throws RecognitionException {
+    // $ANTLR start "ruleVariableDefinition"
+    // InternalSolidity.g:511:1: ruleVariableDefinition returns [EObject current=null] : ( () ( (lv_typeSpecifier_1_0= ruleTypeSpecifier ) ) ( (lv_visibility_2_0= ruleVisibility ) )? ( (lv_name_3_0= RULE_ID ) ) (otherlv_4= '=' ( (lv_initialValue_5_0= ruleExpression ) ) )? otherlv_6= ';' ) ;
+    public final EObject ruleVariableDefinition() throws RecognitionException {
         EObject current = null;
 
-        Token lv_name_2_0=null;
-        Token otherlv_3=null;
-        Enumerator lv_visibility_1_0 = null;
+        Token lv_name_3_0=null;
+        Token otherlv_4=null;
+        Token otherlv_6=null;
+        EObject lv_typeSpecifier_1_0 = null;
 
-        EObject lv_initialValue_4_0 = null;
+        Enumerator lv_visibility_2_0 = null;
+
+        EObject lv_initialValue_5_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalSolidity.g:563:2: ( ( ( ( ruleQID ) ) ( (lv_visibility_1_0= ruleVisibility ) )? ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= '=' ( (lv_initialValue_4_0= ruleExpression ) ) )? ) )
-            // InternalSolidity.g:564:2: ( ( ( ruleQID ) ) ( (lv_visibility_1_0= ruleVisibility ) )? ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= '=' ( (lv_initialValue_4_0= ruleExpression ) ) )? )
+            // InternalSolidity.g:517:2: ( ( () ( (lv_typeSpecifier_1_0= ruleTypeSpecifier ) ) ( (lv_visibility_2_0= ruleVisibility ) )? ( (lv_name_3_0= RULE_ID ) ) (otherlv_4= '=' ( (lv_initialValue_5_0= ruleExpression ) ) )? otherlv_6= ';' ) )
+            // InternalSolidity.g:518:2: ( () ( (lv_typeSpecifier_1_0= ruleTypeSpecifier ) ) ( (lv_visibility_2_0= ruleVisibility ) )? ( (lv_name_3_0= RULE_ID ) ) (otherlv_4= '=' ( (lv_initialValue_5_0= ruleExpression ) ) )? otherlv_6= ';' )
             {
-            // InternalSolidity.g:564:2: ( ( ( ruleQID ) ) ( (lv_visibility_1_0= ruleVisibility ) )? ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= '=' ( (lv_initialValue_4_0= ruleExpression ) ) )? )
-            // InternalSolidity.g:565:3: ( ( ruleQID ) ) ( (lv_visibility_1_0= ruleVisibility ) )? ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= '=' ( (lv_initialValue_4_0= ruleExpression ) ) )?
+            // InternalSolidity.g:518:2: ( () ( (lv_typeSpecifier_1_0= ruleTypeSpecifier ) ) ( (lv_visibility_2_0= ruleVisibility ) )? ( (lv_name_3_0= RULE_ID ) ) (otherlv_4= '=' ( (lv_initialValue_5_0= ruleExpression ) ) )? otherlv_6= ';' )
+            // InternalSolidity.g:519:3: () ( (lv_typeSpecifier_1_0= ruleTypeSpecifier ) ) ( (lv_visibility_2_0= ruleVisibility ) )? ( (lv_name_3_0= RULE_ID ) ) (otherlv_4= '=' ( (lv_initialValue_5_0= ruleExpression ) ) )? otherlv_6= ';'
             {
-            // InternalSolidity.g:565:3: ( ( ruleQID ) )
-            // InternalSolidity.g:566:4: ( ruleQID )
-            {
-            // InternalSolidity.g:566:4: ( ruleQID )
-            // InternalSolidity.g:567:5: ruleQID
+            // InternalSolidity.g:519:3: ()
+            // InternalSolidity.g:520:4: 
             {
             if ( state.backtracking==0 ) {
 
-              					if (current==null) {
-              						current = createModelElement(grammarAccess.getVariableDeclarationRule());
-              					}
-              				
+              				current = forceCreateModelElement(
+              					grammarAccess.getVariableDefinitionAccess().getVariableDefinitionAction_0(),
+              					current);
+              			
             }
+
+            }
+
+            // InternalSolidity.g:526:3: ( (lv_typeSpecifier_1_0= ruleTypeSpecifier ) )
+            // InternalSolidity.g:527:4: (lv_typeSpecifier_1_0= ruleTypeSpecifier )
+            {
+            // InternalSolidity.g:527:4: (lv_typeSpecifier_1_0= ruleTypeSpecifier )
+            // InternalSolidity.g:528:5: lv_typeSpecifier_1_0= ruleTypeSpecifier
+            {
             if ( state.backtracking==0 ) {
 
-              					newCompositeNode(grammarAccess.getVariableDeclarationAccess().getTypeEObjectCrossReference_0_0());
+              					newCompositeNode(grammarAccess.getVariableDefinitionAccess().getTypeSpecifierTypeSpecifierParserRuleCall_1_0());
               				
             }
-            pushFollow(FOLLOW_13);
-            ruleQID();
+            pushFollow(FOLLOW_15);
+            lv_typeSpecifier_1_0=ruleTypeSpecifier();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
+              					if (current==null) {
+              						current = createModelElementForParent(grammarAccess.getVariableDefinitionRule());
+              					}
+              					set(
+              						current,
+              						"typeSpecifier",
+              						lv_typeSpecifier_1_0,
+              						"org.yakindu.base.expressions.Expressions.TypeSpecifier");
               					afterParserOrEnumRuleCall();
               				
             }
@@ -1626,39 +1518,39 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:581:3: ( (lv_visibility_1_0= ruleVisibility ) )?
-            int alt8=2;
-            int LA8_0 = input.LA(1);
+            // InternalSolidity.g:545:3: ( (lv_visibility_2_0= ruleVisibility ) )?
+            int alt9=2;
+            int LA9_0 = input.LA(1);
 
-            if ( ((LA8_0>=34 && LA8_0<=36)||LA8_0==58) ) {
-                alt8=1;
+            if ( ((LA9_0>=33 && LA9_0<=36)) ) {
+                alt9=1;
             }
-            switch (alt8) {
+            switch (alt9) {
                 case 1 :
-                    // InternalSolidity.g:582:4: (lv_visibility_1_0= ruleVisibility )
+                    // InternalSolidity.g:546:4: (lv_visibility_2_0= ruleVisibility )
                     {
-                    // InternalSolidity.g:582:4: (lv_visibility_1_0= ruleVisibility )
-                    // InternalSolidity.g:583:5: lv_visibility_1_0= ruleVisibility
+                    // InternalSolidity.g:546:4: (lv_visibility_2_0= ruleVisibility )
+                    // InternalSolidity.g:547:5: lv_visibility_2_0= ruleVisibility
                     {
                     if ( state.backtracking==0 ) {
 
-                      					newCompositeNode(grammarAccess.getVariableDeclarationAccess().getVisibilityVisibilityEnumRuleCall_1_0());
+                      					newCompositeNode(grammarAccess.getVariableDefinitionAccess().getVisibilityVisibilityEnumRuleCall_2_0());
                       				
                     }
-                    pushFollow(FOLLOW_9);
-                    lv_visibility_1_0=ruleVisibility();
+                    pushFollow(FOLLOW_11);
+                    lv_visibility_2_0=ruleVisibility();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       					if (current==null) {
-                      						current = createModelElementForParent(grammarAccess.getVariableDeclarationRule());
+                      						current = createModelElementForParent(grammarAccess.getVariableDefinitionRule());
                       					}
                       					set(
                       						current,
                       						"visibility",
-                      						lv_visibility_1_0,
+                      						lv_visibility_2_0,
                       						"com.yakindu.solidity.Solidity.Visibility");
                       					afterParserOrEnumRuleCall();
                       				
@@ -1672,27 +1564,27 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:600:3: ( (lv_name_2_0= RULE_ID ) )
-            // InternalSolidity.g:601:4: (lv_name_2_0= RULE_ID )
+            // InternalSolidity.g:564:3: ( (lv_name_3_0= RULE_ID ) )
+            // InternalSolidity.g:565:4: (lv_name_3_0= RULE_ID )
             {
-            // InternalSolidity.g:601:4: (lv_name_2_0= RULE_ID )
-            // InternalSolidity.g:602:5: lv_name_2_0= RULE_ID
+            // InternalSolidity.g:565:4: (lv_name_3_0= RULE_ID )
+            // InternalSolidity.g:566:5: lv_name_3_0= RULE_ID
             {
-            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_14); if (state.failed) return current;
+            lv_name_3_0=(Token)match(input,RULE_ID,FOLLOW_16); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              					newLeafNode(lv_name_2_0, grammarAccess.getVariableDeclarationAccess().getNameIDTerminalRuleCall_2_0());
+              					newLeafNode(lv_name_3_0, grammarAccess.getVariableDefinitionAccess().getNameIDTerminalRuleCall_3_0());
               				
             }
             if ( state.backtracking==0 ) {
 
               					if (current==null) {
-              						current = createModelElement(grammarAccess.getVariableDeclarationRule());
+              						current = createModelElement(grammarAccess.getVariableDefinitionRule());
               					}
               					setWithLastConsumed(
               						current,
               						"name",
-              						lv_name_2_0,
+              						lv_name_3_0,
               						"org.eclipse.xtext.common.Terminals.ID");
               				
             }
@@ -1702,48 +1594,48 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:618:3: (otherlv_3= '=' ( (lv_initialValue_4_0= ruleExpression ) ) )?
-            int alt9=2;
-            int LA9_0 = input.LA(1);
+            // InternalSolidity.g:582:3: (otherlv_4= '=' ( (lv_initialValue_5_0= ruleExpression ) ) )?
+            int alt10=2;
+            int LA10_0 = input.LA(1);
 
-            if ( (LA9_0==26) ) {
-                alt9=1;
+            if ( (LA10_0==26) ) {
+                alt10=1;
             }
-            switch (alt9) {
+            switch (alt10) {
                 case 1 :
-                    // InternalSolidity.g:619:4: otherlv_3= '=' ( (lv_initialValue_4_0= ruleExpression ) )
+                    // InternalSolidity.g:583:4: otherlv_4= '=' ( (lv_initialValue_5_0= ruleExpression ) )
                     {
-                    otherlv_3=(Token)match(input,26,FOLLOW_15); if (state.failed) return current;
+                    otherlv_4=(Token)match(input,26,FOLLOW_17); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      				newLeafNode(otherlv_3, grammarAccess.getVariableDeclarationAccess().getEqualsSignKeyword_3_0());
+                      				newLeafNode(otherlv_4, grammarAccess.getVariableDefinitionAccess().getEqualsSignKeyword_4_0());
                       			
                     }
-                    // InternalSolidity.g:623:4: ( (lv_initialValue_4_0= ruleExpression ) )
-                    // InternalSolidity.g:624:5: (lv_initialValue_4_0= ruleExpression )
+                    // InternalSolidity.g:587:4: ( (lv_initialValue_5_0= ruleExpression ) )
+                    // InternalSolidity.g:588:5: (lv_initialValue_5_0= ruleExpression )
                     {
-                    // InternalSolidity.g:624:5: (lv_initialValue_4_0= ruleExpression )
-                    // InternalSolidity.g:625:6: lv_initialValue_4_0= ruleExpression
+                    // InternalSolidity.g:588:5: (lv_initialValue_5_0= ruleExpression )
+                    // InternalSolidity.g:589:6: lv_initialValue_5_0= ruleExpression
                     {
                     if ( state.backtracking==0 ) {
 
-                      						newCompositeNode(grammarAccess.getVariableDeclarationAccess().getInitialValueExpressionParserRuleCall_3_1_0());
+                      						newCompositeNode(grammarAccess.getVariableDefinitionAccess().getInitialValueExpressionParserRuleCall_4_1_0());
                       					
                     }
-                    pushFollow(FOLLOW_2);
-                    lv_initialValue_4_0=ruleExpression();
+                    pushFollow(FOLLOW_8);
+                    lv_initialValue_5_0=ruleExpression();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       						if (current==null) {
-                      							current = createModelElementForParent(grammarAccess.getVariableDeclarationRule());
+                      							current = createModelElementForParent(grammarAccess.getVariableDefinitionRule());
                       						}
                       						set(
                       							current,
                       							"initialValue",
-                      							lv_initialValue_4_0,
+                      							lv_initialValue_5_0,
                       							"org.yakindu.base.expressions.Expressions.Expression");
                       						afterParserOrEnumRuleCall();
                       					
@@ -1760,204 +1652,10 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-
-            }
-
-
-            }
-
+            otherlv_6=(Token)match(input,19,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              	leaveRule();
-
-            }
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleVariableDeclaration"
-
-
-    // $ANTLR start "entryRuleStructDefinition"
-    // InternalSolidity.g:647:1: entryRuleStructDefinition returns [EObject current=null] : iv_ruleStructDefinition= ruleStructDefinition EOF ;
-    public final EObject entryRuleStructDefinition() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleStructDefinition = null;
-
-
-        try {
-            // InternalSolidity.g:647:57: (iv_ruleStructDefinition= ruleStructDefinition EOF )
-            // InternalSolidity.g:648:2: iv_ruleStructDefinition= ruleStructDefinition EOF
-            {
-            if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getStructDefinitionRule()); 
-            }
-            pushFollow(FOLLOW_1);
-            iv_ruleStructDefinition=ruleStructDefinition();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               current =iv_ruleStructDefinition; 
-            }
-            match(input,EOF,FOLLOW_2); if (state.failed) return current;
-
-            }
-
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleStructDefinition"
-
-
-    // $ANTLR start "ruleStructDefinition"
-    // InternalSolidity.g:654:1: ruleStructDefinition returns [EObject current=null] : (otherlv_0= 'struct' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( (lv_declarations_3_0= ruleVariableDeclaration ) ) otherlv_4= ';' )* otherlv_5= '}' ) ;
-    public final EObject ruleStructDefinition() throws RecognitionException {
-        EObject current = null;
-
-        Token otherlv_0=null;
-        Token lv_name_1_0=null;
-        Token otherlv_2=null;
-        Token otherlv_4=null;
-        Token otherlv_5=null;
-        EObject lv_declarations_3_0 = null;
-
-
-
-        	enterRule();
-
-        try {
-            // InternalSolidity.g:660:2: ( (otherlv_0= 'struct' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( (lv_declarations_3_0= ruleVariableDeclaration ) ) otherlv_4= ';' )* otherlv_5= '}' ) )
-            // InternalSolidity.g:661:2: (otherlv_0= 'struct' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( (lv_declarations_3_0= ruleVariableDeclaration ) ) otherlv_4= ';' )* otherlv_5= '}' )
-            {
-            // InternalSolidity.g:661:2: (otherlv_0= 'struct' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( (lv_declarations_3_0= ruleVariableDeclaration ) ) otherlv_4= ';' )* otherlv_5= '}' )
-            // InternalSolidity.g:662:3: otherlv_0= 'struct' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( ( (lv_declarations_3_0= ruleVariableDeclaration ) ) otherlv_4= ';' )* otherlv_5= '}'
-            {
-            otherlv_0=(Token)match(input,27,FOLLOW_9); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              			newLeafNode(otherlv_0, grammarAccess.getStructDefinitionAccess().getStructKeyword_0());
-              		
-            }
-            // InternalSolidity.g:666:3: ( (lv_name_1_0= RULE_ID ) )
-            // InternalSolidity.g:667:4: (lv_name_1_0= RULE_ID )
-            {
-            // InternalSolidity.g:667:4: (lv_name_1_0= RULE_ID )
-            // InternalSolidity.g:668:5: lv_name_1_0= RULE_ID
-            {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_16); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              					newLeafNode(lv_name_1_0, grammarAccess.getStructDefinitionAccess().getNameIDTerminalRuleCall_1_0());
-              				
-            }
-            if ( state.backtracking==0 ) {
-
-              					if (current==null) {
-              						current = createModelElement(grammarAccess.getStructDefinitionRule());
-              					}
-              					setWithLastConsumed(
-              						current,
-              						"name",
-              						lv_name_1_0,
-              						"org.eclipse.xtext.common.Terminals.ID");
-              				
-            }
-
-            }
-
-
-            }
-
-            otherlv_2=(Token)match(input,24,FOLLOW_17); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              			newLeafNode(otherlv_2, grammarAccess.getStructDefinitionAccess().getLeftCurlyBracketKeyword_2());
-              		
-            }
-            // InternalSolidity.g:688:3: ( ( (lv_declarations_3_0= ruleVariableDeclaration ) ) otherlv_4= ';' )*
-            loop10:
-            do {
-                int alt10=2;
-                int LA10_0 = input.LA(1);
-
-                if ( (LA10_0==RULE_ID) ) {
-                    alt10=1;
-                }
-
-
-                switch (alt10) {
-            	case 1 :
-            	    // InternalSolidity.g:689:4: ( (lv_declarations_3_0= ruleVariableDeclaration ) ) otherlv_4= ';'
-            	    {
-            	    // InternalSolidity.g:689:4: ( (lv_declarations_3_0= ruleVariableDeclaration ) )
-            	    // InternalSolidity.g:690:5: (lv_declarations_3_0= ruleVariableDeclaration )
-            	    {
-            	    // InternalSolidity.g:690:5: (lv_declarations_3_0= ruleVariableDeclaration )
-            	    // InternalSolidity.g:691:6: lv_declarations_3_0= ruleVariableDeclaration
-            	    {
-            	    if ( state.backtracking==0 ) {
-
-            	      						newCompositeNode(grammarAccess.getStructDefinitionAccess().getDeclarationsVariableDeclarationParserRuleCall_3_0_0());
-            	      					
-            	    }
-            	    pushFollow(FOLLOW_6);
-            	    lv_declarations_3_0=ruleVariableDeclaration();
-
-            	    state._fsp--;
-            	    if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      						if (current==null) {
-            	      							current = createModelElementForParent(grammarAccess.getStructDefinitionRule());
-            	      						}
-            	      						add(
-            	      							current,
-            	      							"declarations",
-            	      							lv_declarations_3_0,
-            	      							"com.yakindu.solidity.Solidity.VariableDeclaration");
-            	      						afterParserOrEnumRuleCall();
-            	      					
-            	    }
-
-            	    }
-
-
-            	    }
-
-            	    otherlv_4=(Token)match(input,19,FOLLOW_17); if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      				newLeafNode(otherlv_4, grammarAccess.getStructDefinitionAccess().getSemicolonKeyword_3_1());
-            	      			
-            	    }
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop10;
-                }
-            } while (true);
-
-            otherlv_5=(Token)match(input,25,FOLLOW_2); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              			newLeafNode(otherlv_5, grammarAccess.getStructDefinitionAccess().getRightCurlyBracketKeyword_4());
+              			newLeafNode(otherlv_6, grammarAccess.getVariableDefinitionAccess().getSemicolonKeyword_5());
               		
             }
 
@@ -1981,11 +1679,11 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleStructDefinition"
+    // $ANTLR end "ruleVariableDefinition"
 
 
     // $ANTLR start "entryRuleModifierDefinition"
-    // InternalSolidity.g:721:1: entryRuleModifierDefinition returns [EObject current=null] : iv_ruleModifierDefinition= ruleModifierDefinition EOF ;
+    // InternalSolidity.g:615:1: entryRuleModifierDefinition returns [EObject current=null] : iv_ruleModifierDefinition= ruleModifierDefinition EOF ;
     public final EObject entryRuleModifierDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -1993,8 +1691,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:721:59: (iv_ruleModifierDefinition= ruleModifierDefinition EOF )
-            // InternalSolidity.g:722:2: iv_ruleModifierDefinition= ruleModifierDefinition EOF
+            // InternalSolidity.g:615:59: (iv_ruleModifierDefinition= ruleModifierDefinition EOF )
+            // InternalSolidity.g:616:2: iv_ruleModifierDefinition= ruleModifierDefinition EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getModifierDefinitionRule()); 
@@ -2025,43 +1723,56 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleModifierDefinition"
-    // InternalSolidity.g:728:1: ruleModifierDefinition returns [EObject current=null] : (otherlv_0= 'modifier' ( (lv_name_1_0= RULE_ID ) ) ( (lv_list_2_0= ruleParameterList ) ) ( (lv_block_3_0= ruleBlock ) ) ) ;
+    // InternalSolidity.g:622:1: ruleModifierDefinition returns [EObject current=null] : ( () otherlv_1= 'modifier' ( (lv_name_2_0= RULE_ID ) ) ( (lv_list_3_0= ruleParameterList ) ) ( (lv_block_4_0= ruleBlock ) ) ) ;
     public final EObject ruleModifierDefinition() throws RecognitionException {
         EObject current = null;
 
-        Token otherlv_0=null;
-        Token lv_name_1_0=null;
-        EObject lv_list_2_0 = null;
+        Token otherlv_1=null;
+        Token lv_name_2_0=null;
+        EObject lv_list_3_0 = null;
 
-        EObject lv_block_3_0 = null;
+        EObject lv_block_4_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalSolidity.g:734:2: ( (otherlv_0= 'modifier' ( (lv_name_1_0= RULE_ID ) ) ( (lv_list_2_0= ruleParameterList ) ) ( (lv_block_3_0= ruleBlock ) ) ) )
-            // InternalSolidity.g:735:2: (otherlv_0= 'modifier' ( (lv_name_1_0= RULE_ID ) ) ( (lv_list_2_0= ruleParameterList ) ) ( (lv_block_3_0= ruleBlock ) ) )
+            // InternalSolidity.g:628:2: ( ( () otherlv_1= 'modifier' ( (lv_name_2_0= RULE_ID ) ) ( (lv_list_3_0= ruleParameterList ) ) ( (lv_block_4_0= ruleBlock ) ) ) )
+            // InternalSolidity.g:629:2: ( () otherlv_1= 'modifier' ( (lv_name_2_0= RULE_ID ) ) ( (lv_list_3_0= ruleParameterList ) ) ( (lv_block_4_0= ruleBlock ) ) )
             {
-            // InternalSolidity.g:735:2: (otherlv_0= 'modifier' ( (lv_name_1_0= RULE_ID ) ) ( (lv_list_2_0= ruleParameterList ) ) ( (lv_block_3_0= ruleBlock ) ) )
-            // InternalSolidity.g:736:3: otherlv_0= 'modifier' ( (lv_name_1_0= RULE_ID ) ) ( (lv_list_2_0= ruleParameterList ) ) ( (lv_block_3_0= ruleBlock ) )
+            // InternalSolidity.g:629:2: ( () otherlv_1= 'modifier' ( (lv_name_2_0= RULE_ID ) ) ( (lv_list_3_0= ruleParameterList ) ) ( (lv_block_4_0= ruleBlock ) ) )
+            // InternalSolidity.g:630:3: () otherlv_1= 'modifier' ( (lv_name_2_0= RULE_ID ) ) ( (lv_list_3_0= ruleParameterList ) ) ( (lv_block_4_0= ruleBlock ) )
             {
-            otherlv_0=(Token)match(input,28,FOLLOW_9); if (state.failed) return current;
+            // InternalSolidity.g:630:3: ()
+            // InternalSolidity.g:631:4: 
+            {
             if ( state.backtracking==0 ) {
 
-              			newLeafNode(otherlv_0, grammarAccess.getModifierDefinitionAccess().getModifierKeyword_0());
+              				current = forceCreateModelElement(
+              					grammarAccess.getModifierDefinitionAccess().getModifierDefinitionAction_0(),
+              					current);
+              			
+            }
+
+            }
+
+            otherlv_1=(Token)match(input,27,FOLLOW_11); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              			newLeafNode(otherlv_1, grammarAccess.getModifierDefinitionAccess().getModifierKeyword_1());
               		
             }
-            // InternalSolidity.g:740:3: ( (lv_name_1_0= RULE_ID ) )
-            // InternalSolidity.g:741:4: (lv_name_1_0= RULE_ID )
+            // InternalSolidity.g:641:3: ( (lv_name_2_0= RULE_ID ) )
+            // InternalSolidity.g:642:4: (lv_name_2_0= RULE_ID )
             {
-            // InternalSolidity.g:741:4: (lv_name_1_0= RULE_ID )
-            // InternalSolidity.g:742:5: lv_name_1_0= RULE_ID
+            // InternalSolidity.g:642:4: (lv_name_2_0= RULE_ID )
+            // InternalSolidity.g:643:5: lv_name_2_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_18); if (state.failed) return current;
+            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_18); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              					newLeafNode(lv_name_1_0, grammarAccess.getModifierDefinitionAccess().getNameIDTerminalRuleCall_1_0());
+              					newLeafNode(lv_name_2_0, grammarAccess.getModifierDefinitionAccess().getNameIDTerminalRuleCall_2_0());
               				
             }
             if ( state.backtracking==0 ) {
@@ -2072,7 +1783,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               					setWithLastConsumed(
               						current,
               						"name",
-              						lv_name_1_0,
+              						lv_name_2_0,
               						"org.eclipse.xtext.common.Terminals.ID");
               				
             }
@@ -2082,19 +1793,19 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:758:3: ( (lv_list_2_0= ruleParameterList ) )
-            // InternalSolidity.g:759:4: (lv_list_2_0= ruleParameterList )
+            // InternalSolidity.g:659:3: ( (lv_list_3_0= ruleParameterList ) )
+            // InternalSolidity.g:660:4: (lv_list_3_0= ruleParameterList )
             {
-            // InternalSolidity.g:759:4: (lv_list_2_0= ruleParameterList )
-            // InternalSolidity.g:760:5: lv_list_2_0= ruleParameterList
+            // InternalSolidity.g:660:4: (lv_list_3_0= ruleParameterList )
+            // InternalSolidity.g:661:5: lv_list_3_0= ruleParameterList
             {
             if ( state.backtracking==0 ) {
 
-              					newCompositeNode(grammarAccess.getModifierDefinitionAccess().getListParameterListParserRuleCall_2_0());
+              					newCompositeNode(grammarAccess.getModifierDefinitionAccess().getListParameterListParserRuleCall_3_0());
               				
             }
-            pushFollow(FOLLOW_16);
-            lv_list_2_0=ruleParameterList();
+            pushFollow(FOLLOW_19);
+            lv_list_3_0=ruleParameterList();
 
             state._fsp--;
             if (state.failed) return current;
@@ -2106,7 +1817,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               					set(
               						current,
               						"list",
-              						lv_list_2_0,
+              						lv_list_3_0,
               						"com.yakindu.solidity.Solidity.ParameterList");
               					afterParserOrEnumRuleCall();
               				
@@ -2117,19 +1828,19 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:777:3: ( (lv_block_3_0= ruleBlock ) )
-            // InternalSolidity.g:778:4: (lv_block_3_0= ruleBlock )
+            // InternalSolidity.g:678:3: ( (lv_block_4_0= ruleBlock ) )
+            // InternalSolidity.g:679:4: (lv_block_4_0= ruleBlock )
             {
-            // InternalSolidity.g:778:4: (lv_block_3_0= ruleBlock )
-            // InternalSolidity.g:779:5: lv_block_3_0= ruleBlock
+            // InternalSolidity.g:679:4: (lv_block_4_0= ruleBlock )
+            // InternalSolidity.g:680:5: lv_block_4_0= ruleBlock
             {
             if ( state.backtracking==0 ) {
 
-              					newCompositeNode(grammarAccess.getModifierDefinitionAccess().getBlockBlockParserRuleCall_3_0());
+              					newCompositeNode(grammarAccess.getModifierDefinitionAccess().getBlockBlockParserRuleCall_4_0());
               				
             }
             pushFollow(FOLLOW_2);
-            lv_block_3_0=ruleBlock();
+            lv_block_4_0=ruleBlock();
 
             state._fsp--;
             if (state.failed) return current;
@@ -2141,7 +1852,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               					add(
               						current,
               						"block",
-              						lv_block_3_0,
+              						lv_block_4_0,
               						"com.yakindu.solidity.Solidity.Block");
               					afterParserOrEnumRuleCall();
               				
@@ -2177,7 +1888,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleParameterList"
-    // InternalSolidity.g:800:1: entryRuleParameterList returns [EObject current=null] : iv_ruleParameterList= ruleParameterList EOF ;
+    // InternalSolidity.g:701:1: entryRuleParameterList returns [EObject current=null] : iv_ruleParameterList= ruleParameterList EOF ;
     public final EObject entryRuleParameterList() throws RecognitionException {
         EObject current = null;
 
@@ -2185,8 +1896,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:800:54: (iv_ruleParameterList= ruleParameterList EOF )
-            // InternalSolidity.g:801:2: iv_ruleParameterList= ruleParameterList EOF
+            // InternalSolidity.g:701:54: (iv_ruleParameterList= ruleParameterList EOF )
+            // InternalSolidity.g:702:2: iv_ruleParameterList= ruleParameterList EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getParameterListRule()); 
@@ -2217,7 +1928,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleParameterList"
-    // InternalSolidity.g:807:1: ruleParameterList returns [EObject current=null] : (otherlv_0= '(' () ( (lv_parameter_2_0= ruleParameter ) )? (otherlv_3= ',' ( (lv_parameter_4_0= ruleParameter ) ) )* otherlv_5= ')' ) ;
+    // InternalSolidity.g:708:1: ruleParameterList returns [EObject current=null] : (otherlv_0= '(' () ( (lv_parameter_2_0= ruleParameter ) )? (otherlv_3= ',' ( (lv_parameter_4_0= ruleParameter ) ) )* otherlv_5= ')' ) ;
     public final EObject ruleParameterList() throws RecognitionException {
         EObject current = null;
 
@@ -2233,20 +1944,20 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:813:2: ( (otherlv_0= '(' () ( (lv_parameter_2_0= ruleParameter ) )? (otherlv_3= ',' ( (lv_parameter_4_0= ruleParameter ) ) )* otherlv_5= ')' ) )
-            // InternalSolidity.g:814:2: (otherlv_0= '(' () ( (lv_parameter_2_0= ruleParameter ) )? (otherlv_3= ',' ( (lv_parameter_4_0= ruleParameter ) ) )* otherlv_5= ')' )
+            // InternalSolidity.g:714:2: ( (otherlv_0= '(' () ( (lv_parameter_2_0= ruleParameter ) )? (otherlv_3= ',' ( (lv_parameter_4_0= ruleParameter ) ) )* otherlv_5= ')' ) )
+            // InternalSolidity.g:715:2: (otherlv_0= '(' () ( (lv_parameter_2_0= ruleParameter ) )? (otherlv_3= ',' ( (lv_parameter_4_0= ruleParameter ) ) )* otherlv_5= ')' )
             {
-            // InternalSolidity.g:814:2: (otherlv_0= '(' () ( (lv_parameter_2_0= ruleParameter ) )? (otherlv_3= ',' ( (lv_parameter_4_0= ruleParameter ) ) )* otherlv_5= ')' )
-            // InternalSolidity.g:815:3: otherlv_0= '(' () ( (lv_parameter_2_0= ruleParameter ) )? (otherlv_3= ',' ( (lv_parameter_4_0= ruleParameter ) ) )* otherlv_5= ')'
+            // InternalSolidity.g:715:2: (otherlv_0= '(' () ( (lv_parameter_2_0= ruleParameter ) )? (otherlv_3= ',' ( (lv_parameter_4_0= ruleParameter ) ) )* otherlv_5= ')' )
+            // InternalSolidity.g:716:3: otherlv_0= '(' () ( (lv_parameter_2_0= ruleParameter ) )? (otherlv_3= ',' ( (lv_parameter_4_0= ruleParameter ) ) )* otherlv_5= ')'
             {
-            otherlv_0=(Token)match(input,29,FOLLOW_19); if (state.failed) return current;
+            otherlv_0=(Token)match(input,28,FOLLOW_20); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_0, grammarAccess.getParameterListAccess().getLeftParenthesisKeyword_0());
               		
             }
-            // InternalSolidity.g:819:3: ()
-            // InternalSolidity.g:820:4: 
+            // InternalSolidity.g:720:3: ()
+            // InternalSolidity.g:721:4: 
             {
             if ( state.backtracking==0 ) {
 
@@ -2258,7 +1969,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:826:3: ( (lv_parameter_2_0= ruleParameter ) )?
+            // InternalSolidity.g:727:3: ( (lv_parameter_2_0= ruleParameter ) )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -2267,17 +1978,17 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             }
             switch (alt11) {
                 case 1 :
-                    // InternalSolidity.g:827:4: (lv_parameter_2_0= ruleParameter )
+                    // InternalSolidity.g:728:4: (lv_parameter_2_0= ruleParameter )
                     {
-                    // InternalSolidity.g:827:4: (lv_parameter_2_0= ruleParameter )
-                    // InternalSolidity.g:828:5: lv_parameter_2_0= ruleParameter
+                    // InternalSolidity.g:728:4: (lv_parameter_2_0= ruleParameter )
+                    // InternalSolidity.g:729:5: lv_parameter_2_0= ruleParameter
                     {
                     if ( state.backtracking==0 ) {
 
                       					newCompositeNode(grammarAccess.getParameterListAccess().getParameterParameterParserRuleCall_2_0());
                       				
                     }
-                    pushFollow(FOLLOW_20);
+                    pushFollow(FOLLOW_21);
                     lv_parameter_2_0=ruleParameter();
 
                     state._fsp--;
@@ -2304,7 +2015,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:845:3: (otherlv_3= ',' ( (lv_parameter_4_0= ruleParameter ) ) )*
+            // InternalSolidity.g:746:3: (otherlv_3= ',' ( (lv_parameter_4_0= ruleParameter ) ) )*
             loop12:
             do {
                 int alt12=2;
@@ -2317,26 +2028,26 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
                 switch (alt12) {
             	case 1 :
-            	    // InternalSolidity.g:846:4: otherlv_3= ',' ( (lv_parameter_4_0= ruleParameter ) )
+            	    // InternalSolidity.g:747:4: otherlv_3= ',' ( (lv_parameter_4_0= ruleParameter ) )
             	    {
-            	    otherlv_3=(Token)match(input,23,FOLLOW_9); if (state.failed) return current;
+            	    otherlv_3=(Token)match(input,23,FOLLOW_11); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      				newLeafNode(otherlv_3, grammarAccess.getParameterListAccess().getCommaKeyword_3_0());
             	      			
             	    }
-            	    // InternalSolidity.g:850:4: ( (lv_parameter_4_0= ruleParameter ) )
-            	    // InternalSolidity.g:851:5: (lv_parameter_4_0= ruleParameter )
+            	    // InternalSolidity.g:751:4: ( (lv_parameter_4_0= ruleParameter ) )
+            	    // InternalSolidity.g:752:5: (lv_parameter_4_0= ruleParameter )
             	    {
-            	    // InternalSolidity.g:851:5: (lv_parameter_4_0= ruleParameter )
-            	    // InternalSolidity.g:852:6: lv_parameter_4_0= ruleParameter
+            	    // InternalSolidity.g:752:5: (lv_parameter_4_0= ruleParameter )
+            	    // InternalSolidity.g:753:6: lv_parameter_4_0= ruleParameter
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      						newCompositeNode(grammarAccess.getParameterListAccess().getParameterParameterParserRuleCall_3_1_0());
             	      					
             	    }
-            	    pushFollow(FOLLOW_20);
+            	    pushFollow(FOLLOW_21);
             	    lv_parameter_4_0=ruleParameter();
 
             	    state._fsp--;
@@ -2369,7 +2080,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_5=(Token)match(input,30,FOLLOW_2); if (state.failed) return current;
+            otherlv_5=(Token)match(input,29,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_5, grammarAccess.getParameterListAccess().getRightParenthesisKeyword_4());
@@ -2400,7 +2111,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleBlock"
-    // InternalSolidity.g:878:1: entryRuleBlock returns [EObject current=null] : iv_ruleBlock= ruleBlock EOF ;
+    // InternalSolidity.g:779:1: entryRuleBlock returns [EObject current=null] : iv_ruleBlock= ruleBlock EOF ;
     public final EObject entryRuleBlock() throws RecognitionException {
         EObject current = null;
 
@@ -2408,8 +2119,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:878:46: (iv_ruleBlock= ruleBlock EOF )
-            // InternalSolidity.g:879:2: iv_ruleBlock= ruleBlock EOF
+            // InternalSolidity.g:779:46: (iv_ruleBlock= ruleBlock EOF )
+            // InternalSolidity.g:780:2: iv_ruleBlock= ruleBlock EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getBlockRule()); 
@@ -2440,7 +2151,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBlock"
-    // InternalSolidity.g:885:1: ruleBlock returns [EObject current=null] : (otherlv_0= '{' () ( ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ';' )* otherlv_4= '}' ) ;
+    // InternalSolidity.g:786:1: ruleBlock returns [EObject current=null] : (otherlv_0= '{' () ( ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ';' )* otherlv_4= '}' ) ;
     public final EObject ruleBlock() throws RecognitionException {
         EObject current = null;
 
@@ -2454,20 +2165,20 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:891:2: ( (otherlv_0= '{' () ( ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ';' )* otherlv_4= '}' ) )
-            // InternalSolidity.g:892:2: (otherlv_0= '{' () ( ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ';' )* otherlv_4= '}' )
+            // InternalSolidity.g:792:2: ( (otherlv_0= '{' () ( ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ';' )* otherlv_4= '}' ) )
+            // InternalSolidity.g:793:2: (otherlv_0= '{' () ( ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ';' )* otherlv_4= '}' )
             {
-            // InternalSolidity.g:892:2: (otherlv_0= '{' () ( ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ';' )* otherlv_4= '}' )
-            // InternalSolidity.g:893:3: otherlv_0= '{' () ( ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ';' )* otherlv_4= '}'
+            // InternalSolidity.g:793:2: (otherlv_0= '{' () ( ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ';' )* otherlv_4= '}' )
+            // InternalSolidity.g:794:3: otherlv_0= '{' () ( ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ';' )* otherlv_4= '}'
             {
-            otherlv_0=(Token)match(input,24,FOLLOW_21); if (state.failed) return current;
+            otherlv_0=(Token)match(input,24,FOLLOW_22); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_0, grammarAccess.getBlockAccess().getLeftCurlyBracketKeyword_0());
               		
             }
-            // InternalSolidity.g:897:3: ()
-            // InternalSolidity.g:898:4: 
+            // InternalSolidity.g:798:3: ()
+            // InternalSolidity.g:799:4: 
             {
             if ( state.backtracking==0 ) {
 
@@ -2479,33 +2190,33 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:904:3: ( ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ';' )*
+            // InternalSolidity.g:805:3: ( ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ';' )*
             loop13:
             do {
                 int alt13=2;
                 int LA13_0 = input.LA(1);
 
-                if ( ((LA13_0>=RULE_STRING && LA13_0<=RULE_BINARY)||LA13_0==29||LA13_0==31||LA13_0==48||LA13_0==51||(LA13_0>=71 && LA13_0<=72)||LA13_0==76) ) {
+                if ( ((LA13_0>=RULE_STRING && LA13_0<=RULE_BINARY)||LA13_0==28||LA13_0==30||LA13_0==46||LA13_0==49||(LA13_0>=68 && LA13_0<=69)||LA13_0==73) ) {
                     alt13=1;
                 }
 
 
                 switch (alt13) {
             	case 1 :
-            	    // InternalSolidity.g:905:4: ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ';'
+            	    // InternalSolidity.g:806:4: ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ';'
             	    {
-            	    // InternalSolidity.g:905:4: ( (lv_expression_2_0= ruleExpression ) )
-            	    // InternalSolidity.g:906:5: (lv_expression_2_0= ruleExpression )
+            	    // InternalSolidity.g:806:4: ( (lv_expression_2_0= ruleExpression ) )
+            	    // InternalSolidity.g:807:5: (lv_expression_2_0= ruleExpression )
             	    {
-            	    // InternalSolidity.g:906:5: (lv_expression_2_0= ruleExpression )
-            	    // InternalSolidity.g:907:6: lv_expression_2_0= ruleExpression
+            	    // InternalSolidity.g:807:5: (lv_expression_2_0= ruleExpression )
+            	    // InternalSolidity.g:808:6: lv_expression_2_0= ruleExpression
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      						newCompositeNode(grammarAccess.getBlockAccess().getExpressionExpressionParserRuleCall_2_0_0());
             	      					
             	    }
-            	    pushFollow(FOLLOW_6);
+            	    pushFollow(FOLLOW_8);
             	    lv_expression_2_0=ruleExpression();
 
             	    state._fsp--;
@@ -2529,7 +2240,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_3=(Token)match(input,19,FOLLOW_21); if (state.failed) return current;
+            	    otherlv_3=(Token)match(input,19,FOLLOW_22); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      				newLeafNode(otherlv_3, grammarAccess.getBlockAccess().getSemicolonKeyword_2_1());
@@ -2575,7 +2286,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLiteral"
-    // InternalSolidity.g:937:1: entryRuleLiteral returns [EObject current=null] : iv_ruleLiteral= ruleLiteral EOF ;
+    // InternalSolidity.g:838:1: entryRuleLiteral returns [EObject current=null] : iv_ruleLiteral= ruleLiteral EOF ;
     public final EObject entryRuleLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -2583,8 +2294,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:937:48: (iv_ruleLiteral= ruleLiteral EOF )
-            // InternalSolidity.g:938:2: iv_ruleLiteral= ruleLiteral EOF
+            // InternalSolidity.g:838:48: (iv_ruleLiteral= ruleLiteral EOF )
+            // InternalSolidity.g:839:2: iv_ruleLiteral= ruleLiteral EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLiteralRule()); 
@@ -2615,7 +2326,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLiteral"
-    // InternalSolidity.g:944:1: ruleLiteral returns [EObject current=null] : (this_Literal_0= superLiteral | this_ModifierInvocationLiteral_1= ruleModifierInvocationLiteral ) ;
+    // InternalSolidity.g:845:1: ruleLiteral returns [EObject current=null] : (this_Literal_0= superLiteral | this_ModifierInvocationLiteral_1= ruleModifierInvocationLiteral ) ;
     public final EObject ruleLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -2628,17 +2339,17 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:950:2: ( (this_Literal_0= superLiteral | this_ModifierInvocationLiteral_1= ruleModifierInvocationLiteral ) )
-            // InternalSolidity.g:951:2: (this_Literal_0= superLiteral | this_ModifierInvocationLiteral_1= ruleModifierInvocationLiteral )
+            // InternalSolidity.g:851:2: ( (this_Literal_0= superLiteral | this_ModifierInvocationLiteral_1= ruleModifierInvocationLiteral ) )
+            // InternalSolidity.g:852:2: (this_Literal_0= superLiteral | this_ModifierInvocationLiteral_1= ruleModifierInvocationLiteral )
             {
-            // InternalSolidity.g:951:2: (this_Literal_0= superLiteral | this_ModifierInvocationLiteral_1= ruleModifierInvocationLiteral )
+            // InternalSolidity.g:852:2: (this_Literal_0= superLiteral | this_ModifierInvocationLiteral_1= ruleModifierInvocationLiteral )
             int alt14=2;
             int LA14_0 = input.LA(1);
 
-            if ( (LA14_0==RULE_STRING||(LA14_0>=RULE_BOOL && LA14_0<=RULE_BINARY)||LA14_0==48) ) {
+            if ( (LA14_0==RULE_STRING||(LA14_0>=RULE_BOOL && LA14_0<=RULE_BINARY)||LA14_0==46) ) {
                 alt14=1;
             }
-            else if ( (LA14_0==31) ) {
+            else if ( (LA14_0==30) ) {
                 alt14=2;
             }
             else {
@@ -2650,7 +2361,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             }
             switch (alt14) {
                 case 1 :
-                    // InternalSolidity.g:952:3: this_Literal_0= superLiteral
+                    // InternalSolidity.g:853:3: this_Literal_0= superLiteral
                     {
                     if ( state.backtracking==0 ) {
 
@@ -2672,7 +2383,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSolidity.g:961:3: this_ModifierInvocationLiteral_1= ruleModifierInvocationLiteral
+                    // InternalSolidity.g:862:3: this_ModifierInvocationLiteral_1= ruleModifierInvocationLiteral
                     {
                     if ( state.backtracking==0 ) {
 
@@ -2718,7 +2429,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleModifierInvocationLiteral"
-    // InternalSolidity.g:973:1: entryRuleModifierInvocationLiteral returns [EObject current=null] : iv_ruleModifierInvocationLiteral= ruleModifierInvocationLiteral EOF ;
+    // InternalSolidity.g:874:1: entryRuleModifierInvocationLiteral returns [EObject current=null] : iv_ruleModifierInvocationLiteral= ruleModifierInvocationLiteral EOF ;
     public final EObject entryRuleModifierInvocationLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -2726,8 +2437,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:973:66: (iv_ruleModifierInvocationLiteral= ruleModifierInvocationLiteral EOF )
-            // InternalSolidity.g:974:2: iv_ruleModifierInvocationLiteral= ruleModifierInvocationLiteral EOF
+            // InternalSolidity.g:874:66: (iv_ruleModifierInvocationLiteral= ruleModifierInvocationLiteral EOF )
+            // InternalSolidity.g:875:2: iv_ruleModifierInvocationLiteral= ruleModifierInvocationLiteral EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getModifierInvocationLiteralRule()); 
@@ -2758,7 +2469,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleModifierInvocationLiteral"
-    // InternalSolidity.g:980:1: ruleModifierInvocationLiteral returns [EObject current=null] : ( () otherlv_1= '_;' ) ;
+    // InternalSolidity.g:881:1: ruleModifierInvocationLiteral returns [EObject current=null] : ( () otherlv_1= '_;' ) ;
     public final EObject ruleModifierInvocationLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -2768,14 +2479,14 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:986:2: ( ( () otherlv_1= '_;' ) )
-            // InternalSolidity.g:987:2: ( () otherlv_1= '_;' )
+            // InternalSolidity.g:887:2: ( ( () otherlv_1= '_;' ) )
+            // InternalSolidity.g:888:2: ( () otherlv_1= '_;' )
             {
-            // InternalSolidity.g:987:2: ( () otherlv_1= '_;' )
-            // InternalSolidity.g:988:3: () otherlv_1= '_;'
+            // InternalSolidity.g:888:2: ( () otherlv_1= '_;' )
+            // InternalSolidity.g:889:3: () otherlv_1= '_;'
             {
-            // InternalSolidity.g:988:3: ()
-            // InternalSolidity.g:989:4: 
+            // InternalSolidity.g:889:3: ()
+            // InternalSolidity.g:890:4: 
             {
             if ( state.backtracking==0 ) {
 
@@ -2787,7 +2498,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,31,FOLLOW_2); if (state.failed) return current;
+            otherlv_1=(Token)match(input,30,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_1, grammarAccess.getModifierInvocationLiteralAccess().get_Keyword_1());
@@ -2818,7 +2529,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleFunctionDefinition"
-    // InternalSolidity.g:1003:1: entryRuleFunctionDefinition returns [EObject current=null] : iv_ruleFunctionDefinition= ruleFunctionDefinition EOF ;
+    // InternalSolidity.g:904:1: entryRuleFunctionDefinition returns [EObject current=null] : iv_ruleFunctionDefinition= ruleFunctionDefinition EOF ;
     public final EObject entryRuleFunctionDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -2826,8 +2537,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:1003:59: (iv_ruleFunctionDefinition= ruleFunctionDefinition EOF )
-            // InternalSolidity.g:1004:2: iv_ruleFunctionDefinition= ruleFunctionDefinition EOF
+            // InternalSolidity.g:904:59: (iv_ruleFunctionDefinition= ruleFunctionDefinition EOF )
+            // InternalSolidity.g:905:2: iv_ruleFunctionDefinition= ruleFunctionDefinition EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getFunctionDefinitionRule()); 
@@ -2858,42 +2569,61 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleFunctionDefinition"
-    // InternalSolidity.g:1010:1: ruleFunctionDefinition returns [EObject current=null] : (otherlv_0= 'function' ( (lv_name_1_0= RULE_ID ) )? ( (lv_parameter_2_0= ruleParameterList ) ) (otherlv_3= 'external' | otherlv_4= 'public' | otherlv_5= 'internal' | otherlv_6= 'private' )* (otherlv_7= 'returns' ( (lv_returnParameter_8_0= ruleParameterList ) ) )? (otherlv_9= ';' | ( (lv_block_10_0= ruleBlock ) ) ) ) ;
+    // InternalSolidity.g:911:1: ruleFunctionDefinition returns [EObject current=null] : ( () otherlv_1= 'function' ( (lv_name_2_0= RULE_ID ) )? otherlv_3= '(' ( ( (lv_parameters_4_0= ruleParameter ) ) (otherlv_5= ',' ( (lv_parameters_6_0= ruleParameter ) ) )* )? otherlv_7= ')' (otherlv_8= 'external' | otherlv_9= 'public' | otherlv_10= 'internal' | otherlv_11= 'private' | otherlv_12= 'constant' )* (otherlv_13= 'returns' ( (lv_returnTypes_14_0= ruleTypeSpecifier ) )* )? (otherlv_15= ';' | ( (lv_block_16_0= ruleBlock ) ) ) ) ;
     public final EObject ruleFunctionDefinition() throws RecognitionException {
         EObject current = null;
 
-        Token otherlv_0=null;
-        Token lv_name_1_0=null;
+        Token otherlv_1=null;
+        Token lv_name_2_0=null;
         Token otherlv_3=null;
-        Token otherlv_4=null;
         Token otherlv_5=null;
-        Token otherlv_6=null;
         Token otherlv_7=null;
+        Token otherlv_8=null;
         Token otherlv_9=null;
-        EObject lv_parameter_2_0 = null;
+        Token otherlv_10=null;
+        Token otherlv_11=null;
+        Token otherlv_12=null;
+        Token otherlv_13=null;
+        Token otherlv_15=null;
+        EObject lv_parameters_4_0 = null;
 
-        EObject lv_returnParameter_8_0 = null;
+        EObject lv_parameters_6_0 = null;
 
-        EObject lv_block_10_0 = null;
+        EObject lv_returnTypes_14_0 = null;
+
+        EObject lv_block_16_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalSolidity.g:1016:2: ( (otherlv_0= 'function' ( (lv_name_1_0= RULE_ID ) )? ( (lv_parameter_2_0= ruleParameterList ) ) (otherlv_3= 'external' | otherlv_4= 'public' | otherlv_5= 'internal' | otherlv_6= 'private' )* (otherlv_7= 'returns' ( (lv_returnParameter_8_0= ruleParameterList ) ) )? (otherlv_9= ';' | ( (lv_block_10_0= ruleBlock ) ) ) ) )
-            // InternalSolidity.g:1017:2: (otherlv_0= 'function' ( (lv_name_1_0= RULE_ID ) )? ( (lv_parameter_2_0= ruleParameterList ) ) (otherlv_3= 'external' | otherlv_4= 'public' | otherlv_5= 'internal' | otherlv_6= 'private' )* (otherlv_7= 'returns' ( (lv_returnParameter_8_0= ruleParameterList ) ) )? (otherlv_9= ';' | ( (lv_block_10_0= ruleBlock ) ) ) )
+            // InternalSolidity.g:917:2: ( ( () otherlv_1= 'function' ( (lv_name_2_0= RULE_ID ) )? otherlv_3= '(' ( ( (lv_parameters_4_0= ruleParameter ) ) (otherlv_5= ',' ( (lv_parameters_6_0= ruleParameter ) ) )* )? otherlv_7= ')' (otherlv_8= 'external' | otherlv_9= 'public' | otherlv_10= 'internal' | otherlv_11= 'private' | otherlv_12= 'constant' )* (otherlv_13= 'returns' ( (lv_returnTypes_14_0= ruleTypeSpecifier ) )* )? (otherlv_15= ';' | ( (lv_block_16_0= ruleBlock ) ) ) ) )
+            // InternalSolidity.g:918:2: ( () otherlv_1= 'function' ( (lv_name_2_0= RULE_ID ) )? otherlv_3= '(' ( ( (lv_parameters_4_0= ruleParameter ) ) (otherlv_5= ',' ( (lv_parameters_6_0= ruleParameter ) ) )* )? otherlv_7= ')' (otherlv_8= 'external' | otherlv_9= 'public' | otherlv_10= 'internal' | otherlv_11= 'private' | otherlv_12= 'constant' )* (otherlv_13= 'returns' ( (lv_returnTypes_14_0= ruleTypeSpecifier ) )* )? (otherlv_15= ';' | ( (lv_block_16_0= ruleBlock ) ) ) )
             {
-            // InternalSolidity.g:1017:2: (otherlv_0= 'function' ( (lv_name_1_0= RULE_ID ) )? ( (lv_parameter_2_0= ruleParameterList ) ) (otherlv_3= 'external' | otherlv_4= 'public' | otherlv_5= 'internal' | otherlv_6= 'private' )* (otherlv_7= 'returns' ( (lv_returnParameter_8_0= ruleParameterList ) ) )? (otherlv_9= ';' | ( (lv_block_10_0= ruleBlock ) ) ) )
-            // InternalSolidity.g:1018:3: otherlv_0= 'function' ( (lv_name_1_0= RULE_ID ) )? ( (lv_parameter_2_0= ruleParameterList ) ) (otherlv_3= 'external' | otherlv_4= 'public' | otherlv_5= 'internal' | otherlv_6= 'private' )* (otherlv_7= 'returns' ( (lv_returnParameter_8_0= ruleParameterList ) ) )? (otherlv_9= ';' | ( (lv_block_10_0= ruleBlock ) ) )
+            // InternalSolidity.g:918:2: ( () otherlv_1= 'function' ( (lv_name_2_0= RULE_ID ) )? otherlv_3= '(' ( ( (lv_parameters_4_0= ruleParameter ) ) (otherlv_5= ',' ( (lv_parameters_6_0= ruleParameter ) ) )* )? otherlv_7= ')' (otherlv_8= 'external' | otherlv_9= 'public' | otherlv_10= 'internal' | otherlv_11= 'private' | otherlv_12= 'constant' )* (otherlv_13= 'returns' ( (lv_returnTypes_14_0= ruleTypeSpecifier ) )* )? (otherlv_15= ';' | ( (lv_block_16_0= ruleBlock ) ) ) )
+            // InternalSolidity.g:919:3: () otherlv_1= 'function' ( (lv_name_2_0= RULE_ID ) )? otherlv_3= '(' ( ( (lv_parameters_4_0= ruleParameter ) ) (otherlv_5= ',' ( (lv_parameters_6_0= ruleParameter ) ) )* )? otherlv_7= ')' (otherlv_8= 'external' | otherlv_9= 'public' | otherlv_10= 'internal' | otherlv_11= 'private' | otherlv_12= 'constant' )* (otherlv_13= 'returns' ( (lv_returnTypes_14_0= ruleTypeSpecifier ) )* )? (otherlv_15= ';' | ( (lv_block_16_0= ruleBlock ) ) )
             {
-            otherlv_0=(Token)match(input,32,FOLLOW_22); if (state.failed) return current;
+            // InternalSolidity.g:919:3: ()
+            // InternalSolidity.g:920:4: 
+            {
             if ( state.backtracking==0 ) {
 
-              			newLeafNode(otherlv_0, grammarAccess.getFunctionDefinitionAccess().getFunctionKeyword_0());
+              				current = forceCreateModelElement(
+              					grammarAccess.getFunctionDefinitionAccess().getFunctionDefinitionAction_0(),
+              					current);
+              			
+            }
+
+            }
+
+            otherlv_1=(Token)match(input,31,FOLLOW_23); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              			newLeafNode(otherlv_1, grammarAccess.getFunctionDefinitionAccess().getFunctionKeyword_1());
               		
             }
-            // InternalSolidity.g:1022:3: ( (lv_name_1_0= RULE_ID ) )?
+            // InternalSolidity.g:930:3: ( (lv_name_2_0= RULE_ID ) )?
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -2902,15 +2632,15 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             }
             switch (alt15) {
                 case 1 :
-                    // InternalSolidity.g:1023:4: (lv_name_1_0= RULE_ID )
+                    // InternalSolidity.g:931:4: (lv_name_2_0= RULE_ID )
                     {
-                    // InternalSolidity.g:1023:4: (lv_name_1_0= RULE_ID )
-                    // InternalSolidity.g:1024:5: lv_name_1_0= RULE_ID
+                    // InternalSolidity.g:931:4: (lv_name_2_0= RULE_ID )
+                    // InternalSolidity.g:932:5: lv_name_2_0= RULE_ID
                     {
-                    lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_18); if (state.failed) return current;
+                    lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_18); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      					newLeafNode(lv_name_1_0, grammarAccess.getFunctionDefinitionAccess().getNameIDTerminalRuleCall_1_0());
+                      					newLeafNode(lv_name_2_0, grammarAccess.getFunctionDefinitionAccess().getNameIDTerminalRuleCall_2_0());
                       				
                     }
                     if ( state.backtracking==0 ) {
@@ -2921,7 +2651,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                       					setWithLastConsumed(
                       						current,
                       						"name",
-                      						lv_name_1_0,
+                      						lv_name_2_0,
                       						"org.eclipse.xtext.common.Terminals.ID");
                       				
                     }
@@ -2934,154 +2664,36 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:1040:3: ( (lv_parameter_2_0= ruleParameterList ) )
-            // InternalSolidity.g:1041:4: (lv_parameter_2_0= ruleParameterList )
-            {
-            // InternalSolidity.g:1041:4: (lv_parameter_2_0= ruleParameterList )
-            // InternalSolidity.g:1042:5: lv_parameter_2_0= ruleParameterList
-            {
+            otherlv_3=(Token)match(input,28,FOLLOW_24); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              					newCompositeNode(grammarAccess.getFunctionDefinitionAccess().getParameterParameterListParserRuleCall_2_0());
-              				
+              			newLeafNode(otherlv_3, grammarAccess.getFunctionDefinitionAccess().getLeftParenthesisKeyword_3());
+              		
             }
-            pushFollow(FOLLOW_23);
-            lv_parameter_2_0=ruleParameterList();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              					if (current==null) {
-              						current = createModelElementForParent(grammarAccess.getFunctionDefinitionRule());
-              					}
-              					set(
-              						current,
-              						"parameter",
-              						lv_parameter_2_0,
-              						"com.yakindu.solidity.Solidity.ParameterList");
-              					afterParserOrEnumRuleCall();
-              				
-            }
-
-            }
-
-
-            }
-
-            // InternalSolidity.g:1059:3: (otherlv_3= 'external' | otherlv_4= 'public' | otherlv_5= 'internal' | otherlv_6= 'private' )*
-            loop16:
-            do {
-                int alt16=5;
-                switch ( input.LA(1) ) {
-                case 33:
-                    {
-                    alt16=1;
-                    }
-                    break;
-                case 34:
-                    {
-                    alt16=2;
-                    }
-                    break;
-                case 35:
-                    {
-                    alt16=3;
-                    }
-                    break;
-                case 36:
-                    {
-                    alt16=4;
-                    }
-                    break;
-
-                }
-
-                switch (alt16) {
-            	case 1 :
-            	    // InternalSolidity.g:1060:4: otherlv_3= 'external'
-            	    {
-            	    otherlv_3=(Token)match(input,33,FOLLOW_23); if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      				newLeafNode(otherlv_3, grammarAccess.getFunctionDefinitionAccess().getExternalKeyword_3_0());
-            	      			
-            	    }
-
-            	    }
-            	    break;
-            	case 2 :
-            	    // InternalSolidity.g:1065:4: otherlv_4= 'public'
-            	    {
-            	    otherlv_4=(Token)match(input,34,FOLLOW_23); if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      				newLeafNode(otherlv_4, grammarAccess.getFunctionDefinitionAccess().getPublicKeyword_3_1());
-            	      			
-            	    }
-
-            	    }
-            	    break;
-            	case 3 :
-            	    // InternalSolidity.g:1070:4: otherlv_5= 'internal'
-            	    {
-            	    otherlv_5=(Token)match(input,35,FOLLOW_23); if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      				newLeafNode(otherlv_5, grammarAccess.getFunctionDefinitionAccess().getInternalKeyword_3_2());
-            	      			
-            	    }
-
-            	    }
-            	    break;
-            	case 4 :
-            	    // InternalSolidity.g:1075:4: otherlv_6= 'private'
-            	    {
-            	    otherlv_6=(Token)match(input,36,FOLLOW_23); if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      				newLeafNode(otherlv_6, grammarAccess.getFunctionDefinitionAccess().getPrivateKeyword_3_3());
-            	      			
-            	    }
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop16;
-                }
-            } while (true);
-
-            // InternalSolidity.g:1080:3: (otherlv_7= 'returns' ( (lv_returnParameter_8_0= ruleParameterList ) ) )?
+            // InternalSolidity.g:952:3: ( ( (lv_parameters_4_0= ruleParameter ) ) (otherlv_5= ',' ( (lv_parameters_6_0= ruleParameter ) ) )* )?
             int alt17=2;
             int LA17_0 = input.LA(1);
 
-            if ( (LA17_0==37) ) {
+            if ( (LA17_0==RULE_ID) ) {
                 alt17=1;
             }
             switch (alt17) {
                 case 1 :
-                    // InternalSolidity.g:1081:4: otherlv_7= 'returns' ( (lv_returnParameter_8_0= ruleParameterList ) )
+                    // InternalSolidity.g:953:4: ( (lv_parameters_4_0= ruleParameter ) ) (otherlv_5= ',' ( (lv_parameters_6_0= ruleParameter ) ) )*
                     {
-                    otherlv_7=(Token)match(input,37,FOLLOW_18); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      				newLeafNode(otherlv_7, grammarAccess.getFunctionDefinitionAccess().getReturnsKeyword_4_0());
-                      			
-                    }
-                    // InternalSolidity.g:1085:4: ( (lv_returnParameter_8_0= ruleParameterList ) )
-                    // InternalSolidity.g:1086:5: (lv_returnParameter_8_0= ruleParameterList )
+                    // InternalSolidity.g:953:4: ( (lv_parameters_4_0= ruleParameter ) )
+                    // InternalSolidity.g:954:5: (lv_parameters_4_0= ruleParameter )
                     {
-                    // InternalSolidity.g:1086:5: (lv_returnParameter_8_0= ruleParameterList )
-                    // InternalSolidity.g:1087:6: lv_returnParameter_8_0= ruleParameterList
+                    // InternalSolidity.g:954:5: (lv_parameters_4_0= ruleParameter )
+                    // InternalSolidity.g:955:6: lv_parameters_4_0= ruleParameter
                     {
                     if ( state.backtracking==0 ) {
 
-                      						newCompositeNode(grammarAccess.getFunctionDefinitionAccess().getReturnParameterParameterListParserRuleCall_4_1_0());
+                      						newCompositeNode(grammarAccess.getFunctionDefinitionAccess().getParametersParameterParserRuleCall_4_0_0());
                       					
                     }
-                    pushFollow(FOLLOW_24);
-                    lv_returnParameter_8_0=ruleParameterList();
+                    pushFollow(FOLLOW_21);
+                    lv_parameters_4_0=ruleParameter();
 
                     state._fsp--;
                     if (state.failed) return current;
@@ -3090,11 +2702,11 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                       						if (current==null) {
                       							current = createModelElementForParent(grammarAccess.getFunctionDefinitionRule());
                       						}
-                      						set(
+                      						add(
                       							current,
-                      							"returnParameter",
-                      							lv_returnParameter_8_0,
-                      							"com.yakindu.solidity.Solidity.ParameterList");
+                      							"parameters",
+                      							lv_parameters_4_0,
+                      							"com.yakindu.solidity.Solidity.Parameter");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -3104,58 +2716,305 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
                     }
 
+                    // InternalSolidity.g:972:4: (otherlv_5= ',' ( (lv_parameters_6_0= ruleParameter ) ) )*
+                    loop16:
+                    do {
+                        int alt16=2;
+                        int LA16_0 = input.LA(1);
+
+                        if ( (LA16_0==23) ) {
+                            alt16=1;
+                        }
+
+
+                        switch (alt16) {
+                    	case 1 :
+                    	    // InternalSolidity.g:973:5: otherlv_5= ',' ( (lv_parameters_6_0= ruleParameter ) )
+                    	    {
+                    	    otherlv_5=(Token)match(input,23,FOLLOW_11); if (state.failed) return current;
+                    	    if ( state.backtracking==0 ) {
+
+                    	      					newLeafNode(otherlv_5, grammarAccess.getFunctionDefinitionAccess().getCommaKeyword_4_1_0());
+                    	      				
+                    	    }
+                    	    // InternalSolidity.g:977:5: ( (lv_parameters_6_0= ruleParameter ) )
+                    	    // InternalSolidity.g:978:6: (lv_parameters_6_0= ruleParameter )
+                    	    {
+                    	    // InternalSolidity.g:978:6: (lv_parameters_6_0= ruleParameter )
+                    	    // InternalSolidity.g:979:7: lv_parameters_6_0= ruleParameter
+                    	    {
+                    	    if ( state.backtracking==0 ) {
+
+                    	      							newCompositeNode(grammarAccess.getFunctionDefinitionAccess().getParametersParameterParserRuleCall_4_1_1_0());
+                    	      						
+                    	    }
+                    	    pushFollow(FOLLOW_21);
+                    	    lv_parameters_6_0=ruleParameter();
+
+                    	    state._fsp--;
+                    	    if (state.failed) return current;
+                    	    if ( state.backtracking==0 ) {
+
+                    	      							if (current==null) {
+                    	      								current = createModelElementForParent(grammarAccess.getFunctionDefinitionRule());
+                    	      							}
+                    	      							add(
+                    	      								current,
+                    	      								"parameters",
+                    	      								lv_parameters_6_0,
+                    	      								"com.yakindu.solidity.Solidity.Parameter");
+                    	      							afterParserOrEnumRuleCall();
+                    	      						
+                    	    }
+
+                    	    }
+
+
+                    	    }
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop16;
+                        }
+                    } while (true);
+
 
                     }
                     break;
 
             }
 
-            // InternalSolidity.g:1105:3: (otherlv_9= ';' | ( (lv_block_10_0= ruleBlock ) ) )
-            int alt18=2;
-            int LA18_0 = input.LA(1);
+            otherlv_7=(Token)match(input,29,FOLLOW_25); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
 
-            if ( (LA18_0==19) ) {
-                alt18=1;
+              			newLeafNode(otherlv_7, grammarAccess.getFunctionDefinitionAccess().getRightParenthesisKeyword_5());
+              		
             }
-            else if ( (LA18_0==24) ) {
-                alt18=2;
+            // InternalSolidity.g:1002:3: (otherlv_8= 'external' | otherlv_9= 'public' | otherlv_10= 'internal' | otherlv_11= 'private' | otherlv_12= 'constant' )*
+            loop18:
+            do {
+                int alt18=6;
+                switch ( input.LA(1) ) {
+                case 32:
+                    {
+                    alt18=1;
+                    }
+                    break;
+                case 33:
+                    {
+                    alt18=2;
+                    }
+                    break;
+                case 34:
+                    {
+                    alt18=3;
+                    }
+                    break;
+                case 35:
+                    {
+                    alt18=4;
+                    }
+                    break;
+                case 36:
+                    {
+                    alt18=5;
+                    }
+                    break;
+
+                }
+
+                switch (alt18) {
+            	case 1 :
+            	    // InternalSolidity.g:1003:4: otherlv_8= 'external'
+            	    {
+            	    otherlv_8=(Token)match(input,32,FOLLOW_25); if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      				newLeafNode(otherlv_8, grammarAccess.getFunctionDefinitionAccess().getExternalKeyword_6_0());
+            	      			
+            	    }
+
+            	    }
+            	    break;
+            	case 2 :
+            	    // InternalSolidity.g:1008:4: otherlv_9= 'public'
+            	    {
+            	    otherlv_9=(Token)match(input,33,FOLLOW_25); if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      				newLeafNode(otherlv_9, grammarAccess.getFunctionDefinitionAccess().getPublicKeyword_6_1());
+            	      			
+            	    }
+
+            	    }
+            	    break;
+            	case 3 :
+            	    // InternalSolidity.g:1013:4: otherlv_10= 'internal'
+            	    {
+            	    otherlv_10=(Token)match(input,34,FOLLOW_25); if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      				newLeafNode(otherlv_10, grammarAccess.getFunctionDefinitionAccess().getInternalKeyword_6_2());
+            	      			
+            	    }
+
+            	    }
+            	    break;
+            	case 4 :
+            	    // InternalSolidity.g:1018:4: otherlv_11= 'private'
+            	    {
+            	    otherlv_11=(Token)match(input,35,FOLLOW_25); if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      				newLeafNode(otherlv_11, grammarAccess.getFunctionDefinitionAccess().getPrivateKeyword_6_3());
+            	      			
+            	    }
+
+            	    }
+            	    break;
+            	case 5 :
+            	    // InternalSolidity.g:1023:4: otherlv_12= 'constant'
+            	    {
+            	    otherlv_12=(Token)match(input,36,FOLLOW_25); if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      				newLeafNode(otherlv_12, grammarAccess.getFunctionDefinitionAccess().getConstantKeyword_6_4());
+            	      			
+            	    }
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop18;
+                }
+            } while (true);
+
+            // InternalSolidity.g:1028:3: (otherlv_13= 'returns' ( (lv_returnTypes_14_0= ruleTypeSpecifier ) )* )?
+            int alt20=2;
+            int LA20_0 = input.LA(1);
+
+            if ( (LA20_0==37) ) {
+                alt20=1;
+            }
+            switch (alt20) {
+                case 1 :
+                    // InternalSolidity.g:1029:4: otherlv_13= 'returns' ( (lv_returnTypes_14_0= ruleTypeSpecifier ) )*
+                    {
+                    otherlv_13=(Token)match(input,37,FOLLOW_26); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      				newLeafNode(otherlv_13, grammarAccess.getFunctionDefinitionAccess().getReturnsKeyword_7_0());
+                      			
+                    }
+                    // InternalSolidity.g:1033:4: ( (lv_returnTypes_14_0= ruleTypeSpecifier ) )*
+                    loop19:
+                    do {
+                        int alt19=2;
+                        int LA19_0 = input.LA(1);
+
+                        if ( (LA19_0==RULE_ID) ) {
+                            alt19=1;
+                        }
+
+
+                        switch (alt19) {
+                    	case 1 :
+                    	    // InternalSolidity.g:1034:5: (lv_returnTypes_14_0= ruleTypeSpecifier )
+                    	    {
+                    	    // InternalSolidity.g:1034:5: (lv_returnTypes_14_0= ruleTypeSpecifier )
+                    	    // InternalSolidity.g:1035:6: lv_returnTypes_14_0= ruleTypeSpecifier
+                    	    {
+                    	    if ( state.backtracking==0 ) {
+
+                    	      						newCompositeNode(grammarAccess.getFunctionDefinitionAccess().getReturnTypesTypeSpecifierParserRuleCall_7_1_0());
+                    	      					
+                    	    }
+                    	    pushFollow(FOLLOW_26);
+                    	    lv_returnTypes_14_0=ruleTypeSpecifier();
+
+                    	    state._fsp--;
+                    	    if (state.failed) return current;
+                    	    if ( state.backtracking==0 ) {
+
+                    	      						if (current==null) {
+                    	      							current = createModelElementForParent(grammarAccess.getFunctionDefinitionRule());
+                    	      						}
+                    	      						add(
+                    	      							current,
+                    	      							"returnTypes",
+                    	      							lv_returnTypes_14_0,
+                    	      							"org.yakindu.base.expressions.Expressions.TypeSpecifier");
+                    	      						afterParserOrEnumRuleCall();
+                    	      					
+                    	    }
+
+                    	    }
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop19;
+                        }
+                    } while (true);
+
+
+                    }
+                    break;
+
+            }
+
+            // InternalSolidity.g:1053:3: (otherlv_15= ';' | ( (lv_block_16_0= ruleBlock ) ) )
+            int alt21=2;
+            int LA21_0 = input.LA(1);
+
+            if ( (LA21_0==19) ) {
+                alt21=1;
+            }
+            else if ( (LA21_0==24) ) {
+                alt21=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 18, 0, input);
+                    new NoViableAltException("", 21, 0, input);
 
                 throw nvae;
             }
-            switch (alt18) {
+            switch (alt21) {
                 case 1 :
-                    // InternalSolidity.g:1106:4: otherlv_9= ';'
+                    // InternalSolidity.g:1054:4: otherlv_15= ';'
                     {
-                    otherlv_9=(Token)match(input,19,FOLLOW_2); if (state.failed) return current;
+                    otherlv_15=(Token)match(input,19,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      				newLeafNode(otherlv_9, grammarAccess.getFunctionDefinitionAccess().getSemicolonKeyword_5_0());
+                      				newLeafNode(otherlv_15, grammarAccess.getFunctionDefinitionAccess().getSemicolonKeyword_8_0());
                       			
                     }
 
                     }
                     break;
                 case 2 :
-                    // InternalSolidity.g:1111:4: ( (lv_block_10_0= ruleBlock ) )
+                    // InternalSolidity.g:1059:4: ( (lv_block_16_0= ruleBlock ) )
                     {
-                    // InternalSolidity.g:1111:4: ( (lv_block_10_0= ruleBlock ) )
-                    // InternalSolidity.g:1112:5: (lv_block_10_0= ruleBlock )
+                    // InternalSolidity.g:1059:4: ( (lv_block_16_0= ruleBlock ) )
+                    // InternalSolidity.g:1060:5: (lv_block_16_0= ruleBlock )
                     {
-                    // InternalSolidity.g:1112:5: (lv_block_10_0= ruleBlock )
-                    // InternalSolidity.g:1113:6: lv_block_10_0= ruleBlock
+                    // InternalSolidity.g:1060:5: (lv_block_16_0= ruleBlock )
+                    // InternalSolidity.g:1061:6: lv_block_16_0= ruleBlock
                     {
                     if ( state.backtracking==0 ) {
 
-                      						newCompositeNode(grammarAccess.getFunctionDefinitionAccess().getBlockBlockParserRuleCall_5_1_0());
+                      						newCompositeNode(grammarAccess.getFunctionDefinitionAccess().getBlockBlockParserRuleCall_8_1_0());
                       					
                     }
                     pushFollow(FOLLOW_2);
-                    lv_block_10_0=ruleBlock();
+                    lv_block_16_0=ruleBlock();
 
                     state._fsp--;
                     if (state.failed) return current;
@@ -3167,7 +3026,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                       						set(
                       							current,
                       							"block",
-                      							lv_block_10_0,
+                      							lv_block_16_0,
                       							"com.yakindu.solidity.Solidity.Block");
                       						afterParserOrEnumRuleCall();
                       					
@@ -3209,7 +3068,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleParameter"
-    // InternalSolidity.g:1135:1: entryRuleParameter returns [EObject current=null] : iv_ruleParameter= ruleParameter EOF ;
+    // InternalSolidity.g:1083:1: entryRuleParameter returns [EObject current=null] : iv_ruleParameter= ruleParameter EOF ;
     public final EObject entryRuleParameter() throws RecognitionException {
         EObject current = null;
 
@@ -3217,8 +3076,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:1135:50: (iv_ruleParameter= ruleParameter EOF )
-            // InternalSolidity.g:1136:2: iv_ruleParameter= ruleParameter EOF
+            // InternalSolidity.g:1083:50: (iv_ruleParameter= ruleParameter EOF )
+            // InternalSolidity.g:1084:2: iv_ruleParameter= ruleParameter EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getParameterRule()); 
@@ -3249,112 +3108,37 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleParameter"
-    // InternalSolidity.g:1142:1: ruleParameter returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) ( (lv_varArgs_1_0= '...' ) )? otherlv_2= ':' ( (lv_typeSpecifier_3_0= ruleTypeSpecifier ) ) ) ;
+    // InternalSolidity.g:1090:1: ruleParameter returns [EObject current=null] : ( ( (lv_typeSpecifier_0_0= ruleTypeSpecifier ) ) ( (lv_name_1_0= RULE_ID ) ) ) ;
     public final EObject ruleParameter() throws RecognitionException {
         EObject current = null;
 
-        Token lv_name_0_0=null;
-        Token lv_varArgs_1_0=null;
-        Token otherlv_2=null;
-        EObject lv_typeSpecifier_3_0 = null;
+        Token lv_name_1_0=null;
+        EObject lv_typeSpecifier_0_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalSolidity.g:1148:2: ( ( ( (lv_name_0_0= RULE_ID ) ) ( (lv_varArgs_1_0= '...' ) )? otherlv_2= ':' ( (lv_typeSpecifier_3_0= ruleTypeSpecifier ) ) ) )
-            // InternalSolidity.g:1149:2: ( ( (lv_name_0_0= RULE_ID ) ) ( (lv_varArgs_1_0= '...' ) )? otherlv_2= ':' ( (lv_typeSpecifier_3_0= ruleTypeSpecifier ) ) )
+            // InternalSolidity.g:1096:2: ( ( ( (lv_typeSpecifier_0_0= ruleTypeSpecifier ) ) ( (lv_name_1_0= RULE_ID ) ) ) )
+            // InternalSolidity.g:1097:2: ( ( (lv_typeSpecifier_0_0= ruleTypeSpecifier ) ) ( (lv_name_1_0= RULE_ID ) ) )
             {
-            // InternalSolidity.g:1149:2: ( ( (lv_name_0_0= RULE_ID ) ) ( (lv_varArgs_1_0= '...' ) )? otherlv_2= ':' ( (lv_typeSpecifier_3_0= ruleTypeSpecifier ) ) )
-            // InternalSolidity.g:1150:3: ( (lv_name_0_0= RULE_ID ) ) ( (lv_varArgs_1_0= '...' ) )? otherlv_2= ':' ( (lv_typeSpecifier_3_0= ruleTypeSpecifier ) )
+            // InternalSolidity.g:1097:2: ( ( (lv_typeSpecifier_0_0= ruleTypeSpecifier ) ) ( (lv_name_1_0= RULE_ID ) ) )
+            // InternalSolidity.g:1098:3: ( (lv_typeSpecifier_0_0= ruleTypeSpecifier ) ) ( (lv_name_1_0= RULE_ID ) )
             {
-            // InternalSolidity.g:1150:3: ( (lv_name_0_0= RULE_ID ) )
-            // InternalSolidity.g:1151:4: (lv_name_0_0= RULE_ID )
+            // InternalSolidity.g:1098:3: ( (lv_typeSpecifier_0_0= ruleTypeSpecifier ) )
+            // InternalSolidity.g:1099:4: (lv_typeSpecifier_0_0= ruleTypeSpecifier )
             {
-            // InternalSolidity.g:1151:4: (lv_name_0_0= RULE_ID )
-            // InternalSolidity.g:1152:5: lv_name_0_0= RULE_ID
+            // InternalSolidity.g:1099:4: (lv_typeSpecifier_0_0= ruleTypeSpecifier )
+            // InternalSolidity.g:1100:5: lv_typeSpecifier_0_0= ruleTypeSpecifier
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_25); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              					newLeafNode(lv_name_0_0, grammarAccess.getParameterAccess().getNameIDTerminalRuleCall_0_0());
+              					newCompositeNode(grammarAccess.getParameterAccess().getTypeSpecifierTypeSpecifierParserRuleCall_0_0());
               				
             }
-            if ( state.backtracking==0 ) {
-
-              					if (current==null) {
-              						current = createModelElement(grammarAccess.getParameterRule());
-              					}
-              					setWithLastConsumed(
-              						current,
-              						"name",
-              						lv_name_0_0,
-              						"org.eclipse.xtext.common.Terminals.ID");
-              				
-            }
-
-            }
-
-
-            }
-
-            // InternalSolidity.g:1168:3: ( (lv_varArgs_1_0= '...' ) )?
-            int alt19=2;
-            int LA19_0 = input.LA(1);
-
-            if ( (LA19_0==38) ) {
-                alt19=1;
-            }
-            switch (alt19) {
-                case 1 :
-                    // InternalSolidity.g:1169:4: (lv_varArgs_1_0= '...' )
-                    {
-                    // InternalSolidity.g:1169:4: (lv_varArgs_1_0= '...' )
-                    // InternalSolidity.g:1170:5: lv_varArgs_1_0= '...'
-                    {
-                    lv_varArgs_1_0=(Token)match(input,38,FOLLOW_26); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      					newLeafNode(lv_varArgs_1_0, grammarAccess.getParameterAccess().getVarArgsFullStopFullStopFullStopKeyword_1_0());
-                      				
-                    }
-                    if ( state.backtracking==0 ) {
-
-                      					if (current==null) {
-                      						current = createModelElement(grammarAccess.getParameterRule());
-                      					}
-                      					setWithLastConsumed(current, "varArgs", true, "...");
-                      				
-                    }
-
-                    }
-
-
-                    }
-                    break;
-
-            }
-
-            otherlv_2=(Token)match(input,39,FOLLOW_9); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              			newLeafNode(otherlv_2, grammarAccess.getParameterAccess().getColonKeyword_2());
-              		
-            }
-            // InternalSolidity.g:1186:3: ( (lv_typeSpecifier_3_0= ruleTypeSpecifier ) )
-            // InternalSolidity.g:1187:4: (lv_typeSpecifier_3_0= ruleTypeSpecifier )
-            {
-            // InternalSolidity.g:1187:4: (lv_typeSpecifier_3_0= ruleTypeSpecifier )
-            // InternalSolidity.g:1188:5: lv_typeSpecifier_3_0= ruleTypeSpecifier
-            {
-            if ( state.backtracking==0 ) {
-
-              					newCompositeNode(grammarAccess.getParameterAccess().getTypeSpecifierTypeSpecifierParserRuleCall_3_0());
-              				
-            }
-            pushFollow(FOLLOW_2);
-            lv_typeSpecifier_3_0=ruleTypeSpecifier();
+            pushFollow(FOLLOW_11);
+            lv_typeSpecifier_0_0=ruleTypeSpecifier();
 
             state._fsp--;
             if (state.failed) return current;
@@ -3366,9 +3150,39 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               					set(
               						current,
               						"typeSpecifier",
-              						lv_typeSpecifier_3_0,
+              						lv_typeSpecifier_0_0,
               						"org.yakindu.base.expressions.Expressions.TypeSpecifier");
               					afterParserOrEnumRuleCall();
+              				
+            }
+
+            }
+
+
+            }
+
+            // InternalSolidity.g:1117:3: ( (lv_name_1_0= RULE_ID ) )
+            // InternalSolidity.g:1118:4: (lv_name_1_0= RULE_ID )
+            {
+            // InternalSolidity.g:1118:4: (lv_name_1_0= RULE_ID )
+            // InternalSolidity.g:1119:5: lv_name_1_0= RULE_ID
+            {
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_2); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              					newLeafNode(lv_name_1_0, grammarAccess.getParameterAccess().getNameIDTerminalRuleCall_1_0());
+              				
+            }
+            if ( state.backtracking==0 ) {
+
+              					if (current==null) {
+              						current = createModelElement(grammarAccess.getParameterRule());
+              					}
+              					setWithLastConsumed(
+              						current,
+              						"name",
+              						lv_name_1_0,
+              						"org.eclipse.xtext.common.Terminals.ID");
               				
             }
 
@@ -3402,7 +3216,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEventDefinition"
-    // InternalSolidity.g:1209:1: entryRuleEventDefinition returns [EObject current=null] : iv_ruleEventDefinition= ruleEventDefinition EOF ;
+    // InternalSolidity.g:1139:1: entryRuleEventDefinition returns [EObject current=null] : iv_ruleEventDefinition= ruleEventDefinition EOF ;
     public final EObject entryRuleEventDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -3410,8 +3224,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:1209:56: (iv_ruleEventDefinition= ruleEventDefinition EOF )
-            // InternalSolidity.g:1210:2: iv_ruleEventDefinition= ruleEventDefinition EOF
+            // InternalSolidity.g:1139:56: (iv_ruleEventDefinition= ruleEventDefinition EOF )
+            // InternalSolidity.g:1140:2: iv_ruleEventDefinition= ruleEventDefinition EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEventDefinitionRule()); 
@@ -3442,7 +3256,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEventDefinition"
-    // InternalSolidity.g:1216:1: ruleEventDefinition returns [EObject current=null] : (otherlv_0= 'event' ( (lv_name_1_0= RULE_ID ) ) ) ;
+    // InternalSolidity.g:1146:1: ruleEventDefinition returns [EObject current=null] : (otherlv_0= 'event' ( (lv_name_1_0= RULE_ID ) ) ) ;
     public final EObject ruleEventDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -3453,23 +3267,23 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:1222:2: ( (otherlv_0= 'event' ( (lv_name_1_0= RULE_ID ) ) ) )
-            // InternalSolidity.g:1223:2: (otherlv_0= 'event' ( (lv_name_1_0= RULE_ID ) ) )
+            // InternalSolidity.g:1152:2: ( (otherlv_0= 'event' ( (lv_name_1_0= RULE_ID ) ) ) )
+            // InternalSolidity.g:1153:2: (otherlv_0= 'event' ( (lv_name_1_0= RULE_ID ) ) )
             {
-            // InternalSolidity.g:1223:2: (otherlv_0= 'event' ( (lv_name_1_0= RULE_ID ) ) )
-            // InternalSolidity.g:1224:3: otherlv_0= 'event' ( (lv_name_1_0= RULE_ID ) )
+            // InternalSolidity.g:1153:2: (otherlv_0= 'event' ( (lv_name_1_0= RULE_ID ) ) )
+            // InternalSolidity.g:1154:3: otherlv_0= 'event' ( (lv_name_1_0= RULE_ID ) )
             {
-            otherlv_0=(Token)match(input,40,FOLLOW_9); if (state.failed) return current;
+            otherlv_0=(Token)match(input,38,FOLLOW_11); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_0, grammarAccess.getEventDefinitionAccess().getEventKeyword_0());
               		
             }
-            // InternalSolidity.g:1228:3: ( (lv_name_1_0= RULE_ID ) )
-            // InternalSolidity.g:1229:4: (lv_name_1_0= RULE_ID )
+            // InternalSolidity.g:1158:3: ( (lv_name_1_0= RULE_ID ) )
+            // InternalSolidity.g:1159:4: (lv_name_1_0= RULE_ID )
             {
-            // InternalSolidity.g:1229:4: (lv_name_1_0= RULE_ID )
-            // InternalSolidity.g:1230:5: lv_name_1_0= RULE_ID
+            // InternalSolidity.g:1159:4: (lv_name_1_0= RULE_ID )
+            // InternalSolidity.g:1160:5: lv_name_1_0= RULE_ID
             {
             lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -3519,244 +3333,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleEventDefinition"
 
 
-    // $ANTLR start "entryRuleEnumDefinition"
-    // InternalSolidity.g:1250:1: entryRuleEnumDefinition returns [EObject current=null] : iv_ruleEnumDefinition= ruleEnumDefinition EOF ;
-    public final EObject entryRuleEnumDefinition() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleEnumDefinition = null;
-
-
-        try {
-            // InternalSolidity.g:1250:55: (iv_ruleEnumDefinition= ruleEnumDefinition EOF )
-            // InternalSolidity.g:1251:2: iv_ruleEnumDefinition= ruleEnumDefinition EOF
-            {
-            if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getEnumDefinitionRule()); 
-            }
-            pushFollow(FOLLOW_1);
-            iv_ruleEnumDefinition=ruleEnumDefinition();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               current =iv_ruleEnumDefinition; 
-            }
-            match(input,EOF,FOLLOW_2); if (state.failed) return current;
-
-            }
-
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleEnumDefinition"
-
-
-    // $ANTLR start "ruleEnumDefinition"
-    // InternalSolidity.g:1257:1: ruleEnumDefinition returns [EObject current=null] : (otherlv_0= 'enum' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_value_3_0= RULE_STRING ) )? (otherlv_4= ',' ( (lv_value_5_0= RULE_STRING ) ) )* otherlv_6= '}' ) ;
-    public final EObject ruleEnumDefinition() throws RecognitionException {
-        EObject current = null;
-
-        Token otherlv_0=null;
-        Token lv_name_1_0=null;
-        Token otherlv_2=null;
-        Token lv_value_3_0=null;
-        Token otherlv_4=null;
-        Token lv_value_5_0=null;
-        Token otherlv_6=null;
-
-
-        	enterRule();
-
-        try {
-            // InternalSolidity.g:1263:2: ( (otherlv_0= 'enum' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_value_3_0= RULE_STRING ) )? (otherlv_4= ',' ( (lv_value_5_0= RULE_STRING ) ) )* otherlv_6= '}' ) )
-            // InternalSolidity.g:1264:2: (otherlv_0= 'enum' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_value_3_0= RULE_STRING ) )? (otherlv_4= ',' ( (lv_value_5_0= RULE_STRING ) ) )* otherlv_6= '}' )
-            {
-            // InternalSolidity.g:1264:2: (otherlv_0= 'enum' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_value_3_0= RULE_STRING ) )? (otherlv_4= ',' ( (lv_value_5_0= RULE_STRING ) ) )* otherlv_6= '}' )
-            // InternalSolidity.g:1265:3: otherlv_0= 'enum' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (lv_value_3_0= RULE_STRING ) )? (otherlv_4= ',' ( (lv_value_5_0= RULE_STRING ) ) )* otherlv_6= '}'
-            {
-            otherlv_0=(Token)match(input,41,FOLLOW_9); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              			newLeafNode(otherlv_0, grammarAccess.getEnumDefinitionAccess().getEnumKeyword_0());
-              		
-            }
-            // InternalSolidity.g:1269:3: ( (lv_name_1_0= RULE_ID ) )
-            // InternalSolidity.g:1270:4: (lv_name_1_0= RULE_ID )
-            {
-            // InternalSolidity.g:1270:4: (lv_name_1_0= RULE_ID )
-            // InternalSolidity.g:1271:5: lv_name_1_0= RULE_ID
-            {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_16); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              					newLeafNode(lv_name_1_0, grammarAccess.getEnumDefinitionAccess().getNameIDTerminalRuleCall_1_0());
-              				
-            }
-            if ( state.backtracking==0 ) {
-
-              					if (current==null) {
-              						current = createModelElement(grammarAccess.getEnumDefinitionRule());
-              					}
-              					setWithLastConsumed(
-              						current,
-              						"name",
-              						lv_name_1_0,
-              						"org.eclipse.xtext.common.Terminals.ID");
-              				
-            }
-
-            }
-
-
-            }
-
-            otherlv_2=(Token)match(input,24,FOLLOW_27); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              			newLeafNode(otherlv_2, grammarAccess.getEnumDefinitionAccess().getLeftCurlyBracketKeyword_2());
-              		
-            }
-            // InternalSolidity.g:1291:3: ( (lv_value_3_0= RULE_STRING ) )?
-            int alt20=2;
-            int LA20_0 = input.LA(1);
-
-            if ( (LA20_0==RULE_STRING) ) {
-                alt20=1;
-            }
-            switch (alt20) {
-                case 1 :
-                    // InternalSolidity.g:1292:4: (lv_value_3_0= RULE_STRING )
-                    {
-                    // InternalSolidity.g:1292:4: (lv_value_3_0= RULE_STRING )
-                    // InternalSolidity.g:1293:5: lv_value_3_0= RULE_STRING
-                    {
-                    lv_value_3_0=(Token)match(input,RULE_STRING,FOLLOW_28); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      					newLeafNode(lv_value_3_0, grammarAccess.getEnumDefinitionAccess().getValueSTRINGTerminalRuleCall_3_0());
-                      				
-                    }
-                    if ( state.backtracking==0 ) {
-
-                      					if (current==null) {
-                      						current = createModelElement(grammarAccess.getEnumDefinitionRule());
-                      					}
-                      					addWithLastConsumed(
-                      						current,
-                      						"value",
-                      						lv_value_3_0,
-                      						"org.eclipse.xtext.common.Terminals.STRING");
-                      				
-                    }
-
-                    }
-
-
-                    }
-                    break;
-
-            }
-
-            // InternalSolidity.g:1309:3: (otherlv_4= ',' ( (lv_value_5_0= RULE_STRING ) ) )*
-            loop21:
-            do {
-                int alt21=2;
-                int LA21_0 = input.LA(1);
-
-                if ( (LA21_0==23) ) {
-                    alt21=1;
-                }
-
-
-                switch (alt21) {
-            	case 1 :
-            	    // InternalSolidity.g:1310:4: otherlv_4= ',' ( (lv_value_5_0= RULE_STRING ) )
-            	    {
-            	    otherlv_4=(Token)match(input,23,FOLLOW_7); if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      				newLeafNode(otherlv_4, grammarAccess.getEnumDefinitionAccess().getCommaKeyword_4_0());
-            	      			
-            	    }
-            	    // InternalSolidity.g:1314:4: ( (lv_value_5_0= RULE_STRING ) )
-            	    // InternalSolidity.g:1315:5: (lv_value_5_0= RULE_STRING )
-            	    {
-            	    // InternalSolidity.g:1315:5: (lv_value_5_0= RULE_STRING )
-            	    // InternalSolidity.g:1316:6: lv_value_5_0= RULE_STRING
-            	    {
-            	    lv_value_5_0=(Token)match(input,RULE_STRING,FOLLOW_28); if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      						newLeafNode(lv_value_5_0, grammarAccess.getEnumDefinitionAccess().getValueSTRINGTerminalRuleCall_4_1_0());
-            	      					
-            	    }
-            	    if ( state.backtracking==0 ) {
-
-            	      						if (current==null) {
-            	      							current = createModelElement(grammarAccess.getEnumDefinitionRule());
-            	      						}
-            	      						addWithLastConsumed(
-            	      							current,
-            	      							"value",
-            	      							lv_value_5_0,
-            	      							"org.eclipse.xtext.common.Terminals.STRING");
-            	      					
-            	    }
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop21;
-                }
-            } while (true);
-
-            otherlv_6=(Token)match(input,25,FOLLOW_2); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              			newLeafNode(otherlv_6, grammarAccess.getEnumDefinitionAccess().getRightCurlyBracketKeyword_5());
-              		
-            }
-
-            }
-
-
-            }
-
-            if ( state.backtracking==0 ) {
-
-              	leaveRule();
-
-            }
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleEnumDefinition"
-
-
     // $ANTLR start "entryRuleExpression"
-    // InternalSolidity.g:1341:1: entryRuleExpression returns [EObject current=null] : iv_ruleExpression= ruleExpression EOF ;
+    // InternalSolidity.g:1180:1: entryRuleExpression returns [EObject current=null] : iv_ruleExpression= ruleExpression EOF ;
     public final EObject entryRuleExpression() throws RecognitionException {
         EObject current = null;
 
@@ -3764,8 +3342,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:1341:51: (iv_ruleExpression= ruleExpression EOF )
-            // InternalSolidity.g:1342:2: iv_ruleExpression= ruleExpression EOF
+            // InternalSolidity.g:1180:51: (iv_ruleExpression= ruleExpression EOF )
+            // InternalSolidity.g:1181:2: iv_ruleExpression= ruleExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExpressionRule()); 
@@ -3796,7 +3374,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExpression"
-    // InternalSolidity.g:1348:1: ruleExpression returns [EObject current=null] : this_AssignmentExpression_0= ruleAssignmentExpression ;
+    // InternalSolidity.g:1187:1: ruleExpression returns [EObject current=null] : this_AssignmentExpression_0= ruleAssignmentExpression ;
     public final EObject ruleExpression() throws RecognitionException {
         EObject current = null;
 
@@ -3807,8 +3385,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:1354:2: (this_AssignmentExpression_0= ruleAssignmentExpression )
-            // InternalSolidity.g:1355:2: this_AssignmentExpression_0= ruleAssignmentExpression
+            // InternalSolidity.g:1193:2: (this_AssignmentExpression_0= ruleAssignmentExpression )
+            // InternalSolidity.g:1194:2: this_AssignmentExpression_0= ruleAssignmentExpression
             {
             if ( state.backtracking==0 ) {
 
@@ -3848,7 +3426,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAssignmentExpression"
-    // InternalSolidity.g:1366:1: entryRuleAssignmentExpression returns [EObject current=null] : iv_ruleAssignmentExpression= ruleAssignmentExpression EOF ;
+    // InternalSolidity.g:1205:1: entryRuleAssignmentExpression returns [EObject current=null] : iv_ruleAssignmentExpression= ruleAssignmentExpression EOF ;
     public final EObject entryRuleAssignmentExpression() throws RecognitionException {
         EObject current = null;
 
@@ -3856,8 +3434,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:1366:61: (iv_ruleAssignmentExpression= ruleAssignmentExpression EOF )
-            // InternalSolidity.g:1367:2: iv_ruleAssignmentExpression= ruleAssignmentExpression EOF
+            // InternalSolidity.g:1205:61: (iv_ruleAssignmentExpression= ruleAssignmentExpression EOF )
+            // InternalSolidity.g:1206:2: iv_ruleAssignmentExpression= ruleAssignmentExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAssignmentExpressionRule()); 
@@ -3888,7 +3466,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAssignmentExpression"
-    // InternalSolidity.g:1373:1: ruleAssignmentExpression returns [EObject current=null] : (this_ConditionalExpression_0= ruleConditionalExpression ( () ( (lv_operator_2_0= ruleAssignmentOperator ) ) ( (lv_expression_3_0= ruleConditionalExpression ) ) )* ) ;
+    // InternalSolidity.g:1212:1: ruleAssignmentExpression returns [EObject current=null] : (this_ConditionalExpression_0= ruleConditionalExpression ( () ( (lv_operator_2_0= ruleAssignmentOperator ) ) ( (lv_expression_3_0= ruleConditionalExpression ) ) )* ) ;
     public final EObject ruleAssignmentExpression() throws RecognitionException {
         EObject current = null;
 
@@ -3903,18 +3481,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:1379:2: ( (this_ConditionalExpression_0= ruleConditionalExpression ( () ( (lv_operator_2_0= ruleAssignmentOperator ) ) ( (lv_expression_3_0= ruleConditionalExpression ) ) )* ) )
-            // InternalSolidity.g:1380:2: (this_ConditionalExpression_0= ruleConditionalExpression ( () ( (lv_operator_2_0= ruleAssignmentOperator ) ) ( (lv_expression_3_0= ruleConditionalExpression ) ) )* )
+            // InternalSolidity.g:1218:2: ( (this_ConditionalExpression_0= ruleConditionalExpression ( () ( (lv_operator_2_0= ruleAssignmentOperator ) ) ( (lv_expression_3_0= ruleConditionalExpression ) ) )* ) )
+            // InternalSolidity.g:1219:2: (this_ConditionalExpression_0= ruleConditionalExpression ( () ( (lv_operator_2_0= ruleAssignmentOperator ) ) ( (lv_expression_3_0= ruleConditionalExpression ) ) )* )
             {
-            // InternalSolidity.g:1380:2: (this_ConditionalExpression_0= ruleConditionalExpression ( () ( (lv_operator_2_0= ruleAssignmentOperator ) ) ( (lv_expression_3_0= ruleConditionalExpression ) ) )* )
-            // InternalSolidity.g:1381:3: this_ConditionalExpression_0= ruleConditionalExpression ( () ( (lv_operator_2_0= ruleAssignmentOperator ) ) ( (lv_expression_3_0= ruleConditionalExpression ) ) )*
+            // InternalSolidity.g:1219:2: (this_ConditionalExpression_0= ruleConditionalExpression ( () ( (lv_operator_2_0= ruleAssignmentOperator ) ) ( (lv_expression_3_0= ruleConditionalExpression ) ) )* )
+            // InternalSolidity.g:1220:3: this_ConditionalExpression_0= ruleConditionalExpression ( () ( (lv_operator_2_0= ruleAssignmentOperator ) ) ( (lv_expression_3_0= ruleConditionalExpression ) ) )*
             {
             if ( state.backtracking==0 ) {
 
               			newCompositeNode(grammarAccess.getAssignmentExpressionAccess().getConditionalExpressionParserRuleCall_0());
               		
             }
-            pushFollow(FOLLOW_29);
+            pushFollow(FOLLOW_27);
             this_ConditionalExpression_0=ruleConditionalExpression();
 
             state._fsp--;
@@ -3925,23 +3503,23 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               			afterParserOrEnumRuleCall();
               		
             }
-            // InternalSolidity.g:1389:3: ( () ( (lv_operator_2_0= ruleAssignmentOperator ) ) ( (lv_expression_3_0= ruleConditionalExpression ) ) )*
+            // InternalSolidity.g:1228:3: ( () ( (lv_operator_2_0= ruleAssignmentOperator ) ) ( (lv_expression_3_0= ruleConditionalExpression ) ) )*
             loop22:
             do {
                 int alt22=2;
                 int LA22_0 = input.LA(1);
 
-                if ( (LA22_0==26||(LA22_0>=59 && LA22_0<=68)) ) {
+                if ( (LA22_0==26||(LA22_0>=56 && LA22_0<=65)) ) {
                     alt22=1;
                 }
 
 
                 switch (alt22) {
             	case 1 :
-            	    // InternalSolidity.g:1390:4: () ( (lv_operator_2_0= ruleAssignmentOperator ) ) ( (lv_expression_3_0= ruleConditionalExpression ) )
+            	    // InternalSolidity.g:1229:4: () ( (lv_operator_2_0= ruleAssignmentOperator ) ) ( (lv_expression_3_0= ruleConditionalExpression ) )
             	    {
-            	    // InternalSolidity.g:1390:4: ()
-            	    // InternalSolidity.g:1391:5: 
+            	    // InternalSolidity.g:1229:4: ()
+            	    // InternalSolidity.g:1230:5: 
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -3953,18 +3531,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // InternalSolidity.g:1397:4: ( (lv_operator_2_0= ruleAssignmentOperator ) )
-            	    // InternalSolidity.g:1398:5: (lv_operator_2_0= ruleAssignmentOperator )
+            	    // InternalSolidity.g:1236:4: ( (lv_operator_2_0= ruleAssignmentOperator ) )
+            	    // InternalSolidity.g:1237:5: (lv_operator_2_0= ruleAssignmentOperator )
             	    {
-            	    // InternalSolidity.g:1398:5: (lv_operator_2_0= ruleAssignmentOperator )
-            	    // InternalSolidity.g:1399:6: lv_operator_2_0= ruleAssignmentOperator
+            	    // InternalSolidity.g:1237:5: (lv_operator_2_0= ruleAssignmentOperator )
+            	    // InternalSolidity.g:1238:6: lv_operator_2_0= ruleAssignmentOperator
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      						newCompositeNode(grammarAccess.getAssignmentExpressionAccess().getOperatorAssignmentOperatorEnumRuleCall_1_1_0());
             	      					
             	    }
-            	    pushFollow(FOLLOW_15);
+            	    pushFollow(FOLLOW_17);
             	    lv_operator_2_0=ruleAssignmentOperator();
 
             	    state._fsp--;
@@ -3988,18 +3566,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // InternalSolidity.g:1416:4: ( (lv_expression_3_0= ruleConditionalExpression ) )
-            	    // InternalSolidity.g:1417:5: (lv_expression_3_0= ruleConditionalExpression )
+            	    // InternalSolidity.g:1255:4: ( (lv_expression_3_0= ruleConditionalExpression ) )
+            	    // InternalSolidity.g:1256:5: (lv_expression_3_0= ruleConditionalExpression )
             	    {
-            	    // InternalSolidity.g:1417:5: (lv_expression_3_0= ruleConditionalExpression )
-            	    // InternalSolidity.g:1418:6: lv_expression_3_0= ruleConditionalExpression
+            	    // InternalSolidity.g:1256:5: (lv_expression_3_0= ruleConditionalExpression )
+            	    // InternalSolidity.g:1257:6: lv_expression_3_0= ruleConditionalExpression
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      						newCompositeNode(grammarAccess.getAssignmentExpressionAccess().getExpressionConditionalExpressionParserRuleCall_1_2_0());
             	      					
             	    }
-            	    pushFollow(FOLLOW_29);
+            	    pushFollow(FOLLOW_27);
             	    lv_expression_3_0=ruleConditionalExpression();
 
             	    state._fsp--;
@@ -4057,7 +3635,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleConditionalExpression"
-    // InternalSolidity.g:1440:1: entryRuleConditionalExpression returns [EObject current=null] : iv_ruleConditionalExpression= ruleConditionalExpression EOF ;
+    // InternalSolidity.g:1279:1: entryRuleConditionalExpression returns [EObject current=null] : iv_ruleConditionalExpression= ruleConditionalExpression EOF ;
     public final EObject entryRuleConditionalExpression() throws RecognitionException {
         EObject current = null;
 
@@ -4065,8 +3643,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:1440:62: (iv_ruleConditionalExpression= ruleConditionalExpression EOF )
-            // InternalSolidity.g:1441:2: iv_ruleConditionalExpression= ruleConditionalExpression EOF
+            // InternalSolidity.g:1279:62: (iv_ruleConditionalExpression= ruleConditionalExpression EOF )
+            // InternalSolidity.g:1280:2: iv_ruleConditionalExpression= ruleConditionalExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getConditionalExpressionRule()); 
@@ -4097,7 +3675,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleConditionalExpression"
-    // InternalSolidity.g:1447:1: ruleConditionalExpression returns [EObject current=null] : (this_LogicalOrExpression_0= ruleLogicalOrExpression ( () otherlv_2= '?' ( (lv_trueCase_3_0= ruleLogicalOrExpression ) ) otherlv_4= ':' ( (lv_falseCase_5_0= ruleLogicalOrExpression ) ) )? ) ;
+    // InternalSolidity.g:1286:1: ruleConditionalExpression returns [EObject current=null] : (this_LogicalOrExpression_0= ruleLogicalOrExpression ( () otherlv_2= '?' ( (lv_trueCase_3_0= ruleLogicalOrExpression ) ) otherlv_4= ':' ( (lv_falseCase_5_0= ruleLogicalOrExpression ) ) )? ) ;
     public final EObject ruleConditionalExpression() throws RecognitionException {
         EObject current = null;
 
@@ -4114,18 +3692,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:1453:2: ( (this_LogicalOrExpression_0= ruleLogicalOrExpression ( () otherlv_2= '?' ( (lv_trueCase_3_0= ruleLogicalOrExpression ) ) otherlv_4= ':' ( (lv_falseCase_5_0= ruleLogicalOrExpression ) ) )? ) )
-            // InternalSolidity.g:1454:2: (this_LogicalOrExpression_0= ruleLogicalOrExpression ( () otherlv_2= '?' ( (lv_trueCase_3_0= ruleLogicalOrExpression ) ) otherlv_4= ':' ( (lv_falseCase_5_0= ruleLogicalOrExpression ) ) )? )
+            // InternalSolidity.g:1292:2: ( (this_LogicalOrExpression_0= ruleLogicalOrExpression ( () otherlv_2= '?' ( (lv_trueCase_3_0= ruleLogicalOrExpression ) ) otherlv_4= ':' ( (lv_falseCase_5_0= ruleLogicalOrExpression ) ) )? ) )
+            // InternalSolidity.g:1293:2: (this_LogicalOrExpression_0= ruleLogicalOrExpression ( () otherlv_2= '?' ( (lv_trueCase_3_0= ruleLogicalOrExpression ) ) otherlv_4= ':' ( (lv_falseCase_5_0= ruleLogicalOrExpression ) ) )? )
             {
-            // InternalSolidity.g:1454:2: (this_LogicalOrExpression_0= ruleLogicalOrExpression ( () otherlv_2= '?' ( (lv_trueCase_3_0= ruleLogicalOrExpression ) ) otherlv_4= ':' ( (lv_falseCase_5_0= ruleLogicalOrExpression ) ) )? )
-            // InternalSolidity.g:1455:3: this_LogicalOrExpression_0= ruleLogicalOrExpression ( () otherlv_2= '?' ( (lv_trueCase_3_0= ruleLogicalOrExpression ) ) otherlv_4= ':' ( (lv_falseCase_5_0= ruleLogicalOrExpression ) ) )?
+            // InternalSolidity.g:1293:2: (this_LogicalOrExpression_0= ruleLogicalOrExpression ( () otherlv_2= '?' ( (lv_trueCase_3_0= ruleLogicalOrExpression ) ) otherlv_4= ':' ( (lv_falseCase_5_0= ruleLogicalOrExpression ) ) )? )
+            // InternalSolidity.g:1294:3: this_LogicalOrExpression_0= ruleLogicalOrExpression ( () otherlv_2= '?' ( (lv_trueCase_3_0= ruleLogicalOrExpression ) ) otherlv_4= ':' ( (lv_falseCase_5_0= ruleLogicalOrExpression ) ) )?
             {
             if ( state.backtracking==0 ) {
 
               			newCompositeNode(grammarAccess.getConditionalExpressionAccess().getLogicalOrExpressionParserRuleCall_0());
               		
             }
-            pushFollow(FOLLOW_30);
+            pushFollow(FOLLOW_28);
             this_LogicalOrExpression_0=ruleLogicalOrExpression();
 
             state._fsp--;
@@ -4136,19 +3714,19 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               			afterParserOrEnumRuleCall();
               		
             }
-            // InternalSolidity.g:1463:3: ( () otherlv_2= '?' ( (lv_trueCase_3_0= ruleLogicalOrExpression ) ) otherlv_4= ':' ( (lv_falseCase_5_0= ruleLogicalOrExpression ) ) )?
+            // InternalSolidity.g:1302:3: ( () otherlv_2= '?' ( (lv_trueCase_3_0= ruleLogicalOrExpression ) ) otherlv_4= ':' ( (lv_falseCase_5_0= ruleLogicalOrExpression ) ) )?
             int alt23=2;
             int LA23_0 = input.LA(1);
 
-            if ( (LA23_0==42) ) {
+            if ( (LA23_0==39) ) {
                 alt23=1;
             }
             switch (alt23) {
                 case 1 :
-                    // InternalSolidity.g:1464:4: () otherlv_2= '?' ( (lv_trueCase_3_0= ruleLogicalOrExpression ) ) otherlv_4= ':' ( (lv_falseCase_5_0= ruleLogicalOrExpression ) )
+                    // InternalSolidity.g:1303:4: () otherlv_2= '?' ( (lv_trueCase_3_0= ruleLogicalOrExpression ) ) otherlv_4= ':' ( (lv_falseCase_5_0= ruleLogicalOrExpression ) )
                     {
-                    // InternalSolidity.g:1464:4: ()
-                    // InternalSolidity.g:1465:5: 
+                    // InternalSolidity.g:1303:4: ()
+                    // InternalSolidity.g:1304:5: 
                     {
                     if ( state.backtracking==0 ) {
 
@@ -4160,24 +3738,24 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_2=(Token)match(input,42,FOLLOW_15); if (state.failed) return current;
+                    otherlv_2=(Token)match(input,39,FOLLOW_17); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				newLeafNode(otherlv_2, grammarAccess.getConditionalExpressionAccess().getQuestionMarkKeyword_1_1());
                       			
                     }
-                    // InternalSolidity.g:1475:4: ( (lv_trueCase_3_0= ruleLogicalOrExpression ) )
-                    // InternalSolidity.g:1476:5: (lv_trueCase_3_0= ruleLogicalOrExpression )
+                    // InternalSolidity.g:1314:4: ( (lv_trueCase_3_0= ruleLogicalOrExpression ) )
+                    // InternalSolidity.g:1315:5: (lv_trueCase_3_0= ruleLogicalOrExpression )
                     {
-                    // InternalSolidity.g:1476:5: (lv_trueCase_3_0= ruleLogicalOrExpression )
-                    // InternalSolidity.g:1477:6: lv_trueCase_3_0= ruleLogicalOrExpression
+                    // InternalSolidity.g:1315:5: (lv_trueCase_3_0= ruleLogicalOrExpression )
+                    // InternalSolidity.g:1316:6: lv_trueCase_3_0= ruleLogicalOrExpression
                     {
                     if ( state.backtracking==0 ) {
 
                       						newCompositeNode(grammarAccess.getConditionalExpressionAccess().getTrueCaseLogicalOrExpressionParserRuleCall_1_2_0());
                       					
                     }
-                    pushFollow(FOLLOW_26);
+                    pushFollow(FOLLOW_29);
                     lv_trueCase_3_0=ruleLogicalOrExpression();
 
                     state._fsp--;
@@ -4201,17 +3779,17 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_4=(Token)match(input,39,FOLLOW_15); if (state.failed) return current;
+                    otherlv_4=(Token)match(input,40,FOLLOW_17); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				newLeafNode(otherlv_4, grammarAccess.getConditionalExpressionAccess().getColonKeyword_1_3());
                       			
                     }
-                    // InternalSolidity.g:1498:4: ( (lv_falseCase_5_0= ruleLogicalOrExpression ) )
-                    // InternalSolidity.g:1499:5: (lv_falseCase_5_0= ruleLogicalOrExpression )
+                    // InternalSolidity.g:1337:4: ( (lv_falseCase_5_0= ruleLogicalOrExpression ) )
+                    // InternalSolidity.g:1338:5: (lv_falseCase_5_0= ruleLogicalOrExpression )
                     {
-                    // InternalSolidity.g:1499:5: (lv_falseCase_5_0= ruleLogicalOrExpression )
-                    // InternalSolidity.g:1500:6: lv_falseCase_5_0= ruleLogicalOrExpression
+                    // InternalSolidity.g:1338:5: (lv_falseCase_5_0= ruleLogicalOrExpression )
+                    // InternalSolidity.g:1339:6: lv_falseCase_5_0= ruleLogicalOrExpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -4273,7 +3851,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLogicalOrExpression"
-    // InternalSolidity.g:1522:1: entryRuleLogicalOrExpression returns [EObject current=null] : iv_ruleLogicalOrExpression= ruleLogicalOrExpression EOF ;
+    // InternalSolidity.g:1361:1: entryRuleLogicalOrExpression returns [EObject current=null] : iv_ruleLogicalOrExpression= ruleLogicalOrExpression EOF ;
     public final EObject entryRuleLogicalOrExpression() throws RecognitionException {
         EObject current = null;
 
@@ -4281,8 +3859,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:1522:60: (iv_ruleLogicalOrExpression= ruleLogicalOrExpression EOF )
-            // InternalSolidity.g:1523:2: iv_ruleLogicalOrExpression= ruleLogicalOrExpression EOF
+            // InternalSolidity.g:1361:60: (iv_ruleLogicalOrExpression= ruleLogicalOrExpression EOF )
+            // InternalSolidity.g:1362:2: iv_ruleLogicalOrExpression= ruleLogicalOrExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLogicalOrExpressionRule()); 
@@ -4313,7 +3891,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLogicalOrExpression"
-    // InternalSolidity.g:1529:1: ruleLogicalOrExpression returns [EObject current=null] : (this_LogicalAndExpression_0= ruleLogicalAndExpression ( () ruleLogicalOrOperator ( (lv_rightOperand_3_0= ruleLogicalAndExpression ) ) )* ) ;
+    // InternalSolidity.g:1368:1: ruleLogicalOrExpression returns [EObject current=null] : (this_LogicalAndExpression_0= ruleLogicalAndExpression ( () ruleLogicalOrOperator ( (lv_rightOperand_3_0= ruleLogicalAndExpression ) ) )* ) ;
     public final EObject ruleLogicalOrExpression() throws RecognitionException {
         EObject current = null;
 
@@ -4326,18 +3904,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:1535:2: ( (this_LogicalAndExpression_0= ruleLogicalAndExpression ( () ruleLogicalOrOperator ( (lv_rightOperand_3_0= ruleLogicalAndExpression ) ) )* ) )
-            // InternalSolidity.g:1536:2: (this_LogicalAndExpression_0= ruleLogicalAndExpression ( () ruleLogicalOrOperator ( (lv_rightOperand_3_0= ruleLogicalAndExpression ) ) )* )
+            // InternalSolidity.g:1374:2: ( (this_LogicalAndExpression_0= ruleLogicalAndExpression ( () ruleLogicalOrOperator ( (lv_rightOperand_3_0= ruleLogicalAndExpression ) ) )* ) )
+            // InternalSolidity.g:1375:2: (this_LogicalAndExpression_0= ruleLogicalAndExpression ( () ruleLogicalOrOperator ( (lv_rightOperand_3_0= ruleLogicalAndExpression ) ) )* )
             {
-            // InternalSolidity.g:1536:2: (this_LogicalAndExpression_0= ruleLogicalAndExpression ( () ruleLogicalOrOperator ( (lv_rightOperand_3_0= ruleLogicalAndExpression ) ) )* )
-            // InternalSolidity.g:1537:3: this_LogicalAndExpression_0= ruleLogicalAndExpression ( () ruleLogicalOrOperator ( (lv_rightOperand_3_0= ruleLogicalAndExpression ) ) )*
+            // InternalSolidity.g:1375:2: (this_LogicalAndExpression_0= ruleLogicalAndExpression ( () ruleLogicalOrOperator ( (lv_rightOperand_3_0= ruleLogicalAndExpression ) ) )* )
+            // InternalSolidity.g:1376:3: this_LogicalAndExpression_0= ruleLogicalAndExpression ( () ruleLogicalOrOperator ( (lv_rightOperand_3_0= ruleLogicalAndExpression ) ) )*
             {
             if ( state.backtracking==0 ) {
 
               			newCompositeNode(grammarAccess.getLogicalOrExpressionAccess().getLogicalAndExpressionParserRuleCall_0());
               		
             }
-            pushFollow(FOLLOW_31);
+            pushFollow(FOLLOW_30);
             this_LogicalAndExpression_0=ruleLogicalAndExpression();
 
             state._fsp--;
@@ -4348,23 +3926,23 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               			afterParserOrEnumRuleCall();
               		
             }
-            // InternalSolidity.g:1545:3: ( () ruleLogicalOrOperator ( (lv_rightOperand_3_0= ruleLogicalAndExpression ) ) )*
+            // InternalSolidity.g:1384:3: ( () ruleLogicalOrOperator ( (lv_rightOperand_3_0= ruleLogicalAndExpression ) ) )*
             loop24:
             do {
                 int alt24=2;
                 int LA24_0 = input.LA(1);
 
-                if ( (LA24_0==50) ) {
+                if ( (LA24_0==48) ) {
                     alt24=1;
                 }
 
 
                 switch (alt24) {
             	case 1 :
-            	    // InternalSolidity.g:1546:4: () ruleLogicalOrOperator ( (lv_rightOperand_3_0= ruleLogicalAndExpression ) )
+            	    // InternalSolidity.g:1385:4: () ruleLogicalOrOperator ( (lv_rightOperand_3_0= ruleLogicalAndExpression ) )
             	    {
-            	    // InternalSolidity.g:1546:4: ()
-            	    // InternalSolidity.g:1547:5: 
+            	    // InternalSolidity.g:1385:4: ()
+            	    // InternalSolidity.g:1386:5: 
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -4381,7 +3959,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             	      				newCompositeNode(grammarAccess.getLogicalOrExpressionAccess().getLogicalOrOperatorParserRuleCall_1_1());
             	      			
             	    }
-            	    pushFollow(FOLLOW_15);
+            	    pushFollow(FOLLOW_17);
             	    ruleLogicalOrOperator();
 
             	    state._fsp--;
@@ -4391,18 +3969,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             	      				afterParserOrEnumRuleCall();
             	      			
             	    }
-            	    // InternalSolidity.g:1560:4: ( (lv_rightOperand_3_0= ruleLogicalAndExpression ) )
-            	    // InternalSolidity.g:1561:5: (lv_rightOperand_3_0= ruleLogicalAndExpression )
+            	    // InternalSolidity.g:1399:4: ( (lv_rightOperand_3_0= ruleLogicalAndExpression ) )
+            	    // InternalSolidity.g:1400:5: (lv_rightOperand_3_0= ruleLogicalAndExpression )
             	    {
-            	    // InternalSolidity.g:1561:5: (lv_rightOperand_3_0= ruleLogicalAndExpression )
-            	    // InternalSolidity.g:1562:6: lv_rightOperand_3_0= ruleLogicalAndExpression
+            	    // InternalSolidity.g:1400:5: (lv_rightOperand_3_0= ruleLogicalAndExpression )
+            	    // InternalSolidity.g:1401:6: lv_rightOperand_3_0= ruleLogicalAndExpression
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      						newCompositeNode(grammarAccess.getLogicalOrExpressionAccess().getRightOperandLogicalAndExpressionParserRuleCall_1_2_0());
             	      					
             	    }
-            	    pushFollow(FOLLOW_31);
+            	    pushFollow(FOLLOW_30);
             	    lv_rightOperand_3_0=ruleLogicalAndExpression();
 
             	    state._fsp--;
@@ -4460,7 +4038,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLogicalAndExpression"
-    // InternalSolidity.g:1584:1: entryRuleLogicalAndExpression returns [EObject current=null] : iv_ruleLogicalAndExpression= ruleLogicalAndExpression EOF ;
+    // InternalSolidity.g:1423:1: entryRuleLogicalAndExpression returns [EObject current=null] : iv_ruleLogicalAndExpression= ruleLogicalAndExpression EOF ;
     public final EObject entryRuleLogicalAndExpression() throws RecognitionException {
         EObject current = null;
 
@@ -4468,8 +4046,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:1584:61: (iv_ruleLogicalAndExpression= ruleLogicalAndExpression EOF )
-            // InternalSolidity.g:1585:2: iv_ruleLogicalAndExpression= ruleLogicalAndExpression EOF
+            // InternalSolidity.g:1423:61: (iv_ruleLogicalAndExpression= ruleLogicalAndExpression EOF )
+            // InternalSolidity.g:1424:2: iv_ruleLogicalAndExpression= ruleLogicalAndExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLogicalAndExpressionRule()); 
@@ -4500,7 +4078,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLogicalAndExpression"
-    // InternalSolidity.g:1591:1: ruleLogicalAndExpression returns [EObject current=null] : (this_LogicalNotExpression_0= ruleLogicalNotExpression ( () ruleLogicalAndOperator ( (lv_rightOperand_3_0= ruleLogicalNotExpression ) ) )* ) ;
+    // InternalSolidity.g:1430:1: ruleLogicalAndExpression returns [EObject current=null] : (this_LogicalNotExpression_0= ruleLogicalNotExpression ( () ruleLogicalAndOperator ( (lv_rightOperand_3_0= ruleLogicalNotExpression ) ) )* ) ;
     public final EObject ruleLogicalAndExpression() throws RecognitionException {
         EObject current = null;
 
@@ -4513,18 +4091,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:1597:2: ( (this_LogicalNotExpression_0= ruleLogicalNotExpression ( () ruleLogicalAndOperator ( (lv_rightOperand_3_0= ruleLogicalNotExpression ) ) )* ) )
-            // InternalSolidity.g:1598:2: (this_LogicalNotExpression_0= ruleLogicalNotExpression ( () ruleLogicalAndOperator ( (lv_rightOperand_3_0= ruleLogicalNotExpression ) ) )* )
+            // InternalSolidity.g:1436:2: ( (this_LogicalNotExpression_0= ruleLogicalNotExpression ( () ruleLogicalAndOperator ( (lv_rightOperand_3_0= ruleLogicalNotExpression ) ) )* ) )
+            // InternalSolidity.g:1437:2: (this_LogicalNotExpression_0= ruleLogicalNotExpression ( () ruleLogicalAndOperator ( (lv_rightOperand_3_0= ruleLogicalNotExpression ) ) )* )
             {
-            // InternalSolidity.g:1598:2: (this_LogicalNotExpression_0= ruleLogicalNotExpression ( () ruleLogicalAndOperator ( (lv_rightOperand_3_0= ruleLogicalNotExpression ) ) )* )
-            // InternalSolidity.g:1599:3: this_LogicalNotExpression_0= ruleLogicalNotExpression ( () ruleLogicalAndOperator ( (lv_rightOperand_3_0= ruleLogicalNotExpression ) ) )*
+            // InternalSolidity.g:1437:2: (this_LogicalNotExpression_0= ruleLogicalNotExpression ( () ruleLogicalAndOperator ( (lv_rightOperand_3_0= ruleLogicalNotExpression ) ) )* )
+            // InternalSolidity.g:1438:3: this_LogicalNotExpression_0= ruleLogicalNotExpression ( () ruleLogicalAndOperator ( (lv_rightOperand_3_0= ruleLogicalNotExpression ) ) )*
             {
             if ( state.backtracking==0 ) {
 
               			newCompositeNode(grammarAccess.getLogicalAndExpressionAccess().getLogicalNotExpressionParserRuleCall_0());
               		
             }
-            pushFollow(FOLLOW_32);
+            pushFollow(FOLLOW_31);
             this_LogicalNotExpression_0=ruleLogicalNotExpression();
 
             state._fsp--;
@@ -4535,23 +4113,23 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               			afterParserOrEnumRuleCall();
               		
             }
-            // InternalSolidity.g:1607:3: ( () ruleLogicalAndOperator ( (lv_rightOperand_3_0= ruleLogicalNotExpression ) ) )*
+            // InternalSolidity.g:1446:3: ( () ruleLogicalAndOperator ( (lv_rightOperand_3_0= ruleLogicalNotExpression ) ) )*
             loop25:
             do {
                 int alt25=2;
                 int LA25_0 = input.LA(1);
 
-                if ( (LA25_0==49) ) {
+                if ( (LA25_0==47) ) {
                     alt25=1;
                 }
 
 
                 switch (alt25) {
             	case 1 :
-            	    // InternalSolidity.g:1608:4: () ruleLogicalAndOperator ( (lv_rightOperand_3_0= ruleLogicalNotExpression ) )
+            	    // InternalSolidity.g:1447:4: () ruleLogicalAndOperator ( (lv_rightOperand_3_0= ruleLogicalNotExpression ) )
             	    {
-            	    // InternalSolidity.g:1608:4: ()
-            	    // InternalSolidity.g:1609:5: 
+            	    // InternalSolidity.g:1447:4: ()
+            	    // InternalSolidity.g:1448:5: 
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -4568,7 +4146,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             	      				newCompositeNode(grammarAccess.getLogicalAndExpressionAccess().getLogicalAndOperatorParserRuleCall_1_1());
             	      			
             	    }
-            	    pushFollow(FOLLOW_15);
+            	    pushFollow(FOLLOW_17);
             	    ruleLogicalAndOperator();
 
             	    state._fsp--;
@@ -4578,18 +4156,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             	      				afterParserOrEnumRuleCall();
             	      			
             	    }
-            	    // InternalSolidity.g:1622:4: ( (lv_rightOperand_3_0= ruleLogicalNotExpression ) )
-            	    // InternalSolidity.g:1623:5: (lv_rightOperand_3_0= ruleLogicalNotExpression )
+            	    // InternalSolidity.g:1461:4: ( (lv_rightOperand_3_0= ruleLogicalNotExpression ) )
+            	    // InternalSolidity.g:1462:5: (lv_rightOperand_3_0= ruleLogicalNotExpression )
             	    {
-            	    // InternalSolidity.g:1623:5: (lv_rightOperand_3_0= ruleLogicalNotExpression )
-            	    // InternalSolidity.g:1624:6: lv_rightOperand_3_0= ruleLogicalNotExpression
+            	    // InternalSolidity.g:1462:5: (lv_rightOperand_3_0= ruleLogicalNotExpression )
+            	    // InternalSolidity.g:1463:6: lv_rightOperand_3_0= ruleLogicalNotExpression
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      						newCompositeNode(grammarAccess.getLogicalAndExpressionAccess().getRightOperandLogicalNotExpressionParserRuleCall_1_2_0());
             	      					
             	    }
-            	    pushFollow(FOLLOW_32);
+            	    pushFollow(FOLLOW_31);
             	    lv_rightOperand_3_0=ruleLogicalNotExpression();
 
             	    state._fsp--;
@@ -4647,7 +4225,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLogicalNotExpression"
-    // InternalSolidity.g:1646:1: entryRuleLogicalNotExpression returns [EObject current=null] : iv_ruleLogicalNotExpression= ruleLogicalNotExpression EOF ;
+    // InternalSolidity.g:1485:1: entryRuleLogicalNotExpression returns [EObject current=null] : iv_ruleLogicalNotExpression= ruleLogicalNotExpression EOF ;
     public final EObject entryRuleLogicalNotExpression() throws RecognitionException {
         EObject current = null;
 
@@ -4655,8 +4233,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:1646:61: (iv_ruleLogicalNotExpression= ruleLogicalNotExpression EOF )
-            // InternalSolidity.g:1647:2: iv_ruleLogicalNotExpression= ruleLogicalNotExpression EOF
+            // InternalSolidity.g:1485:61: (iv_ruleLogicalNotExpression= ruleLogicalNotExpression EOF )
+            // InternalSolidity.g:1486:2: iv_ruleLogicalNotExpression= ruleLogicalNotExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLogicalNotExpressionRule()); 
@@ -4687,7 +4265,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLogicalNotExpression"
-    // InternalSolidity.g:1653:1: ruleLogicalNotExpression returns [EObject current=null] : (this_BitwiseXorExpression_0= ruleBitwiseXorExpression | ( () ruleLogicalNotOperator ( (lv_operand_3_0= ruleBitwiseXorExpression ) ) ) ) ;
+    // InternalSolidity.g:1492:1: ruleLogicalNotExpression returns [EObject current=null] : (this_BitwiseXorExpression_0= ruleBitwiseXorExpression | ( () ruleLogicalNotOperator ( (lv_operand_3_0= ruleBitwiseXorExpression ) ) ) ) ;
     public final EObject ruleLogicalNotExpression() throws RecognitionException {
         EObject current = null;
 
@@ -4700,17 +4278,17 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:1659:2: ( (this_BitwiseXorExpression_0= ruleBitwiseXorExpression | ( () ruleLogicalNotOperator ( (lv_operand_3_0= ruleBitwiseXorExpression ) ) ) ) )
-            // InternalSolidity.g:1660:2: (this_BitwiseXorExpression_0= ruleBitwiseXorExpression | ( () ruleLogicalNotOperator ( (lv_operand_3_0= ruleBitwiseXorExpression ) ) ) )
+            // InternalSolidity.g:1498:2: ( (this_BitwiseXorExpression_0= ruleBitwiseXorExpression | ( () ruleLogicalNotOperator ( (lv_operand_3_0= ruleBitwiseXorExpression ) ) ) ) )
+            // InternalSolidity.g:1499:2: (this_BitwiseXorExpression_0= ruleBitwiseXorExpression | ( () ruleLogicalNotOperator ( (lv_operand_3_0= ruleBitwiseXorExpression ) ) ) )
             {
-            // InternalSolidity.g:1660:2: (this_BitwiseXorExpression_0= ruleBitwiseXorExpression | ( () ruleLogicalNotOperator ( (lv_operand_3_0= ruleBitwiseXorExpression ) ) ) )
+            // InternalSolidity.g:1499:2: (this_BitwiseXorExpression_0= ruleBitwiseXorExpression | ( () ruleLogicalNotOperator ( (lv_operand_3_0= ruleBitwiseXorExpression ) ) ) )
             int alt26=2;
             int LA26_0 = input.LA(1);
 
-            if ( ((LA26_0>=RULE_STRING && LA26_0<=RULE_BINARY)||LA26_0==29||LA26_0==31||LA26_0==48||(LA26_0>=71 && LA26_0<=72)||LA26_0==76) ) {
+            if ( ((LA26_0>=RULE_STRING && LA26_0<=RULE_BINARY)||LA26_0==28||LA26_0==30||LA26_0==46||(LA26_0>=68 && LA26_0<=69)||LA26_0==73) ) {
                 alt26=1;
             }
-            else if ( (LA26_0==51) ) {
+            else if ( (LA26_0==49) ) {
                 alt26=2;
             }
             else {
@@ -4722,7 +4300,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             }
             switch (alt26) {
                 case 1 :
-                    // InternalSolidity.g:1661:3: this_BitwiseXorExpression_0= ruleBitwiseXorExpression
+                    // InternalSolidity.g:1500:3: this_BitwiseXorExpression_0= ruleBitwiseXorExpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -4744,13 +4322,13 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSolidity.g:1670:3: ( () ruleLogicalNotOperator ( (lv_operand_3_0= ruleBitwiseXorExpression ) ) )
+                    // InternalSolidity.g:1509:3: ( () ruleLogicalNotOperator ( (lv_operand_3_0= ruleBitwiseXorExpression ) ) )
                     {
-                    // InternalSolidity.g:1670:3: ( () ruleLogicalNotOperator ( (lv_operand_3_0= ruleBitwiseXorExpression ) ) )
-                    // InternalSolidity.g:1671:4: () ruleLogicalNotOperator ( (lv_operand_3_0= ruleBitwiseXorExpression ) )
+                    // InternalSolidity.g:1509:3: ( () ruleLogicalNotOperator ( (lv_operand_3_0= ruleBitwiseXorExpression ) ) )
+                    // InternalSolidity.g:1510:4: () ruleLogicalNotOperator ( (lv_operand_3_0= ruleBitwiseXorExpression ) )
                     {
-                    // InternalSolidity.g:1671:4: ()
-                    // InternalSolidity.g:1672:5: 
+                    // InternalSolidity.g:1510:4: ()
+                    // InternalSolidity.g:1511:5: 
                     {
                     if ( state.backtracking==0 ) {
 
@@ -4767,7 +4345,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                       				newCompositeNode(grammarAccess.getLogicalNotExpressionAccess().getLogicalNotOperatorParserRuleCall_1_1());
                       			
                     }
-                    pushFollow(FOLLOW_33);
+                    pushFollow(FOLLOW_32);
                     ruleLogicalNotOperator();
 
                     state._fsp--;
@@ -4777,11 +4355,11 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                       				afterParserOrEnumRuleCall();
                       			
                     }
-                    // InternalSolidity.g:1685:4: ( (lv_operand_3_0= ruleBitwiseXorExpression ) )
-                    // InternalSolidity.g:1686:5: (lv_operand_3_0= ruleBitwiseXorExpression )
+                    // InternalSolidity.g:1524:4: ( (lv_operand_3_0= ruleBitwiseXorExpression ) )
+                    // InternalSolidity.g:1525:5: (lv_operand_3_0= ruleBitwiseXorExpression )
                     {
-                    // InternalSolidity.g:1686:5: (lv_operand_3_0= ruleBitwiseXorExpression )
-                    // InternalSolidity.g:1687:6: lv_operand_3_0= ruleBitwiseXorExpression
+                    // InternalSolidity.g:1525:5: (lv_operand_3_0= ruleBitwiseXorExpression )
+                    // InternalSolidity.g:1526:6: lv_operand_3_0= ruleBitwiseXorExpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -4843,7 +4421,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleBitwiseXorExpression"
-    // InternalSolidity.g:1709:1: entryRuleBitwiseXorExpression returns [EObject current=null] : iv_ruleBitwiseXorExpression= ruleBitwiseXorExpression EOF ;
+    // InternalSolidity.g:1548:1: entryRuleBitwiseXorExpression returns [EObject current=null] : iv_ruleBitwiseXorExpression= ruleBitwiseXorExpression EOF ;
     public final EObject entryRuleBitwiseXorExpression() throws RecognitionException {
         EObject current = null;
 
@@ -4851,8 +4429,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:1709:61: (iv_ruleBitwiseXorExpression= ruleBitwiseXorExpression EOF )
-            // InternalSolidity.g:1710:2: iv_ruleBitwiseXorExpression= ruleBitwiseXorExpression EOF
+            // InternalSolidity.g:1548:61: (iv_ruleBitwiseXorExpression= ruleBitwiseXorExpression EOF )
+            // InternalSolidity.g:1549:2: iv_ruleBitwiseXorExpression= ruleBitwiseXorExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getBitwiseXorExpressionRule()); 
@@ -4883,7 +4461,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBitwiseXorExpression"
-    // InternalSolidity.g:1716:1: ruleBitwiseXorExpression returns [EObject current=null] : (this_BitwiseOrExpression_0= ruleBitwiseOrExpression ( () ruleBitwiseXOrOperator ( (lv_rightOperand_3_0= ruleBitwiseOrExpression ) ) )* ) ;
+    // InternalSolidity.g:1555:1: ruleBitwiseXorExpression returns [EObject current=null] : (this_BitwiseOrExpression_0= ruleBitwiseOrExpression ( () ruleBitwiseXOrOperator ( (lv_rightOperand_3_0= ruleBitwiseOrExpression ) ) )* ) ;
     public final EObject ruleBitwiseXorExpression() throws RecognitionException {
         EObject current = null;
 
@@ -4896,18 +4474,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:1722:2: ( (this_BitwiseOrExpression_0= ruleBitwiseOrExpression ( () ruleBitwiseXOrOperator ( (lv_rightOperand_3_0= ruleBitwiseOrExpression ) ) )* ) )
-            // InternalSolidity.g:1723:2: (this_BitwiseOrExpression_0= ruleBitwiseOrExpression ( () ruleBitwiseXOrOperator ( (lv_rightOperand_3_0= ruleBitwiseOrExpression ) ) )* )
+            // InternalSolidity.g:1561:2: ( (this_BitwiseOrExpression_0= ruleBitwiseOrExpression ( () ruleBitwiseXOrOperator ( (lv_rightOperand_3_0= ruleBitwiseOrExpression ) ) )* ) )
+            // InternalSolidity.g:1562:2: (this_BitwiseOrExpression_0= ruleBitwiseOrExpression ( () ruleBitwiseXOrOperator ( (lv_rightOperand_3_0= ruleBitwiseOrExpression ) ) )* )
             {
-            // InternalSolidity.g:1723:2: (this_BitwiseOrExpression_0= ruleBitwiseOrExpression ( () ruleBitwiseXOrOperator ( (lv_rightOperand_3_0= ruleBitwiseOrExpression ) ) )* )
-            // InternalSolidity.g:1724:3: this_BitwiseOrExpression_0= ruleBitwiseOrExpression ( () ruleBitwiseXOrOperator ( (lv_rightOperand_3_0= ruleBitwiseOrExpression ) ) )*
+            // InternalSolidity.g:1562:2: (this_BitwiseOrExpression_0= ruleBitwiseOrExpression ( () ruleBitwiseXOrOperator ( (lv_rightOperand_3_0= ruleBitwiseOrExpression ) ) )* )
+            // InternalSolidity.g:1563:3: this_BitwiseOrExpression_0= ruleBitwiseOrExpression ( () ruleBitwiseXOrOperator ( (lv_rightOperand_3_0= ruleBitwiseOrExpression ) ) )*
             {
             if ( state.backtracking==0 ) {
 
               			newCompositeNode(grammarAccess.getBitwiseXorExpressionAccess().getBitwiseOrExpressionParserRuleCall_0());
               		
             }
-            pushFollow(FOLLOW_34);
+            pushFollow(FOLLOW_33);
             this_BitwiseOrExpression_0=ruleBitwiseOrExpression();
 
             state._fsp--;
@@ -4918,23 +4496,23 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               			afterParserOrEnumRuleCall();
               		
             }
-            // InternalSolidity.g:1732:3: ( () ruleBitwiseXOrOperator ( (lv_rightOperand_3_0= ruleBitwiseOrExpression ) ) )*
+            // InternalSolidity.g:1571:3: ( () ruleBitwiseXOrOperator ( (lv_rightOperand_3_0= ruleBitwiseOrExpression ) ) )*
             loop27:
             do {
                 int alt27=2;
                 int LA27_0 = input.LA(1);
 
-                if ( (LA27_0==52) ) {
+                if ( (LA27_0==50) ) {
                     alt27=1;
                 }
 
 
                 switch (alt27) {
             	case 1 :
-            	    // InternalSolidity.g:1733:4: () ruleBitwiseXOrOperator ( (lv_rightOperand_3_0= ruleBitwiseOrExpression ) )
+            	    // InternalSolidity.g:1572:4: () ruleBitwiseXOrOperator ( (lv_rightOperand_3_0= ruleBitwiseOrExpression ) )
             	    {
-            	    // InternalSolidity.g:1733:4: ()
-            	    // InternalSolidity.g:1734:5: 
+            	    // InternalSolidity.g:1572:4: ()
+            	    // InternalSolidity.g:1573:5: 
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -4951,7 +4529,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             	      				newCompositeNode(grammarAccess.getBitwiseXorExpressionAccess().getBitwiseXOrOperatorParserRuleCall_1_1());
             	      			
             	    }
-            	    pushFollow(FOLLOW_33);
+            	    pushFollow(FOLLOW_32);
             	    ruleBitwiseXOrOperator();
 
             	    state._fsp--;
@@ -4961,18 +4539,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             	      				afterParserOrEnumRuleCall();
             	      			
             	    }
-            	    // InternalSolidity.g:1747:4: ( (lv_rightOperand_3_0= ruleBitwiseOrExpression ) )
-            	    // InternalSolidity.g:1748:5: (lv_rightOperand_3_0= ruleBitwiseOrExpression )
+            	    // InternalSolidity.g:1586:4: ( (lv_rightOperand_3_0= ruleBitwiseOrExpression ) )
+            	    // InternalSolidity.g:1587:5: (lv_rightOperand_3_0= ruleBitwiseOrExpression )
             	    {
-            	    // InternalSolidity.g:1748:5: (lv_rightOperand_3_0= ruleBitwiseOrExpression )
-            	    // InternalSolidity.g:1749:6: lv_rightOperand_3_0= ruleBitwiseOrExpression
+            	    // InternalSolidity.g:1587:5: (lv_rightOperand_3_0= ruleBitwiseOrExpression )
+            	    // InternalSolidity.g:1588:6: lv_rightOperand_3_0= ruleBitwiseOrExpression
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      						newCompositeNode(grammarAccess.getBitwiseXorExpressionAccess().getRightOperandBitwiseOrExpressionParserRuleCall_1_2_0());
             	      					
             	    }
-            	    pushFollow(FOLLOW_34);
+            	    pushFollow(FOLLOW_33);
             	    lv_rightOperand_3_0=ruleBitwiseOrExpression();
 
             	    state._fsp--;
@@ -5030,7 +4608,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleBitwiseOrExpression"
-    // InternalSolidity.g:1771:1: entryRuleBitwiseOrExpression returns [EObject current=null] : iv_ruleBitwiseOrExpression= ruleBitwiseOrExpression EOF ;
+    // InternalSolidity.g:1610:1: entryRuleBitwiseOrExpression returns [EObject current=null] : iv_ruleBitwiseOrExpression= ruleBitwiseOrExpression EOF ;
     public final EObject entryRuleBitwiseOrExpression() throws RecognitionException {
         EObject current = null;
 
@@ -5038,8 +4616,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:1771:60: (iv_ruleBitwiseOrExpression= ruleBitwiseOrExpression EOF )
-            // InternalSolidity.g:1772:2: iv_ruleBitwiseOrExpression= ruleBitwiseOrExpression EOF
+            // InternalSolidity.g:1610:60: (iv_ruleBitwiseOrExpression= ruleBitwiseOrExpression EOF )
+            // InternalSolidity.g:1611:2: iv_ruleBitwiseOrExpression= ruleBitwiseOrExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getBitwiseOrExpressionRule()); 
@@ -5070,7 +4648,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBitwiseOrExpression"
-    // InternalSolidity.g:1778:1: ruleBitwiseOrExpression returns [EObject current=null] : (this_BitwiseAndExpression_0= ruleBitwiseAndExpression ( () ruleBitwiseOrOperator ( (lv_rightOperand_3_0= ruleBitwiseAndExpression ) ) )* ) ;
+    // InternalSolidity.g:1617:1: ruleBitwiseOrExpression returns [EObject current=null] : (this_BitwiseAndExpression_0= ruleBitwiseAndExpression ( () ruleBitwiseOrOperator ( (lv_rightOperand_3_0= ruleBitwiseAndExpression ) ) )* ) ;
     public final EObject ruleBitwiseOrExpression() throws RecognitionException {
         EObject current = null;
 
@@ -5083,18 +4661,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:1784:2: ( (this_BitwiseAndExpression_0= ruleBitwiseAndExpression ( () ruleBitwiseOrOperator ( (lv_rightOperand_3_0= ruleBitwiseAndExpression ) ) )* ) )
-            // InternalSolidity.g:1785:2: (this_BitwiseAndExpression_0= ruleBitwiseAndExpression ( () ruleBitwiseOrOperator ( (lv_rightOperand_3_0= ruleBitwiseAndExpression ) ) )* )
+            // InternalSolidity.g:1623:2: ( (this_BitwiseAndExpression_0= ruleBitwiseAndExpression ( () ruleBitwiseOrOperator ( (lv_rightOperand_3_0= ruleBitwiseAndExpression ) ) )* ) )
+            // InternalSolidity.g:1624:2: (this_BitwiseAndExpression_0= ruleBitwiseAndExpression ( () ruleBitwiseOrOperator ( (lv_rightOperand_3_0= ruleBitwiseAndExpression ) ) )* )
             {
-            // InternalSolidity.g:1785:2: (this_BitwiseAndExpression_0= ruleBitwiseAndExpression ( () ruleBitwiseOrOperator ( (lv_rightOperand_3_0= ruleBitwiseAndExpression ) ) )* )
-            // InternalSolidity.g:1786:3: this_BitwiseAndExpression_0= ruleBitwiseAndExpression ( () ruleBitwiseOrOperator ( (lv_rightOperand_3_0= ruleBitwiseAndExpression ) ) )*
+            // InternalSolidity.g:1624:2: (this_BitwiseAndExpression_0= ruleBitwiseAndExpression ( () ruleBitwiseOrOperator ( (lv_rightOperand_3_0= ruleBitwiseAndExpression ) ) )* )
+            // InternalSolidity.g:1625:3: this_BitwiseAndExpression_0= ruleBitwiseAndExpression ( () ruleBitwiseOrOperator ( (lv_rightOperand_3_0= ruleBitwiseAndExpression ) ) )*
             {
             if ( state.backtracking==0 ) {
 
               			newCompositeNode(grammarAccess.getBitwiseOrExpressionAccess().getBitwiseAndExpressionParserRuleCall_0());
               		
             }
-            pushFollow(FOLLOW_35);
+            pushFollow(FOLLOW_34);
             this_BitwiseAndExpression_0=ruleBitwiseAndExpression();
 
             state._fsp--;
@@ -5105,23 +4683,23 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               			afterParserOrEnumRuleCall();
               		
             }
-            // InternalSolidity.g:1794:3: ( () ruleBitwiseOrOperator ( (lv_rightOperand_3_0= ruleBitwiseAndExpression ) ) )*
+            // InternalSolidity.g:1633:3: ( () ruleBitwiseOrOperator ( (lv_rightOperand_3_0= ruleBitwiseAndExpression ) ) )*
             loop28:
             do {
                 int alt28=2;
                 int LA28_0 = input.LA(1);
 
-                if ( (LA28_0==53) ) {
+                if ( (LA28_0==51) ) {
                     alt28=1;
                 }
 
 
                 switch (alt28) {
             	case 1 :
-            	    // InternalSolidity.g:1795:4: () ruleBitwiseOrOperator ( (lv_rightOperand_3_0= ruleBitwiseAndExpression ) )
+            	    // InternalSolidity.g:1634:4: () ruleBitwiseOrOperator ( (lv_rightOperand_3_0= ruleBitwiseAndExpression ) )
             	    {
-            	    // InternalSolidity.g:1795:4: ()
-            	    // InternalSolidity.g:1796:5: 
+            	    // InternalSolidity.g:1634:4: ()
+            	    // InternalSolidity.g:1635:5: 
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -5138,7 +4716,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             	      				newCompositeNode(grammarAccess.getBitwiseOrExpressionAccess().getBitwiseOrOperatorParserRuleCall_1_1());
             	      			
             	    }
-            	    pushFollow(FOLLOW_33);
+            	    pushFollow(FOLLOW_32);
             	    ruleBitwiseOrOperator();
 
             	    state._fsp--;
@@ -5148,18 +4726,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             	      				afterParserOrEnumRuleCall();
             	      			
             	    }
-            	    // InternalSolidity.g:1809:4: ( (lv_rightOperand_3_0= ruleBitwiseAndExpression ) )
-            	    // InternalSolidity.g:1810:5: (lv_rightOperand_3_0= ruleBitwiseAndExpression )
+            	    // InternalSolidity.g:1648:4: ( (lv_rightOperand_3_0= ruleBitwiseAndExpression ) )
+            	    // InternalSolidity.g:1649:5: (lv_rightOperand_3_0= ruleBitwiseAndExpression )
             	    {
-            	    // InternalSolidity.g:1810:5: (lv_rightOperand_3_0= ruleBitwiseAndExpression )
-            	    // InternalSolidity.g:1811:6: lv_rightOperand_3_0= ruleBitwiseAndExpression
+            	    // InternalSolidity.g:1649:5: (lv_rightOperand_3_0= ruleBitwiseAndExpression )
+            	    // InternalSolidity.g:1650:6: lv_rightOperand_3_0= ruleBitwiseAndExpression
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      						newCompositeNode(grammarAccess.getBitwiseOrExpressionAccess().getRightOperandBitwiseAndExpressionParserRuleCall_1_2_0());
             	      					
             	    }
-            	    pushFollow(FOLLOW_35);
+            	    pushFollow(FOLLOW_34);
             	    lv_rightOperand_3_0=ruleBitwiseAndExpression();
 
             	    state._fsp--;
@@ -5217,7 +4795,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleBitwiseAndExpression"
-    // InternalSolidity.g:1833:1: entryRuleBitwiseAndExpression returns [EObject current=null] : iv_ruleBitwiseAndExpression= ruleBitwiseAndExpression EOF ;
+    // InternalSolidity.g:1672:1: entryRuleBitwiseAndExpression returns [EObject current=null] : iv_ruleBitwiseAndExpression= ruleBitwiseAndExpression EOF ;
     public final EObject entryRuleBitwiseAndExpression() throws RecognitionException {
         EObject current = null;
 
@@ -5225,8 +4803,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:1833:61: (iv_ruleBitwiseAndExpression= ruleBitwiseAndExpression EOF )
-            // InternalSolidity.g:1834:2: iv_ruleBitwiseAndExpression= ruleBitwiseAndExpression EOF
+            // InternalSolidity.g:1672:61: (iv_ruleBitwiseAndExpression= ruleBitwiseAndExpression EOF )
+            // InternalSolidity.g:1673:2: iv_ruleBitwiseAndExpression= ruleBitwiseAndExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getBitwiseAndExpressionRule()); 
@@ -5257,7 +4835,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBitwiseAndExpression"
-    // InternalSolidity.g:1840:1: ruleBitwiseAndExpression returns [EObject current=null] : (this_LogicalRelationExpression_0= ruleLogicalRelationExpression ( () ruleBitwiseAndOperator ( (lv_rightOperand_3_0= ruleLogicalRelationExpression ) ) )* ) ;
+    // InternalSolidity.g:1679:1: ruleBitwiseAndExpression returns [EObject current=null] : (this_LogicalRelationExpression_0= ruleLogicalRelationExpression ( () ruleBitwiseAndOperator ( (lv_rightOperand_3_0= ruleLogicalRelationExpression ) ) )* ) ;
     public final EObject ruleBitwiseAndExpression() throws RecognitionException {
         EObject current = null;
 
@@ -5270,18 +4848,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:1846:2: ( (this_LogicalRelationExpression_0= ruleLogicalRelationExpression ( () ruleBitwiseAndOperator ( (lv_rightOperand_3_0= ruleLogicalRelationExpression ) ) )* ) )
-            // InternalSolidity.g:1847:2: (this_LogicalRelationExpression_0= ruleLogicalRelationExpression ( () ruleBitwiseAndOperator ( (lv_rightOperand_3_0= ruleLogicalRelationExpression ) ) )* )
+            // InternalSolidity.g:1685:2: ( (this_LogicalRelationExpression_0= ruleLogicalRelationExpression ( () ruleBitwiseAndOperator ( (lv_rightOperand_3_0= ruleLogicalRelationExpression ) ) )* ) )
+            // InternalSolidity.g:1686:2: (this_LogicalRelationExpression_0= ruleLogicalRelationExpression ( () ruleBitwiseAndOperator ( (lv_rightOperand_3_0= ruleLogicalRelationExpression ) ) )* )
             {
-            // InternalSolidity.g:1847:2: (this_LogicalRelationExpression_0= ruleLogicalRelationExpression ( () ruleBitwiseAndOperator ( (lv_rightOperand_3_0= ruleLogicalRelationExpression ) ) )* )
-            // InternalSolidity.g:1848:3: this_LogicalRelationExpression_0= ruleLogicalRelationExpression ( () ruleBitwiseAndOperator ( (lv_rightOperand_3_0= ruleLogicalRelationExpression ) ) )*
+            // InternalSolidity.g:1686:2: (this_LogicalRelationExpression_0= ruleLogicalRelationExpression ( () ruleBitwiseAndOperator ( (lv_rightOperand_3_0= ruleLogicalRelationExpression ) ) )* )
+            // InternalSolidity.g:1687:3: this_LogicalRelationExpression_0= ruleLogicalRelationExpression ( () ruleBitwiseAndOperator ( (lv_rightOperand_3_0= ruleLogicalRelationExpression ) ) )*
             {
             if ( state.backtracking==0 ) {
 
               			newCompositeNode(grammarAccess.getBitwiseAndExpressionAccess().getLogicalRelationExpressionParserRuleCall_0());
               		
             }
-            pushFollow(FOLLOW_36);
+            pushFollow(FOLLOW_35);
             this_LogicalRelationExpression_0=ruleLogicalRelationExpression();
 
             state._fsp--;
@@ -5292,23 +4870,23 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               			afterParserOrEnumRuleCall();
               		
             }
-            // InternalSolidity.g:1856:3: ( () ruleBitwiseAndOperator ( (lv_rightOperand_3_0= ruleLogicalRelationExpression ) ) )*
+            // InternalSolidity.g:1695:3: ( () ruleBitwiseAndOperator ( (lv_rightOperand_3_0= ruleLogicalRelationExpression ) ) )*
             loop29:
             do {
                 int alt29=2;
                 int LA29_0 = input.LA(1);
 
-                if ( (LA29_0==54) ) {
+                if ( (LA29_0==52) ) {
                     alt29=1;
                 }
 
 
                 switch (alt29) {
             	case 1 :
-            	    // InternalSolidity.g:1857:4: () ruleBitwiseAndOperator ( (lv_rightOperand_3_0= ruleLogicalRelationExpression ) )
+            	    // InternalSolidity.g:1696:4: () ruleBitwiseAndOperator ( (lv_rightOperand_3_0= ruleLogicalRelationExpression ) )
             	    {
-            	    // InternalSolidity.g:1857:4: ()
-            	    // InternalSolidity.g:1858:5: 
+            	    // InternalSolidity.g:1696:4: ()
+            	    // InternalSolidity.g:1697:5: 
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -5325,7 +4903,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             	      				newCompositeNode(grammarAccess.getBitwiseAndExpressionAccess().getBitwiseAndOperatorParserRuleCall_1_1());
             	      			
             	    }
-            	    pushFollow(FOLLOW_33);
+            	    pushFollow(FOLLOW_32);
             	    ruleBitwiseAndOperator();
 
             	    state._fsp--;
@@ -5335,18 +4913,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             	      				afterParserOrEnumRuleCall();
             	      			
             	    }
-            	    // InternalSolidity.g:1871:4: ( (lv_rightOperand_3_0= ruleLogicalRelationExpression ) )
-            	    // InternalSolidity.g:1872:5: (lv_rightOperand_3_0= ruleLogicalRelationExpression )
+            	    // InternalSolidity.g:1710:4: ( (lv_rightOperand_3_0= ruleLogicalRelationExpression ) )
+            	    // InternalSolidity.g:1711:5: (lv_rightOperand_3_0= ruleLogicalRelationExpression )
             	    {
-            	    // InternalSolidity.g:1872:5: (lv_rightOperand_3_0= ruleLogicalRelationExpression )
-            	    // InternalSolidity.g:1873:6: lv_rightOperand_3_0= ruleLogicalRelationExpression
+            	    // InternalSolidity.g:1711:5: (lv_rightOperand_3_0= ruleLogicalRelationExpression )
+            	    // InternalSolidity.g:1712:6: lv_rightOperand_3_0= ruleLogicalRelationExpression
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      						newCompositeNode(grammarAccess.getBitwiseAndExpressionAccess().getRightOperandLogicalRelationExpressionParserRuleCall_1_2_0());
             	      					
             	    }
-            	    pushFollow(FOLLOW_36);
+            	    pushFollow(FOLLOW_35);
             	    lv_rightOperand_3_0=ruleLogicalRelationExpression();
 
             	    state._fsp--;
@@ -5404,7 +4982,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLogicalRelationExpression"
-    // InternalSolidity.g:1895:1: entryRuleLogicalRelationExpression returns [EObject current=null] : iv_ruleLogicalRelationExpression= ruleLogicalRelationExpression EOF ;
+    // InternalSolidity.g:1734:1: entryRuleLogicalRelationExpression returns [EObject current=null] : iv_ruleLogicalRelationExpression= ruleLogicalRelationExpression EOF ;
     public final EObject entryRuleLogicalRelationExpression() throws RecognitionException {
         EObject current = null;
 
@@ -5412,8 +4990,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:1895:66: (iv_ruleLogicalRelationExpression= ruleLogicalRelationExpression EOF )
-            // InternalSolidity.g:1896:2: iv_ruleLogicalRelationExpression= ruleLogicalRelationExpression EOF
+            // InternalSolidity.g:1734:66: (iv_ruleLogicalRelationExpression= ruleLogicalRelationExpression EOF )
+            // InternalSolidity.g:1735:2: iv_ruleLogicalRelationExpression= ruleLogicalRelationExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLogicalRelationExpressionRule()); 
@@ -5444,7 +5022,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLogicalRelationExpression"
-    // InternalSolidity.g:1902:1: ruleLogicalRelationExpression returns [EObject current=null] : (this_ShiftExpression_0= ruleShiftExpression ( () ( (lv_operator_2_0= ruleRelationalOperator ) ) ( (lv_rightOperand_3_0= ruleShiftExpression ) ) )* ) ;
+    // InternalSolidity.g:1741:1: ruleLogicalRelationExpression returns [EObject current=null] : (this_ShiftExpression_0= ruleShiftExpression ( () ( (lv_operator_2_0= ruleRelationalOperator ) ) ( (lv_rightOperand_3_0= ruleShiftExpression ) ) )* ) ;
     public final EObject ruleLogicalRelationExpression() throws RecognitionException {
         EObject current = null;
 
@@ -5459,18 +5037,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:1908:2: ( (this_ShiftExpression_0= ruleShiftExpression ( () ( (lv_operator_2_0= ruleRelationalOperator ) ) ( (lv_rightOperand_3_0= ruleShiftExpression ) ) )* ) )
-            // InternalSolidity.g:1909:2: (this_ShiftExpression_0= ruleShiftExpression ( () ( (lv_operator_2_0= ruleRelationalOperator ) ) ( (lv_rightOperand_3_0= ruleShiftExpression ) ) )* )
+            // InternalSolidity.g:1747:2: ( (this_ShiftExpression_0= ruleShiftExpression ( () ( (lv_operator_2_0= ruleRelationalOperator ) ) ( (lv_rightOperand_3_0= ruleShiftExpression ) ) )* ) )
+            // InternalSolidity.g:1748:2: (this_ShiftExpression_0= ruleShiftExpression ( () ( (lv_operator_2_0= ruleRelationalOperator ) ) ( (lv_rightOperand_3_0= ruleShiftExpression ) ) )* )
             {
-            // InternalSolidity.g:1909:2: (this_ShiftExpression_0= ruleShiftExpression ( () ( (lv_operator_2_0= ruleRelationalOperator ) ) ( (lv_rightOperand_3_0= ruleShiftExpression ) ) )* )
-            // InternalSolidity.g:1910:3: this_ShiftExpression_0= ruleShiftExpression ( () ( (lv_operator_2_0= ruleRelationalOperator ) ) ( (lv_rightOperand_3_0= ruleShiftExpression ) ) )*
+            // InternalSolidity.g:1748:2: (this_ShiftExpression_0= ruleShiftExpression ( () ( (lv_operator_2_0= ruleRelationalOperator ) ) ( (lv_rightOperand_3_0= ruleShiftExpression ) ) )* )
+            // InternalSolidity.g:1749:3: this_ShiftExpression_0= ruleShiftExpression ( () ( (lv_operator_2_0= ruleRelationalOperator ) ) ( (lv_rightOperand_3_0= ruleShiftExpression ) ) )*
             {
             if ( state.backtracking==0 ) {
 
               			newCompositeNode(grammarAccess.getLogicalRelationExpressionAccess().getShiftExpressionParserRuleCall_0());
               		
             }
-            pushFollow(FOLLOW_37);
+            pushFollow(FOLLOW_36);
             this_ShiftExpression_0=ruleShiftExpression();
 
             state._fsp--;
@@ -5481,23 +5059,23 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               			afterParserOrEnumRuleCall();
               		
             }
-            // InternalSolidity.g:1918:3: ( () ( (lv_operator_2_0= ruleRelationalOperator ) ) ( (lv_rightOperand_3_0= ruleShiftExpression ) ) )*
+            // InternalSolidity.g:1757:3: ( () ( (lv_operator_2_0= ruleRelationalOperator ) ) ( (lv_rightOperand_3_0= ruleShiftExpression ) ) )*
             loop30:
             do {
                 int alt30=2;
                 int LA30_0 = input.LA(1);
 
-                if ( ((LA30_0>=46 && LA30_0<=47)||(LA30_0>=77 && LA30_0<=80)) ) {
+                if ( ((LA30_0>=44 && LA30_0<=45)||(LA30_0>=74 && LA30_0<=77)) ) {
                     alt30=1;
                 }
 
 
                 switch (alt30) {
             	case 1 :
-            	    // InternalSolidity.g:1919:4: () ( (lv_operator_2_0= ruleRelationalOperator ) ) ( (lv_rightOperand_3_0= ruleShiftExpression ) )
+            	    // InternalSolidity.g:1758:4: () ( (lv_operator_2_0= ruleRelationalOperator ) ) ( (lv_rightOperand_3_0= ruleShiftExpression ) )
             	    {
-            	    // InternalSolidity.g:1919:4: ()
-            	    // InternalSolidity.g:1920:5: 
+            	    // InternalSolidity.g:1758:4: ()
+            	    // InternalSolidity.g:1759:5: 
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -5509,18 +5087,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // InternalSolidity.g:1926:4: ( (lv_operator_2_0= ruleRelationalOperator ) )
-            	    // InternalSolidity.g:1927:5: (lv_operator_2_0= ruleRelationalOperator )
+            	    // InternalSolidity.g:1765:4: ( (lv_operator_2_0= ruleRelationalOperator ) )
+            	    // InternalSolidity.g:1766:5: (lv_operator_2_0= ruleRelationalOperator )
             	    {
-            	    // InternalSolidity.g:1927:5: (lv_operator_2_0= ruleRelationalOperator )
-            	    // InternalSolidity.g:1928:6: lv_operator_2_0= ruleRelationalOperator
+            	    // InternalSolidity.g:1766:5: (lv_operator_2_0= ruleRelationalOperator )
+            	    // InternalSolidity.g:1767:6: lv_operator_2_0= ruleRelationalOperator
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      						newCompositeNode(grammarAccess.getLogicalRelationExpressionAccess().getOperatorRelationalOperatorEnumRuleCall_1_1_0());
             	      					
             	    }
-            	    pushFollow(FOLLOW_33);
+            	    pushFollow(FOLLOW_32);
             	    lv_operator_2_0=ruleRelationalOperator();
 
             	    state._fsp--;
@@ -5544,18 +5122,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // InternalSolidity.g:1945:4: ( (lv_rightOperand_3_0= ruleShiftExpression ) )
-            	    // InternalSolidity.g:1946:5: (lv_rightOperand_3_0= ruleShiftExpression )
+            	    // InternalSolidity.g:1784:4: ( (lv_rightOperand_3_0= ruleShiftExpression ) )
+            	    // InternalSolidity.g:1785:5: (lv_rightOperand_3_0= ruleShiftExpression )
             	    {
-            	    // InternalSolidity.g:1946:5: (lv_rightOperand_3_0= ruleShiftExpression )
-            	    // InternalSolidity.g:1947:6: lv_rightOperand_3_0= ruleShiftExpression
+            	    // InternalSolidity.g:1785:5: (lv_rightOperand_3_0= ruleShiftExpression )
+            	    // InternalSolidity.g:1786:6: lv_rightOperand_3_0= ruleShiftExpression
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      						newCompositeNode(grammarAccess.getLogicalRelationExpressionAccess().getRightOperandShiftExpressionParserRuleCall_1_2_0());
             	      					
             	    }
-            	    pushFollow(FOLLOW_37);
+            	    pushFollow(FOLLOW_36);
             	    lv_rightOperand_3_0=ruleShiftExpression();
 
             	    state._fsp--;
@@ -5613,7 +5191,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleShiftExpression"
-    // InternalSolidity.g:1969:1: entryRuleShiftExpression returns [EObject current=null] : iv_ruleShiftExpression= ruleShiftExpression EOF ;
+    // InternalSolidity.g:1808:1: entryRuleShiftExpression returns [EObject current=null] : iv_ruleShiftExpression= ruleShiftExpression EOF ;
     public final EObject entryRuleShiftExpression() throws RecognitionException {
         EObject current = null;
 
@@ -5621,8 +5199,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:1969:56: (iv_ruleShiftExpression= ruleShiftExpression EOF )
-            // InternalSolidity.g:1970:2: iv_ruleShiftExpression= ruleShiftExpression EOF
+            // InternalSolidity.g:1808:56: (iv_ruleShiftExpression= ruleShiftExpression EOF )
+            // InternalSolidity.g:1809:2: iv_ruleShiftExpression= ruleShiftExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getShiftExpressionRule()); 
@@ -5653,7 +5231,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleShiftExpression"
-    // InternalSolidity.g:1976:1: ruleShiftExpression returns [EObject current=null] : (this_NumericalAddSubtractExpression_0= ruleNumericalAddSubtractExpression ( () ( (lv_operator_2_0= ruleShiftOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression ) ) )* ) ;
+    // InternalSolidity.g:1815:1: ruleShiftExpression returns [EObject current=null] : (this_NumericalAddSubtractExpression_0= ruleNumericalAddSubtractExpression ( () ( (lv_operator_2_0= ruleShiftOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression ) ) )* ) ;
     public final EObject ruleShiftExpression() throws RecognitionException {
         EObject current = null;
 
@@ -5668,18 +5246,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:1982:2: ( (this_NumericalAddSubtractExpression_0= ruleNumericalAddSubtractExpression ( () ( (lv_operator_2_0= ruleShiftOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression ) ) )* ) )
-            // InternalSolidity.g:1983:2: (this_NumericalAddSubtractExpression_0= ruleNumericalAddSubtractExpression ( () ( (lv_operator_2_0= ruleShiftOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression ) ) )* )
+            // InternalSolidity.g:1821:2: ( (this_NumericalAddSubtractExpression_0= ruleNumericalAddSubtractExpression ( () ( (lv_operator_2_0= ruleShiftOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression ) ) )* ) )
+            // InternalSolidity.g:1822:2: (this_NumericalAddSubtractExpression_0= ruleNumericalAddSubtractExpression ( () ( (lv_operator_2_0= ruleShiftOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression ) ) )* )
             {
-            // InternalSolidity.g:1983:2: (this_NumericalAddSubtractExpression_0= ruleNumericalAddSubtractExpression ( () ( (lv_operator_2_0= ruleShiftOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression ) ) )* )
-            // InternalSolidity.g:1984:3: this_NumericalAddSubtractExpression_0= ruleNumericalAddSubtractExpression ( () ( (lv_operator_2_0= ruleShiftOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression ) ) )*
+            // InternalSolidity.g:1822:2: (this_NumericalAddSubtractExpression_0= ruleNumericalAddSubtractExpression ( () ( (lv_operator_2_0= ruleShiftOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression ) ) )* )
+            // InternalSolidity.g:1823:3: this_NumericalAddSubtractExpression_0= ruleNumericalAddSubtractExpression ( () ( (lv_operator_2_0= ruleShiftOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression ) ) )*
             {
             if ( state.backtracking==0 ) {
 
               			newCompositeNode(grammarAccess.getShiftExpressionAccess().getNumericalAddSubtractExpressionParserRuleCall_0());
               		
             }
-            pushFollow(FOLLOW_38);
+            pushFollow(FOLLOW_37);
             this_NumericalAddSubtractExpression_0=ruleNumericalAddSubtractExpression();
 
             state._fsp--;
@@ -5690,23 +5268,23 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               			afterParserOrEnumRuleCall();
               		
             }
-            // InternalSolidity.g:1992:3: ( () ( (lv_operator_2_0= ruleShiftOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression ) ) )*
+            // InternalSolidity.g:1831:3: ( () ( (lv_operator_2_0= ruleShiftOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression ) ) )*
             loop31:
             do {
                 int alt31=2;
                 int LA31_0 = input.LA(1);
 
-                if ( ((LA31_0>=69 && LA31_0<=70)) ) {
+                if ( ((LA31_0>=66 && LA31_0<=67)) ) {
                     alt31=1;
                 }
 
 
                 switch (alt31) {
             	case 1 :
-            	    // InternalSolidity.g:1993:4: () ( (lv_operator_2_0= ruleShiftOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression ) )
+            	    // InternalSolidity.g:1832:4: () ( (lv_operator_2_0= ruleShiftOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression ) )
             	    {
-            	    // InternalSolidity.g:1993:4: ()
-            	    // InternalSolidity.g:1994:5: 
+            	    // InternalSolidity.g:1832:4: ()
+            	    // InternalSolidity.g:1833:5: 
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -5718,18 +5296,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // InternalSolidity.g:2000:4: ( (lv_operator_2_0= ruleShiftOperator ) )
-            	    // InternalSolidity.g:2001:5: (lv_operator_2_0= ruleShiftOperator )
+            	    // InternalSolidity.g:1839:4: ( (lv_operator_2_0= ruleShiftOperator ) )
+            	    // InternalSolidity.g:1840:5: (lv_operator_2_0= ruleShiftOperator )
             	    {
-            	    // InternalSolidity.g:2001:5: (lv_operator_2_0= ruleShiftOperator )
-            	    // InternalSolidity.g:2002:6: lv_operator_2_0= ruleShiftOperator
+            	    // InternalSolidity.g:1840:5: (lv_operator_2_0= ruleShiftOperator )
+            	    // InternalSolidity.g:1841:6: lv_operator_2_0= ruleShiftOperator
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      						newCompositeNode(grammarAccess.getShiftExpressionAccess().getOperatorShiftOperatorEnumRuleCall_1_1_0());
             	      					
             	    }
-            	    pushFollow(FOLLOW_33);
+            	    pushFollow(FOLLOW_32);
             	    lv_operator_2_0=ruleShiftOperator();
 
             	    state._fsp--;
@@ -5753,18 +5331,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // InternalSolidity.g:2019:4: ( (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression ) )
-            	    // InternalSolidity.g:2020:5: (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression )
+            	    // InternalSolidity.g:1858:4: ( (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression ) )
+            	    // InternalSolidity.g:1859:5: (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression )
             	    {
-            	    // InternalSolidity.g:2020:5: (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression )
-            	    // InternalSolidity.g:2021:6: lv_rightOperand_3_0= ruleNumericalAddSubtractExpression
+            	    // InternalSolidity.g:1859:5: (lv_rightOperand_3_0= ruleNumericalAddSubtractExpression )
+            	    // InternalSolidity.g:1860:6: lv_rightOperand_3_0= ruleNumericalAddSubtractExpression
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      						newCompositeNode(grammarAccess.getShiftExpressionAccess().getRightOperandNumericalAddSubtractExpressionParserRuleCall_1_2_0());
             	      					
             	    }
-            	    pushFollow(FOLLOW_38);
+            	    pushFollow(FOLLOW_37);
             	    lv_rightOperand_3_0=ruleNumericalAddSubtractExpression();
 
             	    state._fsp--;
@@ -5822,7 +5400,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleNumericalAddSubtractExpression"
-    // InternalSolidity.g:2043:1: entryRuleNumericalAddSubtractExpression returns [EObject current=null] : iv_ruleNumericalAddSubtractExpression= ruleNumericalAddSubtractExpression EOF ;
+    // InternalSolidity.g:1882:1: entryRuleNumericalAddSubtractExpression returns [EObject current=null] : iv_ruleNumericalAddSubtractExpression= ruleNumericalAddSubtractExpression EOF ;
     public final EObject entryRuleNumericalAddSubtractExpression() throws RecognitionException {
         EObject current = null;
 
@@ -5830,8 +5408,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:2043:71: (iv_ruleNumericalAddSubtractExpression= ruleNumericalAddSubtractExpression EOF )
-            // InternalSolidity.g:2044:2: iv_ruleNumericalAddSubtractExpression= ruleNumericalAddSubtractExpression EOF
+            // InternalSolidity.g:1882:71: (iv_ruleNumericalAddSubtractExpression= ruleNumericalAddSubtractExpression EOF )
+            // InternalSolidity.g:1883:2: iv_ruleNumericalAddSubtractExpression= ruleNumericalAddSubtractExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getNumericalAddSubtractExpressionRule()); 
@@ -5862,7 +5440,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNumericalAddSubtractExpression"
-    // InternalSolidity.g:2050:1: ruleNumericalAddSubtractExpression returns [EObject current=null] : (this_NumericalMultiplyDivideExpression_0= ruleNumericalMultiplyDivideExpression ( ( ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleAdditiveOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) ) ) )* ) ;
+    // InternalSolidity.g:1889:1: ruleNumericalAddSubtractExpression returns [EObject current=null] : (this_NumericalMultiplyDivideExpression_0= ruleNumericalMultiplyDivideExpression ( ( ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleAdditiveOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) ) ) )* ) ;
     public final EObject ruleNumericalAddSubtractExpression() throws RecognitionException {
         EObject current = null;
 
@@ -5877,18 +5455,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:2056:2: ( (this_NumericalMultiplyDivideExpression_0= ruleNumericalMultiplyDivideExpression ( ( ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleAdditiveOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) ) ) )* ) )
-            // InternalSolidity.g:2057:2: (this_NumericalMultiplyDivideExpression_0= ruleNumericalMultiplyDivideExpression ( ( ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleAdditiveOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) ) ) )* )
+            // InternalSolidity.g:1895:2: ( (this_NumericalMultiplyDivideExpression_0= ruleNumericalMultiplyDivideExpression ( ( ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleAdditiveOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) ) ) )* ) )
+            // InternalSolidity.g:1896:2: (this_NumericalMultiplyDivideExpression_0= ruleNumericalMultiplyDivideExpression ( ( ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleAdditiveOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) ) ) )* )
             {
-            // InternalSolidity.g:2057:2: (this_NumericalMultiplyDivideExpression_0= ruleNumericalMultiplyDivideExpression ( ( ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleAdditiveOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) ) ) )* )
-            // InternalSolidity.g:2058:3: this_NumericalMultiplyDivideExpression_0= ruleNumericalMultiplyDivideExpression ( ( ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleAdditiveOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) ) ) )*
+            // InternalSolidity.g:1896:2: (this_NumericalMultiplyDivideExpression_0= ruleNumericalMultiplyDivideExpression ( ( ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleAdditiveOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) ) ) )* )
+            // InternalSolidity.g:1897:3: this_NumericalMultiplyDivideExpression_0= ruleNumericalMultiplyDivideExpression ( ( ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleAdditiveOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) ) ) )*
             {
             if ( state.backtracking==0 ) {
 
               			newCompositeNode(grammarAccess.getNumericalAddSubtractExpressionAccess().getNumericalMultiplyDivideExpressionParserRuleCall_0());
               		
             }
-            pushFollow(FOLLOW_39);
+            pushFollow(FOLLOW_38);
             this_NumericalMultiplyDivideExpression_0=ruleNumericalMultiplyDivideExpression();
 
             state._fsp--;
@@ -5899,29 +5477,29 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               			afterParserOrEnumRuleCall();
               		
             }
-            // InternalSolidity.g:2066:3: ( ( ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleAdditiveOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) ) ) )*
+            // InternalSolidity.g:1905:3: ( ( ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleAdditiveOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) ) ) )*
             loop32:
             do {
                 int alt32=2;
                 int LA32_0 = input.LA(1);
 
-                if ( (LA32_0==71) && (synpred1_InternalSolidity())) {
+                if ( (LA32_0==68) && (synpred1_InternalSolidity())) {
                     alt32=1;
                 }
-                else if ( (LA32_0==72) && (synpred1_InternalSolidity())) {
+                else if ( (LA32_0==69) && (synpred1_InternalSolidity())) {
                     alt32=1;
                 }
 
 
                 switch (alt32) {
             	case 1 :
-            	    // InternalSolidity.g:2067:4: ( ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleAdditiveOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) ) )
+            	    // InternalSolidity.g:1906:4: ( ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleAdditiveOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) ) )
             	    {
-            	    // InternalSolidity.g:2082:4: ( () ( (lv_operator_2_0= ruleAdditiveOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) ) )
-            	    // InternalSolidity.g:2083:5: () ( (lv_operator_2_0= ruleAdditiveOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) )
+            	    // InternalSolidity.g:1921:4: ( () ( (lv_operator_2_0= ruleAdditiveOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) ) )
+            	    // InternalSolidity.g:1922:5: () ( (lv_operator_2_0= ruleAdditiveOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) )
             	    {
-            	    // InternalSolidity.g:2083:5: ()
-            	    // InternalSolidity.g:2084:6: 
+            	    // InternalSolidity.g:1922:5: ()
+            	    // InternalSolidity.g:1923:6: 
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -5933,18 +5511,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // InternalSolidity.g:2090:5: ( (lv_operator_2_0= ruleAdditiveOperator ) )
-            	    // InternalSolidity.g:2091:6: (lv_operator_2_0= ruleAdditiveOperator )
+            	    // InternalSolidity.g:1929:5: ( (lv_operator_2_0= ruleAdditiveOperator ) )
+            	    // InternalSolidity.g:1930:6: (lv_operator_2_0= ruleAdditiveOperator )
             	    {
-            	    // InternalSolidity.g:2091:6: (lv_operator_2_0= ruleAdditiveOperator )
-            	    // InternalSolidity.g:2092:7: lv_operator_2_0= ruleAdditiveOperator
+            	    // InternalSolidity.g:1930:6: (lv_operator_2_0= ruleAdditiveOperator )
+            	    // InternalSolidity.g:1931:7: lv_operator_2_0= ruleAdditiveOperator
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      							newCompositeNode(grammarAccess.getNumericalAddSubtractExpressionAccess().getOperatorAdditiveOperatorEnumRuleCall_1_0_1_0());
             	      						
             	    }
-            	    pushFollow(FOLLOW_33);
+            	    pushFollow(FOLLOW_32);
             	    lv_operator_2_0=ruleAdditiveOperator();
 
             	    state._fsp--;
@@ -5968,18 +5546,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // InternalSolidity.g:2109:5: ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) )
-            	    // InternalSolidity.g:2110:6: (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression )
+            	    // InternalSolidity.g:1948:5: ( (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression ) )
+            	    // InternalSolidity.g:1949:6: (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression )
             	    {
-            	    // InternalSolidity.g:2110:6: (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression )
-            	    // InternalSolidity.g:2111:7: lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression
+            	    // InternalSolidity.g:1949:6: (lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression )
+            	    // InternalSolidity.g:1950:7: lv_rightOperand_3_0= ruleNumericalMultiplyDivideExpression
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      							newCompositeNode(grammarAccess.getNumericalAddSubtractExpressionAccess().getRightOperandNumericalMultiplyDivideExpressionParserRuleCall_1_0_2_0());
             	      						
             	    }
-            	    pushFollow(FOLLOW_39);
+            	    pushFollow(FOLLOW_38);
             	    lv_rightOperand_3_0=ruleNumericalMultiplyDivideExpression();
 
             	    state._fsp--;
@@ -6040,7 +5618,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleNumericalMultiplyDivideExpression"
-    // InternalSolidity.g:2134:1: entryRuleNumericalMultiplyDivideExpression returns [EObject current=null] : iv_ruleNumericalMultiplyDivideExpression= ruleNumericalMultiplyDivideExpression EOF ;
+    // InternalSolidity.g:1973:1: entryRuleNumericalMultiplyDivideExpression returns [EObject current=null] : iv_ruleNumericalMultiplyDivideExpression= ruleNumericalMultiplyDivideExpression EOF ;
     public final EObject entryRuleNumericalMultiplyDivideExpression() throws RecognitionException {
         EObject current = null;
 
@@ -6048,8 +5626,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:2134:74: (iv_ruleNumericalMultiplyDivideExpression= ruleNumericalMultiplyDivideExpression EOF )
-            // InternalSolidity.g:2135:2: iv_ruleNumericalMultiplyDivideExpression= ruleNumericalMultiplyDivideExpression EOF
+            // InternalSolidity.g:1973:74: (iv_ruleNumericalMultiplyDivideExpression= ruleNumericalMultiplyDivideExpression EOF )
+            // InternalSolidity.g:1974:2: iv_ruleNumericalMultiplyDivideExpression= ruleNumericalMultiplyDivideExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getNumericalMultiplyDivideExpressionRule()); 
@@ -6080,7 +5658,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNumericalMultiplyDivideExpression"
-    // InternalSolidity.g:2141:1: ruleNumericalMultiplyDivideExpression returns [EObject current=null] : (this_NumericalUnaryExpression_0= ruleNumericalUnaryExpression ( ( ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleMultiplicativeOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) ) ) )* ) ;
+    // InternalSolidity.g:1980:1: ruleNumericalMultiplyDivideExpression returns [EObject current=null] : (this_NumericalUnaryExpression_0= ruleNumericalUnaryExpression ( ( ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleMultiplicativeOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) ) ) )* ) ;
     public final EObject ruleNumericalMultiplyDivideExpression() throws RecognitionException {
         EObject current = null;
 
@@ -6095,18 +5673,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:2147:2: ( (this_NumericalUnaryExpression_0= ruleNumericalUnaryExpression ( ( ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleMultiplicativeOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) ) ) )* ) )
-            // InternalSolidity.g:2148:2: (this_NumericalUnaryExpression_0= ruleNumericalUnaryExpression ( ( ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleMultiplicativeOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) ) ) )* )
+            // InternalSolidity.g:1986:2: ( (this_NumericalUnaryExpression_0= ruleNumericalUnaryExpression ( ( ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleMultiplicativeOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) ) ) )* ) )
+            // InternalSolidity.g:1987:2: (this_NumericalUnaryExpression_0= ruleNumericalUnaryExpression ( ( ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleMultiplicativeOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) ) ) )* )
             {
-            // InternalSolidity.g:2148:2: (this_NumericalUnaryExpression_0= ruleNumericalUnaryExpression ( ( ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleMultiplicativeOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) ) ) )* )
-            // InternalSolidity.g:2149:3: this_NumericalUnaryExpression_0= ruleNumericalUnaryExpression ( ( ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleMultiplicativeOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) ) ) )*
+            // InternalSolidity.g:1987:2: (this_NumericalUnaryExpression_0= ruleNumericalUnaryExpression ( ( ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleMultiplicativeOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) ) ) )* )
+            // InternalSolidity.g:1988:3: this_NumericalUnaryExpression_0= ruleNumericalUnaryExpression ( ( ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleMultiplicativeOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) ) ) )*
             {
             if ( state.backtracking==0 ) {
 
               			newCompositeNode(grammarAccess.getNumericalMultiplyDivideExpressionAccess().getNumericalUnaryExpressionParserRuleCall_0());
               		
             }
-            pushFollow(FOLLOW_40);
+            pushFollow(FOLLOW_39);
             this_NumericalUnaryExpression_0=ruleNumericalUnaryExpression();
 
             state._fsp--;
@@ -6117,32 +5695,32 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               			afterParserOrEnumRuleCall();
               		
             }
-            // InternalSolidity.g:2157:3: ( ( ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleMultiplicativeOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) ) ) )*
+            // InternalSolidity.g:1996:3: ( ( ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleMultiplicativeOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) ) ) )*
             loop33:
             do {
                 int alt33=2;
                 int LA33_0 = input.LA(1);
 
-                if ( (LA33_0==73) && (synpred2_InternalSolidity())) {
+                if ( (LA33_0==70) && (synpred2_InternalSolidity())) {
                     alt33=1;
                 }
-                else if ( (LA33_0==74) && (synpred2_InternalSolidity())) {
+                else if ( (LA33_0==71) && (synpred2_InternalSolidity())) {
                     alt33=1;
                 }
-                else if ( (LA33_0==75) && (synpred2_InternalSolidity())) {
+                else if ( (LA33_0==72) && (synpred2_InternalSolidity())) {
                     alt33=1;
                 }
 
 
                 switch (alt33) {
             	case 1 :
-            	    // InternalSolidity.g:2158:4: ( ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleMultiplicativeOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) ) )
+            	    // InternalSolidity.g:1997:4: ( ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) ) )=> ( () ( (lv_operator_2_0= ruleMultiplicativeOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) ) )
             	    {
-            	    // InternalSolidity.g:2173:4: ( () ( (lv_operator_2_0= ruleMultiplicativeOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) ) )
-            	    // InternalSolidity.g:2174:5: () ( (lv_operator_2_0= ruleMultiplicativeOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) )
+            	    // InternalSolidity.g:2012:4: ( () ( (lv_operator_2_0= ruleMultiplicativeOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) ) )
+            	    // InternalSolidity.g:2013:5: () ( (lv_operator_2_0= ruleMultiplicativeOperator ) ) ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) )
             	    {
-            	    // InternalSolidity.g:2174:5: ()
-            	    // InternalSolidity.g:2175:6: 
+            	    // InternalSolidity.g:2013:5: ()
+            	    // InternalSolidity.g:2014:6: 
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -6154,18 +5732,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // InternalSolidity.g:2181:5: ( (lv_operator_2_0= ruleMultiplicativeOperator ) )
-            	    // InternalSolidity.g:2182:6: (lv_operator_2_0= ruleMultiplicativeOperator )
+            	    // InternalSolidity.g:2020:5: ( (lv_operator_2_0= ruleMultiplicativeOperator ) )
+            	    // InternalSolidity.g:2021:6: (lv_operator_2_0= ruleMultiplicativeOperator )
             	    {
-            	    // InternalSolidity.g:2182:6: (lv_operator_2_0= ruleMultiplicativeOperator )
-            	    // InternalSolidity.g:2183:7: lv_operator_2_0= ruleMultiplicativeOperator
+            	    // InternalSolidity.g:2021:6: (lv_operator_2_0= ruleMultiplicativeOperator )
+            	    // InternalSolidity.g:2022:7: lv_operator_2_0= ruleMultiplicativeOperator
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      							newCompositeNode(grammarAccess.getNumericalMultiplyDivideExpressionAccess().getOperatorMultiplicativeOperatorEnumRuleCall_1_0_1_0());
             	      						
             	    }
-            	    pushFollow(FOLLOW_33);
+            	    pushFollow(FOLLOW_32);
             	    lv_operator_2_0=ruleMultiplicativeOperator();
 
             	    state._fsp--;
@@ -6189,18 +5767,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // InternalSolidity.g:2200:5: ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) )
-            	    // InternalSolidity.g:2201:6: (lv_rightOperand_3_0= ruleNumericalUnaryExpression )
+            	    // InternalSolidity.g:2039:5: ( (lv_rightOperand_3_0= ruleNumericalUnaryExpression ) )
+            	    // InternalSolidity.g:2040:6: (lv_rightOperand_3_0= ruleNumericalUnaryExpression )
             	    {
-            	    // InternalSolidity.g:2201:6: (lv_rightOperand_3_0= ruleNumericalUnaryExpression )
-            	    // InternalSolidity.g:2202:7: lv_rightOperand_3_0= ruleNumericalUnaryExpression
+            	    // InternalSolidity.g:2040:6: (lv_rightOperand_3_0= ruleNumericalUnaryExpression )
+            	    // InternalSolidity.g:2041:7: lv_rightOperand_3_0= ruleNumericalUnaryExpression
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      							newCompositeNode(grammarAccess.getNumericalMultiplyDivideExpressionAccess().getRightOperandNumericalUnaryExpressionParserRuleCall_1_0_2_0());
             	      						
             	    }
-            	    pushFollow(FOLLOW_40);
+            	    pushFollow(FOLLOW_39);
             	    lv_rightOperand_3_0=ruleNumericalUnaryExpression();
 
             	    state._fsp--;
@@ -6261,7 +5839,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleNumericalUnaryExpression"
-    // InternalSolidity.g:2225:1: entryRuleNumericalUnaryExpression returns [EObject current=null] : iv_ruleNumericalUnaryExpression= ruleNumericalUnaryExpression EOF ;
+    // InternalSolidity.g:2064:1: entryRuleNumericalUnaryExpression returns [EObject current=null] : iv_ruleNumericalUnaryExpression= ruleNumericalUnaryExpression EOF ;
     public final EObject entryRuleNumericalUnaryExpression() throws RecognitionException {
         EObject current = null;
 
@@ -6269,8 +5847,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:2225:65: (iv_ruleNumericalUnaryExpression= ruleNumericalUnaryExpression EOF )
-            // InternalSolidity.g:2226:2: iv_ruleNumericalUnaryExpression= ruleNumericalUnaryExpression EOF
+            // InternalSolidity.g:2064:65: (iv_ruleNumericalUnaryExpression= ruleNumericalUnaryExpression EOF )
+            // InternalSolidity.g:2065:2: iv_ruleNumericalUnaryExpression= ruleNumericalUnaryExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getNumericalUnaryExpressionRule()); 
@@ -6301,7 +5879,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNumericalUnaryExpression"
-    // InternalSolidity.g:2232:1: ruleNumericalUnaryExpression returns [EObject current=null] : (this_TypeCastExpression_0= ruleTypeCastExpression | ( () ( (lv_operator_2_0= ruleUnaryOperator ) ) ( (lv_operand_3_0= ruleTypeCastExpression ) ) ) ) ;
+    // InternalSolidity.g:2071:1: ruleNumericalUnaryExpression returns [EObject current=null] : (this_TypeCastExpression_0= ruleTypeCastExpression | ( () ( (lv_operator_2_0= ruleUnaryOperator ) ) ( (lv_operand_3_0= ruleTypeCastExpression ) ) ) ) ;
     public final EObject ruleNumericalUnaryExpression() throws RecognitionException {
         EObject current = null;
 
@@ -6316,17 +5894,17 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:2238:2: ( (this_TypeCastExpression_0= ruleTypeCastExpression | ( () ( (lv_operator_2_0= ruleUnaryOperator ) ) ( (lv_operand_3_0= ruleTypeCastExpression ) ) ) ) )
-            // InternalSolidity.g:2239:2: (this_TypeCastExpression_0= ruleTypeCastExpression | ( () ( (lv_operator_2_0= ruleUnaryOperator ) ) ( (lv_operand_3_0= ruleTypeCastExpression ) ) ) )
+            // InternalSolidity.g:2077:2: ( (this_TypeCastExpression_0= ruleTypeCastExpression | ( () ( (lv_operator_2_0= ruleUnaryOperator ) ) ( (lv_operand_3_0= ruleTypeCastExpression ) ) ) ) )
+            // InternalSolidity.g:2078:2: (this_TypeCastExpression_0= ruleTypeCastExpression | ( () ( (lv_operator_2_0= ruleUnaryOperator ) ) ( (lv_operand_3_0= ruleTypeCastExpression ) ) ) )
             {
-            // InternalSolidity.g:2239:2: (this_TypeCastExpression_0= ruleTypeCastExpression | ( () ( (lv_operator_2_0= ruleUnaryOperator ) ) ( (lv_operand_3_0= ruleTypeCastExpression ) ) ) )
+            // InternalSolidity.g:2078:2: (this_TypeCastExpression_0= ruleTypeCastExpression | ( () ( (lv_operator_2_0= ruleUnaryOperator ) ) ( (lv_operand_3_0= ruleTypeCastExpression ) ) ) )
             int alt34=2;
             int LA34_0 = input.LA(1);
 
-            if ( ((LA34_0>=RULE_STRING && LA34_0<=RULE_BINARY)||LA34_0==29||LA34_0==31||LA34_0==48) ) {
+            if ( ((LA34_0>=RULE_STRING && LA34_0<=RULE_BINARY)||LA34_0==28||LA34_0==30||LA34_0==46) ) {
                 alt34=1;
             }
-            else if ( ((LA34_0>=71 && LA34_0<=72)||LA34_0==76) ) {
+            else if ( ((LA34_0>=68 && LA34_0<=69)||LA34_0==73) ) {
                 alt34=2;
             }
             else {
@@ -6338,7 +5916,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             }
             switch (alt34) {
                 case 1 :
-                    // InternalSolidity.g:2240:3: this_TypeCastExpression_0= ruleTypeCastExpression
+                    // InternalSolidity.g:2079:3: this_TypeCastExpression_0= ruleTypeCastExpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -6360,13 +5938,13 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSolidity.g:2249:3: ( () ( (lv_operator_2_0= ruleUnaryOperator ) ) ( (lv_operand_3_0= ruleTypeCastExpression ) ) )
+                    // InternalSolidity.g:2088:3: ( () ( (lv_operator_2_0= ruleUnaryOperator ) ) ( (lv_operand_3_0= ruleTypeCastExpression ) ) )
                     {
-                    // InternalSolidity.g:2249:3: ( () ( (lv_operator_2_0= ruleUnaryOperator ) ) ( (lv_operand_3_0= ruleTypeCastExpression ) ) )
-                    // InternalSolidity.g:2250:4: () ( (lv_operator_2_0= ruleUnaryOperator ) ) ( (lv_operand_3_0= ruleTypeCastExpression ) )
+                    // InternalSolidity.g:2088:3: ( () ( (lv_operator_2_0= ruleUnaryOperator ) ) ( (lv_operand_3_0= ruleTypeCastExpression ) ) )
+                    // InternalSolidity.g:2089:4: () ( (lv_operator_2_0= ruleUnaryOperator ) ) ( (lv_operand_3_0= ruleTypeCastExpression ) )
                     {
-                    // InternalSolidity.g:2250:4: ()
-                    // InternalSolidity.g:2251:5: 
+                    // InternalSolidity.g:2089:4: ()
+                    // InternalSolidity.g:2090:5: 
                     {
                     if ( state.backtracking==0 ) {
 
@@ -6378,18 +5956,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalSolidity.g:2257:4: ( (lv_operator_2_0= ruleUnaryOperator ) )
-                    // InternalSolidity.g:2258:5: (lv_operator_2_0= ruleUnaryOperator )
+                    // InternalSolidity.g:2096:4: ( (lv_operator_2_0= ruleUnaryOperator ) )
+                    // InternalSolidity.g:2097:5: (lv_operator_2_0= ruleUnaryOperator )
                     {
-                    // InternalSolidity.g:2258:5: (lv_operator_2_0= ruleUnaryOperator )
-                    // InternalSolidity.g:2259:6: lv_operator_2_0= ruleUnaryOperator
+                    // InternalSolidity.g:2097:5: (lv_operator_2_0= ruleUnaryOperator )
+                    // InternalSolidity.g:2098:6: lv_operator_2_0= ruleUnaryOperator
                     {
                     if ( state.backtracking==0 ) {
 
                       						newCompositeNode(grammarAccess.getNumericalUnaryExpressionAccess().getOperatorUnaryOperatorEnumRuleCall_1_1_0());
                       					
                     }
-                    pushFollow(FOLLOW_41);
+                    pushFollow(FOLLOW_40);
                     lv_operator_2_0=ruleUnaryOperator();
 
                     state._fsp--;
@@ -6413,11 +5991,11 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalSolidity.g:2276:4: ( (lv_operand_3_0= ruleTypeCastExpression ) )
-                    // InternalSolidity.g:2277:5: (lv_operand_3_0= ruleTypeCastExpression )
+                    // InternalSolidity.g:2115:4: ( (lv_operand_3_0= ruleTypeCastExpression ) )
+                    // InternalSolidity.g:2116:5: (lv_operand_3_0= ruleTypeCastExpression )
                     {
-                    // InternalSolidity.g:2277:5: (lv_operand_3_0= ruleTypeCastExpression )
-                    // InternalSolidity.g:2278:6: lv_operand_3_0= ruleTypeCastExpression
+                    // InternalSolidity.g:2116:5: (lv_operand_3_0= ruleTypeCastExpression )
+                    // InternalSolidity.g:2117:6: lv_operand_3_0= ruleTypeCastExpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -6479,7 +6057,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTypeCastExpression"
-    // InternalSolidity.g:2300:1: entryRuleTypeCastExpression returns [EObject current=null] : iv_ruleTypeCastExpression= ruleTypeCastExpression EOF ;
+    // InternalSolidity.g:2139:1: entryRuleTypeCastExpression returns [EObject current=null] : iv_ruleTypeCastExpression= ruleTypeCastExpression EOF ;
     public final EObject entryRuleTypeCastExpression() throws RecognitionException {
         EObject current = null;
 
@@ -6487,8 +6065,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:2300:59: (iv_ruleTypeCastExpression= ruleTypeCastExpression EOF )
-            // InternalSolidity.g:2301:2: iv_ruleTypeCastExpression= ruleTypeCastExpression EOF
+            // InternalSolidity.g:2139:59: (iv_ruleTypeCastExpression= ruleTypeCastExpression EOF )
+            // InternalSolidity.g:2140:2: iv_ruleTypeCastExpression= ruleTypeCastExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getTypeCastExpressionRule()); 
@@ -6519,7 +6097,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTypeCastExpression"
-    // InternalSolidity.g:2307:1: ruleTypeCastExpression returns [EObject current=null] : (this_PrimaryExpression_0= rulePrimaryExpression ( ( () otherlv_2= 'as' ) ( ( ruleQID ) ) )* ) ;
+    // InternalSolidity.g:2146:1: ruleTypeCastExpression returns [EObject current=null] : (this_PrimaryExpression_0= rulePrimaryExpression ( ( () otherlv_2= 'as' ) ( ( ruleQID ) ) )* ) ;
     public final EObject ruleTypeCastExpression() throws RecognitionException {
         EObject current = null;
 
@@ -6531,18 +6109,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:2313:2: ( (this_PrimaryExpression_0= rulePrimaryExpression ( ( () otherlv_2= 'as' ) ( ( ruleQID ) ) )* ) )
-            // InternalSolidity.g:2314:2: (this_PrimaryExpression_0= rulePrimaryExpression ( ( () otherlv_2= 'as' ) ( ( ruleQID ) ) )* )
+            // InternalSolidity.g:2152:2: ( (this_PrimaryExpression_0= rulePrimaryExpression ( ( () otherlv_2= 'as' ) ( ( ruleQID ) ) )* ) )
+            // InternalSolidity.g:2153:2: (this_PrimaryExpression_0= rulePrimaryExpression ( ( () otherlv_2= 'as' ) ( ( ruleQID ) ) )* )
             {
-            // InternalSolidity.g:2314:2: (this_PrimaryExpression_0= rulePrimaryExpression ( ( () otherlv_2= 'as' ) ( ( ruleQID ) ) )* )
-            // InternalSolidity.g:2315:3: this_PrimaryExpression_0= rulePrimaryExpression ( ( () otherlv_2= 'as' ) ( ( ruleQID ) ) )*
+            // InternalSolidity.g:2153:2: (this_PrimaryExpression_0= rulePrimaryExpression ( ( () otherlv_2= 'as' ) ( ( ruleQID ) ) )* )
+            // InternalSolidity.g:2154:3: this_PrimaryExpression_0= rulePrimaryExpression ( ( () otherlv_2= 'as' ) ( ( ruleQID ) ) )*
             {
             if ( state.backtracking==0 ) {
 
               			newCompositeNode(grammarAccess.getTypeCastExpressionAccess().getPrimaryExpressionParserRuleCall_0());
               		
             }
-            pushFollow(FOLLOW_42);
+            pushFollow(FOLLOW_41);
             this_PrimaryExpression_0=rulePrimaryExpression();
 
             state._fsp--;
@@ -6553,7 +6131,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               			afterParserOrEnumRuleCall();
               		
             }
-            // InternalSolidity.g:2323:3: ( ( () otherlv_2= 'as' ) ( ( ruleQID ) ) )*
+            // InternalSolidity.g:2162:3: ( ( () otherlv_2= 'as' ) ( ( ruleQID ) ) )*
             loop35:
             do {
                 int alt35=2;
@@ -6566,13 +6144,13 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
                 switch (alt35) {
             	case 1 :
-            	    // InternalSolidity.g:2324:4: ( () otherlv_2= 'as' ) ( ( ruleQID ) )
+            	    // InternalSolidity.g:2163:4: ( () otherlv_2= 'as' ) ( ( ruleQID ) )
             	    {
-            	    // InternalSolidity.g:2324:4: ( () otherlv_2= 'as' )
-            	    // InternalSolidity.g:2325:5: () otherlv_2= 'as'
+            	    // InternalSolidity.g:2163:4: ( () otherlv_2= 'as' )
+            	    // InternalSolidity.g:2164:5: () otherlv_2= 'as'
             	    {
-            	    // InternalSolidity.g:2325:5: ()
-            	    // InternalSolidity.g:2326:6: 
+            	    // InternalSolidity.g:2164:5: ()
+            	    // InternalSolidity.g:2165:6: 
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -6584,7 +6162,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_2=(Token)match(input,21,FOLLOW_9); if (state.failed) return current;
+            	    otherlv_2=(Token)match(input,21,FOLLOW_11); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      					newLeafNode(otherlv_2, grammarAccess.getTypeCastExpressionAccess().getAsKeyword_1_0_1());
@@ -6593,11 +6171,11 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // InternalSolidity.g:2337:4: ( ( ruleQID ) )
-            	    // InternalSolidity.g:2338:5: ( ruleQID )
+            	    // InternalSolidity.g:2176:4: ( ( ruleQID ) )
+            	    // InternalSolidity.g:2177:5: ( ruleQID )
             	    {
-            	    // InternalSolidity.g:2338:5: ( ruleQID )
-            	    // InternalSolidity.g:2339:6: ruleQID
+            	    // InternalSolidity.g:2177:5: ( ruleQID )
+            	    // InternalSolidity.g:2178:6: ruleQID
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -6611,7 +6189,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             	      						newCompositeNode(grammarAccess.getTypeCastExpressionAccess().getTypeTypeCrossReference_1_1_0());
             	      					
             	    }
-            	    pushFollow(FOLLOW_42);
+            	    pushFollow(FOLLOW_41);
             	    ruleQID();
 
             	    state._fsp--;
@@ -6661,7 +6239,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePrimaryExpression"
-    // InternalSolidity.g:2358:1: entryRulePrimaryExpression returns [EObject current=null] : iv_rulePrimaryExpression= rulePrimaryExpression EOF ;
+    // InternalSolidity.g:2197:1: entryRulePrimaryExpression returns [EObject current=null] : iv_rulePrimaryExpression= rulePrimaryExpression EOF ;
     public final EObject entryRulePrimaryExpression() throws RecognitionException {
         EObject current = null;
 
@@ -6669,8 +6247,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:2358:58: (iv_rulePrimaryExpression= rulePrimaryExpression EOF )
-            // InternalSolidity.g:2359:2: iv_rulePrimaryExpression= rulePrimaryExpression EOF
+            // InternalSolidity.g:2197:58: (iv_rulePrimaryExpression= rulePrimaryExpression EOF )
+            // InternalSolidity.g:2198:2: iv_rulePrimaryExpression= rulePrimaryExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getPrimaryExpressionRule()); 
@@ -6701,7 +6279,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePrimaryExpression"
-    // InternalSolidity.g:2365:1: rulePrimaryExpression returns [EObject current=null] : (this_PrimitiveValueExpression_0= rulePrimitiveValueExpression | this_FeatureCall_1= ruleFeatureCall | this_ParenthesizedExpression_2= ruleParenthesizedExpression ) ;
+    // InternalSolidity.g:2204:1: rulePrimaryExpression returns [EObject current=null] : (this_PrimitiveValueExpression_0= rulePrimitiveValueExpression | this_FeatureCall_1= ruleFeatureCall | this_ParenthesizedExpression_2= ruleParenthesizedExpression ) ;
     public final EObject rulePrimaryExpression() throws RecognitionException {
         EObject current = null;
 
@@ -6716,10 +6294,10 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:2371:2: ( (this_PrimitiveValueExpression_0= rulePrimitiveValueExpression | this_FeatureCall_1= ruleFeatureCall | this_ParenthesizedExpression_2= ruleParenthesizedExpression ) )
-            // InternalSolidity.g:2372:2: (this_PrimitiveValueExpression_0= rulePrimitiveValueExpression | this_FeatureCall_1= ruleFeatureCall | this_ParenthesizedExpression_2= ruleParenthesizedExpression )
+            // InternalSolidity.g:2210:2: ( (this_PrimitiveValueExpression_0= rulePrimitiveValueExpression | this_FeatureCall_1= ruleFeatureCall | this_ParenthesizedExpression_2= ruleParenthesizedExpression ) )
+            // InternalSolidity.g:2211:2: (this_PrimitiveValueExpression_0= rulePrimitiveValueExpression | this_FeatureCall_1= ruleFeatureCall | this_ParenthesizedExpression_2= ruleParenthesizedExpression )
             {
-            // InternalSolidity.g:2372:2: (this_PrimitiveValueExpression_0= rulePrimitiveValueExpression | this_FeatureCall_1= ruleFeatureCall | this_ParenthesizedExpression_2= ruleParenthesizedExpression )
+            // InternalSolidity.g:2211:2: (this_PrimitiveValueExpression_0= rulePrimitiveValueExpression | this_FeatureCall_1= ruleFeatureCall | this_ParenthesizedExpression_2= ruleParenthesizedExpression )
             int alt36=3;
             switch ( input.LA(1) ) {
             case RULE_STRING:
@@ -6729,8 +6307,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             case RULE_FLOAT:
             case RULE_HEX:
             case RULE_BINARY:
-            case 31:
-            case 48:
+            case 30:
+            case 46:
                 {
                 alt36=1;
                 }
@@ -6740,7 +6318,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                 alt36=2;
                 }
                 break;
-            case 29:
+            case 28:
                 {
                 alt36=3;
                 }
@@ -6755,7 +6333,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             switch (alt36) {
                 case 1 :
-                    // InternalSolidity.g:2373:3: this_PrimitiveValueExpression_0= rulePrimitiveValueExpression
+                    // InternalSolidity.g:2212:3: this_PrimitiveValueExpression_0= rulePrimitiveValueExpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -6777,7 +6355,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSolidity.g:2382:3: this_FeatureCall_1= ruleFeatureCall
+                    // InternalSolidity.g:2221:3: this_FeatureCall_1= ruleFeatureCall
                     {
                     if ( state.backtracking==0 ) {
 
@@ -6799,7 +6377,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalSolidity.g:2391:3: this_ParenthesizedExpression_2= ruleParenthesizedExpression
+                    // InternalSolidity.g:2230:3: this_ParenthesizedExpression_2= ruleParenthesizedExpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -6845,7 +6423,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePrimitiveValueExpression"
-    // InternalSolidity.g:2403:1: entryRulePrimitiveValueExpression returns [EObject current=null] : iv_rulePrimitiveValueExpression= rulePrimitiveValueExpression EOF ;
+    // InternalSolidity.g:2242:1: entryRulePrimitiveValueExpression returns [EObject current=null] : iv_rulePrimitiveValueExpression= rulePrimitiveValueExpression EOF ;
     public final EObject entryRulePrimitiveValueExpression() throws RecognitionException {
         EObject current = null;
 
@@ -6853,8 +6431,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:2403:65: (iv_rulePrimitiveValueExpression= rulePrimitiveValueExpression EOF )
-            // InternalSolidity.g:2404:2: iv_rulePrimitiveValueExpression= rulePrimitiveValueExpression EOF
+            // InternalSolidity.g:2242:65: (iv_rulePrimitiveValueExpression= rulePrimitiveValueExpression EOF )
+            // InternalSolidity.g:2243:2: iv_rulePrimitiveValueExpression= rulePrimitiveValueExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getPrimitiveValueExpressionRule()); 
@@ -6885,7 +6463,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePrimitiveValueExpression"
-    // InternalSolidity.g:2410:1: rulePrimitiveValueExpression returns [EObject current=null] : ( () ( (lv_value_1_0= ruleLiteral ) ) ) ;
+    // InternalSolidity.g:2249:1: rulePrimitiveValueExpression returns [EObject current=null] : ( () ( (lv_value_1_0= ruleLiteral ) ) ) ;
     public final EObject rulePrimitiveValueExpression() throws RecognitionException {
         EObject current = null;
 
@@ -6896,14 +6474,14 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:2416:2: ( ( () ( (lv_value_1_0= ruleLiteral ) ) ) )
-            // InternalSolidity.g:2417:2: ( () ( (lv_value_1_0= ruleLiteral ) ) )
+            // InternalSolidity.g:2255:2: ( ( () ( (lv_value_1_0= ruleLiteral ) ) ) )
+            // InternalSolidity.g:2256:2: ( () ( (lv_value_1_0= ruleLiteral ) ) )
             {
-            // InternalSolidity.g:2417:2: ( () ( (lv_value_1_0= ruleLiteral ) ) )
-            // InternalSolidity.g:2418:3: () ( (lv_value_1_0= ruleLiteral ) )
+            // InternalSolidity.g:2256:2: ( () ( (lv_value_1_0= ruleLiteral ) ) )
+            // InternalSolidity.g:2257:3: () ( (lv_value_1_0= ruleLiteral ) )
             {
-            // InternalSolidity.g:2418:3: ()
-            // InternalSolidity.g:2419:4: 
+            // InternalSolidity.g:2257:3: ()
+            // InternalSolidity.g:2258:4: 
             {
             if ( state.backtracking==0 ) {
 
@@ -6915,11 +6493,11 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:2425:3: ( (lv_value_1_0= ruleLiteral ) )
-            // InternalSolidity.g:2426:4: (lv_value_1_0= ruleLiteral )
+            // InternalSolidity.g:2264:3: ( (lv_value_1_0= ruleLiteral ) )
+            // InternalSolidity.g:2265:4: (lv_value_1_0= ruleLiteral )
             {
-            // InternalSolidity.g:2426:4: (lv_value_1_0= ruleLiteral )
-            // InternalSolidity.g:2427:5: lv_value_1_0= ruleLiteral
+            // InternalSolidity.g:2265:4: (lv_value_1_0= ruleLiteral )
+            // InternalSolidity.g:2266:5: lv_value_1_0= ruleLiteral
             {
             if ( state.backtracking==0 ) {
 
@@ -6975,7 +6553,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleFeatureCall"
-    // InternalSolidity.g:2448:1: entryRuleFeatureCall returns [EObject current=null] : iv_ruleFeatureCall= ruleFeatureCall EOF ;
+    // InternalSolidity.g:2287:1: entryRuleFeatureCall returns [EObject current=null] : iv_ruleFeatureCall= ruleFeatureCall EOF ;
     public final EObject entryRuleFeatureCall() throws RecognitionException {
         EObject current = null;
 
@@ -6983,8 +6561,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:2448:52: (iv_ruleFeatureCall= ruleFeatureCall EOF )
-            // InternalSolidity.g:2449:2: iv_ruleFeatureCall= ruleFeatureCall EOF
+            // InternalSolidity.g:2287:52: (iv_ruleFeatureCall= ruleFeatureCall EOF )
+            // InternalSolidity.g:2288:2: iv_ruleFeatureCall= ruleFeatureCall EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getFeatureCallRule()); 
@@ -7015,7 +6593,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleFeatureCall"
-    // InternalSolidity.g:2455:1: ruleFeatureCall returns [EObject current=null] : (this_ElementReferenceExpression_0= ruleElementReferenceExpression ( () otherlv_2= '.' ( (otherlv_3= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* ) )? )* ) ;
+    // InternalSolidity.g:2294:1: ruleFeatureCall returns [EObject current=null] : (this_ElementReferenceExpression_0= ruleElementReferenceExpression ( () otherlv_2= '.' ( (otherlv_3= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* ) )? )* ) ;
     public final EObject ruleFeatureCall() throws RecognitionException {
         EObject current = null;
 
@@ -7043,18 +6621,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:2461:2: ( (this_ElementReferenceExpression_0= ruleElementReferenceExpression ( () otherlv_2= '.' ( (otherlv_3= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* ) )? )* ) )
-            // InternalSolidity.g:2462:2: (this_ElementReferenceExpression_0= ruleElementReferenceExpression ( () otherlv_2= '.' ( (otherlv_3= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* ) )? )* )
+            // InternalSolidity.g:2300:2: ( (this_ElementReferenceExpression_0= ruleElementReferenceExpression ( () otherlv_2= '.' ( (otherlv_3= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* ) )? )* ) )
+            // InternalSolidity.g:2301:2: (this_ElementReferenceExpression_0= ruleElementReferenceExpression ( () otherlv_2= '.' ( (otherlv_3= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* ) )? )* )
             {
-            // InternalSolidity.g:2462:2: (this_ElementReferenceExpression_0= ruleElementReferenceExpression ( () otherlv_2= '.' ( (otherlv_3= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* ) )? )* )
-            // InternalSolidity.g:2463:3: this_ElementReferenceExpression_0= ruleElementReferenceExpression ( () otherlv_2= '.' ( (otherlv_3= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* ) )? )*
+            // InternalSolidity.g:2301:2: (this_ElementReferenceExpression_0= ruleElementReferenceExpression ( () otherlv_2= '.' ( (otherlv_3= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* ) )? )* )
+            // InternalSolidity.g:2302:3: this_ElementReferenceExpression_0= ruleElementReferenceExpression ( () otherlv_2= '.' ( (otherlv_3= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* ) )? )*
             {
             if ( state.backtracking==0 ) {
 
               			newCompositeNode(grammarAccess.getFeatureCallAccess().getElementReferenceExpressionParserRuleCall_0());
               		
             }
-            pushFollow(FOLLOW_43);
+            pushFollow(FOLLOW_42);
             this_ElementReferenceExpression_0=ruleElementReferenceExpression();
 
             state._fsp--;
@@ -7065,23 +6643,23 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               			afterParserOrEnumRuleCall();
               		
             }
-            // InternalSolidity.g:2471:3: ( () otherlv_2= '.' ( (otherlv_3= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* ) )? )*
+            // InternalSolidity.g:2310:3: ( () otherlv_2= '.' ( (otherlv_3= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* ) )? )*
             loop41:
             do {
                 int alt41=2;
                 int LA41_0 = input.LA(1);
 
-                if ( (LA41_0==43) ) {
+                if ( (LA41_0==41) ) {
                     alt41=1;
                 }
 
 
                 switch (alt41) {
             	case 1 :
-            	    // InternalSolidity.g:2472:4: () otherlv_2= '.' ( (otherlv_3= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* ) )?
+            	    // InternalSolidity.g:2311:4: () otherlv_2= '.' ( (otherlv_3= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* ) )?
             	    {
-            	    // InternalSolidity.g:2472:4: ()
-            	    // InternalSolidity.g:2473:5: 
+            	    // InternalSolidity.g:2311:4: ()
+            	    // InternalSolidity.g:2312:5: 
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -7093,17 +6671,17 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_2=(Token)match(input,43,FOLLOW_9); if (state.failed) return current;
+            	    otherlv_2=(Token)match(input,41,FOLLOW_11); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      				newLeafNode(otherlv_2, grammarAccess.getFeatureCallAccess().getFullStopKeyword_1_1());
             	      			
             	    }
-            	    // InternalSolidity.g:2483:4: ( (otherlv_3= RULE_ID ) )
-            	    // InternalSolidity.g:2484:5: (otherlv_3= RULE_ID )
+            	    // InternalSolidity.g:2322:4: ( (otherlv_3= RULE_ID ) )
+            	    // InternalSolidity.g:2323:5: (otherlv_3= RULE_ID )
             	    {
-            	    // InternalSolidity.g:2484:5: (otherlv_3= RULE_ID )
-            	    // InternalSolidity.g:2485:6: otherlv_3= RULE_ID
+            	    // InternalSolidity.g:2323:5: (otherlv_3= RULE_ID )
+            	    // InternalSolidity.g:2324:6: otherlv_3= RULE_ID
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -7112,7 +6690,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             	      						}
             	      					
             	    }
-            	    otherlv_3=(Token)match(input,RULE_ID,FOLLOW_44); if (state.failed) return current;
+            	    otherlv_3=(Token)match(input,RULE_ID,FOLLOW_43); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      						newLeafNode(otherlv_3, grammarAccess.getFeatureCallAccess().getFeatureEObjectCrossReference_1_2_0());
@@ -7124,30 +6702,30 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // InternalSolidity.g:2496:4: ( ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* ) )?
+            	    // InternalSolidity.g:2335:4: ( ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* ) )?
             	    int alt40=3;
             	    int LA40_0 = input.LA(1);
 
-            	    if ( (LA40_0==29) && (synpred3_InternalSolidity())) {
+            	    if ( (LA40_0==28) && (synpred3_InternalSolidity())) {
             	        alt40=1;
             	    }
-            	    else if ( (LA40_0==44) && (synpred4_InternalSolidity())) {
+            	    else if ( (LA40_0==42) && (synpred4_InternalSolidity())) {
             	        alt40=2;
             	    }
             	    switch (alt40) {
             	        case 1 :
-            	            // InternalSolidity.g:2497:5: ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' )
+            	            // InternalSolidity.g:2336:5: ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' )
             	            {
-            	            // InternalSolidity.g:2497:5: ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' )
-            	            // InternalSolidity.g:2498:6: ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')'
+            	            // InternalSolidity.g:2336:5: ( ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')' )
+            	            // InternalSolidity.g:2337:6: ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) ) ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )? otherlv_8= ')'
             	            {
-            	            // InternalSolidity.g:2498:6: ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) )
-            	            // InternalSolidity.g:2499:7: ( ( '(' ) )=> (lv_operationCall_4_0= '(' )
+            	            // InternalSolidity.g:2337:6: ( ( ( '(' ) )=> (lv_operationCall_4_0= '(' ) )
+            	            // InternalSolidity.g:2338:7: ( ( '(' ) )=> (lv_operationCall_4_0= '(' )
             	            {
-            	            // InternalSolidity.g:2503:7: (lv_operationCall_4_0= '(' )
-            	            // InternalSolidity.g:2504:8: lv_operationCall_4_0= '('
+            	            // InternalSolidity.g:2342:7: (lv_operationCall_4_0= '(' )
+            	            // InternalSolidity.g:2343:8: lv_operationCall_4_0= '('
             	            {
-            	            lv_operationCall_4_0=(Token)match(input,29,FOLLOW_45); if (state.failed) return current;
+            	            lv_operationCall_4_0=(Token)match(input,28,FOLLOW_44); if (state.failed) return current;
             	            if ( state.backtracking==0 ) {
 
             	              								newLeafNode(lv_operationCall_4_0, grammarAccess.getFeatureCallAccess().getOperationCallLeftParenthesisKeyword_1_3_0_0_0());
@@ -7167,29 +6745,29 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	            }
 
-            	            // InternalSolidity.g:2516:6: ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )?
+            	            // InternalSolidity.g:2355:6: ( ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )* )?
             	            int alt38=2;
             	            int LA38_0 = input.LA(1);
 
-            	            if ( ((LA38_0>=RULE_STRING && LA38_0<=RULE_BINARY)||LA38_0==29||LA38_0==31||LA38_0==48||LA38_0==51||(LA38_0>=71 && LA38_0<=72)||LA38_0==76) ) {
+            	            if ( ((LA38_0>=RULE_STRING && LA38_0<=RULE_BINARY)||LA38_0==28||LA38_0==30||LA38_0==46||LA38_0==49||(LA38_0>=68 && LA38_0<=69)||LA38_0==73) ) {
             	                alt38=1;
             	            }
             	            switch (alt38) {
             	                case 1 :
-            	                    // InternalSolidity.g:2517:7: ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )*
+            	                    // InternalSolidity.g:2356:7: ( (lv_arguments_5_0= ruleArgument ) ) (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )*
             	                    {
-            	                    // InternalSolidity.g:2517:7: ( (lv_arguments_5_0= ruleArgument ) )
-            	                    // InternalSolidity.g:2518:8: (lv_arguments_5_0= ruleArgument )
+            	                    // InternalSolidity.g:2356:7: ( (lv_arguments_5_0= ruleArgument ) )
+            	                    // InternalSolidity.g:2357:8: (lv_arguments_5_0= ruleArgument )
             	                    {
-            	                    // InternalSolidity.g:2518:8: (lv_arguments_5_0= ruleArgument )
-            	                    // InternalSolidity.g:2519:9: lv_arguments_5_0= ruleArgument
+            	                    // InternalSolidity.g:2357:8: (lv_arguments_5_0= ruleArgument )
+            	                    // InternalSolidity.g:2358:9: lv_arguments_5_0= ruleArgument
             	                    {
             	                    if ( state.backtracking==0 ) {
 
             	                      									newCompositeNode(grammarAccess.getFeatureCallAccess().getArgumentsArgumentParserRuleCall_1_3_0_1_0_0());
             	                      								
             	                    }
-            	                    pushFollow(FOLLOW_20);
+            	                    pushFollow(FOLLOW_21);
             	                    lv_arguments_5_0=ruleArgument();
 
             	                    state._fsp--;
@@ -7213,7 +6791,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	                    }
 
-            	                    // InternalSolidity.g:2536:7: (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )*
+            	                    // InternalSolidity.g:2375:7: (otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) ) )*
             	                    loop37:
             	                    do {
             	                        int alt37=2;
@@ -7226,26 +6804,26 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	                        switch (alt37) {
             	                    	case 1 :
-            	                    	    // InternalSolidity.g:2537:8: otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) )
+            	                    	    // InternalSolidity.g:2376:8: otherlv_6= ',' ( (lv_arguments_7_0= ruleArgument ) )
             	                    	    {
-            	                    	    otherlv_6=(Token)match(input,23,FOLLOW_15); if (state.failed) return current;
+            	                    	    otherlv_6=(Token)match(input,23,FOLLOW_17); if (state.failed) return current;
             	                    	    if ( state.backtracking==0 ) {
 
             	                    	      								newLeafNode(otherlv_6, grammarAccess.getFeatureCallAccess().getCommaKeyword_1_3_0_1_1_0());
             	                    	      							
             	                    	    }
-            	                    	    // InternalSolidity.g:2541:8: ( (lv_arguments_7_0= ruleArgument ) )
-            	                    	    // InternalSolidity.g:2542:9: (lv_arguments_7_0= ruleArgument )
+            	                    	    // InternalSolidity.g:2380:8: ( (lv_arguments_7_0= ruleArgument ) )
+            	                    	    // InternalSolidity.g:2381:9: (lv_arguments_7_0= ruleArgument )
             	                    	    {
-            	                    	    // InternalSolidity.g:2542:9: (lv_arguments_7_0= ruleArgument )
-            	                    	    // InternalSolidity.g:2543:10: lv_arguments_7_0= ruleArgument
+            	                    	    // InternalSolidity.g:2381:9: (lv_arguments_7_0= ruleArgument )
+            	                    	    // InternalSolidity.g:2382:10: lv_arguments_7_0= ruleArgument
             	                    	    {
             	                    	    if ( state.backtracking==0 ) {
 
             	                    	      										newCompositeNode(grammarAccess.getFeatureCallAccess().getArgumentsArgumentParserRuleCall_1_3_0_1_1_1_0());
             	                    	      									
             	                    	    }
-            	                    	    pushFollow(FOLLOW_20);
+            	                    	    pushFollow(FOLLOW_21);
             	                    	    lv_arguments_7_0=ruleArgument();
 
             	                    	    state._fsp--;
@@ -7284,7 +6862,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	            }
 
-            	            otherlv_8=(Token)match(input,30,FOLLOW_43); if (state.failed) return current;
+            	            otherlv_8=(Token)match(input,29,FOLLOW_42); if (state.failed) return current;
             	            if ( state.backtracking==0 ) {
 
             	              						newLeafNode(otherlv_8, grammarAccess.getFeatureCallAccess().getRightParenthesisKeyword_1_3_0_2());
@@ -7297,24 +6875,24 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             	            }
             	            break;
             	        case 2 :
-            	            // InternalSolidity.g:2568:5: ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* )
+            	            // InternalSolidity.g:2407:5: ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* )
             	            {
-            	            // InternalSolidity.g:2568:5: ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* )
-            	            // InternalSolidity.g:2569:6: ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )*
+            	            // InternalSolidity.g:2407:5: ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )* )
+            	            // InternalSolidity.g:2408:6: ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )*
             	            {
-            	            // InternalSolidity.g:2569:6: ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) )
-            	            // InternalSolidity.g:2570:7: ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' )
+            	            // InternalSolidity.g:2408:6: ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' ) )
+            	            // InternalSolidity.g:2409:7: ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' )
             	            {
-            	            // InternalSolidity.g:2584:7: ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' )
-            	            // InternalSolidity.g:2585:8: ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']'
+            	            // InternalSolidity.g:2423:7: ( ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']' )
+            	            // InternalSolidity.g:2424:8: ( (lv_arrayAccess_9_0= '[' ) ) ( (lv_arraySelector_10_0= ruleExpression ) ) otherlv_11= ']'
             	            {
-            	            // InternalSolidity.g:2585:8: ( (lv_arrayAccess_9_0= '[' ) )
-            	            // InternalSolidity.g:2586:9: (lv_arrayAccess_9_0= '[' )
+            	            // InternalSolidity.g:2424:8: ( (lv_arrayAccess_9_0= '[' ) )
+            	            // InternalSolidity.g:2425:9: (lv_arrayAccess_9_0= '[' )
             	            {
-            	            // InternalSolidity.g:2586:9: (lv_arrayAccess_9_0= '[' )
-            	            // InternalSolidity.g:2587:10: lv_arrayAccess_9_0= '['
+            	            // InternalSolidity.g:2425:9: (lv_arrayAccess_9_0= '[' )
+            	            // InternalSolidity.g:2426:10: lv_arrayAccess_9_0= '['
             	            {
-            	            lv_arrayAccess_9_0=(Token)match(input,44,FOLLOW_15); if (state.failed) return current;
+            	            lv_arrayAccess_9_0=(Token)match(input,42,FOLLOW_17); if (state.failed) return current;
             	            if ( state.backtracking==0 ) {
 
             	              										newLeafNode(lv_arrayAccess_9_0, grammarAccess.getFeatureCallAccess().getArrayAccessLeftSquareBracketKeyword_1_3_1_0_0_0_0());
@@ -7334,18 +6912,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	            }
 
-            	            // InternalSolidity.g:2599:8: ( (lv_arraySelector_10_0= ruleExpression ) )
-            	            // InternalSolidity.g:2600:9: (lv_arraySelector_10_0= ruleExpression )
+            	            // InternalSolidity.g:2438:8: ( (lv_arraySelector_10_0= ruleExpression ) )
+            	            // InternalSolidity.g:2439:9: (lv_arraySelector_10_0= ruleExpression )
             	            {
-            	            // InternalSolidity.g:2600:9: (lv_arraySelector_10_0= ruleExpression )
-            	            // InternalSolidity.g:2601:10: lv_arraySelector_10_0= ruleExpression
+            	            // InternalSolidity.g:2439:9: (lv_arraySelector_10_0= ruleExpression )
+            	            // InternalSolidity.g:2440:10: lv_arraySelector_10_0= ruleExpression
             	            {
             	            if ( state.backtracking==0 ) {
 
             	              										newCompositeNode(grammarAccess.getFeatureCallAccess().getArraySelectorExpressionParserRuleCall_1_3_1_0_0_1_0());
             	              									
             	            }
-            	            pushFollow(FOLLOW_46);
+            	            pushFollow(FOLLOW_45);
             	            lv_arraySelector_10_0=ruleExpression();
 
             	            state._fsp--;
@@ -7369,7 +6947,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	            }
 
-            	            otherlv_11=(Token)match(input,45,FOLLOW_47); if (state.failed) return current;
+            	            otherlv_11=(Token)match(input,43,FOLLOW_46); if (state.failed) return current;
             	            if ( state.backtracking==0 ) {
 
             	              								newLeafNode(otherlv_11, grammarAccess.getFeatureCallAccess().getRightSquareBracketKeyword_1_3_1_0_0_2());
@@ -7381,42 +6959,42 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	            }
 
-            	            // InternalSolidity.g:2624:6: ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )*
+            	            // InternalSolidity.g:2463:6: ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' ) )*
             	            loop39:
             	            do {
             	                int alt39=2;
             	                int LA39_0 = input.LA(1);
 
-            	                if ( (LA39_0==44) && (synpred5_InternalSolidity())) {
+            	                if ( (LA39_0==42) && (synpred5_InternalSolidity())) {
             	                    alt39=1;
             	                }
 
 
             	                switch (alt39) {
             	            	case 1 :
-            	            	    // InternalSolidity.g:2625:7: ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' )
+            	            	    // InternalSolidity.g:2464:7: ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' )
             	            	    {
-            	            	    // InternalSolidity.g:2635:7: (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' )
-            	            	    // InternalSolidity.g:2636:8: otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']'
+            	            	    // InternalSolidity.g:2474:7: (otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']' )
+            	            	    // InternalSolidity.g:2475:8: otherlv_12= '[' ( (lv_arraySelector_13_0= ruleExpression ) ) otherlv_14= ']'
             	            	    {
-            	            	    otherlv_12=(Token)match(input,44,FOLLOW_15); if (state.failed) return current;
+            	            	    otherlv_12=(Token)match(input,42,FOLLOW_17); if (state.failed) return current;
             	            	    if ( state.backtracking==0 ) {
 
             	            	      								newLeafNode(otherlv_12, grammarAccess.getFeatureCallAccess().getLeftSquareBracketKeyword_1_3_1_1_0_0());
             	            	      							
             	            	    }
-            	            	    // InternalSolidity.g:2640:8: ( (lv_arraySelector_13_0= ruleExpression ) )
-            	            	    // InternalSolidity.g:2641:9: (lv_arraySelector_13_0= ruleExpression )
+            	            	    // InternalSolidity.g:2479:8: ( (lv_arraySelector_13_0= ruleExpression ) )
+            	            	    // InternalSolidity.g:2480:9: (lv_arraySelector_13_0= ruleExpression )
             	            	    {
-            	            	    // InternalSolidity.g:2641:9: (lv_arraySelector_13_0= ruleExpression )
-            	            	    // InternalSolidity.g:2642:10: lv_arraySelector_13_0= ruleExpression
+            	            	    // InternalSolidity.g:2480:9: (lv_arraySelector_13_0= ruleExpression )
+            	            	    // InternalSolidity.g:2481:10: lv_arraySelector_13_0= ruleExpression
             	            	    {
             	            	    if ( state.backtracking==0 ) {
 
             	            	      										newCompositeNode(grammarAccess.getFeatureCallAccess().getArraySelectorExpressionParserRuleCall_1_3_1_1_0_1_0());
             	            	      									
             	            	    }
-            	            	    pushFollow(FOLLOW_46);
+            	            	    pushFollow(FOLLOW_45);
             	            	    lv_arraySelector_13_0=ruleExpression();
 
             	            	    state._fsp--;
@@ -7440,7 +7018,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             	            	    }
 
-            	            	    otherlv_14=(Token)match(input,45,FOLLOW_47); if (state.failed) return current;
+            	            	    otherlv_14=(Token)match(input,43,FOLLOW_46); if (state.failed) return current;
             	            	    if ( state.backtracking==0 ) {
 
             	            	      								newLeafNode(otherlv_14, grammarAccess.getFeatureCallAccess().getRightSquareBracketKeyword_1_3_1_1_0_2());
@@ -7501,7 +7079,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleElementReferenceExpression"
-    // InternalSolidity.g:2672:1: entryRuleElementReferenceExpression returns [EObject current=null] : iv_ruleElementReferenceExpression= ruleElementReferenceExpression EOF ;
+    // InternalSolidity.g:2511:1: entryRuleElementReferenceExpression returns [EObject current=null] : iv_ruleElementReferenceExpression= ruleElementReferenceExpression EOF ;
     public final EObject entryRuleElementReferenceExpression() throws RecognitionException {
         EObject current = null;
 
@@ -7509,8 +7087,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:2672:67: (iv_ruleElementReferenceExpression= ruleElementReferenceExpression EOF )
-            // InternalSolidity.g:2673:2: iv_ruleElementReferenceExpression= ruleElementReferenceExpression EOF
+            // InternalSolidity.g:2511:67: (iv_ruleElementReferenceExpression= ruleElementReferenceExpression EOF )
+            // InternalSolidity.g:2512:2: iv_ruleElementReferenceExpression= ruleElementReferenceExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getElementReferenceExpressionRule()); 
@@ -7541,7 +7119,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleElementReferenceExpression"
-    // InternalSolidity.g:2679:1: ruleElementReferenceExpression returns [EObject current=null] : ( () ( (otherlv_1= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) ) ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )? otherlv_6= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )* ) )? ) ;
+    // InternalSolidity.g:2518:1: ruleElementReferenceExpression returns [EObject current=null] : ( () ( (otherlv_1= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) ) ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )? otherlv_6= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )* ) )? ) ;
     public final EObject ruleElementReferenceExpression() throws RecognitionException {
         EObject current = null;
 
@@ -7566,14 +7144,14 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:2685:2: ( ( () ( (otherlv_1= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) ) ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )? otherlv_6= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )* ) )? ) )
-            // InternalSolidity.g:2686:2: ( () ( (otherlv_1= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) ) ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )? otherlv_6= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )* ) )? )
+            // InternalSolidity.g:2524:2: ( ( () ( (otherlv_1= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) ) ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )? otherlv_6= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )* ) )? ) )
+            // InternalSolidity.g:2525:2: ( () ( (otherlv_1= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) ) ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )? otherlv_6= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )* ) )? )
             {
-            // InternalSolidity.g:2686:2: ( () ( (otherlv_1= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) ) ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )? otherlv_6= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )* ) )? )
-            // InternalSolidity.g:2687:3: () ( (otherlv_1= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) ) ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )? otherlv_6= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )* ) )?
+            // InternalSolidity.g:2525:2: ( () ( (otherlv_1= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) ) ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )? otherlv_6= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )* ) )? )
+            // InternalSolidity.g:2526:3: () ( (otherlv_1= RULE_ID ) ) ( ( ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) ) ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )? otherlv_6= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )* ) )?
             {
-            // InternalSolidity.g:2687:3: ()
-            // InternalSolidity.g:2688:4: 
+            // InternalSolidity.g:2526:3: ()
+            // InternalSolidity.g:2527:4: 
             {
             if ( state.backtracking==0 ) {
 
@@ -7585,11 +7163,11 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:2694:3: ( (otherlv_1= RULE_ID ) )
-            // InternalSolidity.g:2695:4: (otherlv_1= RULE_ID )
+            // InternalSolidity.g:2533:3: ( (otherlv_1= RULE_ID ) )
+            // InternalSolidity.g:2534:4: (otherlv_1= RULE_ID )
             {
-            // InternalSolidity.g:2695:4: (otherlv_1= RULE_ID )
-            // InternalSolidity.g:2696:5: otherlv_1= RULE_ID
+            // InternalSolidity.g:2534:4: (otherlv_1= RULE_ID )
+            // InternalSolidity.g:2535:5: otherlv_1= RULE_ID
             {
             if ( state.backtracking==0 ) {
 
@@ -7598,7 +7176,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               					}
               				
             }
-            otherlv_1=(Token)match(input,RULE_ID,FOLLOW_48); if (state.failed) return current;
+            otherlv_1=(Token)match(input,RULE_ID,FOLLOW_47); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               					newLeafNode(otherlv_1, grammarAccess.getElementReferenceExpressionAccess().getReferenceEObjectCrossReference_1_0());
@@ -7610,30 +7188,30 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:2707:3: ( ( ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) ) ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )? otherlv_6= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )* ) )?
+            // InternalSolidity.g:2546:3: ( ( ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) ) ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )? otherlv_6= ')' ) | ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )* ) )?
             int alt45=3;
             int LA45_0 = input.LA(1);
 
-            if ( (LA45_0==29) && (synpred6_InternalSolidity())) {
+            if ( (LA45_0==28) && (synpred6_InternalSolidity())) {
                 alt45=1;
             }
-            else if ( (LA45_0==44) && (synpred7_InternalSolidity())) {
+            else if ( (LA45_0==42) && (synpred7_InternalSolidity())) {
                 alt45=2;
             }
             switch (alt45) {
                 case 1 :
-                    // InternalSolidity.g:2708:4: ( ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) ) ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )? otherlv_6= ')' )
+                    // InternalSolidity.g:2547:4: ( ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) ) ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )? otherlv_6= ')' )
                     {
-                    // InternalSolidity.g:2708:4: ( ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) ) ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )? otherlv_6= ')' )
-                    // InternalSolidity.g:2709:5: ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) ) ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )? otherlv_6= ')'
+                    // InternalSolidity.g:2547:4: ( ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) ) ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )? otherlv_6= ')' )
+                    // InternalSolidity.g:2548:5: ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) ) ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )? otherlv_6= ')'
                     {
-                    // InternalSolidity.g:2709:5: ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) )
-                    // InternalSolidity.g:2710:6: ( ( '(' ) )=> (lv_operationCall_2_0= '(' )
+                    // InternalSolidity.g:2548:5: ( ( ( '(' ) )=> (lv_operationCall_2_0= '(' ) )
+                    // InternalSolidity.g:2549:6: ( ( '(' ) )=> (lv_operationCall_2_0= '(' )
                     {
-                    // InternalSolidity.g:2714:6: (lv_operationCall_2_0= '(' )
-                    // InternalSolidity.g:2715:7: lv_operationCall_2_0= '('
+                    // InternalSolidity.g:2553:6: (lv_operationCall_2_0= '(' )
+                    // InternalSolidity.g:2554:7: lv_operationCall_2_0= '('
                     {
-                    lv_operationCall_2_0=(Token)match(input,29,FOLLOW_45); if (state.failed) return current;
+                    lv_operationCall_2_0=(Token)match(input,28,FOLLOW_44); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       							newLeafNode(lv_operationCall_2_0, grammarAccess.getElementReferenceExpressionAccess().getOperationCallLeftParenthesisKeyword_2_0_0_0());
@@ -7653,29 +7231,29 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalSolidity.g:2727:5: ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )?
+                    // InternalSolidity.g:2566:5: ( ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )* )?
                     int alt43=2;
                     int LA43_0 = input.LA(1);
 
-                    if ( ((LA43_0>=RULE_STRING && LA43_0<=RULE_BINARY)||LA43_0==29||LA43_0==31||LA43_0==48||LA43_0==51||(LA43_0>=71 && LA43_0<=72)||LA43_0==76) ) {
+                    if ( ((LA43_0>=RULE_STRING && LA43_0<=RULE_BINARY)||LA43_0==28||LA43_0==30||LA43_0==46||LA43_0==49||(LA43_0>=68 && LA43_0<=69)||LA43_0==73) ) {
                         alt43=1;
                     }
                     switch (alt43) {
                         case 1 :
-                            // InternalSolidity.g:2728:6: ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )*
+                            // InternalSolidity.g:2567:6: ( (lv_arguments_3_0= ruleArgument ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )*
                             {
-                            // InternalSolidity.g:2728:6: ( (lv_arguments_3_0= ruleArgument ) )
-                            // InternalSolidity.g:2729:7: (lv_arguments_3_0= ruleArgument )
+                            // InternalSolidity.g:2567:6: ( (lv_arguments_3_0= ruleArgument ) )
+                            // InternalSolidity.g:2568:7: (lv_arguments_3_0= ruleArgument )
                             {
-                            // InternalSolidity.g:2729:7: (lv_arguments_3_0= ruleArgument )
-                            // InternalSolidity.g:2730:8: lv_arguments_3_0= ruleArgument
+                            // InternalSolidity.g:2568:7: (lv_arguments_3_0= ruleArgument )
+                            // InternalSolidity.g:2569:8: lv_arguments_3_0= ruleArgument
                             {
                             if ( state.backtracking==0 ) {
 
                               								newCompositeNode(grammarAccess.getElementReferenceExpressionAccess().getArgumentsArgumentParserRuleCall_2_0_1_0_0());
                               							
                             }
-                            pushFollow(FOLLOW_20);
+                            pushFollow(FOLLOW_21);
                             lv_arguments_3_0=ruleArgument();
 
                             state._fsp--;
@@ -7699,7 +7277,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            // InternalSolidity.g:2747:6: (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )*
+                            // InternalSolidity.g:2586:6: (otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) ) )*
                             loop42:
                             do {
                                 int alt42=2;
@@ -7712,26 +7290,26 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
                                 switch (alt42) {
                             	case 1 :
-                            	    // InternalSolidity.g:2748:7: otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) )
+                            	    // InternalSolidity.g:2587:7: otherlv_4= ',' ( (lv_arguments_5_0= ruleArgument ) )
                             	    {
-                            	    otherlv_4=(Token)match(input,23,FOLLOW_15); if (state.failed) return current;
+                            	    otherlv_4=(Token)match(input,23,FOLLOW_17); if (state.failed) return current;
                             	    if ( state.backtracking==0 ) {
 
                             	      							newLeafNode(otherlv_4, grammarAccess.getElementReferenceExpressionAccess().getCommaKeyword_2_0_1_1_0());
                             	      						
                             	    }
-                            	    // InternalSolidity.g:2752:7: ( (lv_arguments_5_0= ruleArgument ) )
-                            	    // InternalSolidity.g:2753:8: (lv_arguments_5_0= ruleArgument )
+                            	    // InternalSolidity.g:2591:7: ( (lv_arguments_5_0= ruleArgument ) )
+                            	    // InternalSolidity.g:2592:8: (lv_arguments_5_0= ruleArgument )
                             	    {
-                            	    // InternalSolidity.g:2753:8: (lv_arguments_5_0= ruleArgument )
-                            	    // InternalSolidity.g:2754:9: lv_arguments_5_0= ruleArgument
+                            	    // InternalSolidity.g:2592:8: (lv_arguments_5_0= ruleArgument )
+                            	    // InternalSolidity.g:2593:9: lv_arguments_5_0= ruleArgument
                             	    {
                             	    if ( state.backtracking==0 ) {
 
                             	      									newCompositeNode(grammarAccess.getElementReferenceExpressionAccess().getArgumentsArgumentParserRuleCall_2_0_1_1_1_0());
                             	      								
                             	    }
-                            	    pushFollow(FOLLOW_20);
+                            	    pushFollow(FOLLOW_21);
                             	    lv_arguments_5_0=ruleArgument();
 
                             	    state._fsp--;
@@ -7770,7 +7348,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_6=(Token)match(input,30,FOLLOW_2); if (state.failed) return current;
+                    otherlv_6=(Token)match(input,29,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       					newLeafNode(otherlv_6, grammarAccess.getElementReferenceExpressionAccess().getRightParenthesisKeyword_2_0_2());
@@ -7783,24 +7361,24 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSolidity.g:2779:4: ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )* )
+                    // InternalSolidity.g:2618:4: ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )* )
                     {
-                    // InternalSolidity.g:2779:4: ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )* )
-                    // InternalSolidity.g:2780:5: ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )*
+                    // InternalSolidity.g:2618:4: ( ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )* )
+                    // InternalSolidity.g:2619:5: ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) ) ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )*
                     {
-                    // InternalSolidity.g:2780:5: ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) )
-                    // InternalSolidity.g:2781:6: ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' )
+                    // InternalSolidity.g:2619:5: ( ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' ) )
+                    // InternalSolidity.g:2620:6: ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )=> ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' )
                     {
-                    // InternalSolidity.g:2795:6: ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' )
-                    // InternalSolidity.g:2796:7: ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']'
+                    // InternalSolidity.g:2634:6: ( ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']' )
+                    // InternalSolidity.g:2635:7: ( (lv_arrayAccess_7_0= '[' ) ) ( (lv_arraySelector_8_0= ruleExpression ) ) otherlv_9= ']'
                     {
-                    // InternalSolidity.g:2796:7: ( (lv_arrayAccess_7_0= '[' ) )
-                    // InternalSolidity.g:2797:8: (lv_arrayAccess_7_0= '[' )
+                    // InternalSolidity.g:2635:7: ( (lv_arrayAccess_7_0= '[' ) )
+                    // InternalSolidity.g:2636:8: (lv_arrayAccess_7_0= '[' )
                     {
-                    // InternalSolidity.g:2797:8: (lv_arrayAccess_7_0= '[' )
-                    // InternalSolidity.g:2798:9: lv_arrayAccess_7_0= '['
+                    // InternalSolidity.g:2636:8: (lv_arrayAccess_7_0= '[' )
+                    // InternalSolidity.g:2637:9: lv_arrayAccess_7_0= '['
                     {
-                    lv_arrayAccess_7_0=(Token)match(input,44,FOLLOW_15); if (state.failed) return current;
+                    lv_arrayAccess_7_0=(Token)match(input,42,FOLLOW_17); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       									newLeafNode(lv_arrayAccess_7_0, grammarAccess.getElementReferenceExpressionAccess().getArrayAccessLeftSquareBracketKeyword_2_1_0_0_0_0());
@@ -7820,18 +7398,18 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalSolidity.g:2810:7: ( (lv_arraySelector_8_0= ruleExpression ) )
-                    // InternalSolidity.g:2811:8: (lv_arraySelector_8_0= ruleExpression )
+                    // InternalSolidity.g:2649:7: ( (lv_arraySelector_8_0= ruleExpression ) )
+                    // InternalSolidity.g:2650:8: (lv_arraySelector_8_0= ruleExpression )
                     {
-                    // InternalSolidity.g:2811:8: (lv_arraySelector_8_0= ruleExpression )
-                    // InternalSolidity.g:2812:9: lv_arraySelector_8_0= ruleExpression
+                    // InternalSolidity.g:2650:8: (lv_arraySelector_8_0= ruleExpression )
+                    // InternalSolidity.g:2651:9: lv_arraySelector_8_0= ruleExpression
                     {
                     if ( state.backtracking==0 ) {
 
                       									newCompositeNode(grammarAccess.getElementReferenceExpressionAccess().getArraySelectorExpressionParserRuleCall_2_1_0_0_1_0());
                       								
                     }
-                    pushFollow(FOLLOW_46);
+                    pushFollow(FOLLOW_45);
                     lv_arraySelector_8_0=ruleExpression();
 
                     state._fsp--;
@@ -7855,7 +7433,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_9=(Token)match(input,45,FOLLOW_49); if (state.failed) return current;
+                    otherlv_9=(Token)match(input,43,FOLLOW_48); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       							newLeafNode(otherlv_9, grammarAccess.getElementReferenceExpressionAccess().getRightSquareBracketKeyword_2_1_0_0_2());
@@ -7867,42 +7445,42 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalSolidity.g:2835:5: ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )*
+                    // InternalSolidity.g:2674:5: ( ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' ) )*
                     loop44:
                     do {
                         int alt44=2;
                         int LA44_0 = input.LA(1);
 
-                        if ( (LA44_0==44) && (synpred8_InternalSolidity())) {
+                        if ( (LA44_0==42) && (synpred8_InternalSolidity())) {
                             alt44=1;
                         }
 
 
                         switch (alt44) {
                     	case 1 :
-                    	    // InternalSolidity.g:2836:6: ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' )
+                    	    // InternalSolidity.g:2675:6: ( ( '[' ( ( ruleExpression ) ) ']' ) )=> (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' )
                     	    {
-                    	    // InternalSolidity.g:2846:6: (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' )
-                    	    // InternalSolidity.g:2847:7: otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']'
+                    	    // InternalSolidity.g:2685:6: (otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']' )
+                    	    // InternalSolidity.g:2686:7: otherlv_10= '[' ( (lv_arraySelector_11_0= ruleExpression ) ) otherlv_12= ']'
                     	    {
-                    	    otherlv_10=(Token)match(input,44,FOLLOW_15); if (state.failed) return current;
+                    	    otherlv_10=(Token)match(input,42,FOLLOW_17); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	      							newLeafNode(otherlv_10, grammarAccess.getElementReferenceExpressionAccess().getLeftSquareBracketKeyword_2_1_1_0_0());
                     	      						
                     	    }
-                    	    // InternalSolidity.g:2851:7: ( (lv_arraySelector_11_0= ruleExpression ) )
-                    	    // InternalSolidity.g:2852:8: (lv_arraySelector_11_0= ruleExpression )
+                    	    // InternalSolidity.g:2690:7: ( (lv_arraySelector_11_0= ruleExpression ) )
+                    	    // InternalSolidity.g:2691:8: (lv_arraySelector_11_0= ruleExpression )
                     	    {
-                    	    // InternalSolidity.g:2852:8: (lv_arraySelector_11_0= ruleExpression )
-                    	    // InternalSolidity.g:2853:9: lv_arraySelector_11_0= ruleExpression
+                    	    // InternalSolidity.g:2691:8: (lv_arraySelector_11_0= ruleExpression )
+                    	    // InternalSolidity.g:2692:9: lv_arraySelector_11_0= ruleExpression
                     	    {
                     	    if ( state.backtracking==0 ) {
 
                     	      									newCompositeNode(grammarAccess.getElementReferenceExpressionAccess().getArraySelectorExpressionParserRuleCall_2_1_1_0_1_0());
                     	      								
                     	    }
-                    	    pushFollow(FOLLOW_46);
+                    	    pushFollow(FOLLOW_45);
                     	    lv_arraySelector_11_0=ruleExpression();
 
                     	    state._fsp--;
@@ -7926,7 +7504,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
                     	    }
 
-                    	    otherlv_12=(Token)match(input,45,FOLLOW_49); if (state.failed) return current;
+                    	    otherlv_12=(Token)match(input,43,FOLLOW_48); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	      							newLeafNode(otherlv_12, grammarAccess.getElementReferenceExpressionAccess().getRightSquareBracketKeyword_2_1_1_0_2());
@@ -7978,7 +7556,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleArgument"
-    // InternalSolidity.g:2882:1: entryRuleArgument returns [EObject current=null] : iv_ruleArgument= ruleArgument EOF ;
+    // InternalSolidity.g:2721:1: entryRuleArgument returns [EObject current=null] : iv_ruleArgument= ruleArgument EOF ;
     public final EObject entryRuleArgument() throws RecognitionException {
         EObject current = null;
 
@@ -7986,8 +7564,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:2882:49: (iv_ruleArgument= ruleArgument EOF )
-            // InternalSolidity.g:2883:2: iv_ruleArgument= ruleArgument EOF
+            // InternalSolidity.g:2721:49: (iv_ruleArgument= ruleArgument EOF )
+            // InternalSolidity.g:2722:2: iv_ruleArgument= ruleArgument EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getArgumentRule()); 
@@ -8018,7 +7596,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleArgument"
-    // InternalSolidity.g:2889:1: ruleArgument returns [EObject current=null] : ( ( ( (otherlv_0= RULE_ID ) ) otherlv_1= '=' )? ( (lv_value_2_0= ruleConditionalExpression ) ) ) ;
+    // InternalSolidity.g:2728:1: ruleArgument returns [EObject current=null] : ( ( ( (otherlv_0= RULE_ID ) ) otherlv_1= '=' )? ( (lv_value_2_0= ruleConditionalExpression ) ) ) ;
     public final EObject ruleArgument() throws RecognitionException {
         EObject current = null;
 
@@ -8031,13 +7609,13 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:2895:2: ( ( ( ( (otherlv_0= RULE_ID ) ) otherlv_1= '=' )? ( (lv_value_2_0= ruleConditionalExpression ) ) ) )
-            // InternalSolidity.g:2896:2: ( ( ( (otherlv_0= RULE_ID ) ) otherlv_1= '=' )? ( (lv_value_2_0= ruleConditionalExpression ) ) )
+            // InternalSolidity.g:2734:2: ( ( ( ( (otherlv_0= RULE_ID ) ) otherlv_1= '=' )? ( (lv_value_2_0= ruleConditionalExpression ) ) ) )
+            // InternalSolidity.g:2735:2: ( ( ( (otherlv_0= RULE_ID ) ) otherlv_1= '=' )? ( (lv_value_2_0= ruleConditionalExpression ) ) )
             {
-            // InternalSolidity.g:2896:2: ( ( ( (otherlv_0= RULE_ID ) ) otherlv_1= '=' )? ( (lv_value_2_0= ruleConditionalExpression ) ) )
-            // InternalSolidity.g:2897:3: ( ( (otherlv_0= RULE_ID ) ) otherlv_1= '=' )? ( (lv_value_2_0= ruleConditionalExpression ) )
+            // InternalSolidity.g:2735:2: ( ( ( (otherlv_0= RULE_ID ) ) otherlv_1= '=' )? ( (lv_value_2_0= ruleConditionalExpression ) ) )
+            // InternalSolidity.g:2736:3: ( ( (otherlv_0= RULE_ID ) ) otherlv_1= '=' )? ( (lv_value_2_0= ruleConditionalExpression ) )
             {
-            // InternalSolidity.g:2897:3: ( ( (otherlv_0= RULE_ID ) ) otherlv_1= '=' )?
+            // InternalSolidity.g:2736:3: ( ( (otherlv_0= RULE_ID ) ) otherlv_1= '=' )?
             int alt46=2;
             int LA46_0 = input.LA(1);
 
@@ -8050,13 +7628,13 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             }
             switch (alt46) {
                 case 1 :
-                    // InternalSolidity.g:2898:4: ( (otherlv_0= RULE_ID ) ) otherlv_1= '='
+                    // InternalSolidity.g:2737:4: ( (otherlv_0= RULE_ID ) ) otherlv_1= '='
                     {
-                    // InternalSolidity.g:2898:4: ( (otherlv_0= RULE_ID ) )
-                    // InternalSolidity.g:2899:5: (otherlv_0= RULE_ID )
+                    // InternalSolidity.g:2737:4: ( (otherlv_0= RULE_ID ) )
+                    // InternalSolidity.g:2738:5: (otherlv_0= RULE_ID )
                     {
-                    // InternalSolidity.g:2899:5: (otherlv_0= RULE_ID )
-                    // InternalSolidity.g:2900:6: otherlv_0= RULE_ID
+                    // InternalSolidity.g:2738:5: (otherlv_0= RULE_ID )
+                    // InternalSolidity.g:2739:6: otherlv_0= RULE_ID
                     {
                     if ( state.backtracking==0 ) {
 
@@ -8065,7 +7643,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                       						}
                       					
                     }
-                    otherlv_0=(Token)match(input,RULE_ID,FOLLOW_50); if (state.failed) return current;
+                    otherlv_0=(Token)match(input,RULE_ID,FOLLOW_49); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       						newLeafNode(otherlv_0, grammarAccess.getArgumentAccess().getParameterParameterCrossReference_0_0_0());
@@ -8077,7 +7655,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_1=(Token)match(input,26,FOLLOW_15); if (state.failed) return current;
+                    otherlv_1=(Token)match(input,26,FOLLOW_17); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				newLeafNode(otherlv_1, grammarAccess.getArgumentAccess().getEqualsSignKeyword_0_1());
@@ -8089,11 +7667,11 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:2916:3: ( (lv_value_2_0= ruleConditionalExpression ) )
-            // InternalSolidity.g:2917:4: (lv_value_2_0= ruleConditionalExpression )
+            // InternalSolidity.g:2755:3: ( (lv_value_2_0= ruleConditionalExpression ) )
+            // InternalSolidity.g:2756:4: (lv_value_2_0= ruleConditionalExpression )
             {
-            // InternalSolidity.g:2917:4: (lv_value_2_0= ruleConditionalExpression )
-            // InternalSolidity.g:2918:5: lv_value_2_0= ruleConditionalExpression
+            // InternalSolidity.g:2756:4: (lv_value_2_0= ruleConditionalExpression )
+            // InternalSolidity.g:2757:5: lv_value_2_0= ruleConditionalExpression
             {
             if ( state.backtracking==0 ) {
 
@@ -8149,7 +7727,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleParenthesizedExpression"
-    // InternalSolidity.g:2939:1: entryRuleParenthesizedExpression returns [EObject current=null] : iv_ruleParenthesizedExpression= ruleParenthesizedExpression EOF ;
+    // InternalSolidity.g:2778:1: entryRuleParenthesizedExpression returns [EObject current=null] : iv_ruleParenthesizedExpression= ruleParenthesizedExpression EOF ;
     public final EObject entryRuleParenthesizedExpression() throws RecognitionException {
         EObject current = null;
 
@@ -8157,8 +7735,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:2939:64: (iv_ruleParenthesizedExpression= ruleParenthesizedExpression EOF )
-            // InternalSolidity.g:2940:2: iv_ruleParenthesizedExpression= ruleParenthesizedExpression EOF
+            // InternalSolidity.g:2778:64: (iv_ruleParenthesizedExpression= ruleParenthesizedExpression EOF )
+            // InternalSolidity.g:2779:2: iv_ruleParenthesizedExpression= ruleParenthesizedExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getParenthesizedExpressionRule()); 
@@ -8189,7 +7767,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleParenthesizedExpression"
-    // InternalSolidity.g:2946:1: ruleParenthesizedExpression returns [EObject current=null] : ( () otherlv_1= '(' ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ')' ) ;
+    // InternalSolidity.g:2785:1: ruleParenthesizedExpression returns [EObject current=null] : ( () otherlv_1= '(' ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ')' ) ;
     public final EObject ruleParenthesizedExpression() throws RecognitionException {
         EObject current = null;
 
@@ -8202,14 +7780,14 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:2952:2: ( ( () otherlv_1= '(' ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ')' ) )
-            // InternalSolidity.g:2953:2: ( () otherlv_1= '(' ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ')' )
+            // InternalSolidity.g:2791:2: ( ( () otherlv_1= '(' ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ')' ) )
+            // InternalSolidity.g:2792:2: ( () otherlv_1= '(' ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ')' )
             {
-            // InternalSolidity.g:2953:2: ( () otherlv_1= '(' ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ')' )
-            // InternalSolidity.g:2954:3: () otherlv_1= '(' ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ')'
+            // InternalSolidity.g:2792:2: ( () otherlv_1= '(' ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ')' )
+            // InternalSolidity.g:2793:3: () otherlv_1= '(' ( (lv_expression_2_0= ruleExpression ) ) otherlv_3= ')'
             {
-            // InternalSolidity.g:2954:3: ()
-            // InternalSolidity.g:2955:4: 
+            // InternalSolidity.g:2793:3: ()
+            // InternalSolidity.g:2794:4: 
             {
             if ( state.backtracking==0 ) {
 
@@ -8221,24 +7799,24 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,29,FOLLOW_15); if (state.failed) return current;
+            otherlv_1=(Token)match(input,28,FOLLOW_17); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_1, grammarAccess.getParenthesizedExpressionAccess().getLeftParenthesisKeyword_1());
               		
             }
-            // InternalSolidity.g:2965:3: ( (lv_expression_2_0= ruleExpression ) )
-            // InternalSolidity.g:2966:4: (lv_expression_2_0= ruleExpression )
+            // InternalSolidity.g:2804:3: ( (lv_expression_2_0= ruleExpression ) )
+            // InternalSolidity.g:2805:4: (lv_expression_2_0= ruleExpression )
             {
-            // InternalSolidity.g:2966:4: (lv_expression_2_0= ruleExpression )
-            // InternalSolidity.g:2967:5: lv_expression_2_0= ruleExpression
+            // InternalSolidity.g:2805:4: (lv_expression_2_0= ruleExpression )
+            // InternalSolidity.g:2806:5: lv_expression_2_0= ruleExpression
             {
             if ( state.backtracking==0 ) {
 
               					newCompositeNode(grammarAccess.getParenthesizedExpressionAccess().getExpressionExpressionParserRuleCall_2_0());
               				
             }
-            pushFollow(FOLLOW_51);
+            pushFollow(FOLLOW_50);
             lv_expression_2_0=ruleExpression();
 
             state._fsp--;
@@ -8262,7 +7840,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,30,FOLLOW_2); if (state.failed) return current;
+            otherlv_3=(Token)match(input,29,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_3, grammarAccess.getParenthesizedExpressionAccess().getRightParenthesisKeyword_3());
@@ -8293,7 +7871,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTypeSpecifier"
-    // InternalSolidity.g:2992:1: entryRuleTypeSpecifier returns [EObject current=null] : iv_ruleTypeSpecifier= ruleTypeSpecifier EOF ;
+    // InternalSolidity.g:2831:1: entryRuleTypeSpecifier returns [EObject current=null] : iv_ruleTypeSpecifier= ruleTypeSpecifier EOF ;
     public final EObject entryRuleTypeSpecifier() throws RecognitionException {
         EObject current = null;
 
@@ -8301,8 +7879,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:2992:54: (iv_ruleTypeSpecifier= ruleTypeSpecifier EOF )
-            // InternalSolidity.g:2993:2: iv_ruleTypeSpecifier= ruleTypeSpecifier EOF
+            // InternalSolidity.g:2831:54: (iv_ruleTypeSpecifier= ruleTypeSpecifier EOF )
+            // InternalSolidity.g:2832:2: iv_ruleTypeSpecifier= ruleTypeSpecifier EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getTypeSpecifierRule()); 
@@ -8333,7 +7911,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTypeSpecifier"
-    // InternalSolidity.g:2999:1: ruleTypeSpecifier returns [EObject current=null] : ( ( ( ruleQID ) ) (otherlv_1= '<' ( ( (lv_typeArguments_2_0= ruleTypeSpecifier ) ) (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )* otherlv_5= '>' ) )? ) ;
+    // InternalSolidity.g:2838:1: ruleTypeSpecifier returns [EObject current=null] : ( ( ( ruleQID ) ) (otherlv_1= '<' ( ( (lv_typeArguments_2_0= ruleTypeSpecifier ) ) (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )* otherlv_5= '>' ) )? ) ;
     public final EObject ruleTypeSpecifier() throws RecognitionException {
         EObject current = null;
 
@@ -8349,17 +7927,17 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3005:2: ( ( ( ( ruleQID ) ) (otherlv_1= '<' ( ( (lv_typeArguments_2_0= ruleTypeSpecifier ) ) (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )* otherlv_5= '>' ) )? ) )
-            // InternalSolidity.g:3006:2: ( ( ( ruleQID ) ) (otherlv_1= '<' ( ( (lv_typeArguments_2_0= ruleTypeSpecifier ) ) (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )* otherlv_5= '>' ) )? )
+            // InternalSolidity.g:2844:2: ( ( ( ( ruleQID ) ) (otherlv_1= '<' ( ( (lv_typeArguments_2_0= ruleTypeSpecifier ) ) (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )* otherlv_5= '>' ) )? ) )
+            // InternalSolidity.g:2845:2: ( ( ( ruleQID ) ) (otherlv_1= '<' ( ( (lv_typeArguments_2_0= ruleTypeSpecifier ) ) (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )* otherlv_5= '>' ) )? )
             {
-            // InternalSolidity.g:3006:2: ( ( ( ruleQID ) ) (otherlv_1= '<' ( ( (lv_typeArguments_2_0= ruleTypeSpecifier ) ) (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )* otherlv_5= '>' ) )? )
-            // InternalSolidity.g:3007:3: ( ( ruleQID ) ) (otherlv_1= '<' ( ( (lv_typeArguments_2_0= ruleTypeSpecifier ) ) (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )* otherlv_5= '>' ) )?
+            // InternalSolidity.g:2845:2: ( ( ( ruleQID ) ) (otherlv_1= '<' ( ( (lv_typeArguments_2_0= ruleTypeSpecifier ) ) (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )* otherlv_5= '>' ) )? )
+            // InternalSolidity.g:2846:3: ( ( ruleQID ) ) (otherlv_1= '<' ( ( (lv_typeArguments_2_0= ruleTypeSpecifier ) ) (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )* otherlv_5= '>' ) )?
             {
-            // InternalSolidity.g:3007:3: ( ( ruleQID ) )
-            // InternalSolidity.g:3008:4: ( ruleQID )
+            // InternalSolidity.g:2846:3: ( ( ruleQID ) )
+            // InternalSolidity.g:2847:4: ( ruleQID )
             {
-            // InternalSolidity.g:3008:4: ( ruleQID )
-            // InternalSolidity.g:3009:5: ruleQID
+            // InternalSolidity.g:2847:4: ( ruleQID )
+            // InternalSolidity.g:2848:5: ruleQID
             {
             if ( state.backtracking==0 ) {
 
@@ -8373,7 +7951,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               					newCompositeNode(grammarAccess.getTypeSpecifierAccess().getTypeTypeCrossReference_0_0());
               				
             }
-            pushFollow(FOLLOW_52);
+            pushFollow(FOLLOW_51);
             ruleQID();
 
             state._fsp--;
@@ -8389,38 +7967,38 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:3023:3: (otherlv_1= '<' ( ( (lv_typeArguments_2_0= ruleTypeSpecifier ) ) (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )* otherlv_5= '>' ) )?
+            // InternalSolidity.g:2862:3: (otherlv_1= '<' ( ( (lv_typeArguments_2_0= ruleTypeSpecifier ) ) (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )* otherlv_5= '>' ) )?
             int alt48=2;
             int LA48_0 = input.LA(1);
 
-            if ( (LA48_0==46) ) {
+            if ( (LA48_0==44) ) {
                 alt48=1;
             }
             switch (alt48) {
                 case 1 :
-                    // InternalSolidity.g:3024:4: otherlv_1= '<' ( ( (lv_typeArguments_2_0= ruleTypeSpecifier ) ) (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )* otherlv_5= '>' )
+                    // InternalSolidity.g:2863:4: otherlv_1= '<' ( ( (lv_typeArguments_2_0= ruleTypeSpecifier ) ) (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )* otherlv_5= '>' )
                     {
-                    otherlv_1=(Token)match(input,46,FOLLOW_9); if (state.failed) return current;
+                    otherlv_1=(Token)match(input,44,FOLLOW_11); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				newLeafNode(otherlv_1, grammarAccess.getTypeSpecifierAccess().getLessThanSignKeyword_1_0());
                       			
                     }
-                    // InternalSolidity.g:3028:4: ( ( (lv_typeArguments_2_0= ruleTypeSpecifier ) ) (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )* otherlv_5= '>' )
-                    // InternalSolidity.g:3029:5: ( (lv_typeArguments_2_0= ruleTypeSpecifier ) ) (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )* otherlv_5= '>'
+                    // InternalSolidity.g:2867:4: ( ( (lv_typeArguments_2_0= ruleTypeSpecifier ) ) (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )* otherlv_5= '>' )
+                    // InternalSolidity.g:2868:5: ( (lv_typeArguments_2_0= ruleTypeSpecifier ) ) (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )* otherlv_5= '>'
                     {
-                    // InternalSolidity.g:3029:5: ( (lv_typeArguments_2_0= ruleTypeSpecifier ) )
-                    // InternalSolidity.g:3030:6: (lv_typeArguments_2_0= ruleTypeSpecifier )
+                    // InternalSolidity.g:2868:5: ( (lv_typeArguments_2_0= ruleTypeSpecifier ) )
+                    // InternalSolidity.g:2869:6: (lv_typeArguments_2_0= ruleTypeSpecifier )
                     {
-                    // InternalSolidity.g:3030:6: (lv_typeArguments_2_0= ruleTypeSpecifier )
-                    // InternalSolidity.g:3031:7: lv_typeArguments_2_0= ruleTypeSpecifier
+                    // InternalSolidity.g:2869:6: (lv_typeArguments_2_0= ruleTypeSpecifier )
+                    // InternalSolidity.g:2870:7: lv_typeArguments_2_0= ruleTypeSpecifier
                     {
                     if ( state.backtracking==0 ) {
 
                       							newCompositeNode(grammarAccess.getTypeSpecifierAccess().getTypeArgumentsTypeSpecifierParserRuleCall_1_1_0_0());
                       						
                     }
-                    pushFollow(FOLLOW_53);
+                    pushFollow(FOLLOW_52);
                     lv_typeArguments_2_0=ruleTypeSpecifier();
 
                     state._fsp--;
@@ -8444,7 +8022,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalSolidity.g:3048:5: (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )*
+                    // InternalSolidity.g:2887:5: (otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) ) )*
                     loop47:
                     do {
                         int alt47=2;
@@ -8457,26 +8035,26 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
                         switch (alt47) {
                     	case 1 :
-                    	    // InternalSolidity.g:3049:6: otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) )
+                    	    // InternalSolidity.g:2888:6: otherlv_3= ',' ( (lv_typeArguments_4_0= ruleTypeSpecifier ) )
                     	    {
-                    	    otherlv_3=(Token)match(input,23,FOLLOW_9); if (state.failed) return current;
+                    	    otherlv_3=(Token)match(input,23,FOLLOW_11); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	      						newLeafNode(otherlv_3, grammarAccess.getTypeSpecifierAccess().getCommaKeyword_1_1_1_0());
                     	      					
                     	    }
-                    	    // InternalSolidity.g:3053:6: ( (lv_typeArguments_4_0= ruleTypeSpecifier ) )
-                    	    // InternalSolidity.g:3054:7: (lv_typeArguments_4_0= ruleTypeSpecifier )
+                    	    // InternalSolidity.g:2892:6: ( (lv_typeArguments_4_0= ruleTypeSpecifier ) )
+                    	    // InternalSolidity.g:2893:7: (lv_typeArguments_4_0= ruleTypeSpecifier )
                     	    {
-                    	    // InternalSolidity.g:3054:7: (lv_typeArguments_4_0= ruleTypeSpecifier )
-                    	    // InternalSolidity.g:3055:8: lv_typeArguments_4_0= ruleTypeSpecifier
+                    	    // InternalSolidity.g:2893:7: (lv_typeArguments_4_0= ruleTypeSpecifier )
+                    	    // InternalSolidity.g:2894:8: lv_typeArguments_4_0= ruleTypeSpecifier
                     	    {
                     	    if ( state.backtracking==0 ) {
 
                     	      								newCompositeNode(grammarAccess.getTypeSpecifierAccess().getTypeArgumentsTypeSpecifierParserRuleCall_1_1_1_1_0());
                     	      							
                     	    }
-                    	    pushFollow(FOLLOW_53);
+                    	    pushFollow(FOLLOW_52);
                     	    lv_typeArguments_4_0=ruleTypeSpecifier();
 
                     	    state._fsp--;
@@ -8509,7 +8087,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                         }
                     } while (true);
 
-                    otherlv_5=(Token)match(input,47,FOLLOW_2); if (state.failed) return current;
+                    otherlv_5=(Token)match(input,45,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       					newLeafNode(otherlv_5, grammarAccess.getTypeSpecifierAccess().getGreaterThanSignKeyword_1_1_2());
@@ -8549,7 +8127,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entrySuperLiteral"
-    // InternalSolidity.g:3083:1: entrySuperLiteral returns [EObject current=null] : iv_superLiteral= superLiteral EOF ;
+    // InternalSolidity.g:2922:1: entrySuperLiteral returns [EObject current=null] : iv_superLiteral= superLiteral EOF ;
     public final EObject entrySuperLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -8557,8 +8135,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:3083:49: (iv_superLiteral= superLiteral EOF )
-            // InternalSolidity.g:3084:2: iv_superLiteral= superLiteral EOF
+            // InternalSolidity.g:2922:49: (iv_superLiteral= superLiteral EOF )
+            // InternalSolidity.g:2923:2: iv_superLiteral= superLiteral EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExpressionsLiteralRule()); 
@@ -8589,7 +8167,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "superLiteral"
-    // InternalSolidity.g:3090:1: superLiteral returns [EObject current=null] : (this_BoolLiteral_0= ruleBoolLiteral | this_IntLiteral_1= ruleIntLiteral | this_HexLiteral_2= ruleHexLiteral | this_BinaryLiteral_3= ruleBinaryLiteral | this_DoubleLiteral_4= ruleDoubleLiteral | this_FloatLiteral_5= ruleFloatLiteral | this_StringLiteral_6= ruleStringLiteral | this_NullLiteral_7= ruleNullLiteral ) ;
+    // InternalSolidity.g:2929:1: superLiteral returns [EObject current=null] : (this_BoolLiteral_0= ruleBoolLiteral | this_IntLiteral_1= ruleIntLiteral | this_HexLiteral_2= ruleHexLiteral | this_BinaryLiteral_3= ruleBinaryLiteral | this_DoubleLiteral_4= ruleDoubleLiteral | this_FloatLiteral_5= ruleFloatLiteral | this_StringLiteral_6= ruleStringLiteral | this_NullLiteral_7= ruleNullLiteral ) ;
     public final EObject superLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -8614,10 +8192,10 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3096:2: ( (this_BoolLiteral_0= ruleBoolLiteral | this_IntLiteral_1= ruleIntLiteral | this_HexLiteral_2= ruleHexLiteral | this_BinaryLiteral_3= ruleBinaryLiteral | this_DoubleLiteral_4= ruleDoubleLiteral | this_FloatLiteral_5= ruleFloatLiteral | this_StringLiteral_6= ruleStringLiteral | this_NullLiteral_7= ruleNullLiteral ) )
-            // InternalSolidity.g:3097:2: (this_BoolLiteral_0= ruleBoolLiteral | this_IntLiteral_1= ruleIntLiteral | this_HexLiteral_2= ruleHexLiteral | this_BinaryLiteral_3= ruleBinaryLiteral | this_DoubleLiteral_4= ruleDoubleLiteral | this_FloatLiteral_5= ruleFloatLiteral | this_StringLiteral_6= ruleStringLiteral | this_NullLiteral_7= ruleNullLiteral )
+            // InternalSolidity.g:2935:2: ( (this_BoolLiteral_0= ruleBoolLiteral | this_IntLiteral_1= ruleIntLiteral | this_HexLiteral_2= ruleHexLiteral | this_BinaryLiteral_3= ruleBinaryLiteral | this_DoubleLiteral_4= ruleDoubleLiteral | this_FloatLiteral_5= ruleFloatLiteral | this_StringLiteral_6= ruleStringLiteral | this_NullLiteral_7= ruleNullLiteral ) )
+            // InternalSolidity.g:2936:2: (this_BoolLiteral_0= ruleBoolLiteral | this_IntLiteral_1= ruleIntLiteral | this_HexLiteral_2= ruleHexLiteral | this_BinaryLiteral_3= ruleBinaryLiteral | this_DoubleLiteral_4= ruleDoubleLiteral | this_FloatLiteral_5= ruleFloatLiteral | this_StringLiteral_6= ruleStringLiteral | this_NullLiteral_7= ruleNullLiteral )
             {
-            // InternalSolidity.g:3097:2: (this_BoolLiteral_0= ruleBoolLiteral | this_IntLiteral_1= ruleIntLiteral | this_HexLiteral_2= ruleHexLiteral | this_BinaryLiteral_3= ruleBinaryLiteral | this_DoubleLiteral_4= ruleDoubleLiteral | this_FloatLiteral_5= ruleFloatLiteral | this_StringLiteral_6= ruleStringLiteral | this_NullLiteral_7= ruleNullLiteral )
+            // InternalSolidity.g:2936:2: (this_BoolLiteral_0= ruleBoolLiteral | this_IntLiteral_1= ruleIntLiteral | this_HexLiteral_2= ruleHexLiteral | this_BinaryLiteral_3= ruleBinaryLiteral | this_DoubleLiteral_4= ruleDoubleLiteral | this_FloatLiteral_5= ruleFloatLiteral | this_StringLiteral_6= ruleStringLiteral | this_NullLiteral_7= ruleNullLiteral )
             int alt49=8;
             switch ( input.LA(1) ) {
             case RULE_BOOL:
@@ -8655,7 +8233,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                 alt49=7;
                 }
                 break;
-            case 48:
+            case 46:
                 {
                 alt49=8;
                 }
@@ -8670,7 +8248,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             switch (alt49) {
                 case 1 :
-                    // InternalSolidity.g:3098:3: this_BoolLiteral_0= ruleBoolLiteral
+                    // InternalSolidity.g:2937:3: this_BoolLiteral_0= ruleBoolLiteral
                     {
                     if ( state.backtracking==0 ) {
 
@@ -8692,7 +8270,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSolidity.g:3107:3: this_IntLiteral_1= ruleIntLiteral
+                    // InternalSolidity.g:2946:3: this_IntLiteral_1= ruleIntLiteral
                     {
                     if ( state.backtracking==0 ) {
 
@@ -8714,7 +8292,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalSolidity.g:3116:3: this_HexLiteral_2= ruleHexLiteral
+                    // InternalSolidity.g:2955:3: this_HexLiteral_2= ruleHexLiteral
                     {
                     if ( state.backtracking==0 ) {
 
@@ -8736,7 +8314,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalSolidity.g:3125:3: this_BinaryLiteral_3= ruleBinaryLiteral
+                    // InternalSolidity.g:2964:3: this_BinaryLiteral_3= ruleBinaryLiteral
                     {
                     if ( state.backtracking==0 ) {
 
@@ -8758,7 +8336,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // InternalSolidity.g:3134:3: this_DoubleLiteral_4= ruleDoubleLiteral
+                    // InternalSolidity.g:2973:3: this_DoubleLiteral_4= ruleDoubleLiteral
                     {
                     if ( state.backtracking==0 ) {
 
@@ -8780,7 +8358,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // InternalSolidity.g:3143:3: this_FloatLiteral_5= ruleFloatLiteral
+                    // InternalSolidity.g:2982:3: this_FloatLiteral_5= ruleFloatLiteral
                     {
                     if ( state.backtracking==0 ) {
 
@@ -8802,7 +8380,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 7 :
-                    // InternalSolidity.g:3152:3: this_StringLiteral_6= ruleStringLiteral
+                    // InternalSolidity.g:2991:3: this_StringLiteral_6= ruleStringLiteral
                     {
                     if ( state.backtracking==0 ) {
 
@@ -8824,7 +8402,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 8 :
-                    // InternalSolidity.g:3161:3: this_NullLiteral_7= ruleNullLiteral
+                    // InternalSolidity.g:3000:3: this_NullLiteral_7= ruleNullLiteral
                     {
                     if ( state.backtracking==0 ) {
 
@@ -8870,7 +8448,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleBoolLiteral"
-    // InternalSolidity.g:3173:1: entryRuleBoolLiteral returns [EObject current=null] : iv_ruleBoolLiteral= ruleBoolLiteral EOF ;
+    // InternalSolidity.g:3012:1: entryRuleBoolLiteral returns [EObject current=null] : iv_ruleBoolLiteral= ruleBoolLiteral EOF ;
     public final EObject entryRuleBoolLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -8878,8 +8456,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:3173:52: (iv_ruleBoolLiteral= ruleBoolLiteral EOF )
-            // InternalSolidity.g:3174:2: iv_ruleBoolLiteral= ruleBoolLiteral EOF
+            // InternalSolidity.g:3012:52: (iv_ruleBoolLiteral= ruleBoolLiteral EOF )
+            // InternalSolidity.g:3013:2: iv_ruleBoolLiteral= ruleBoolLiteral EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getBoolLiteralRule()); 
@@ -8910,7 +8488,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBoolLiteral"
-    // InternalSolidity.g:3180:1: ruleBoolLiteral returns [EObject current=null] : ( () ( (lv_value_1_0= RULE_BOOL ) ) ) ;
+    // InternalSolidity.g:3019:1: ruleBoolLiteral returns [EObject current=null] : ( () ( (lv_value_1_0= RULE_BOOL ) ) ) ;
     public final EObject ruleBoolLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -8920,14 +8498,14 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3186:2: ( ( () ( (lv_value_1_0= RULE_BOOL ) ) ) )
-            // InternalSolidity.g:3187:2: ( () ( (lv_value_1_0= RULE_BOOL ) ) )
+            // InternalSolidity.g:3025:2: ( ( () ( (lv_value_1_0= RULE_BOOL ) ) ) )
+            // InternalSolidity.g:3026:2: ( () ( (lv_value_1_0= RULE_BOOL ) ) )
             {
-            // InternalSolidity.g:3187:2: ( () ( (lv_value_1_0= RULE_BOOL ) ) )
-            // InternalSolidity.g:3188:3: () ( (lv_value_1_0= RULE_BOOL ) )
+            // InternalSolidity.g:3026:2: ( () ( (lv_value_1_0= RULE_BOOL ) ) )
+            // InternalSolidity.g:3027:3: () ( (lv_value_1_0= RULE_BOOL ) )
             {
-            // InternalSolidity.g:3188:3: ()
-            // InternalSolidity.g:3189:4: 
+            // InternalSolidity.g:3027:3: ()
+            // InternalSolidity.g:3028:4: 
             {
             if ( state.backtracking==0 ) {
 
@@ -8939,11 +8517,11 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:3195:3: ( (lv_value_1_0= RULE_BOOL ) )
-            // InternalSolidity.g:3196:4: (lv_value_1_0= RULE_BOOL )
+            // InternalSolidity.g:3034:3: ( (lv_value_1_0= RULE_BOOL ) )
+            // InternalSolidity.g:3035:4: (lv_value_1_0= RULE_BOOL )
             {
-            // InternalSolidity.g:3196:4: (lv_value_1_0= RULE_BOOL )
-            // InternalSolidity.g:3197:5: lv_value_1_0= RULE_BOOL
+            // InternalSolidity.g:3035:4: (lv_value_1_0= RULE_BOOL )
+            // InternalSolidity.g:3036:5: lv_value_1_0= RULE_BOOL
             {
             lv_value_1_0=(Token)match(input,RULE_BOOL,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -8994,7 +8572,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleIntLiteral"
-    // InternalSolidity.g:3217:1: entryRuleIntLiteral returns [EObject current=null] : iv_ruleIntLiteral= ruleIntLiteral EOF ;
+    // InternalSolidity.g:3056:1: entryRuleIntLiteral returns [EObject current=null] : iv_ruleIntLiteral= ruleIntLiteral EOF ;
     public final EObject entryRuleIntLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -9002,8 +8580,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:3217:51: (iv_ruleIntLiteral= ruleIntLiteral EOF )
-            // InternalSolidity.g:3218:2: iv_ruleIntLiteral= ruleIntLiteral EOF
+            // InternalSolidity.g:3056:51: (iv_ruleIntLiteral= ruleIntLiteral EOF )
+            // InternalSolidity.g:3057:2: iv_ruleIntLiteral= ruleIntLiteral EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getIntLiteralRule()); 
@@ -9034,7 +8612,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleIntLiteral"
-    // InternalSolidity.g:3224:1: ruleIntLiteral returns [EObject current=null] : ( () ( (lv_value_1_0= RULE_INT ) ) ) ;
+    // InternalSolidity.g:3063:1: ruleIntLiteral returns [EObject current=null] : ( () ( (lv_value_1_0= RULE_INT ) ) ) ;
     public final EObject ruleIntLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -9044,14 +8622,14 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3230:2: ( ( () ( (lv_value_1_0= RULE_INT ) ) ) )
-            // InternalSolidity.g:3231:2: ( () ( (lv_value_1_0= RULE_INT ) ) )
+            // InternalSolidity.g:3069:2: ( ( () ( (lv_value_1_0= RULE_INT ) ) ) )
+            // InternalSolidity.g:3070:2: ( () ( (lv_value_1_0= RULE_INT ) ) )
             {
-            // InternalSolidity.g:3231:2: ( () ( (lv_value_1_0= RULE_INT ) ) )
-            // InternalSolidity.g:3232:3: () ( (lv_value_1_0= RULE_INT ) )
+            // InternalSolidity.g:3070:2: ( () ( (lv_value_1_0= RULE_INT ) ) )
+            // InternalSolidity.g:3071:3: () ( (lv_value_1_0= RULE_INT ) )
             {
-            // InternalSolidity.g:3232:3: ()
-            // InternalSolidity.g:3233:4: 
+            // InternalSolidity.g:3071:3: ()
+            // InternalSolidity.g:3072:4: 
             {
             if ( state.backtracking==0 ) {
 
@@ -9063,11 +8641,11 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:3239:3: ( (lv_value_1_0= RULE_INT ) )
-            // InternalSolidity.g:3240:4: (lv_value_1_0= RULE_INT )
+            // InternalSolidity.g:3078:3: ( (lv_value_1_0= RULE_INT ) )
+            // InternalSolidity.g:3079:4: (lv_value_1_0= RULE_INT )
             {
-            // InternalSolidity.g:3240:4: (lv_value_1_0= RULE_INT )
-            // InternalSolidity.g:3241:5: lv_value_1_0= RULE_INT
+            // InternalSolidity.g:3079:4: (lv_value_1_0= RULE_INT )
+            // InternalSolidity.g:3080:5: lv_value_1_0= RULE_INT
             {
             lv_value_1_0=(Token)match(input,RULE_INT,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -9118,7 +8696,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleDoubleLiteral"
-    // InternalSolidity.g:3261:1: entryRuleDoubleLiteral returns [EObject current=null] : iv_ruleDoubleLiteral= ruleDoubleLiteral EOF ;
+    // InternalSolidity.g:3100:1: entryRuleDoubleLiteral returns [EObject current=null] : iv_ruleDoubleLiteral= ruleDoubleLiteral EOF ;
     public final EObject entryRuleDoubleLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -9126,8 +8704,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:3261:54: (iv_ruleDoubleLiteral= ruleDoubleLiteral EOF )
-            // InternalSolidity.g:3262:2: iv_ruleDoubleLiteral= ruleDoubleLiteral EOF
+            // InternalSolidity.g:3100:54: (iv_ruleDoubleLiteral= ruleDoubleLiteral EOF )
+            // InternalSolidity.g:3101:2: iv_ruleDoubleLiteral= ruleDoubleLiteral EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getDoubleLiteralRule()); 
@@ -9158,7 +8736,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDoubleLiteral"
-    // InternalSolidity.g:3268:1: ruleDoubleLiteral returns [EObject current=null] : ( () ( (lv_value_1_0= RULE_DOUBLE ) ) ) ;
+    // InternalSolidity.g:3107:1: ruleDoubleLiteral returns [EObject current=null] : ( () ( (lv_value_1_0= RULE_DOUBLE ) ) ) ;
     public final EObject ruleDoubleLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -9168,14 +8746,14 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3274:2: ( ( () ( (lv_value_1_0= RULE_DOUBLE ) ) ) )
-            // InternalSolidity.g:3275:2: ( () ( (lv_value_1_0= RULE_DOUBLE ) ) )
+            // InternalSolidity.g:3113:2: ( ( () ( (lv_value_1_0= RULE_DOUBLE ) ) ) )
+            // InternalSolidity.g:3114:2: ( () ( (lv_value_1_0= RULE_DOUBLE ) ) )
             {
-            // InternalSolidity.g:3275:2: ( () ( (lv_value_1_0= RULE_DOUBLE ) ) )
-            // InternalSolidity.g:3276:3: () ( (lv_value_1_0= RULE_DOUBLE ) )
+            // InternalSolidity.g:3114:2: ( () ( (lv_value_1_0= RULE_DOUBLE ) ) )
+            // InternalSolidity.g:3115:3: () ( (lv_value_1_0= RULE_DOUBLE ) )
             {
-            // InternalSolidity.g:3276:3: ()
-            // InternalSolidity.g:3277:4: 
+            // InternalSolidity.g:3115:3: ()
+            // InternalSolidity.g:3116:4: 
             {
             if ( state.backtracking==0 ) {
 
@@ -9187,11 +8765,11 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:3283:3: ( (lv_value_1_0= RULE_DOUBLE ) )
-            // InternalSolidity.g:3284:4: (lv_value_1_0= RULE_DOUBLE )
+            // InternalSolidity.g:3122:3: ( (lv_value_1_0= RULE_DOUBLE ) )
+            // InternalSolidity.g:3123:4: (lv_value_1_0= RULE_DOUBLE )
             {
-            // InternalSolidity.g:3284:4: (lv_value_1_0= RULE_DOUBLE )
-            // InternalSolidity.g:3285:5: lv_value_1_0= RULE_DOUBLE
+            // InternalSolidity.g:3123:4: (lv_value_1_0= RULE_DOUBLE )
+            // InternalSolidity.g:3124:5: lv_value_1_0= RULE_DOUBLE
             {
             lv_value_1_0=(Token)match(input,RULE_DOUBLE,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -9242,7 +8820,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleFloatLiteral"
-    // InternalSolidity.g:3305:1: entryRuleFloatLiteral returns [EObject current=null] : iv_ruleFloatLiteral= ruleFloatLiteral EOF ;
+    // InternalSolidity.g:3144:1: entryRuleFloatLiteral returns [EObject current=null] : iv_ruleFloatLiteral= ruleFloatLiteral EOF ;
     public final EObject entryRuleFloatLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -9250,8 +8828,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:3305:53: (iv_ruleFloatLiteral= ruleFloatLiteral EOF )
-            // InternalSolidity.g:3306:2: iv_ruleFloatLiteral= ruleFloatLiteral EOF
+            // InternalSolidity.g:3144:53: (iv_ruleFloatLiteral= ruleFloatLiteral EOF )
+            // InternalSolidity.g:3145:2: iv_ruleFloatLiteral= ruleFloatLiteral EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getFloatLiteralRule()); 
@@ -9282,7 +8860,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleFloatLiteral"
-    // InternalSolidity.g:3312:1: ruleFloatLiteral returns [EObject current=null] : ( () ( (lv_value_1_0= RULE_FLOAT ) ) ) ;
+    // InternalSolidity.g:3151:1: ruleFloatLiteral returns [EObject current=null] : ( () ( (lv_value_1_0= RULE_FLOAT ) ) ) ;
     public final EObject ruleFloatLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -9292,14 +8870,14 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3318:2: ( ( () ( (lv_value_1_0= RULE_FLOAT ) ) ) )
-            // InternalSolidity.g:3319:2: ( () ( (lv_value_1_0= RULE_FLOAT ) ) )
+            // InternalSolidity.g:3157:2: ( ( () ( (lv_value_1_0= RULE_FLOAT ) ) ) )
+            // InternalSolidity.g:3158:2: ( () ( (lv_value_1_0= RULE_FLOAT ) ) )
             {
-            // InternalSolidity.g:3319:2: ( () ( (lv_value_1_0= RULE_FLOAT ) ) )
-            // InternalSolidity.g:3320:3: () ( (lv_value_1_0= RULE_FLOAT ) )
+            // InternalSolidity.g:3158:2: ( () ( (lv_value_1_0= RULE_FLOAT ) ) )
+            // InternalSolidity.g:3159:3: () ( (lv_value_1_0= RULE_FLOAT ) )
             {
-            // InternalSolidity.g:3320:3: ()
-            // InternalSolidity.g:3321:4: 
+            // InternalSolidity.g:3159:3: ()
+            // InternalSolidity.g:3160:4: 
             {
             if ( state.backtracking==0 ) {
 
@@ -9311,11 +8889,11 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:3327:3: ( (lv_value_1_0= RULE_FLOAT ) )
-            // InternalSolidity.g:3328:4: (lv_value_1_0= RULE_FLOAT )
+            // InternalSolidity.g:3166:3: ( (lv_value_1_0= RULE_FLOAT ) )
+            // InternalSolidity.g:3167:4: (lv_value_1_0= RULE_FLOAT )
             {
-            // InternalSolidity.g:3328:4: (lv_value_1_0= RULE_FLOAT )
-            // InternalSolidity.g:3329:5: lv_value_1_0= RULE_FLOAT
+            // InternalSolidity.g:3167:4: (lv_value_1_0= RULE_FLOAT )
+            // InternalSolidity.g:3168:5: lv_value_1_0= RULE_FLOAT
             {
             lv_value_1_0=(Token)match(input,RULE_FLOAT,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -9366,7 +8944,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleHexLiteral"
-    // InternalSolidity.g:3349:1: entryRuleHexLiteral returns [EObject current=null] : iv_ruleHexLiteral= ruleHexLiteral EOF ;
+    // InternalSolidity.g:3188:1: entryRuleHexLiteral returns [EObject current=null] : iv_ruleHexLiteral= ruleHexLiteral EOF ;
     public final EObject entryRuleHexLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -9374,8 +8952,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:3349:51: (iv_ruleHexLiteral= ruleHexLiteral EOF )
-            // InternalSolidity.g:3350:2: iv_ruleHexLiteral= ruleHexLiteral EOF
+            // InternalSolidity.g:3188:51: (iv_ruleHexLiteral= ruleHexLiteral EOF )
+            // InternalSolidity.g:3189:2: iv_ruleHexLiteral= ruleHexLiteral EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getHexLiteralRule()); 
@@ -9406,7 +8984,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleHexLiteral"
-    // InternalSolidity.g:3356:1: ruleHexLiteral returns [EObject current=null] : ( () ( (lv_value_1_0= RULE_HEX ) ) ) ;
+    // InternalSolidity.g:3195:1: ruleHexLiteral returns [EObject current=null] : ( () ( (lv_value_1_0= RULE_HEX ) ) ) ;
     public final EObject ruleHexLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -9416,14 +8994,14 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3362:2: ( ( () ( (lv_value_1_0= RULE_HEX ) ) ) )
-            // InternalSolidity.g:3363:2: ( () ( (lv_value_1_0= RULE_HEX ) ) )
+            // InternalSolidity.g:3201:2: ( ( () ( (lv_value_1_0= RULE_HEX ) ) ) )
+            // InternalSolidity.g:3202:2: ( () ( (lv_value_1_0= RULE_HEX ) ) )
             {
-            // InternalSolidity.g:3363:2: ( () ( (lv_value_1_0= RULE_HEX ) ) )
-            // InternalSolidity.g:3364:3: () ( (lv_value_1_0= RULE_HEX ) )
+            // InternalSolidity.g:3202:2: ( () ( (lv_value_1_0= RULE_HEX ) ) )
+            // InternalSolidity.g:3203:3: () ( (lv_value_1_0= RULE_HEX ) )
             {
-            // InternalSolidity.g:3364:3: ()
-            // InternalSolidity.g:3365:4: 
+            // InternalSolidity.g:3203:3: ()
+            // InternalSolidity.g:3204:4: 
             {
             if ( state.backtracking==0 ) {
 
@@ -9435,11 +9013,11 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:3371:3: ( (lv_value_1_0= RULE_HEX ) )
-            // InternalSolidity.g:3372:4: (lv_value_1_0= RULE_HEX )
+            // InternalSolidity.g:3210:3: ( (lv_value_1_0= RULE_HEX ) )
+            // InternalSolidity.g:3211:4: (lv_value_1_0= RULE_HEX )
             {
-            // InternalSolidity.g:3372:4: (lv_value_1_0= RULE_HEX )
-            // InternalSolidity.g:3373:5: lv_value_1_0= RULE_HEX
+            // InternalSolidity.g:3211:4: (lv_value_1_0= RULE_HEX )
+            // InternalSolidity.g:3212:5: lv_value_1_0= RULE_HEX
             {
             lv_value_1_0=(Token)match(input,RULE_HEX,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -9490,7 +9068,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleBinaryLiteral"
-    // InternalSolidity.g:3393:1: entryRuleBinaryLiteral returns [EObject current=null] : iv_ruleBinaryLiteral= ruleBinaryLiteral EOF ;
+    // InternalSolidity.g:3232:1: entryRuleBinaryLiteral returns [EObject current=null] : iv_ruleBinaryLiteral= ruleBinaryLiteral EOF ;
     public final EObject entryRuleBinaryLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -9498,8 +9076,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:3393:54: (iv_ruleBinaryLiteral= ruleBinaryLiteral EOF )
-            // InternalSolidity.g:3394:2: iv_ruleBinaryLiteral= ruleBinaryLiteral EOF
+            // InternalSolidity.g:3232:54: (iv_ruleBinaryLiteral= ruleBinaryLiteral EOF )
+            // InternalSolidity.g:3233:2: iv_ruleBinaryLiteral= ruleBinaryLiteral EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getBinaryLiteralRule()); 
@@ -9530,7 +9108,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBinaryLiteral"
-    // InternalSolidity.g:3400:1: ruleBinaryLiteral returns [EObject current=null] : ( () ( (lv_value_1_0= RULE_BINARY ) ) ) ;
+    // InternalSolidity.g:3239:1: ruleBinaryLiteral returns [EObject current=null] : ( () ( (lv_value_1_0= RULE_BINARY ) ) ) ;
     public final EObject ruleBinaryLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -9540,14 +9118,14 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3406:2: ( ( () ( (lv_value_1_0= RULE_BINARY ) ) ) )
-            // InternalSolidity.g:3407:2: ( () ( (lv_value_1_0= RULE_BINARY ) ) )
+            // InternalSolidity.g:3245:2: ( ( () ( (lv_value_1_0= RULE_BINARY ) ) ) )
+            // InternalSolidity.g:3246:2: ( () ( (lv_value_1_0= RULE_BINARY ) ) )
             {
-            // InternalSolidity.g:3407:2: ( () ( (lv_value_1_0= RULE_BINARY ) ) )
-            // InternalSolidity.g:3408:3: () ( (lv_value_1_0= RULE_BINARY ) )
+            // InternalSolidity.g:3246:2: ( () ( (lv_value_1_0= RULE_BINARY ) ) )
+            // InternalSolidity.g:3247:3: () ( (lv_value_1_0= RULE_BINARY ) )
             {
-            // InternalSolidity.g:3408:3: ()
-            // InternalSolidity.g:3409:4: 
+            // InternalSolidity.g:3247:3: ()
+            // InternalSolidity.g:3248:4: 
             {
             if ( state.backtracking==0 ) {
 
@@ -9559,11 +9137,11 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:3415:3: ( (lv_value_1_0= RULE_BINARY ) )
-            // InternalSolidity.g:3416:4: (lv_value_1_0= RULE_BINARY )
+            // InternalSolidity.g:3254:3: ( (lv_value_1_0= RULE_BINARY ) )
+            // InternalSolidity.g:3255:4: (lv_value_1_0= RULE_BINARY )
             {
-            // InternalSolidity.g:3416:4: (lv_value_1_0= RULE_BINARY )
-            // InternalSolidity.g:3417:5: lv_value_1_0= RULE_BINARY
+            // InternalSolidity.g:3255:4: (lv_value_1_0= RULE_BINARY )
+            // InternalSolidity.g:3256:5: lv_value_1_0= RULE_BINARY
             {
             lv_value_1_0=(Token)match(input,RULE_BINARY,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -9614,7 +9192,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleStringLiteral"
-    // InternalSolidity.g:3437:1: entryRuleStringLiteral returns [EObject current=null] : iv_ruleStringLiteral= ruleStringLiteral EOF ;
+    // InternalSolidity.g:3276:1: entryRuleStringLiteral returns [EObject current=null] : iv_ruleStringLiteral= ruleStringLiteral EOF ;
     public final EObject entryRuleStringLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -9622,8 +9200,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:3437:54: (iv_ruleStringLiteral= ruleStringLiteral EOF )
-            // InternalSolidity.g:3438:2: iv_ruleStringLiteral= ruleStringLiteral EOF
+            // InternalSolidity.g:3276:54: (iv_ruleStringLiteral= ruleStringLiteral EOF )
+            // InternalSolidity.g:3277:2: iv_ruleStringLiteral= ruleStringLiteral EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getStringLiteralRule()); 
@@ -9654,7 +9232,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleStringLiteral"
-    // InternalSolidity.g:3444:1: ruleStringLiteral returns [EObject current=null] : ( () ( (lv_value_1_0= RULE_STRING ) ) ) ;
+    // InternalSolidity.g:3283:1: ruleStringLiteral returns [EObject current=null] : ( () ( (lv_value_1_0= RULE_STRING ) ) ) ;
     public final EObject ruleStringLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -9664,14 +9242,14 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3450:2: ( ( () ( (lv_value_1_0= RULE_STRING ) ) ) )
-            // InternalSolidity.g:3451:2: ( () ( (lv_value_1_0= RULE_STRING ) ) )
+            // InternalSolidity.g:3289:2: ( ( () ( (lv_value_1_0= RULE_STRING ) ) ) )
+            // InternalSolidity.g:3290:2: ( () ( (lv_value_1_0= RULE_STRING ) ) )
             {
-            // InternalSolidity.g:3451:2: ( () ( (lv_value_1_0= RULE_STRING ) ) )
-            // InternalSolidity.g:3452:3: () ( (lv_value_1_0= RULE_STRING ) )
+            // InternalSolidity.g:3290:2: ( () ( (lv_value_1_0= RULE_STRING ) ) )
+            // InternalSolidity.g:3291:3: () ( (lv_value_1_0= RULE_STRING ) )
             {
-            // InternalSolidity.g:3452:3: ()
-            // InternalSolidity.g:3453:4: 
+            // InternalSolidity.g:3291:3: ()
+            // InternalSolidity.g:3292:4: 
             {
             if ( state.backtracking==0 ) {
 
@@ -9683,11 +9261,11 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSolidity.g:3459:3: ( (lv_value_1_0= RULE_STRING ) )
-            // InternalSolidity.g:3460:4: (lv_value_1_0= RULE_STRING )
+            // InternalSolidity.g:3298:3: ( (lv_value_1_0= RULE_STRING ) )
+            // InternalSolidity.g:3299:4: (lv_value_1_0= RULE_STRING )
             {
-            // InternalSolidity.g:3460:4: (lv_value_1_0= RULE_STRING )
-            // InternalSolidity.g:3461:5: lv_value_1_0= RULE_STRING
+            // InternalSolidity.g:3299:4: (lv_value_1_0= RULE_STRING )
+            // InternalSolidity.g:3300:5: lv_value_1_0= RULE_STRING
             {
             lv_value_1_0=(Token)match(input,RULE_STRING,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -9738,7 +9316,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleNullLiteral"
-    // InternalSolidity.g:3481:1: entryRuleNullLiteral returns [EObject current=null] : iv_ruleNullLiteral= ruleNullLiteral EOF ;
+    // InternalSolidity.g:3320:1: entryRuleNullLiteral returns [EObject current=null] : iv_ruleNullLiteral= ruleNullLiteral EOF ;
     public final EObject entryRuleNullLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -9746,8 +9324,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:3481:52: (iv_ruleNullLiteral= ruleNullLiteral EOF )
-            // InternalSolidity.g:3482:2: iv_ruleNullLiteral= ruleNullLiteral EOF
+            // InternalSolidity.g:3320:52: (iv_ruleNullLiteral= ruleNullLiteral EOF )
+            // InternalSolidity.g:3321:2: iv_ruleNullLiteral= ruleNullLiteral EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getNullLiteralRule()); 
@@ -9778,7 +9356,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNullLiteral"
-    // InternalSolidity.g:3488:1: ruleNullLiteral returns [EObject current=null] : ( () otherlv_1= 'null' ) ;
+    // InternalSolidity.g:3327:1: ruleNullLiteral returns [EObject current=null] : ( () otherlv_1= 'null' ) ;
     public final EObject ruleNullLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -9788,14 +9366,14 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3494:2: ( ( () otherlv_1= 'null' ) )
-            // InternalSolidity.g:3495:2: ( () otherlv_1= 'null' )
+            // InternalSolidity.g:3333:2: ( ( () otherlv_1= 'null' ) )
+            // InternalSolidity.g:3334:2: ( () otherlv_1= 'null' )
             {
-            // InternalSolidity.g:3495:2: ( () otherlv_1= 'null' )
-            // InternalSolidity.g:3496:3: () otherlv_1= 'null'
+            // InternalSolidity.g:3334:2: ( () otherlv_1= 'null' )
+            // InternalSolidity.g:3335:3: () otherlv_1= 'null'
             {
-            // InternalSolidity.g:3496:3: ()
-            // InternalSolidity.g:3497:4: 
+            // InternalSolidity.g:3335:3: ()
+            // InternalSolidity.g:3336:4: 
             {
             if ( state.backtracking==0 ) {
 
@@ -9807,7 +9385,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,48,FOLLOW_2); if (state.failed) return current;
+            otherlv_1=(Token)match(input,46,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_1, grammarAccess.getNullLiteralAccess().getNullKeyword_1());
@@ -9838,7 +9416,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLogicalAndOperator"
-    // InternalSolidity.g:3511:1: entryRuleLogicalAndOperator returns [String current=null] : iv_ruleLogicalAndOperator= ruleLogicalAndOperator EOF ;
+    // InternalSolidity.g:3350:1: entryRuleLogicalAndOperator returns [String current=null] : iv_ruleLogicalAndOperator= ruleLogicalAndOperator EOF ;
     public final String entryRuleLogicalAndOperator() throws RecognitionException {
         String current = null;
 
@@ -9846,8 +9424,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:3511:58: (iv_ruleLogicalAndOperator= ruleLogicalAndOperator EOF )
-            // InternalSolidity.g:3512:2: iv_ruleLogicalAndOperator= ruleLogicalAndOperator EOF
+            // InternalSolidity.g:3350:58: (iv_ruleLogicalAndOperator= ruleLogicalAndOperator EOF )
+            // InternalSolidity.g:3351:2: iv_ruleLogicalAndOperator= ruleLogicalAndOperator EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLogicalAndOperatorRule()); 
@@ -9878,7 +9456,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLogicalAndOperator"
-    // InternalSolidity.g:3518:1: ruleLogicalAndOperator returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '&&' ;
+    // InternalSolidity.g:3357:1: ruleLogicalAndOperator returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '&&' ;
     public final AntlrDatatypeRuleToken ruleLogicalAndOperator() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -9888,10 +9466,10 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3524:2: (kw= '&&' )
-            // InternalSolidity.g:3525:2: kw= '&&'
+            // InternalSolidity.g:3363:2: (kw= '&&' )
+            // InternalSolidity.g:3364:2: kw= '&&'
             {
-            kw=(Token)match(input,49,FOLLOW_2); if (state.failed) return current;
+            kw=(Token)match(input,47,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(kw);
@@ -9920,7 +9498,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLogicalOrOperator"
-    // InternalSolidity.g:3533:1: entryRuleLogicalOrOperator returns [String current=null] : iv_ruleLogicalOrOperator= ruleLogicalOrOperator EOF ;
+    // InternalSolidity.g:3372:1: entryRuleLogicalOrOperator returns [String current=null] : iv_ruleLogicalOrOperator= ruleLogicalOrOperator EOF ;
     public final String entryRuleLogicalOrOperator() throws RecognitionException {
         String current = null;
 
@@ -9928,8 +9506,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:3533:57: (iv_ruleLogicalOrOperator= ruleLogicalOrOperator EOF )
-            // InternalSolidity.g:3534:2: iv_ruleLogicalOrOperator= ruleLogicalOrOperator EOF
+            // InternalSolidity.g:3372:57: (iv_ruleLogicalOrOperator= ruleLogicalOrOperator EOF )
+            // InternalSolidity.g:3373:2: iv_ruleLogicalOrOperator= ruleLogicalOrOperator EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLogicalOrOperatorRule()); 
@@ -9960,7 +9538,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLogicalOrOperator"
-    // InternalSolidity.g:3540:1: ruleLogicalOrOperator returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '||' ;
+    // InternalSolidity.g:3379:1: ruleLogicalOrOperator returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '||' ;
     public final AntlrDatatypeRuleToken ruleLogicalOrOperator() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -9970,10 +9548,10 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3546:2: (kw= '||' )
-            // InternalSolidity.g:3547:2: kw= '||'
+            // InternalSolidity.g:3385:2: (kw= '||' )
+            // InternalSolidity.g:3386:2: kw= '||'
             {
-            kw=(Token)match(input,50,FOLLOW_2); if (state.failed) return current;
+            kw=(Token)match(input,48,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(kw);
@@ -10002,7 +9580,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLogicalNotOperator"
-    // InternalSolidity.g:3555:1: entryRuleLogicalNotOperator returns [String current=null] : iv_ruleLogicalNotOperator= ruleLogicalNotOperator EOF ;
+    // InternalSolidity.g:3394:1: entryRuleLogicalNotOperator returns [String current=null] : iv_ruleLogicalNotOperator= ruleLogicalNotOperator EOF ;
     public final String entryRuleLogicalNotOperator() throws RecognitionException {
         String current = null;
 
@@ -10010,8 +9588,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:3555:58: (iv_ruleLogicalNotOperator= ruleLogicalNotOperator EOF )
-            // InternalSolidity.g:3556:2: iv_ruleLogicalNotOperator= ruleLogicalNotOperator EOF
+            // InternalSolidity.g:3394:58: (iv_ruleLogicalNotOperator= ruleLogicalNotOperator EOF )
+            // InternalSolidity.g:3395:2: iv_ruleLogicalNotOperator= ruleLogicalNotOperator EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLogicalNotOperatorRule()); 
@@ -10042,7 +9620,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLogicalNotOperator"
-    // InternalSolidity.g:3562:1: ruleLogicalNotOperator returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '!' ;
+    // InternalSolidity.g:3401:1: ruleLogicalNotOperator returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '!' ;
     public final AntlrDatatypeRuleToken ruleLogicalNotOperator() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -10052,10 +9630,10 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3568:2: (kw= '!' )
-            // InternalSolidity.g:3569:2: kw= '!'
+            // InternalSolidity.g:3407:2: (kw= '!' )
+            // InternalSolidity.g:3408:2: kw= '!'
             {
-            kw=(Token)match(input,51,FOLLOW_2); if (state.failed) return current;
+            kw=(Token)match(input,49,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(kw);
@@ -10084,7 +9662,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleBitwiseXOrOperator"
-    // InternalSolidity.g:3577:1: entryRuleBitwiseXOrOperator returns [String current=null] : iv_ruleBitwiseXOrOperator= ruleBitwiseXOrOperator EOF ;
+    // InternalSolidity.g:3416:1: entryRuleBitwiseXOrOperator returns [String current=null] : iv_ruleBitwiseXOrOperator= ruleBitwiseXOrOperator EOF ;
     public final String entryRuleBitwiseXOrOperator() throws RecognitionException {
         String current = null;
 
@@ -10092,8 +9670,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:3577:58: (iv_ruleBitwiseXOrOperator= ruleBitwiseXOrOperator EOF )
-            // InternalSolidity.g:3578:2: iv_ruleBitwiseXOrOperator= ruleBitwiseXOrOperator EOF
+            // InternalSolidity.g:3416:58: (iv_ruleBitwiseXOrOperator= ruleBitwiseXOrOperator EOF )
+            // InternalSolidity.g:3417:2: iv_ruleBitwiseXOrOperator= ruleBitwiseXOrOperator EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getBitwiseXOrOperatorRule()); 
@@ -10124,7 +9702,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBitwiseXOrOperator"
-    // InternalSolidity.g:3584:1: ruleBitwiseXOrOperator returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '^' ;
+    // InternalSolidity.g:3423:1: ruleBitwiseXOrOperator returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '^' ;
     public final AntlrDatatypeRuleToken ruleBitwiseXOrOperator() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -10134,10 +9712,10 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3590:2: (kw= '^' )
-            // InternalSolidity.g:3591:2: kw= '^'
+            // InternalSolidity.g:3429:2: (kw= '^' )
+            // InternalSolidity.g:3430:2: kw= '^'
             {
-            kw=(Token)match(input,52,FOLLOW_2); if (state.failed) return current;
+            kw=(Token)match(input,50,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(kw);
@@ -10166,7 +9744,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleBitwiseOrOperator"
-    // InternalSolidity.g:3599:1: entryRuleBitwiseOrOperator returns [String current=null] : iv_ruleBitwiseOrOperator= ruleBitwiseOrOperator EOF ;
+    // InternalSolidity.g:3438:1: entryRuleBitwiseOrOperator returns [String current=null] : iv_ruleBitwiseOrOperator= ruleBitwiseOrOperator EOF ;
     public final String entryRuleBitwiseOrOperator() throws RecognitionException {
         String current = null;
 
@@ -10174,8 +9752,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:3599:57: (iv_ruleBitwiseOrOperator= ruleBitwiseOrOperator EOF )
-            // InternalSolidity.g:3600:2: iv_ruleBitwiseOrOperator= ruleBitwiseOrOperator EOF
+            // InternalSolidity.g:3438:57: (iv_ruleBitwiseOrOperator= ruleBitwiseOrOperator EOF )
+            // InternalSolidity.g:3439:2: iv_ruleBitwiseOrOperator= ruleBitwiseOrOperator EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getBitwiseOrOperatorRule()); 
@@ -10206,7 +9784,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBitwiseOrOperator"
-    // InternalSolidity.g:3606:1: ruleBitwiseOrOperator returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '|' ;
+    // InternalSolidity.g:3445:1: ruleBitwiseOrOperator returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '|' ;
     public final AntlrDatatypeRuleToken ruleBitwiseOrOperator() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -10216,10 +9794,10 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3612:2: (kw= '|' )
-            // InternalSolidity.g:3613:2: kw= '|'
+            // InternalSolidity.g:3451:2: (kw= '|' )
+            // InternalSolidity.g:3452:2: kw= '|'
             {
-            kw=(Token)match(input,53,FOLLOW_2); if (state.failed) return current;
+            kw=(Token)match(input,51,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(kw);
@@ -10248,7 +9826,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleBitwiseAndOperator"
-    // InternalSolidity.g:3621:1: entryRuleBitwiseAndOperator returns [String current=null] : iv_ruleBitwiseAndOperator= ruleBitwiseAndOperator EOF ;
+    // InternalSolidity.g:3460:1: entryRuleBitwiseAndOperator returns [String current=null] : iv_ruleBitwiseAndOperator= ruleBitwiseAndOperator EOF ;
     public final String entryRuleBitwiseAndOperator() throws RecognitionException {
         String current = null;
 
@@ -10256,8 +9834,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:3621:58: (iv_ruleBitwiseAndOperator= ruleBitwiseAndOperator EOF )
-            // InternalSolidity.g:3622:2: iv_ruleBitwiseAndOperator= ruleBitwiseAndOperator EOF
+            // InternalSolidity.g:3460:58: (iv_ruleBitwiseAndOperator= ruleBitwiseAndOperator EOF )
+            // InternalSolidity.g:3461:2: iv_ruleBitwiseAndOperator= ruleBitwiseAndOperator EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getBitwiseAndOperatorRule()); 
@@ -10288,7 +9866,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBitwiseAndOperator"
-    // InternalSolidity.g:3628:1: ruleBitwiseAndOperator returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '&' ;
+    // InternalSolidity.g:3467:1: ruleBitwiseAndOperator returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '&' ;
     public final AntlrDatatypeRuleToken ruleBitwiseAndOperator() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -10298,10 +9876,10 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3634:2: (kw= '&' )
-            // InternalSolidity.g:3635:2: kw= '&'
+            // InternalSolidity.g:3473:2: (kw= '&' )
+            // InternalSolidity.g:3474:2: kw= '&'
             {
-            kw=(Token)match(input,54,FOLLOW_2); if (state.failed) return current;
+            kw=(Token)match(input,52,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(kw);
@@ -10330,7 +9908,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQID"
-    // InternalSolidity.g:3643:1: entryRuleQID returns [String current=null] : iv_ruleQID= ruleQID EOF ;
+    // InternalSolidity.g:3482:1: entryRuleQID returns [String current=null] : iv_ruleQID= ruleQID EOF ;
     public final String entryRuleQID() throws RecognitionException {
         String current = null;
 
@@ -10338,8 +9916,8 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSolidity.g:3643:43: (iv_ruleQID= ruleQID EOF )
-            // InternalSolidity.g:3644:2: iv_ruleQID= ruleQID EOF
+            // InternalSolidity.g:3482:43: (iv_ruleQID= ruleQID EOF )
+            // InternalSolidity.g:3483:2: iv_ruleQID= ruleQID EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getQIDRule()); 
@@ -10370,7 +9948,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQID"
-    // InternalSolidity.g:3650:1: ruleQID returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) ;
+    // InternalSolidity.g:3489:1: ruleQID returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) ;
     public final AntlrDatatypeRuleToken ruleQID() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -10382,13 +9960,13 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3656:2: ( (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) )
-            // InternalSolidity.g:3657:2: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
+            // InternalSolidity.g:3495:2: ( (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) )
+            // InternalSolidity.g:3496:2: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
             {
-            // InternalSolidity.g:3657:2: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
-            // InternalSolidity.g:3658:3: this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )*
+            // InternalSolidity.g:3496:2: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
+            // InternalSolidity.g:3497:3: this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )*
             {
-            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_43); if (state.failed) return current;
+            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_42); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			current.merge(this_ID_0);
@@ -10399,29 +9977,29 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
               			newLeafNode(this_ID_0, grammarAccess.getQIDAccess().getIDTerminalRuleCall_0());
               		
             }
-            // InternalSolidity.g:3665:3: (kw= '.' this_ID_2= RULE_ID )*
+            // InternalSolidity.g:3504:3: (kw= '.' this_ID_2= RULE_ID )*
             loop50:
             do {
                 int alt50=2;
                 int LA50_0 = input.LA(1);
 
-                if ( (LA50_0==43) ) {
+                if ( (LA50_0==41) ) {
                     alt50=1;
                 }
 
 
                 switch (alt50) {
             	case 1 :
-            	    // InternalSolidity.g:3666:4: kw= '.' this_ID_2= RULE_ID
+            	    // InternalSolidity.g:3505:4: kw= '.' this_ID_2= RULE_ID
             	    {
-            	    kw=(Token)match(input,43,FOLLOW_9); if (state.failed) return current;
+            	    kw=(Token)match(input,41,FOLLOW_11); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      				current.merge(kw);
             	      				newLeafNode(kw, grammarAccess.getQIDAccess().getFullStopKeyword_1_0());
             	      			
             	    }
-            	    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_43); if (state.failed) return current;
+            	    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_42); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      				current.merge(this_ID_2);
@@ -10466,7 +10044,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleContractType"
-    // InternalSolidity.g:3683:1: ruleContractType returns [Enumerator current=null] : ( (enumLiteral_0= 'contract' ) | (enumLiteral_1= 'library' ) | (enumLiteral_2= 'interface' ) ) ;
+    // InternalSolidity.g:3522:1: ruleContractType returns [Enumerator current=null] : ( (enumLiteral_0= 'contract' ) | (enumLiteral_1= 'library' ) | (enumLiteral_2= 'interface' ) ) ;
     public final Enumerator ruleContractType() throws RecognitionException {
         Enumerator current = null;
 
@@ -10478,23 +10056,23 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3689:2: ( ( (enumLiteral_0= 'contract' ) | (enumLiteral_1= 'library' ) | (enumLiteral_2= 'interface' ) ) )
-            // InternalSolidity.g:3690:2: ( (enumLiteral_0= 'contract' ) | (enumLiteral_1= 'library' ) | (enumLiteral_2= 'interface' ) )
+            // InternalSolidity.g:3528:2: ( ( (enumLiteral_0= 'contract' ) | (enumLiteral_1= 'library' ) | (enumLiteral_2= 'interface' ) ) )
+            // InternalSolidity.g:3529:2: ( (enumLiteral_0= 'contract' ) | (enumLiteral_1= 'library' ) | (enumLiteral_2= 'interface' ) )
             {
-            // InternalSolidity.g:3690:2: ( (enumLiteral_0= 'contract' ) | (enumLiteral_1= 'library' ) | (enumLiteral_2= 'interface' ) )
+            // InternalSolidity.g:3529:2: ( (enumLiteral_0= 'contract' ) | (enumLiteral_1= 'library' ) | (enumLiteral_2= 'interface' ) )
             int alt51=3;
             switch ( input.LA(1) ) {
-            case 55:
+            case 53:
                 {
                 alt51=1;
                 }
                 break;
-            case 56:
+            case 54:
                 {
                 alt51=2;
                 }
                 break;
-            case 57:
+            case 55:
                 {
                 alt51=3;
                 }
@@ -10509,12 +10087,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             switch (alt51) {
                 case 1 :
-                    // InternalSolidity.g:3691:3: (enumLiteral_0= 'contract' )
+                    // InternalSolidity.g:3530:3: (enumLiteral_0= 'contract' )
                     {
-                    // InternalSolidity.g:3691:3: (enumLiteral_0= 'contract' )
-                    // InternalSolidity.g:3692:4: enumLiteral_0= 'contract'
+                    // InternalSolidity.g:3530:3: (enumLiteral_0= 'contract' )
+                    // InternalSolidity.g:3531:4: enumLiteral_0= 'contract'
                     {
-                    enumLiteral_0=(Token)match(input,55,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,53,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getContractTypeAccess().getCONTRACTEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
@@ -10528,12 +10106,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSolidity.g:3699:3: (enumLiteral_1= 'library' )
+                    // InternalSolidity.g:3538:3: (enumLiteral_1= 'library' )
                     {
-                    // InternalSolidity.g:3699:3: (enumLiteral_1= 'library' )
-                    // InternalSolidity.g:3700:4: enumLiteral_1= 'library'
+                    // InternalSolidity.g:3538:3: (enumLiteral_1= 'library' )
+                    // InternalSolidity.g:3539:4: enumLiteral_1= 'library'
                     {
-                    enumLiteral_1=(Token)match(input,56,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,54,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getContractTypeAccess().getLIBRARYEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
@@ -10547,12 +10125,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalSolidity.g:3707:3: (enumLiteral_2= 'interface' )
+                    // InternalSolidity.g:3546:3: (enumLiteral_2= 'interface' )
                     {
-                    // InternalSolidity.g:3707:3: (enumLiteral_2= 'interface' )
-                    // InternalSolidity.g:3708:4: enumLiteral_2= 'interface'
+                    // InternalSolidity.g:3546:3: (enumLiteral_2= 'interface' )
+                    // InternalSolidity.g:3547:4: enumLiteral_2= 'interface'
                     {
-                    enumLiteral_2=(Token)match(input,57,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_2=(Token)match(input,55,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getContractTypeAccess().getINTERFACEEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
@@ -10590,7 +10168,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVisibility"
-    // InternalSolidity.g:3718:1: ruleVisibility returns [Enumerator current=null] : ( (enumLiteral_0= 'public' ) | (enumLiteral_1= 'internal' ) | (enumLiteral_2= 'private' ) | (enumLiteral_3= 'constant' ) ) ;
+    // InternalSolidity.g:3557:1: ruleVisibility returns [Enumerator current=null] : ( (enumLiteral_0= 'public' ) | (enumLiteral_1= 'internal' ) | (enumLiteral_2= 'private' ) | (enumLiteral_3= 'constant' ) ) ;
     public final Enumerator ruleVisibility() throws RecognitionException {
         Enumerator current = null;
 
@@ -10603,28 +10181,28 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3724:2: ( ( (enumLiteral_0= 'public' ) | (enumLiteral_1= 'internal' ) | (enumLiteral_2= 'private' ) | (enumLiteral_3= 'constant' ) ) )
-            // InternalSolidity.g:3725:2: ( (enumLiteral_0= 'public' ) | (enumLiteral_1= 'internal' ) | (enumLiteral_2= 'private' ) | (enumLiteral_3= 'constant' ) )
+            // InternalSolidity.g:3563:2: ( ( (enumLiteral_0= 'public' ) | (enumLiteral_1= 'internal' ) | (enumLiteral_2= 'private' ) | (enumLiteral_3= 'constant' ) ) )
+            // InternalSolidity.g:3564:2: ( (enumLiteral_0= 'public' ) | (enumLiteral_1= 'internal' ) | (enumLiteral_2= 'private' ) | (enumLiteral_3= 'constant' ) )
             {
-            // InternalSolidity.g:3725:2: ( (enumLiteral_0= 'public' ) | (enumLiteral_1= 'internal' ) | (enumLiteral_2= 'private' ) | (enumLiteral_3= 'constant' ) )
+            // InternalSolidity.g:3564:2: ( (enumLiteral_0= 'public' ) | (enumLiteral_1= 'internal' ) | (enumLiteral_2= 'private' ) | (enumLiteral_3= 'constant' ) )
             int alt52=4;
             switch ( input.LA(1) ) {
-            case 34:
+            case 33:
                 {
                 alt52=1;
                 }
                 break;
-            case 35:
+            case 34:
                 {
                 alt52=2;
                 }
                 break;
-            case 36:
+            case 35:
                 {
                 alt52=3;
                 }
                 break;
-            case 58:
+            case 36:
                 {
                 alt52=4;
                 }
@@ -10639,12 +10217,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             switch (alt52) {
                 case 1 :
-                    // InternalSolidity.g:3726:3: (enumLiteral_0= 'public' )
+                    // InternalSolidity.g:3565:3: (enumLiteral_0= 'public' )
                     {
-                    // InternalSolidity.g:3726:3: (enumLiteral_0= 'public' )
-                    // InternalSolidity.g:3727:4: enumLiteral_0= 'public'
+                    // InternalSolidity.g:3565:3: (enumLiteral_0= 'public' )
+                    // InternalSolidity.g:3566:4: enumLiteral_0= 'public'
                     {
-                    enumLiteral_0=(Token)match(input,34,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,33,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getVisibilityAccess().getPUBLICEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
@@ -10658,12 +10236,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSolidity.g:3734:3: (enumLiteral_1= 'internal' )
+                    // InternalSolidity.g:3573:3: (enumLiteral_1= 'internal' )
                     {
-                    // InternalSolidity.g:3734:3: (enumLiteral_1= 'internal' )
-                    // InternalSolidity.g:3735:4: enumLiteral_1= 'internal'
+                    // InternalSolidity.g:3573:3: (enumLiteral_1= 'internal' )
+                    // InternalSolidity.g:3574:4: enumLiteral_1= 'internal'
                     {
-                    enumLiteral_1=(Token)match(input,35,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,34,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getVisibilityAccess().getINTERNALEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
@@ -10677,12 +10255,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalSolidity.g:3742:3: (enumLiteral_2= 'private' )
+                    // InternalSolidity.g:3581:3: (enumLiteral_2= 'private' )
                     {
-                    // InternalSolidity.g:3742:3: (enumLiteral_2= 'private' )
-                    // InternalSolidity.g:3743:4: enumLiteral_2= 'private'
+                    // InternalSolidity.g:3581:3: (enumLiteral_2= 'private' )
+                    // InternalSolidity.g:3582:4: enumLiteral_2= 'private'
                     {
-                    enumLiteral_2=(Token)match(input,36,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_2=(Token)match(input,35,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getVisibilityAccess().getPRIVATEEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
@@ -10696,12 +10274,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalSolidity.g:3750:3: (enumLiteral_3= 'constant' )
+                    // InternalSolidity.g:3589:3: (enumLiteral_3= 'constant' )
                     {
-                    // InternalSolidity.g:3750:3: (enumLiteral_3= 'constant' )
-                    // InternalSolidity.g:3751:4: enumLiteral_3= 'constant'
+                    // InternalSolidity.g:3589:3: (enumLiteral_3= 'constant' )
+                    // InternalSolidity.g:3590:4: enumLiteral_3= 'constant'
                     {
-                    enumLiteral_3=(Token)match(input,58,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_3=(Token)match(input,36,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getVisibilityAccess().getCONSTANTEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
@@ -10739,7 +10317,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAssignmentOperator"
-    // InternalSolidity.g:3761:1: ruleAssignmentOperator returns [Enumerator current=null] : ( (enumLiteral_0= '=' ) | (enumLiteral_1= '*=' ) | (enumLiteral_2= '/=' ) | (enumLiteral_3= '%=' ) | (enumLiteral_4= '+=' ) | (enumLiteral_5= '-=' ) | (enumLiteral_6= '<<=' ) | (enumLiteral_7= '>>=' ) | (enumLiteral_8= '&=' ) | (enumLiteral_9= '^=' ) | (enumLiteral_10= '|=' ) ) ;
+    // InternalSolidity.g:3600:1: ruleAssignmentOperator returns [Enumerator current=null] : ( (enumLiteral_0= '=' ) | (enumLiteral_1= '*=' ) | (enumLiteral_2= '/=' ) | (enumLiteral_3= '%=' ) | (enumLiteral_4= '+=' ) | (enumLiteral_5= '-=' ) | (enumLiteral_6= '<<=' ) | (enumLiteral_7= '>>=' ) | (enumLiteral_8= '&=' ) | (enumLiteral_9= '^=' ) | (enumLiteral_10= '|=' ) ) ;
     public final Enumerator ruleAssignmentOperator() throws RecognitionException {
         Enumerator current = null;
 
@@ -10759,10 +10337,10 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3767:2: ( ( (enumLiteral_0= '=' ) | (enumLiteral_1= '*=' ) | (enumLiteral_2= '/=' ) | (enumLiteral_3= '%=' ) | (enumLiteral_4= '+=' ) | (enumLiteral_5= '-=' ) | (enumLiteral_6= '<<=' ) | (enumLiteral_7= '>>=' ) | (enumLiteral_8= '&=' ) | (enumLiteral_9= '^=' ) | (enumLiteral_10= '|=' ) ) )
-            // InternalSolidity.g:3768:2: ( (enumLiteral_0= '=' ) | (enumLiteral_1= '*=' ) | (enumLiteral_2= '/=' ) | (enumLiteral_3= '%=' ) | (enumLiteral_4= '+=' ) | (enumLiteral_5= '-=' ) | (enumLiteral_6= '<<=' ) | (enumLiteral_7= '>>=' ) | (enumLiteral_8= '&=' ) | (enumLiteral_9= '^=' ) | (enumLiteral_10= '|=' ) )
+            // InternalSolidity.g:3606:2: ( ( (enumLiteral_0= '=' ) | (enumLiteral_1= '*=' ) | (enumLiteral_2= '/=' ) | (enumLiteral_3= '%=' ) | (enumLiteral_4= '+=' ) | (enumLiteral_5= '-=' ) | (enumLiteral_6= '<<=' ) | (enumLiteral_7= '>>=' ) | (enumLiteral_8= '&=' ) | (enumLiteral_9= '^=' ) | (enumLiteral_10= '|=' ) ) )
+            // InternalSolidity.g:3607:2: ( (enumLiteral_0= '=' ) | (enumLiteral_1= '*=' ) | (enumLiteral_2= '/=' ) | (enumLiteral_3= '%=' ) | (enumLiteral_4= '+=' ) | (enumLiteral_5= '-=' ) | (enumLiteral_6= '<<=' ) | (enumLiteral_7= '>>=' ) | (enumLiteral_8= '&=' ) | (enumLiteral_9= '^=' ) | (enumLiteral_10= '|=' ) )
             {
-            // InternalSolidity.g:3768:2: ( (enumLiteral_0= '=' ) | (enumLiteral_1= '*=' ) | (enumLiteral_2= '/=' ) | (enumLiteral_3= '%=' ) | (enumLiteral_4= '+=' ) | (enumLiteral_5= '-=' ) | (enumLiteral_6= '<<=' ) | (enumLiteral_7= '>>=' ) | (enumLiteral_8= '&=' ) | (enumLiteral_9= '^=' ) | (enumLiteral_10= '|=' ) )
+            // InternalSolidity.g:3607:2: ( (enumLiteral_0= '=' ) | (enumLiteral_1= '*=' ) | (enumLiteral_2= '/=' ) | (enumLiteral_3= '%=' ) | (enumLiteral_4= '+=' ) | (enumLiteral_5= '-=' ) | (enumLiteral_6= '<<=' ) | (enumLiteral_7= '>>=' ) | (enumLiteral_8= '&=' ) | (enumLiteral_9= '^=' ) | (enumLiteral_10= '|=' ) )
             int alt53=11;
             switch ( input.LA(1) ) {
             case 26:
@@ -10770,52 +10348,52 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                 alt53=1;
                 }
                 break;
-            case 59:
+            case 56:
                 {
                 alt53=2;
                 }
                 break;
-            case 60:
+            case 57:
                 {
                 alt53=3;
                 }
                 break;
-            case 61:
+            case 58:
                 {
                 alt53=4;
                 }
                 break;
-            case 62:
+            case 59:
                 {
                 alt53=5;
                 }
                 break;
-            case 63:
+            case 60:
                 {
                 alt53=6;
                 }
                 break;
-            case 64:
+            case 61:
                 {
                 alt53=7;
                 }
                 break;
-            case 65:
+            case 62:
                 {
                 alt53=8;
                 }
                 break;
-            case 66:
+            case 63:
                 {
                 alt53=9;
                 }
                 break;
-            case 67:
+            case 64:
                 {
                 alt53=10;
                 }
                 break;
-            case 68:
+            case 65:
                 {
                 alt53=11;
                 }
@@ -10830,10 +10408,10 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             switch (alt53) {
                 case 1 :
-                    // InternalSolidity.g:3769:3: (enumLiteral_0= '=' )
+                    // InternalSolidity.g:3608:3: (enumLiteral_0= '=' )
                     {
-                    // InternalSolidity.g:3769:3: (enumLiteral_0= '=' )
-                    // InternalSolidity.g:3770:4: enumLiteral_0= '='
+                    // InternalSolidity.g:3608:3: (enumLiteral_0= '=' )
+                    // InternalSolidity.g:3609:4: enumLiteral_0= '='
                     {
                     enumLiteral_0=(Token)match(input,26,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -10849,12 +10427,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSolidity.g:3777:3: (enumLiteral_1= '*=' )
+                    // InternalSolidity.g:3616:3: (enumLiteral_1= '*=' )
                     {
-                    // InternalSolidity.g:3777:3: (enumLiteral_1= '*=' )
-                    // InternalSolidity.g:3778:4: enumLiteral_1= '*='
+                    // InternalSolidity.g:3616:3: (enumLiteral_1= '*=' )
+                    // InternalSolidity.g:3617:4: enumLiteral_1= '*='
                     {
-                    enumLiteral_1=(Token)match(input,59,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,56,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getAssignmentOperatorAccess().getMultAssignEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
@@ -10868,12 +10446,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalSolidity.g:3785:3: (enumLiteral_2= '/=' )
+                    // InternalSolidity.g:3624:3: (enumLiteral_2= '/=' )
                     {
-                    // InternalSolidity.g:3785:3: (enumLiteral_2= '/=' )
-                    // InternalSolidity.g:3786:4: enumLiteral_2= '/='
+                    // InternalSolidity.g:3624:3: (enumLiteral_2= '/=' )
+                    // InternalSolidity.g:3625:4: enumLiteral_2= '/='
                     {
-                    enumLiteral_2=(Token)match(input,60,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_2=(Token)match(input,57,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getAssignmentOperatorAccess().getDivAssignEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
@@ -10887,12 +10465,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalSolidity.g:3793:3: (enumLiteral_3= '%=' )
+                    // InternalSolidity.g:3632:3: (enumLiteral_3= '%=' )
                     {
-                    // InternalSolidity.g:3793:3: (enumLiteral_3= '%=' )
-                    // InternalSolidity.g:3794:4: enumLiteral_3= '%='
+                    // InternalSolidity.g:3632:3: (enumLiteral_3= '%=' )
+                    // InternalSolidity.g:3633:4: enumLiteral_3= '%='
                     {
-                    enumLiteral_3=(Token)match(input,61,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_3=(Token)match(input,58,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getAssignmentOperatorAccess().getModAssignEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
@@ -10906,12 +10484,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // InternalSolidity.g:3801:3: (enumLiteral_4= '+=' )
+                    // InternalSolidity.g:3640:3: (enumLiteral_4= '+=' )
                     {
-                    // InternalSolidity.g:3801:3: (enumLiteral_4= '+=' )
-                    // InternalSolidity.g:3802:4: enumLiteral_4= '+='
+                    // InternalSolidity.g:3640:3: (enumLiteral_4= '+=' )
+                    // InternalSolidity.g:3641:4: enumLiteral_4= '+='
                     {
-                    enumLiteral_4=(Token)match(input,62,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_4=(Token)match(input,59,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getAssignmentOperatorAccess().getAddAssignEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
@@ -10925,12 +10503,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // InternalSolidity.g:3809:3: (enumLiteral_5= '-=' )
+                    // InternalSolidity.g:3648:3: (enumLiteral_5= '-=' )
                     {
-                    // InternalSolidity.g:3809:3: (enumLiteral_5= '-=' )
-                    // InternalSolidity.g:3810:4: enumLiteral_5= '-='
+                    // InternalSolidity.g:3648:3: (enumLiteral_5= '-=' )
+                    // InternalSolidity.g:3649:4: enumLiteral_5= '-='
                     {
-                    enumLiteral_5=(Token)match(input,63,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_5=(Token)match(input,60,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getAssignmentOperatorAccess().getSubAssignEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
@@ -10944,12 +10522,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 7 :
-                    // InternalSolidity.g:3817:3: (enumLiteral_6= '<<=' )
+                    // InternalSolidity.g:3656:3: (enumLiteral_6= '<<=' )
                     {
-                    // InternalSolidity.g:3817:3: (enumLiteral_6= '<<=' )
-                    // InternalSolidity.g:3818:4: enumLiteral_6= '<<='
+                    // InternalSolidity.g:3656:3: (enumLiteral_6= '<<=' )
+                    // InternalSolidity.g:3657:4: enumLiteral_6= '<<='
                     {
-                    enumLiteral_6=(Token)match(input,64,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_6=(Token)match(input,61,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getAssignmentOperatorAccess().getLeftShiftAssignEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
@@ -10963,12 +10541,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 8 :
-                    // InternalSolidity.g:3825:3: (enumLiteral_7= '>>=' )
+                    // InternalSolidity.g:3664:3: (enumLiteral_7= '>>=' )
                     {
-                    // InternalSolidity.g:3825:3: (enumLiteral_7= '>>=' )
-                    // InternalSolidity.g:3826:4: enumLiteral_7= '>>='
+                    // InternalSolidity.g:3664:3: (enumLiteral_7= '>>=' )
+                    // InternalSolidity.g:3665:4: enumLiteral_7= '>>='
                     {
-                    enumLiteral_7=(Token)match(input,65,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_7=(Token)match(input,62,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getAssignmentOperatorAccess().getRightShiftAssignEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
@@ -10982,12 +10560,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 9 :
-                    // InternalSolidity.g:3833:3: (enumLiteral_8= '&=' )
+                    // InternalSolidity.g:3672:3: (enumLiteral_8= '&=' )
                     {
-                    // InternalSolidity.g:3833:3: (enumLiteral_8= '&=' )
-                    // InternalSolidity.g:3834:4: enumLiteral_8= '&='
+                    // InternalSolidity.g:3672:3: (enumLiteral_8= '&=' )
+                    // InternalSolidity.g:3673:4: enumLiteral_8= '&='
                     {
-                    enumLiteral_8=(Token)match(input,66,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_8=(Token)match(input,63,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getAssignmentOperatorAccess().getAndAssignEnumLiteralDeclaration_8().getEnumLiteral().getInstance();
@@ -11001,12 +10579,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 10 :
-                    // InternalSolidity.g:3841:3: (enumLiteral_9= '^=' )
+                    // InternalSolidity.g:3680:3: (enumLiteral_9= '^=' )
                     {
-                    // InternalSolidity.g:3841:3: (enumLiteral_9= '^=' )
-                    // InternalSolidity.g:3842:4: enumLiteral_9= '^='
+                    // InternalSolidity.g:3680:3: (enumLiteral_9= '^=' )
+                    // InternalSolidity.g:3681:4: enumLiteral_9= '^='
                     {
-                    enumLiteral_9=(Token)match(input,67,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_9=(Token)match(input,64,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getAssignmentOperatorAccess().getXorAssignEnumLiteralDeclaration_9().getEnumLiteral().getInstance();
@@ -11020,12 +10598,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 11 :
-                    // InternalSolidity.g:3849:3: (enumLiteral_10= '|=' )
+                    // InternalSolidity.g:3688:3: (enumLiteral_10= '|=' )
                     {
-                    // InternalSolidity.g:3849:3: (enumLiteral_10= '|=' )
-                    // InternalSolidity.g:3850:4: enumLiteral_10= '|='
+                    // InternalSolidity.g:3688:3: (enumLiteral_10= '|=' )
+                    // InternalSolidity.g:3689:4: enumLiteral_10= '|='
                     {
-                    enumLiteral_10=(Token)match(input,68,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_10=(Token)match(input,65,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getAssignmentOperatorAccess().getOrAssignEnumLiteralDeclaration_10().getEnumLiteral().getInstance();
@@ -11063,7 +10641,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleShiftOperator"
-    // InternalSolidity.g:3860:1: ruleShiftOperator returns [Enumerator current=null] : ( (enumLiteral_0= '<<' ) | (enumLiteral_1= '>>' ) ) ;
+    // InternalSolidity.g:3699:1: ruleShiftOperator returns [Enumerator current=null] : ( (enumLiteral_0= '<<' ) | (enumLiteral_1= '>>' ) ) ;
     public final Enumerator ruleShiftOperator() throws RecognitionException {
         Enumerator current = null;
 
@@ -11074,17 +10652,17 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3866:2: ( ( (enumLiteral_0= '<<' ) | (enumLiteral_1= '>>' ) ) )
-            // InternalSolidity.g:3867:2: ( (enumLiteral_0= '<<' ) | (enumLiteral_1= '>>' ) )
+            // InternalSolidity.g:3705:2: ( ( (enumLiteral_0= '<<' ) | (enumLiteral_1= '>>' ) ) )
+            // InternalSolidity.g:3706:2: ( (enumLiteral_0= '<<' ) | (enumLiteral_1= '>>' ) )
             {
-            // InternalSolidity.g:3867:2: ( (enumLiteral_0= '<<' ) | (enumLiteral_1= '>>' ) )
+            // InternalSolidity.g:3706:2: ( (enumLiteral_0= '<<' ) | (enumLiteral_1= '>>' ) )
             int alt54=2;
             int LA54_0 = input.LA(1);
 
-            if ( (LA54_0==69) ) {
+            if ( (LA54_0==66) ) {
                 alt54=1;
             }
-            else if ( (LA54_0==70) ) {
+            else if ( (LA54_0==67) ) {
                 alt54=2;
             }
             else {
@@ -11096,12 +10674,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             }
             switch (alt54) {
                 case 1 :
-                    // InternalSolidity.g:3868:3: (enumLiteral_0= '<<' )
+                    // InternalSolidity.g:3707:3: (enumLiteral_0= '<<' )
                     {
-                    // InternalSolidity.g:3868:3: (enumLiteral_0= '<<' )
-                    // InternalSolidity.g:3869:4: enumLiteral_0= '<<'
+                    // InternalSolidity.g:3707:3: (enumLiteral_0= '<<' )
+                    // InternalSolidity.g:3708:4: enumLiteral_0= '<<'
                     {
-                    enumLiteral_0=(Token)match(input,69,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,66,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getShiftOperatorAccess().getLeftEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
@@ -11115,12 +10693,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSolidity.g:3876:3: (enumLiteral_1= '>>' )
+                    // InternalSolidity.g:3715:3: (enumLiteral_1= '>>' )
                     {
-                    // InternalSolidity.g:3876:3: (enumLiteral_1= '>>' )
-                    // InternalSolidity.g:3877:4: enumLiteral_1= '>>'
+                    // InternalSolidity.g:3715:3: (enumLiteral_1= '>>' )
+                    // InternalSolidity.g:3716:4: enumLiteral_1= '>>'
                     {
-                    enumLiteral_1=(Token)match(input,70,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,67,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getShiftOperatorAccess().getRightEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
@@ -11158,7 +10736,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAdditiveOperator"
-    // InternalSolidity.g:3887:1: ruleAdditiveOperator returns [Enumerator current=null] : ( (enumLiteral_0= '+' ) | (enumLiteral_1= '-' ) ) ;
+    // InternalSolidity.g:3726:1: ruleAdditiveOperator returns [Enumerator current=null] : ( (enumLiteral_0= '+' ) | (enumLiteral_1= '-' ) ) ;
     public final Enumerator ruleAdditiveOperator() throws RecognitionException {
         Enumerator current = null;
 
@@ -11169,17 +10747,17 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3893:2: ( ( (enumLiteral_0= '+' ) | (enumLiteral_1= '-' ) ) )
-            // InternalSolidity.g:3894:2: ( (enumLiteral_0= '+' ) | (enumLiteral_1= '-' ) )
+            // InternalSolidity.g:3732:2: ( ( (enumLiteral_0= '+' ) | (enumLiteral_1= '-' ) ) )
+            // InternalSolidity.g:3733:2: ( (enumLiteral_0= '+' ) | (enumLiteral_1= '-' ) )
             {
-            // InternalSolidity.g:3894:2: ( (enumLiteral_0= '+' ) | (enumLiteral_1= '-' ) )
+            // InternalSolidity.g:3733:2: ( (enumLiteral_0= '+' ) | (enumLiteral_1= '-' ) )
             int alt55=2;
             int LA55_0 = input.LA(1);
 
-            if ( (LA55_0==71) ) {
+            if ( (LA55_0==68) ) {
                 alt55=1;
             }
-            else if ( (LA55_0==72) ) {
+            else if ( (LA55_0==69) ) {
                 alt55=2;
             }
             else {
@@ -11191,12 +10769,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
             }
             switch (alt55) {
                 case 1 :
-                    // InternalSolidity.g:3895:3: (enumLiteral_0= '+' )
+                    // InternalSolidity.g:3734:3: (enumLiteral_0= '+' )
                     {
-                    // InternalSolidity.g:3895:3: (enumLiteral_0= '+' )
-                    // InternalSolidity.g:3896:4: enumLiteral_0= '+'
+                    // InternalSolidity.g:3734:3: (enumLiteral_0= '+' )
+                    // InternalSolidity.g:3735:4: enumLiteral_0= '+'
                     {
-                    enumLiteral_0=(Token)match(input,71,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,68,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getAdditiveOperatorAccess().getPlusEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
@@ -11210,12 +10788,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSolidity.g:3903:3: (enumLiteral_1= '-' )
+                    // InternalSolidity.g:3742:3: (enumLiteral_1= '-' )
                     {
-                    // InternalSolidity.g:3903:3: (enumLiteral_1= '-' )
-                    // InternalSolidity.g:3904:4: enumLiteral_1= '-'
+                    // InternalSolidity.g:3742:3: (enumLiteral_1= '-' )
+                    // InternalSolidity.g:3743:4: enumLiteral_1= '-'
                     {
-                    enumLiteral_1=(Token)match(input,72,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,69,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getAdditiveOperatorAccess().getMinusEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
@@ -11253,7 +10831,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleMultiplicativeOperator"
-    // InternalSolidity.g:3914:1: ruleMultiplicativeOperator returns [Enumerator current=null] : ( (enumLiteral_0= '*' ) | (enumLiteral_1= '/' ) | (enumLiteral_2= '%' ) ) ;
+    // InternalSolidity.g:3753:1: ruleMultiplicativeOperator returns [Enumerator current=null] : ( (enumLiteral_0= '*' ) | (enumLiteral_1= '/' ) | (enumLiteral_2= '%' ) ) ;
     public final Enumerator ruleMultiplicativeOperator() throws RecognitionException {
         Enumerator current = null;
 
@@ -11265,23 +10843,23 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3920:2: ( ( (enumLiteral_0= '*' ) | (enumLiteral_1= '/' ) | (enumLiteral_2= '%' ) ) )
-            // InternalSolidity.g:3921:2: ( (enumLiteral_0= '*' ) | (enumLiteral_1= '/' ) | (enumLiteral_2= '%' ) )
+            // InternalSolidity.g:3759:2: ( ( (enumLiteral_0= '*' ) | (enumLiteral_1= '/' ) | (enumLiteral_2= '%' ) ) )
+            // InternalSolidity.g:3760:2: ( (enumLiteral_0= '*' ) | (enumLiteral_1= '/' ) | (enumLiteral_2= '%' ) )
             {
-            // InternalSolidity.g:3921:2: ( (enumLiteral_0= '*' ) | (enumLiteral_1= '/' ) | (enumLiteral_2= '%' ) )
+            // InternalSolidity.g:3760:2: ( (enumLiteral_0= '*' ) | (enumLiteral_1= '/' ) | (enumLiteral_2= '%' ) )
             int alt56=3;
             switch ( input.LA(1) ) {
-            case 73:
+            case 70:
                 {
                 alt56=1;
                 }
                 break;
-            case 74:
+            case 71:
                 {
                 alt56=2;
                 }
                 break;
-            case 75:
+            case 72:
                 {
                 alt56=3;
                 }
@@ -11296,12 +10874,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             switch (alt56) {
                 case 1 :
-                    // InternalSolidity.g:3922:3: (enumLiteral_0= '*' )
+                    // InternalSolidity.g:3761:3: (enumLiteral_0= '*' )
                     {
-                    // InternalSolidity.g:3922:3: (enumLiteral_0= '*' )
-                    // InternalSolidity.g:3923:4: enumLiteral_0= '*'
+                    // InternalSolidity.g:3761:3: (enumLiteral_0= '*' )
+                    // InternalSolidity.g:3762:4: enumLiteral_0= '*'
                     {
-                    enumLiteral_0=(Token)match(input,73,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,70,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getMultiplicativeOperatorAccess().getMulEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
@@ -11315,12 +10893,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSolidity.g:3930:3: (enumLiteral_1= '/' )
+                    // InternalSolidity.g:3769:3: (enumLiteral_1= '/' )
                     {
-                    // InternalSolidity.g:3930:3: (enumLiteral_1= '/' )
-                    // InternalSolidity.g:3931:4: enumLiteral_1= '/'
+                    // InternalSolidity.g:3769:3: (enumLiteral_1= '/' )
+                    // InternalSolidity.g:3770:4: enumLiteral_1= '/'
                     {
-                    enumLiteral_1=(Token)match(input,74,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,71,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getMultiplicativeOperatorAccess().getDivEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
@@ -11334,12 +10912,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalSolidity.g:3938:3: (enumLiteral_2= '%' )
+                    // InternalSolidity.g:3777:3: (enumLiteral_2= '%' )
                     {
-                    // InternalSolidity.g:3938:3: (enumLiteral_2= '%' )
-                    // InternalSolidity.g:3939:4: enumLiteral_2= '%'
+                    // InternalSolidity.g:3777:3: (enumLiteral_2= '%' )
+                    // InternalSolidity.g:3778:4: enumLiteral_2= '%'
                     {
-                    enumLiteral_2=(Token)match(input,75,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_2=(Token)match(input,72,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getMultiplicativeOperatorAccess().getModEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
@@ -11377,7 +10955,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleUnaryOperator"
-    // InternalSolidity.g:3949:1: ruleUnaryOperator returns [Enumerator current=null] : ( (enumLiteral_0= '+' ) | (enumLiteral_1= '-' ) | (enumLiteral_2= '~' ) ) ;
+    // InternalSolidity.g:3788:1: ruleUnaryOperator returns [Enumerator current=null] : ( (enumLiteral_0= '+' ) | (enumLiteral_1= '-' ) | (enumLiteral_2= '~' ) ) ;
     public final Enumerator ruleUnaryOperator() throws RecognitionException {
         Enumerator current = null;
 
@@ -11389,23 +10967,23 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3955:2: ( ( (enumLiteral_0= '+' ) | (enumLiteral_1= '-' ) | (enumLiteral_2= '~' ) ) )
-            // InternalSolidity.g:3956:2: ( (enumLiteral_0= '+' ) | (enumLiteral_1= '-' ) | (enumLiteral_2= '~' ) )
+            // InternalSolidity.g:3794:2: ( ( (enumLiteral_0= '+' ) | (enumLiteral_1= '-' ) | (enumLiteral_2= '~' ) ) )
+            // InternalSolidity.g:3795:2: ( (enumLiteral_0= '+' ) | (enumLiteral_1= '-' ) | (enumLiteral_2= '~' ) )
             {
-            // InternalSolidity.g:3956:2: ( (enumLiteral_0= '+' ) | (enumLiteral_1= '-' ) | (enumLiteral_2= '~' ) )
+            // InternalSolidity.g:3795:2: ( (enumLiteral_0= '+' ) | (enumLiteral_1= '-' ) | (enumLiteral_2= '~' ) )
             int alt57=3;
             switch ( input.LA(1) ) {
-            case 71:
+            case 68:
                 {
                 alt57=1;
                 }
                 break;
-            case 72:
+            case 69:
                 {
                 alt57=2;
                 }
                 break;
-            case 76:
+            case 73:
                 {
                 alt57=3;
                 }
@@ -11420,12 +10998,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             switch (alt57) {
                 case 1 :
-                    // InternalSolidity.g:3957:3: (enumLiteral_0= '+' )
+                    // InternalSolidity.g:3796:3: (enumLiteral_0= '+' )
                     {
-                    // InternalSolidity.g:3957:3: (enumLiteral_0= '+' )
-                    // InternalSolidity.g:3958:4: enumLiteral_0= '+'
+                    // InternalSolidity.g:3796:3: (enumLiteral_0= '+' )
+                    // InternalSolidity.g:3797:4: enumLiteral_0= '+'
                     {
-                    enumLiteral_0=(Token)match(input,71,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,68,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getUnaryOperatorAccess().getPositiveEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
@@ -11439,12 +11017,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSolidity.g:3965:3: (enumLiteral_1= '-' )
+                    // InternalSolidity.g:3804:3: (enumLiteral_1= '-' )
                     {
-                    // InternalSolidity.g:3965:3: (enumLiteral_1= '-' )
-                    // InternalSolidity.g:3966:4: enumLiteral_1= '-'
+                    // InternalSolidity.g:3804:3: (enumLiteral_1= '-' )
+                    // InternalSolidity.g:3805:4: enumLiteral_1= '-'
                     {
-                    enumLiteral_1=(Token)match(input,72,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,69,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getUnaryOperatorAccess().getNegativeEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
@@ -11458,12 +11036,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalSolidity.g:3973:3: (enumLiteral_2= '~' )
+                    // InternalSolidity.g:3812:3: (enumLiteral_2= '~' )
                     {
-                    // InternalSolidity.g:3973:3: (enumLiteral_2= '~' )
-                    // InternalSolidity.g:3974:4: enumLiteral_2= '~'
+                    // InternalSolidity.g:3812:3: (enumLiteral_2= '~' )
+                    // InternalSolidity.g:3813:4: enumLiteral_2= '~'
                     {
-                    enumLiteral_2=(Token)match(input,76,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_2=(Token)match(input,73,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getUnaryOperatorAccess().getComplementEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
@@ -11501,7 +11079,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleRelationalOperator"
-    // InternalSolidity.g:3984:1: ruleRelationalOperator returns [Enumerator current=null] : ( (enumLiteral_0= '<' ) | (enumLiteral_1= '<=' ) | (enumLiteral_2= '>' ) | (enumLiteral_3= '>=' ) | (enumLiteral_4= '==' ) | (enumLiteral_5= '!=' ) ) ;
+    // InternalSolidity.g:3823:1: ruleRelationalOperator returns [Enumerator current=null] : ( (enumLiteral_0= '<' ) | (enumLiteral_1= '<=' ) | (enumLiteral_2= '>' ) | (enumLiteral_3= '>=' ) | (enumLiteral_4= '==' ) | (enumLiteral_5= '!=' ) ) ;
     public final Enumerator ruleRelationalOperator() throws RecognitionException {
         Enumerator current = null;
 
@@ -11516,38 +11094,38 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSolidity.g:3990:2: ( ( (enumLiteral_0= '<' ) | (enumLiteral_1= '<=' ) | (enumLiteral_2= '>' ) | (enumLiteral_3= '>=' ) | (enumLiteral_4= '==' ) | (enumLiteral_5= '!=' ) ) )
-            // InternalSolidity.g:3991:2: ( (enumLiteral_0= '<' ) | (enumLiteral_1= '<=' ) | (enumLiteral_2= '>' ) | (enumLiteral_3= '>=' ) | (enumLiteral_4= '==' ) | (enumLiteral_5= '!=' ) )
+            // InternalSolidity.g:3829:2: ( ( (enumLiteral_0= '<' ) | (enumLiteral_1= '<=' ) | (enumLiteral_2= '>' ) | (enumLiteral_3= '>=' ) | (enumLiteral_4= '==' ) | (enumLiteral_5= '!=' ) ) )
+            // InternalSolidity.g:3830:2: ( (enumLiteral_0= '<' ) | (enumLiteral_1= '<=' ) | (enumLiteral_2= '>' ) | (enumLiteral_3= '>=' ) | (enumLiteral_4= '==' ) | (enumLiteral_5= '!=' ) )
             {
-            // InternalSolidity.g:3991:2: ( (enumLiteral_0= '<' ) | (enumLiteral_1= '<=' ) | (enumLiteral_2= '>' ) | (enumLiteral_3= '>=' ) | (enumLiteral_4= '==' ) | (enumLiteral_5= '!=' ) )
+            // InternalSolidity.g:3830:2: ( (enumLiteral_0= '<' ) | (enumLiteral_1= '<=' ) | (enumLiteral_2= '>' ) | (enumLiteral_3= '>=' ) | (enumLiteral_4= '==' ) | (enumLiteral_5= '!=' ) )
             int alt58=6;
             switch ( input.LA(1) ) {
-            case 46:
+            case 44:
                 {
                 alt58=1;
                 }
                 break;
-            case 77:
+            case 74:
                 {
                 alt58=2;
                 }
                 break;
-            case 47:
+            case 45:
                 {
                 alt58=3;
                 }
                 break;
-            case 78:
+            case 75:
                 {
                 alt58=4;
                 }
                 break;
-            case 79:
+            case 76:
                 {
                 alt58=5;
                 }
                 break;
-            case 80:
+            case 77:
                 {
                 alt58=6;
                 }
@@ -11562,12 +11140,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
             switch (alt58) {
                 case 1 :
-                    // InternalSolidity.g:3992:3: (enumLiteral_0= '<' )
+                    // InternalSolidity.g:3831:3: (enumLiteral_0= '<' )
                     {
-                    // InternalSolidity.g:3992:3: (enumLiteral_0= '<' )
-                    // InternalSolidity.g:3993:4: enumLiteral_0= '<'
+                    // InternalSolidity.g:3831:3: (enumLiteral_0= '<' )
+                    // InternalSolidity.g:3832:4: enumLiteral_0= '<'
                     {
-                    enumLiteral_0=(Token)match(input,46,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,44,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getRelationalOperatorAccess().getSmallerEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
@@ -11581,12 +11159,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSolidity.g:4000:3: (enumLiteral_1= '<=' )
+                    // InternalSolidity.g:3839:3: (enumLiteral_1= '<=' )
                     {
-                    // InternalSolidity.g:4000:3: (enumLiteral_1= '<=' )
-                    // InternalSolidity.g:4001:4: enumLiteral_1= '<='
+                    // InternalSolidity.g:3839:3: (enumLiteral_1= '<=' )
+                    // InternalSolidity.g:3840:4: enumLiteral_1= '<='
                     {
-                    enumLiteral_1=(Token)match(input,77,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,74,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getRelationalOperatorAccess().getSmallerEqualEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
@@ -11600,12 +11178,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalSolidity.g:4008:3: (enumLiteral_2= '>' )
+                    // InternalSolidity.g:3847:3: (enumLiteral_2= '>' )
                     {
-                    // InternalSolidity.g:4008:3: (enumLiteral_2= '>' )
-                    // InternalSolidity.g:4009:4: enumLiteral_2= '>'
+                    // InternalSolidity.g:3847:3: (enumLiteral_2= '>' )
+                    // InternalSolidity.g:3848:4: enumLiteral_2= '>'
                     {
-                    enumLiteral_2=(Token)match(input,47,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_2=(Token)match(input,45,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getRelationalOperatorAccess().getGreaterEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
@@ -11619,12 +11197,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalSolidity.g:4016:3: (enumLiteral_3= '>=' )
+                    // InternalSolidity.g:3855:3: (enumLiteral_3= '>=' )
                     {
-                    // InternalSolidity.g:4016:3: (enumLiteral_3= '>=' )
-                    // InternalSolidity.g:4017:4: enumLiteral_3= '>='
+                    // InternalSolidity.g:3855:3: (enumLiteral_3= '>=' )
+                    // InternalSolidity.g:3856:4: enumLiteral_3= '>='
                     {
-                    enumLiteral_3=(Token)match(input,78,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_3=(Token)match(input,75,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getRelationalOperatorAccess().getGreaterEqualEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
@@ -11638,12 +11216,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // InternalSolidity.g:4024:3: (enumLiteral_4= '==' )
+                    // InternalSolidity.g:3863:3: (enumLiteral_4= '==' )
                     {
-                    // InternalSolidity.g:4024:3: (enumLiteral_4= '==' )
-                    // InternalSolidity.g:4025:4: enumLiteral_4= '=='
+                    // InternalSolidity.g:3863:3: (enumLiteral_4= '==' )
+                    // InternalSolidity.g:3864:4: enumLiteral_4= '=='
                     {
-                    enumLiteral_4=(Token)match(input,79,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_4=(Token)match(input,76,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getRelationalOperatorAccess().getEqualsEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
@@ -11657,12 +11235,12 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // InternalSolidity.g:4032:3: (enumLiteral_5= '!=' )
+                    // InternalSolidity.g:3871:3: (enumLiteral_5= '!=' )
                     {
-                    // InternalSolidity.g:4032:3: (enumLiteral_5= '!=' )
-                    // InternalSolidity.g:4033:4: enumLiteral_5= '!='
+                    // InternalSolidity.g:3871:3: (enumLiteral_5= '!=' )
+                    // InternalSolidity.g:3872:4: enumLiteral_5= '!='
                     {
-                    enumLiteral_5=(Token)match(input,80,FOLLOW_2); if (state.failed) return current;
+                    enumLiteral_5=(Token)match(input,77,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				current = grammarAccess.getRelationalOperatorAccess().getNotEqualsEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
@@ -11700,24 +11278,24 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred1_InternalSolidity
     public final void synpred1_InternalSolidity_fragment() throws RecognitionException {   
-        // InternalSolidity.g:2067:4: ( ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) ) )
-        // InternalSolidity.g:2067:5: ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) )
+        // InternalSolidity.g:1906:4: ( ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) ) )
+        // InternalSolidity.g:1906:5: ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) )
         {
-        // InternalSolidity.g:2067:5: ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) )
-        // InternalSolidity.g:2068:5: () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) )
+        // InternalSolidity.g:1906:5: ( () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) ) )
+        // InternalSolidity.g:1907:5: () ( ( ruleAdditiveOperator ) ) ( ( ruleNumericalMultiplyDivideExpression ) )
         {
-        // InternalSolidity.g:2068:5: ()
-        // InternalSolidity.g:2069:5: 
+        // InternalSolidity.g:1907:5: ()
+        // InternalSolidity.g:1908:5: 
         {
         }
 
-        // InternalSolidity.g:2070:5: ( ( ruleAdditiveOperator ) )
-        // InternalSolidity.g:2071:6: ( ruleAdditiveOperator )
+        // InternalSolidity.g:1909:5: ( ( ruleAdditiveOperator ) )
+        // InternalSolidity.g:1910:6: ( ruleAdditiveOperator )
         {
-        // InternalSolidity.g:2071:6: ( ruleAdditiveOperator )
-        // InternalSolidity.g:2072:7: ruleAdditiveOperator
+        // InternalSolidity.g:1910:6: ( ruleAdditiveOperator )
+        // InternalSolidity.g:1911:7: ruleAdditiveOperator
         {
-        pushFollow(FOLLOW_33);
+        pushFollow(FOLLOW_32);
         ruleAdditiveOperator();
 
         state._fsp--;
@@ -11728,11 +11306,11 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
         }
 
-        // InternalSolidity.g:2075:5: ( ( ruleNumericalMultiplyDivideExpression ) )
-        // InternalSolidity.g:2076:6: ( ruleNumericalMultiplyDivideExpression )
+        // InternalSolidity.g:1914:5: ( ( ruleNumericalMultiplyDivideExpression ) )
+        // InternalSolidity.g:1915:6: ( ruleNumericalMultiplyDivideExpression )
         {
-        // InternalSolidity.g:2076:6: ( ruleNumericalMultiplyDivideExpression )
-        // InternalSolidity.g:2077:7: ruleNumericalMultiplyDivideExpression
+        // InternalSolidity.g:1915:6: ( ruleNumericalMultiplyDivideExpression )
+        // InternalSolidity.g:1916:7: ruleNumericalMultiplyDivideExpression
         {
         pushFollow(FOLLOW_2);
         ruleNumericalMultiplyDivideExpression();
@@ -11755,24 +11333,24 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred2_InternalSolidity
     public final void synpred2_InternalSolidity_fragment() throws RecognitionException {   
-        // InternalSolidity.g:2158:4: ( ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) ) )
-        // InternalSolidity.g:2158:5: ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) )
+        // InternalSolidity.g:1997:4: ( ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) ) )
+        // InternalSolidity.g:1997:5: ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) )
         {
-        // InternalSolidity.g:2158:5: ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) )
-        // InternalSolidity.g:2159:5: () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) )
+        // InternalSolidity.g:1997:5: ( () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) ) )
+        // InternalSolidity.g:1998:5: () ( ( ruleMultiplicativeOperator ) ) ( ( ruleNumericalUnaryExpression ) )
         {
-        // InternalSolidity.g:2159:5: ()
-        // InternalSolidity.g:2160:5: 
+        // InternalSolidity.g:1998:5: ()
+        // InternalSolidity.g:1999:5: 
         {
         }
 
-        // InternalSolidity.g:2161:5: ( ( ruleMultiplicativeOperator ) )
-        // InternalSolidity.g:2162:6: ( ruleMultiplicativeOperator )
+        // InternalSolidity.g:2000:5: ( ( ruleMultiplicativeOperator ) )
+        // InternalSolidity.g:2001:6: ( ruleMultiplicativeOperator )
         {
-        // InternalSolidity.g:2162:6: ( ruleMultiplicativeOperator )
-        // InternalSolidity.g:2163:7: ruleMultiplicativeOperator
+        // InternalSolidity.g:2001:6: ( ruleMultiplicativeOperator )
+        // InternalSolidity.g:2002:7: ruleMultiplicativeOperator
         {
-        pushFollow(FOLLOW_33);
+        pushFollow(FOLLOW_32);
         ruleMultiplicativeOperator();
 
         state._fsp--;
@@ -11783,11 +11361,11 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
         }
 
-        // InternalSolidity.g:2166:5: ( ( ruleNumericalUnaryExpression ) )
-        // InternalSolidity.g:2167:6: ( ruleNumericalUnaryExpression )
+        // InternalSolidity.g:2005:5: ( ( ruleNumericalUnaryExpression ) )
+        // InternalSolidity.g:2006:6: ( ruleNumericalUnaryExpression )
         {
-        // InternalSolidity.g:2167:6: ( ruleNumericalUnaryExpression )
-        // InternalSolidity.g:2168:7: ruleNumericalUnaryExpression
+        // InternalSolidity.g:2006:6: ( ruleNumericalUnaryExpression )
+        // InternalSolidity.g:2007:7: ruleNumericalUnaryExpression
         {
         pushFollow(FOLLOW_2);
         ruleNumericalUnaryExpression();
@@ -11810,13 +11388,13 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred3_InternalSolidity
     public final void synpred3_InternalSolidity_fragment() throws RecognitionException {   
-        // InternalSolidity.g:2499:7: ( ( '(' ) )
-        // InternalSolidity.g:2499:8: ( '(' )
+        // InternalSolidity.g:2338:7: ( ( '(' ) )
+        // InternalSolidity.g:2338:8: ( '(' )
         {
-        // InternalSolidity.g:2499:8: ( '(' )
-        // InternalSolidity.g:2500:8: '('
+        // InternalSolidity.g:2338:8: ( '(' )
+        // InternalSolidity.g:2339:8: '('
         {
-        match(input,29,FOLLOW_2); if (state.failed) return ;
+        match(input,28,FOLLOW_2); if (state.failed) return ;
 
         }
 
@@ -11827,32 +11405,32 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred4_InternalSolidity
     public final void synpred4_InternalSolidity_fragment() throws RecognitionException {   
-        // InternalSolidity.g:2570:7: ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )
-        // InternalSolidity.g:2570:8: ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' )
+        // InternalSolidity.g:2409:7: ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )
+        // InternalSolidity.g:2409:8: ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' )
         {
-        // InternalSolidity.g:2570:8: ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' )
-        // InternalSolidity.g:2571:8: ( ( '[' ) ) ( ( ruleExpression ) ) ']'
+        // InternalSolidity.g:2409:8: ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' )
+        // InternalSolidity.g:2410:8: ( ( '[' ) ) ( ( ruleExpression ) ) ']'
         {
-        // InternalSolidity.g:2571:8: ( ( '[' ) )
-        // InternalSolidity.g:2572:9: ( '[' )
+        // InternalSolidity.g:2410:8: ( ( '[' ) )
+        // InternalSolidity.g:2411:9: ( '[' )
         {
-        // InternalSolidity.g:2572:9: ( '[' )
-        // InternalSolidity.g:2573:10: '['
+        // InternalSolidity.g:2411:9: ( '[' )
+        // InternalSolidity.g:2412:10: '['
         {
-        match(input,44,FOLLOW_15); if (state.failed) return ;
+        match(input,42,FOLLOW_17); if (state.failed) return ;
 
         }
 
 
         }
 
-        // InternalSolidity.g:2576:8: ( ( ruleExpression ) )
-        // InternalSolidity.g:2577:9: ( ruleExpression )
+        // InternalSolidity.g:2415:8: ( ( ruleExpression ) )
+        // InternalSolidity.g:2416:9: ( ruleExpression )
         {
-        // InternalSolidity.g:2577:9: ( ruleExpression )
-        // InternalSolidity.g:2578:10: ruleExpression
+        // InternalSolidity.g:2416:9: ( ruleExpression )
+        // InternalSolidity.g:2417:10: ruleExpression
         {
-        pushFollow(FOLLOW_46);
+        pushFollow(FOLLOW_45);
         ruleExpression();
 
         state._fsp--;
@@ -11863,7 +11441,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
         }
 
-        match(input,45,FOLLOW_2); if (state.failed) return ;
+        match(input,43,FOLLOW_2); if (state.failed) return ;
 
         }
 
@@ -11874,20 +11452,20 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred5_InternalSolidity
     public final void synpred5_InternalSolidity_fragment() throws RecognitionException {   
-        // InternalSolidity.g:2625:7: ( ( '[' ( ( ruleExpression ) ) ']' ) )
-        // InternalSolidity.g:2625:8: ( '[' ( ( ruleExpression ) ) ']' )
+        // InternalSolidity.g:2464:7: ( ( '[' ( ( ruleExpression ) ) ']' ) )
+        // InternalSolidity.g:2464:8: ( '[' ( ( ruleExpression ) ) ']' )
         {
-        // InternalSolidity.g:2625:8: ( '[' ( ( ruleExpression ) ) ']' )
-        // InternalSolidity.g:2626:8: '[' ( ( ruleExpression ) ) ']'
+        // InternalSolidity.g:2464:8: ( '[' ( ( ruleExpression ) ) ']' )
+        // InternalSolidity.g:2465:8: '[' ( ( ruleExpression ) ) ']'
         {
-        match(input,44,FOLLOW_15); if (state.failed) return ;
-        // InternalSolidity.g:2627:8: ( ( ruleExpression ) )
-        // InternalSolidity.g:2628:9: ( ruleExpression )
+        match(input,42,FOLLOW_17); if (state.failed) return ;
+        // InternalSolidity.g:2466:8: ( ( ruleExpression ) )
+        // InternalSolidity.g:2467:9: ( ruleExpression )
         {
-        // InternalSolidity.g:2628:9: ( ruleExpression )
-        // InternalSolidity.g:2629:10: ruleExpression
+        // InternalSolidity.g:2467:9: ( ruleExpression )
+        // InternalSolidity.g:2468:10: ruleExpression
         {
-        pushFollow(FOLLOW_46);
+        pushFollow(FOLLOW_45);
         ruleExpression();
 
         state._fsp--;
@@ -11898,7 +11476,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
         }
 
-        match(input,45,FOLLOW_2); if (state.failed) return ;
+        match(input,43,FOLLOW_2); if (state.failed) return ;
 
         }
 
@@ -11909,13 +11487,13 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred6_InternalSolidity
     public final void synpred6_InternalSolidity_fragment() throws RecognitionException {   
-        // InternalSolidity.g:2710:6: ( ( '(' ) )
-        // InternalSolidity.g:2710:7: ( '(' )
+        // InternalSolidity.g:2549:6: ( ( '(' ) )
+        // InternalSolidity.g:2549:7: ( '(' )
         {
-        // InternalSolidity.g:2710:7: ( '(' )
-        // InternalSolidity.g:2711:7: '('
+        // InternalSolidity.g:2549:7: ( '(' )
+        // InternalSolidity.g:2550:7: '('
         {
-        match(input,29,FOLLOW_2); if (state.failed) return ;
+        match(input,28,FOLLOW_2); if (state.failed) return ;
 
         }
 
@@ -11926,32 +11504,32 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred7_InternalSolidity
     public final void synpred7_InternalSolidity_fragment() throws RecognitionException {   
-        // InternalSolidity.g:2781:6: ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )
-        // InternalSolidity.g:2781:7: ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' )
+        // InternalSolidity.g:2620:6: ( ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' ) )
+        // InternalSolidity.g:2620:7: ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' )
         {
-        // InternalSolidity.g:2781:7: ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' )
-        // InternalSolidity.g:2782:7: ( ( '[' ) ) ( ( ruleExpression ) ) ']'
+        // InternalSolidity.g:2620:7: ( ( ( '[' ) ) ( ( ruleExpression ) ) ']' )
+        // InternalSolidity.g:2621:7: ( ( '[' ) ) ( ( ruleExpression ) ) ']'
         {
-        // InternalSolidity.g:2782:7: ( ( '[' ) )
-        // InternalSolidity.g:2783:8: ( '[' )
+        // InternalSolidity.g:2621:7: ( ( '[' ) )
+        // InternalSolidity.g:2622:8: ( '[' )
         {
-        // InternalSolidity.g:2783:8: ( '[' )
-        // InternalSolidity.g:2784:9: '['
+        // InternalSolidity.g:2622:8: ( '[' )
+        // InternalSolidity.g:2623:9: '['
         {
-        match(input,44,FOLLOW_15); if (state.failed) return ;
+        match(input,42,FOLLOW_17); if (state.failed) return ;
 
         }
 
 
         }
 
-        // InternalSolidity.g:2787:7: ( ( ruleExpression ) )
-        // InternalSolidity.g:2788:8: ( ruleExpression )
+        // InternalSolidity.g:2626:7: ( ( ruleExpression ) )
+        // InternalSolidity.g:2627:8: ( ruleExpression )
         {
-        // InternalSolidity.g:2788:8: ( ruleExpression )
-        // InternalSolidity.g:2789:9: ruleExpression
+        // InternalSolidity.g:2627:8: ( ruleExpression )
+        // InternalSolidity.g:2628:9: ruleExpression
         {
-        pushFollow(FOLLOW_46);
+        pushFollow(FOLLOW_45);
         ruleExpression();
 
         state._fsp--;
@@ -11962,7 +11540,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
         }
 
-        match(input,45,FOLLOW_2); if (state.failed) return ;
+        match(input,43,FOLLOW_2); if (state.failed) return ;
 
         }
 
@@ -11973,20 +11551,20 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred8_InternalSolidity
     public final void synpred8_InternalSolidity_fragment() throws RecognitionException {   
-        // InternalSolidity.g:2836:6: ( ( '[' ( ( ruleExpression ) ) ']' ) )
-        // InternalSolidity.g:2836:7: ( '[' ( ( ruleExpression ) ) ']' )
+        // InternalSolidity.g:2675:6: ( ( '[' ( ( ruleExpression ) ) ']' ) )
+        // InternalSolidity.g:2675:7: ( '[' ( ( ruleExpression ) ) ']' )
         {
-        // InternalSolidity.g:2836:7: ( '[' ( ( ruleExpression ) ) ']' )
-        // InternalSolidity.g:2837:7: '[' ( ( ruleExpression ) ) ']'
+        // InternalSolidity.g:2675:7: ( '[' ( ( ruleExpression ) ) ']' )
+        // InternalSolidity.g:2676:7: '[' ( ( ruleExpression ) ) ']'
         {
-        match(input,44,FOLLOW_15); if (state.failed) return ;
-        // InternalSolidity.g:2838:7: ( ( ruleExpression ) )
-        // InternalSolidity.g:2839:8: ( ruleExpression )
+        match(input,42,FOLLOW_17); if (state.failed) return ;
+        // InternalSolidity.g:2677:7: ( ( ruleExpression ) )
+        // InternalSolidity.g:2678:8: ( ruleExpression )
         {
-        // InternalSolidity.g:2839:8: ( ruleExpression )
-        // InternalSolidity.g:2840:9: ruleExpression
+        // InternalSolidity.g:2678:8: ( ruleExpression )
+        // InternalSolidity.g:2679:9: ruleExpression
         {
-        pushFollow(FOLLOW_46);
+        pushFollow(FOLLOW_45);
         ruleExpression();
 
         state._fsp--;
@@ -11997,7 +11575,7 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
         }
 
-        match(input,45,FOLLOW_2); if (state.failed) return ;
+        match(input,43,FOLLOW_2); if (state.failed) return ;
 
         }
 
@@ -12126,56 +11704,55 @@ public class InternalSolidityParser extends AbstractInternalAntlrParser {
 
     public static final BitSet FOLLOW_1 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_2 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0380000000120002L});
-    public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000280000L});
-    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000001400000L});
-    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000001800000L});
-    public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x000003011A000040L});
-    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0400001C00000040L});
-    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000004000002L});
-    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x00090000A0001FE0L,0x0000000000001180L});
-    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000000002000040L});
-    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000040800040L});
-    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000000040800000L});
-    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x00090000A2001FE0L,0x0000000000001180L});
-    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000020000040L});
-    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000003E01080000L});
-    public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000001080000L});
-    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x000000C000000000L});
-    public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000008000000000L});
-    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000000002800020L});
-    public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000000002800000L});
-    public static final BitSet FOLLOW_29 = new BitSet(new long[]{0xF800000004000002L,0x000000000000001FL});
-    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000040000000002L});
-    public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0004000000000002L});
-    public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0002000000000002L});
-    public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x00010000A0001FE0L,0x0000000000001180L});
-    public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x0010000000000002L});
-    public static final BitSet FOLLOW_35 = new BitSet(new long[]{0x0020000000000002L});
-    public static final BitSet FOLLOW_36 = new BitSet(new long[]{0x0040000000000002L});
-    public static final BitSet FOLLOW_37 = new BitSet(new long[]{0x0000C00000000002L,0x000000000001E000L});
-    public static final BitSet FOLLOW_38 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000060L});
-    public static final BitSet FOLLOW_39 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000180L});
-    public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000E00L});
-    public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x00010000A0001FE0L});
-    public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x0000000000200002L});
-    public static final BitSet FOLLOW_43 = new BitSet(new long[]{0x0000080000000002L});
-    public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x0000180020000002L});
-    public static final BitSet FOLLOW_45 = new BitSet(new long[]{0x00090000E0001FE0L,0x0000000000001180L});
-    public static final BitSet FOLLOW_46 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_47 = new BitSet(new long[]{0x0000180000000002L});
-    public static final BitSet FOLLOW_48 = new BitSet(new long[]{0x0000100020000002L});
-    public static final BitSet FOLLOW_49 = new BitSet(new long[]{0x0000100000000002L});
-    public static final BitSet FOLLOW_50 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_51 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_52 = new BitSet(new long[]{0x0000400000000002L});
-    public static final BitSet FOLLOW_53 = new BitSet(new long[]{0x0000800000800000L});
+    public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000000000020002L});
+    public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x00E0000000100002L});
+    public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x00E0000000000002L});
+    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000280000L});
+    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000001400000L});
+    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000000001800000L});
+    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x000000408A000040L});
+    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000001E00000040L});
+    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000004080000L});
+    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0002400050001FE0L,0x0000000000000230L});
+    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000000020800040L});
+    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000020800000L});
+    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0002400052001FE0L,0x0000000000000230L});
+    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000010000040L});
+    public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000020000040L});
+    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000003F01080000L});
+    public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000001080040L});
+    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0xFF00000004000002L,0x0000000000000003L});
+    public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000008000000002L});
+    public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000010000000000L});
+    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0001000000000002L});
+    public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0000800000000002L});
+    public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0000400050001FE0L,0x0000000000000230L});
+    public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0004000000000002L});
+    public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x0008000000000002L});
+    public static final BitSet FOLLOW_35 = new BitSet(new long[]{0x0010000000000002L});
+    public static final BitSet FOLLOW_36 = new BitSet(new long[]{0x0000300000000002L,0x0000000000003C00L});
+    public static final BitSet FOLLOW_37 = new BitSet(new long[]{0x0000000000000002L,0x000000000000000CL});
+    public static final BitSet FOLLOW_38 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000030L});
+    public static final BitSet FOLLOW_39 = new BitSet(new long[]{0x0000000000000002L,0x00000000000001C0L});
+    public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x0000400050001FE0L});
+    public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x0000000000200002L});
+    public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x0000020000000002L});
+    public static final BitSet FOLLOW_43 = new BitSet(new long[]{0x0000060010000002L});
+    public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x0002400070001FE0L,0x0000000000000230L});
+    public static final BitSet FOLLOW_45 = new BitSet(new long[]{0x0000080000000000L});
+    public static final BitSet FOLLOW_46 = new BitSet(new long[]{0x0000060000000002L});
+    public static final BitSet FOLLOW_47 = new BitSet(new long[]{0x0000040010000002L});
+    public static final BitSet FOLLOW_48 = new BitSet(new long[]{0x0000040000000002L});
+    public static final BitSet FOLLOW_49 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_50 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_51 = new BitSet(new long[]{0x0000100000000002L});
+    public static final BitSet FOLLOW_52 = new BitSet(new long[]{0x0000200000800000L});
 
 }

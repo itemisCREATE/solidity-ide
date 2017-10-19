@@ -13,6 +13,7 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.yakindu.base.types.typesystem.ITypeSystem;
 import org.yakindu.sct.generator.core.IExecutionFlowGenerator;
 import org.yakindu.sct.generator.core.IGeneratorModule;
+import org.yakindu.sct.generator.core.types.ICodegenTypeSystemAccess;
 import org.yakindu.sct.model.sgen.GeneratorEntry;
 
 import com.google.inject.Binder;
@@ -27,5 +28,6 @@ public class SolidityGeneratorModule implements IGeneratorModule {
         binder.bind(IExecutionFlowGenerator.class).to(SolidityGenerator.class);
         binder.bind(ITypeSystem.class).to(SolidityTypeSystem.class);
         binder.bind(IQualifiedNameProvider.class).to(QualifiedNameProvider.class);
+        binder.bind(ICodegenTypeSystemAccess.class).to(SolidityCodegenTypeSystemAccess.class);
     }
 }

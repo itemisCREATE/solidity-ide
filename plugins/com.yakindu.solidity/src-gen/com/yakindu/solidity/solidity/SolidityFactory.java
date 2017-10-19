@@ -33,6 +33,33 @@ public interface SolidityFactory extends EFactory
   SolidityModel createSolidityModel();
 
   /**
+   * Returns a new object of class '<em>Parameter List</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Parameter List</em>'.
+   * @generated
+   */
+  ParameterList createParameterList();
+
+  /**
+   * Returns a new object of class '<em>Block</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Block</em>'.
+   * @generated
+   */
+  Block createBlock();
+
+  /**
+   * Returns a new object of class '<em>Modifier Invocation Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Modifier Invocation Literal</em>'.
+   * @generated
+   */
+  ModifierInvocationLiteral createModifierInvocationLiteral();
+
+  /**
    * Returns a new object of class '<em>Source Unit</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -69,40 +96,13 @@ public interface SolidityFactory extends EFactory
   ContractDefinition createContractDefinition();
 
   /**
-   * Returns a new object of class '<em>Inheritance Specifier</em>'.
+   * Returns a new object of class '<em>Variable Definition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Inheritance Specifier</em>'.
+   * @return a new object of class '<em>Variable Definition</em>'.
    * @generated
    */
-  InheritanceSpecifier createInheritanceSpecifier();
-
-  /**
-   * Returns a new object of class '<em>Contract Part</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Contract Part</em>'.
-   * @generated
-   */
-  ContractPart createContractPart();
-
-  /**
-   * Returns a new object of class '<em>Variable Declaration</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Variable Declaration</em>'.
-   * @generated
-   */
-  VariableDeclaration createVariableDeclaration();
-
-  /**
-   * Returns a new object of class '<em>Struct Definition</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Struct Definition</em>'.
-   * @generated
-   */
-  StructDefinition createStructDefinition();
+  VariableDefinition createVariableDefinition();
 
   /**
    * Returns a new object of class '<em>Modifier Definition</em>'.
@@ -114,33 +114,6 @@ public interface SolidityFactory extends EFactory
   ModifierDefinition createModifierDefinition();
 
   /**
-   * Returns a new object of class '<em>Parameter List</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Parameter List</em>'.
-   * @generated
-   */
-  ParameterList createParameterList();
-
-  /**
-   * Returns a new object of class '<em>Block</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Block</em>'.
-   * @generated
-   */
-  Block createBlock();
-
-  /**
-   * Returns a new object of class '<em>Modifier Invocation Literal</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Modifier Invocation Literal</em>'.
-   * @generated
-   */
-  ModifierInvocationLiteral createModifierInvocationLiteral();
-
-  /**
    * Returns a new object of class '<em>Function Definition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -148,33 +121,6 @@ public interface SolidityFactory extends EFactory
    * @generated
    */
   FunctionDefinition createFunctionDefinition();
-
-  /**
-   * Returns a new object of class '<em>Parameter</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Parameter</em>'.
-   * @generated
-   */
-  Parameter createParameter();
-
-  /**
-   * Returns a new object of class '<em>Event Definition</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Event Definition</em>'.
-   * @generated
-   */
-  EventDefinition createEventDefinition();
-
-  /**
-   * Returns a new object of class '<em>Enum Definition</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Enum Definition</em>'.
-   * @generated
-   */
-  EnumDefinition createEnumDefinition();
 
   /**
    * Returns the package supported by this factory.

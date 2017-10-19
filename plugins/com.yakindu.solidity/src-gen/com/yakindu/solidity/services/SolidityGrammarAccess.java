@@ -45,274 +45,168 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	public class SourceUnitElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.yakindu.solidity.Solidity.SourceUnit");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cPragmaDirectiveParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cImportDirectiveParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cContractDefinitionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cSourceUnitAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cPragmaAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cPragmaPragmaDirectiveParserRuleCall_1_0 = (RuleCall)cPragmaAssignment_1.eContents().get(0);
+		private final Assignment cImportsAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cImportsImportDirectiveParserRuleCall_2_0 = (RuleCall)cImportsAssignment_2.eContents().get(0);
+		private final Assignment cMemberAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cMemberContractDefinitionParserRuleCall_3_0 = (RuleCall)cMemberAssignment_3.eContents().get(0);
 		
-		//SourceUnit:
-		//	PragmaDirective | ImportDirective | ContractDefinition;
+		//SourceUnit types::Package:
+		//	{SourceUnit} pragma=PragmaDirective
+		//	imports+=ImportDirective*
+		//	member+=ContractDefinition*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//PragmaDirective | ImportDirective | ContractDefinition
-		public Alternatives getAlternatives() { return cAlternatives; }
+		//{SourceUnit} pragma=PragmaDirective imports+=ImportDirective* member+=ContractDefinition*
+		public Group getGroup() { return cGroup; }
+		
+		//{SourceUnit}
+		public Action getSourceUnitAction_0() { return cSourceUnitAction_0; }
+		
+		//pragma=PragmaDirective
+		public Assignment getPragmaAssignment_1() { return cPragmaAssignment_1; }
 		
 		//PragmaDirective
-		public RuleCall getPragmaDirectiveParserRuleCall_0() { return cPragmaDirectiveParserRuleCall_0; }
+		public RuleCall getPragmaPragmaDirectiveParserRuleCall_1_0() { return cPragmaPragmaDirectiveParserRuleCall_1_0; }
+		
+		//imports+=ImportDirective*
+		public Assignment getImportsAssignment_2() { return cImportsAssignment_2; }
 		
 		//ImportDirective
-		public RuleCall getImportDirectiveParserRuleCall_1() { return cImportDirectiveParserRuleCall_1; }
+		public RuleCall getImportsImportDirectiveParserRuleCall_2_0() { return cImportsImportDirectiveParserRuleCall_2_0; }
+		
+		//member+=ContractDefinition*
+		public Assignment getMemberAssignment_3() { return cMemberAssignment_3; }
 		
 		//ContractDefinition
-		public RuleCall getContractDefinitionParserRuleCall_2() { return cContractDefinitionParserRuleCall_2; }
+		public RuleCall getMemberContractDefinitionParserRuleCall_3_0() { return cMemberContractDefinitionParserRuleCall_3_0; }
 	}
 	public class PragmaDirectiveElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.yakindu.solidity.Solidity.PragmaDirective");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cPragmaKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cSolidityKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cIdAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cIdVERSIONTerminalRuleCall_2_0 = (RuleCall)cIdAssignment_2.eContents().get(0);
-		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Action cPragmaDirectiveAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cPragmaKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cSolidityKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cVersionAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cVersionVERSIONTerminalRuleCall_3_0 = (RuleCall)cVersionAssignment_3.eContents().get(0);
+		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
-		//PragmaDirective:
-		//	'pragma' 'solidity' id=VERSION ';';
+		//PragmaDirective types::PackageMember:
+		//	{PragmaDirective} 'pragma' 'solidity' version=VERSION ';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'pragma' 'solidity' id=VERSION ';'
+		//{PragmaDirective} 'pragma' 'solidity' version=VERSION ';'
 		public Group getGroup() { return cGroup; }
 		
+		//{PragmaDirective}
+		public Action getPragmaDirectiveAction_0() { return cPragmaDirectiveAction_0; }
+		
 		//'pragma'
-		public Keyword getPragmaKeyword_0() { return cPragmaKeyword_0; }
+		public Keyword getPragmaKeyword_1() { return cPragmaKeyword_1; }
 		
 		//'solidity'
-		public Keyword getSolidityKeyword_1() { return cSolidityKeyword_1; }
+		public Keyword getSolidityKeyword_2() { return cSolidityKeyword_2; }
 		
-		//id=VERSION
-		public Assignment getIdAssignment_2() { return cIdAssignment_2; }
+		//version=VERSION
+		public Assignment getVersionAssignment_3() { return cVersionAssignment_3; }
 		
 		//VERSION
-		public RuleCall getIdVERSIONTerminalRuleCall_2_0() { return cIdVERSIONTerminalRuleCall_2_0; }
+		public RuleCall getVersionVERSIONTerminalRuleCall_3_0() { return cVersionVERSIONTerminalRuleCall_3_0; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
+		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
 	}
 	public class ImportDirectiveElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.yakindu.solidity.Solidity.ImportDirective");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cImportKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cImportedNamespaceAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cImportedNamespaceSTRINGTerminalRuleCall_1_0 = (RuleCall)cImportedNamespaceAssignment_1.eContents().get(0);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cAsKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cAliasAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cAliasSTRINGTerminalRuleCall_2_1_0 = (RuleCall)cAliasAssignment_2_1.eContents().get(0);
-		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Action cImportDirectiveAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cImportKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cImportedNamespaceAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cImportedNamespaceSTRINGTerminalRuleCall_2_0 = (RuleCall)cImportedNamespaceAssignment_2.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cAsKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cAliasAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cAliasSTRINGTerminalRuleCall_3_1_0 = (RuleCall)cAliasAssignment_3_1.eContents().get(0);
+		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
-		//ImportDirective:
-		//	'import' importedNamespace=STRING ('as' alias=STRING)? ';';
+		//ImportDirective types::PackageMember:
+		//	{ImportDirective} 'import' importedNamespace=STRING ('as' alias=STRING)? ';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'import' importedNamespace=STRING ('as' alias=STRING)? ';'
+		//{ImportDirective} 'import' importedNamespace=STRING ('as' alias=STRING)? ';'
 		public Group getGroup() { return cGroup; }
 		
+		//{ImportDirective}
+		public Action getImportDirectiveAction_0() { return cImportDirectiveAction_0; }
+		
 		//'import'
-		public Keyword getImportKeyword_0() { return cImportKeyword_0; }
+		public Keyword getImportKeyword_1() { return cImportKeyword_1; }
 		
 		//importedNamespace=STRING
-		public Assignment getImportedNamespaceAssignment_1() { return cImportedNamespaceAssignment_1; }
+		public Assignment getImportedNamespaceAssignment_2() { return cImportedNamespaceAssignment_2; }
 		
 		//STRING
-		public RuleCall getImportedNamespaceSTRINGTerminalRuleCall_1_0() { return cImportedNamespaceSTRINGTerminalRuleCall_1_0; }
+		public RuleCall getImportedNamespaceSTRINGTerminalRuleCall_2_0() { return cImportedNamespaceSTRINGTerminalRuleCall_2_0; }
 		
 		//('as' alias=STRING)?
-		public Group getGroup_2() { return cGroup_2; }
+		public Group getGroup_3() { return cGroup_3; }
 		
 		//'as'
-		public Keyword getAsKeyword_2_0() { return cAsKeyword_2_0; }
+		public Keyword getAsKeyword_3_0() { return cAsKeyword_3_0; }
 		
 		//alias=STRING
-		public Assignment getAliasAssignment_2_1() { return cAliasAssignment_2_1; }
+		public Assignment getAliasAssignment_3_1() { return cAliasAssignment_3_1; }
 		
 		//STRING
-		public RuleCall getAliasSTRINGTerminalRuleCall_2_1_0() { return cAliasSTRINGTerminalRuleCall_2_1_0; }
+		public RuleCall getAliasSTRINGTerminalRuleCall_3_1_0() { return cAliasSTRINGTerminalRuleCall_3_1_0; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
+		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
 	}
 	public class ContractDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.yakindu.solidity.Solidity.ContractDefinition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cTypeAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cTypeContractTypeEnumRuleCall_0_0 = (RuleCall)cTypeAssignment_0.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cIsKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cSuperTypeAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cSuperTypeInheritanceSpecifierParserRuleCall_2_1_0 = (RuleCall)cSuperTypeAssignment_2_1.eContents().get(0);
-		private final Group cGroup_2_2 = (Group)cGroup_2.eContents().get(2);
-		private final Keyword cCommaKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
-		private final Assignment cSuperTypeAssignment_2_2_1 = (Assignment)cGroup_2_2.eContents().get(1);
-		private final RuleCall cSuperTypeInheritanceSpecifierParserRuleCall_2_2_1_0 = (RuleCall)cSuperTypeAssignment_2_2_1.eContents().get(0);
-		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cPartsAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cPartsContractPartParserRuleCall_4_0 = (RuleCall)cPartsAssignment_4.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		
-		//// | 'import' ('*' | Identifier) ('as' Identifier)? 'from' StringLiteral ';'
-		//// | 'import' '{' Identifier ('as' Identifier)? ( ',' Identifier ('as' Identifier)? )* '}' 'from' StringLiteral ';'
-		//ContractDefinition:
-		//	type=ContractType name=ID ('is' superType+=InheritanceSpecifier (',' superType+=InheritanceSpecifier)*)?
-		//	'{' parts+=ContractPart* '}';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//type=ContractType name=ID ('is' superType+=InheritanceSpecifier (',' superType+=InheritanceSpecifier)*)? '{'
-		//parts+=ContractPart* '}'
-		public Group getGroup() { return cGroup; }
-		
-		//type=ContractType
-		public Assignment getTypeAssignment_0() { return cTypeAssignment_0; }
-		
-		//ContractType
-		public RuleCall getTypeContractTypeEnumRuleCall_0_0() { return cTypeContractTypeEnumRuleCall_0_0; }
-		
-		//name=ID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
-		
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
-		
-		//('is' superType+=InheritanceSpecifier (',' superType+=InheritanceSpecifier)*)?
-		public Group getGroup_2() { return cGroup_2; }
-		
-		//'is'
-		public Keyword getIsKeyword_2_0() { return cIsKeyword_2_0; }
-		
-		//superType+=InheritanceSpecifier
-		public Assignment getSuperTypeAssignment_2_1() { return cSuperTypeAssignment_2_1; }
-		
-		//InheritanceSpecifier
-		public RuleCall getSuperTypeInheritanceSpecifierParserRuleCall_2_1_0() { return cSuperTypeInheritanceSpecifierParserRuleCall_2_1_0; }
-		
-		//(',' superType+=InheritanceSpecifier)*
-		public Group getGroup_2_2() { return cGroup_2_2; }
-		
-		//','
-		public Keyword getCommaKeyword_2_2_0() { return cCommaKeyword_2_2_0; }
-		
-		//superType+=InheritanceSpecifier
-		public Assignment getSuperTypeAssignment_2_2_1() { return cSuperTypeAssignment_2_2_1; }
-		
-		//InheritanceSpecifier
-		public RuleCall getSuperTypeInheritanceSpecifierParserRuleCall_2_2_1_0() { return cSuperTypeInheritanceSpecifierParserRuleCall_2_2_1_0; }
-		
-		//'{'
-		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
-		
-		//parts+=ContractPart*
-		public Assignment getPartsAssignment_4() { return cPartsAssignment_4; }
-		
-		//ContractPart
-		public RuleCall getPartsContractPartParserRuleCall_4_0() { return cPartsContractPartParserRuleCall_4_0; }
-		
-		//'}'
-		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
-	}
-	public class InheritanceSpecifierElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.yakindu.solidity.Solidity.InheritanceSpecifier");
-		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
-		
-		//InheritanceSpecifier:
-		//	name=ID;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//name=ID
-		public Assignment getNameAssignment() { return cNameAssignment; }
-		
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_0() { return cNameIDTerminalRuleCall_0; }
-	}
-	public class ContractPartElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.yakindu.solidity.Solidity.ContractPart");
-		private final Assignment cPartsAssignment = (Assignment)rule.eContents().get(1);
-		private final Alternatives cPartsAlternatives_0 = (Alternatives)cPartsAssignment.eContents().get(0);
-		private final RuleCall cPartsVariableDeclarationParserRuleCall_0_0 = (RuleCall)cPartsAlternatives_0.eContents().get(0);
-		private final RuleCall cPartsStructDefinitionParserRuleCall_0_1 = (RuleCall)cPartsAlternatives_0.eContents().get(1);
-		private final RuleCall cPartsModifierDefinitionParserRuleCall_0_2 = (RuleCall)cPartsAlternatives_0.eContents().get(2);
-		private final RuleCall cPartsFunctionDefinitionParserRuleCall_0_3 = (RuleCall)cPartsAlternatives_0.eContents().get(3);
-		private final RuleCall cPartsEventDefinitionParserRuleCall_0_4 = (RuleCall)cPartsAlternatives_0.eContents().get(4);
-		private final RuleCall cPartsEnumDefinitionParserRuleCall_0_5 = (RuleCall)cPartsAlternatives_0.eContents().get(5);
-		
-		//// UserDefinedTypeName ( '(' Expression ( ',' Expression )* ')' )?
-		//ContractPart:
-		//	parts+=(VariableDeclaration | StructDefinition | ModifierDefinition | FunctionDefinition | EventDefinition |
-		//	EnumDefinition);
-		@Override public ParserRule getRule() { return rule; }
-		
-		//parts+=(VariableDeclaration | StructDefinition | ModifierDefinition | FunctionDefinition | EventDefinition |
-		//EnumDefinition)
-		public Assignment getPartsAssignment() { return cPartsAssignment; }
-		
-		//(VariableDeclaration | StructDefinition | ModifierDefinition | FunctionDefinition | EventDefinition | EnumDefinition)
-		public Alternatives getPartsAlternatives_0() { return cPartsAlternatives_0; }
-		
-		//VariableDeclaration
-		public RuleCall getPartsVariableDeclarationParserRuleCall_0_0() { return cPartsVariableDeclarationParserRuleCall_0_0; }
-		
-		////UsingForDeclaration
-		//StructDefinition
-		public RuleCall getPartsStructDefinitionParserRuleCall_0_1() { return cPartsStructDefinitionParserRuleCall_0_1; }
-		
-		//ModifierDefinition
-		public RuleCall getPartsModifierDefinitionParserRuleCall_0_2() { return cPartsModifierDefinitionParserRuleCall_0_2; }
-		
-		//FunctionDefinition
-		public RuleCall getPartsFunctionDefinitionParserRuleCall_0_3() { return cPartsFunctionDefinitionParserRuleCall_0_3; }
-		
-		//EventDefinition
-		public RuleCall getPartsEventDefinitionParserRuleCall_0_4() { return cPartsEventDefinitionParserRuleCall_0_4; }
-		
-		//EnumDefinition
-		public RuleCall getPartsEnumDefinitionParserRuleCall_0_5() { return cPartsEnumDefinitionParserRuleCall_0_5; }
-	}
-	public class VariableDeclarationElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.yakindu.solidity.Solidity.VariableDeclaration");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cTypeAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cTypeEObjectCrossReference_0_0 = (CrossReference)cTypeAssignment_0.eContents().get(0);
-		private final RuleCall cTypeEObjectQIDParserRuleCall_0_0_1 = (RuleCall)cTypeEObjectCrossReference_0_0.eContents().get(1);
-		private final Assignment cVisibilityAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cVisibilityVisibilityEnumRuleCall_1_0 = (RuleCall)cVisibilityAssignment_1.eContents().get(0);
+		private final Action cContractDefinitionAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cTypeAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cTypeContractTypeEnumRuleCall_1_0 = (RuleCall)cTypeAssignment_1.eContents().get(0);
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cEqualsSignKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cInitialValueAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cInitialValueExpressionParserRuleCall_3_1_0 = (RuleCall)cInitialValueAssignment_3_1.eContents().get(0);
+		private final Keyword cIsKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cSuperTypesAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final CrossReference cSuperTypesComplexTypeCrossReference_3_1_0 = (CrossReference)cSuperTypesAssignment_3_1.eContents().get(0);
+		private final RuleCall cSuperTypesComplexTypeQIDParserRuleCall_3_1_0_1 = (RuleCall)cSuperTypesComplexTypeCrossReference_3_1_0.eContents().get(1);
+		private final Group cGroup_3_2 = (Group)cGroup_3.eContents().get(2);
+		private final Keyword cCommaKeyword_3_2_0 = (Keyword)cGroup_3_2.eContents().get(0);
+		private final Assignment cSuperTypesAssignment_3_2_1 = (Assignment)cGroup_3_2.eContents().get(1);
+		private final CrossReference cSuperTypesComplexTypeCrossReference_3_2_1_0 = (CrossReference)cSuperTypesAssignment_3_2_1.eContents().get(0);
+		private final RuleCall cSuperTypesComplexTypeQIDParserRuleCall_3_2_1_0_1 = (RuleCall)cSuperTypesComplexTypeCrossReference_3_2_1_0.eContents().get(1);
+		private final Keyword cLeftCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cFeaturesAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cFeaturesContractPartParserRuleCall_5_0 = (RuleCall)cFeaturesAssignment_5.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
-		//VariableDeclaration:
-		//	type=[EObject|QID] visibility=Visibility? name=ID ('=' initialValue=Expression)?;
+		//ContractDefinition types::ComplexType:
+		//	{ContractDefinition} type=ContractType name=ID ('is' superTypes+=[types::ComplexType|QID] (','
+		//	superTypes+=[types::ComplexType|QID])*)?
+		//	'{' features+=ContractPart* '}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//type=[EObject|QID] visibility=Visibility? name=ID ('=' initialValue=Expression)?
+		//{ContractDefinition} type=ContractType name=ID ('is' superTypes+=[types::ComplexType|QID] (','
+		//superTypes+=[types::ComplexType|QID])*)? '{' features+=ContractPart* '}'
 		public Group getGroup() { return cGroup; }
 		
-		//type=[EObject|QID]
-		public Assignment getTypeAssignment_0() { return cTypeAssignment_0; }
+		//{ContractDefinition}
+		public Action getContractDefinitionAction_0() { return cContractDefinitionAction_0; }
 		
-		//[EObject|QID]
-		public CrossReference getTypeEObjectCrossReference_0_0() { return cTypeEObjectCrossReference_0_0; }
+		//type=ContractType
+		public Assignment getTypeAssignment_1() { return cTypeAssignment_1; }
 		
-		//QID
-		public RuleCall getTypeEObjectQIDParserRuleCall_0_0_1() { return cTypeEObjectQIDParserRuleCall_0_0_1; }
-		
-		//visibility=Visibility?
-		public Assignment getVisibilityAssignment_1() { return cVisibilityAssignment_1; }
-		
-		//Visibility
-		public RuleCall getVisibilityVisibilityEnumRuleCall_1_0() { return cVisibilityVisibilityEnumRuleCall_1_0; }
+		//ContractType
+		public RuleCall getTypeContractTypeEnumRuleCall_1_0() { return cTypeContractTypeEnumRuleCall_1_0; }
 		
 		//name=ID
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
@@ -320,17 +214,134 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 		
-		//('=' initialValue=Expression)?
+		//('is' superTypes+=[types::ComplexType|QID] (',' superTypes+=[types::ComplexType|QID])*)?
 		public Group getGroup_3() { return cGroup_3; }
 		
+		//'is'
+		public Keyword getIsKeyword_3_0() { return cIsKeyword_3_0; }
+		
+		//superTypes+=[types::ComplexType|QID]
+		public Assignment getSuperTypesAssignment_3_1() { return cSuperTypesAssignment_3_1; }
+		
+		//[types::ComplexType|QID]
+		public CrossReference getSuperTypesComplexTypeCrossReference_3_1_0() { return cSuperTypesComplexTypeCrossReference_3_1_0; }
+		
+		//QID
+		public RuleCall getSuperTypesComplexTypeQIDParserRuleCall_3_1_0_1() { return cSuperTypesComplexTypeQIDParserRuleCall_3_1_0_1; }
+		
+		//(',' superTypes+=[types::ComplexType|QID])*
+		public Group getGroup_3_2() { return cGroup_3_2; }
+		
+		//','
+		public Keyword getCommaKeyword_3_2_0() { return cCommaKeyword_3_2_0; }
+		
+		//superTypes+=[types::ComplexType|QID]
+		public Assignment getSuperTypesAssignment_3_2_1() { return cSuperTypesAssignment_3_2_1; }
+		
+		//[types::ComplexType|QID]
+		public CrossReference getSuperTypesComplexTypeCrossReference_3_2_1_0() { return cSuperTypesComplexTypeCrossReference_3_2_1_0; }
+		
+		//QID
+		public RuleCall getSuperTypesComplexTypeQIDParserRuleCall_3_2_1_0_1() { return cSuperTypesComplexTypeQIDParserRuleCall_3_2_1_0_1; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_4() { return cLeftCurlyBracketKeyword_4; }
+		
+		//features+=ContractPart*
+		public Assignment getFeaturesAssignment_5() { return cFeaturesAssignment_5; }
+		
+		//ContractPart
+		public RuleCall getFeaturesContractPartParserRuleCall_5_0() { return cFeaturesContractPartParserRuleCall_5_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
+	}
+	public class ContractPartElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.yakindu.solidity.Solidity.ContractPart");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cVariableDefinitionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cModifierDefinitionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cFunctionDefinitionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cEventDefinitionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		
+		//ContractPart types::Declaration:
+		//	VariableDefinition | ModifierDefinition | FunctionDefinition | EventDefinition;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//VariableDefinition | ModifierDefinition | FunctionDefinition | EventDefinition
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//VariableDefinition
+		public RuleCall getVariableDefinitionParserRuleCall_0() { return cVariableDefinitionParserRuleCall_0; }
+		
+		//ModifierDefinition
+		public RuleCall getModifierDefinitionParserRuleCall_1() { return cModifierDefinitionParserRuleCall_1; }
+		
+		//FunctionDefinition
+		public RuleCall getFunctionDefinitionParserRuleCall_2() { return cFunctionDefinitionParserRuleCall_2; }
+		
+		//EventDefinition
+		public RuleCall getEventDefinitionParserRuleCall_3() { return cEventDefinitionParserRuleCall_3; }
+	}
+	public class VariableDefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.yakindu.solidity.Solidity.VariableDefinition");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cVariableDefinitionAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cTypeSpecifierAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cTypeSpecifierTypeSpecifierParserRuleCall_1_0 = (RuleCall)cTypeSpecifierAssignment_1.eContents().get(0);
+		private final Assignment cVisibilityAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cVisibilityVisibilityEnumRuleCall_2_0 = (RuleCall)cVisibilityAssignment_2.eContents().get(0);
+		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cNameIDTerminalRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cEqualsSignKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cInitialValueAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cInitialValueExpressionParserRuleCall_4_1_0 = (RuleCall)cInitialValueAssignment_4_1.eContents().get(0);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		
+		////StructDefinition | | EnumDefinition;
+		//VariableDefinition types::Property:
+		//	{VariableDefinition} typeSpecifier=TypeSpecifier visibility=Visibility? name=ID ('=' initialValue=Expression)? ';';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{VariableDefinition} typeSpecifier=TypeSpecifier visibility=Visibility? name=ID ('=' initialValue=Expression)? ';'
+		public Group getGroup() { return cGroup; }
+		
+		//{VariableDefinition}
+		public Action getVariableDefinitionAction_0() { return cVariableDefinitionAction_0; }
+		
+		//typeSpecifier=TypeSpecifier
+		public Assignment getTypeSpecifierAssignment_1() { return cTypeSpecifierAssignment_1; }
+		
+		//TypeSpecifier
+		public RuleCall getTypeSpecifierTypeSpecifierParserRuleCall_1_0() { return cTypeSpecifierTypeSpecifierParserRuleCall_1_0; }
+		
+		//visibility=Visibility?
+		public Assignment getVisibilityAssignment_2() { return cVisibilityAssignment_2; }
+		
+		//Visibility
+		public RuleCall getVisibilityVisibilityEnumRuleCall_2_0() { return cVisibilityVisibilityEnumRuleCall_2_0; }
+		
+		//name=ID
+		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
+		
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_3_0() { return cNameIDTerminalRuleCall_3_0; }
+		
+		//('=' initialValue=Expression)?
+		public Group getGroup_4() { return cGroup_4; }
+		
 		//'='
-		public Keyword getEqualsSignKeyword_3_0() { return cEqualsSignKeyword_3_0; }
+		public Keyword getEqualsSignKeyword_4_0() { return cEqualsSignKeyword_4_0; }
 		
 		//initialValue=Expression
-		public Assignment getInitialValueAssignment_3_1() { return cInitialValueAssignment_3_1; }
+		public Assignment getInitialValueAssignment_4_1() { return cInitialValueAssignment_4_1; }
 		
 		//Expression
-		public RuleCall getInitialValueExpressionParserRuleCall_3_1_0() { return cInitialValueExpressionParserRuleCall_3_1_0; }
+		public RuleCall getInitialValueExpressionParserRuleCall_4_1_0() { return cInitialValueExpressionParserRuleCall_4_1_0; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 	public class StructDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.yakindu.solidity.Solidity.StructDefinition");
@@ -340,20 +351,16 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Assignment cDeclarationsAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
-		private final RuleCall cDeclarationsVariableDeclarationParserRuleCall_3_0_0 = (RuleCall)cDeclarationsAssignment_3_0.eContents().get(0);
+		private final Assignment cFeaturesAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
+		private final RuleCall cFeaturesVariableDefinitionParserRuleCall_3_0_0 = (RuleCall)cFeaturesAssignment_3_0.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
 		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
-		////TODOD
-		////UsingForDeclaration:
-		////	'using' Identifier 'for' ('*' | TypeName) ';'
-		////;
-		//StructDefinition:
-		//	'struct' name=ID '{' (declarations+=VariableDeclaration ';')* '}';
+		//StructDefinition types::ComplexType:
+		//	'struct' name=ID '{' (features+=VariableDefinition ';')* '}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'struct' name=ID '{' (declarations+=VariableDeclaration ';')* '}'
+		//'struct' name=ID '{' (features+=VariableDefinition ';')* '}'
 		public Group getGroup() { return cGroup; }
 		
 		//'struct'
@@ -368,14 +375,14 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
 		
-		//(declarations+=VariableDeclaration ';')*
+		//(features+=VariableDefinition ';')*
 		public Group getGroup_3() { return cGroup_3; }
 		
-		//declarations+=VariableDeclaration
-		public Assignment getDeclarationsAssignment_3_0() { return cDeclarationsAssignment_3_0; }
+		//features+=VariableDefinition
+		public Assignment getFeaturesAssignment_3_0() { return cFeaturesAssignment_3_0; }
 		
-		//VariableDeclaration
-		public RuleCall getDeclarationsVariableDeclarationParserRuleCall_3_0_0() { return cDeclarationsVariableDeclarationParserRuleCall_3_0_0; }
+		//VariableDefinition
+		public RuleCall getFeaturesVariableDefinitionParserRuleCall_3_0_0() { return cFeaturesVariableDefinitionParserRuleCall_3_0_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_3_1() { return cSemicolonKeyword_3_1; }
@@ -386,42 +393,46 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 	public class ModifierDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.yakindu.solidity.Solidity.ModifierDefinition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cModifierKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Assignment cListAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cListParameterListParserRuleCall_2_0 = (RuleCall)cListAssignment_2.eContents().get(0);
-		private final Assignment cBlockAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cBlockBlockParserRuleCall_3_0 = (RuleCall)cBlockAssignment_3.eContents().get(0);
+		private final Action cModifierDefinitionAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cModifierKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final Assignment cListAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cListParameterListParserRuleCall_3_0 = (RuleCall)cListAssignment_3.eContents().get(0);
+		private final Assignment cBlockAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cBlockBlockParserRuleCall_4_0 = (RuleCall)cBlockAssignment_4.eContents().get(0);
 		
-		//ModifierDefinition:
-		//	'modifier' name=ID list=ParameterList
+		//ModifierDefinition types::Operation:
+		//	{ModifierDefinition} 'modifier' name=ID list=ParameterList
 		//	block+=Block;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'modifier' name=ID list=ParameterList block+=Block
+		//{ModifierDefinition} 'modifier' name=ID list=ParameterList block+=Block
 		public Group getGroup() { return cGroup; }
 		
+		//{ModifierDefinition}
+		public Action getModifierDefinitionAction_0() { return cModifierDefinitionAction_0; }
+		
 		//'modifier'
-		public Keyword getModifierKeyword_0() { return cModifierKeyword_0; }
+		public Keyword getModifierKeyword_1() { return cModifierKeyword_1; }
 		
 		//name=ID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 		
 		//list=ParameterList
-		public Assignment getListAssignment_2() { return cListAssignment_2; }
+		public Assignment getListAssignment_3() { return cListAssignment_3; }
 		
 		//ParameterList
-		public RuleCall getListParameterListParserRuleCall_2_0() { return cListParameterListParserRuleCall_2_0; }
+		public RuleCall getListParameterListParserRuleCall_3_0() { return cListParameterListParserRuleCall_3_0; }
 		
 		//block+=Block
-		public Assignment getBlockAssignment_3() { return cBlockAssignment_3; }
+		public Assignment getBlockAssignment_4() { return cBlockAssignment_4; }
 		
 		//Block
-		public RuleCall getBlockBlockParserRuleCall_3_0() { return cBlockBlockParserRuleCall_3_0; }
+		public RuleCall getBlockBlockParserRuleCall_4_0() { return cBlockBlockParserRuleCall_4_0; }
 	}
 	public class ParameterListElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.yakindu.solidity.Solidity.ParameterList");
@@ -550,126 +561,150 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 	public class FunctionDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.yakindu.solidity.Solidity.FunctionDefinition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cFunctionKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Assignment cParameterAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cParameterParameterListParserRuleCall_2_0 = (RuleCall)cParameterAssignment_2.eContents().get(0);
-		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
-		private final Keyword cExternalKeyword_3_0 = (Keyword)cAlternatives_3.eContents().get(0);
-		private final Keyword cPublicKeyword_3_1 = (Keyword)cAlternatives_3.eContents().get(1);
-		private final Keyword cInternalKeyword_3_2 = (Keyword)cAlternatives_3.eContents().get(2);
-		private final Keyword cPrivateKeyword_3_3 = (Keyword)cAlternatives_3.eContents().get(3);
+		private final Action cFunctionDefinitionAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cFunctionKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cReturnsKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cReturnParameterAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cReturnParameterParameterListParserRuleCall_4_1_0 = (RuleCall)cReturnParameterAssignment_4_1.eContents().get(0);
-		private final Alternatives cAlternatives_5 = (Alternatives)cGroup.eContents().get(5);
-		private final Keyword cSemicolonKeyword_5_0 = (Keyword)cAlternatives_5.eContents().get(0);
-		private final Assignment cBlockAssignment_5_1 = (Assignment)cAlternatives_5.eContents().get(1);
-		private final RuleCall cBlockBlockParserRuleCall_5_1_0 = (RuleCall)cBlockAssignment_5_1.eContents().get(0);
+		private final Assignment cParametersAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
+		private final RuleCall cParametersParameterParserRuleCall_4_0_0 = (RuleCall)cParametersAssignment_4_0.eContents().get(0);
+		private final Group cGroup_4_1 = (Group)cGroup_4.eContents().get(1);
+		private final Keyword cCommaKeyword_4_1_0 = (Keyword)cGroup_4_1.eContents().get(0);
+		private final Assignment cParametersAssignment_4_1_1 = (Assignment)cGroup_4_1.eContents().get(1);
+		private final RuleCall cParametersParameterParserRuleCall_4_1_1_0 = (RuleCall)cParametersAssignment_4_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Alternatives cAlternatives_6 = (Alternatives)cGroup.eContents().get(6);
+		private final Keyword cExternalKeyword_6_0 = (Keyword)cAlternatives_6.eContents().get(0);
+		private final Keyword cPublicKeyword_6_1 = (Keyword)cAlternatives_6.eContents().get(1);
+		private final Keyword cInternalKeyword_6_2 = (Keyword)cAlternatives_6.eContents().get(2);
+		private final Keyword cPrivateKeyword_6_3 = (Keyword)cAlternatives_6.eContents().get(3);
+		private final Keyword cConstantKeyword_6_4 = (Keyword)cAlternatives_6.eContents().get(4);
+		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
+		private final Keyword cReturnsKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
+		private final Assignment cReturnTypesAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
+		private final RuleCall cReturnTypesTypeSpecifierParserRuleCall_7_1_0 = (RuleCall)cReturnTypesAssignment_7_1.eContents().get(0);
+		private final Alternatives cAlternatives_8 = (Alternatives)cGroup.eContents().get(8);
+		private final Keyword cSemicolonKeyword_8_0 = (Keyword)cAlternatives_8.eContents().get(0);
+		private final Assignment cBlockAssignment_8_1 = (Assignment)cAlternatives_8.eContents().get(1);
+		private final RuleCall cBlockBlockParserRuleCall_8_1_0 = (RuleCall)cBlockAssignment_8_1.eContents().get(0);
 		
-		//FunctionDefinition:
-		//	'function' name=ID? parameter=ParameterList ('external' | 'public' | 'internal' | 'private')* ('returns'
-		//	returnParameter=ParameterList)? (';' | block=Block);
+		//FunctionDefinition types::Operation:
+		//	{FunctionDefinition} 'function' name=ID? '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')' ('external' |
+		//	'public' | 'internal' | 'private' | 'constant')* ('returns' returnTypes+=TypeSpecifier*)? (';' | block=Block);
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'function' name=ID? parameter=ParameterList ('external' | 'public' | 'internal' | 'private')* ('returns'
-		//returnParameter=ParameterList)? (';' | block=Block)
+		//{FunctionDefinition} 'function' name=ID? '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')' ('external' |
+		//'public' | 'internal' | 'private' | 'constant')* ('returns' returnTypes+=TypeSpecifier*)? (';' | block=Block)
 		public Group getGroup() { return cGroup; }
 		
+		//{FunctionDefinition}
+		public Action getFunctionDefinitionAction_0() { return cFunctionDefinitionAction_0; }
+		
 		//'function'
-		public Keyword getFunctionKeyword_0() { return cFunctionKeyword_0; }
+		public Keyword getFunctionKeyword_1() { return cFunctionKeyword_1; }
 		
 		//name=ID?
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 		
-		//parameter=ParameterList
-		public Assignment getParameterAssignment_2() { return cParameterAssignment_2; }
+		//'('
+		public Keyword getLeftParenthesisKeyword_3() { return cLeftParenthesisKeyword_3; }
 		
-		//ParameterList
-		public RuleCall getParameterParameterListParserRuleCall_2_0() { return cParameterParameterListParserRuleCall_2_0; }
-		
-		//('external' | 'public' | 'internal' | 'private')*
-		public Alternatives getAlternatives_3() { return cAlternatives_3; }
-		
-		//'external'
-		public Keyword getExternalKeyword_3_0() { return cExternalKeyword_3_0; }
-		
-		//'public'
-		public Keyword getPublicKeyword_3_1() { return cPublicKeyword_3_1; }
-		
-		//'internal'
-		public Keyword getInternalKeyword_3_2() { return cInternalKeyword_3_2; }
-		
-		//'private'
-		public Keyword getPrivateKeyword_3_3() { return cPrivateKeyword_3_3; }
-		
-		//('returns' returnParameter=ParameterList)?
+		//(parameters+=Parameter (',' parameters+=Parameter)*)?
 		public Group getGroup_4() { return cGroup_4; }
 		
+		//parameters+=Parameter
+		public Assignment getParametersAssignment_4_0() { return cParametersAssignment_4_0; }
+		
+		//Parameter
+		public RuleCall getParametersParameterParserRuleCall_4_0_0() { return cParametersParameterParserRuleCall_4_0_0; }
+		
+		//(',' parameters+=Parameter)*
+		public Group getGroup_4_1() { return cGroup_4_1; }
+		
+		//','
+		public Keyword getCommaKeyword_4_1_0() { return cCommaKeyword_4_1_0; }
+		
+		//parameters+=Parameter
+		public Assignment getParametersAssignment_4_1_1() { return cParametersAssignment_4_1_1; }
+		
+		//Parameter
+		public RuleCall getParametersParameterParserRuleCall_4_1_1_0() { return cParametersParameterParserRuleCall_4_1_1_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
+		
+		//('external' | 'public' | 'internal' | 'private' | 'constant')*
+		public Alternatives getAlternatives_6() { return cAlternatives_6; }
+		
+		//'external'
+		public Keyword getExternalKeyword_6_0() { return cExternalKeyword_6_0; }
+		
+		//'public'
+		public Keyword getPublicKeyword_6_1() { return cPublicKeyword_6_1; }
+		
+		//'internal'
+		public Keyword getInternalKeyword_6_2() { return cInternalKeyword_6_2; }
+		
+		//'private'
+		public Keyword getPrivateKeyword_6_3() { return cPrivateKeyword_6_3; }
+		
+		//'constant'
+		public Keyword getConstantKeyword_6_4() { return cConstantKeyword_6_4; }
+		
+		//('returns' returnTypes+=TypeSpecifier*)?
+		public Group getGroup_7() { return cGroup_7; }
+		
 		//'returns'
-		public Keyword getReturnsKeyword_4_0() { return cReturnsKeyword_4_0; }
+		public Keyword getReturnsKeyword_7_0() { return cReturnsKeyword_7_0; }
 		
-		//returnParameter=ParameterList
-		public Assignment getReturnParameterAssignment_4_1() { return cReturnParameterAssignment_4_1; }
+		//returnTypes+=TypeSpecifier*
+		public Assignment getReturnTypesAssignment_7_1() { return cReturnTypesAssignment_7_1; }
 		
-		//ParameterList
-		public RuleCall getReturnParameterParameterListParserRuleCall_4_1_0() { return cReturnParameterParameterListParserRuleCall_4_1_0; }
+		//TypeSpecifier
+		public RuleCall getReturnTypesTypeSpecifierParserRuleCall_7_1_0() { return cReturnTypesTypeSpecifierParserRuleCall_7_1_0; }
 		
 		//';' | block=Block
-		public Alternatives getAlternatives_5() { return cAlternatives_5; }
+		public Alternatives getAlternatives_8() { return cAlternatives_8; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_5_0() { return cSemicolonKeyword_5_0; }
+		public Keyword getSemicolonKeyword_8_0() { return cSemicolonKeyword_8_0; }
 		
 		//block=Block
-		public Assignment getBlockAssignment_5_1() { return cBlockAssignment_5_1; }
+		public Assignment getBlockAssignment_8_1() { return cBlockAssignment_8_1; }
 		
 		//Block
-		public RuleCall getBlockBlockParserRuleCall_5_1_0() { return cBlockBlockParserRuleCall_5_1_0; }
+		public RuleCall getBlockBlockParserRuleCall_8_1_0() { return cBlockBlockParserRuleCall_8_1_0; }
 	}
 	public class ParameterElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.yakindu.solidity.Solidity.Parameter");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
-		private final Assignment cVarArgsAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final Keyword cVarArgsFullStopFullStopFullStopKeyword_1_0 = (Keyword)cVarArgsAssignment_1.eContents().get(0);
-		private final Keyword cColonKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cTypeSpecifierAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cTypeSpecifierTypeSpecifierParserRuleCall_3_0 = (RuleCall)cTypeSpecifierAssignment_3.eContents().get(0);
+		private final Assignment cTypeSpecifierAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cTypeSpecifierTypeSpecifierParserRuleCall_0_0 = (RuleCall)cTypeSpecifierAssignment_0.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		
-		//Parameter:
-		//	name=ID varArgs?='...'? ':' typeSpecifier=TypeSpecifier;
+		//Parameter types::Parameter:
+		//	typeSpecifier=TypeSpecifier name=ID;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=ID varArgs?='...'? ':' typeSpecifier=TypeSpecifier
+		//typeSpecifier=TypeSpecifier name=ID
 		public Group getGroup() { return cGroup; }
 		
-		//name=ID
-		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
-		
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
-		
-		//varArgs?='...'?
-		public Assignment getVarArgsAssignment_1() { return cVarArgsAssignment_1; }
-		
-		//'...'
-		public Keyword getVarArgsFullStopFullStopFullStopKeyword_1_0() { return cVarArgsFullStopFullStopFullStopKeyword_1_0; }
-		
-		//':'
-		public Keyword getColonKeyword_2() { return cColonKeyword_2; }
-		
 		//typeSpecifier=TypeSpecifier
-		public Assignment getTypeSpecifierAssignment_3() { return cTypeSpecifierAssignment_3; }
+		public Assignment getTypeSpecifierAssignment_0() { return cTypeSpecifierAssignment_0; }
 		
 		//TypeSpecifier
-		public RuleCall getTypeSpecifierTypeSpecifierParserRuleCall_3_0() { return cTypeSpecifierTypeSpecifierParserRuleCall_3_0; }
+		public RuleCall getTypeSpecifierTypeSpecifierParserRuleCall_0_0() { return cTypeSpecifierTypeSpecifierParserRuleCall_0_0; }
+		
+		//name=ID
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 	}
 	public class EventDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.yakindu.solidity.Solidity.EventDefinition");
@@ -678,7 +713,7 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		
-		//EventDefinition:
+		//EventDefinition types::Event:
 		//	'event' name=ID;
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -693,64 +728,6 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
-	}
-	public class EnumDefinitionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.yakindu.solidity.Solidity.EnumDefinition");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cEnumKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cValueAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cValueSTRINGTerminalRuleCall_3_0 = (RuleCall)cValueAssignment_3.eContents().get(0);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cCommaKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cValueAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cValueSTRINGTerminalRuleCall_4_1_0 = (RuleCall)cValueAssignment_4_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		
-		////TODO IndexedParameterList 'anonymous' ? ';' ;
-		////
-		////EnumValue = Identifier
-		//EnumDefinition:
-		//	'enum' name=ID '{' value+=STRING? (',' value+=STRING)* '}';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//'enum' name=ID '{' value+=STRING? (',' value+=STRING)* '}'
-		public Group getGroup() { return cGroup; }
-		
-		//'enum'
-		public Keyword getEnumKeyword_0() { return cEnumKeyword_0; }
-		
-		//name=ID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
-		
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
-		
-		//'{'
-		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
-		
-		//value+=STRING?
-		public Assignment getValueAssignment_3() { return cValueAssignment_3; }
-		
-		//STRING
-		public RuleCall getValueSTRINGTerminalRuleCall_3_0() { return cValueSTRINGTerminalRuleCall_3_0; }
-		
-		//(',' value+=STRING)*
-		public Group getGroup_4() { return cGroup_4; }
-		
-		//','
-		public Keyword getCommaKeyword_4_0() { return cCommaKeyword_4_0; }
-		
-		//value+=STRING
-		public Assignment getValueAssignment_4_1() { return cValueAssignment_4_1; }
-		
-		//STRING
-		public RuleCall getValueSTRINGTerminalRuleCall_4_1_0() { return cValueSTRINGTerminalRuleCall_4_1_0; }
-		
-		//'}'
-		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
 	}
 	
 	public class ContractTypeElements extends AbstractEnumRuleElementFinder {
@@ -839,9 +816,8 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 	private final ImportDirectiveElements pImportDirective;
 	private final ContractDefinitionElements pContractDefinition;
 	private final ContractTypeElements eContractType;
-	private final InheritanceSpecifierElements pInheritanceSpecifier;
 	private final ContractPartElements pContractPart;
-	private final VariableDeclarationElements pVariableDeclaration;
+	private final VariableDefinitionElements pVariableDefinition;
 	private final VisibilityElements eVisibility;
 	private final StructDefinitionElements pStructDefinition;
 	private final ModifierDefinitionElements pModifierDefinition;
@@ -852,7 +828,6 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 	private final FunctionDefinitionElements pFunctionDefinition;
 	private final ParameterElements pParameter;
 	private final EventDefinitionElements pEventDefinition;
-	private final EnumDefinitionElements pEnumDefinition;
 	
 	private final Grammar grammar;
 	
@@ -874,9 +849,8 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 		this.pImportDirective = new ImportDirectiveElements();
 		this.pContractDefinition = new ContractDefinitionElements();
 		this.eContractType = new ContractTypeElements();
-		this.pInheritanceSpecifier = new InheritanceSpecifierElements();
 		this.pContractPart = new ContractPartElements();
-		this.pVariableDeclaration = new VariableDeclarationElements();
+		this.pVariableDefinition = new VariableDefinitionElements();
 		this.eVisibility = new VisibilityElements();
 		this.pStructDefinition = new StructDefinitionElements();
 		this.pModifierDefinition = new ModifierDefinitionElements();
@@ -887,7 +861,6 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 		this.pFunctionDefinition = new FunctionDefinitionElements();
 		this.pParameter = new ParameterElements();
 		this.pEventDefinition = new EventDefinitionElements();
-		this.pEnumDefinition = new EnumDefinitionElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -937,8 +910,10 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 		return tVERSION;
 	}
 	
-	//SourceUnit:
-	//	PragmaDirective | ImportDirective | ContractDefinition;
+	//SourceUnit types::Package:
+	//	{SourceUnit} pragma=PragmaDirective
+	//	imports+=ImportDirective*
+	//	member+=ContractDefinition*;
 	public SourceUnitElements getSourceUnitAccess() {
 		return pSourceUnit;
 	}
@@ -947,8 +922,8 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 		return getSourceUnitAccess().getRule();
 	}
 	
-	//PragmaDirective:
-	//	'pragma' 'solidity' id=VERSION ';';
+	//PragmaDirective types::PackageMember:
+	//	{PragmaDirective} 'pragma' 'solidity' version=VERSION ';';
 	public PragmaDirectiveElements getPragmaDirectiveAccess() {
 		return pPragmaDirective;
 	}
@@ -957,8 +932,8 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 		return getPragmaDirectiveAccess().getRule();
 	}
 	
-	//ImportDirective:
-	//	'import' importedNamespace=STRING ('as' alias=STRING)? ';';
+	//ImportDirective types::PackageMember:
+	//	{ImportDirective} 'import' importedNamespace=STRING ('as' alias=STRING)? ';';
 	public ImportDirectiveElements getImportDirectiveAccess() {
 		return pImportDirective;
 	}
@@ -967,11 +942,10 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 		return getImportDirectiveAccess().getRule();
 	}
 	
-	//// | 'import' ('*' | Identifier) ('as' Identifier)? 'from' StringLiteral ';'
-	//// | 'import' '{' Identifier ('as' Identifier)? ( ',' Identifier ('as' Identifier)? )* '}' 'from' StringLiteral ';'
-	//ContractDefinition:
-	//	type=ContractType name=ID ('is' superType+=InheritanceSpecifier (',' superType+=InheritanceSpecifier)*)?
-	//	'{' parts+=ContractPart* '}';
+	//ContractDefinition types::ComplexType:
+	//	{ContractDefinition} type=ContractType name=ID ('is' superTypes+=[types::ComplexType|QID] (','
+	//	superTypes+=[types::ComplexType|QID])*)?
+	//	'{' features+=ContractPart* '}';
 	public ContractDefinitionElements getContractDefinitionAccess() {
 		return pContractDefinition;
 	}
@@ -990,20 +964,8 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 		return getContractTypeAccess().getRule();
 	}
 	
-	//InheritanceSpecifier:
-	//	name=ID;
-	public InheritanceSpecifierElements getInheritanceSpecifierAccess() {
-		return pInheritanceSpecifier;
-	}
-	
-	public ParserRule getInheritanceSpecifierRule() {
-		return getInheritanceSpecifierAccess().getRule();
-	}
-	
-	//// UserDefinedTypeName ( '(' Expression ( ',' Expression )* ')' )?
-	//ContractPart:
-	//	parts+=(VariableDeclaration | StructDefinition | ModifierDefinition | FunctionDefinition | EventDefinition |
-	//	EnumDefinition);
+	//ContractPart types::Declaration:
+	//	VariableDefinition | ModifierDefinition | FunctionDefinition | EventDefinition;
 	public ContractPartElements getContractPartAccess() {
 		return pContractPart;
 	}
@@ -1012,14 +974,15 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 		return getContractPartAccess().getRule();
 	}
 	
-	//VariableDeclaration:
-	//	type=[EObject|QID] visibility=Visibility? name=ID ('=' initialValue=Expression)?;
-	public VariableDeclarationElements getVariableDeclarationAccess() {
-		return pVariableDeclaration;
+	////StructDefinition | | EnumDefinition;
+	//VariableDefinition types::Property:
+	//	{VariableDefinition} typeSpecifier=TypeSpecifier visibility=Visibility? name=ID ('=' initialValue=Expression)? ';';
+	public VariableDefinitionElements getVariableDefinitionAccess() {
+		return pVariableDefinition;
 	}
 	
-	public ParserRule getVariableDeclarationRule() {
-		return getVariableDeclarationAccess().getRule();
+	public ParserRule getVariableDefinitionRule() {
+		return getVariableDefinitionAccess().getRule();
 	}
 	
 	//enum Visibility:
@@ -1032,12 +995,8 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 		return getVisibilityAccess().getRule();
 	}
 	
-	////TODOD
-	////UsingForDeclaration:
-	////	'using' Identifier 'for' ('*' | TypeName) ';'
-	////;
-	//StructDefinition:
-	//	'struct' name=ID '{' (declarations+=VariableDeclaration ';')* '}';
+	//StructDefinition types::ComplexType:
+	//	'struct' name=ID '{' (features+=VariableDefinition ';')* '}';
 	public StructDefinitionElements getStructDefinitionAccess() {
 		return pStructDefinition;
 	}
@@ -1046,8 +1005,8 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 		return getStructDefinitionAccess().getRule();
 	}
 	
-	//ModifierDefinition:
-	//	'modifier' name=ID list=ParameterList
+	//ModifierDefinition types::Operation:
+	//	{ModifierDefinition} 'modifier' name=ID list=ParameterList
 	//	block+=Block;
 	public ModifierDefinitionElements getModifierDefinitionAccess() {
 		return pModifierDefinition;
@@ -1097,9 +1056,9 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 		return getModifierInvocationLiteralAccess().getRule();
 	}
 	
-	//FunctionDefinition:
-	//	'function' name=ID? parameter=ParameterList ('external' | 'public' | 'internal' | 'private')* ('returns'
-	//	returnParameter=ParameterList)? (';' | block=Block);
+	//FunctionDefinition types::Operation:
+	//	{FunctionDefinition} 'function' name=ID? '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')' ('external' |
+	//	'public' | 'internal' | 'private' | 'constant')* ('returns' returnTypes+=TypeSpecifier*)? (';' | block=Block);
 	public FunctionDefinitionElements getFunctionDefinitionAccess() {
 		return pFunctionDefinition;
 	}
@@ -1108,8 +1067,8 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 		return getFunctionDefinitionAccess().getRule();
 	}
 	
-	//Parameter:
-	//	name=ID varArgs?='...'? ':' typeSpecifier=TypeSpecifier;
+	//Parameter types::Parameter:
+	//	typeSpecifier=TypeSpecifier name=ID;
 	public ParameterElements getParameterAccess() {
 		return pParameter;
 	}
@@ -1118,7 +1077,7 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 		return getParameterAccess().getRule();
 	}
 	
-	//EventDefinition:
+	//EventDefinition types::Event:
 	//	'event' name=ID;
 	public EventDefinitionElements getEventDefinitionAccess() {
 		return pEventDefinition;
@@ -1126,19 +1085,6 @@ public class SolidityGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getEventDefinitionRule() {
 		return getEventDefinitionAccess().getRule();
-	}
-	
-	////TODO IndexedParameterList 'anonymous' ? ';' ;
-	////
-	////EnumValue = Identifier
-	//EnumDefinition:
-	//	'enum' name=ID '{' value+=STRING? (',' value+=STRING)* '}';
-	public EnumDefinitionElements getEnumDefinitionAccess() {
-		return pEnumDefinition;
-	}
-	
-	public ParserRule getEnumDefinitionRule() {
-		return getEnumDefinitionAccess().getRule();
 	}
 	
 	//Expression:

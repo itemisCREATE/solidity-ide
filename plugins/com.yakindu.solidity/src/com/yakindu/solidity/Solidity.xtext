@@ -1,8 +1,9 @@
 grammar com.yakindu.solidity.Solidity with org.yakindu.base.expressions.Expressions
 
-import "http://www.eclipse.org/emf/2002/Ecore"
 generate solidity "http://www.yakindu.com/solidity/Solidity"
 import "http://www.yakindu.org/base/expressions/Expressions" as expressions
+import "http://www.eclipse.org/emf/2002/Ecore"
+import "http://www.yakindu.org/base/types/2.0.0" as types
 
 SolidityModel:
 	(sourceunit+=SourceUnit)*;
@@ -10,47 +11,42 @@ SolidityModel:
 terminal VERSION:
 	'^' INT . INT . INT;
 
-SourceUnit:
-	PragmaDirective | ImportDirective | ContractDefinition;
+SourceUnit returns types::Package:
+	{SourceUnit}
+	pragma=PragmaDirective 
+	(imports+=ImportDirective)* 
+	(member+=ContractDefinition)*;
 
-PragmaDirective:
-	'pragma' 'solidity' id=VERSION ';';
+PragmaDirective returns types::PackageMember:
+	{PragmaDirective}'pragma' 'solidity' version=VERSION ';';
 
-ImportDirective:
-	'import' importedNamespace=STRING ('as' alias=STRING)? ';';
-	// | 'import' ('*' | Identifier) ('as' Identifier)? 'from' StringLiteral ';'
-// | 'import' '{' Identifier ('as' Identifier)? ( ',' Identifier ('as' Identifier)? )* '}' 'from' StringLiteral ';'
-ContractDefinition:
-	type=ContractType name=ID
-	('is' superType+=InheritanceSpecifier (',' superType+=InheritanceSpecifier)*)?
-	'{' (parts+=ContractPart)* '}';
+ImportDirective returns types::PackageMember:
+	{ImportDirective}'import' importedNamespace=STRING ('as' alias=STRING)? ';';
+
+ContractDefinition returns types::ComplexType:
+	{ContractDefinition}type=ContractType name=ID
+	('is' superTypes+=[types::ComplexType|QID](',' superTypes+=[types::ComplexType|QID])*)?
+	'{' (features+=ContractPart)* '}';
 
 enum ContractType:
 	CONTRACT='contract' | LIBRARY='library' | INTERFACE='interface';
 
-InheritanceSpecifier:
-	name=ID;
-	// UserDefinedTypeName ( '(' Expression ( ',' Expression )* ')' )?
-ContractPart:
-	parts+=(VariableDeclaration | //UsingForDeclaration
-	StructDefinition | ModifierDefinition | FunctionDefinition | EventDefinition | EnumDefinition);
+ContractPart returns types::Declaration:
+	VariableDefinition | ModifierDefinition | FunctionDefinition | EventDefinition;
+	//StructDefinition | | EnumDefinition;
 
-VariableDeclaration:
-	type=[EObject|QID] (visibility=Visibility)? name=ID ('=' initialValue=Expression)?;
+VariableDefinition returns types::Property:
+	{VariableDefinition} typeSpecifier=TypeSpecifier (visibility=Visibility)? name=ID ('=' initialValue=Expression)?';';
 
 enum Visibility:
 	PUBLIC='public' | INTERNAL='internal' | PRIVATE='private' | CONSTANT='constant';
 
-	//TODOD
-//UsingForDeclaration:
-//	'using' Identifier 'for' ('*' | TypeName) ';'
-//;
-StructDefinition:
+StructDefinition returns types::ComplexType:
 	'struct' name=ID '{'
-	(declarations+=VariableDeclaration';')* '}';
+	(features+=VariableDefinition';')* '}';
 
-ModifierDefinition:
-	'modifier' name=ID list=ParameterList
+ModifierDefinition returns types::Operation:
+	{ModifierDefinition}'modifier' name=ID list=ParameterList
 	block+=Block;
 
 ParameterList:
@@ -65,21 +61,22 @@ Block:
 ModifierInvocationLiteral:
 	{ModifierInvocationLiteral} '_;';
 
-FunctionDefinition:
-	'function' name=ID? parameter=ParameterList
-	('external' | 'public' | 'internal' | 'private')*
-	('returns' returnParameter=ParameterList)? (';' | (block=Block));
+FunctionDefinition returns types::Operation:
+	{FunctionDefinition}'function' name=ID?  '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')'
+	('external' | 'public' | 'internal' | 'private' | 'constant')*
+	('returns' (returnTypes+=TypeSpecifier)*
+	)? (';' | (block=Block));
 
-Parameter:
-	name=ID (varArgs?='...')? ':' typeSpecifier=TypeSpecifier;
-
-EventDefinition:
+Parameter returns types::Parameter:
+	typeSpecifier=TypeSpecifier name=ID;
+	
+EventDefinition returns types::Event:
 	'event' name=ID; //TODO IndexedParameterList 'anonymous' ? ';' ;
 //
 //EnumValue = Identifier
-EnumDefinition:
-	'enum' name=ID '{' (value+=STRING)? (',' value+=STRING)* '}';
-	//
+//EnumDefinition returns types::EnumerationType:
+//	'enum' name=ID '{' (enumerator+=STRING)? (',' enumerator+=STRING)* '}';
+//	//
 
 //IndexedParameterList = '(' ( TypeName 'indexed'? Identifier? (',' TypeName 'indexed'? Identifier?)* )? ')'
 //ParameterList =        '(' ( TypeName            Identifier? (',' TypeName            Identifier?)* )? ')'

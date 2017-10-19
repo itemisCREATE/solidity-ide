@@ -19,10 +19,11 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.yakindu.base.types.impl.OperationImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,35 +33,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.yakindu.solidity.solidity.impl.ModifierDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link com.yakindu.solidity.solidity.impl.ModifierDefinitionImpl#getList <em>List</em>}</li>
  *   <li>{@link com.yakindu.solidity.solidity.impl.ModifierDefinitionImpl#getBlock <em>Block</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ModifierDefinitionImpl extends MinimalEObjectImpl.Container implements ModifierDefinition
+public class ModifierDefinitionImpl extends OperationImpl implements ModifierDefinition
 {
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
   /**
    * The cached value of the '{@link #getList() <em>List</em>}' containment reference.
    * <!-- begin-user-doc -->
@@ -100,29 +80,6 @@ public class ModifierDefinitionImpl extends MinimalEObjectImpl.Container impleme
   protected EClass eStaticClass()
   {
     return SolidityPackage.Literals.MODIFIER_DEFINITION;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SolidityPackage.MODIFIER_DEFINITION__NAME, oldName, name));
   }
 
   /**
@@ -215,8 +172,6 @@ public class ModifierDefinitionImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
-      case SolidityPackage.MODIFIER_DEFINITION__NAME:
-        return getName();
       case SolidityPackage.MODIFIER_DEFINITION__LIST:
         return getList();
       case SolidityPackage.MODIFIER_DEFINITION__BLOCK:
@@ -236,9 +191,6 @@ public class ModifierDefinitionImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
-      case SolidityPackage.MODIFIER_DEFINITION__NAME:
-        setName((String)newValue);
-        return;
       case SolidityPackage.MODIFIER_DEFINITION__LIST:
         setList((ParameterList)newValue);
         return;
@@ -260,9 +212,6 @@ public class ModifierDefinitionImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
-      case SolidityPackage.MODIFIER_DEFINITION__NAME:
-        setName(NAME_EDEFAULT);
-        return;
       case SolidityPackage.MODIFIER_DEFINITION__LIST:
         setList((ParameterList)null);
         return;
@@ -283,31 +232,12 @@ public class ModifierDefinitionImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
-      case SolidityPackage.MODIFIER_DEFINITION__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case SolidityPackage.MODIFIER_DEFINITION__LIST:
         return list != null;
       case SolidityPackage.MODIFIER_DEFINITION__BLOCK:
         return block != null && !block.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(')');
-    return result.toString();
   }
 
 } //ModifierDefinitionImpl

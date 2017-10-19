@@ -4,25 +4,16 @@
 package com.yakindu.solidity.solidity.impl;
 
 import com.yakindu.solidity.solidity.ContractDefinition;
-import com.yakindu.solidity.solidity.ContractPart;
 import com.yakindu.solidity.solidity.ContractType;
-import com.yakindu.solidity.solidity.InheritanceSpecifier;
 import com.yakindu.solidity.solidity.SolidityPackage;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.yakindu.base.types.impl.ComplexTypeImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,14 +24,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link com.yakindu.solidity.solidity.impl.ContractDefinitionImpl#getType <em>Type</em>}</li>
- *   <li>{@link com.yakindu.solidity.solidity.impl.ContractDefinitionImpl#getName <em>Name</em>}</li>
- *   <li>{@link com.yakindu.solidity.solidity.impl.ContractDefinitionImpl#getSuperType <em>Super Type</em>}</li>
- *   <li>{@link com.yakindu.solidity.solidity.impl.ContractDefinitionImpl#getParts <em>Parts</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ContractDefinitionImpl extends SourceUnitImpl implements ContractDefinition
+public class ContractDefinitionImpl extends ComplexTypeImpl implements ContractDefinition
 {
   /**
    * The default value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -61,46 +49,6 @@ public class ContractDefinitionImpl extends SourceUnitImpl implements ContractDe
    * @ordered
    */
   protected ContractType type = TYPE_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getSuperType() <em>Super Type</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getSuperType()
-   * @generated
-   * @ordered
-   */
-  protected EList<InheritanceSpecifier> superType;
-
-  /**
-   * The cached value of the '{@link #getParts() <em>Parts</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getParts()
-   * @generated
-   * @ordered
-   */
-  protected EList<ContractPart> parts;
 
   /**
    * <!-- begin-user-doc -->
@@ -151,75 +99,6 @@ public class ContractDefinitionImpl extends SourceUnitImpl implements ContractDe
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SolidityPackage.CONTRACT_DEFINITION__NAME, oldName, name));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<InheritanceSpecifier> getSuperType()
-  {
-    if (superType == null)
-    {
-      superType = new EObjectContainmentEList<InheritanceSpecifier>(InheritanceSpecifier.class, this, SolidityPackage.CONTRACT_DEFINITION__SUPER_TYPE);
-    }
-    return superType;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<ContractPart> getParts()
-  {
-    if (parts == null)
-    {
-      parts = new EObjectContainmentEList<ContractPart>(ContractPart.class, this, SolidityPackage.CONTRACT_DEFINITION__PARTS);
-    }
-    return parts;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case SolidityPackage.CONTRACT_DEFINITION__SUPER_TYPE:
-        return ((InternalEList<?>)getSuperType()).basicRemove(otherEnd, msgs);
-      case SolidityPackage.CONTRACT_DEFINITION__PARTS:
-        return ((InternalEList<?>)getParts()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -227,12 +106,6 @@ public class ContractDefinitionImpl extends SourceUnitImpl implements ContractDe
     {
       case SolidityPackage.CONTRACT_DEFINITION__TYPE:
         return getType();
-      case SolidityPackage.CONTRACT_DEFINITION__NAME:
-        return getName();
-      case SolidityPackage.CONTRACT_DEFINITION__SUPER_TYPE:
-        return getSuperType();
-      case SolidityPackage.CONTRACT_DEFINITION__PARTS:
-        return getParts();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -242,7 +115,6 @@ public class ContractDefinitionImpl extends SourceUnitImpl implements ContractDe
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -250,17 +122,6 @@ public class ContractDefinitionImpl extends SourceUnitImpl implements ContractDe
     {
       case SolidityPackage.CONTRACT_DEFINITION__TYPE:
         setType((ContractType)newValue);
-        return;
-      case SolidityPackage.CONTRACT_DEFINITION__NAME:
-        setName((String)newValue);
-        return;
-      case SolidityPackage.CONTRACT_DEFINITION__SUPER_TYPE:
-        getSuperType().clear();
-        getSuperType().addAll((Collection<? extends InheritanceSpecifier>)newValue);
-        return;
-      case SolidityPackage.CONTRACT_DEFINITION__PARTS:
-        getParts().clear();
-        getParts().addAll((Collection<? extends ContractPart>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -279,15 +140,6 @@ public class ContractDefinitionImpl extends SourceUnitImpl implements ContractDe
       case SolidityPackage.CONTRACT_DEFINITION__TYPE:
         setType(TYPE_EDEFAULT);
         return;
-      case SolidityPackage.CONTRACT_DEFINITION__NAME:
-        setName(NAME_EDEFAULT);
-        return;
-      case SolidityPackage.CONTRACT_DEFINITION__SUPER_TYPE:
-        getSuperType().clear();
-        return;
-      case SolidityPackage.CONTRACT_DEFINITION__PARTS:
-        getParts().clear();
-        return;
     }
     super.eUnset(featureID);
   }
@@ -304,12 +156,6 @@ public class ContractDefinitionImpl extends SourceUnitImpl implements ContractDe
     {
       case SolidityPackage.CONTRACT_DEFINITION__TYPE:
         return type != TYPE_EDEFAULT;
-      case SolidityPackage.CONTRACT_DEFINITION__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case SolidityPackage.CONTRACT_DEFINITION__SUPER_TYPE:
-        return superType != null && !superType.isEmpty();
-      case SolidityPackage.CONTRACT_DEFINITION__PARTS:
-        return parts != null && !parts.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -327,8 +173,6 @@ public class ContractDefinitionImpl extends SourceUnitImpl implements ContractDe
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (type: ");
     result.append(type);
-    result.append(", name: ");
-    result.append(name);
     result.append(')');
     return result.toString();
   }

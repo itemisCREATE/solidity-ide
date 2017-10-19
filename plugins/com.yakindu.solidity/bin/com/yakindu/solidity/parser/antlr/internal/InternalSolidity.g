@@ -113,32 +113,70 @@ ruleSourceUnit returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		{
-			newCompositeNode(grammarAccess.getSourceUnitAccess().getPragmaDirectiveParserRuleCall_0());
-		}
-		this_PragmaDirective_0=rulePragmaDirective
-		{
-			$current = $this_PragmaDirective_0.current;
-			afterParserOrEnumRuleCall();
-		}
-		    |
-		{
-			newCompositeNode(grammarAccess.getSourceUnitAccess().getImportDirectiveParserRuleCall_1());
-		}
-		this_ImportDirective_1=ruleImportDirective
-		{
-			$current = $this_ImportDirective_1.current;
-			afterParserOrEnumRuleCall();
-		}
-		    |
-		{
-			newCompositeNode(grammarAccess.getSourceUnitAccess().getContractDefinitionParserRuleCall_2());
-		}
-		this_ContractDefinition_2=ruleContractDefinition
-		{
-			$current = $this_ContractDefinition_2.current;
-			afterParserOrEnumRuleCall();
-		}
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getSourceUnitAccess().getSourceUnitAction_0(),
+					$current);
+			}
+		)
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getSourceUnitAccess().getPragmaPragmaDirectiveParserRuleCall_1_0());
+				}
+				lv_pragma_1_0=rulePragmaDirective
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getSourceUnitRule());
+					}
+					set(
+						$current,
+						"pragma",
+						lv_pragma_1_0,
+						"com.yakindu.solidity.Solidity.PragmaDirective");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getSourceUnitAccess().getImportsImportDirectiveParserRuleCall_2_0());
+				}
+				lv_imports_2_0=ruleImportDirective
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getSourceUnitRule());
+					}
+					add(
+						$current,
+						"imports",
+						lv_imports_2_0,
+						"com.yakindu.solidity.Solidity.ImportDirective");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)*
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getSourceUnitAccess().getMemberContractDefinitionParserRuleCall_3_0());
+				}
+				lv_member_3_0=ruleContractDefinition
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getSourceUnitRule());
+					}
+					add(
+						$current,
+						"member",
+						lv_member_3_0,
+						"com.yakindu.solidity.Solidity.ContractDefinition");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)*
 	)
 ;
 
@@ -158,19 +196,26 @@ rulePragmaDirective returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		otherlv_0='pragma'
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getPragmaDirectiveAccess().getPragmaDirectiveAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='pragma'
 		{
-			newLeafNode(otherlv_0, grammarAccess.getPragmaDirectiveAccess().getPragmaKeyword_0());
+			newLeafNode(otherlv_1, grammarAccess.getPragmaDirectiveAccess().getPragmaKeyword_1());
 		}
-		otherlv_1='solidity'
+		otherlv_2='solidity'
 		{
-			newLeafNode(otherlv_1, grammarAccess.getPragmaDirectiveAccess().getSolidityKeyword_1());
+			newLeafNode(otherlv_2, grammarAccess.getPragmaDirectiveAccess().getSolidityKeyword_2());
 		}
 		(
 			(
-				lv_id_2_0=RULE_VERSION
+				lv_version_3_0=RULE_VERSION
 				{
-					newLeafNode(lv_id_2_0, grammarAccess.getPragmaDirectiveAccess().getIdVERSIONTerminalRuleCall_2_0());
+					newLeafNode(lv_version_3_0, grammarAccess.getPragmaDirectiveAccess().getVersionVERSIONTerminalRuleCall_3_0());
 				}
 				{
 					if ($current==null) {
@@ -178,15 +223,15 @@ rulePragmaDirective returns [EObject current=null]
 					}
 					setWithLastConsumed(
 						$current,
-						"id",
-						lv_id_2_0,
+						"version",
+						lv_version_3_0,
 						"com.yakindu.solidity.Solidity.VERSION");
 				}
 			)
 		)
-		otherlv_3=';'
+		otherlv_4=';'
 		{
-			newLeafNode(otherlv_3, grammarAccess.getPragmaDirectiveAccess().getSemicolonKeyword_3());
+			newLeafNode(otherlv_4, grammarAccess.getPragmaDirectiveAccess().getSemicolonKeyword_4());
 		}
 	)
 ;
@@ -207,15 +252,22 @@ ruleImportDirective returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		otherlv_0='import'
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getImportDirectiveAccess().getImportDirectiveAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='import'
 		{
-			newLeafNode(otherlv_0, grammarAccess.getImportDirectiveAccess().getImportKeyword_0());
+			newLeafNode(otherlv_1, grammarAccess.getImportDirectiveAccess().getImportKeyword_1());
 		}
 		(
 			(
-				lv_importedNamespace_1_0=RULE_STRING
+				lv_importedNamespace_2_0=RULE_STRING
 				{
-					newLeafNode(lv_importedNamespace_1_0, grammarAccess.getImportDirectiveAccess().getImportedNamespaceSTRINGTerminalRuleCall_1_0());
+					newLeafNode(lv_importedNamespace_2_0, grammarAccess.getImportDirectiveAccess().getImportedNamespaceSTRINGTerminalRuleCall_2_0());
 				}
 				{
 					if ($current==null) {
@@ -224,21 +276,21 @@ ruleImportDirective returns [EObject current=null]
 					setWithLastConsumed(
 						$current,
 						"importedNamespace",
-						lv_importedNamespace_1_0,
+						lv_importedNamespace_2_0,
 						"org.eclipse.xtext.common.Terminals.STRING");
 				}
 			)
 		)
 		(
-			otherlv_2='as'
+			otherlv_3='as'
 			{
-				newLeafNode(otherlv_2, grammarAccess.getImportDirectiveAccess().getAsKeyword_2_0());
+				newLeafNode(otherlv_3, grammarAccess.getImportDirectiveAccess().getAsKeyword_3_0());
 			}
 			(
 				(
-					lv_alias_3_0=RULE_STRING
+					lv_alias_4_0=RULE_STRING
 					{
-						newLeafNode(lv_alias_3_0, grammarAccess.getImportDirectiveAccess().getAliasSTRINGTerminalRuleCall_2_1_0());
+						newLeafNode(lv_alias_4_0, grammarAccess.getImportDirectiveAccess().getAliasSTRINGTerminalRuleCall_3_1_0());
 					}
 					{
 						if ($current==null) {
@@ -247,15 +299,15 @@ ruleImportDirective returns [EObject current=null]
 						setWithLastConsumed(
 							$current,
 							"alias",
-							lv_alias_3_0,
+							lv_alias_4_0,
 							"org.eclipse.xtext.common.Terminals.STRING");
 					}
 				)
 			)
 		)?
-		otherlv_4=';'
+		otherlv_5=';'
 		{
-			newLeafNode(otherlv_4, grammarAccess.getImportDirectiveAccess().getSemicolonKeyword_3());
+			newLeafNode(otherlv_5, grammarAccess.getImportDirectiveAccess().getSemicolonKeyword_4());
 		}
 	)
 ;
@@ -277,11 +329,18 @@ ruleContractDefinition returns [EObject current=null]
 }:
 	(
 		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getContractDefinitionAccess().getContractDefinitionAction_0(),
+					$current);
+			}
+		)
+		(
 			(
 				{
-					newCompositeNode(grammarAccess.getContractDefinitionAccess().getTypeContractTypeEnumRuleCall_0_0());
+					newCompositeNode(grammarAccess.getContractDefinitionAccess().getTypeContractTypeEnumRuleCall_1_0());
 				}
-				lv_type_0_0=ruleContractType
+				lv_type_1_0=ruleContractType
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getContractDefinitionRule());
@@ -289,7 +348,7 @@ ruleContractDefinition returns [EObject current=null]
 					set(
 						$current,
 						"type",
-						lv_type_0_0,
+						lv_type_1_0,
 						"com.yakindu.solidity.Solidity.ContractType");
 					afterParserOrEnumRuleCall();
 				}
@@ -297,9 +356,9 @@ ruleContractDefinition returns [EObject current=null]
 		)
 		(
 			(
-				lv_name_1_0=RULE_ID
+				lv_name_2_0=RULE_ID
 				{
-					newLeafNode(lv_name_1_0, grammarAccess.getContractDefinitionAccess().getNameIDTerminalRuleCall_1_0());
+					newLeafNode(lv_name_2_0, grammarAccess.getContractDefinitionAccess().getNameIDTerminalRuleCall_2_0());
 				}
 				{
 					if ($current==null) {
@@ -308,123 +367,82 @@ ruleContractDefinition returns [EObject current=null]
 					setWithLastConsumed(
 						$current,
 						"name",
-						lv_name_1_0,
+						lv_name_2_0,
 						"org.eclipse.xtext.common.Terminals.ID");
 				}
 			)
 		)
 		(
-			otherlv_2='is'
+			otherlv_3='is'
 			{
-				newLeafNode(otherlv_2, grammarAccess.getContractDefinitionAccess().getIsKeyword_2_0());
+				newLeafNode(otherlv_3, grammarAccess.getContractDefinitionAccess().getIsKeyword_3_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getContractDefinitionAccess().getSuperTypeInheritanceSpecifierParserRuleCall_2_1_0());
-					}
-					lv_superType_3_0=ruleInheritanceSpecifier
-					{
 						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getContractDefinitionRule());
+							$current = createModelElement(grammarAccess.getContractDefinitionRule());
 						}
-						add(
-							$current,
-							"superType",
-							lv_superType_3_0,
-							"com.yakindu.solidity.Solidity.InheritanceSpecifier");
+					}
+					{
+						newCompositeNode(grammarAccess.getContractDefinitionAccess().getSuperTypesComplexTypeCrossReference_3_1_0());
+					}
+					ruleQID
+					{
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 			(
-				otherlv_4=','
+				otherlv_5=','
 				{
-					newLeafNode(otherlv_4, grammarAccess.getContractDefinitionAccess().getCommaKeyword_2_2_0());
+					newLeafNode(otherlv_5, grammarAccess.getContractDefinitionAccess().getCommaKeyword_3_2_0());
 				}
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getContractDefinitionAccess().getSuperTypeInheritanceSpecifierParserRuleCall_2_2_1_0());
-						}
-						lv_superType_5_0=ruleInheritanceSpecifier
-						{
 							if ($current==null) {
-								$current = createModelElementForParent(grammarAccess.getContractDefinitionRule());
+								$current = createModelElement(grammarAccess.getContractDefinitionRule());
 							}
-							add(
-								$current,
-								"superType",
-								lv_superType_5_0,
-								"com.yakindu.solidity.Solidity.InheritanceSpecifier");
+						}
+						{
+							newCompositeNode(grammarAccess.getContractDefinitionAccess().getSuperTypesComplexTypeCrossReference_3_2_1_0());
+						}
+						ruleQID
+						{
 							afterParserOrEnumRuleCall();
 						}
 					)
 				)
 			)*
 		)?
-		otherlv_6='{'
+		otherlv_7='{'
 		{
-			newLeafNode(otherlv_6, grammarAccess.getContractDefinitionAccess().getLeftCurlyBracketKeyword_3());
+			newLeafNode(otherlv_7, grammarAccess.getContractDefinitionAccess().getLeftCurlyBracketKeyword_4());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getContractDefinitionAccess().getPartsContractPartParserRuleCall_4_0());
+					newCompositeNode(grammarAccess.getContractDefinitionAccess().getFeaturesContractPartParserRuleCall_5_0());
 				}
-				lv_parts_7_0=ruleContractPart
+				lv_features_8_0=ruleContractPart
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getContractDefinitionRule());
 					}
 					add(
 						$current,
-						"parts",
-						lv_parts_7_0,
+						"features",
+						lv_features_8_0,
 						"com.yakindu.solidity.Solidity.ContractPart");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)*
-		otherlv_8='}'
+		otherlv_9='}'
 		{
-			newLeafNode(otherlv_8, grammarAccess.getContractDefinitionAccess().getRightCurlyBracketKeyword_5());
+			newLeafNode(otherlv_9, grammarAccess.getContractDefinitionAccess().getRightCurlyBracketKeyword_6());
 		}
-	)
-;
-
-// Entry rule entryRuleInheritanceSpecifier
-entryRuleInheritanceSpecifier returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getInheritanceSpecifierRule()); }
-	iv_ruleInheritanceSpecifier=ruleInheritanceSpecifier
-	{ $current=$iv_ruleInheritanceSpecifier.current; }
-	EOF;
-
-// Rule InheritanceSpecifier
-ruleInheritanceSpecifier returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		(
-			lv_name_0_0=RULE_ID
-			{
-				newLeafNode(lv_name_0_0, grammarAccess.getInheritanceSpecifierAccess().getNameIDTerminalRuleCall_0());
-			}
-			{
-				if ($current==null) {
-					$current = createModelElement(grammarAccess.getInheritanceSpecifierRule());
-				}
-				setWithLastConsumed(
-					$current,
-					"name",
-					lv_name_0_0,
-					"org.eclipse.xtext.common.Terminals.ID");
-			}
-		)
 	)
 ;
 
@@ -444,117 +462,53 @@ ruleContractPart returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		(
-			(
-				{
-					newCompositeNode(grammarAccess.getContractPartAccess().getPartsVariableDeclarationParserRuleCall_0_0());
-				}
-				lv_parts_0_1=ruleVariableDeclaration
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getContractPartRule());
-					}
-					add(
-						$current,
-						"parts",
-						lv_parts_0_1,
-						"com.yakindu.solidity.Solidity.VariableDeclaration");
-					afterParserOrEnumRuleCall();
-				}
-				    |
-				{
-					newCompositeNode(grammarAccess.getContractPartAccess().getPartsStructDefinitionParserRuleCall_0_1());
-				}
-				lv_parts_0_2=ruleStructDefinition
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getContractPartRule());
-					}
-					add(
-						$current,
-						"parts",
-						lv_parts_0_2,
-						"com.yakindu.solidity.Solidity.StructDefinition");
-					afterParserOrEnumRuleCall();
-				}
-				    |
-				{
-					newCompositeNode(grammarAccess.getContractPartAccess().getPartsModifierDefinitionParserRuleCall_0_2());
-				}
-				lv_parts_0_3=ruleModifierDefinition
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getContractPartRule());
-					}
-					add(
-						$current,
-						"parts",
-						lv_parts_0_3,
-						"com.yakindu.solidity.Solidity.ModifierDefinition");
-					afterParserOrEnumRuleCall();
-				}
-				    |
-				{
-					newCompositeNode(grammarAccess.getContractPartAccess().getPartsFunctionDefinitionParserRuleCall_0_3());
-				}
-				lv_parts_0_4=ruleFunctionDefinition
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getContractPartRule());
-					}
-					add(
-						$current,
-						"parts",
-						lv_parts_0_4,
-						"com.yakindu.solidity.Solidity.FunctionDefinition");
-					afterParserOrEnumRuleCall();
-				}
-				    |
-				{
-					newCompositeNode(grammarAccess.getContractPartAccess().getPartsEventDefinitionParserRuleCall_0_4());
-				}
-				lv_parts_0_5=ruleEventDefinition
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getContractPartRule());
-					}
-					add(
-						$current,
-						"parts",
-						lv_parts_0_5,
-						"com.yakindu.solidity.Solidity.EventDefinition");
-					afterParserOrEnumRuleCall();
-				}
-				    |
-				{
-					newCompositeNode(grammarAccess.getContractPartAccess().getPartsEnumDefinitionParserRuleCall_0_5());
-				}
-				lv_parts_0_6=ruleEnumDefinition
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getContractPartRule());
-					}
-					add(
-						$current,
-						"parts",
-						lv_parts_0_6,
-						"com.yakindu.solidity.Solidity.EnumDefinition");
-					afterParserOrEnumRuleCall();
-				}
-			)
-		)
+		{
+			newCompositeNode(grammarAccess.getContractPartAccess().getVariableDefinitionParserRuleCall_0());
+		}
+		this_VariableDefinition_0=ruleVariableDefinition
+		{
+			$current = $this_VariableDefinition_0.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getContractPartAccess().getModifierDefinitionParserRuleCall_1());
+		}
+		this_ModifierDefinition_1=ruleModifierDefinition
+		{
+			$current = $this_ModifierDefinition_1.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getContractPartAccess().getFunctionDefinitionParserRuleCall_2());
+		}
+		this_FunctionDefinition_2=ruleFunctionDefinition
+		{
+			$current = $this_FunctionDefinition_2.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getContractPartAccess().getEventDefinitionParserRuleCall_3());
+		}
+		this_EventDefinition_3=ruleEventDefinition
+		{
+			$current = $this_EventDefinition_3.current;
+			afterParserOrEnumRuleCall();
+		}
 	)
 ;
 
-// Entry rule entryRuleVariableDeclaration
-entryRuleVariableDeclaration returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getVariableDeclarationRule()); }
-	iv_ruleVariableDeclaration=ruleVariableDeclaration
-	{ $current=$iv_ruleVariableDeclaration.current; }
+// Entry rule entryRuleVariableDefinition
+entryRuleVariableDefinition returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getVariableDefinitionRule()); }
+	iv_ruleVariableDefinition=ruleVariableDefinition
+	{ $current=$iv_ruleVariableDefinition.current; }
 	EOF;
 
-// Rule VariableDeclaration
-ruleVariableDeclaration returns [EObject current=null]
+// Rule VariableDefinition
+ruleVariableDefinition returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -563,17 +517,27 @@ ruleVariableDeclaration returns [EObject current=null]
 }:
 	(
 		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getVariableDefinitionAccess().getVariableDefinitionAction_0(),
+					$current);
+			}
+		)
+		(
 			(
 				{
+					newCompositeNode(grammarAccess.getVariableDefinitionAccess().getTypeSpecifierTypeSpecifierParserRuleCall_1_0());
+				}
+				lv_typeSpecifier_1_0=ruleTypeSpecifier
+				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getVariableDeclarationRule());
+						$current = createModelElementForParent(grammarAccess.getVariableDefinitionRule());
 					}
-				}
-				{
-					newCompositeNode(grammarAccess.getVariableDeclarationAccess().getTypeEObjectCrossReference_0_0());
-				}
-				ruleQID
-				{
+					set(
+						$current,
+						"typeSpecifier",
+						lv_typeSpecifier_1_0,
+						"org.yakindu.base.expressions.Expressions.TypeSpecifier");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -581,17 +545,17 @@ ruleVariableDeclaration returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getVariableDeclarationAccess().getVisibilityVisibilityEnumRuleCall_1_0());
+					newCompositeNode(grammarAccess.getVariableDefinitionAccess().getVisibilityVisibilityEnumRuleCall_2_0());
 				}
-				lv_visibility_1_0=ruleVisibility
+				lv_visibility_2_0=ruleVisibility
 				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getVariableDeclarationRule());
+						$current = createModelElementForParent(grammarAccess.getVariableDefinitionRule());
 					}
 					set(
 						$current,
 						"visibility",
-						lv_visibility_1_0,
+						lv_visibility_2_0,
 						"com.yakindu.solidity.Solidity.Visibility");
 					afterParserOrEnumRuleCall();
 				}
@@ -599,120 +563,50 @@ ruleVariableDeclaration returns [EObject current=null]
 		)?
 		(
 			(
-				lv_name_2_0=RULE_ID
+				lv_name_3_0=RULE_ID
 				{
-					newLeafNode(lv_name_2_0, grammarAccess.getVariableDeclarationAccess().getNameIDTerminalRuleCall_2_0());
+					newLeafNode(lv_name_3_0, grammarAccess.getVariableDefinitionAccess().getNameIDTerminalRuleCall_3_0());
 				}
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getVariableDeclarationRule());
+						$current = createModelElement(grammarAccess.getVariableDefinitionRule());
 					}
 					setWithLastConsumed(
 						$current,
 						"name",
-						lv_name_2_0,
+						lv_name_3_0,
 						"org.eclipse.xtext.common.Terminals.ID");
 				}
 			)
 		)
 		(
-			otherlv_3='='
+			otherlv_4='='
 			{
-				newLeafNode(otherlv_3, grammarAccess.getVariableDeclarationAccess().getEqualsSignKeyword_3_0());
+				newLeafNode(otherlv_4, grammarAccess.getVariableDefinitionAccess().getEqualsSignKeyword_4_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getVariableDeclarationAccess().getInitialValueExpressionParserRuleCall_3_1_0());
+						newCompositeNode(grammarAccess.getVariableDefinitionAccess().getInitialValueExpressionParserRuleCall_4_1_0());
 					}
-					lv_initialValue_4_0=ruleExpression
+					lv_initialValue_5_0=ruleExpression
 					{
 						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getVariableDeclarationRule());
+							$current = createModelElementForParent(grammarAccess.getVariableDefinitionRule());
 						}
 						set(
 							$current,
 							"initialValue",
-							lv_initialValue_4_0,
+							lv_initialValue_5_0,
 							"org.yakindu.base.expressions.Expressions.Expression");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 		)?
-	)
-;
-
-// Entry rule entryRuleStructDefinition
-entryRuleStructDefinition returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getStructDefinitionRule()); }
-	iv_ruleStructDefinition=ruleStructDefinition
-	{ $current=$iv_ruleStructDefinition.current; }
-	EOF;
-
-// Rule StructDefinition
-ruleStructDefinition returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		otherlv_0='struct'
+		otherlv_6=';'
 		{
-			newLeafNode(otherlv_0, grammarAccess.getStructDefinitionAccess().getStructKeyword_0());
-		}
-		(
-			(
-				lv_name_1_0=RULE_ID
-				{
-					newLeafNode(lv_name_1_0, grammarAccess.getStructDefinitionAccess().getNameIDTerminalRuleCall_1_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getStructDefinitionRule());
-					}
-					setWithLastConsumed(
-						$current,
-						"name",
-						lv_name_1_0,
-						"org.eclipse.xtext.common.Terminals.ID");
-				}
-			)
-		)
-		otherlv_2='{'
-		{
-			newLeafNode(otherlv_2, grammarAccess.getStructDefinitionAccess().getLeftCurlyBracketKeyword_2());
-		}
-		(
-			(
-				(
-					{
-						newCompositeNode(grammarAccess.getStructDefinitionAccess().getDeclarationsVariableDeclarationParserRuleCall_3_0_0());
-					}
-					lv_declarations_3_0=ruleVariableDeclaration
-					{
-						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getStructDefinitionRule());
-						}
-						add(
-							$current,
-							"declarations",
-							lv_declarations_3_0,
-							"com.yakindu.solidity.Solidity.VariableDeclaration");
-						afterParserOrEnumRuleCall();
-					}
-				)
-			)
-			otherlv_4=';'
-			{
-				newLeafNode(otherlv_4, grammarAccess.getStructDefinitionAccess().getSemicolonKeyword_3_1());
-			}
-		)*
-		otherlv_5='}'
-		{
-			newLeafNode(otherlv_5, grammarAccess.getStructDefinitionAccess().getRightCurlyBracketKeyword_4());
+			newLeafNode(otherlv_6, grammarAccess.getVariableDefinitionAccess().getSemicolonKeyword_5());
 		}
 	)
 ;
@@ -733,15 +627,22 @@ ruleModifierDefinition returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		otherlv_0='modifier'
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getModifierDefinitionAccess().getModifierDefinitionAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='modifier'
 		{
-			newLeafNode(otherlv_0, grammarAccess.getModifierDefinitionAccess().getModifierKeyword_0());
+			newLeafNode(otherlv_1, grammarAccess.getModifierDefinitionAccess().getModifierKeyword_1());
 		}
 		(
 			(
-				lv_name_1_0=RULE_ID
+				lv_name_2_0=RULE_ID
 				{
-					newLeafNode(lv_name_1_0, grammarAccess.getModifierDefinitionAccess().getNameIDTerminalRuleCall_1_0());
+					newLeafNode(lv_name_2_0, grammarAccess.getModifierDefinitionAccess().getNameIDTerminalRuleCall_2_0());
 				}
 				{
 					if ($current==null) {
@@ -750,7 +651,7 @@ ruleModifierDefinition returns [EObject current=null]
 					setWithLastConsumed(
 						$current,
 						"name",
-						lv_name_1_0,
+						lv_name_2_0,
 						"org.eclipse.xtext.common.Terminals.ID");
 				}
 			)
@@ -758,9 +659,9 @@ ruleModifierDefinition returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getModifierDefinitionAccess().getListParameterListParserRuleCall_2_0());
+					newCompositeNode(grammarAccess.getModifierDefinitionAccess().getListParameterListParserRuleCall_3_0());
 				}
-				lv_list_2_0=ruleParameterList
+				lv_list_3_0=ruleParameterList
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getModifierDefinitionRule());
@@ -768,7 +669,7 @@ ruleModifierDefinition returns [EObject current=null]
 					set(
 						$current,
 						"list",
-						lv_list_2_0,
+						lv_list_3_0,
 						"com.yakindu.solidity.Solidity.ParameterList");
 					afterParserOrEnumRuleCall();
 				}
@@ -777,9 +678,9 @@ ruleModifierDefinition returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getModifierDefinitionAccess().getBlockBlockParserRuleCall_3_0());
+					newCompositeNode(grammarAccess.getModifierDefinitionAccess().getBlockBlockParserRuleCall_4_0());
 				}
-				lv_block_3_0=ruleBlock
+				lv_block_4_0=ruleBlock
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getModifierDefinitionRule());
@@ -787,7 +688,7 @@ ruleModifierDefinition returns [EObject current=null]
 					add(
 						$current,
 						"block",
-						lv_block_3_0,
+						lv_block_4_0,
 						"com.yakindu.solidity.Solidity.Block");
 					afterParserOrEnumRuleCall();
 				}
@@ -1015,15 +916,22 @@ ruleFunctionDefinition returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		otherlv_0='function'
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getFunctionDefinitionAccess().getFunctionDefinitionAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='function'
 		{
-			newLeafNode(otherlv_0, grammarAccess.getFunctionDefinitionAccess().getFunctionKeyword_0());
+			newLeafNode(otherlv_1, grammarAccess.getFunctionDefinitionAccess().getFunctionKeyword_1());
 		}
 		(
 			(
-				lv_name_1_0=RULE_ID
+				lv_name_2_0=RULE_ID
 				{
-					newLeafNode(lv_name_1_0, grammarAccess.getFunctionDefinitionAccess().getNameIDTerminalRuleCall_1_0());
+					newLeafNode(lv_name_2_0, grammarAccess.getFunctionDefinitionAccess().getNameIDTerminalRuleCall_2_0());
 				}
 				{
 					if ($current==null) {
@@ -1032,88 +940,128 @@ ruleFunctionDefinition returns [EObject current=null]
 					setWithLastConsumed(
 						$current,
 						"name",
-						lv_name_1_0,
+						lv_name_2_0,
 						"org.eclipse.xtext.common.Terminals.ID");
 				}
 			)
 		)?
+		otherlv_3='('
+		{
+			newLeafNode(otherlv_3, grammarAccess.getFunctionDefinitionAccess().getLeftParenthesisKeyword_3());
+		}
 		(
-			(
-				{
-					newCompositeNode(grammarAccess.getFunctionDefinitionAccess().getParameterParameterListParserRuleCall_2_0());
-				}
-				lv_parameter_2_0=ruleParameterList
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getFunctionDefinitionRule());
-					}
-					set(
-						$current,
-						"parameter",
-						lv_parameter_2_0,
-						"com.yakindu.solidity.Solidity.ParameterList");
-					afterParserOrEnumRuleCall();
-				}
-			)
-		)
-		(
-			otherlv_3='external'
-			{
-				newLeafNode(otherlv_3, grammarAccess.getFunctionDefinitionAccess().getExternalKeyword_3_0());
-			}
-			    |
-			otherlv_4='public'
-			{
-				newLeafNode(otherlv_4, grammarAccess.getFunctionDefinitionAccess().getPublicKeyword_3_1());
-			}
-			    |
-			otherlv_5='internal'
-			{
-				newLeafNode(otherlv_5, grammarAccess.getFunctionDefinitionAccess().getInternalKeyword_3_2());
-			}
-			    |
-			otherlv_6='private'
-			{
-				newLeafNode(otherlv_6, grammarAccess.getFunctionDefinitionAccess().getPrivateKeyword_3_3());
-			}
-		)*
-		(
-			otherlv_7='returns'
-			{
-				newLeafNode(otherlv_7, grammarAccess.getFunctionDefinitionAccess().getReturnsKeyword_4_0());
-			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getFunctionDefinitionAccess().getReturnParameterParameterListParserRuleCall_4_1_0());
+						newCompositeNode(grammarAccess.getFunctionDefinitionAccess().getParametersParameterParserRuleCall_4_0_0());
 					}
-					lv_returnParameter_8_0=ruleParameterList
+					lv_parameters_4_0=ruleParameter
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getFunctionDefinitionRule());
 						}
-						set(
+						add(
 							$current,
-							"returnParameter",
-							lv_returnParameter_8_0,
-							"com.yakindu.solidity.Solidity.ParameterList");
+							"parameters",
+							lv_parameters_4_0,
+							"com.yakindu.solidity.Solidity.Parameter");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
+			(
+				otherlv_5=','
+				{
+					newLeafNode(otherlv_5, grammarAccess.getFunctionDefinitionAccess().getCommaKeyword_4_1_0());
+				}
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getFunctionDefinitionAccess().getParametersParameterParserRuleCall_4_1_1_0());
+						}
+						lv_parameters_6_0=ruleParameter
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getFunctionDefinitionRule());
+							}
+							add(
+								$current,
+								"parameters",
+								lv_parameters_6_0,
+								"com.yakindu.solidity.Solidity.Parameter");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)
+			)*
+		)?
+		otherlv_7=')'
+		{
+			newLeafNode(otherlv_7, grammarAccess.getFunctionDefinitionAccess().getRightParenthesisKeyword_5());
+		}
+		(
+			otherlv_8='external'
+			{
+				newLeafNode(otherlv_8, grammarAccess.getFunctionDefinitionAccess().getExternalKeyword_6_0());
+			}
+			    |
+			otherlv_9='public'
+			{
+				newLeafNode(otherlv_9, grammarAccess.getFunctionDefinitionAccess().getPublicKeyword_6_1());
+			}
+			    |
+			otherlv_10='internal'
+			{
+				newLeafNode(otherlv_10, grammarAccess.getFunctionDefinitionAccess().getInternalKeyword_6_2());
+			}
+			    |
+			otherlv_11='private'
+			{
+				newLeafNode(otherlv_11, grammarAccess.getFunctionDefinitionAccess().getPrivateKeyword_6_3());
+			}
+			    |
+			otherlv_12='constant'
+			{
+				newLeafNode(otherlv_12, grammarAccess.getFunctionDefinitionAccess().getConstantKeyword_6_4());
+			}
+		)*
+		(
+			otherlv_13='returns'
+			{
+				newLeafNode(otherlv_13, grammarAccess.getFunctionDefinitionAccess().getReturnsKeyword_7_0());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getFunctionDefinitionAccess().getReturnTypesTypeSpecifierParserRuleCall_7_1_0());
+					}
+					lv_returnTypes_14_0=ruleTypeSpecifier
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getFunctionDefinitionRule());
+						}
+						add(
+							$current,
+							"returnTypes",
+							lv_returnTypes_14_0,
+							"org.yakindu.base.expressions.Expressions.TypeSpecifier");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)*
 		)?
 		(
-			otherlv_9=';'
+			otherlv_15=';'
 			{
-				newLeafNode(otherlv_9, grammarAccess.getFunctionDefinitionAccess().getSemicolonKeyword_5_0());
+				newLeafNode(otherlv_15, grammarAccess.getFunctionDefinitionAccess().getSemicolonKeyword_8_0());
 			}
 			    |
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getFunctionDefinitionAccess().getBlockBlockParserRuleCall_5_1_0());
+						newCompositeNode(grammarAccess.getFunctionDefinitionAccess().getBlockBlockParserRuleCall_8_1_0());
 					}
-					lv_block_10_0=ruleBlock
+					lv_block_16_0=ruleBlock
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getFunctionDefinitionRule());
@@ -1121,7 +1069,7 @@ ruleFunctionDefinition returns [EObject current=null]
 						set(
 							$current,
 							"block",
-							lv_block_10_0,
+							lv_block_16_0,
 							"com.yakindu.solidity.Solidity.Block");
 						afterParserOrEnumRuleCall();
 					}
@@ -1149,9 +1097,28 @@ ruleParameter returns [EObject current=null]
 	(
 		(
 			(
-				lv_name_0_0=RULE_ID
 				{
-					newLeafNode(lv_name_0_0, grammarAccess.getParameterAccess().getNameIDTerminalRuleCall_0_0());
+					newCompositeNode(grammarAccess.getParameterAccess().getTypeSpecifierTypeSpecifierParserRuleCall_0_0());
+				}
+				lv_typeSpecifier_0_0=ruleTypeSpecifier
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getParameterRule());
+					}
+					set(
+						$current,
+						"typeSpecifier",
+						lv_typeSpecifier_0_0,
+						"org.yakindu.base.expressions.Expressions.TypeSpecifier");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		(
+			(
+				lv_name_1_0=RULE_ID
+				{
+					newLeafNode(lv_name_1_0, grammarAccess.getParameterAccess().getNameIDTerminalRuleCall_1_0());
 				}
 				{
 					if ($current==null) {
@@ -1160,45 +1127,8 @@ ruleParameter returns [EObject current=null]
 					setWithLastConsumed(
 						$current,
 						"name",
-						lv_name_0_0,
+						lv_name_1_0,
 						"org.eclipse.xtext.common.Terminals.ID");
-				}
-			)
-		)
-		(
-			(
-				lv_varArgs_1_0='...'
-				{
-					newLeafNode(lv_varArgs_1_0, grammarAccess.getParameterAccess().getVarArgsFullStopFullStopFullStopKeyword_1_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getParameterRule());
-					}
-					setWithLastConsumed($current, "varArgs", true, "...");
-				}
-			)
-		)?
-		otherlv_2=':'
-		{
-			newLeafNode(otherlv_2, grammarAccess.getParameterAccess().getColonKeyword_2());
-		}
-		(
-			(
-				{
-					newCompositeNode(grammarAccess.getParameterAccess().getTypeSpecifierTypeSpecifierParserRuleCall_3_0());
-				}
-				lv_typeSpecifier_3_0=ruleTypeSpecifier
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getParameterRule());
-					}
-					set(
-						$current,
-						"typeSpecifier",
-						lv_typeSpecifier_3_0,
-						"org.yakindu.base.expressions.Expressions.TypeSpecifier");
-					afterParserOrEnumRuleCall();
 				}
 			)
 		)
@@ -1243,97 +1173,6 @@ ruleEventDefinition returns [EObject current=null]
 				}
 			)
 		)
-	)
-;
-
-// Entry rule entryRuleEnumDefinition
-entryRuleEnumDefinition returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getEnumDefinitionRule()); }
-	iv_ruleEnumDefinition=ruleEnumDefinition
-	{ $current=$iv_ruleEnumDefinition.current; }
-	EOF;
-
-// Rule EnumDefinition
-ruleEnumDefinition returns [EObject current=null]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		otherlv_0='enum'
-		{
-			newLeafNode(otherlv_0, grammarAccess.getEnumDefinitionAccess().getEnumKeyword_0());
-		}
-		(
-			(
-				lv_name_1_0=RULE_ID
-				{
-					newLeafNode(lv_name_1_0, grammarAccess.getEnumDefinitionAccess().getNameIDTerminalRuleCall_1_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getEnumDefinitionRule());
-					}
-					setWithLastConsumed(
-						$current,
-						"name",
-						lv_name_1_0,
-						"org.eclipse.xtext.common.Terminals.ID");
-				}
-			)
-		)
-		otherlv_2='{'
-		{
-			newLeafNode(otherlv_2, grammarAccess.getEnumDefinitionAccess().getLeftCurlyBracketKeyword_2());
-		}
-		(
-			(
-				lv_value_3_0=RULE_STRING
-				{
-					newLeafNode(lv_value_3_0, grammarAccess.getEnumDefinitionAccess().getValueSTRINGTerminalRuleCall_3_0());
-				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getEnumDefinitionRule());
-					}
-					addWithLastConsumed(
-						$current,
-						"value",
-						lv_value_3_0,
-						"org.eclipse.xtext.common.Terminals.STRING");
-				}
-			)
-		)?
-		(
-			otherlv_4=','
-			{
-				newLeafNode(otherlv_4, grammarAccess.getEnumDefinitionAccess().getCommaKeyword_4_0());
-			}
-			(
-				(
-					lv_value_5_0=RULE_STRING
-					{
-						newLeafNode(lv_value_5_0, grammarAccess.getEnumDefinitionAccess().getValueSTRINGTerminalRuleCall_4_1_0());
-					}
-					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getEnumDefinitionRule());
-						}
-						addWithLastConsumed(
-							$current,
-							"value",
-							lv_value_5_0,
-							"org.eclipse.xtext.common.Terminals.STRING");
-					}
-				)
-			)
-		)*
-		otherlv_6='}'
-		{
-			newLeafNode(otherlv_6, grammarAccess.getEnumDefinitionAccess().getRightCurlyBracketKeyword_5());
-		}
 	)
 ;
 

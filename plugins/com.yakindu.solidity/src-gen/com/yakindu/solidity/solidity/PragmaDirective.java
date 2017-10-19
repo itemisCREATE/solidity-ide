@@ -3,6 +3,7 @@
  */
 package com.yakindu.solidity.solidity;
 
+import org.yakindu.base.types.PackageMember;
 
 /**
  * <!-- begin-user-doc -->
@@ -13,39 +14,39 @@ package com.yakindu.solidity.solidity;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.yakindu.solidity.solidity.PragmaDirective#getId <em>Id</em>}</li>
+ *   <li>{@link com.yakindu.solidity.solidity.PragmaDirective#getVersion <em>Version</em>}</li>
  * </ul>
  *
  * @see com.yakindu.solidity.solidity.SolidityPackage#getPragmaDirective()
  * @model
  * @generated
  */
-public interface PragmaDirective extends SourceUnit
+public interface PragmaDirective extends PackageMember
 {
   /**
-   * Returns the value of the '<em><b>Id</b></em>' attribute.
+   * Returns the value of the '<em><b>Version</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Id</em>' attribute isn't clear,
+   * If the meaning of the '<em>Version</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Id</em>' attribute.
-   * @see #setId(String)
-   * @see com.yakindu.solidity.solidity.SolidityPackage#getPragmaDirective_Id()
+   * @return the value of the '<em>Version</em>' attribute.
+   * @see #setVersion(String)
+   * @see com.yakindu.solidity.solidity.SolidityPackage#getPragmaDirective_Version()
    * @model
    * @generated
    */
-  String getId();
+  String getVersion();
 
   /**
-   * Sets the value of the '{@link com.yakindu.solidity.solidity.PragmaDirective#getId <em>Id</em>}' attribute.
+   * Sets the value of the '{@link com.yakindu.solidity.solidity.PragmaDirective#getVersion <em>Version</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Id</em>' attribute.
-   * @see #getId()
+   * @param value the new value of the '<em>Version</em>' attribute.
+   * @see #getVersion()
    * @generated
    */
-  void setId(String value);
+  void setVersion(String value);
 
 } // PragmaDirective

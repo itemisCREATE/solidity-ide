@@ -25,54 +25,43 @@ class CombinedState implements Template {
 
 	override content(ExecutionFlow flow, GeneratorEntry entry) {
 		'''
-			pragma solidity ^0.4.17;
-			contract «flow.toName»Statemachine {
-				«flow.generateStateEnum»
-				
-				«flow.generateEventEnum»
-				// This is the current state.
-				States public activeState = States.«flow.states.get(0).toName»;
-				
-				address private owner; 
+			pragma solidity ^0.4.18;
+			contract «flow.toName» {
+			    «flow.generateStateEnum»
+			    
+			    «flow.generateEventEnum»
+			    // This is the current state.
+			    States public activeState = States.«flow.states.get(0).toName»;
+			    
+			    address private owner; 
 				«FOR declaration : flow.interfaceScopes.map[declarations].flatten»
-					«declaration.declaration»
+			  	    «declaration.declaration»
 				«ENDFOR»
-					«FOR declaration : flow.internalScope.declarations»
-						«declaration.declaration»
-					«ENDFOR»
+				«FOR declaration : flow.internalScope.declarations»
+			    	«declaration.declaration»
+				«ENDFOR»
 			
-				modifier exit() {
-					«FOR state : flow.states.filter[it.exitAction != null]»
-						if(activeState == States.«state.toName»){
-							«state.exitAction?.code»;
-						}
-					«ENDFOR» 
-					_;
-				}
-				
-				modifier reset() {
-					_;
-					«IF flow.hasEvents»
-					lastEvent = Events.nullEvent;
-					«ENDIF»
-				}
-				
+			    modifier exit() {
+				«FOR state : flow.states.filter[it.exitAction !== null]»
+				    if(activeState == States.«state.toName»){
+					    «state.exitAction?.code»;
+				    }
+				«ENDFOR» 
+				    _;
+			    }
+			
 				modifier entry() {
 					_;
-					«FOR state : flow.states.filter[it.entryAction !== null]»
-						if(activeState == States.«state.toName»){
-							«state.entryAction?.code»;
-						}
-					«ENDFOR» 
-				}
-				
-				function nextState(States _state) internal exit entry {
-					activeState = States(uint(_state));
-				}
-				
+				«FOR state : flow.states.filter[it.entryAction !== null]»
+				if(activeState == States.«state.toName»){
+				        «state.entryAction?.code»;
+					}
+				«ENDFOR» 
+			    }
+			
 				modifier react() {
 					_;
-					«FOR state : flow.states.filter[reactSequence !== null] SEPARATOR "else "»
+					«FOR state : flow.states.filter[reactSequence !== null && reactSequence.steps.size > 0] SEPARATOR "else "»
 						«IF !state.reactSequence.steps.isNullOrEmpty»
 							if(activeState == States.«state.toName»){
 									«state.reactSequence.code»
@@ -109,7 +98,8 @@ class CombinedState implements Template {
 			Events private lastEvent = Events.nullEvent;
 			
 			enum Events {
-				«FOR declaration : flow.interfaceScopes.map[declarations].flatten.filter(EventDefinition) SEPARATOR ',' AFTER ', nullEvent' »«declaration.toName»
+				«FOR declaration : flow.interfaceScopes.map[declarations].flatten.filter(EventDefinition) SEPARATOR ',' AFTER ', nullEvent'»
+					«declaration.toName»
 				«ENDFOR»
 			}
 			«ENDIF»

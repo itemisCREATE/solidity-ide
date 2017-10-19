@@ -11,6 +11,8 @@ import org.eclipse.emf.ecore.EReference;
 
 import org.yakindu.base.expressions.expressions.ExpressionsPackage;
 
+import org.yakindu.base.types.TypesPackage;
+
 /**
  * <!-- begin-user-doc -->
  * The <b>Package</b> for the model.
@@ -89,339 +91,6 @@ public interface SolidityPackage extends EPackage
   int SOLIDITY_MODEL_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.SourceUnitImpl <em>Source Unit</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see com.yakindu.solidity.solidity.impl.SourceUnitImpl
-   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getSourceUnit()
-   * @generated
-   */
-  int SOURCE_UNIT = 1;
-
-  /**
-   * The number of structural features of the '<em>Source Unit</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SOURCE_UNIT_FEATURE_COUNT = 0;
-
-  /**
-   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.PragmaDirectiveImpl <em>Pragma Directive</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see com.yakindu.solidity.solidity.impl.PragmaDirectiveImpl
-   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getPragmaDirective()
-   * @generated
-   */
-  int PRAGMA_DIRECTIVE = 2;
-
-  /**
-   * The feature id for the '<em><b>Id</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRAGMA_DIRECTIVE__ID = SOURCE_UNIT_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Pragma Directive</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRAGMA_DIRECTIVE_FEATURE_COUNT = SOURCE_UNIT_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.ImportDirectiveImpl <em>Import Directive</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see com.yakindu.solidity.solidity.impl.ImportDirectiveImpl
-   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getImportDirective()
-   * @generated
-   */
-  int IMPORT_DIRECTIVE = 3;
-
-  /**
-   * The feature id for the '<em><b>Imported Namespace</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPORT_DIRECTIVE__IMPORTED_NAMESPACE = SOURCE_UNIT_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Alias</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPORT_DIRECTIVE__ALIAS = SOURCE_UNIT_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Import Directive</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPORT_DIRECTIVE_FEATURE_COUNT = SOURCE_UNIT_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.ContractDefinitionImpl <em>Contract Definition</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see com.yakindu.solidity.solidity.impl.ContractDefinitionImpl
-   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getContractDefinition()
-   * @generated
-   */
-  int CONTRACT_DEFINITION = 4;
-
-  /**
-   * The feature id for the '<em><b>Type</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONTRACT_DEFINITION__TYPE = SOURCE_UNIT_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONTRACT_DEFINITION__NAME = SOURCE_UNIT_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Super Type</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONTRACT_DEFINITION__SUPER_TYPE = SOURCE_UNIT_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Parts</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONTRACT_DEFINITION__PARTS = SOURCE_UNIT_FEATURE_COUNT + 3;
-
-  /**
-   * The number of structural features of the '<em>Contract Definition</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONTRACT_DEFINITION_FEATURE_COUNT = SOURCE_UNIT_FEATURE_COUNT + 4;
-
-  /**
-   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.InheritanceSpecifierImpl <em>Inheritance Specifier</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see com.yakindu.solidity.solidity.impl.InheritanceSpecifierImpl
-   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getInheritanceSpecifier()
-   * @generated
-   */
-  int INHERITANCE_SPECIFIER = 5;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INHERITANCE_SPECIFIER__NAME = 0;
-
-  /**
-   * The number of structural features of the '<em>Inheritance Specifier</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INHERITANCE_SPECIFIER_FEATURE_COUNT = 1;
-
-  /**
-   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.ContractPartImpl <em>Contract Part</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see com.yakindu.solidity.solidity.impl.ContractPartImpl
-   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getContractPart()
-   * @generated
-   */
-  int CONTRACT_PART = 6;
-
-  /**
-   * The feature id for the '<em><b>Parts</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONTRACT_PART__PARTS = 0;
-
-  /**
-   * The number of structural features of the '<em>Contract Part</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONTRACT_PART_FEATURE_COUNT = 1;
-
-  /**
-   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.VariableDeclarationImpl <em>Variable Declaration</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see com.yakindu.solidity.solidity.impl.VariableDeclarationImpl
-   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getVariableDeclaration()
-   * @generated
-   */
-  int VARIABLE_DECLARATION = 7;
-
-  /**
-   * The feature id for the '<em><b>Type</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE_DECLARATION__TYPE = 0;
-
-  /**
-   * The feature id for the '<em><b>Visibility</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE_DECLARATION__VISIBILITY = 1;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE_DECLARATION__NAME = 2;
-
-  /**
-   * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE_DECLARATION__INITIAL_VALUE = 3;
-
-  /**
-   * The number of structural features of the '<em>Variable Declaration</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VARIABLE_DECLARATION_FEATURE_COUNT = 4;
-
-  /**
-   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.StructDefinitionImpl <em>Struct Definition</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see com.yakindu.solidity.solidity.impl.StructDefinitionImpl
-   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getStructDefinition()
-   * @generated
-   */
-  int STRUCT_DEFINITION = 8;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STRUCT_DEFINITION__NAME = 0;
-
-  /**
-   * The feature id for the '<em><b>Declarations</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STRUCT_DEFINITION__DECLARATIONS = 1;
-
-  /**
-   * The number of structural features of the '<em>Struct Definition</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STRUCT_DEFINITION_FEATURE_COUNT = 2;
-
-  /**
-   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.ModifierDefinitionImpl <em>Modifier Definition</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see com.yakindu.solidity.solidity.impl.ModifierDefinitionImpl
-   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getModifierDefinition()
-   * @generated
-   */
-  int MODIFIER_DEFINITION = 9;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MODIFIER_DEFINITION__NAME = 0;
-
-  /**
-   * The feature id for the '<em><b>List</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MODIFIER_DEFINITION__LIST = 1;
-
-  /**
-   * The feature id for the '<em><b>Block</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MODIFIER_DEFINITION__BLOCK = 2;
-
-  /**
-   * The number of structural features of the '<em>Modifier Definition</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MODIFIER_DEFINITION_FEATURE_COUNT = 3;
-
-  /**
    * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.ParameterListImpl <em>Parameter List</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -429,7 +98,7 @@ public interface SolidityPackage extends EPackage
    * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getParameterList()
    * @generated
    */
-  int PARAMETER_LIST = 10;
+  int PARAMETER_LIST = 1;
 
   /**
    * The feature id for the '<em><b>Parameter</b></em>' containment reference list.
@@ -457,7 +126,7 @@ public interface SolidityPackage extends EPackage
    * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getBlock()
    * @generated
    */
-  int BLOCK = 11;
+  int BLOCK = 2;
 
   /**
    * The feature id for the '<em><b>Expression</b></em>' containment reference list.
@@ -485,7 +154,7 @@ public interface SolidityPackage extends EPackage
    * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getModifierInvocationLiteral()
    * @generated
    */
-  int MODIFIER_INVOCATION_LITERAL = 12;
+  int MODIFIER_INVOCATION_LITERAL = 3;
 
   /**
    * The number of structural features of the '<em>Modifier Invocation Literal</em>' class.
@@ -497,14 +166,14 @@ public interface SolidityPackage extends EPackage
   int MODIFIER_INVOCATION_LITERAL_FEATURE_COUNT = ExpressionsPackage.LITERAL_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.FunctionDefinitionImpl <em>Function Definition</em>}' class.
+   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.SourceUnitImpl <em>Source Unit</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see com.yakindu.solidity.solidity.impl.FunctionDefinitionImpl
-   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getFunctionDefinition()
+   * @see com.yakindu.solidity.solidity.impl.SourceUnitImpl
+   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getSourceUnit()
    * @generated
    */
-  int FUNCTION_DEFINITION = 13;
+  int SOURCE_UNIT = 4;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -513,53 +182,71 @@ public interface SolidityPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FUNCTION_DEFINITION__NAME = 0;
+  int SOURCE_UNIT__NAME = TypesPackage.PACKAGE__NAME;
 
   /**
-   * The feature id for the '<em><b>Parameter</b></em>' containment reference.
+   * The feature id for the '<em><b>Member</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FUNCTION_DEFINITION__PARAMETER = 1;
+  int SOURCE_UNIT__MEMBER = TypesPackage.PACKAGE__MEMBER;
 
   /**
-   * The feature id for the '<em><b>Return Parameter</b></em>' containment reference.
+   * The feature id for the '<em><b>Domain</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FUNCTION_DEFINITION__RETURN_PARAMETER = 2;
+  int SOURCE_UNIT__DOMAIN = TypesPackage.PACKAGE__DOMAIN;
 
   /**
-   * The feature id for the '<em><b>Block</b></em>' containment reference.
+   * The feature id for the '<em><b>Import</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FUNCTION_DEFINITION__BLOCK = 3;
+  int SOURCE_UNIT__IMPORT = TypesPackage.PACKAGE__IMPORT;
 
   /**
-   * The number of structural features of the '<em>Function Definition</em>' class.
+   * The feature id for the '<em><b>Pragma</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FUNCTION_DEFINITION_FEATURE_COUNT = 4;
+  int SOURCE_UNIT__PRAGMA = TypesPackage.PACKAGE_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.ParameterImpl <em>Parameter</em>}' class.
+   * The feature id for the '<em><b>Imports</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see com.yakindu.solidity.solidity.impl.ParameterImpl
-   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getParameter()
+   * @generated
+   * @ordered
+   */
+  int SOURCE_UNIT__IMPORTS = TypesPackage.PACKAGE_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Source Unit</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SOURCE_UNIT_FEATURE_COUNT = TypesPackage.PACKAGE_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.PragmaDirectiveImpl <em>Pragma Directive</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.yakindu.solidity.solidity.impl.PragmaDirectiveImpl
+   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getPragmaDirective()
    * @generated
    */
-  int PARAMETER = 14;
+  int PRAGMA_DIRECTIVE = 5;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -568,16 +255,235 @@ public interface SolidityPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PARAMETER__NAME = 0;
+  int PRAGMA_DIRECTIVE__NAME = TypesPackage.PACKAGE_MEMBER__NAME;
 
   /**
-   * The feature id for the '<em><b>Var Args</b></em>' attribute.
+   * The feature id for the '<em><b>Id</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PARAMETER__VAR_ARGS = 1;
+  int PRAGMA_DIRECTIVE__ID = TypesPackage.PACKAGE_MEMBER__ID;
+
+  /**
+   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PRAGMA_DIRECTIVE__ANNOTATIONS = TypesPackage.PACKAGE_MEMBER__ANNOTATIONS;
+
+  /**
+   * The feature id for the '<em><b>Version</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PRAGMA_DIRECTIVE__VERSION = TypesPackage.PACKAGE_MEMBER_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Pragma Directive</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PRAGMA_DIRECTIVE_FEATURE_COUNT = TypesPackage.PACKAGE_MEMBER_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.ImportDirectiveImpl <em>Import Directive</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.yakindu.solidity.solidity.impl.ImportDirectiveImpl
+   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getImportDirective()
+   * @generated
+   */
+  int IMPORT_DIRECTIVE = 6;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPORT_DIRECTIVE__NAME = TypesPackage.PACKAGE_MEMBER__NAME;
+
+  /**
+   * The feature id for the '<em><b>Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPORT_DIRECTIVE__ID = TypesPackage.PACKAGE_MEMBER__ID;
+
+  /**
+   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPORT_DIRECTIVE__ANNOTATIONS = TypesPackage.PACKAGE_MEMBER__ANNOTATIONS;
+
+  /**
+   * The feature id for the '<em><b>Imported Namespace</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPORT_DIRECTIVE__IMPORTED_NAMESPACE = TypesPackage.PACKAGE_MEMBER_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Alias</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPORT_DIRECTIVE__ALIAS = TypesPackage.PACKAGE_MEMBER_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Import Directive</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPORT_DIRECTIVE_FEATURE_COUNT = TypesPackage.PACKAGE_MEMBER_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.ContractDefinitionImpl <em>Contract Definition</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.yakindu.solidity.solidity.impl.ContractDefinitionImpl
+   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getContractDefinition()
+   * @generated
+   */
+  int CONTRACT_DEFINITION = 7;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTRACT_DEFINITION__NAME = TypesPackage.COMPLEX_TYPE__NAME;
+
+  /**
+   * The feature id for the '<em><b>Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTRACT_DEFINITION__ID = TypesPackage.COMPLEX_TYPE__ID;
+
+  /**
+   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTRACT_DEFINITION__ANNOTATIONS = TypesPackage.COMPLEX_TYPE__ANNOTATIONS;
+
+  /**
+   * The feature id for the '<em><b>Constraint</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTRACT_DEFINITION__CONSTRAINT = TypesPackage.COMPLEX_TYPE__CONSTRAINT;
+
+  /**
+   * The feature id for the '<em><b>Abstract</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTRACT_DEFINITION__ABSTRACT = TypesPackage.COMPLEX_TYPE__ABSTRACT;
+
+  /**
+   * The feature id for the '<em><b>Visible</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTRACT_DEFINITION__VISIBLE = TypesPackage.COMPLEX_TYPE__VISIBLE;
+
+  /**
+   * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTRACT_DEFINITION__TYPE_PARAMETERS = TypesPackage.COMPLEX_TYPE__TYPE_PARAMETERS;
+
+  /**
+   * The feature id for the '<em><b>Features</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTRACT_DEFINITION__FEATURES = TypesPackage.COMPLEX_TYPE__FEATURES;
+
+  /**
+   * The feature id for the '<em><b>Super Types</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTRACT_DEFINITION__SUPER_TYPES = TypesPackage.COMPLEX_TYPE__SUPER_TYPES;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTRACT_DEFINITION__TYPE = TypesPackage.COMPLEX_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Contract Definition</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTRACT_DEFINITION_FEATURE_COUNT = TypesPackage.COMPLEX_TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.VariableDefinitionImpl <em>Variable Definition</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.yakindu.solidity.solidity.impl.VariableDefinitionImpl
+   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getVariableDefinition()
+   * @generated
+   */
+  int VARIABLE_DEFINITION = 8;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_DEFINITION__TYPE = TypesPackage.PROPERTY__TYPE;
 
   /**
    * The feature id for the '<em><b>Type Specifier</b></em>' containment reference.
@@ -586,26 +492,7 @@ public interface SolidityPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PARAMETER__TYPE_SPECIFIER = 2;
-
-  /**
-   * The number of structural features of the '<em>Parameter</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PARAMETER_FEATURE_COUNT = 3;
-
-  /**
-   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.EventDefinitionImpl <em>Event Definition</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see com.yakindu.solidity.solidity.impl.EventDefinitionImpl
-   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getEventDefinition()
-   * @generated
-   */
-  int EVENT_DEFINITION = 15;
+  int VARIABLE_DEFINITION__TYPE_SPECIFIER = TypesPackage.PROPERTY__TYPE_SPECIFIER;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -614,26 +501,107 @@ public interface SolidityPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EVENT_DEFINITION__NAME = 0;
+  int VARIABLE_DEFINITION__NAME = TypesPackage.PROPERTY__NAME;
 
   /**
-   * The number of structural features of the '<em>Event Definition</em>' class.
+   * The feature id for the '<em><b>Id</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EVENT_DEFINITION_FEATURE_COUNT = 1;
+  int VARIABLE_DEFINITION__ID = TypesPackage.PROPERTY__ID;
 
   /**
-   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.EnumDefinitionImpl <em>Enum Definition</em>}' class.
+   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see com.yakindu.solidity.solidity.impl.EnumDefinitionImpl
-   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getEnumDefinition()
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_DEFINITION__ANNOTATIONS = TypesPackage.PROPERTY__ANNOTATIONS;
+
+  /**
+   * The feature id for the '<em><b>Const</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_DEFINITION__CONST = TypesPackage.PROPERTY__CONST;
+
+  /**
+   * The feature id for the '<em><b>Readonly</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_DEFINITION__READONLY = TypesPackage.PROPERTY__READONLY;
+
+  /**
+   * The feature id for the '<em><b>External</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_DEFINITION__EXTERNAL = TypesPackage.PROPERTY__EXTERNAL;
+
+  /**
+   * The feature id for the '<em><b>Visibility</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_DEFINITION__VISIBILITY = TypesPackage.PROPERTY_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_DEFINITION__INITIAL_VALUE = TypesPackage.PROPERTY_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Variable Definition</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_DEFINITION_FEATURE_COUNT = TypesPackage.PROPERTY_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.ModifierDefinitionImpl <em>Modifier Definition</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.yakindu.solidity.solidity.impl.ModifierDefinitionImpl
+   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getModifierDefinition()
    * @generated
    */
-  int ENUM_DEFINITION = 16;
+  int MODIFIER_DEFINITION = 9;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODIFIER_DEFINITION__TYPE = TypesPackage.OPERATION__TYPE;
+
+  /**
+   * The feature id for the '<em><b>Type Specifier</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODIFIER_DEFINITION__TYPE_SPECIFIER = TypesPackage.OPERATION__TYPE_SPECIFIER;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -642,25 +610,188 @@ public interface SolidityPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ENUM_DEFINITION__NAME = 0;
+  int MODIFIER_DEFINITION__NAME = TypesPackage.OPERATION__NAME;
 
   /**
-   * The feature id for the '<em><b>Value</b></em>' attribute list.
+   * The feature id for the '<em><b>Id</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ENUM_DEFINITION__VALUE = 1;
+  int MODIFIER_DEFINITION__ID = TypesPackage.OPERATION__ID;
 
   /**
-   * The number of structural features of the '<em>Enum Definition</em>' class.
+   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ENUM_DEFINITION_FEATURE_COUNT = 2;
+  int MODIFIER_DEFINITION__ANNOTATIONS = TypesPackage.OPERATION__ANNOTATIONS;
+
+  /**
+   * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODIFIER_DEFINITION__TYPE_PARAMETERS = TypesPackage.OPERATION__TYPE_PARAMETERS;
+
+  /**
+   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODIFIER_DEFINITION__PARAMETERS = TypesPackage.OPERATION__PARAMETERS;
+
+  /**
+   * The feature id for the '<em><b>Variadic</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODIFIER_DEFINITION__VARIADIC = TypesPackage.OPERATION__VARIADIC;
+
+  /**
+   * The feature id for the '<em><b>List</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODIFIER_DEFINITION__LIST = TypesPackage.OPERATION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Block</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODIFIER_DEFINITION__BLOCK = TypesPackage.OPERATION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Modifier Definition</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODIFIER_DEFINITION_FEATURE_COUNT = TypesPackage.OPERATION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.FunctionDefinitionImpl <em>Function Definition</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.yakindu.solidity.solidity.impl.FunctionDefinitionImpl
+   * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getFunctionDefinition()
+   * @generated
+   */
+  int FUNCTION_DEFINITION = 10;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FUNCTION_DEFINITION__TYPE = TypesPackage.OPERATION__TYPE;
+
+  /**
+   * The feature id for the '<em><b>Type Specifier</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FUNCTION_DEFINITION__TYPE_SPECIFIER = TypesPackage.OPERATION__TYPE_SPECIFIER;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FUNCTION_DEFINITION__NAME = TypesPackage.OPERATION__NAME;
+
+  /**
+   * The feature id for the '<em><b>Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FUNCTION_DEFINITION__ID = TypesPackage.OPERATION__ID;
+
+  /**
+   * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FUNCTION_DEFINITION__ANNOTATIONS = TypesPackage.OPERATION__ANNOTATIONS;
+
+  /**
+   * The feature id for the '<em><b>Type Parameters</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FUNCTION_DEFINITION__TYPE_PARAMETERS = TypesPackage.OPERATION__TYPE_PARAMETERS;
+
+  /**
+   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FUNCTION_DEFINITION__PARAMETERS = TypesPackage.OPERATION__PARAMETERS;
+
+  /**
+   * The feature id for the '<em><b>Variadic</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FUNCTION_DEFINITION__VARIADIC = TypesPackage.OPERATION__VARIADIC;
+
+  /**
+   * The feature id for the '<em><b>Return Types</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FUNCTION_DEFINITION__RETURN_TYPES = TypesPackage.OPERATION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Block</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FUNCTION_DEFINITION__BLOCK = TypesPackage.OPERATION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Function Definition</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FUNCTION_DEFINITION_FEATURE_COUNT = TypesPackage.OPERATION_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link com.yakindu.solidity.solidity.ContractType <em>Contract Type</em>}' enum.
@@ -670,7 +801,7 @@ public interface SolidityPackage extends EPackage
    * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getContractType()
    * @generated
    */
-  int CONTRACT_TYPE = 17;
+  int CONTRACT_TYPE = 11;
 
   /**
    * The meta object id for the '{@link com.yakindu.solidity.solidity.Visibility <em>Visibility</em>}' enum.
@@ -680,7 +811,7 @@ public interface SolidityPackage extends EPackage
    * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getVisibility()
    * @generated
    */
-  int VISIBILITY = 18;
+  int VISIBILITY = 12;
 
 
   /**
@@ -705,6 +836,58 @@ public interface SolidityPackage extends EPackage
   EReference getSolidityModel_Sourceunit();
 
   /**
+   * Returns the meta object for class '{@link com.yakindu.solidity.solidity.ParameterList <em>Parameter List</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Parameter List</em>'.
+   * @see com.yakindu.solidity.solidity.ParameterList
+   * @generated
+   */
+  EClass getParameterList();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.yakindu.solidity.solidity.ParameterList#getParameter <em>Parameter</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Parameter</em>'.
+   * @see com.yakindu.solidity.solidity.ParameterList#getParameter()
+   * @see #getParameterList()
+   * @generated
+   */
+  EReference getParameterList_Parameter();
+
+  /**
+   * Returns the meta object for class '{@link com.yakindu.solidity.solidity.Block <em>Block</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Block</em>'.
+   * @see com.yakindu.solidity.solidity.Block
+   * @generated
+   */
+  EClass getBlock();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.yakindu.solidity.solidity.Block#getExpression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Expression</em>'.
+   * @see com.yakindu.solidity.solidity.Block#getExpression()
+   * @see #getBlock()
+   * @generated
+   */
+  EReference getBlock_Expression();
+
+  /**
+   * Returns the meta object for class '{@link com.yakindu.solidity.solidity.ModifierInvocationLiteral <em>Modifier Invocation Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Modifier Invocation Literal</em>'.
+   * @see com.yakindu.solidity.solidity.ModifierInvocationLiteral
+   * @generated
+   */
+  EClass getModifierInvocationLiteral();
+
+  /**
    * Returns the meta object for class '{@link com.yakindu.solidity.solidity.SourceUnit <em>Source Unit</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -713,6 +896,28 @@ public interface SolidityPackage extends EPackage
    * @generated
    */
   EClass getSourceUnit();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.SourceUnit#getPragma <em>Pragma</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Pragma</em>'.
+   * @see com.yakindu.solidity.solidity.SourceUnit#getPragma()
+   * @see #getSourceUnit()
+   * @generated
+   */
+  EReference getSourceUnit_Pragma();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.yakindu.solidity.solidity.SourceUnit#getImports <em>Imports</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Imports</em>'.
+   * @see com.yakindu.solidity.solidity.SourceUnit#getImports()
+   * @see #getSourceUnit()
+   * @generated
+   */
+  EReference getSourceUnit_Imports();
 
   /**
    * Returns the meta object for class '{@link com.yakindu.solidity.solidity.PragmaDirective <em>Pragma Directive</em>}'.
@@ -725,15 +930,15 @@ public interface SolidityPackage extends EPackage
   EClass getPragmaDirective();
 
   /**
-   * Returns the meta object for the attribute '{@link com.yakindu.solidity.solidity.PragmaDirective#getId <em>Id</em>}'.
+   * Returns the meta object for the attribute '{@link com.yakindu.solidity.solidity.PragmaDirective#getVersion <em>Version</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Id</em>'.
-   * @see com.yakindu.solidity.solidity.PragmaDirective#getId()
+   * @return the meta object for the attribute '<em>Version</em>'.
+   * @see com.yakindu.solidity.solidity.PragmaDirective#getVersion()
    * @see #getPragmaDirective()
    * @generated
    */
-  EAttribute getPragmaDirective_Id();
+  EAttribute getPragmaDirective_Version();
 
   /**
    * Returns the meta object for class '{@link com.yakindu.solidity.solidity.ImportDirective <em>Import Directive</em>}'.
@@ -789,165 +994,36 @@ public interface SolidityPackage extends EPackage
   EAttribute getContractDefinition_Type();
 
   /**
-   * Returns the meta object for the attribute '{@link com.yakindu.solidity.solidity.ContractDefinition#getName <em>Name</em>}'.
+   * Returns the meta object for class '{@link com.yakindu.solidity.solidity.VariableDefinition <em>Variable Definition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see com.yakindu.solidity.solidity.ContractDefinition#getName()
-   * @see #getContractDefinition()
+   * @return the meta object for class '<em>Variable Definition</em>'.
+   * @see com.yakindu.solidity.solidity.VariableDefinition
    * @generated
    */
-  EAttribute getContractDefinition_Name();
+  EClass getVariableDefinition();
 
   /**
-   * Returns the meta object for the containment reference list '{@link com.yakindu.solidity.solidity.ContractDefinition#getSuperType <em>Super Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Super Type</em>'.
-   * @see com.yakindu.solidity.solidity.ContractDefinition#getSuperType()
-   * @see #getContractDefinition()
-   * @generated
-   */
-  EReference getContractDefinition_SuperType();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link com.yakindu.solidity.solidity.ContractDefinition#getParts <em>Parts</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Parts</em>'.
-   * @see com.yakindu.solidity.solidity.ContractDefinition#getParts()
-   * @see #getContractDefinition()
-   * @generated
-   */
-  EReference getContractDefinition_Parts();
-
-  /**
-   * Returns the meta object for class '{@link com.yakindu.solidity.solidity.InheritanceSpecifier <em>Inheritance Specifier</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Inheritance Specifier</em>'.
-   * @see com.yakindu.solidity.solidity.InheritanceSpecifier
-   * @generated
-   */
-  EClass getInheritanceSpecifier();
-
-  /**
-   * Returns the meta object for the attribute '{@link com.yakindu.solidity.solidity.InheritanceSpecifier#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see com.yakindu.solidity.solidity.InheritanceSpecifier#getName()
-   * @see #getInheritanceSpecifier()
-   * @generated
-   */
-  EAttribute getInheritanceSpecifier_Name();
-
-  /**
-   * Returns the meta object for class '{@link com.yakindu.solidity.solidity.ContractPart <em>Contract Part</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Contract Part</em>'.
-   * @see com.yakindu.solidity.solidity.ContractPart
-   * @generated
-   */
-  EClass getContractPart();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link com.yakindu.solidity.solidity.ContractPart#getParts <em>Parts</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Parts</em>'.
-   * @see com.yakindu.solidity.solidity.ContractPart#getParts()
-   * @see #getContractPart()
-   * @generated
-   */
-  EReference getContractPart_Parts();
-
-  /**
-   * Returns the meta object for class '{@link com.yakindu.solidity.solidity.VariableDeclaration <em>Variable Declaration</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Variable Declaration</em>'.
-   * @see com.yakindu.solidity.solidity.VariableDeclaration
-   * @generated
-   */
-  EClass getVariableDeclaration();
-
-  /**
-   * Returns the meta object for the reference '{@link com.yakindu.solidity.solidity.VariableDeclaration#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Type</em>'.
-   * @see com.yakindu.solidity.solidity.VariableDeclaration#getType()
-   * @see #getVariableDeclaration()
-   * @generated
-   */
-  EReference getVariableDeclaration_Type();
-
-  /**
-   * Returns the meta object for the attribute '{@link com.yakindu.solidity.solidity.VariableDeclaration#getVisibility <em>Visibility</em>}'.
+   * Returns the meta object for the attribute '{@link com.yakindu.solidity.solidity.VariableDefinition#getVisibility <em>Visibility</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Visibility</em>'.
-   * @see com.yakindu.solidity.solidity.VariableDeclaration#getVisibility()
-   * @see #getVariableDeclaration()
+   * @see com.yakindu.solidity.solidity.VariableDefinition#getVisibility()
+   * @see #getVariableDefinition()
    * @generated
    */
-  EAttribute getVariableDeclaration_Visibility();
+  EAttribute getVariableDefinition_Visibility();
 
   /**
-   * Returns the meta object for the attribute '{@link com.yakindu.solidity.solidity.VariableDeclaration#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see com.yakindu.solidity.solidity.VariableDeclaration#getName()
-   * @see #getVariableDeclaration()
-   * @generated
-   */
-  EAttribute getVariableDeclaration_Name();
-
-  /**
-   * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.VariableDeclaration#getInitialValue <em>Initial Value</em>}'.
+   * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.VariableDefinition#getInitialValue <em>Initial Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Initial Value</em>'.
-   * @see com.yakindu.solidity.solidity.VariableDeclaration#getInitialValue()
-   * @see #getVariableDeclaration()
+   * @see com.yakindu.solidity.solidity.VariableDefinition#getInitialValue()
+   * @see #getVariableDefinition()
    * @generated
    */
-  EReference getVariableDeclaration_InitialValue();
-
-  /**
-   * Returns the meta object for class '{@link com.yakindu.solidity.solidity.StructDefinition <em>Struct Definition</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Struct Definition</em>'.
-   * @see com.yakindu.solidity.solidity.StructDefinition
-   * @generated
-   */
-  EClass getStructDefinition();
-
-  /**
-   * Returns the meta object for the attribute '{@link com.yakindu.solidity.solidity.StructDefinition#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see com.yakindu.solidity.solidity.StructDefinition#getName()
-   * @see #getStructDefinition()
-   * @generated
-   */
-  EAttribute getStructDefinition_Name();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link com.yakindu.solidity.solidity.StructDefinition#getDeclarations <em>Declarations</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Declarations</em>'.
-   * @see com.yakindu.solidity.solidity.StructDefinition#getDeclarations()
-   * @see #getStructDefinition()
-   * @generated
-   */
-  EReference getStructDefinition_Declarations();
+  EReference getVariableDefinition_InitialValue();
 
   /**
    * Returns the meta object for class '{@link com.yakindu.solidity.solidity.ModifierDefinition <em>Modifier Definition</em>}'.
@@ -958,17 +1034,6 @@ public interface SolidityPackage extends EPackage
    * @generated
    */
   EClass getModifierDefinition();
-
-  /**
-   * Returns the meta object for the attribute '{@link com.yakindu.solidity.solidity.ModifierDefinition#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see com.yakindu.solidity.solidity.ModifierDefinition#getName()
-   * @see #getModifierDefinition()
-   * @generated
-   */
-  EAttribute getModifierDefinition_Name();
 
   /**
    * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.ModifierDefinition#getList <em>List</em>}'.
@@ -993,58 +1058,6 @@ public interface SolidityPackage extends EPackage
   EReference getModifierDefinition_Block();
 
   /**
-   * Returns the meta object for class '{@link com.yakindu.solidity.solidity.ParameterList <em>Parameter List</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Parameter List</em>'.
-   * @see com.yakindu.solidity.solidity.ParameterList
-   * @generated
-   */
-  EClass getParameterList();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link com.yakindu.solidity.solidity.ParameterList#getParameter <em>Parameter</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Parameter</em>'.
-   * @see com.yakindu.solidity.solidity.ParameterList#getParameter()
-   * @see #getParameterList()
-   * @generated
-   */
-  EReference getParameterList_Parameter();
-
-  /**
-   * Returns the meta object for class '{@link com.yakindu.solidity.solidity.Block <em>Block</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Block</em>'.
-   * @see com.yakindu.solidity.solidity.Block
-   * @generated
-   */
-  EClass getBlock();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link com.yakindu.solidity.solidity.Block#getExpression <em>Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Expression</em>'.
-   * @see com.yakindu.solidity.solidity.Block#getExpression()
-   * @see #getBlock()
-   * @generated
-   */
-  EReference getBlock_Expression();
-
-  /**
-   * Returns the meta object for class '{@link com.yakindu.solidity.solidity.ModifierInvocationLiteral <em>Modifier Invocation Literal</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Modifier Invocation Literal</em>'.
-   * @see com.yakindu.solidity.solidity.ModifierInvocationLiteral
-   * @generated
-   */
-  EClass getModifierInvocationLiteral();
-
-  /**
    * Returns the meta object for class '{@link com.yakindu.solidity.solidity.FunctionDefinition <em>Function Definition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1055,37 +1068,15 @@ public interface SolidityPackage extends EPackage
   EClass getFunctionDefinition();
 
   /**
-   * Returns the meta object for the attribute '{@link com.yakindu.solidity.solidity.FunctionDefinition#getName <em>Name</em>}'.
+   * Returns the meta object for the containment reference list '{@link com.yakindu.solidity.solidity.FunctionDefinition#getReturnTypes <em>Return Types</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see com.yakindu.solidity.solidity.FunctionDefinition#getName()
+   * @return the meta object for the containment reference list '<em>Return Types</em>'.
+   * @see com.yakindu.solidity.solidity.FunctionDefinition#getReturnTypes()
    * @see #getFunctionDefinition()
    * @generated
    */
-  EAttribute getFunctionDefinition_Name();
-
-  /**
-   * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.FunctionDefinition#getParameter <em>Parameter</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Parameter</em>'.
-   * @see com.yakindu.solidity.solidity.FunctionDefinition#getParameter()
-   * @see #getFunctionDefinition()
-   * @generated
-   */
-  EReference getFunctionDefinition_Parameter();
-
-  /**
-   * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.FunctionDefinition#getReturnParameter <em>Return Parameter</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Return Parameter</em>'.
-   * @see com.yakindu.solidity.solidity.FunctionDefinition#getReturnParameter()
-   * @see #getFunctionDefinition()
-   * @generated
-   */
-  EReference getFunctionDefinition_ReturnParameter();
+  EReference getFunctionDefinition_ReturnTypes();
 
   /**
    * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.FunctionDefinition#getBlock <em>Block</em>}'.
@@ -1097,102 +1088,6 @@ public interface SolidityPackage extends EPackage
    * @generated
    */
   EReference getFunctionDefinition_Block();
-
-  /**
-   * Returns the meta object for class '{@link com.yakindu.solidity.solidity.Parameter <em>Parameter</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Parameter</em>'.
-   * @see com.yakindu.solidity.solidity.Parameter
-   * @generated
-   */
-  EClass getParameter();
-
-  /**
-   * Returns the meta object for the attribute '{@link com.yakindu.solidity.solidity.Parameter#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see com.yakindu.solidity.solidity.Parameter#getName()
-   * @see #getParameter()
-   * @generated
-   */
-  EAttribute getParameter_Name();
-
-  /**
-   * Returns the meta object for the attribute '{@link com.yakindu.solidity.solidity.Parameter#isVarArgs <em>Var Args</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Var Args</em>'.
-   * @see com.yakindu.solidity.solidity.Parameter#isVarArgs()
-   * @see #getParameter()
-   * @generated
-   */
-  EAttribute getParameter_VarArgs();
-
-  /**
-   * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.Parameter#getTypeSpecifier <em>Type Specifier</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Type Specifier</em>'.
-   * @see com.yakindu.solidity.solidity.Parameter#getTypeSpecifier()
-   * @see #getParameter()
-   * @generated
-   */
-  EReference getParameter_TypeSpecifier();
-
-  /**
-   * Returns the meta object for class '{@link com.yakindu.solidity.solidity.EventDefinition <em>Event Definition</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Event Definition</em>'.
-   * @see com.yakindu.solidity.solidity.EventDefinition
-   * @generated
-   */
-  EClass getEventDefinition();
-
-  /**
-   * Returns the meta object for the attribute '{@link com.yakindu.solidity.solidity.EventDefinition#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see com.yakindu.solidity.solidity.EventDefinition#getName()
-   * @see #getEventDefinition()
-   * @generated
-   */
-  EAttribute getEventDefinition_Name();
-
-  /**
-   * Returns the meta object for class '{@link com.yakindu.solidity.solidity.EnumDefinition <em>Enum Definition</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Enum Definition</em>'.
-   * @see com.yakindu.solidity.solidity.EnumDefinition
-   * @generated
-   */
-  EClass getEnumDefinition();
-
-  /**
-   * Returns the meta object for the attribute '{@link com.yakindu.solidity.solidity.EnumDefinition#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see com.yakindu.solidity.solidity.EnumDefinition#getName()
-   * @see #getEnumDefinition()
-   * @generated
-   */
-  EAttribute getEnumDefinition_Name();
-
-  /**
-   * Returns the meta object for the attribute list '{@link com.yakindu.solidity.solidity.EnumDefinition#getValue <em>Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Value</em>'.
-   * @see com.yakindu.solidity.solidity.EnumDefinition#getValue()
-   * @see #getEnumDefinition()
-   * @generated
-   */
-  EAttribute getEnumDefinition_Value();
 
   /**
    * Returns the meta object for enum '{@link com.yakindu.solidity.solidity.ContractType <em>Contract Type</em>}'.
@@ -1256,240 +1151,6 @@ public interface SolidityPackage extends EPackage
     EReference SOLIDITY_MODEL__SOURCEUNIT = eINSTANCE.getSolidityModel_Sourceunit();
 
     /**
-     * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.SourceUnitImpl <em>Source Unit</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.yakindu.solidity.solidity.impl.SourceUnitImpl
-     * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getSourceUnit()
-     * @generated
-     */
-    EClass SOURCE_UNIT = eINSTANCE.getSourceUnit();
-
-    /**
-     * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.PragmaDirectiveImpl <em>Pragma Directive</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.yakindu.solidity.solidity.impl.PragmaDirectiveImpl
-     * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getPragmaDirective()
-     * @generated
-     */
-    EClass PRAGMA_DIRECTIVE = eINSTANCE.getPragmaDirective();
-
-    /**
-     * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute PRAGMA_DIRECTIVE__ID = eINSTANCE.getPragmaDirective_Id();
-
-    /**
-     * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.ImportDirectiveImpl <em>Import Directive</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.yakindu.solidity.solidity.impl.ImportDirectiveImpl
-     * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getImportDirective()
-     * @generated
-     */
-    EClass IMPORT_DIRECTIVE = eINSTANCE.getImportDirective();
-
-    /**
-     * The meta object literal for the '<em><b>Imported Namespace</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute IMPORT_DIRECTIVE__IMPORTED_NAMESPACE = eINSTANCE.getImportDirective_ImportedNamespace();
-
-    /**
-     * The meta object literal for the '<em><b>Alias</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute IMPORT_DIRECTIVE__ALIAS = eINSTANCE.getImportDirective_Alias();
-
-    /**
-     * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.ContractDefinitionImpl <em>Contract Definition</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.yakindu.solidity.solidity.impl.ContractDefinitionImpl
-     * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getContractDefinition()
-     * @generated
-     */
-    EClass CONTRACT_DEFINITION = eINSTANCE.getContractDefinition();
-
-    /**
-     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute CONTRACT_DEFINITION__TYPE = eINSTANCE.getContractDefinition_Type();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute CONTRACT_DEFINITION__NAME = eINSTANCE.getContractDefinition_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Super Type</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONTRACT_DEFINITION__SUPER_TYPE = eINSTANCE.getContractDefinition_SuperType();
-
-    /**
-     * The meta object literal for the '<em><b>Parts</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONTRACT_DEFINITION__PARTS = eINSTANCE.getContractDefinition_Parts();
-
-    /**
-     * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.InheritanceSpecifierImpl <em>Inheritance Specifier</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.yakindu.solidity.solidity.impl.InheritanceSpecifierImpl
-     * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getInheritanceSpecifier()
-     * @generated
-     */
-    EClass INHERITANCE_SPECIFIER = eINSTANCE.getInheritanceSpecifier();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute INHERITANCE_SPECIFIER__NAME = eINSTANCE.getInheritanceSpecifier_Name();
-
-    /**
-     * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.ContractPartImpl <em>Contract Part</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.yakindu.solidity.solidity.impl.ContractPartImpl
-     * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getContractPart()
-     * @generated
-     */
-    EClass CONTRACT_PART = eINSTANCE.getContractPart();
-
-    /**
-     * The meta object literal for the '<em><b>Parts</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONTRACT_PART__PARTS = eINSTANCE.getContractPart_Parts();
-
-    /**
-     * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.VariableDeclarationImpl <em>Variable Declaration</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.yakindu.solidity.solidity.impl.VariableDeclarationImpl
-     * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getVariableDeclaration()
-     * @generated
-     */
-    EClass VARIABLE_DECLARATION = eINSTANCE.getVariableDeclaration();
-
-    /**
-     * The meta object literal for the '<em><b>Type</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VARIABLE_DECLARATION__TYPE = eINSTANCE.getVariableDeclaration_Type();
-
-    /**
-     * The meta object literal for the '<em><b>Visibility</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VARIABLE_DECLARATION__VISIBILITY = eINSTANCE.getVariableDeclaration_Visibility();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VARIABLE_DECLARATION__NAME = eINSTANCE.getVariableDeclaration_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Initial Value</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VARIABLE_DECLARATION__INITIAL_VALUE = eINSTANCE.getVariableDeclaration_InitialValue();
-
-    /**
-     * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.StructDefinitionImpl <em>Struct Definition</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.yakindu.solidity.solidity.impl.StructDefinitionImpl
-     * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getStructDefinition()
-     * @generated
-     */
-    EClass STRUCT_DEFINITION = eINSTANCE.getStructDefinition();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute STRUCT_DEFINITION__NAME = eINSTANCE.getStructDefinition_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Declarations</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference STRUCT_DEFINITION__DECLARATIONS = eINSTANCE.getStructDefinition_Declarations();
-
-    /**
-     * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.ModifierDefinitionImpl <em>Modifier Definition</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.yakindu.solidity.solidity.impl.ModifierDefinitionImpl
-     * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getModifierDefinition()
-     * @generated
-     */
-    EClass MODIFIER_DEFINITION = eINSTANCE.getModifierDefinition();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute MODIFIER_DEFINITION__NAME = eINSTANCE.getModifierDefinition_Name();
-
-    /**
-     * The meta object literal for the '<em><b>List</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference MODIFIER_DEFINITION__LIST = eINSTANCE.getModifierDefinition_List();
-
-    /**
-     * The meta object literal for the '<em><b>Block</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference MODIFIER_DEFINITION__BLOCK = eINSTANCE.getModifierDefinition_Block();
-
-    /**
      * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.ParameterListImpl <em>Parameter List</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1536,6 +1197,146 @@ public interface SolidityPackage extends EPackage
     EClass MODIFIER_INVOCATION_LITERAL = eINSTANCE.getModifierInvocationLiteral();
 
     /**
+     * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.SourceUnitImpl <em>Source Unit</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.yakindu.solidity.solidity.impl.SourceUnitImpl
+     * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getSourceUnit()
+     * @generated
+     */
+    EClass SOURCE_UNIT = eINSTANCE.getSourceUnit();
+
+    /**
+     * The meta object literal for the '<em><b>Pragma</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SOURCE_UNIT__PRAGMA = eINSTANCE.getSourceUnit_Pragma();
+
+    /**
+     * The meta object literal for the '<em><b>Imports</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SOURCE_UNIT__IMPORTS = eINSTANCE.getSourceUnit_Imports();
+
+    /**
+     * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.PragmaDirectiveImpl <em>Pragma Directive</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.yakindu.solidity.solidity.impl.PragmaDirectiveImpl
+     * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getPragmaDirective()
+     * @generated
+     */
+    EClass PRAGMA_DIRECTIVE = eINSTANCE.getPragmaDirective();
+
+    /**
+     * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PRAGMA_DIRECTIVE__VERSION = eINSTANCE.getPragmaDirective_Version();
+
+    /**
+     * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.ImportDirectiveImpl <em>Import Directive</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.yakindu.solidity.solidity.impl.ImportDirectiveImpl
+     * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getImportDirective()
+     * @generated
+     */
+    EClass IMPORT_DIRECTIVE = eINSTANCE.getImportDirective();
+
+    /**
+     * The meta object literal for the '<em><b>Imported Namespace</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute IMPORT_DIRECTIVE__IMPORTED_NAMESPACE = eINSTANCE.getImportDirective_ImportedNamespace();
+
+    /**
+     * The meta object literal for the '<em><b>Alias</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute IMPORT_DIRECTIVE__ALIAS = eINSTANCE.getImportDirective_Alias();
+
+    /**
+     * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.ContractDefinitionImpl <em>Contract Definition</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.yakindu.solidity.solidity.impl.ContractDefinitionImpl
+     * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getContractDefinition()
+     * @generated
+     */
+    EClass CONTRACT_DEFINITION = eINSTANCE.getContractDefinition();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CONTRACT_DEFINITION__TYPE = eINSTANCE.getContractDefinition_Type();
+
+    /**
+     * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.VariableDefinitionImpl <em>Variable Definition</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.yakindu.solidity.solidity.impl.VariableDefinitionImpl
+     * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getVariableDefinition()
+     * @generated
+     */
+    EClass VARIABLE_DEFINITION = eINSTANCE.getVariableDefinition();
+
+    /**
+     * The meta object literal for the '<em><b>Visibility</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VARIABLE_DEFINITION__VISIBILITY = eINSTANCE.getVariableDefinition_Visibility();
+
+    /**
+     * The meta object literal for the '<em><b>Initial Value</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VARIABLE_DEFINITION__INITIAL_VALUE = eINSTANCE.getVariableDefinition_InitialValue();
+
+    /**
+     * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.ModifierDefinitionImpl <em>Modifier Definition</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.yakindu.solidity.solidity.impl.ModifierDefinitionImpl
+     * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getModifierDefinition()
+     * @generated
+     */
+    EClass MODIFIER_DEFINITION = eINSTANCE.getModifierDefinition();
+
+    /**
+     * The meta object literal for the '<em><b>List</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODIFIER_DEFINITION__LIST = eINSTANCE.getModifierDefinition_List();
+
+    /**
+     * The meta object literal for the '<em><b>Block</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODIFIER_DEFINITION__BLOCK = eINSTANCE.getModifierDefinition_Block();
+
+    /**
      * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.FunctionDefinitionImpl <em>Function Definition</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1546,28 +1347,12 @@ public interface SolidityPackage extends EPackage
     EClass FUNCTION_DEFINITION = eINSTANCE.getFunctionDefinition();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Return Types</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute FUNCTION_DEFINITION__NAME = eINSTANCE.getFunctionDefinition_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Parameter</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FUNCTION_DEFINITION__PARAMETER = eINSTANCE.getFunctionDefinition_Parameter();
-
-    /**
-     * The meta object literal for the '<em><b>Return Parameter</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FUNCTION_DEFINITION__RETURN_PARAMETER = eINSTANCE.getFunctionDefinition_ReturnParameter();
+    EReference FUNCTION_DEFINITION__RETURN_TYPES = eINSTANCE.getFunctionDefinition_ReturnTypes();
 
     /**
      * The meta object literal for the '<em><b>Block</b></em>' containment reference feature.
@@ -1576,84 +1361,6 @@ public interface SolidityPackage extends EPackage
      * @generated
      */
     EReference FUNCTION_DEFINITION__BLOCK = eINSTANCE.getFunctionDefinition_Block();
-
-    /**
-     * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.ParameterImpl <em>Parameter</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.yakindu.solidity.solidity.impl.ParameterImpl
-     * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getParameter()
-     * @generated
-     */
-    EClass PARAMETER = eINSTANCE.getParameter();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute PARAMETER__NAME = eINSTANCE.getParameter_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Var Args</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute PARAMETER__VAR_ARGS = eINSTANCE.getParameter_VarArgs();
-
-    /**
-     * The meta object literal for the '<em><b>Type Specifier</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference PARAMETER__TYPE_SPECIFIER = eINSTANCE.getParameter_TypeSpecifier();
-
-    /**
-     * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.EventDefinitionImpl <em>Event Definition</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.yakindu.solidity.solidity.impl.EventDefinitionImpl
-     * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getEventDefinition()
-     * @generated
-     */
-    EClass EVENT_DEFINITION = eINSTANCE.getEventDefinition();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EVENT_DEFINITION__NAME = eINSTANCE.getEventDefinition_Name();
-
-    /**
-     * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.EnumDefinitionImpl <em>Enum Definition</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.yakindu.solidity.solidity.impl.EnumDefinitionImpl
-     * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getEnumDefinition()
-     * @generated
-     */
-    EClass ENUM_DEFINITION = eINSTANCE.getEnumDefinition();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute ENUM_DEFINITION__NAME = eINSTANCE.getEnumDefinition_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Value</b></em>' attribute list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute ENUM_DEFINITION__VALUE = eINSTANCE.getEnumDefinition_Value();
 
     /**
      * The meta object literal for the '{@link com.yakindu.solidity.solidity.ContractType <em>Contract Type</em>}' enum.

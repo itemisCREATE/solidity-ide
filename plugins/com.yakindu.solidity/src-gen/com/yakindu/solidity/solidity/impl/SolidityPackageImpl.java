@@ -5,24 +5,18 @@ package com.yakindu.solidity.solidity.impl;
 
 import com.yakindu.solidity.solidity.Block;
 import com.yakindu.solidity.solidity.ContractDefinition;
-import com.yakindu.solidity.solidity.ContractPart;
 import com.yakindu.solidity.solidity.ContractType;
-import com.yakindu.solidity.solidity.EnumDefinition;
-import com.yakindu.solidity.solidity.EventDefinition;
 import com.yakindu.solidity.solidity.FunctionDefinition;
 import com.yakindu.solidity.solidity.ImportDirective;
-import com.yakindu.solidity.solidity.InheritanceSpecifier;
 import com.yakindu.solidity.solidity.ModifierDefinition;
 import com.yakindu.solidity.solidity.ModifierInvocationLiteral;
-import com.yakindu.solidity.solidity.Parameter;
 import com.yakindu.solidity.solidity.ParameterList;
 import com.yakindu.solidity.solidity.PragmaDirective;
 import com.yakindu.solidity.solidity.SolidityFactory;
 import com.yakindu.solidity.solidity.SolidityModel;
 import com.yakindu.solidity.solidity.SolidityPackage;
 import com.yakindu.solidity.solidity.SourceUnit;
-import com.yakindu.solidity.solidity.StructDefinition;
-import com.yakindu.solidity.solidity.VariableDeclaration;
+import com.yakindu.solidity.solidity.VariableDefinition;
 import com.yakindu.solidity.solidity.Visibility;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -59,6 +53,27 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass parameterListEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass blockEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass modifierInvocationLiteralEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass sourceUnitEClass = null;
 
   /**
@@ -87,28 +102,7 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass inheritanceSpecifierEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass contractPartEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass variableDeclarationEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass structDefinitionEClass = null;
+  private EClass variableDefinitionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -122,49 +116,7 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass parameterListEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass blockEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass modifierInvocationLiteralEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass functionDefinitionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass parameterEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass eventDefinitionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass enumDefinitionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -230,8 +182,8 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
 
     // Initialize simple dependencies
     ExpressionsPackage.eINSTANCE.eClass();
-    TypesPackage.eINSTANCE.eClass();
     BasePackage.eINSTANCE.eClass();
+    TypesPackage.eINSTANCE.eClass();
 
     // Create package meta-data objects
     theSolidityPackage.createPackageContents();
@@ -273,9 +225,79 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getParameterList()
+  {
+    return parameterListEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getParameterList_Parameter()
+  {
+    return (EReference)parameterListEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getBlock()
+  {
+    return blockEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getBlock_Expression()
+  {
+    return (EReference)blockEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getModifierInvocationLiteral()
+  {
+    return modifierInvocationLiteralEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getSourceUnit()
   {
     return sourceUnitEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSourceUnit_Pragma()
+  {
+    return (EReference)sourceUnitEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSourceUnit_Imports()
+  {
+    return (EReference)sourceUnitEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -293,7 +315,7 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getPragmaDirective_Id()
+  public EAttribute getPragmaDirective_Version()
   {
     return (EAttribute)pragmaDirectiveEClass.getEStructuralFeatures().get(0);
   }
@@ -353,9 +375,9 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getContractDefinition_Name()
+  public EClass getVariableDefinition()
   {
-    return (EAttribute)contractDefinitionEClass.getEStructuralFeatures().get(1);
+    return variableDefinitionEClass;
   }
 
   /**
@@ -363,9 +385,9 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getContractDefinition_SuperType()
+  public EAttribute getVariableDefinition_Visibility()
   {
-    return (EReference)contractDefinitionEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)variableDefinitionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -373,129 +395,9 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getContractDefinition_Parts()
+  public EReference getVariableDefinition_InitialValue()
   {
-    return (EReference)contractDefinitionEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getInheritanceSpecifier()
-  {
-    return inheritanceSpecifierEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getInheritanceSpecifier_Name()
-  {
-    return (EAttribute)inheritanceSpecifierEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getContractPart()
-  {
-    return contractPartEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getContractPart_Parts()
-  {
-    return (EReference)contractPartEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getVariableDeclaration()
-  {
-    return variableDeclarationEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getVariableDeclaration_Type()
-  {
-    return (EReference)variableDeclarationEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getVariableDeclaration_Visibility()
-  {
-    return (EAttribute)variableDeclarationEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getVariableDeclaration_Name()
-  {
-    return (EAttribute)variableDeclarationEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getVariableDeclaration_InitialValue()
-  {
-    return (EReference)variableDeclarationEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getStructDefinition()
-  {
-    return structDefinitionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getStructDefinition_Name()
-  {
-    return (EAttribute)structDefinitionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getStructDefinition_Declarations()
-  {
-    return (EReference)structDefinitionEClass.getEStructuralFeatures().get(1);
+    return (EReference)variableDefinitionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -513,19 +415,9 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getModifierDefinition_Name()
-  {
-    return (EAttribute)modifierDefinitionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getModifierDefinition_List()
   {
-    return (EReference)modifierDefinitionEClass.getEStructuralFeatures().get(1);
+    return (EReference)modifierDefinitionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -535,57 +427,7 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
    */
   public EReference getModifierDefinition_Block()
   {
-    return (EReference)modifierDefinitionEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getParameterList()
-  {
-    return parameterListEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getParameterList_Parameter()
-  {
-    return (EReference)parameterListEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getBlock()
-  {
-    return blockEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getBlock_Expression()
-  {
-    return (EReference)blockEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getModifierInvocationLiteral()
-  {
-    return modifierInvocationLiteralEClass;
+    return (EReference)modifierDefinitionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -603,29 +445,9 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getFunctionDefinition_Name()
+  public EReference getFunctionDefinition_ReturnTypes()
   {
-    return (EAttribute)functionDefinitionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getFunctionDefinition_Parameter()
-  {
-    return (EReference)functionDefinitionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getFunctionDefinition_ReturnParameter()
-  {
-    return (EReference)functionDefinitionEClass.getEStructuralFeatures().get(2);
+    return (EReference)functionDefinitionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -635,97 +457,7 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
    */
   public EReference getFunctionDefinition_Block()
   {
-    return (EReference)functionDefinitionEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getParameter()
-  {
-    return parameterEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getParameter_Name()
-  {
-    return (EAttribute)parameterEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getParameter_VarArgs()
-  {
-    return (EAttribute)parameterEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getParameter_TypeSpecifier()
-  {
-    return (EReference)parameterEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getEventDefinition()
-  {
-    return eventDefinitionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getEventDefinition_Name()
-  {
-    return (EAttribute)eventDefinitionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getEnumDefinition()
-  {
-    return enumDefinitionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getEnumDefinition_Name()
-  {
-    return (EAttribute)enumDefinitionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getEnumDefinition_Value()
-  {
-    return (EAttribute)enumDefinitionEClass.getEStructuralFeatures().get(1);
+    return (EReference)functionDefinitionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -781,42 +513,6 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
     solidityModelEClass = createEClass(SOLIDITY_MODEL);
     createEReference(solidityModelEClass, SOLIDITY_MODEL__SOURCEUNIT);
 
-    sourceUnitEClass = createEClass(SOURCE_UNIT);
-
-    pragmaDirectiveEClass = createEClass(PRAGMA_DIRECTIVE);
-    createEAttribute(pragmaDirectiveEClass, PRAGMA_DIRECTIVE__ID);
-
-    importDirectiveEClass = createEClass(IMPORT_DIRECTIVE);
-    createEAttribute(importDirectiveEClass, IMPORT_DIRECTIVE__IMPORTED_NAMESPACE);
-    createEAttribute(importDirectiveEClass, IMPORT_DIRECTIVE__ALIAS);
-
-    contractDefinitionEClass = createEClass(CONTRACT_DEFINITION);
-    createEAttribute(contractDefinitionEClass, CONTRACT_DEFINITION__TYPE);
-    createEAttribute(contractDefinitionEClass, CONTRACT_DEFINITION__NAME);
-    createEReference(contractDefinitionEClass, CONTRACT_DEFINITION__SUPER_TYPE);
-    createEReference(contractDefinitionEClass, CONTRACT_DEFINITION__PARTS);
-
-    inheritanceSpecifierEClass = createEClass(INHERITANCE_SPECIFIER);
-    createEAttribute(inheritanceSpecifierEClass, INHERITANCE_SPECIFIER__NAME);
-
-    contractPartEClass = createEClass(CONTRACT_PART);
-    createEReference(contractPartEClass, CONTRACT_PART__PARTS);
-
-    variableDeclarationEClass = createEClass(VARIABLE_DECLARATION);
-    createEReference(variableDeclarationEClass, VARIABLE_DECLARATION__TYPE);
-    createEAttribute(variableDeclarationEClass, VARIABLE_DECLARATION__VISIBILITY);
-    createEAttribute(variableDeclarationEClass, VARIABLE_DECLARATION__NAME);
-    createEReference(variableDeclarationEClass, VARIABLE_DECLARATION__INITIAL_VALUE);
-
-    structDefinitionEClass = createEClass(STRUCT_DEFINITION);
-    createEAttribute(structDefinitionEClass, STRUCT_DEFINITION__NAME);
-    createEReference(structDefinitionEClass, STRUCT_DEFINITION__DECLARATIONS);
-
-    modifierDefinitionEClass = createEClass(MODIFIER_DEFINITION);
-    createEAttribute(modifierDefinitionEClass, MODIFIER_DEFINITION__NAME);
-    createEReference(modifierDefinitionEClass, MODIFIER_DEFINITION__LIST);
-    createEReference(modifierDefinitionEClass, MODIFIER_DEFINITION__BLOCK);
-
     parameterListEClass = createEClass(PARAMETER_LIST);
     createEReference(parameterListEClass, PARAMETER_LIST__PARAMETER);
 
@@ -825,23 +521,31 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
 
     modifierInvocationLiteralEClass = createEClass(MODIFIER_INVOCATION_LITERAL);
 
+    sourceUnitEClass = createEClass(SOURCE_UNIT);
+    createEReference(sourceUnitEClass, SOURCE_UNIT__PRAGMA);
+    createEReference(sourceUnitEClass, SOURCE_UNIT__IMPORTS);
+
+    pragmaDirectiveEClass = createEClass(PRAGMA_DIRECTIVE);
+    createEAttribute(pragmaDirectiveEClass, PRAGMA_DIRECTIVE__VERSION);
+
+    importDirectiveEClass = createEClass(IMPORT_DIRECTIVE);
+    createEAttribute(importDirectiveEClass, IMPORT_DIRECTIVE__IMPORTED_NAMESPACE);
+    createEAttribute(importDirectiveEClass, IMPORT_DIRECTIVE__ALIAS);
+
+    contractDefinitionEClass = createEClass(CONTRACT_DEFINITION);
+    createEAttribute(contractDefinitionEClass, CONTRACT_DEFINITION__TYPE);
+
+    variableDefinitionEClass = createEClass(VARIABLE_DEFINITION);
+    createEAttribute(variableDefinitionEClass, VARIABLE_DEFINITION__VISIBILITY);
+    createEReference(variableDefinitionEClass, VARIABLE_DEFINITION__INITIAL_VALUE);
+
+    modifierDefinitionEClass = createEClass(MODIFIER_DEFINITION);
+    createEReference(modifierDefinitionEClass, MODIFIER_DEFINITION__LIST);
+    createEReference(modifierDefinitionEClass, MODIFIER_DEFINITION__BLOCK);
+
     functionDefinitionEClass = createEClass(FUNCTION_DEFINITION);
-    createEAttribute(functionDefinitionEClass, FUNCTION_DEFINITION__NAME);
-    createEReference(functionDefinitionEClass, FUNCTION_DEFINITION__PARAMETER);
-    createEReference(functionDefinitionEClass, FUNCTION_DEFINITION__RETURN_PARAMETER);
+    createEReference(functionDefinitionEClass, FUNCTION_DEFINITION__RETURN_TYPES);
     createEReference(functionDefinitionEClass, FUNCTION_DEFINITION__BLOCK);
-
-    parameterEClass = createEClass(PARAMETER);
-    createEAttribute(parameterEClass, PARAMETER__NAME);
-    createEAttribute(parameterEClass, PARAMETER__VAR_ARGS);
-    createEReference(parameterEClass, PARAMETER__TYPE_SPECIFIER);
-
-    eventDefinitionEClass = createEClass(EVENT_DEFINITION);
-    createEAttribute(eventDefinitionEClass, EVENT_DEFINITION__NAME);
-
-    enumDefinitionEClass = createEClass(ENUM_DEFINITION);
-    createEAttribute(enumDefinitionEClass, ENUM_DEFINITION__NAME);
-    createEAttribute(enumDefinitionEClass, ENUM_DEFINITION__VALUE);
 
     // Create enums
     contractTypeEEnum = createEEnum(CONTRACT_TYPE);
@@ -873,27 +577,41 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
     setNsURI(eNS_URI);
 
     // Obtain other dependent packages
-    ExpressionsPackage theExpressionsPackage = (ExpressionsPackage)EPackage.Registry.INSTANCE.getEPackage(ExpressionsPackage.eNS_URI);
     TypesPackage theTypesPackage = (TypesPackage)EPackage.Registry.INSTANCE.getEPackage(TypesPackage.eNS_URI);
+    ExpressionsPackage theExpressionsPackage = (ExpressionsPackage)EPackage.Registry.INSTANCE.getEPackage(ExpressionsPackage.eNS_URI);
 
     // Create type parameters
 
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    pragmaDirectiveEClass.getESuperTypes().add(this.getSourceUnit());
-    importDirectiveEClass.getESuperTypes().add(this.getSourceUnit());
-    contractDefinitionEClass.getESuperTypes().add(this.getSourceUnit());
     modifierInvocationLiteralEClass.getESuperTypes().add(theExpressionsPackage.getLiteral());
+    sourceUnitEClass.getESuperTypes().add(theTypesPackage.getPackage());
+    pragmaDirectiveEClass.getESuperTypes().add(theTypesPackage.getPackageMember());
+    importDirectiveEClass.getESuperTypes().add(theTypesPackage.getPackageMember());
+    contractDefinitionEClass.getESuperTypes().add(theTypesPackage.getComplexType());
+    variableDefinitionEClass.getESuperTypes().add(theTypesPackage.getProperty());
+    modifierDefinitionEClass.getESuperTypes().add(theTypesPackage.getOperation());
+    functionDefinitionEClass.getESuperTypes().add(theTypesPackage.getOperation());
 
     // Initialize classes and features; add operations and parameters
     initEClass(solidityModelEClass, SolidityModel.class, "SolidityModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getSolidityModel_Sourceunit(), this.getSourceUnit(), null, "sourceunit", null, 0, -1, SolidityModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSolidityModel_Sourceunit(), theTypesPackage.getPackage(), null, "sourceunit", null, 0, -1, SolidityModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(parameterListEClass, ParameterList.class, "ParameterList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getParameterList_Parameter(), theTypesPackage.getParameter(), null, "parameter", null, 0, -1, ParameterList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(blockEClass, Block.class, "Block", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getBlock_Expression(), theExpressionsPackage.getExpression(), null, "expression", null, 0, -1, Block.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(modifierInvocationLiteralEClass, ModifierInvocationLiteral.class, "ModifierInvocationLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(sourceUnitEClass, SourceUnit.class, "SourceUnit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getSourceUnit_Pragma(), theTypesPackage.getPackageMember(), null, "pragma", null, 0, 1, SourceUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSourceUnit_Imports(), theTypesPackage.getPackageMember(), null, "imports", null, 0, -1, SourceUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(pragmaDirectiveEClass, PragmaDirective.class, "PragmaDirective", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getPragmaDirective_Id(), ecorePackage.getEString(), "id", null, 0, 1, PragmaDirective.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPragmaDirective_Version(), ecorePackage.getEString(), "version", null, 0, 1, PragmaDirective.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(importDirectiveEClass, ImportDirective.class, "ImportDirective", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getImportDirective_ImportedNamespace(), ecorePackage.getEString(), "importedNamespace", null, 0, 1, ImportDirective.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -901,56 +619,18 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
 
     initEClass(contractDefinitionEClass, ContractDefinition.class, "ContractDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getContractDefinition_Type(), this.getContractType(), "type", null, 0, 1, ContractDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getContractDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, ContractDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getContractDefinition_SuperType(), this.getInheritanceSpecifier(), null, "superType", null, 0, -1, ContractDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getContractDefinition_Parts(), this.getContractPart(), null, "parts", null, 0, -1, ContractDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(inheritanceSpecifierEClass, InheritanceSpecifier.class, "InheritanceSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getInheritanceSpecifier_Name(), ecorePackage.getEString(), "name", null, 0, 1, InheritanceSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(contractPartEClass, ContractPart.class, "ContractPart", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getContractPart_Parts(), ecorePackage.getEObject(), null, "parts", null, 0, -1, ContractPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(variableDeclarationEClass, VariableDeclaration.class, "VariableDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getVariableDeclaration_Type(), ecorePackage.getEObject(), null, "type", null, 0, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getVariableDeclaration_Visibility(), this.getVisibility(), "visibility", null, 0, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getVariableDeclaration_Name(), ecorePackage.getEString(), "name", null, 0, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVariableDeclaration_InitialValue(), theExpressionsPackage.getExpression(), null, "initialValue", null, 0, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(structDefinitionEClass, StructDefinition.class, "StructDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getStructDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, StructDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getStructDefinition_Declarations(), this.getVariableDeclaration(), null, "declarations", null, 0, -1, StructDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(variableDefinitionEClass, VariableDefinition.class, "VariableDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getVariableDefinition_Visibility(), this.getVisibility(), "visibility", null, 0, 1, VariableDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVariableDefinition_InitialValue(), theExpressionsPackage.getExpression(), null, "initialValue", null, 0, 1, VariableDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(modifierDefinitionEClass, ModifierDefinition.class, "ModifierDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getModifierDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, ModifierDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getModifierDefinition_List(), this.getParameterList(), null, "list", null, 0, 1, ModifierDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getModifierDefinition_Block(), this.getBlock(), null, "block", null, 0, -1, ModifierDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(parameterListEClass, ParameterList.class, "ParameterList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getParameterList_Parameter(), this.getParameter(), null, "parameter", null, 0, -1, ParameterList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(blockEClass, Block.class, "Block", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getBlock_Expression(), theExpressionsPackage.getExpression(), null, "expression", null, 0, -1, Block.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(modifierInvocationLiteralEClass, ModifierInvocationLiteral.class, "ModifierInvocationLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
     initEClass(functionDefinitionEClass, FunctionDefinition.class, "FunctionDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getFunctionDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, FunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFunctionDefinition_Parameter(), this.getParameterList(), null, "parameter", null, 0, 1, FunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFunctionDefinition_ReturnParameter(), this.getParameterList(), null, "returnParameter", null, 0, 1, FunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFunctionDefinition_ReturnTypes(), theTypesPackage.getTypeSpecifier(), null, "returnTypes", null, 0, -1, FunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getFunctionDefinition_Block(), this.getBlock(), null, "block", null, 0, 1, FunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(parameterEClass, Parameter.class, "Parameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getParameter_Name(), ecorePackage.getEString(), "name", null, 0, 1, Parameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getParameter_VarArgs(), ecorePackage.getEBoolean(), "varArgs", null, 0, 1, Parameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getParameter_TypeSpecifier(), theTypesPackage.getTypeSpecifier(), null, "typeSpecifier", null, 0, 1, Parameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(eventDefinitionEClass, EventDefinition.class, "EventDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getEventDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, EventDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(enumDefinitionEClass, EnumDefinition.class, "EnumDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getEnumDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, EnumDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getEnumDefinition_Value(), ecorePackage.getEString(), "value", null, 0, -1, EnumDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(contractTypeEEnum, ContractType.class, "ContractType");

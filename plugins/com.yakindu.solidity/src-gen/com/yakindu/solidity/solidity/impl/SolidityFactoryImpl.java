@@ -67,22 +67,16 @@ public class SolidityFactoryImpl extends EFactoryImpl implements SolidityFactory
     switch (eClass.getClassifierID())
     {
       case SolidityPackage.SOLIDITY_MODEL: return createSolidityModel();
+      case SolidityPackage.PARAMETER_LIST: return createParameterList();
+      case SolidityPackage.BLOCK: return createBlock();
+      case SolidityPackage.MODIFIER_INVOCATION_LITERAL: return createModifierInvocationLiteral();
       case SolidityPackage.SOURCE_UNIT: return createSourceUnit();
       case SolidityPackage.PRAGMA_DIRECTIVE: return createPragmaDirective();
       case SolidityPackage.IMPORT_DIRECTIVE: return createImportDirective();
       case SolidityPackage.CONTRACT_DEFINITION: return createContractDefinition();
-      case SolidityPackage.INHERITANCE_SPECIFIER: return createInheritanceSpecifier();
-      case SolidityPackage.CONTRACT_PART: return createContractPart();
-      case SolidityPackage.VARIABLE_DECLARATION: return createVariableDeclaration();
-      case SolidityPackage.STRUCT_DEFINITION: return createStructDefinition();
+      case SolidityPackage.VARIABLE_DEFINITION: return createVariableDefinition();
       case SolidityPackage.MODIFIER_DEFINITION: return createModifierDefinition();
-      case SolidityPackage.PARAMETER_LIST: return createParameterList();
-      case SolidityPackage.BLOCK: return createBlock();
-      case SolidityPackage.MODIFIER_INVOCATION_LITERAL: return createModifierInvocationLiteral();
       case SolidityPackage.FUNCTION_DEFINITION: return createFunctionDefinition();
-      case SolidityPackage.PARAMETER: return createParameter();
-      case SolidityPackage.EVENT_DEFINITION: return createEventDefinition();
-      case SolidityPackage.ENUM_DEFINITION: return createEnumDefinition();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -142,6 +136,39 @@ public class SolidityFactoryImpl extends EFactoryImpl implements SolidityFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public ParameterList createParameterList()
+  {
+    ParameterListImpl parameterList = new ParameterListImpl();
+    return parameterList;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Block createBlock()
+  {
+    BlockImpl block = new BlockImpl();
+    return block;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ModifierInvocationLiteral createModifierInvocationLiteral()
+  {
+    ModifierInvocationLiteralImpl modifierInvocationLiteral = new ModifierInvocationLiteralImpl();
+    return modifierInvocationLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public SourceUnit createSourceUnit()
   {
     SourceUnitImpl sourceUnit = new SourceUnitImpl();
@@ -186,43 +213,10 @@ public class SolidityFactoryImpl extends EFactoryImpl implements SolidityFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public InheritanceSpecifier createInheritanceSpecifier()
+  public VariableDefinition createVariableDefinition()
   {
-    InheritanceSpecifierImpl inheritanceSpecifier = new InheritanceSpecifierImpl();
-    return inheritanceSpecifier;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ContractPart createContractPart()
-  {
-    ContractPartImpl contractPart = new ContractPartImpl();
-    return contractPart;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public VariableDeclaration createVariableDeclaration()
-  {
-    VariableDeclarationImpl variableDeclaration = new VariableDeclarationImpl();
-    return variableDeclaration;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public StructDefinition createStructDefinition()
-  {
-    StructDefinitionImpl structDefinition = new StructDefinitionImpl();
-    return structDefinition;
+    VariableDefinitionImpl variableDefinition = new VariableDefinitionImpl();
+    return variableDefinition;
   }
 
   /**
@@ -241,76 +235,10 @@ public class SolidityFactoryImpl extends EFactoryImpl implements SolidityFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ParameterList createParameterList()
-  {
-    ParameterListImpl parameterList = new ParameterListImpl();
-    return parameterList;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Block createBlock()
-  {
-    BlockImpl block = new BlockImpl();
-    return block;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ModifierInvocationLiteral createModifierInvocationLiteral()
-  {
-    ModifierInvocationLiteralImpl modifierInvocationLiteral = new ModifierInvocationLiteralImpl();
-    return modifierInvocationLiteral;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public FunctionDefinition createFunctionDefinition()
   {
     FunctionDefinitionImpl functionDefinition = new FunctionDefinitionImpl();
     return functionDefinition;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Parameter createParameter()
-  {
-    ParameterImpl parameter = new ParameterImpl();
-    return parameter;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EventDefinition createEventDefinition()
-  {
-    EventDefinitionImpl eventDefinition = new EventDefinitionImpl();
-    return eventDefinition;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EnumDefinition createEnumDefinition()
-  {
-    EnumDefinitionImpl enumDefinition = new EnumDefinitionImpl();
-    return enumDefinition;
   }
 
   /**

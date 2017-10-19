@@ -4,49 +4,37 @@
 package com.yakindu.solidity.solidity.impl;
 
 import com.yakindu.solidity.solidity.SolidityPackage;
-import com.yakindu.solidity.solidity.VariableDeclaration;
+import com.yakindu.solidity.solidity.VariableDefinition;
 import com.yakindu.solidity.solidity.Visibility;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.yakindu.base.expressions.expressions.Expression;
 
+import org.yakindu.base.types.impl.PropertyImpl;
+
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Variable Declaration</b></em>'.
+ * An implementation of the model object '<em><b>Variable Definition</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.yakindu.solidity.solidity.impl.VariableDeclarationImpl#getType <em>Type</em>}</li>
- *   <li>{@link com.yakindu.solidity.solidity.impl.VariableDeclarationImpl#getVisibility <em>Visibility</em>}</li>
- *   <li>{@link com.yakindu.solidity.solidity.impl.VariableDeclarationImpl#getName <em>Name</em>}</li>
- *   <li>{@link com.yakindu.solidity.solidity.impl.VariableDeclarationImpl#getInitialValue <em>Initial Value</em>}</li>
+ *   <li>{@link com.yakindu.solidity.solidity.impl.VariableDefinitionImpl#getVisibility <em>Visibility</em>}</li>
+ *   <li>{@link com.yakindu.solidity.solidity.impl.VariableDefinitionImpl#getInitialValue <em>Initial Value</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class VariableDeclarationImpl extends MinimalEObjectImpl.Container implements VariableDeclaration
+public class VariableDefinitionImpl extends PropertyImpl implements VariableDefinition
 {
-  /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getType()
-   * @generated
-   * @ordered
-   */
-  protected EObject type;
-
   /**
    * The default value of the '{@link #getVisibility() <em>Visibility</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -68,26 +56,6 @@ public class VariableDeclarationImpl extends MinimalEObjectImpl.Container implem
   protected Visibility visibility = VISIBILITY_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
-  /**
    * The cached value of the '{@link #getInitialValue() <em>Initial Value</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -102,7 +70,7 @@ public class VariableDeclarationImpl extends MinimalEObjectImpl.Container implem
    * <!-- end-user-doc -->
    * @generated
    */
-  protected VariableDeclarationImpl()
+  protected VariableDefinitionImpl()
   {
     super();
   }
@@ -115,50 +83,7 @@ public class VariableDeclarationImpl extends MinimalEObjectImpl.Container implem
   @Override
   protected EClass eStaticClass()
   {
-    return SolidityPackage.Literals.VARIABLE_DECLARATION;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EObject getType()
-  {
-    if (type != null && type.eIsProxy())
-    {
-      InternalEObject oldType = (InternalEObject)type;
-      type = eResolveProxy(oldType);
-      if (type != oldType)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, SolidityPackage.VARIABLE_DECLARATION__TYPE, oldType, type));
-      }
-    }
-    return type;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EObject basicGetType()
-  {
-    return type;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setType(EObject newType)
-  {
-    EObject oldType = type;
-    type = newType;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SolidityPackage.VARIABLE_DECLARATION__TYPE, oldType, type));
+    return SolidityPackage.Literals.VARIABLE_DEFINITION;
   }
 
   /**
@@ -181,30 +106,7 @@ public class VariableDeclarationImpl extends MinimalEObjectImpl.Container implem
     Visibility oldVisibility = visibility;
     visibility = newVisibility == null ? VISIBILITY_EDEFAULT : newVisibility;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SolidityPackage.VARIABLE_DECLARATION__VISIBILITY, oldVisibility, visibility));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SolidityPackage.VARIABLE_DECLARATION__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, SolidityPackage.VARIABLE_DEFINITION__VISIBILITY, oldVisibility, visibility));
   }
 
   /**
@@ -228,7 +130,7 @@ public class VariableDeclarationImpl extends MinimalEObjectImpl.Container implem
     initialValue = newInitialValue;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SolidityPackage.VARIABLE_DECLARATION__INITIAL_VALUE, oldInitialValue, newInitialValue);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SolidityPackage.VARIABLE_DEFINITION__INITIAL_VALUE, oldInitialValue, newInitialValue);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -245,14 +147,14 @@ public class VariableDeclarationImpl extends MinimalEObjectImpl.Container implem
     {
       NotificationChain msgs = null;
       if (initialValue != null)
-        msgs = ((InternalEObject)initialValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SolidityPackage.VARIABLE_DECLARATION__INITIAL_VALUE, null, msgs);
+        msgs = ((InternalEObject)initialValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SolidityPackage.VARIABLE_DEFINITION__INITIAL_VALUE, null, msgs);
       if (newInitialValue != null)
-        msgs = ((InternalEObject)newInitialValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SolidityPackage.VARIABLE_DECLARATION__INITIAL_VALUE, null, msgs);
+        msgs = ((InternalEObject)newInitialValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SolidityPackage.VARIABLE_DEFINITION__INITIAL_VALUE, null, msgs);
       msgs = basicSetInitialValue(newInitialValue, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SolidityPackage.VARIABLE_DECLARATION__INITIAL_VALUE, newInitialValue, newInitialValue));
+      eNotify(new ENotificationImpl(this, Notification.SET, SolidityPackage.VARIABLE_DEFINITION__INITIAL_VALUE, newInitialValue, newInitialValue));
   }
 
   /**
@@ -265,7 +167,7 @@ public class VariableDeclarationImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case SolidityPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
+      case SolidityPackage.VARIABLE_DEFINITION__INITIAL_VALUE:
         return basicSetInitialValue(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -281,14 +183,9 @@ public class VariableDeclarationImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case SolidityPackage.VARIABLE_DECLARATION__TYPE:
-        if (resolve) return getType();
-        return basicGetType();
-      case SolidityPackage.VARIABLE_DECLARATION__VISIBILITY:
+      case SolidityPackage.VARIABLE_DEFINITION__VISIBILITY:
         return getVisibility();
-      case SolidityPackage.VARIABLE_DECLARATION__NAME:
-        return getName();
-      case SolidityPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
+      case SolidityPackage.VARIABLE_DEFINITION__INITIAL_VALUE:
         return getInitialValue();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -304,16 +201,10 @@ public class VariableDeclarationImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case SolidityPackage.VARIABLE_DECLARATION__TYPE:
-        setType((EObject)newValue);
-        return;
-      case SolidityPackage.VARIABLE_DECLARATION__VISIBILITY:
+      case SolidityPackage.VARIABLE_DEFINITION__VISIBILITY:
         setVisibility((Visibility)newValue);
         return;
-      case SolidityPackage.VARIABLE_DECLARATION__NAME:
-        setName((String)newValue);
-        return;
-      case SolidityPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
+      case SolidityPackage.VARIABLE_DEFINITION__INITIAL_VALUE:
         setInitialValue((Expression)newValue);
         return;
     }
@@ -330,16 +221,10 @@ public class VariableDeclarationImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case SolidityPackage.VARIABLE_DECLARATION__TYPE:
-        setType((EObject)null);
-        return;
-      case SolidityPackage.VARIABLE_DECLARATION__VISIBILITY:
+      case SolidityPackage.VARIABLE_DEFINITION__VISIBILITY:
         setVisibility(VISIBILITY_EDEFAULT);
         return;
-      case SolidityPackage.VARIABLE_DECLARATION__NAME:
-        setName(NAME_EDEFAULT);
-        return;
-      case SolidityPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
+      case SolidityPackage.VARIABLE_DEFINITION__INITIAL_VALUE:
         setInitialValue((Expression)null);
         return;
     }
@@ -356,13 +241,9 @@ public class VariableDeclarationImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case SolidityPackage.VARIABLE_DECLARATION__TYPE:
-        return type != null;
-      case SolidityPackage.VARIABLE_DECLARATION__VISIBILITY:
+      case SolidityPackage.VARIABLE_DEFINITION__VISIBILITY:
         return visibility != VISIBILITY_EDEFAULT;
-      case SolidityPackage.VARIABLE_DECLARATION__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case SolidityPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
+      case SolidityPackage.VARIABLE_DEFINITION__INITIAL_VALUE:
         return initialValue != null;
     }
     return super.eIsSet(featureID);
@@ -381,10 +262,8 @@ public class VariableDeclarationImpl extends MinimalEObjectImpl.Container implem
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (visibility: ");
     result.append(visibility);
-    result.append(", name: ");
-    result.append(name);
     result.append(')');
     return result.toString();
   }
 
-} //VariableDeclarationImpl
+} //VariableDefinitionImpl

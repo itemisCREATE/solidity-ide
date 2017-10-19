@@ -3,6 +3,7 @@
  */
 package com.yakindu.solidity.solidity;
 
+import org.yakindu.base.types.PackageMember;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +22,7 @@ package com.yakindu.solidity.solidity;
  * @model
  * @generated
  */
-public interface ImportDirective extends SourceUnit
+public interface ImportDirective extends PackageMember
 {
   /**
    * Returns the value of the '<em><b>Imported Namespace</b></em>' attribute.

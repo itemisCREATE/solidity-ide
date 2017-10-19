@@ -12,7 +12,19 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.yakindu.base.base.NamedElement;
+
 import org.yakindu.base.expressions.expressions.Literal;
+
+import org.yakindu.base.types.AnnotatableElement;
+import org.yakindu.base.types.ComplexType;
+import org.yakindu.base.types.Declaration;
+import org.yakindu.base.types.GenericElement;
+import org.yakindu.base.types.Operation;
+import org.yakindu.base.types.PackageMember;
+import org.yakindu.base.types.Property;
+import org.yakindu.base.types.Type;
+import org.yakindu.base.types.TypedElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -83,6 +95,21 @@ public class SolidityAdapterFactory extends AdapterFactoryImpl
         return createSolidityModelAdapter();
       }
       @Override
+      public Adapter caseParameterList(ParameterList object)
+      {
+        return createParameterListAdapter();
+      }
+      @Override
+      public Adapter caseBlock(Block object)
+      {
+        return createBlockAdapter();
+      }
+      @Override
+      public Adapter caseModifierInvocationLiteral(ModifierInvocationLiteral object)
+      {
+        return createModifierInvocationLiteralAdapter();
+      }
+      @Override
       public Adapter caseSourceUnit(SourceUnit object)
       {
         return createSourceUnitAdapter();
@@ -103,24 +130,9 @@ public class SolidityAdapterFactory extends AdapterFactoryImpl
         return createContractDefinitionAdapter();
       }
       @Override
-      public Adapter caseInheritanceSpecifier(InheritanceSpecifier object)
+      public Adapter caseVariableDefinition(VariableDefinition object)
       {
-        return createInheritanceSpecifierAdapter();
-      }
-      @Override
-      public Adapter caseContractPart(ContractPart object)
-      {
-        return createContractPartAdapter();
-      }
-      @Override
-      public Adapter caseVariableDeclaration(VariableDeclaration object)
-      {
-        return createVariableDeclarationAdapter();
-      }
-      @Override
-      public Adapter caseStructDefinition(StructDefinition object)
-      {
-        return createStructDefinitionAdapter();
+        return createVariableDefinitionAdapter();
       }
       @Override
       public Adapter caseModifierDefinition(ModifierDefinition object)
@@ -128,44 +140,69 @@ public class SolidityAdapterFactory extends AdapterFactoryImpl
         return createModifierDefinitionAdapter();
       }
       @Override
-      public Adapter caseParameterList(ParameterList object)
-      {
-        return createParameterListAdapter();
-      }
-      @Override
-      public Adapter caseBlock(Block object)
-      {
-        return createBlockAdapter();
-      }
-      @Override
-      public Adapter caseModifierInvocationLiteral(ModifierInvocationLiteral object)
-      {
-        return createModifierInvocationLiteralAdapter();
-      }
-      @Override
       public Adapter caseFunctionDefinition(FunctionDefinition object)
       {
         return createFunctionDefinitionAdapter();
       }
       @Override
-      public Adapter caseParameter(Parameter object)
-      {
-        return createParameterAdapter();
-      }
-      @Override
-      public Adapter caseEventDefinition(EventDefinition object)
-      {
-        return createEventDefinitionAdapter();
-      }
-      @Override
-      public Adapter caseEnumDefinition(EnumDefinition object)
-      {
-        return createEnumDefinitionAdapter();
-      }
-      @Override
       public Adapter caseLiteral(Literal object)
       {
         return createLiteralAdapter();
+      }
+      @Override
+      public Adapter caseNamedElement(NamedElement object)
+      {
+        return createNamedElementAdapter();
+      }
+      @Override
+      public Adapter casePackage(org.yakindu.base.types.Package object)
+      {
+        return createPackageAdapter();
+      }
+      @Override
+      public Adapter caseAnnotatableElement(AnnotatableElement object)
+      {
+        return createAnnotatableElementAdapter();
+      }
+      @Override
+      public Adapter casePackageMember(PackageMember object)
+      {
+        return createPackageMemberAdapter();
+      }
+      @Override
+      public Adapter caseType(Type object)
+      {
+        return createTypeAdapter();
+      }
+      @Override
+      public Adapter caseGenericElement(GenericElement object)
+      {
+        return createGenericElementAdapter();
+      }
+      @Override
+      public Adapter caseComplexType(ComplexType object)
+      {
+        return createComplexTypeAdapter();
+      }
+      @Override
+      public Adapter caseTypedElement(TypedElement object)
+      {
+        return createTypedElementAdapter();
+      }
+      @Override
+      public Adapter caseDeclaration(Declaration object)
+      {
+        return createDeclarationAdapter();
+      }
+      @Override
+      public Adapter caseProperty(Property object)
+      {
+        return createPropertyAdapter();
+      }
+      @Override
+      public Adapter caseOperation(Operation object)
+      {
+        return createOperationAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -200,6 +237,51 @@ public class SolidityAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createSolidityModelAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.ParameterList <em>Parameter List</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.yakindu.solidity.solidity.ParameterList
+   * @generated
+   */
+  public Adapter createParameterListAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.Block <em>Block</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.yakindu.solidity.solidity.Block
+   * @generated
+   */
+  public Adapter createBlockAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.ModifierInvocationLiteral <em>Modifier Invocation Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.yakindu.solidity.solidity.ModifierInvocationLiteral
+   * @generated
+   */
+  public Adapter createModifierInvocationLiteralAdapter()
   {
     return null;
   }
@@ -265,61 +347,16 @@ public class SolidityAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.InheritanceSpecifier <em>Inheritance Specifier</em>}'.
+   * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.VariableDefinition <em>Variable Definition</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see com.yakindu.solidity.solidity.InheritanceSpecifier
+   * @see com.yakindu.solidity.solidity.VariableDefinition
    * @generated
    */
-  public Adapter createInheritanceSpecifierAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.ContractPart <em>Contract Part</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.yakindu.solidity.solidity.ContractPart
-   * @generated
-   */
-  public Adapter createContractPartAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.VariableDeclaration <em>Variable Declaration</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.yakindu.solidity.solidity.VariableDeclaration
-   * @generated
-   */
-  public Adapter createVariableDeclarationAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.StructDefinition <em>Struct Definition</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.yakindu.solidity.solidity.StructDefinition
-   * @generated
-   */
-  public Adapter createStructDefinitionAdapter()
+  public Adapter createVariableDefinitionAdapter()
   {
     return null;
   }
@@ -340,51 +377,6 @@ public class SolidityAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.ParameterList <em>Parameter List</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.yakindu.solidity.solidity.ParameterList
-   * @generated
-   */
-  public Adapter createParameterListAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.Block <em>Block</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.yakindu.solidity.solidity.Block
-   * @generated
-   */
-  public Adapter createBlockAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.ModifierInvocationLiteral <em>Modifier Invocation Literal</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.yakindu.solidity.solidity.ModifierInvocationLiteral
-   * @generated
-   */
-  public Adapter createModifierInvocationLiteralAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.FunctionDefinition <em>Function Definition</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -400,51 +392,6 @@ public class SolidityAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.Parameter <em>Parameter</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.yakindu.solidity.solidity.Parameter
-   * @generated
-   */
-  public Adapter createParameterAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.EventDefinition <em>Event Definition</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.yakindu.solidity.solidity.EventDefinition
-   * @generated
-   */
-  public Adapter createEventDefinitionAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.EnumDefinition <em>Enum Definition</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.yakindu.solidity.solidity.EnumDefinition
-   * @generated
-   */
-  public Adapter createEnumDefinitionAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.yakindu.base.expressions.expressions.Literal <em>Literal</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -455,6 +402,171 @@ public class SolidityAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createLiteralAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.yakindu.base.base.NamedElement <em>Named Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.yakindu.base.base.NamedElement
+   * @generated
+   */
+  public Adapter createNamedElementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.yakindu.base.types.Package <em>Package</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.yakindu.base.types.Package
+   * @generated
+   */
+  public Adapter createPackageAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.yakindu.base.types.AnnotatableElement <em>Annotatable Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.yakindu.base.types.AnnotatableElement
+   * @generated
+   */
+  public Adapter createAnnotatableElementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.yakindu.base.types.PackageMember <em>Package Member</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.yakindu.base.types.PackageMember
+   * @generated
+   */
+  public Adapter createPackageMemberAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.yakindu.base.types.Type <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.yakindu.base.types.Type
+   * @generated
+   */
+  public Adapter createTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.yakindu.base.types.GenericElement <em>Generic Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.yakindu.base.types.GenericElement
+   * @generated
+   */
+  public Adapter createGenericElementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.yakindu.base.types.ComplexType <em>Complex Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.yakindu.base.types.ComplexType
+   * @generated
+   */
+  public Adapter createComplexTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.yakindu.base.types.TypedElement <em>Typed Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.yakindu.base.types.TypedElement
+   * @generated
+   */
+  public Adapter createTypedElementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.yakindu.base.types.Declaration <em>Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.yakindu.base.types.Declaration
+   * @generated
+   */
+  public Adapter createDeclarationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.yakindu.base.types.Property <em>Property</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.yakindu.base.types.Property
+   * @generated
+   */
+  public Adapter createPropertyAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.yakindu.base.types.Operation <em>Operation</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.yakindu.base.types.Operation
+   * @generated
+   */
+  public Adapter createOperationAdapter()
   {
     return null;
   }

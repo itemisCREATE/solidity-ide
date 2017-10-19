@@ -7,20 +7,16 @@ import com.google.inject.Inject;
 import com.yakindu.solidity.services.SolidityGrammarAccess;
 import com.yakindu.solidity.solidity.Block;
 import com.yakindu.solidity.solidity.ContractDefinition;
-import com.yakindu.solidity.solidity.ContractPart;
-import com.yakindu.solidity.solidity.EnumDefinition;
-import com.yakindu.solidity.solidity.EventDefinition;
 import com.yakindu.solidity.solidity.FunctionDefinition;
 import com.yakindu.solidity.solidity.ImportDirective;
-import com.yakindu.solidity.solidity.InheritanceSpecifier;
 import com.yakindu.solidity.solidity.ModifierDefinition;
 import com.yakindu.solidity.solidity.ModifierInvocationLiteral;
 import com.yakindu.solidity.solidity.ParameterList;
 import com.yakindu.solidity.solidity.PragmaDirective;
 import com.yakindu.solidity.solidity.SolidityModel;
 import com.yakindu.solidity.solidity.SolidityPackage;
-import com.yakindu.solidity.solidity.StructDefinition;
-import com.yakindu.solidity.solidity.VariableDeclaration;
+import com.yakindu.solidity.solidity.SourceUnit;
+import com.yakindu.solidity.solidity.VariableDefinition;
 import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -30,6 +26,7 @@ import org.eclipse.xtext.ParserRule;
 import org.eclipse.xtext.serializer.ISerializationContext;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
+import org.yakindu.base.base.BasePackage;
 import org.yakindu.base.expressions.expressions.Argument;
 import org.yakindu.base.expressions.expressions.AssignmentExpression;
 import org.yakindu.base.expressions.expressions.BinaryLiteral;
@@ -59,6 +56,8 @@ import org.yakindu.base.expressions.expressions.ShiftExpression;
 import org.yakindu.base.expressions.expressions.StringLiteral;
 import org.yakindu.base.expressions.expressions.TypeCastExpression;
 import org.yakindu.base.expressions.serializer.ExpressionsSemanticSequencer;
+import org.yakindu.base.types.ComplexType;
+import org.yakindu.base.types.Event;
 import org.yakindu.base.types.TypeSpecifier;
 import org.yakindu.base.types.TypesPackage;
 
@@ -166,32 +165,17 @@ public class SoliditySemanticSequencer extends ExpressionsSemanticSequencer {
 			case SolidityPackage.CONTRACT_DEFINITION:
 				sequence_ContractDefinition(context, (ContractDefinition) semanticObject); 
 				return; 
-			case SolidityPackage.CONTRACT_PART:
-				sequence_ContractPart(context, (ContractPart) semanticObject); 
-				return; 
-			case SolidityPackage.ENUM_DEFINITION:
-				sequence_EnumDefinition(context, (EnumDefinition) semanticObject); 
-				return; 
-			case SolidityPackage.EVENT_DEFINITION:
-				sequence_EventDefinition(context, (EventDefinition) semanticObject); 
-				return; 
 			case SolidityPackage.FUNCTION_DEFINITION:
 				sequence_FunctionDefinition(context, (FunctionDefinition) semanticObject); 
 				return; 
 			case SolidityPackage.IMPORT_DIRECTIVE:
 				sequence_ImportDirective(context, (ImportDirective) semanticObject); 
 				return; 
-			case SolidityPackage.INHERITANCE_SPECIFIER:
-				sequence_InheritanceSpecifier(context, (InheritanceSpecifier) semanticObject); 
-				return; 
 			case SolidityPackage.MODIFIER_DEFINITION:
 				sequence_ModifierDefinition(context, (ModifierDefinition) semanticObject); 
 				return; 
 			case SolidityPackage.MODIFIER_INVOCATION_LITERAL:
 				sequence_ModifierInvocationLiteral(context, (ModifierInvocationLiteral) semanticObject); 
-				return; 
-			case SolidityPackage.PARAMETER:
-				sequence_Parameter(context, (com.yakindu.solidity.solidity.Parameter) semanticObject); 
 				return; 
 			case SolidityPackage.PARAMETER_LIST:
 				sequence_ParameterList(context, (ParameterList) semanticObject); 
@@ -202,15 +186,24 @@ public class SoliditySemanticSequencer extends ExpressionsSemanticSequencer {
 			case SolidityPackage.SOLIDITY_MODEL:
 				sequence_SolidityModel(context, (SolidityModel) semanticObject); 
 				return; 
-			case SolidityPackage.STRUCT_DEFINITION:
-				sequence_StructDefinition(context, (StructDefinition) semanticObject); 
+			case SolidityPackage.SOURCE_UNIT:
+				sequence_SourceUnit(context, (SourceUnit) semanticObject); 
 				return; 
-			case SolidityPackage.VARIABLE_DECLARATION:
-				sequence_VariableDeclaration(context, (VariableDeclaration) semanticObject); 
+			case SolidityPackage.VARIABLE_DEFINITION:
+				sequence_VariableDefinition(context, (VariableDefinition) semanticObject); 
 				return; 
 			}
 		else if (epackage == TypesPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
+			case TypesPackage.COMPLEX_TYPE:
+				sequence_StructDefinition(context, (ComplexType) semanticObject); 
+				return; 
+			case TypesPackage.EVENT:
+				sequence_EventDefinition(context, (Event) semanticObject); 
+				return; 
+			case TypesPackage.PARAMETER:
+				sequence_Parameter(context, (org.yakindu.base.types.Parameter) semanticObject); 
+				return; 
 			case TypesPackage.TYPE_SPECIFIER:
 				sequence_TypeSpecifier(context, (TypeSpecifier) semanticObject); 
 				return; 
@@ -233,11 +226,10 @@ public class SoliditySemanticSequencer extends ExpressionsSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     SourceUnit returns ContractDefinition
 	 *     ContractDefinition returns ContractDefinition
 	 *
 	 * Constraint:
-	 *     (type=ContractType name=ID (superType+=InheritanceSpecifier superType+=InheritanceSpecifier*)? parts+=ContractPart*)
+	 *     (type=ContractType name=ID (superTypes+=[ComplexType|QID] superTypes+=[ComplexType|QID]*)? features+=ContractPart*)
 	 */
 	protected void sequence_ContractDefinition(ISerializationContext context, ContractDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -246,46 +238,16 @@ public class SoliditySemanticSequencer extends ExpressionsSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     ContractPart returns ContractPart
-	 *
-	 * Constraint:
-	 *     (
-	 *         parts+=VariableDeclaration | 
-	 *         parts+=StructDefinition | 
-	 *         parts+=ModifierDefinition | 
-	 *         parts+=FunctionDefinition | 
-	 *         parts+=EventDefinition | 
-	 *         parts+=EnumDefinition
-	 *     )
-	 */
-	protected void sequence_ContractPart(ISerializationContext context, ContractPart semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     EnumDefinition returns EnumDefinition
-	 *
-	 * Constraint:
-	 *     (name=ID value+=STRING? value+=STRING*)
-	 */
-	protected void sequence_EnumDefinition(ISerializationContext context, EnumDefinition semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     EventDefinition returns EventDefinition
+	 *     ContractPart returns Event
+	 *     EventDefinition returns Event
 	 *
 	 * Constraint:
 	 *     name=ID
 	 */
-	protected void sequence_EventDefinition(ISerializationContext context, EventDefinition semanticObject) {
+	protected void sequence_EventDefinition(ISerializationContext context, Event semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, SolidityPackage.Literals.EVENT_DEFINITION__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SolidityPackage.Literals.EVENT_DEFINITION__NAME));
+			if (transientValues.isValueTransient(semanticObject, BasePackage.Literals.NAMED_ELEMENT__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, BasePackage.Literals.NAMED_ELEMENT__NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getEventDefinitionAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
@@ -295,10 +257,11 @@ public class SoliditySemanticSequencer extends ExpressionsSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     ContractPart returns FunctionDefinition
 	 *     FunctionDefinition returns FunctionDefinition
 	 *
 	 * Constraint:
-	 *     (name=ID? parameter=ParameterList returnParameter=ParameterList? block=Block?)
+	 *     (name=ID? (parameters+=Parameter parameters+=Parameter*)? returnTypes+=TypeSpecifier* block=Block?)
 	 */
 	protected void sequence_FunctionDefinition(ISerializationContext context, FunctionDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -307,7 +270,6 @@ public class SoliditySemanticSequencer extends ExpressionsSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     SourceUnit returns ImportDirective
 	 *     ImportDirective returns ImportDirective
 	 *
 	 * Constraint:
@@ -320,24 +282,7 @@ public class SoliditySemanticSequencer extends ExpressionsSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     InheritanceSpecifier returns InheritanceSpecifier
-	 *
-	 * Constraint:
-	 *     name=ID
-	 */
-	protected void sequence_InheritanceSpecifier(ISerializationContext context, InheritanceSpecifier semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, SolidityPackage.Literals.INHERITANCE_SPECIFIER__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SolidityPackage.Literals.INHERITANCE_SPECIFIER__NAME));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getInheritanceSpecifierAccess().getNameIDTerminalRuleCall_0(), semanticObject.getName());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
+	 *     ContractPart returns ModifierDefinition
 	 *     ModifierDefinition returns ModifierDefinition
 	 *
 	 * Constraint:
@@ -378,28 +323,36 @@ public class SoliditySemanticSequencer extends ExpressionsSemanticSequencer {
 	 *     Parameter returns Parameter
 	 *
 	 * Constraint:
-	 *     (name=ID varArgs?='...'? typeSpecifier=TypeSpecifier)
+	 *     (typeSpecifier=TypeSpecifier name=ID)
 	 */
-	protected void sequence_Parameter(ISerializationContext context, com.yakindu.solidity.solidity.Parameter semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_Parameter(ISerializationContext context, org.yakindu.base.types.Parameter semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, TypesPackage.Literals.TYPED_ELEMENT__TYPE_SPECIFIER) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TypesPackage.Literals.TYPED_ELEMENT__TYPE_SPECIFIER));
+			if (transientValues.isValueTransient(semanticObject, BasePackage.Literals.NAMED_ELEMENT__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, BasePackage.Literals.NAMED_ELEMENT__NAME));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getParameterAccess().getTypeSpecifierTypeSpecifierParserRuleCall_0_0(), semanticObject.getTypeSpecifier());
+		feeder.accept(grammarAccess.getParameterAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.finish();
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     SourceUnit returns PragmaDirective
 	 *     PragmaDirective returns PragmaDirective
 	 *
 	 * Constraint:
-	 *     id=VERSION
+	 *     version=VERSION
 	 */
 	protected void sequence_PragmaDirective(ISerializationContext context, PragmaDirective semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, SolidityPackage.Literals.PRAGMA_DIRECTIVE__ID) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SolidityPackage.Literals.PRAGMA_DIRECTIVE__ID));
+			if (transientValues.isValueTransient(semanticObject, SolidityPackage.Literals.PRAGMA_DIRECTIVE__VERSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SolidityPackage.Literals.PRAGMA_DIRECTIVE__VERSION));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getPragmaDirectiveAccess().getIdVERSIONTerminalRuleCall_2_0(), semanticObject.getId());
+		feeder.accept(grammarAccess.getPragmaDirectiveAccess().getVersionVERSIONTerminalRuleCall_3_0(), semanticObject.getVersion());
 		feeder.finish();
 	}
 	
@@ -418,24 +371,37 @@ public class SoliditySemanticSequencer extends ExpressionsSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     StructDefinition returns StructDefinition
+	 *     SourceUnit returns SourceUnit
 	 *
 	 * Constraint:
-	 *     (name=ID declarations+=VariableDeclaration*)
+	 *     (pragma=PragmaDirective imports+=ImportDirective* member+=ContractDefinition*)
 	 */
-	protected void sequence_StructDefinition(ISerializationContext context, StructDefinition semanticObject) {
+	protected void sequence_SourceUnit(ISerializationContext context, SourceUnit semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     VariableDeclaration returns VariableDeclaration
+	 *     StructDefinition returns ComplexType
 	 *
 	 * Constraint:
-	 *     (type=[EObject|QID] visibility=Visibility? name=ID initialValue=Expression?)
+	 *     (name=ID features+=VariableDefinition*)
 	 */
-	protected void sequence_VariableDeclaration(ISerializationContext context, VariableDeclaration semanticObject) {
+	protected void sequence_StructDefinition(ISerializationContext context, ComplexType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ContractPart returns VariableDefinition
+	 *     VariableDefinition returns VariableDefinition
+	 *
+	 * Constraint:
+	 *     (typeSpecifier=TypeSpecifier visibility=Visibility? name=ID initialValue=Expression?)
+	 */
+	protected void sequence_VariableDefinition(ISerializationContext context, VariableDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

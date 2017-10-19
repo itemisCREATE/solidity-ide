@@ -5,17 +5,26 @@ package com.yakindu.solidity.solidity.impl;
 
 import com.yakindu.solidity.solidity.Block;
 import com.yakindu.solidity.solidity.FunctionDefinition;
-import com.yakindu.solidity.solidity.ParameterList;
 import com.yakindu.solidity.solidity.SolidityPackage;
+
+import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.yakindu.base.types.TypeSpecifier;
+
+import org.yakindu.base.types.impl.OperationImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,55 +34,23 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.yakindu.solidity.solidity.impl.FunctionDefinitionImpl#getName <em>Name</em>}</li>
- *   <li>{@link com.yakindu.solidity.solidity.impl.FunctionDefinitionImpl#getParameter <em>Parameter</em>}</li>
- *   <li>{@link com.yakindu.solidity.solidity.impl.FunctionDefinitionImpl#getReturnParameter <em>Return Parameter</em>}</li>
+ *   <li>{@link com.yakindu.solidity.solidity.impl.FunctionDefinitionImpl#getReturnTypes <em>Return Types</em>}</li>
  *   <li>{@link com.yakindu.solidity.solidity.impl.FunctionDefinitionImpl#getBlock <em>Block</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class FunctionDefinitionImpl extends MinimalEObjectImpl.Container implements FunctionDefinition
+public class FunctionDefinitionImpl extends OperationImpl implements FunctionDefinition
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getReturnTypes() <em>Return Types</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getReturnTypes()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getParameter() <em>Parameter</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getParameter()
-   * @generated
-   * @ordered
-   */
-  protected ParameterList parameter;
-
-  /**
-   * The cached value of the '{@link #getReturnParameter() <em>Return Parameter</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getReturnParameter()
-   * @generated
-   * @ordered
-   */
-  protected ParameterList returnParameter;
+  protected EList<TypeSpecifier> returnTypes;
 
   /**
    * The cached value of the '{@link #getBlock() <em>Block</em>}' containment reference.
@@ -111,118 +88,13 @@ public class FunctionDefinitionImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
+  public EList<TypeSpecifier> getReturnTypes()
   {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SolidityPackage.FUNCTION_DEFINITION__NAME, oldName, name));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ParameterList getParameter()
-  {
-    return parameter;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetParameter(ParameterList newParameter, NotificationChain msgs)
-  {
-    ParameterList oldParameter = parameter;
-    parameter = newParameter;
-    if (eNotificationRequired())
+    if (returnTypes == null)
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SolidityPackage.FUNCTION_DEFINITION__PARAMETER, oldParameter, newParameter);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
+      returnTypes = new EObjectContainmentEList<TypeSpecifier>(TypeSpecifier.class, this, SolidityPackage.FUNCTION_DEFINITION__RETURN_TYPES);
     }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setParameter(ParameterList newParameter)
-  {
-    if (newParameter != parameter)
-    {
-      NotificationChain msgs = null;
-      if (parameter != null)
-        msgs = ((InternalEObject)parameter).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SolidityPackage.FUNCTION_DEFINITION__PARAMETER, null, msgs);
-      if (newParameter != null)
-        msgs = ((InternalEObject)newParameter).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SolidityPackage.FUNCTION_DEFINITION__PARAMETER, null, msgs);
-      msgs = basicSetParameter(newParameter, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SolidityPackage.FUNCTION_DEFINITION__PARAMETER, newParameter, newParameter));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ParameterList getReturnParameter()
-  {
-    return returnParameter;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetReturnParameter(ParameterList newReturnParameter, NotificationChain msgs)
-  {
-    ParameterList oldReturnParameter = returnParameter;
-    returnParameter = newReturnParameter;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SolidityPackage.FUNCTION_DEFINITION__RETURN_PARAMETER, oldReturnParameter, newReturnParameter);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setReturnParameter(ParameterList newReturnParameter)
-  {
-    if (newReturnParameter != returnParameter)
-    {
-      NotificationChain msgs = null;
-      if (returnParameter != null)
-        msgs = ((InternalEObject)returnParameter).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SolidityPackage.FUNCTION_DEFINITION__RETURN_PARAMETER, null, msgs);
-      if (newReturnParameter != null)
-        msgs = ((InternalEObject)newReturnParameter).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SolidityPackage.FUNCTION_DEFINITION__RETURN_PARAMETER, null, msgs);
-      msgs = basicSetReturnParameter(newReturnParameter, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SolidityPackage.FUNCTION_DEFINITION__RETURN_PARAMETER, newReturnParameter, newReturnParameter));
+    return returnTypes;
   }
 
   /**
@@ -283,10 +155,8 @@ public class FunctionDefinitionImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
-      case SolidityPackage.FUNCTION_DEFINITION__PARAMETER:
-        return basicSetParameter(null, msgs);
-      case SolidityPackage.FUNCTION_DEFINITION__RETURN_PARAMETER:
-        return basicSetReturnParameter(null, msgs);
+      case SolidityPackage.FUNCTION_DEFINITION__RETURN_TYPES:
+        return ((InternalEList<?>)getReturnTypes()).basicRemove(otherEnd, msgs);
       case SolidityPackage.FUNCTION_DEFINITION__BLOCK:
         return basicSetBlock(null, msgs);
     }
@@ -303,12 +173,8 @@ public class FunctionDefinitionImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
-      case SolidityPackage.FUNCTION_DEFINITION__NAME:
-        return getName();
-      case SolidityPackage.FUNCTION_DEFINITION__PARAMETER:
-        return getParameter();
-      case SolidityPackage.FUNCTION_DEFINITION__RETURN_PARAMETER:
-        return getReturnParameter();
+      case SolidityPackage.FUNCTION_DEFINITION__RETURN_TYPES:
+        return getReturnTypes();
       case SolidityPackage.FUNCTION_DEFINITION__BLOCK:
         return getBlock();
     }
@@ -320,19 +186,15 @@ public class FunctionDefinitionImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case SolidityPackage.FUNCTION_DEFINITION__NAME:
-        setName((String)newValue);
-        return;
-      case SolidityPackage.FUNCTION_DEFINITION__PARAMETER:
-        setParameter((ParameterList)newValue);
-        return;
-      case SolidityPackage.FUNCTION_DEFINITION__RETURN_PARAMETER:
-        setReturnParameter((ParameterList)newValue);
+      case SolidityPackage.FUNCTION_DEFINITION__RETURN_TYPES:
+        getReturnTypes().clear();
+        getReturnTypes().addAll((Collection<? extends TypeSpecifier>)newValue);
         return;
       case SolidityPackage.FUNCTION_DEFINITION__BLOCK:
         setBlock((Block)newValue);
@@ -351,14 +213,8 @@ public class FunctionDefinitionImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
-      case SolidityPackage.FUNCTION_DEFINITION__NAME:
-        setName(NAME_EDEFAULT);
-        return;
-      case SolidityPackage.FUNCTION_DEFINITION__PARAMETER:
-        setParameter((ParameterList)null);
-        return;
-      case SolidityPackage.FUNCTION_DEFINITION__RETURN_PARAMETER:
-        setReturnParameter((ParameterList)null);
+      case SolidityPackage.FUNCTION_DEFINITION__RETURN_TYPES:
+        getReturnTypes().clear();
         return;
       case SolidityPackage.FUNCTION_DEFINITION__BLOCK:
         setBlock((Block)null);
@@ -377,33 +233,12 @@ public class FunctionDefinitionImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
-      case SolidityPackage.FUNCTION_DEFINITION__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case SolidityPackage.FUNCTION_DEFINITION__PARAMETER:
-        return parameter != null;
-      case SolidityPackage.FUNCTION_DEFINITION__RETURN_PARAMETER:
-        return returnParameter != null;
+      case SolidityPackage.FUNCTION_DEFINITION__RETURN_TYPES:
+        return returnTypes != null && !returnTypes.isEmpty();
       case SolidityPackage.FUNCTION_DEFINITION__BLOCK:
         return block != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(')');
-    return result.toString();
   }
 
 } //FunctionDefinitionImpl

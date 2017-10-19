@@ -25,7 +25,7 @@ class Declarations {
 	def dispatch declaration(EventDefinition definition) {
 		'''
 			«IF definition.direction.value == 1»
-			function «definition.name»() public react reset {
+			function «definition.name»() public react {
 				lastEvent = Events.«definition.name»;
 			}	
 			«ENDIF»
@@ -46,6 +46,6 @@ class Declarations {
 
 	def dispatch declaration(
 		VariableDefinition variable) {
-		'''«variable.type» public «variable.name»«IF variable.initialValue != null»=«variable.initialValue.code»«ENDIF»;'''
+		'''«variable.type» public «variable.name»«IF variable.initialValue !== null»=«variable.initialValue.code»«ENDIF»;'''
 	}
 }

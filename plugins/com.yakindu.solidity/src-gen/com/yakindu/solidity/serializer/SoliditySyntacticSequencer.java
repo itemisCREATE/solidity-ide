@@ -21,12 +21,14 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 public class SoliditySyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected SolidityGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_FunctionDefinition___ExternalKeyword_3_0_or_InternalKeyword_3_2_or_PrivateKeyword_3_3_or_PublicKeyword_3_1__a;
+	protected AbstractElementAlias match_FunctionDefinition_ReturnsKeyword_7_0_q;
+	protected AbstractElementAlias match_FunctionDefinition___ConstantKeyword_6_4_or_ExternalKeyword_6_0_or_InternalKeyword_6_2_or_PrivateKeyword_6_3_or_PublicKeyword_6_1__a;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (SolidityGrammarAccess) access;
-		match_FunctionDefinition___ExternalKeyword_3_0_or_InternalKeyword_3_2_or_PrivateKeyword_3_3_or_PublicKeyword_3_1__a = new AlternativeAlias(true, true, new TokenAlias(false, false, grammarAccess.getFunctionDefinitionAccess().getExternalKeyword_3_0()), new TokenAlias(false, false, grammarAccess.getFunctionDefinitionAccess().getInternalKeyword_3_2()), new TokenAlias(false, false, grammarAccess.getFunctionDefinitionAccess().getPrivateKeyword_3_3()), new TokenAlias(false, false, grammarAccess.getFunctionDefinitionAccess().getPublicKeyword_3_1()));
+		match_FunctionDefinition_ReturnsKeyword_7_0_q = new TokenAlias(false, true, grammarAccess.getFunctionDefinitionAccess().getReturnsKeyword_7_0());
+		match_FunctionDefinition___ConstantKeyword_6_4_or_ExternalKeyword_6_0_or_InternalKeyword_6_2_or_PrivateKeyword_6_3_or_PublicKeyword_6_1__a = new AlternativeAlias(true, true, new TokenAlias(false, false, grammarAccess.getFunctionDefinitionAccess().getConstantKeyword_6_4()), new TokenAlias(false, false, grammarAccess.getFunctionDefinitionAccess().getExternalKeyword_6_0()), new TokenAlias(false, false, grammarAccess.getFunctionDefinitionAccess().getInternalKeyword_6_2()), new TokenAlias(false, false, grammarAccess.getFunctionDefinitionAccess().getPrivateKeyword_6_3()), new TokenAlias(false, false, grammarAccess.getFunctionDefinitionAccess().getPublicKeyword_6_1()));
 	}
 	
 	@Override
@@ -112,22 +114,46 @@ public class SoliditySyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if (match_FunctionDefinition___ExternalKeyword_3_0_or_InternalKeyword_3_2_or_PrivateKeyword_3_3_or_PublicKeyword_3_1__a.equals(syntax))
-				emit_FunctionDefinition___ExternalKeyword_3_0_or_InternalKeyword_3_2_or_PrivateKeyword_3_3_or_PublicKeyword_3_1__a(semanticObject, getLastNavigableState(), syntaxNodes);
+			if (match_FunctionDefinition_ReturnsKeyword_7_0_q.equals(syntax))
+				emit_FunctionDefinition_ReturnsKeyword_7_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_FunctionDefinition___ConstantKeyword_6_4_or_ExternalKeyword_6_0_or_InternalKeyword_6_2_or_PrivateKeyword_6_3_or_PublicKeyword_6_1__a.equals(syntax))
+				emit_FunctionDefinition___ConstantKeyword_6_4_or_ExternalKeyword_6_0_or_InternalKeyword_6_2_or_PrivateKeyword_6_3_or_PublicKeyword_6_1__a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
 
 	/**
 	 * Ambiguous syntax:
-	 *     ('external' | 'public' | 'internal' | 'private')*
+	 *     'returns'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     parameter=ParameterList (ambiguity) ';' (rule end)
-	 *     parameter=ParameterList (ambiguity) 'returns' returnParameter=ParameterList
-	 *     parameter=ParameterList (ambiguity) block=Block
+	 *     (rule start) 'function' '(' ')' ('constant' | 'public' | 'private' | 'external' | 'internal')* (ambiguity) ';' (rule start)
+	 *     (rule start) 'function' '(' ')' ('constant' | 'public' | 'private' | 'external' | 'internal')* (ambiguity) block=Block
+	 *     name=ID '(' ')' ('constant' | 'public' | 'private' | 'external' | 'internal')* (ambiguity) ';' (rule end)
+	 *     name=ID '(' ')' ('constant' | 'public' | 'private' | 'external' | 'internal')* (ambiguity) block=Block
+	 *     parameters+=Parameter ')' ('constant' | 'public' | 'private' | 'external' | 'internal')* (ambiguity) ';' (rule end)
+	 *     parameters+=Parameter ')' ('constant' | 'public' | 'private' | 'external' | 'internal')* (ambiguity) block=Block
 	 */
-	protected void emit_FunctionDefinition___ExternalKeyword_3_0_or_InternalKeyword_3_2_or_PrivateKeyword_3_3_or_PublicKeyword_3_1__a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_FunctionDefinition_ReturnsKeyword_7_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('constant' | 'public' | 'private' | 'external' | 'internal')*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) 'function' '(' ')' (ambiguity) 'returns' returnTypes+=TypeSpecifier
+	 *     (rule start) 'function' '(' ')' (ambiguity) 'returns'? ';' (rule start)
+	 *     (rule start) 'function' '(' ')' (ambiguity) 'returns'? block=Block
+	 *     name=ID '(' ')' (ambiguity) 'returns' returnTypes+=TypeSpecifier
+	 *     name=ID '(' ')' (ambiguity) 'returns'? ';' (rule end)
+	 *     name=ID '(' ')' (ambiguity) 'returns'? block=Block
+	 *     parameters+=Parameter ')' (ambiguity) 'returns' returnTypes+=TypeSpecifier
+	 *     parameters+=Parameter ')' (ambiguity) 'returns'? ';' (rule end)
+	 *     parameters+=Parameter ')' (ambiguity) 'returns'? block=Block
+	 */
+	protected void emit_FunctionDefinition___ConstantKeyword_6_4_or_ExternalKeyword_6_0_or_InternalKeyword_6_2_or_PrivateKeyword_6_3_or_PublicKeyword_6_1__a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

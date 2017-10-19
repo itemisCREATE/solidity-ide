@@ -12,6 +12,8 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.yakindu.base.types.impl.PackageMemberImpl;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Pragma Directive</b></em>'.
@@ -20,32 +22,32 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.yakindu.solidity.solidity.impl.PragmaDirectiveImpl#getId <em>Id</em>}</li>
+ *   <li>{@link com.yakindu.solidity.solidity.impl.PragmaDirectiveImpl#getVersion <em>Version</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class PragmaDirectiveImpl extends SourceUnitImpl implements PragmaDirective
+public class PragmaDirectiveImpl extends PackageMemberImpl implements PragmaDirective
 {
   /**
-   * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+   * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getId()
+   * @see #getVersion()
    * @generated
    * @ordered
    */
-  protected static final String ID_EDEFAULT = null;
+  protected static final String VERSION_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+   * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getId()
+   * @see #getVersion()
    * @generated
    * @ordered
    */
-  protected String id = ID_EDEFAULT;
+  protected String version = VERSION_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -73,9 +75,9 @@ public class PragmaDirectiveImpl extends SourceUnitImpl implements PragmaDirecti
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getId()
+  public String getVersion()
   {
-    return id;
+    return version;
   }
 
   /**
@@ -83,12 +85,12 @@ public class PragmaDirectiveImpl extends SourceUnitImpl implements PragmaDirecti
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setId(String newId)
+  public void setVersion(String newVersion)
   {
-    String oldId = id;
-    id = newId;
+    String oldVersion = version;
+    version = newVersion;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SolidityPackage.PRAGMA_DIRECTIVE__ID, oldId, id));
+      eNotify(new ENotificationImpl(this, Notification.SET, SolidityPackage.PRAGMA_DIRECTIVE__VERSION, oldVersion, version));
   }
 
   /**
@@ -101,8 +103,8 @@ public class PragmaDirectiveImpl extends SourceUnitImpl implements PragmaDirecti
   {
     switch (featureID)
     {
-      case SolidityPackage.PRAGMA_DIRECTIVE__ID:
-        return getId();
+      case SolidityPackage.PRAGMA_DIRECTIVE__VERSION:
+        return getVersion();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -117,8 +119,8 @@ public class PragmaDirectiveImpl extends SourceUnitImpl implements PragmaDirecti
   {
     switch (featureID)
     {
-      case SolidityPackage.PRAGMA_DIRECTIVE__ID:
-        setId((String)newValue);
+      case SolidityPackage.PRAGMA_DIRECTIVE__VERSION:
+        setVersion((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -134,8 +136,8 @@ public class PragmaDirectiveImpl extends SourceUnitImpl implements PragmaDirecti
   {
     switch (featureID)
     {
-      case SolidityPackage.PRAGMA_DIRECTIVE__ID:
-        setId(ID_EDEFAULT);
+      case SolidityPackage.PRAGMA_DIRECTIVE__VERSION:
+        setVersion(VERSION_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -151,8 +153,8 @@ public class PragmaDirectiveImpl extends SourceUnitImpl implements PragmaDirecti
   {
     switch (featureID)
     {
-      case SolidityPackage.PRAGMA_DIRECTIVE__ID:
-        return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+      case SolidityPackage.PRAGMA_DIRECTIVE__VERSION:
+        return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
     }
     return super.eIsSet(featureID);
   }
@@ -168,8 +170,8 @@ public class PragmaDirectiveImpl extends SourceUnitImpl implements PragmaDirecti
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (id: ");
-    result.append(id);
+    result.append(" (version: ");
+    result.append(version);
     result.append(')');
     return result.toString();
   }

@@ -3,7 +3,6 @@
  */
 package com.yakindu.solidity.solidity.impl;
 
-import com.yakindu.solidity.solidity.Parameter;
 import com.yakindu.solidity.solidity.ParameterList;
 import com.yakindu.solidity.solidity.SolidityPackage;
 
@@ -20,6 +19,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.yakindu.base.types.Parameter;
 
 /**
  * <!-- begin-user-doc -->

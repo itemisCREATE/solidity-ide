@@ -7,6 +7,8 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.yakindu.base.types.Parameter;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Parameter List</b></em>'.
@@ -27,7 +29,7 @@ public interface ParameterList extends EObject
 {
   /**
    * Returns the value of the '<em><b>Parameter</b></em>' containment reference list.
-   * The list contents are of type {@link com.yakindu.solidity.solidity.Parameter}.
+   * The list contents are of type {@link org.yakindu.base.types.Parameter}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Parameter</em>' containment reference list isn't clear,

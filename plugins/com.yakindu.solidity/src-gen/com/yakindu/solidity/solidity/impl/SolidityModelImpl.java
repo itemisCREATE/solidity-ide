@@ -5,7 +5,6 @@ package com.yakindu.solidity.solidity.impl;
 
 import com.yakindu.solidity.solidity.SolidityModel;
 import com.yakindu.solidity.solidity.SolidityPackage;
-import com.yakindu.solidity.solidity.SourceUnit;
 
 import java.util.Collection;
 
@@ -44,7 +43,7 @@ public class SolidityModelImpl extends MinimalEObjectImpl.Container implements S
    * @generated
    * @ordered
    */
-  protected EList<SourceUnit> sourceunit;
+  protected EList<org.yakindu.base.types.Package> sourceunit;
 
   /**
    * <!-- begin-user-doc -->
@@ -72,11 +71,11 @@ public class SolidityModelImpl extends MinimalEObjectImpl.Container implements S
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<SourceUnit> getSourceunit()
+  public EList<org.yakindu.base.types.Package> getSourceunit()
   {
     if (sourceunit == null)
     {
-      sourceunit = new EObjectContainmentEList<SourceUnit>(SourceUnit.class, this, SolidityPackage.SOLIDITY_MODEL__SOURCEUNIT);
+      sourceunit = new EObjectContainmentEList<org.yakindu.base.types.Package>(org.yakindu.base.types.Package.class, this, SolidityPackage.SOLIDITY_MODEL__SOURCEUNIT);
     }
     return sourceunit;
   }
@@ -126,7 +125,7 @@ public class SolidityModelImpl extends MinimalEObjectImpl.Container implements S
     {
       case SolidityPackage.SOLIDITY_MODEL__SOURCEUNIT:
         getSourceunit().clear();
-        getSourceunit().addAll((Collection<? extends SourceUnit>)newValue);
+        getSourceunit().addAll((Collection<? extends org.yakindu.base.types.Package>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

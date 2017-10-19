@@ -27,7 +27,7 @@ public interface SolidityModel extends EObject
 {
   /**
    * Returns the value of the '<em><b>Sourceunit</b></em>' containment reference list.
-   * The list contents are of type {@link com.yakindu.solidity.solidity.SourceUnit}.
+   * The list contents are of type {@link org.yakindu.base.types.Package}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Sourceunit</em>' containment reference list isn't clear,
@@ -39,6 +39,6 @@ public interface SolidityModel extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<SourceUnit> getSourceunit();
+  EList<org.yakindu.base.types.Package> getSourceunit();
 
 } // SolidityModel

@@ -14,10 +14,12 @@ import org.yakindu.base.types.inferrer.ITypeSystemInferrer;
 import org.yakindu.base.types.typesystem.ITypeSystem;
 import org.yakindu.sct.domain.extension.DomainRegistry;
 import org.yakindu.sct.model.stext.STextRuntimeModule;
+import org.yakindu.sct.model.stext.scoping.IPackageImport2URIMapper;
 import org.yakindu.sct.model.stext.validation.STextJavaValidator;
 
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
+import com.yakindu.sct.domain.solidity.scoping.SolidityImportUriMapper;
 import com.yakindu.sct.domain.solidity.scoping.SolidityScopeProvider;
 import com.yakindu.sct.domain.solidity.typesystem.SolidityTypeInferrer;
 import com.yakindu.sct.domain.solidity.typesystem.SolidityTypeSystem;
@@ -31,6 +33,11 @@ public class SolidityRuntimeModule extends STextRuntimeModule {
 		binder.bind(String.class).annotatedWith(Names.named(DomainRegistry.DOMAIN_ID))
 				.toInstance("com.yakindu.domain.solidity");
 	}
+	
+	public Class<? extends IPackageImport2URIMapper> bindIPackageImport2URIMapper() {
+		return SolidityImportUriMapper.class;
+	}
+
 
 	@Override
 	protected ITypeSystem getTypeSystem() {

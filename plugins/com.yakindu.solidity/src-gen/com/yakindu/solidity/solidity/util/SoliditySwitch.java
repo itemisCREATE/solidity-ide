@@ -10,7 +10,19 @@ import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
 
+import org.yakindu.base.base.NamedElement;
+
 import org.yakindu.base.expressions.expressions.Literal;
+
+import org.yakindu.base.types.AnnotatableElement;
+import org.yakindu.base.types.ComplexType;
+import org.yakindu.base.types.Declaration;
+import org.yakindu.base.types.GenericElement;
+import org.yakindu.base.types.Operation;
+import org.yakindu.base.types.PackageMember;
+import org.yakindu.base.types.Property;
+import org.yakindu.base.types.Type;
+import org.yakindu.base.types.TypedElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -82,72 +94,6 @@ public class SoliditySwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case SolidityPackage.SOURCE_UNIT:
-      {
-        SourceUnit sourceUnit = (SourceUnit)theEObject;
-        T result = caseSourceUnit(sourceUnit);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case SolidityPackage.PRAGMA_DIRECTIVE:
-      {
-        PragmaDirective pragmaDirective = (PragmaDirective)theEObject;
-        T result = casePragmaDirective(pragmaDirective);
-        if (result == null) result = caseSourceUnit(pragmaDirective);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case SolidityPackage.IMPORT_DIRECTIVE:
-      {
-        ImportDirective importDirective = (ImportDirective)theEObject;
-        T result = caseImportDirective(importDirective);
-        if (result == null) result = caseSourceUnit(importDirective);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case SolidityPackage.CONTRACT_DEFINITION:
-      {
-        ContractDefinition contractDefinition = (ContractDefinition)theEObject;
-        T result = caseContractDefinition(contractDefinition);
-        if (result == null) result = caseSourceUnit(contractDefinition);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case SolidityPackage.INHERITANCE_SPECIFIER:
-      {
-        InheritanceSpecifier inheritanceSpecifier = (InheritanceSpecifier)theEObject;
-        T result = caseInheritanceSpecifier(inheritanceSpecifier);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case SolidityPackage.CONTRACT_PART:
-      {
-        ContractPart contractPart = (ContractPart)theEObject;
-        T result = caseContractPart(contractPart);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case SolidityPackage.VARIABLE_DECLARATION:
-      {
-        VariableDeclaration variableDeclaration = (VariableDeclaration)theEObject;
-        T result = caseVariableDeclaration(variableDeclaration);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case SolidityPackage.STRUCT_DEFINITION:
-      {
-        StructDefinition structDefinition = (StructDefinition)theEObject;
-        T result = caseStructDefinition(structDefinition);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case SolidityPackage.MODIFIER_DEFINITION:
-      {
-        ModifierDefinition modifierDefinition = (ModifierDefinition)theEObject;
-        T result = caseModifierDefinition(modifierDefinition);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case SolidityPackage.PARAMETER_LIST:
       {
         ParameterList parameterList = (ParameterList)theEObject;
@@ -170,31 +116,86 @@ public class SoliditySwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case SolidityPackage.SOURCE_UNIT:
+      {
+        SourceUnit sourceUnit = (SourceUnit)theEObject;
+        T result = caseSourceUnit(sourceUnit);
+        if (result == null) result = casePackage(sourceUnit);
+        if (result == null) result = caseNamedElement(sourceUnit);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SolidityPackage.PRAGMA_DIRECTIVE:
+      {
+        PragmaDirective pragmaDirective = (PragmaDirective)theEObject;
+        T result = casePragmaDirective(pragmaDirective);
+        if (result == null) result = casePackageMember(pragmaDirective);
+        if (result == null) result = caseNamedElement(pragmaDirective);
+        if (result == null) result = caseAnnotatableElement(pragmaDirective);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SolidityPackage.IMPORT_DIRECTIVE:
+      {
+        ImportDirective importDirective = (ImportDirective)theEObject;
+        T result = caseImportDirective(importDirective);
+        if (result == null) result = casePackageMember(importDirective);
+        if (result == null) result = caseNamedElement(importDirective);
+        if (result == null) result = caseAnnotatableElement(importDirective);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SolidityPackage.CONTRACT_DEFINITION:
+      {
+        ContractDefinition contractDefinition = (ContractDefinition)theEObject;
+        T result = caseContractDefinition(contractDefinition);
+        if (result == null) result = caseComplexType(contractDefinition);
+        if (result == null) result = caseType(contractDefinition);
+        if (result == null) result = caseGenericElement(contractDefinition);
+        if (result == null) result = casePackageMember(contractDefinition);
+        if (result == null) result = caseNamedElement(contractDefinition);
+        if (result == null) result = caseAnnotatableElement(contractDefinition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SolidityPackage.VARIABLE_DEFINITION:
+      {
+        VariableDefinition variableDefinition = (VariableDefinition)theEObject;
+        T result = caseVariableDefinition(variableDefinition);
+        if (result == null) result = caseProperty(variableDefinition);
+        if (result == null) result = caseDeclaration(variableDefinition);
+        if (result == null) result = caseTypedElement(variableDefinition);
+        if (result == null) result = casePackageMember(variableDefinition);
+        if (result == null) result = caseNamedElement(variableDefinition);
+        if (result == null) result = caseAnnotatableElement(variableDefinition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SolidityPackage.MODIFIER_DEFINITION:
+      {
+        ModifierDefinition modifierDefinition = (ModifierDefinition)theEObject;
+        T result = caseModifierDefinition(modifierDefinition);
+        if (result == null) result = caseOperation(modifierDefinition);
+        if (result == null) result = caseDeclaration(modifierDefinition);
+        if (result == null) result = caseGenericElement(modifierDefinition);
+        if (result == null) result = caseTypedElement(modifierDefinition);
+        if (result == null) result = casePackageMember(modifierDefinition);
+        if (result == null) result = caseNamedElement(modifierDefinition);
+        if (result == null) result = caseAnnotatableElement(modifierDefinition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case SolidityPackage.FUNCTION_DEFINITION:
       {
         FunctionDefinition functionDefinition = (FunctionDefinition)theEObject;
         T result = caseFunctionDefinition(functionDefinition);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case SolidityPackage.PARAMETER:
-      {
-        Parameter parameter = (Parameter)theEObject;
-        T result = caseParameter(parameter);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case SolidityPackage.EVENT_DEFINITION:
-      {
-        EventDefinition eventDefinition = (EventDefinition)theEObject;
-        T result = caseEventDefinition(eventDefinition);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case SolidityPackage.ENUM_DEFINITION:
-      {
-        EnumDefinition enumDefinition = (EnumDefinition)theEObject;
-        T result = caseEnumDefinition(enumDefinition);
+        if (result == null) result = caseOperation(functionDefinition);
+        if (result == null) result = caseDeclaration(functionDefinition);
+        if (result == null) result = caseGenericElement(functionDefinition);
+        if (result == null) result = caseTypedElement(functionDefinition);
+        if (result == null) result = casePackageMember(functionDefinition);
+        if (result == null) result = caseNamedElement(functionDefinition);
+        if (result == null) result = caseAnnotatableElement(functionDefinition);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -214,6 +215,54 @@ public class SoliditySwitch<T> extends Switch<T>
    * @generated
    */
   public T caseSolidityModel(SolidityModel object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Parameter List</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Parameter List</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseParameterList(ParameterList object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Block</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Block</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseBlock(Block object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Modifier Invocation Literal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Modifier Invocation Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseModifierInvocationLiteral(ModifierInvocationLiteral object)
   {
     return null;
   }
@@ -283,65 +332,17 @@ public class SoliditySwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Inheritance Specifier</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Variable Definition</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Inheritance Specifier</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Variable Definition</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseInheritanceSpecifier(InheritanceSpecifier object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Contract Part</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Contract Part</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseContractPart(ContractPart object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Variable Declaration</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Variable Declaration</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseVariableDeclaration(VariableDeclaration object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Struct Definition</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Struct Definition</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseStructDefinition(StructDefinition object)
+  public T caseVariableDefinition(VariableDefinition object)
   {
     return null;
   }
@@ -363,54 +364,6 @@ public class SoliditySwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Parameter List</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Parameter List</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseParameterList(ParameterList object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Block</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Block</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseBlock(Block object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Modifier Invocation Literal</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Modifier Invocation Literal</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseModifierInvocationLiteral(ModifierInvocationLiteral object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Function Definition</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -427,54 +380,6 @@ public class SoliditySwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Parameter</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Parameter</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseParameter(Parameter object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Event Definition</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Event Definition</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseEventDefinition(EventDefinition object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Enum Definition</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Enum Definition</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseEnumDefinition(EnumDefinition object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Literal</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -486,6 +391,182 @@ public class SoliditySwitch<T> extends Switch<T>
    * @generated
    */
   public T caseLiteral(Literal object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Named Element</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Named Element</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseNamedElement(NamedElement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Package</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Package</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePackage(org.yakindu.base.types.Package object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Annotatable Element</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Annotatable Element</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAnnotatableElement(AnnotatableElement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Package Member</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Package Member</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePackageMember(PackageMember object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseType(Type object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Generic Element</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Generic Element</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseGenericElement(GenericElement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Complex Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Complex Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseComplexType(ComplexType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Typed Element</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Typed Element</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTypedElement(TypedElement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDeclaration(Declaration object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Property</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseProperty(Property object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Operation</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Operation</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseOperation(Operation object)
   {
     return null;
   }

@@ -13,20 +13,15 @@ import java.util.List
 import org.yakindu.base.expressions.expressions.Argument
 import org.yakindu.base.expressions.expressions.ArgumentExpression
 import org.yakindu.base.expressions.expressions.AssignmentExpression
-import org.yakindu.base.expressions.expressions.BoolLiteral
-import org.yakindu.base.expressions.expressions.DoubleLiteral
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
 import org.yakindu.base.expressions.expressions.Expression
 import org.yakindu.base.expressions.expressions.FeatureCall
-import org.yakindu.base.expressions.expressions.FloatLiteral
-import org.yakindu.base.expressions.expressions.IntLiteral
-import org.yakindu.base.expressions.expressions.ParenthesizedExpression
 import org.yakindu.base.expressions.expressions.PrimitiveValueExpression
 import org.yakindu.base.expressions.expressions.TypeCastExpression
-import org.yakindu.base.expressions.generator.ExpressionsGenerator
 import org.yakindu.base.types.Declaration
 import org.yakindu.base.types.Operation
 import org.yakindu.base.types.Property
+import org.yakindu.sct.generator.core.templates.ExpressionsGenerator
 import org.yakindu.sct.model.sexec.Call
 import org.yakindu.sct.model.sexec.Check
 import org.yakindu.sct.model.sexec.CheckRef
@@ -47,7 +42,7 @@ class ExpressionCode extends ExpressionsGenerator {
 
 	@Inject extension Naming
 
-	def dispatch CharSequence code(PrimitiveValueExpression it) {
+	override dispatch CharSequence code(PrimitiveValueExpression it) {
 		'''«it.value.code»'''
 	}
 
@@ -68,7 +63,6 @@ class ExpressionCode extends ExpressionsGenerator {
 	def dispatch CharSequence code(Execution it) {
 		'''«it.statement.code»'''
 	}
-
 
 	def dispatch CharSequence code(ExitState it) {
 		'''«it.name»'''
@@ -107,8 +101,8 @@ class ExpressionCode extends ExpressionsGenerator {
 		if («check.code.toString.trim») {
 			«thenStep.code»
 		}«IF elseStep !== null» else {
-			«elseStep.code»
-		}
+				«elseStep.code»
+			}
 		«ENDIF»
 	'''
 
@@ -128,7 +122,7 @@ class ExpressionCode extends ExpressionsGenerator {
 		'''«it.step.code»'''
 	}
 
-	def dispatch CharSequence code(AssignmentExpression it) {
+	override dispatch CharSequence code(AssignmentExpression it) {
 		'''
 			«it.varRef.code»«it.operator»«it.expression.code»;
 		'''
@@ -138,28 +132,16 @@ class ExpressionCode extends ExpressionsGenerator {
 		'''«it.reference.code»«FOR expression : it.expressions»«expression.code»«ENDFOR»'''
 	}
 
-	def dispatch CharSequence code(ParenthesizedExpression it) {
-		'''«it.expression.code»'''
-	}
-
 	def dispatch CharSequence code(Argument it) {
 		'''«it.value.code»'''
 	}
-	
+
 	def dispatch String code(EventValueReferenceExpression it) {
 		value.code.toString
 	}
-	
-	def dispatch String code(TypeCastExpression it) {
+
+	override dispatch String code(TypeCastExpression it) {
 		'''«type.name»(«it.operand.code»)'''
 	}
-
-	def dispatch CharSequence code(BoolLiteral it) '''«value.toString»'''
-
-	def dispatch CharSequence code(IntLiteral it) '''«value.toString»'''
-
-	def dispatch CharSequence code(DoubleLiteral it) '''«value.toString»'''
-
-	def dispatch CharSequence code(FloatLiteral it) '''«value.toString»'''
 
 }

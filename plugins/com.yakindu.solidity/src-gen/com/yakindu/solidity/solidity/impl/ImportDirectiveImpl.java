@@ -12,6 +12,8 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.yakindu.base.types.impl.PackageMemberImpl;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Import Directive</b></em>'.
@@ -26,7 +28,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class ImportDirectiveImpl extends SourceUnitImpl implements ImportDirective
+public class ImportDirectiveImpl extends PackageMemberImpl implements ImportDirective
 {
   /**
    * The default value of the '{@link #getImportedNamespace() <em>Imported Namespace</em>}' attribute.
