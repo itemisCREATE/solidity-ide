@@ -20,10 +20,10 @@ import org.yakindu.sct.model.stext.validation.STextJavaValidator;
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
 import com.yakindu.sct.domain.solidity.scoping.SolidityImportUriMapper;
-import com.yakindu.sct.domain.solidity.scoping.SolidityScopeProvider;
-import com.yakindu.sct.domain.solidity.typesystem.SolidityTypeInferrer;
-import com.yakindu.sct.domain.solidity.typesystem.SolidityTypeSystem;
 import com.yakindu.sct.domain.solidity.validation.SolidityJavaValidator;
+import com.yakindu.solidity.scoping.SolidityScopeProvider;
+import com.yakindu.solidity.typesystem.SolidityTypeInferrer;
+import com.yakindu.solidity.typesystem.SolidityTypeSystem;
 
 public class SolidityRuntimeModule extends STextRuntimeModule {
 

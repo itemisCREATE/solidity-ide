@@ -1,13 +1,4 @@
-/**
- * Copyright (c) 2017 itemis AG - All rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * 
- * Contributors:
- * 	Andreas Muelder - itemis AG
- * 	Florian Antony - itemis AG
- * 
- */
-package com.yakindu.sct.domain.solidity.typesystem
+package com.yakindu.solidity.typesystem
 
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer.InferenceResult
 import org.yakindu.base.types.typesystem.ITypeSystem
@@ -24,5 +15,5 @@ class SolidityTypeInferrer extends STextTypeInferrer {
 		}
 		super.assertAssignable(varResult, valueResult, msg);
 	}
-	
+
 }

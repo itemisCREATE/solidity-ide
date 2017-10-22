@@ -15,6 +15,7 @@ Require-Bundle: org.eclipse.ui,
  org.yakindu.sct.model.stext,
  org.eclipse.xtext.ide,
  org.eclipse.xtext.ui,
- org.yakindu.sct.model.stext.ui
+ org.yakindu.sct.model.stext.ui,
+ com.yakindu.solidity
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy

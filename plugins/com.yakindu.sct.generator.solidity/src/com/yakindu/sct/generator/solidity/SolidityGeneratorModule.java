@@ -17,7 +17,7 @@ import org.yakindu.sct.generator.core.types.ICodegenTypeSystemAccess;
 import org.yakindu.sct.model.sgen.GeneratorEntry;
 
 import com.google.inject.Binder;
-import com.yakindu.sct.domain.solidity.typesystem.SolidityTypeSystem;
+import com.yakindu.solidity.typesystem.SolidityTypeSystem;
 
 /**
  * @author Florian Antony
