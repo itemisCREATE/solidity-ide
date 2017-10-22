@@ -37,7 +37,7 @@ Workflow {
 			}
 			
 		}
-		language = StandardLanguage {
+		language = config.SolidityWorkflowLanguage {
 			name = "com.yakindu.solidity.Solidity"
 			fileExtensions = "sol"
 			serializer = {
