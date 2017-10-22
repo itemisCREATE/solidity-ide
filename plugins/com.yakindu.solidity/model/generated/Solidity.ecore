@@ -18,16 +18,35 @@
     <eLiterals name="CONSTANT" value="3" literal="constant"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ParameterList">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Parameter"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Block">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
-        containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Block" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
+        eType="#//Statement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModifierInvocationLiteral" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Literal"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Statement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ReturnStatement" eSuperTypes="#//Statement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ExpressionStatement" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IfStatement" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="then" eType="#//Statement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="else" eType="#//Statement"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WhileStatement" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//Statement"
+        containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SourceUnit" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Package">
     <eStructuralFeatures xsi:type="ecore:EReference" name="pragma" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//PackageMember"
         containment="true"/>
@@ -57,7 +76,12 @@
         eType="#//Block" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FunctionDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Operation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="list" eType="#//ParameterList"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="returnTypes" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//TypeSpecifier"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="retunTypes" upperBound="-1"
         eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//TypeSpecifier"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="block" eType="#//Block"

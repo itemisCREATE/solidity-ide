@@ -1,12 +1,3 @@
-/**
- * Copyright (c) 2017 itemis AG - All rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * 
- * Contributors:
- * 	Andreas Muelder - itemis AG
- * 	Florian Antony - itemis AG
- * 
- */
 package com.yakindu.sct.domain.solidity.modules;
 
 import org.eclipse.xtext.scoping.IScopeProvider;
@@ -27,17 +18,17 @@ import com.yakindu.solidity.typesystem.SolidityTypeSystem;
 
 public class SolidityRuntimeModule extends STextRuntimeModule {
 
+	public static final String DOMAIN_SOLIDITY = "com.yakindu.domain.solidity";
+
 	@Override
 	public void configure(Binder binder) {
 		super.configure(binder);
-		binder.bind(String.class).annotatedWith(Names.named(DomainRegistry.DOMAIN_ID))
-				.toInstance("com.yakindu.domain.solidity");
+		binder.bind(String.class).annotatedWith(Names.named(DomainRegistry.DOMAIN_ID)).toInstance(DOMAIN_SOLIDITY);
 	}
-	
+
 	public Class<? extends IPackageImport2URIMapper> bindIPackageImport2URIMapper() {
 		return SolidityImportUriMapper.class;
 	}
-
 
 	@Override
 	protected ITypeSystem getTypeSystem() {
@@ -54,7 +45,7 @@ public class SolidityRuntimeModule extends STextRuntimeModule {
 	public Class<? extends ITypeSystemInferrer> bindITypeSystemInferrer() {
 		return SolidityTypeInferrer.class;
 	}
-	
+
 	@Override
 	public Class<? extends IScopeProvider> bindIScopeProvider() {
 		return SolidityScopeProvider.class;

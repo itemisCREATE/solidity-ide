@@ -4,6 +4,7 @@ import com.google.inject.Singleton
 import org.yakindu.base.types.typesystem.GenericTypeSystem
 
 import static org.yakindu.base.types.TypesFactory.*
+import org.yakindu.base.types.typesystem.ITypeSystem
 
 @Singleton
 public class SolidityTypeSystem extends GenericTypeSystem {
@@ -196,6 +197,12 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 						type = getType("uint256")
 					]
 					name = "amount"
+				]
+			]
+			type.features += eINSTANCE.createOperation => [
+				name = "call"
+				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+					type = getType(ITypeSystem.BOOLEAN)
 				]
 			]
 		]

@@ -6,6 +6,7 @@ import com.yakindu.solidity.typesystem.SolidityTypeInferrer
 import com.yakindu.solidity.typesystem.SolidityTypeSystem
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
+import com.yakindu.solidity.scoping.SolidityScopeProvider
 
 class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 
@@ -14,9 +15,13 @@ class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 		binder.bind(ITypeSystem).to(SolidityTypeSystem);
 		binder.bind(ITypeSystemInferrer).to(SolidityTypeInferrer)
 	}
-	
+
 	override bindIGlobalScopeProvider() {
 		SolidityGlobalScopeProvider
 	}
 
-} 
+	override bindIScopeProvider() {
+		SolidityScopeProvider
+	}
+
+}
