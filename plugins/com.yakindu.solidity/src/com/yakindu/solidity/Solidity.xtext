@@ -13,9 +13,9 @@ terminal VERSION:
 
 SourceUnit returns types::Package:
 	{SourceUnit}
-	pragma=PragmaDirective
+	(pragma=PragmaDirective)?
 	(imports+=ImportDirective)* 
-	(member+=ContractDefinition)*;
+	member+=ContractDefinition;
 
 PragmaDirective returns types::PackageMember:
 	{PragmaDirective}'pragma' 'solidity' version=VERSION ';';
