@@ -13,7 +13,7 @@ terminal VERSION:
 
 SourceUnit returns types::Package:
 	{SourceUnit}
-	pragma=PragmaDirective 
+	pragma=PragmaDirective
 	(imports+=ImportDirective)* 
 	(member+=ContractDefinition)*;
 

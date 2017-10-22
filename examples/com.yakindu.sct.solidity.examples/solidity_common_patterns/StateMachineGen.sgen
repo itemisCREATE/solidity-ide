@@ -1,0 +1,10 @@
+GeneratorModel for yakindu::solidity {
+
+	statechart StateMachine {
+
+		feature Outlet {
+			targetProject = "com.yakindu.sct.solidity.examples"
+			targetFolder = "solidity_common_patterns/src-gen"
+		}
+	}
+} 
