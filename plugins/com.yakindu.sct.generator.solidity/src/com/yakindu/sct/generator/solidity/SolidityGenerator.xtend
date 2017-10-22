@@ -28,7 +28,7 @@ class SolidityGenerator implements IExecutionFlowGenerator {
 
 	def CharSequence interfaceContractContent(ExecutionFlow flow, GeneratorEntry entry) {
 		'''
-			pragma solidity ^0.4.16;
+			pragma solidity ^0.4.18;
 			
 			import '«flow.name»State';
 			contract «flow.name» {

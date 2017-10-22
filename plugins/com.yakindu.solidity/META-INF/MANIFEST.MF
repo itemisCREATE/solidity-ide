@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: com.yakindu.solidity
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: com.yakindu.solidity; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common,
+ org.yakindu.base.expressions,
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtext.util,
+ org.eclipse.xtend.lib,
+ org.eclipse.emf.common,
+ org.antlr.runtime,
+ org.yakindu.base.types,
+ com.yakindu.sct.domain.solidity;bundle-version="1.0.0",
+ org.yakindu.sct.model.stext
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: com.yakindu.solidity.solidity.util,
+ com.yakindu.solidity,
+ com.yakindu.solidity.serializer,
+ com.yakindu.solidity.validation,
+ com.yakindu.solidity.scoping,
+ com.yakindu.solidity.solidity,
+ com.yakindu.solidity.generator,
+ com.yakindu.solidity.services,
+ com.yakindu.solidity.solidity.impl,
+ com.yakindu.solidity.parser.antlr,
+ com.yakindu.solidity.parser.antlr.internal
+Import-Package: org.apache.log4j

@@ -12,7 +12,13 @@ package com.yakindu.sct.domain.solidity.ui.simulation;
 import org.yakindu.sct.domain.extension.IModuleProvider;
 import org.yakindu.sct.domain.generic.simulation.SimulationModuleProvider;
 
+import com.google.inject.Module;
+
 public class SoliditySimulationModuleProvider extends SimulationModuleProvider implements IModuleProvider {
 
+	@Override
+	public Module getModule(String... options) {
+		return new SoliditySimulationModule();
+	}
 	
 }

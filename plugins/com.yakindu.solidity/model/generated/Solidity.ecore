@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="solidity" nsURI="http://www.yakindu.com/solidity/Solidity" nsPrefix="solidity">
+  <eClassifiers xsi:type="ecore:EClass" name="SolidityModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceunit" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Package"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ContractType">
+    <eLiterals name="CONTRACT" literal="contract"/>
+    <eLiterals name="LIBRARY" value="1" literal="library"/>
+    <eLiterals name="INTERFACE" value="2" literal="interface"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Visibility">
+    <eLiterals name="PUBLIC" literal="public"/>
+    <eLiterals name="INTERNAL" value="1" literal="internal"/>
+    <eLiterals name="PRIVATE" value="2" literal="private"/>
+    <eLiterals name="CONSTANT" value="3" literal="constant"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ParameterList">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Parameter"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Block">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModifierInvocationLiteral" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Literal"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SourceUnit" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Package">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pragma" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//PackageMember"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//PackageMember"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PragmaDirective" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//PackageMember">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ImportDirective" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//PackageMember">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="importedNamespace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alias" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ContractDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//ComplexType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ContractType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VariableDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Property">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visibility" eType="#//Visibility"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="initialValue" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModifierDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Operation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="list" eType="#//ParameterList"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="block" upperBound="-1"
+        eType="#//Block" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FunctionDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Operation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="returnTypes" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//TypeSpecifier"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="block" eType="#//Block"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

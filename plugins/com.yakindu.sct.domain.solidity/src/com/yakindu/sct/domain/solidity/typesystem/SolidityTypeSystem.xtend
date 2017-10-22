@@ -61,11 +61,19 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 		declareSuperType(getType(BYTE), getType(INTEGER))
 		BYTE.declareExplicitSizeTypes(1);
 
-		declareType(createAddress(), ADDRESS)
-		declareSuperType(getType(INTEGER), getType(ADDRESS))
+		var address = createAddress()
+		declareType(address, ADDRESS)
+		resource.getContents().add(address);
 		
-		declareType(createMessage(), MESSAGE)
-		declareType(createMapping(), MAPPING)
+		declareSuperType(getType(INTEGER), getType(ADDRESS))
+		var msg = createMessage()
+		declareType(msg, MESSAGE)
+		resource.getContents().add(msg);
+		
+		declareType(createTransaction(), "Transaction")
+		var block = createBlock()
+		declareType(block, "Block")
+		resource.getContents().add(block);
 	}
 
 	def declareExplicitSizeTypes(String superType,int bitPerStep) {
@@ -78,48 +86,10 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 		}
 	}
 
-	def createMapping() {
-		eINSTANCE.createComplexType => [ type |
-			type.name = "mapping"
-			type.typeParameters += eINSTANCE.createTypeParameter => [
-				name = "key"
-			]
-			type.typeParameters += eINSTANCE.createTypeParameter => [
-				name = "value"
-			]
-			type.features += eINSTANCE.createOperation => [
-				name = "get"
-				parameters += eINSTANCE.createParameter => [
-					name = "key"
-					typeSpecifier = eINSTANCE.createTypeSpecifier => [
-						type = type.typeParameters.head
-					]
-				]
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
-					type = type.typeParameters.get(1)
-				]
-			]
-			type.features += eINSTANCE.createOperation => [
-				name = "put"
-				parameters += eINSTANCE.createParameter => [
-					name = "key"
-					typeSpecifier = eINSTANCE.createTypeSpecifier => [
-						type = type.typeParameters.head
-					]
-				]
-				parameters += eINSTANCE.createParameter => [
-					name = "value"
-					typeSpecifier = eINSTANCE.createTypeSpecifier => [
-						type = type.typeParameters.get(1)
-					]
-				]
-			]
-		]
-	}
-
 	def createMessage() {
 		eINSTANCE.createComplexType => [ type |
 			type.name = "message"
+			type.abstract = true
 			type.features += eINSTANCE.createProperty => [
 				name = "gas"
 				typeSpecifier = eINSTANCE.createTypeSpecifier => [
@@ -141,6 +111,83 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 			]
 		]
 
+	}
+	
+	def createTransaction(){
+		 eINSTANCE.createComplexType => [ type |
+			type.name = "transaction"
+			type.features += eINSTANCE.createProperty => [
+				name = "gasprice"
+				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+					type = getType("uint")
+				]
+				readonly = true
+			]
+			
+			type.features += eINSTANCE.createProperty => [
+				name = "origin"
+				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+					type = getType("address")
+				]
+				readonly = true
+			]
+		]
+	}
+	
+	def createBlock(){
+		 eINSTANCE.createComplexType => [ type |
+			type.name = "block"
+			type.features += eINSTANCE.createProperty => [
+				name = "coinbase"
+				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+					type = getType("address")
+				]
+				readonly = true
+			]
+			
+			type.features += eINSTANCE.createProperty => [
+				name = "difficulty"
+				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+					type = getType("uint")
+				]
+				readonly = true
+			]
+			type.features += eINSTANCE.createProperty => [
+				name = "gaslimit"
+				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+					type = getType("uint")
+				]
+				readonly = true
+			]
+			type.features += eINSTANCE.createProperty => [
+				name = "number"
+				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+					type = getType("uint")
+				]
+				readonly = true
+			]
+			type.features += eINSTANCE.createProperty => [
+				name = "timestamp"
+				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+					type = getType("uint")
+				]
+				readonly = true
+			]
+			//Blockhash
+			type.features += eINSTANCE.createOperation => [
+				name = "blockhash"
+				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+					type = getType("bytes32")
+				]
+				parameters += eINSTANCE.createParameter => [
+					typeSpecifier = eINSTANCE.createTypeSpecifier => [
+						type = getType("uint")
+					]
+					name = "blockNumber"
+				]
+			]
+		]
+		 
 	}
 
 	def createAddress() {

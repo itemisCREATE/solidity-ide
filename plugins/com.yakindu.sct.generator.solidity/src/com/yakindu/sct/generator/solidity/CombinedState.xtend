@@ -9,9 +9,9 @@
 package com.yakindu.sct.generator.solidity
 
 import com.google.inject.Inject
+import org.yakindu.base.types.Event
 import org.yakindu.sct.model.sexec.ExecutionFlow
 import org.yakindu.sct.model.sgen.GeneratorEntry
-import org.yakindu.sct.model.sgraph.Transition
 import org.yakindu.sct.model.stext.stext.EventDefinition
 
 /**
@@ -25,73 +25,48 @@ class CombinedState implements Template {
 
 	override content(ExecutionFlow flow, GeneratorEntry entry) {
 		'''
-			pragma solidity ^0.4.16;
-			contract «flow.toName»Statemachine {
-				enum States {
-					«FOR state : flow.states SEPARATOR ','»        
-						«state.toName»
-					«ENDFOR» 
-				}
-				
-				enum Events {
-					«FOR scope : flow.interfaceScopes»
-						«FOR declaration : scope.declarations.filter[it instanceof EventDefinition] SEPARATOR ','»«declaration.toName»«ENDFOR»,nullEvent
-					«ENDFOR»
-				}
-					
-				// This is the current state.
-				States public activeState = States.«flow.states.get(0).toName»;
-				
-				Events private lastEvent = Events.nullEvent;
-
-				address private owner; 
-				«FOR scope : flow.interfaceScopes»
-					«FOR declaration : scope.declarations»
-						«declaration.declaration»
-					«ENDFOR»
+			pragma solidity ^0.4.18;
+			contract «flow.toName» {
+			    «flow.generateStateEnum»
+			    
+			    «flow.generateEventEnum»
+			    // This is the current state.
+			    States public activeState = States.«flow.states.get(0).toName»;
+			    
+			    address private owner; 
+				«FOR declaration : flow.interfaceScopes.map[declarations].flatten»
+			  	    «declaration.declaration»
+				«ENDFOR»
+				«FOR declaration : flow.internalScope.declarations»
+			    	«declaration.declaration»
 				«ENDFOR»
 			
-				modifier exit() {
-					«FOR state : flow.states.filter[it.exitAction != null]»
-						if(activeState == States.«state.toName»){
-							«state.exitAction?.code»
-						}
-					«ENDFOR» 
-					_;
-				}
-				
-				modifier reset() {
-					_;
-					lastEvent = Events.nullEvent;
-				}
-				
+			    modifier exit() {
+				«FOR state : flow.states.filter[it.exitAction !== null]»
+				    if(activeState == States.«state.toName»){
+					    «state.exitAction?.code»;
+				    }
+				«ENDFOR» 
+				    _;
+			    }
+			
 				modifier entry() {
 					_;
-					«FOR state : flow.states.filter[it.entryAction != null]»
-						if(activeState == States.«state.toName»){
-							«state.entryAction?.code» 
-						}
-					«ENDFOR» 
-				}
-				
-				function nextState(States _state) internal exit entry {
-					activeState = States(uint(_state));
-				}
-				
+				«FOR state : flow.states.filter[it.entryAction !== null]»
+				if(activeState == States.«state.toName»){
+				        «state.entryAction?.code»;
+					}
+				«ENDFOR» 
+			    }
+			
 				modifier react() {
 					_;
-					«FOR state : flow.states»
-						«FOR reaction: state.reactions.filter[it.isTransition]»
-							if(activeState == States.«(reaction.sourceElement as Transition).source.toName»){
-								«IF reaction?.check?.condition != null»
-									if(«reaction?.check?.condition?.code»){
-								«ENDIF»
-								nextState(States.«(reaction.sourceElement as Transition).target.toName»);
-								«IF reaction?.check?.condition != null»
-									}
-								«ENDIF»
+					«FOR state : flow.states.filter[reactSequence !== null && reactSequence.steps.size > 0] SEPARATOR "else "»
+						«IF !state.reactSequence.steps.isNullOrEmpty»
+							if(activeState == States.«state.toName»){
+									«state.reactSequence.code»
 							}
-						«ENDFOR» 
+						«ENDIF» 
 					«ENDFOR» 
 				}
 				
@@ -105,5 +80,33 @@ class CombinedState implements Template {
 				}
 			}
 		'''
+	}
+
+	def protected generateStateEnum(ExecutionFlow flow) {
+		'''
+			enum States {
+				«FOR state : flow.states SEPARATOR ','»        
+					«state.toName»
+				«ENDFOR» 
+			}
+		'''
+	}
+
+	def protected generateEventEnum(ExecutionFlow flow) {
+		'''
+		«IF flow.hasEvents»
+			Events private lastEvent = Events.nullEvent;
+			
+			enum Events {
+				«FOR declaration : flow.interfaceScopes.map[declarations].flatten.filter(EventDefinition) SEPARATOR ',' AFTER ', nullEvent'»
+					«declaration.toName»
+				«ENDFOR»
+			}
+			«ENDIF»
+		'''
+	}
+	
+	def protected hasEvents(ExecutionFlow it){
+		eAllContents.filter(Event).size > 0
 	}
 }
