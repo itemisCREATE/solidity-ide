@@ -12,12 +12,14 @@ class BuildInDeclarations {
 	ITypeSystem typeSystem
 
 	def createThis() {
-		TypesFactory.eINSTANCE.createProperty => [
+		var this_ = TypesFactory.eINSTANCE.createProperty => [
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType("address")
 			]
 			name = "this"
 		]
+		(typeSystem as AbstractTypeSystem).resource.contents += this_
+		this_
 	}
 
 	def createSuicide() {
