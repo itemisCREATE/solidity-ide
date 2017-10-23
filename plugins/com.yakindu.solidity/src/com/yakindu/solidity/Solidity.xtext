@@ -32,17 +32,31 @@ enum ContractType:
 	CONTRACT='contract' | LIBRARY='library' | INTERFACE='interface';
 
 ContractPart returns types::Declaration:
-	VariableDefinition | ModifierDefinition | FunctionDefinition | EventDefinition;
-	//StructDefinition | | EnumDefinition;
+	VariableDefinition | ModifierDefinition | FunctionDefinition | EventDefinition |
+	TypeDefinition;
+
 VariableDefinition returns types::Property:
 	{VariableDefinition} typeSpecifier=TypeSpecifier (visibility=Visibility)? name=ID ('=' initialValue=Expression)? ';';
+
+VariableDeclaration returns types::Property:
+	{VariableDefinition} typeSpecifier=TypeSpecifier name=ID;
 
 enum Visibility:
 	PUBLIC='public' | INTERNAL='internal' | PRIVATE='private' | CONSTANT='constant';
 
+//TODO This is a hack.
+TypeDefinition returns types::Declaration:
+	{TypeDefinition} definition=(StructDefinition | EnumDefinition);
+
 StructDefinition returns types::ComplexType:
-	'struct' name=ID '{'
-	(features+=VariableDefinition ';')* '}';
+	{StructDefinition} 'struct' name=ID '{'
+	(features+=VariableDeclaration';')* '}';
+
+EnumDefinition returns types::EnumerationType:
+	'enum' name=ID '{' (enumerator+=Enumerator (',' enumerator+=Enumerator)*)? '}';
+
+Enumerator returns types::Enumerator:
+	name=ID;
 
 ModifierDefinition returns types::Operation:
 	{ModifierDefinition} 'modifier' name=ID list=ParameterList
@@ -72,7 +86,7 @@ EventDefinition returns types::Event:
 	'event' name=ID;
 
 Statement:
-	IfStatement | WhileStatement | Block | (ReturnStatement |  ExpressionStatement) ';';
+	IfStatement | WhileStatement | Block | (ReturnStatement | ExpressionStatement) ';';
 
 ReturnStatement:
 	{ReturnStatement} 'return' (expression=Expression)?;
@@ -83,7 +97,7 @@ ExpressionStatement:
 IfStatement:
 	'if' '(' condition=Expression ')'
 	then=Statement
-	(=>'else' else=Statement)?;
+	(=> 'else' else=Statement)?;
 
 WhileStatement:
 	'while' '(' condition=Expression ')' body=Statement;

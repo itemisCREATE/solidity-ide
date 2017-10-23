@@ -28,7 +28,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModifierInvocationLiteral" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Literal"/>
   <eClassifiers xsi:type="ecore:EClass" name="Statement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ReturnStatement" eSuperTypes="#//Statement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ReturnStatement" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExpressionStatement" eSuperTypes="#//Statement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
         containment="true"/>
@@ -69,6 +72,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="initialValue" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Declaration">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Type"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StructDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//ComplexType"/>
   <eClassifiers xsi:type="ecore:EClass" name="ModifierDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Operation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="list" eType="#//ParameterList"
         containment="true"/>
