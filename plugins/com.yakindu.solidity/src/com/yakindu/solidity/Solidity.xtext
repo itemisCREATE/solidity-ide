@@ -32,11 +32,14 @@ enum ContractType:
 	CONTRACT='contract' | LIBRARY='library' | INTERFACE='interface';
 
 ContractPart returns types::Declaration:
-	VariableDefinition | ModifierDefinition | FunctionDefinition | EventDefinition |
+	StateVariableDefinition | ModifierDefinition | FunctionDefinition | EventDefinition |
 	TypeDefinition;
 
-VariableDefinition returns types::Property:
+StateVariableDefinition returns types::Property:
 	{VariableDefinition} typeSpecifier=TypeSpecifier (visibility=Visibility)? name=ID ('=' initialValue=Expression)? ';';
+
+@ Override TypeSpecifier returns types::TypeSpecifier:
+	{TypeSpecifier} type=[types::Type|QID] ('[' index+=Expression ']')*;
 
 VariableDeclaration returns types::Property:
 	{VariableDefinition} typeSpecifier=TypeSpecifier name=ID;
@@ -44,13 +47,13 @@ VariableDeclaration returns types::Property:
 enum Visibility:
 	PUBLIC='public' | INTERNAL='internal' | PRIVATE='private' | CONSTANT='constant';
 
-//TODO This is a hack.
+	//TODO This is a hack.
 TypeDefinition returns types::Declaration:
 	{TypeDefinition} definition=(StructDefinition | EnumDefinition);
 
 StructDefinition returns types::ComplexType:
 	{StructDefinition} 'struct' name=ID '{'
-	(features+=VariableDeclaration';')* '}';
+	(features+=VariableDeclaration ';')* '}';
 
 EnumDefinition returns types::EnumerationType:
 	'enum' name=ID '{' (enumerator+=Enumerator (',' enumerator+=Enumerator)*)? '}';
@@ -86,13 +89,20 @@ EventDefinition returns types::Event:
 	'event' name=ID;
 
 Statement:
-	IfStatement | WhileStatement | Block | (ReturnStatement | ExpressionStatement) ';';
+	IfStatement | WhileStatement | Block | (ReturnStatement | ExpressionStatement | VariableDefinition) ';';
 
 ReturnStatement:
 	{ReturnStatement} 'return' (expression=Expression)?;
 
 ExpressionStatement:
 	expression=Expression;
+
+VariableDefinitionProperty returns types::Property:
+	VariableDefinition
+;
+
+VariableDefinition:
+	=>('var' | typeSpecifier=TypeSpecifier) name=ID ('=' initialValue=Expression)?;
 
 IfStatement:
 	'if' '(' condition=Expression ')'
