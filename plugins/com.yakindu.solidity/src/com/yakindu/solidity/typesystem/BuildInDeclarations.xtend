@@ -10,13 +10,28 @@ class BuildInDeclarations {
 
 	@Inject
 	ITypeSystem typeSystem
+	
+	def createNow(){
+		var now = TypesFactory.eINSTANCE.createProperty => [
+			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+				type = typeSystem.getType(SolidityTypeSystem.UINT)
+			]
+			name = "now"
+			const = true
+			readonly = true
+		]
+		(typeSystem as AbstractTypeSystem).resource.contents += now
+		now
+	}
 
 	def createThis() {
 		var this_ = TypesFactory.eINSTANCE.createProperty => [
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
-				type = typeSystem.getType("address")
+				type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
 			]
 			name = "this"
+			const = true
+			readonly = true
 		]
 		(typeSystem as AbstractTypeSystem).resource.contents += this_
 		this_
@@ -26,12 +41,11 @@ class BuildInDeclarations {
 		val suicide = TypesFactory.eINSTANCE.createOperation() => [
 			parameters += TypesFactory.eINSTANCE.createParameter => [
 				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
-					type = typeSystem.getType("address")
+					type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
 				]
 				name = "address"
 			]
-
-			name = "suicide"
+			name = "suicide"	
 		]
 		(typeSystem as AbstractTypeSystem).resource.contents += suicide
 		suicide
@@ -40,7 +54,7 @@ class BuildInDeclarations {
 	def createMsg() {
 		val msg = StextFactory.eINSTANCE.createVariableDefinition() => [
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
-				type = typeSystem.getType("message")
+				type = typeSystem.getType(SolidityTypeSystem.MESSAGE)
 			]
 			name = "msg"
 			const = true
@@ -50,10 +64,23 @@ class BuildInDeclarations {
 		msg
 	}
 
+	def createTransaction() {
+		val tx = StextFactory.eINSTANCE.createVariableDefinition() => [
+			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+				type = typeSystem.getType(SolidityTypeSystem.TRANSACTION)
+			]
+			name = "tx"
+			const = true
+			readonly = true
+		]
+		(typeSystem as AbstractTypeSystem).resource.contents += tx
+		tx
+	}
+
 	def createBlock() {
 		val block = StextFactory.eINSTANCE.createVariableDefinition() => [
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
-				type = typeSystem.getType("Block")
+				type = typeSystem.getType(SolidityTypeSystem.BLOCK)
 			]
 			name = "block"
 			const = true

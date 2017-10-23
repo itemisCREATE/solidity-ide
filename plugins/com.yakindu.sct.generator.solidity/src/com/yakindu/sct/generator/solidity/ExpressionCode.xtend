@@ -21,7 +21,7 @@ import org.yakindu.base.expressions.expressions.TypeCastExpression
 import org.yakindu.base.types.Declaration
 import org.yakindu.base.types.Operation
 import org.yakindu.base.types.Property
-import org.yakindu.sct.generator.core.templates.Expressions
+import org.yakindu.sct.generator.core.templates.ExpressionsGenerator
 import org.yakindu.sct.model.sexec.Call
 import org.yakindu.sct.model.sexec.Check
 import org.yakindu.sct.model.sexec.CheckRef
@@ -38,13 +38,13 @@ import org.yakindu.sct.model.stext.stext.VariableDefinition
 /**
  * @author Florian Antony
  */
-class ExpressionCode extends Expressions {
+class ExpressionCode extends ExpressionsGenerator {
 
 	@Inject extension Naming
 
-	def dispatch CharSequence code(PrimitiveValueExpression it) {
-		'''«it.value.code»'''
-	}
+//	override dispatch CharSequence code(PrimitiveValueExpression it) {
+//		'''«it.value.code»'''
+//	}
 
 	def dispatch CharSequence code(Declaration it) {
 		'''«it.name»'''
@@ -122,11 +122,11 @@ class ExpressionCode extends Expressions {
 		'''«it.step.code»'''
 	}
 
-	def dispatch CharSequence code(AssignmentExpression it) {
-		'''
-			«it.varRef.code»«it.operator»«it.expression.code»;
-		'''
-	}
+//	def dispatch CharSequence code(AssignmentExpression it) {
+//		'''
+//			«it.varRef.code»«it.operator»«it.expression.code»;
+//		'''
+//	}
 
 	def dispatch CharSequence code(ElementReferenceExpression it) {
 		'''«it.reference.code»«FOR expression : it.expressions»«expression.code»«ENDFOR»'''
@@ -140,8 +140,8 @@ class ExpressionCode extends Expressions {
 		value.code.toString
 	}
 
-	def dispatch String code(TypeCastExpression it) {
-		'''«type.name»(«it.operand.code»)'''
-	}
+//	def dispatch String code(TypeCastExpression it) {
+//		'''«type.name»(«it.operand.code»)'''
+//	}
 
 }

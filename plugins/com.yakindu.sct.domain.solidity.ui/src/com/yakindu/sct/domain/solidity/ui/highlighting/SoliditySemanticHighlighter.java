@@ -11,7 +11,8 @@ import org.yakindu.base.types.Declaration;
 
 @SuppressWarnings("deprecation")
 public class SoliditySemanticHighlighter
-		implements org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator {
+		implements
+			org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator {
 
 	@Override
 	public void provideHighlightingFor(XtextResource resource,
@@ -19,26 +20,42 @@ public class SoliditySemanticHighlighter
 		TreeIterator<EObject> allContents = resource.getAllContents();
 		while (allContents.hasNext()) {
 			EObject next = allContents.next();
-			if(next.eIsProxy()) {
+			if (next.eIsProxy()) {
 				continue;
 			}
 			if (next instanceof ElementReferenceExpression) {
-				Declaration decl = (Declaration) ((ElementReferenceExpression) next).getReference();
-				if (decl.getName().equals("msg")) {
-					ICompositeNode node = NodeModelUtils.findActualNodeFor(next);
-					acceptor.addPosition(node.getTotalOffset(), node.getLength()+1,
-							DefaultHighlightingConfiguration.KEYWORD_ID);
+				if (next instanceof ElementReferenceExpression) {
+					ElementReferenceExpression expression = (ElementReferenceExpression) next;
+					provideHighligtingFor(expression, acceptor);
 				}
-				if (decl.getName().equals("block")) {
-					ICompositeNode node = NodeModelUtils.findActualNodeFor(next);
-					acceptor.addPosition(node.getTotalOffset(), node.getLength()+1,
-							DefaultHighlightingConfiguration.KEYWORD_ID);
-				}
-				if (decl.getName().equals("tx")) {
-					ICompositeNode node = NodeModelUtils.findActualNodeFor(next);
-					acceptor.addPosition(node.getTotalOffset(), node.getLength()+1,
-							DefaultHighlightingConfiguration.KEYWORD_ID);
-				}
+			}
+		}
+	}
+
+	private void provideHighligtingFor(ElementReferenceExpression expression,
+			org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightedPositionAcceptor acceptor) {
+		EObject reference = expression.getReference();
+		if (reference instanceof Declaration) {
+			Declaration decl = (Declaration) expression.getReference();
+			if (decl.getName().equals("msg")) {
+				ICompositeNode node = NodeModelUtils.findActualNodeFor(expression);
+				acceptor.addPosition(node.getTotalOffset(), node.getLength() + 1,
+						DefaultHighlightingConfiguration.KEYWORD_ID);
+			}
+			if (decl.getName().equals("block")) {
+				ICompositeNode node = NodeModelUtils.findActualNodeFor(expression);
+				acceptor.addPosition(node.getTotalOffset(), node.getLength() + 1,
+						DefaultHighlightingConfiguration.KEYWORD_ID);
+			}
+			if (decl.getName().equals("tx")) {
+				ICompositeNode node = NodeModelUtils.findActualNodeFor(expression);
+				acceptor.addPosition(node.getTotalOffset(), node.getLength() + 1,
+						DefaultHighlightingConfiguration.KEYWORD_ID);
+			}
+			if (decl.getName().equals("now")) {
+				ICompositeNode node = NodeModelUtils.findActualNodeFor(expression);
+				acceptor.addPosition(node.getTotalOffset(), node.getLength() + 1,
+						DefaultHighlightingConfiguration.KEYWORD_ID);
 			}
 		}
 	}

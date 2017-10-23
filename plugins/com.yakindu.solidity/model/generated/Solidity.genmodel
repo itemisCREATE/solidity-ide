@@ -17,6 +17,18 @@
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Visibility/PRIVATE"/>
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Visibility/CONSTANT"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Solidity.ecore#//Unit">
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Unit/SECONDS"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Unit/MINUTES"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Unit/HOURS"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Unit/DAYS"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Unit/WEEKS"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Unit/YEARS"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Unit/WEI"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Unit/FINNEY"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Unit/SZABO"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Unit/ETHER"/>
+    </genEnums>
     <genClasses ecoreClass="Solidity.ecore#//SolidityModel">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//SolidityModel/sourceunit"/>
     </genClasses>
@@ -25,6 +37,9 @@
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//Block">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//Block/statements"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//IntLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//IntLiteral/unit"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//ModifierInvocationLiteral"/>
     <genClasses ecoreClass="Solidity.ecore#//Statement"/>

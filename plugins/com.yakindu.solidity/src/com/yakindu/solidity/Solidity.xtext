@@ -47,6 +47,10 @@ VariableDeclaration returns types::Property:
 enum Visibility:
 	PUBLIC='public' | INTERNAL='internal' | PRIVATE='private' | CONSTANT='constant';
 
+enum Unit:
+	SECONDS='seconds' | MINUTES='minutes' | HOURS='hours' | DAYS='days' | WEEKS='weeks' | YEARS='years' | WEI='wei' |
+	FINNEY='finney' | SZABO='szabo' | ETHER='ether';
+
 	//TODO This is a hack.
 TypeDefinition returns types::Declaration:
 	{TypeDefinition} definition=(StructDefinition | EnumDefinition);
@@ -74,6 +78,10 @@ Block:
 @ Override Literal returns expressions::Literal:
 	super | ModifierInvocationLiteral;
 
+@ Override IntLiteral:
+	{IntLiteral} 
+	value=INT (unit=Unit)?;
+
 ModifierInvocationLiteral:
 	{ModifierInvocationLiteral} '_;';
 
@@ -85,8 +93,11 @@ FunctionDefinition returns types::Operation:
 Parameter returns types::Parameter:
 	typeSpecifier=TypeSpecifier name=ID;
 
+/*TODO this needs a parameter list. Syntax for event declaration is like;
+ * event Deposit(address indexed _from, bytes32 indexed _id,uint _value);
+ */
 EventDefinition returns types::Event:
-	'event' name=ID;
+	'event' name=ID'('')';
 
 Statement:
 	IfStatement | WhileStatement | Block | (ReturnStatement | ExpressionStatement | VariableDefinition) ';';
@@ -98,11 +109,10 @@ ExpressionStatement:
 	expression=Expression;
 
 VariableDefinitionProperty returns types::Property:
-	VariableDefinition
-;
+	 VariableDefinition;
 
 VariableDefinition:
-	=>('var' | typeSpecifier=TypeSpecifier) name=ID ('=' initialValue=Expression)?;
+	=>(typeSpecifier=TypeSpecifier) name=ID ('=' initialValue=Expression)?;
 
 IfStatement:
 	'if' '(' condition=Expression ')'
