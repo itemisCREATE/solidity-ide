@@ -72,10 +72,10 @@ EventDefinition returns types::Event:
 	'event' name=ID;
 
 Statement:
-	IfStatement | WhileStatement | ReturnStatement | Block | ExpressionStatement ';';
+	IfStatement | WhileStatement | Block | (ReturnStatement |  ExpressionStatement) ';';
 
 ReturnStatement:
-	{ReturnStatement} 'return';
+	{ReturnStatement} 'return' (expression=Expression)?;
 
 ExpressionStatement:
 	expression=Expression;
