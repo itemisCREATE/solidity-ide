@@ -43,6 +43,7 @@
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//ModifierInvocationLiteral"/>
     <genClasses ecoreClass="Solidity.ecore#//Statement"/>
+    <genClasses ecoreClass="Solidity.ecore#//SimpleStatement"/>
     <genClasses ecoreClass="Solidity.ecore#//ReturnStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ReturnStatement/expression"/>
     </genClasses>
@@ -61,6 +62,12 @@
     <genClasses ecoreClass="Solidity.ecore#//WhileStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//WhileStatement/condition"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//WhileStatement/body"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//ForStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ForStatement/initialization"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ForStatement/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ForStatement/afterthought"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ForStatement/statement"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//SourceUnit">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//SourceUnit/pragma"/>

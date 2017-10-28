@@ -79,7 +79,7 @@ Block:
 	super | ModifierInvocationLiteral;
 
 @ Override IntLiteral:
-	{IntLiteral} 
+	{IntLiteral}
 	value=INT (unit=Unit)?;
 
 ModifierInvocationLiteral:
@@ -94,10 +94,13 @@ Parameter returns types::Parameter:
 	(typeSpecifier=TypeSpecifier)? name=ID;
 
 EventDefinition returns types::Event:
-	{EventDefinition}'event' name=ID'('parameter=ParameterList')';
+	{EventDefinition} 'event' name=ID '(' parameter=ParameterList ')';
 
 Statement:
-	IfStatement | WhileStatement | Block | (ReturnStatement | ExpressionStatement | VariableDefinition) ';';
+	IfStatement | WhileStatement | ForStatement | Block | (ReturnStatement | SimpleStatement) ';';
+
+SimpleStatement:
+	VariableDefinition | ExpressionStatement;
 
 ReturnStatement:
 	{ReturnStatement} 'return' (expression=Expression)?;
@@ -106,10 +109,10 @@ ExpressionStatement:
 	expression=Expression;
 
 VariableDefinitionProperty returns types::Property:
-	 VariableDefinition;
+	VariableDefinition;
 
 VariableDefinition:
-	=>(typeSpecifier=TypeSpecifier) name=ID ('=' initialValue=Expression)?;
+	=> (typeSpecifier=TypeSpecifier) name=ID ('=' initialValue=Expression)?;
 
 IfStatement:
 	'if' '(' condition=Expression ')'
@@ -118,3 +121,7 @@ IfStatement:
 
 WhileStatement:
 	'while' '(' condition=Expression ')' body=Statement;
+
+ForStatement:
+	'for' '(' (initialization=SimpleStatement)? ';' (condition=Expression)? ';' (afterthought=Expression)? ')'
+	statement=Statement;
