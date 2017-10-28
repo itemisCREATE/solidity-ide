@@ -66,7 +66,7 @@ Enumerator returns types::Enumerator:
 	name=ID;
 
 ModifierDefinition returns types::Operation:
-	{ModifierDefinition} 'modifier' name=ID list=ParameterList
+	{ModifierDefinition} 'modifier' name=ID parameter=ParameterList
 	block+=Block;
 
 ParameterList:
@@ -86,18 +86,15 @@ ModifierInvocationLiteral:
 	{ModifierInvocationLiteral} '_;';
 
 FunctionDefinition returns types::Operation:
-	{FunctionDefinition} 'function' name=ID? list=ParameterList
+	{FunctionDefinition} 'function' name=ID? parameter=ParameterList
 	('external' | 'public' | 'internal' | 'private' | 'constant')*
-	('returns' ('(' returnTypes+=TypeSpecifier (',' retunTypes+=TypeSpecifier)? ')')?)? (';' | (block=Block));
+	('returns' returnParameter=ParameterList)? (';' | (block=Block));
 
 Parameter returns types::Parameter:
-	typeSpecifier=TypeSpecifier name=ID;
+	(typeSpecifier=TypeSpecifier)? name=ID;
 
-/*TODO this needs a parameter list. Syntax for event declaration is like;
- * event Deposit(address indexed _from, bytes32 indexed _id,uint _value);
- */
 EventDefinition returns types::Event:
-	'event' name=ID'('')';
+	{EventDefinition}'event' name=ID'('parameter=ParameterList')';
 
 Statement:
 	IfStatement | WhileStatement | Block | (ReturnStatement | ExpressionStatement | VariableDefinition) ';';

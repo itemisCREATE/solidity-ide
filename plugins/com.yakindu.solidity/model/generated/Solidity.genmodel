@@ -84,14 +84,16 @@
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//StructDefinition"/>
     <genClasses ecoreClass="Solidity.ecore#//ModifierDefinition">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ModifierDefinition/list"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ModifierDefinition/parameter"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ModifierDefinition/block"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//FunctionDefinition">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//FunctionDefinition/list"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//FunctionDefinition/returnTypes"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//FunctionDefinition/retunTypes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//FunctionDefinition/parameter"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//FunctionDefinition/returnParameter"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//FunctionDefinition/block"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//EventDefinition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//EventDefinition/parameter"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

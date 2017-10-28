@@ -24,6 +24,7 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 	public static val String BLOCK_HASH = "blockhash"
 
 	public static val String MESSAGE = "message"
+	public static val String DATA = "data"
 	public static val String SENDER = "sender"
 
 	public static val String MAPPING = "mapping"
@@ -117,6 +118,12 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 				name = VALUE
 				typeSpecifier = eINSTANCE.createTypeSpecifier => [
 					type = getType(INTEGER)
+				]
+			]
+			type.features += eINSTANCE.createProperty => [
+				name = DATA
+				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+					type = getType(BYTES)
 				]
 			]
 		]
