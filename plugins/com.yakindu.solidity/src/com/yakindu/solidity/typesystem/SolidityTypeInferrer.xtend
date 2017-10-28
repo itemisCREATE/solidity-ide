@@ -1,11 +1,11 @@
 package com.yakindu.solidity.typesystem
 
-import org.yakindu.base.types.inferrer.ITypeSystemInferrer.InferenceResult
-import org.yakindu.base.types.typesystem.ITypeSystem
-import org.yakindu.sct.model.stext.inferrer.STextTypeInferrer
 import com.google.inject.Inject
+import org.yakindu.base.expressions.expressions.BoolLiteral
+import org.yakindu.base.expressions.inferrer.ExpressionsTypeInferrer
+import org.yakindu.base.types.typesystem.ITypeSystem
 
-class SolidityTypeInferrer extends STextTypeInferrer {
+class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 	@Inject protected ITypeSystem ts;
 
 	override assertAssignable(InferenceResult varResult, InferenceResult valueResult, String msg) {
@@ -14,6 +14,10 @@ class SolidityTypeInferrer extends STextTypeInferrer {
 			return;
 		}
 		super.assertAssignable(varResult, valueResult, msg);
+	}
+	
+	override doInfer(BoolLiteral literal) {
+		InferenceResult.from(ts.getType(SolidityTypeSystem.BOOL))
 	}
 
 }

@@ -4,14 +4,13 @@ import com.google.inject.Inject
 import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.typesystem.AbstractTypeSystem
 import org.yakindu.base.types.typesystem.ITypeSystem
-import org.yakindu.sct.model.stext.stext.StextFactory
 
 class BuildInDeclarations {
 
 	@Inject
 	ITypeSystem typeSystem
-	
-	def createNow(){
+
+	def createNow() {
 		var now = TypesFactory.eINSTANCE.createProperty => [
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.UINT)
@@ -45,14 +44,14 @@ class BuildInDeclarations {
 				]
 				name = "address"
 			]
-			name = "suicide"	
+			name = "suicide"
 		]
 		(typeSystem as AbstractTypeSystem).resource.contents += suicide
 		suicide
 	}
 
 	def createMsg() {
-		val msg = StextFactory.eINSTANCE.createVariableDefinition() => [
+		val msg = TypesFactory.eINSTANCE.createProperty() => [
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.MESSAGE)
 			]
@@ -65,7 +64,7 @@ class BuildInDeclarations {
 	}
 
 	def createTransaction() {
-		val tx = StextFactory.eINSTANCE.createVariableDefinition() => [
+		val tx = TypesFactory.eINSTANCE.createProperty() => [
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.TRANSACTION)
 			]
@@ -78,7 +77,7 @@ class BuildInDeclarations {
 	}
 
 	def createBlock() {
-		val block = StextFactory.eINSTANCE.createVariableDefinition() => [
+		val block = TypesFactory.eINSTANCE.createProperty() => [
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.BLOCK)
 			]
