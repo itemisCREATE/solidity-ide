@@ -14,7 +14,8 @@ Require-Bundle: com.yakindu.solidity,
  org.eclipse.core.jobs,
  org.eclipse.equinox.common,
  org.eclipse.ui;bundle-version="3.109.0",
- org.eclipse.core.runtime;bundle-version="3.13.0"
+ org.eclipse.core.runtime;bundle-version="3.13.0",
+ com.google.guava
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.yakindu.solidity.ide.contentassist.antlr.internal,
  com.yakindu.solidity.ide.contentassist.antlr

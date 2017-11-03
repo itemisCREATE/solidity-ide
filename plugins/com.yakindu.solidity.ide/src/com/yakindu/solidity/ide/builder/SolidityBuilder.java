@@ -1,13 +1,8 @@
 package com.yakindu.solidity.ide.builder;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -29,7 +24,8 @@ public class SolidityBuilder extends IncrementalProjectBuilder {
 
 	public static final String ID = "com.yakindu.solidity.ide.builder.solidityBuilder";
 
-	private MarkerBuilder markerBuilder = new MarkerBuilder();
+	private final String solc = getClass().getProtectionDomain().getCodeSource().getLocation().getFile()
+			+ "/compiler/solc.exe";
 
 	@Override
 	protected IProject[] build(int kind, Map<String, String> args, IProgressMonitor monitor) throws CoreException {
@@ -60,30 +56,22 @@ public class SolidityBuilder extends IncrementalProjectBuilder {
 			}
 			compile(file, progress.newChild(1));
 		}
+		project.refreshLocal(IProject.DEPTH_INFINITE, monitor);
 		progress.done();
 		return null;
 	}
 
 	private void compile(IFile file, SubMonitor progress) {
-		ExecutorService service = Executors.newFixedThreadPool(2);
 		progress.beginTask("compiling " + file.getName(), 10);
 		Process process;
-		String projectPath = file.getProject().getLocation().toOSString();
-//		String output = projectPath + "\\solidity-output";
 		try {
-			ProcessBuilder builder = new ProcessBuilder(
-					"C:\\Users\\Flow\\git\\sct4solidity\\plugins\\com.yakindu.solidity.ide\\compiler\\solc.exe",
-					"--bin", file.getLocation().toOSString());
-			// "-o " + output,
-			// , "--ast", "--asm",
-			builder.directory(new File(projectPath));
-			process = builder.start();
-			service.submit(handleCompilerErrorOutput(file,
-					new BufferedReader(new InputStreamReader(process.getErrorStream()))));
-			service.submit(handleCompilerInfoOutput(file,
-					new BufferedReader(new InputStreamReader(process.getInputStream()))));
+			process = new ProcessBuilder(solc, "--bin", "--abi", "--ast-compact-json", "--asm-json",
+					file.getLocation().toOSString()).start();
+			OutputHandler handler = new OutputHandler(file);
+			handler.handleError(process.getErrorStream());
+			handler.handleOutput(process.getInputStream());
 			process.waitFor();
-			service.shutdown();
+			handler.shutdown();
 			progress.done();
 		} catch (IOException e) {
 			progress.done();
@@ -91,42 +79,4 @@ public class SolidityBuilder extends IncrementalProjectBuilder {
 			progress.done();
 		}
 	}
-
-	private Runnable handleCompilerErrorOutput(final IFile file, final BufferedReader output) {
-		return new Runnable() {
-			@Override
-			public void run() {
-				String line;
-				try {
-					line = output.readLine();
-					while (line != null && !isInterrupted()) {
-						System.err.println(line);
-						markerBuilder.getMarker(file, line);
-						line = output.readLine();
-					}
-				} catch (IOException e) {
-					// TODO
-				}
-			}
-		};
-	}
-
-	private Runnable handleCompilerInfoOutput(final IFile file, final BufferedReader output) {
-		return new Runnable() {
-			@Override
-			public void run() {
-				String line;
-				try {
-					line = output.readLine();
-					while (line != null && !isInterrupted()) {
-						System.out.println(line);
-						line = output.readLine();
-					}
-				} catch (IOException e) {
-					// TODO
-				}
-			}
-		};
-	}
-
 }
