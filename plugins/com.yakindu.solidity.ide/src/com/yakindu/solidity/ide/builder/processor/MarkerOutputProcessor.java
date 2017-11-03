@@ -23,7 +23,7 @@ public class MarkerOutputProcessor implements SolcOutputProcessor {
 	public void processLine(String line) {
 		if (line.startsWith(fileLocation())) {
 			if (!issue.isEmpty()) {
-				String[] parts = line.split(":");
+				String[] parts = issue.split(":");
 				if (parts.length < 6) {
 					return;
 				}
