@@ -108,9 +108,8 @@ ReturnStatement:
 ExpressionStatement:
 	expression=Expression;
 
-// Remove TypeCast Expression
-@Override  
-NumericalUnaryExpression returns expressions::Expression:
+	// Remove TypeCast Expression
+@ Override NumericalUnaryExpression returns expressions::Expression:
 	PrimaryExpression | {NumericalUnaryExpression}
 	operator=UnaryOperator operand=PrimaryExpression;
 
@@ -121,8 +120,7 @@ VariableDefinition:
 	('var' | typeSpecifier=SimpleTypeSpecifier) name=ID ('=' initialValue=Expression)?;
 
 SimpleTypeSpecifier returns TypeSpecifier:
-	type=[types::Type|QID]
-;
+	type=[types::Type|QID];
 
 IfStatement:
 	'if' '(' condition=Expression ')'

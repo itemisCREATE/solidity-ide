@@ -39,6 +39,7 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 	public static val String COINBASE = "coinbase"
 	public static val String DIFFICULTY = "difficulty"
 	public static val String TRANSFER = "transfer"
+	public static val String SEND = "send"
 	public static val String AMOUNT = "amount"
 
 	protected new() {
@@ -223,6 +224,18 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 				name = TRANSFER
 				typeSpecifier = eINSTANCE.createTypeSpecifier => [
 					type = getType(VOID)
+				]
+				parameters += eINSTANCE.createParameter => [
+					typeSpecifier = eINSTANCE.createTypeSpecifier => [
+						type = getType(UINT + "256")
+					]
+					name = AMOUNT
+				]
+			]
+			type.features += eINSTANCE.createOperation => [
+				name = SEND
+				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+					type = getType(BOOL)
 				]
 				parameters += eINSTANCE.createParameter => [
 					typeSpecifier = eINSTANCE.createTypeSpecifier => [
