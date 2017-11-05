@@ -126,4 +126,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" eType="#//ParameterList"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NumericalUnaryExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="ecore:EEnum platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//UnaryOperator"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operand" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>

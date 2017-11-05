@@ -2,7 +2,9 @@ package com.yakindu.solidity.typesystem
 
 import com.google.inject.Inject
 import org.yakindu.base.expressions.expressions.BoolLiteral
+import org.yakindu.base.expressions.expressions.ElementReferenceExpression
 import org.yakindu.base.expressions.inferrer.ExpressionsTypeInferrer
+import org.yakindu.base.types.Type
 import org.yakindu.base.types.typesystem.ITypeSystem
 
 class SolidityTypeInferrer extends ExpressionsTypeInferrer {
@@ -18,6 +20,14 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 	
 	override doInfer(BoolLiteral literal) {
 		InferenceResult.from(ts.getType(SolidityTypeSystem.BOOL))
+	}
+	
+	//Type Cast	
+	override doInfer(ElementReferenceExpression e){
+		if (e.isOperationCall() && (e.reference instanceof Type)) {
+			return inferTypeDispatch(e.reference)
+		}
+		return super.doInfer(e)
 	}
 
 }

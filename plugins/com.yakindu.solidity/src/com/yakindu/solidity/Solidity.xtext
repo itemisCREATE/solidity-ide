@@ -108,6 +108,12 @@ ReturnStatement:
 ExpressionStatement:
 	expression=Expression;
 
+// Remove TypeCast Expression
+@Override  
+NumericalUnaryExpression returns expressions::Expression:
+	PrimaryExpression | {NumericalUnaryExpression}
+	operator=UnaryOperator operand=PrimaryExpression;
+
 VariableDefinitionProperty returns types::Property:
 	VariableDefinition;
 
