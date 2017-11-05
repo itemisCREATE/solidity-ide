@@ -14,6 +14,7 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 	public static val String BOOL = "bool"
 	public static val String UINT = "uint"
 	public static val String INT = "int"
+	public static val String BYTE = "byte"
 	public static val String BYTES = "bytes"
 	public static val String ADDRESS = "address"
 	public static val String BALANCE = "balance"
@@ -66,7 +67,9 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 		INT.declareExplicitSizeTypes(8)
 
 		declarePrimitive(com.yakindu.solidity.typesystem.SolidityTypeSystem.BYTES)
+		declarePrimitive(com.yakindu.solidity.typesystem.SolidityTypeSystem.BYTE)
 		declareSuperType(getType(com.yakindu.solidity.typesystem.SolidityTypeSystem.BYTES), getType(INTEGER))
+		declareSuperType(getType(com.yakindu.solidity.typesystem.SolidityTypeSystem.BYTE), getType(INTEGER))
 		com.yakindu.solidity.typesystem.SolidityTypeSystem.BYTES.declareExplicitSizeTypes(1);
 
 		var address = createAddress()

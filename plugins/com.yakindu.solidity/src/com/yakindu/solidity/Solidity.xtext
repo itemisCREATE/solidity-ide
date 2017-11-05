@@ -112,7 +112,11 @@ VariableDefinitionProperty returns types::Property:
 	VariableDefinition;
 
 VariableDefinition:
-	=> (typeSpecifier=TypeSpecifier) name=ID ('=' initialValue=Expression)?;
+	('var' | typeSpecifier=SimpleTypeSpecifier) name=ID ('=' initialValue=Expression)?;
+
+SimpleTypeSpecifier returns TypeSpecifier:
+	type=[types::Type|QID]
+;
 
 IfStatement:
 	'if' '(' condition=Expression ')'
