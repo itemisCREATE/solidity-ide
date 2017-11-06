@@ -5,6 +5,10 @@ import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.typesystem.AbstractTypeSystem
 import org.yakindu.base.types.typesystem.ITypeSystem
 
+/**
+ * @author andreas muelder - Initial contribution and API
+ * @author Florian Antony
+ */
 class BuildInDeclarations {
 
 	@Inject

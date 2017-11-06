@@ -114,7 +114,7 @@ ExpressionStatement:
 
 	// Remove TypeCast Expression
 @ Override NumericalUnaryExpression returns expressions::Expression:
-	PrimaryExpression | {NumericalUnaryExpression}
+	PrimaryExpression | {expressions::NumericalUnaryExpression}
 	operator=UnaryOperator operand=PrimaryExpression;
 
 VariableDefinitionProperty returns types::Property:
