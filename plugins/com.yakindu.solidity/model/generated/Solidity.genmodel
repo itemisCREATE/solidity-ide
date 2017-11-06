@@ -106,9 +106,5 @@
     <genClasses ecoreClass="Solidity.ecore#//EventDefinition">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//EventDefinition/parameter"/>
     </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//NumericalUnaryExpression">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//NumericalUnaryExpression/operator"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//NumericalUnaryExpression/operand"/>
-    </genClasses>
   </genPackages>
 </genmodel:GenModel>
