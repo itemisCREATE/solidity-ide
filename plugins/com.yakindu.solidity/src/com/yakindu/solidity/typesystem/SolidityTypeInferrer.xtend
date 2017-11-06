@@ -1,13 +1,14 @@
 package com.yakindu.solidity.typesystem
 
 import com.google.inject.Inject
+import com.yakindu.solidity.solidity.AddressLiteral
 import com.yakindu.solidity.solidity.BigIntLiteral
+import com.yakindu.solidity.solidity.PostFixUnaryExpression
 import org.yakindu.base.expressions.expressions.BoolLiteral
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
 import org.yakindu.base.expressions.inferrer.ExpressionsTypeInferrer
 import org.yakindu.base.types.Type
 import org.yakindu.base.types.typesystem.ITypeSystem
-import com.yakindu.solidity.solidity.AddressLiteral
 
 /**
  * 
@@ -24,6 +25,10 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 	
 	def doInfer(AddressLiteral literal){
 		InferenceResult.from(ts.getType(SolidityTypeSystem.ADDRESS));
+	}
+	
+	def doInfer(PostFixUnaryExpression exp){
+		return inferTypeDispatch(exp.operand)
 	}
 	
 	override assertAssignable(InferenceResult varResult, InferenceResult valueResult, String msg) {

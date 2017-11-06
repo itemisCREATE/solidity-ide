@@ -114,8 +114,15 @@ ExpressionStatement:
 
 	// Remove TypeCast Expression
 @ Override NumericalUnaryExpression returns expressions::Expression:
-	PrimaryExpression | {expressions::NumericalUnaryExpression}
-	operator=UnaryOperator operand=PrimaryExpression;
+	PostFixUnaryExpression | {expressions::NumericalUnaryExpression}
+	operator=UnaryOperator operand=PostFixUnaryExpression;
+
+PostFixUnaryExpression returns expressions::Expression:
+	PrimaryExpression  ({PostFixUnaryExpression.operand=current} operator=PostFixOperator)*;
+
+enum PostFixOperator:
+	increment="++" | decrement="--"
+;
 
 VariableDefinitionProperty returns types::Property:
 	VariableDefinition;

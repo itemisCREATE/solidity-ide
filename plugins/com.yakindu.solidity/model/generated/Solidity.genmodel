@@ -29,6 +29,10 @@
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Unit/SZABO"/>
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Unit/ETHER"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Solidity.ecore#//PostFixOperator">
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//PostFixOperator/increment"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//PostFixOperator/decrement"/>
+    </genEnums>
     <genClasses ecoreClass="Solidity.ecore#//SolidityModel">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//SolidityModel/sourceunit"/>
     </genClasses>
@@ -105,6 +109,10 @@
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//EventDefinition">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//EventDefinition/parameter"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//PostFixUnaryExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//PostFixUnaryExpression/operand"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//PostFixUnaryExpression/operator"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
