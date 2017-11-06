@@ -8,7 +8,11 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.scoping.impl.DefaultGlobalScopeProvider
 import org.yakindu.base.types.typesystem.ITypeSystem
-
+/**
+ * 
+ * @author andreas muelder - Initial contribution and API
+ * 
+ */
 class SolidityGlobalScopeProvider extends DefaultGlobalScopeProvider {
 
 	@Inject
