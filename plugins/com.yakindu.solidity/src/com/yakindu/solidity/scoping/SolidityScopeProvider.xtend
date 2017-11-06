@@ -23,7 +23,24 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 	}
 
 	def protected createImplicitVariables(IScope outer) {
-		return Scopes.scopeFor(Lists.newArrayList(createMsg(), createBlock(), createSuicide(), createThis(), createNow(), createTransaction()), outer)
+		return Scopes.scopeFor(Lists.newArrayList(
+			createMsg(),
+			createAssert(),
+			createRequire(),
+			createRevert(),
+			createAddmod(),
+			createMulmod(),
+			createKeccak256(),
+			createSha3(),
+			createSha256(),
+			createRipemd160(),
+			createEcrecover(),
+			createBlock(),
+			createSuicide(),
+			createThis(),
+			createNow(),
+			createTransaction()
+		), outer)
 	}
 
 	def scope_FeatureCall_feature(FeatureCall context, EReference reference) {
