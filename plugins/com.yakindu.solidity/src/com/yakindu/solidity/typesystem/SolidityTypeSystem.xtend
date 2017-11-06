@@ -7,9 +7,8 @@ import static org.yakindu.base.types.TypesFactory.*
 import org.yakindu.base.types.typesystem.ITypeSystem
 
 /**
- * 
  * @author andreas muelder - Initial contribution and API
- * 
+ * @author Florian Antony
  */
 @Singleton
 public class SolidityTypeSystem extends GenericTypeSystem {
@@ -18,9 +17,12 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 
 	public static val String BOOL = "bool"
 	public static val String UINT = "uint"
+	public static val String UINT8 = "uint8"
 	public static val String INT = "int"
 	public static val String BYTE = "byte"
 	public static val String BYTES = "bytes"
+	public static val String BYTES20 = "bytes20"
+	public static val String BYTES32 = "bytes32"
 	public static val String ADDRESS = "address"
 	public static val String BALANCE = "balance"
 
@@ -36,6 +38,8 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 	public static val String MAPPING = "mapping"
 	public static val String TRANSACTION = "transaction"
 	public static val String CALL = "call"
+	public static val String CALLCODE = "callcode"
+	public static val String DELEGATECALL = "delegatecall"
 	public static val String GAS = "gas"
 	public static val String GAS_PRICE = "gasprice"
 	public static val String GAS_LIMIT = "gaslimit"
@@ -94,7 +98,6 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 		var block = createBlock()
 		declareType(block, BLOCK)
 		resource.getContents().add(block);
-
 	}
 
 	def declareExplicitSizeTypes(String superType, int bitPerStep) {
@@ -251,7 +254,37 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 				]
 			]
 			type.features += eINSTANCE.createOperation => [
+				parameters += eINSTANCE.createParameter => [
+					name = "target"
+					typeSpecifier = eINSTANCE.createTypeSpecifier => [
+						type = getType(ADDRESS)
+					]
+				]
 				name = CALL
+				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+					type = getType(ITypeSystem.BOOLEAN)
+				]
+			]
+			type.features += eINSTANCE.createOperation => [
+				parameters += eINSTANCE.createParameter => [
+					name = "target"
+					typeSpecifier = eINSTANCE.createTypeSpecifier => [
+						type = getType(ADDRESS)
+					]
+				]
+				name = CALLCODE
+				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+					type = getType(ITypeSystem.BOOLEAN)
+				]
+			]
+			type.features += eINSTANCE.createOperation => [
+				parameters += eINSTANCE.createParameter => [
+					name = "target"
+					typeSpecifier = eINSTANCE.createTypeSpecifier => [
+						type = getType(ADDRESS)
+					]
+				]
+				name = DELEGATECALL
 				typeSpecifier = eINSTANCE.createTypeSpecifier => [
 					type = getType(ITypeSystem.BOOLEAN)
 				]

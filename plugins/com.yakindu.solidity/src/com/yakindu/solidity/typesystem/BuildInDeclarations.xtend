@@ -5,10 +5,234 @@ import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.typesystem.AbstractTypeSystem
 import org.yakindu.base.types.typesystem.ITypeSystem
 
+/**
+ * @author andreas muelder - Initial contribution and API
+ * @author Florian Antony
+ */
 class BuildInDeclarations {
 
 	@Inject
 	ITypeSystem typeSystem
+
+	/************************
+	 *     ERROR HANDLING 
+	 ************************/
+	def createAssert() {
+		val assert = TypesFactory.eINSTANCE.createOperation() => [
+			parameters += TypesFactory.eINSTANCE.createParameter => [
+				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+					type = typeSystem.getType(SolidityTypeSystem.BOOL)
+				]
+				name = "condition"
+			]
+			name = "assert"
+			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+				type = typeSystem.getType(SolidityTypeSystem.VOID)
+			]
+		]
+		(typeSystem as AbstractTypeSystem).resource.contents += assert
+		assert
+	}
+
+	def createRequire() {
+		val require = TypesFactory.eINSTANCE.createOperation() => [
+			parameters += TypesFactory.eINSTANCE.createParameter => [
+				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+					type = typeSystem.getType(SolidityTypeSystem.BOOL)
+				]
+				name = "condition"
+			]
+			name = "require"
+			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+				type = typeSystem.getType(SolidityTypeSystem.VOID)
+			]
+		]
+		(typeSystem as AbstractTypeSystem).resource.contents += require
+		require
+	}
+
+	def createRevert() {
+		val revert = TypesFactory.eINSTANCE.createOperation() => [
+			name = "revert"
+			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+				type = typeSystem.getType(SolidityTypeSystem.VOID)
+			]
+		]
+		(typeSystem as AbstractTypeSystem).resource.contents += revert
+		revert
+	}
+
+	/************************
+	 *     MATH and CRYPTO
+	 ************************/
+	def createAddmod() {
+		val addmod = TypesFactory.eINSTANCE.createOperation() => [
+			parameters += TypesFactory.eINSTANCE.createParameter => [
+				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+					type = typeSystem.getType(SolidityTypeSystem.UINT)
+				]
+				name = "x"
+			]
+			parameters += TypesFactory.eINSTANCE.createParameter => [
+				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+					type = typeSystem.getType(SolidityTypeSystem.UINT)
+				]
+				name = "y"
+			]
+			parameters += TypesFactory.eINSTANCE.createParameter => [
+				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+					type = typeSystem.getType(SolidityTypeSystem.UINT)
+				]
+				name = "k"
+			]
+			name = "addmod"
+			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+				type = typeSystem.getType(SolidityTypeSystem.UINT)
+			]
+
+		]
+		(typeSystem as AbstractTypeSystem).resource.contents += addmod
+		addmod
+	}
+
+	def createMulmod() {
+		val addmod = TypesFactory.eINSTANCE.createOperation() => [
+			parameters += TypesFactory.eINSTANCE.createParameter => [
+				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+					type = typeSystem.getType(SolidityTypeSystem.UINT)
+				]
+				name = "x"
+			]
+			parameters += TypesFactory.eINSTANCE.createParameter => [
+				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+					type = typeSystem.getType(SolidityTypeSystem.UINT)
+				]
+				name = "y"
+			]
+			parameters += TypesFactory.eINSTANCE.createParameter => [
+				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+					type = typeSystem.getType(SolidityTypeSystem.UINT)
+				]
+				name = "k"
+			]
+			name = "mulmod"
+			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+				type = typeSystem.getType(SolidityTypeSystem.UINT)
+			]
+
+		]
+		(typeSystem as AbstractTypeSystem).resource.contents += addmod
+		addmod
+	}
+
+	def createKeccak256() {
+		val keccak256 = TypesFactory.eINSTANCE.createOperation() => [
+			parameters += TypesFactory.eINSTANCE.createParameter => [
+				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+					type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
+				]
+				name = "argument"
+			]
+			name = "keccak256"
+			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+				type = typeSystem.getType(SolidityTypeSystem.BYTES32)
+			]
+
+		]
+		(typeSystem as AbstractTypeSystem).resource.contents += keccak256
+		keccak256
+	}
+
+	def createSha256() {
+		val sha256 = TypesFactory.eINSTANCE.createOperation() => [
+			parameters += TypesFactory.eINSTANCE.createParameter => [
+				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+					type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
+				]
+				name = "argument"
+			]
+			name = "sha256"
+			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+				type = typeSystem.getType(SolidityTypeSystem.BYTES32)
+			]
+
+		]
+		(typeSystem as AbstractTypeSystem).resource.contents += sha256
+		sha256
+	}
+
+	def createSha3() {
+		val sha3 = TypesFactory.eINSTANCE.createOperation() => [
+			parameters += TypesFactory.eINSTANCE.createParameter => [
+				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+					type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
+				]
+				name = "argument"
+			]
+			name = "sha3"
+			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+				type = typeSystem.getType(SolidityTypeSystem.BYTES32)
+			]
+
+		]
+		(typeSystem as AbstractTypeSystem).resource.contents += sha3
+		sha3
+	}
+
+	def createRipemd160() {
+		val ripemd160 = TypesFactory.eINSTANCE.createOperation() => [
+			parameters += TypesFactory.eINSTANCE.createParameter => [
+				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+					type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
+				]
+				name = "argument"
+			]
+			name = "ripemd160"
+			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+				type = typeSystem.getType(SolidityTypeSystem.BYTES20)
+			]
+
+		]
+		(typeSystem as AbstractTypeSystem).resource.contents += ripemd160
+		ripemd160
+	}
+
+//bytes32 hash, uint8 v, bytes32 r, bytes32 s
+	def createEcrecover() {
+		val ecrecover = TypesFactory.eINSTANCE.createOperation() => [
+			parameters += TypesFactory.eINSTANCE.createParameter => [
+				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+					type = typeSystem.getType(SolidityTypeSystem.BYTES32)
+				]
+				name = "hash"
+			]
+			parameters += TypesFactory.eINSTANCE.createParameter => [
+				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+					type = typeSystem.getType(SolidityTypeSystem.UINT8)
+				]
+				name = "v"
+			]
+			parameters += TypesFactory.eINSTANCE.createParameter => [
+				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+					type = typeSystem.getType(SolidityTypeSystem.BYTES32)
+				]
+				name = "r"
+			]
+			parameters += TypesFactory.eINSTANCE.createParameter => [
+				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+					type = typeSystem.getType(SolidityTypeSystem.BYTES32)
+				]
+				name = "s"
+			]
+			name = "ecrecover"
+			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+				type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
+			]
+
+		]
+		(typeSystem as AbstractTypeSystem).resource.contents += ecrecover
+		ecrecover
+	}
 
 	def createNow() {
 		var now = TypesFactory.eINSTANCE.createProperty => [
