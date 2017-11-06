@@ -129,9 +129,10 @@ class BuildInDeclarations {
 		val keccak256 = TypesFactory.eINSTANCE.createOperation() => [
 			parameters += TypesFactory.eINSTANCE.createParameter => [
 				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
+					type = typeSystem.getType(SolidityTypeSystem.ANY)
 				]
 				name = "argument"
+				varArgs = true
 			]
 			name = "keccak256"
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
@@ -147,9 +148,10 @@ class BuildInDeclarations {
 		val sha256 = TypesFactory.eINSTANCE.createOperation() => [
 			parameters += TypesFactory.eINSTANCE.createParameter => [
 				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
+					type = typeSystem.getType(SolidityTypeSystem.ANY)
 				]
 				name = "argument"
+				varArgs = true
 			]
 			name = "sha256"
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
@@ -165,9 +167,10 @@ class BuildInDeclarations {
 		val sha3 = TypesFactory.eINSTANCE.createOperation() => [
 			parameters += TypesFactory.eINSTANCE.createParameter => [
 				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
+					type = typeSystem.getType(SolidityTypeSystem.ANY)
 				]
 				name = "argument"
+				varArgs = true
 			]
 			name = "sha3"
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
@@ -183,8 +186,9 @@ class BuildInDeclarations {
 		val ripemd160 = TypesFactory.eINSTANCE.createOperation() => [
 			parameters += TypesFactory.eINSTANCE.createParameter => [
 				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
+					type = typeSystem.getType(SolidityTypeSystem.ANY)
 				]
+				varArgs = true
 				name = "argument"
 			]
 			name = "ripemd160"
@@ -197,7 +201,6 @@ class BuildInDeclarations {
 		ripemd160
 	}
 
-//bytes32 hash, uint8 v, bytes32 r, bytes32 s
 	def createEcrecover() {
 		val ecrecover = TypesFactory.eINSTANCE.createOperation() => [
 			parameters += TypesFactory.eINSTANCE.createParameter => [

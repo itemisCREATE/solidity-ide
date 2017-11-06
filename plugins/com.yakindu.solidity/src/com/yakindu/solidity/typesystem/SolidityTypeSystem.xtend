@@ -255,10 +255,11 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 			]
 			type.features += eINSTANCE.createOperation => [
 				parameters += eINSTANCE.createParameter => [
-					name = "target"
 					typeSpecifier = eINSTANCE.createTypeSpecifier => [
-						type = getType(ADDRESS)
+						type = getType(ANY)
 					]
+					name = "target"
+					varArgs = true;
 				]
 				name = CALL
 				typeSpecifier = eINSTANCE.createTypeSpecifier => [
@@ -267,10 +268,11 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 			]
 			type.features += eINSTANCE.createOperation => [
 				parameters += eINSTANCE.createParameter => [
-					name = "target"
 					typeSpecifier = eINSTANCE.createTypeSpecifier => [
-						type = getType(ADDRESS)
+						type = getType(ANY)
 					]
+					name = "target"
+					varArgs = true;
 				]
 				name = CALLCODE
 				typeSpecifier = eINSTANCE.createTypeSpecifier => [
@@ -279,10 +281,11 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 			]
 			type.features += eINSTANCE.createOperation => [
 				parameters += eINSTANCE.createParameter => [
-					name = "target"
 					typeSpecifier = eINSTANCE.createTypeSpecifier => [
-						type = getType(ADDRESS)
+						type = getType(ANY)
 					]
+					name = "target"
+					varArgs = true
 				]
 				name = DELEGATECALL
 				typeSpecifier = eINSTANCE.createTypeSpecifier => [
