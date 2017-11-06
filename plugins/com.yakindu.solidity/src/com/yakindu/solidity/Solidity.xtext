@@ -39,7 +39,7 @@ StateVariableDefinition returns types::Property:
 	{VariableDefinition} typeSpecifier=TypeSpecifier (visibility=Visibility)? name=ID ('=' initialValue=Expression)? ';';
 
 @ Override TypeSpecifier returns types::TypeSpecifier:
-	{TypeSpecifier} type=[types::Type|QID] ('[' index+=Expression ']')*;
+	{TypeSpecifier} type=[types::Type|QID] ('[' (index+=Expression)? ']')*;
 
 VariableDeclaration returns types::Property:
 	{VariableDefinition} typeSpecifier=TypeSpecifier name=ID;
