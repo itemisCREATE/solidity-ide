@@ -6,6 +6,10 @@ import org.yakindu.base.types.typesystem.GenericTypeSystem
 import static org.yakindu.base.types.TypesFactory.*
 import org.yakindu.base.types.typesystem.ITypeSystem
 
+/**
+ * @author andreas muelder - Initial contribution and API
+ * @author Florian Antony
+ */
 @Singleton
 public class SolidityTypeSystem extends GenericTypeSystem {
 

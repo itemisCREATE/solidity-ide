@@ -7,6 +7,7 @@ import com.yakindu.solidity.typesystem.SolidityTypeSystem
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
 import com.yakindu.solidity.scoping.SolidityScopeProvider
+import com.yakindu.solidity.terminals.SolidityValueConverterService
 
 class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 
@@ -22,6 +23,10 @@ class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 
 	override bindIScopeProvider() {
 		SolidityScopeProvider
+	}
+	
+	override bindIValueConverterService() {
+		SolidityValueConverterService
 	}
 
 }

@@ -14,7 +14,11 @@ import org.yakindu.base.types.typesystem.ITypeSystem;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-
+/**
+ * 
+ * @author andreas muelder - Initial contribution and API
+ * 
+ */
 public class TypeSystemAwareScope extends AbstractScope {
 
 	private final ITypeSystem typeSystem;

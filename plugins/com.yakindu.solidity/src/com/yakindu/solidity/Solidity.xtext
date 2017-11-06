@@ -76,11 +76,15 @@ Block:
 	'{' {Block} (statements+=Statement)* '}';
 
 @ Override Literal returns expressions::Literal:
-	super | ModifierInvocationLiteral;
+		BoolLiteral | BigIntLiteral | AddressLiteral | BinaryLiteral | DoubleLiteral | FloatLiteral | StringLiteral | NullLiteral | ModifierInvocationLiteral;
 
-@ Override IntLiteral:
-	{IntLiteral}
-	value=INT (unit=Unit)?;
+BigIntLiteral:
+	value=BIGINT  (unit=Unit)? 
+;
+
+AddressLiteral:
+	value=ADDRESS
+;
 
 ModifierInvocationLiteral:
 	{ModifierInvocationLiteral} '_;';
@@ -133,3 +137,10 @@ WhileStatement:
 ForStatement:
 	'for' '(' (initialization=SimpleStatement)? ';' (condition=Expression)? ';' (afterthought=Expression)? ')'
 	statement=Statement;
+
+terminal ADDRESS returns EBigInteger:
+	('0') ('x' | 'X') ('0'..'9' | 'a'..'f' | 'A'..'F')+;	
+
+terminal BIGINT returns EBigInteger:
+	('0'..'9')+;
+
