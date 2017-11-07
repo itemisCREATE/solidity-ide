@@ -60,4 +60,12 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 		else
 			inferTypeDispatch(op.returnParameter.parameters.head);
 	}
+
+	override protected getResultFor(String name) {
+		if (ITypeSystem.BOOLEAN.equals(name))
+			return super.getResultFor(SolidityTypeSystem.BOOL)
+		else
+			return super.getResultFor(name)
+	}
+
 }

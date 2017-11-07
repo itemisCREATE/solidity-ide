@@ -38,8 +38,17 @@ ContractPart returns types::Declaration:
 StateVariableDefinition returns types::Property:
 	{VariableDefinition} typeSpecifier=TypeSpecifier (visibility=Visibility)? name=ID ('=' initialValue=Expression)? ';';
 
-@ Override TypeSpecifier returns types::TypeSpecifier:
-	{TypeSpecifier} type=[types::Type|QID] ('[' (index+=Expression)? ']')*;
+@ Override TypeSpecifier:
+	SimpleTypeSpecifier | MappingTypeSpecifier | ArrayTypeSpecifier;
+
+MappingTypeSpecifier:
+	{MappingTypeSpecifier} 'mapping' '(' from=TypeSpecifier'=>' to=TypeSpecifier ')';
+
+ArrayTypeSpecifier:
+	{SimpleTypeSpecifier} type=[types::Type|QID] ('[' (index+=Expression)? ']')+;
+
+SimpleTypeSpecifier returns TypeSpecifier:
+	type=[types::Type|QID];
 
 VariableDeclaration returns types::Property:
 	{VariableDefinition} typeSpecifier=TypeSpecifier name=ID;
@@ -76,15 +85,14 @@ Block:
 	'{' {Block} (statements+=Statement)* '}';
 
 @ Override Literal returns expressions::Literal:
-		BoolLiteral | BigIntLiteral | AddressLiteral | BinaryLiteral | DoubleLiteral | FloatLiteral | StringLiteral | NullLiteral | ModifierInvocationLiteral;
+	BoolLiteral | BigIntLiteral | AddressLiteral | BinaryLiteral | DoubleLiteral | FloatLiteral | StringLiteral |
+	NullLiteral | ModifierInvocationLiteral;
 
 BigIntLiteral:
-	value=BIGINT  (unit=Unit)? 
-;
+	value=BIGINT (unit=Unit)?;
 
 AddressLiteral:
-	value=ADDRESS
-;
+	value=ADDRESS;
 
 ModifierInvocationLiteral:
 	{ModifierInvocationLiteral} '_;';
@@ -118,20 +126,16 @@ ExpressionStatement:
 	operator=UnaryOperator operand=PostFixUnaryExpression;
 
 PostFixUnaryExpression returns expressions::Expression:
-	PrimaryExpression  ({PostFixUnaryExpression.operand=current} operator=PostFixOperator)*;
+	PrimaryExpression ({PostFixUnaryExpression.operand=current} operator=PostFixOperator)*;
 
 enum PostFixOperator:
-	increment="++" | decrement="--"
-;
+	increment="++" | decrement="--";
 
 VariableDefinitionProperty returns types::Property:
 	VariableDefinition;
 
 VariableDefinition:
 	('var' | typeSpecifier=SimpleTypeSpecifier) name=ID ('=' initialValue=Expression)?;
-
-SimpleTypeSpecifier returns TypeSpecifier:
-	type=[types::Type|QID];
 
 IfStatement:
 	'if' '(' condition=Expression ')'
@@ -146,7 +150,7 @@ ForStatement:
 	statement=Statement;
 
 terminal ADDRESS returns EBigInteger:
-	('0') ('x' | 'X') ('0'..'9' | 'a'..'f' | 'A'..'F')+;	
+	('0') ('x' | 'X') ('0'..'9' | 'a'..'f' | 'A'..'F')+;
 
 terminal BIGINT returns EBigInteger:
 	('0'..'9')+;
