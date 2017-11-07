@@ -43,4 +43,11 @@
          </command>
       </menuContribution>
    </extension>
+   <extension
+         point="org.eclipse.xtext.builder.participant">
+      <participant
+            class="com.yakindu.solidity.ide.builder.SolidityBuilderParticipant"
+            fileExtensions="sol">
+      </participant>
+   </extension>
 </plugin>
