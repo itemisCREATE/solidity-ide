@@ -67,13 +67,16 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 
 		declarePrimitive(BOOL)
 		declareSuperType(getType(BOOL), getType(BOOLEAN))
+		declareSuperType(getType(BOOL), getType(ANY))
 
 		declarePrimitive(UINT)
 		declareSuperType(getType(UINT), getType(INTEGER))
+		declareSuperType(getType(UINT), getType(ANY))
 		UINT.declareExplicitSizeTypes(8)
 
 		declarePrimitive(INT)
 		declareSuperType(getType(INT), getType(INTEGER))
+		declareSuperType(getType(INT), getType(ANY))
 		INT.declareExplicitSizeTypes(8)
 
 		declarePrimitive(com.yakindu.solidity.typesystem.SolidityTypeSystem.BYTES)
@@ -85,7 +88,7 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 		var address = createAddress()
 		declareType(address, ADDRESS)
 		resource.getContents().add(address);
-		declareSuperType(getType(INTEGER), getType(ADDRESS))
+		declareSuperType(getType(ADDRESS), getType(ANY))
 
 		var msg = createMessage()
 		declareType(msg, MESSAGE)
