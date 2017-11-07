@@ -19,6 +19,7 @@ import com.google.common.collect.ImmutableMap;
 /**
  * 
  * @author andreas muelder - Initial contribution and API
+ * @author Florian Antony
  * 
  */
 public class SolidityUserHelpDocumentationProvider implements IEObjectDocumentationProvider {
@@ -28,6 +29,12 @@ public class SolidityUserHelpDocumentationProvider implements IEObjectDocumentat
 		    .put("contract", "https://solidity.readthedocs.io/en/develop/structure-of-a-contract.html#structure-of-a-contract") 
 		    .put("interface", "http://solidity.readthedocs.io/en/develop/contracts.html#interfaces") 
 		    .put("library", "http://solidity.readthedocs.io/en/develop/contracts.html#libraries") 
+		    .put("mapping", "http://solidity.readthedocs.io/en/develop/types.html#mappings") 
+		    .put("enum", "http://solidity.readthedocs.io/en/develop/types.html#enums") 
+		    .put("modifier", "http://solidity.readthedocs.io/en/develop/contracts.html#function-modifiers") 
+		    .put("public", "http://solidity.readthedocs.io/en/develop/contracts.html#visibility-and-getters") 
+		    .put("internal", "http://solidity.readthedocs.io/en/develop/contracts.html#visibility-and-getters") 
+		    .put("private", "http://solidity.readthedocs.io/en/develop/contracts.html#visibility-and-getters") 
 		    .build();
 	// TODO: Complete
 	// @formatter:on

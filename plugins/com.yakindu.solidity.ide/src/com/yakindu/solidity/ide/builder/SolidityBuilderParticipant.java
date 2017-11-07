@@ -21,6 +21,11 @@ import org.eclipse.xtext.resource.IResourceDescription.Delta;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+/**
+ * 
+ * @author Florian Antony - Initial contribution and API
+ * 
+ */
 public class SolidityBuilderParticipant implements IXtextBuilderParticipant {
 
 	public static final String ID = "com.yakindu.solidity.ide.builder.solidityBuilder";
