@@ -1,4 +1,4 @@
-package com.yakindu.sct.domain.solidity.ui.highlighting;
+package com.yakindu.solidity.ui.highlighting;
 
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;

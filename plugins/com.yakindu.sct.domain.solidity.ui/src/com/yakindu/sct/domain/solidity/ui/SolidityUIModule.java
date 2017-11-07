@@ -1,9 +1,10 @@
 package com.yakindu.sct.domain.solidity.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
 import org.yakindu.sct.model.stext.ui.STextUiModule;
 
-import com.yakindu.sct.domain.solidity.ui.highlighting.SoliditySemanticHighlighter;
+import com.yakindu.solidity.ui.highlighting.SoliditySemanticHighlighter;
 
 public class SolidityUIModule extends STextUiModule {
 
@@ -14,5 +15,5 @@ public class SolidityUIModule extends STextUiModule {
 	public Class<? extends org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator> bindISemanticHighlightingCalculator() {
 		return SoliditySemanticHighlighter.class;
 	}
-
+	
 }

@@ -17,10 +17,12 @@ Require-Bundle: com.yakindu.solidity,
  org.eclipse.xtext.builder,
  org.eclipse.xtend.lib;resolution:=optional,
  org.eclipse.xtext.xbase.lib,
- org.yakindu.base.expressions.ui
+ org.yakindu.base.expressions.ui,
+ org.yakindu.base.types
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: com.yakindu.solidity.ui.quickfix,
- com.yakindu.solidity.ui.contentassist,
- com.yakindu.solidity.ui.internal
+Export-Package: com.yakindu.solidity.ui.contentassist,
+ com.yakindu.solidity.ui.highlighting,
+ com.yakindu.solidity.ui.internal,
+ com.yakindu.solidity.ui.quickfix
 Bundle-Activator: com.yakindu.solidity.ui.internal.SolidityActivator

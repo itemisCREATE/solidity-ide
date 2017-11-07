@@ -95,7 +95,7 @@ FunctionDefinition returns types::Operation:
 	('returns' returnParameter=ParameterList)? (';' | (block=Block));
 
 Parameter returns types::Parameter:
-	(typeSpecifier=TypeSpecifier)? name=ID;
+	typeSpecifier=TypeSpecifier (name=ID)?;
 
 EventDefinition returns types::Event:
 	{EventDefinition} 'event' name=ID '(' parameter=ParameterList ')';

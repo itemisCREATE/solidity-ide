@@ -4,10 +4,23 @@
 package com.yakindu.solidity.ui
 
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
+import com.yakindu.solidity.ui.highlighting.SoliditySemanticHighlighter
+import com.google.inject.Binder
+import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator
+import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration
+import com.yakindu.solidity.ui.highlighting.SolidityHighlightingConfiguration
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
  */
 @FinalFieldsConstructor
 class SolidityUiModule extends AbstractSolidityUiModule {
+	
+	override configure(Binder binder) {
+		super.configure(binder)
+		binder.bind(ISemanticHighlightingCalculator).to(SoliditySemanticHighlighter)
+		binder.bind(IHighlightingConfiguration).to(SolidityHighlightingConfiguration)
+	}
+	
+	
 }
