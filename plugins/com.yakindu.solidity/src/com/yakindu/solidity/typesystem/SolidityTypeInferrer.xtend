@@ -53,12 +53,12 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 	}
 
 	def doInfer(FunctionDefinition op) {
-		if (op.returnParameter.parameters.size == 0 && op.typeSpecifier === null)
+		if (op.returnParameters.size == 0 && op.typeSpecifier === null)
 			getResultFor(ITypeSystem.VOID)
 		else if (op.typeSpecifier !== null)
 			return inferTypeDispatch(op.typeSpecifier.type)
 		else
-			inferTypeDispatch(op.returnParameter.parameters.head);
+			inferTypeDispatch(op.returnParameters.head);
 	}
 
 	override protected getResultFor(String name) {

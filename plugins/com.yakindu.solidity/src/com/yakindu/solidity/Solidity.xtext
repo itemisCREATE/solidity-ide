@@ -75,11 +75,8 @@ Enumerator returns types::Enumerator:
 	name=ID;
 
 ModifierDefinition returns types::Operation:
-	{ModifierDefinition} 'modifier' name=ID parameter=ParameterList
+	{ModifierDefinition} 'modifier' name=ID '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')'
 	block+=Block;
-
-ParameterList:
-	{ParameterList} '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')';
 
 Block:
 	'{' {Block} (statements+=Statement)* '}';
@@ -98,15 +95,18 @@ ModifierInvocationLiteral:
 	{ModifierInvocationLiteral} '_;';
 
 FunctionDefinition returns types::Operation:
-	{FunctionDefinition} 'function' name=ID? parameter=ParameterList
+	{FunctionDefinition} 'function' name=ID? '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')'
 	('external' | 'public' | 'internal' | 'private' | 'constant')*
-	('returns' returnParameter=ParameterList)? (';' | (block=Block));
+	('returns' '(' (returnParameters+=Parameter (',' returnParameters+=Parameter)*)? ')')? (';' | (block=Block));
 
 Parameter returns types::Parameter:
 	typeSpecifier=TypeSpecifier (name=ID)?;
+	
+IndexParameter returns types::Parameter:
+	{IndexParameter} typeSpecifier=TypeSpecifier (indexed?="indexed")? (name=ID)?;
 
-EventDefinition returns types::Event:
-	{EventDefinition} 'event' name=ID '(' parameter=ParameterList ')';
+EventDefinition returns types::Operation:
+	{EventDefinition} 'event' name=ID '(' (parameters+=IndexParameter (',' parameters+=IndexParameter)*)? ')';
 
 Statement:
 	IfStatement | WhileStatement | ForStatement | Block | (ReturnStatement | SimpleStatement) ';';
