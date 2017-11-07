@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: com.yakindu.solidity.ui
-Bundle-Vendor: TBD
+Bundle-Vendor: YAKINDU
 Bundle-Version: 0.7.0.qualifier
 Bundle-SymbolicName: com.yakindu.solidity.ui; singleton:=true
 Bundle-ActivationPolicy: lazy

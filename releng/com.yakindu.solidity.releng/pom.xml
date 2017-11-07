@@ -10,8 +10,10 @@
 
 	<!-- this is the parent POM from which all modules inherit common settings -->
 	<properties>
-		<tycho-version>1.0.0</tycho-version>
-		<tycho-extras-version>1.0.0</tycho-extras-version>
+		<tycho-version>0.24.0</tycho-version>
+		<tycho-extras-version>0.24.0</tycho-extras-version>
+		<xtext-version>2.12.0</xtext-version>
+		<mwe-version>2.9.0.201605261059</mwe-version>
 		<antrun-version>1.6</antrun-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<testFailureIgnore>false</testFailureIgnore>
@@ -19,6 +21,7 @@
 	<modules>
 		<!--  releng  -->
 		<module>../com.yakindu.solidity.target</module>
+		<module>../com.yakindu.solidity.repository</module>
 		<!-- plugins -->
 		<module>../../plugins/com.yakindu.solidity</module>
 		<module>../../plugins/com.yakindu.solidity.ide</module>
@@ -151,7 +154,7 @@
 					<artifactId>target-platform-configuration</artifactId>
 					<version>${tycho-version}</version>
 					<configuration>
-						<environments>
+					<environments>
 							<environment>
 								<os>linux</os>
 								<ws>gtk</ws>
@@ -178,6 +181,15 @@
 								<arch>x86_64</arch>
 							</environment>
 						</environments>
+						<includePackedArtifacts>true</includePackedArtifacts>
+							<target>
+								<artifact>
+									<groupId>com.yakindu.solidity</groupId>
+									<artifactId>com.yakindu.solidity.target</artifactId>
+									<version>0.7.0-SNAPSHOT</version>
+									<classifier>Oxygen</classifier>
+								</artifact>
+							</target>
 					</configuration>
 				</plugin>
 			</plugins>
