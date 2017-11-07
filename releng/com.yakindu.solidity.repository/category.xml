@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/com.yakindu.solidity.feature_0.7.0.qualifier.jar" id="com.yakindu.solidity.feature" version="0.7.0.qualifier">
+      <category name="YAKINDU Solidity Tools"/>
+   </feature>
+   <category-def name="YAKINDU Solidity Tools" label="YAKINDU Solidity Tools">
+      <description>
+         This category contains all solidity tool features.
+      </description>
+   </category-def>
+</site>
