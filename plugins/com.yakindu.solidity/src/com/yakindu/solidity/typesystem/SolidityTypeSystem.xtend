@@ -109,6 +109,7 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 			var type = superType + j * bitPerStep
 			declarePrimitive(type)
 			declareSuperType(getType(type), getType(lastType))
+			declareSuperType(getType(type), getType(ANY))
 			lastType = type
 		}
 	}

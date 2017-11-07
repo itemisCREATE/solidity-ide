@@ -1,48 +1,6 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <?eclipse version="3.0"?>
 <plugin>
-	 <extension 
-         id="builder.solidityBuilder" 
-         name="Solidity Builder" 
-         point="org.eclipse.core.resources.builders">
-     <builder>
-     	<run class="com.yakindu.solidity.ide.builder.SolidityBuilder">
-     	</run>
-    </builder>
-   </extension>
-   <extension point="org.eclipse.core.resources.natures"
-      id="nature.solidityNature"
-      name="Solidity Nature">
-      <runtime>
-         <run class="com.yakindu.solidity.ide.nature.SolidityNature">
-         </run>
-      </runtime>
-   <requires-nature id="org.eclipse.xtext.ui.shared.xtextNature"/>
-   </extension>
-   <extension
-         id="com.yakindu.solidity.nature.configurationcommand"
-         name="Convert to Solidity Project"
-         point="org.eclipse.ui.commands">
-   </extension>
-   <extension
-         point="org.eclipse.ui.handlers">
-      <handler
-            class="com.yakindu.solidity.ide.nature.SolidityNatureHandler"
-            commandId="com.yakindu.solidity.nature.configurationcommand">
-      </handler>
-   </extension>
-   <extension
-         point="org.eclipse.ui.menus">
-      <menuContribution
-            allPopups="false"
-            locationURI="popup:org.eclipse.ui.projectConfigure">
-         <command
-               commandId="com.yakindu.solidity.nature.configurationcommand"
-               label="Convert to Solidity Project"
-               style="push">
-         </command>
-      </menuContribution>
-   </extension>
    <extension
          point="org.eclipse.xtext.builder.participant">
       <participant
