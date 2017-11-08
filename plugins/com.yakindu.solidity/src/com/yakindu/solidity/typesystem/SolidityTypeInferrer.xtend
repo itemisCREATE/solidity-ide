@@ -40,7 +40,7 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 			ts.isSuperType(varResult.type, ts.getType(ITypeSystem.INTEGER))) {
 			return;
 		}
-		super.assertAssignable(varResult, valueResult, msg);
+		super.assertCompatible(varResult, valueResult, msg)
 	}
 
 	override doInfer(BoolLiteral literal) {
@@ -79,5 +79,4 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 		else
 			return super.getResultFor(name)
 	}
-
 }
