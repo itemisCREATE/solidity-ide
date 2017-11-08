@@ -60,6 +60,7 @@
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//ModifierInvocationLiteral"/>
     <genClasses ecoreClass="Solidity.ecore#//Statement"/>
+    <genClasses ecoreClass="Solidity.ecore#//ThrowStatement"/>
     <genClasses ecoreClass="Solidity.ecore#//SimpleStatement"/>
     <genClasses ecoreClass="Solidity.ecore#//ReturnStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ReturnStatement/expression"/>
@@ -126,6 +127,9 @@
     <genClasses ecoreClass="Solidity.ecore#//PostFixUnaryExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//PostFixUnaryExpression/operand"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//PostFixUnaryExpression/operator"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//NewInstanceExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//NewInstanceExpression/type"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
