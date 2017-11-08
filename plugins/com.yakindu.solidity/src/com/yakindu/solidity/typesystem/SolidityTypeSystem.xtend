@@ -21,6 +21,7 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 	public static val String INT = "int"
 	public static val String BYTE = "byte"
 	public static val String BYTES = "bytes"
+	public static val String BYTES4 = "bytes4"
 	public static val String BYTES20 = "bytes20"
 	public static val String BYTES32 = "bytes32"
 	public static val String ADDRESS = "address"
@@ -34,6 +35,7 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 	public static val String MESSAGE = "message"
 	public static val String DATA = "data"
 	public static val String SENDER = "sender"
+	public static val String SIG = "sig"
 
 	public static val String MAPPING = "mapping"
 	public static val String TRANSACTION = "transaction"
@@ -129,6 +131,12 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 				name = SENDER
 				typeSpecifier = eINSTANCE.createTypeSpecifier => [
 					type = getType(ADDRESS)
+				]
+			]
+			type.features += eINSTANCE.createProperty => [
+				name = SIG
+				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+					type = getType(BYTES4)
 				]
 			]
 			type.features += eINSTANCE.createProperty => [

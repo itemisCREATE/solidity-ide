@@ -45,13 +45,45 @@ public class SolidityUserHelpDocumentationProvider implements IEObjectDocumentat
 			.put("internal", "http://solidity.readthedocs.io/en/develop/contracts.html#visibility-and-getters")
 			.put("private", "http://solidity.readthedocs.io/en/develop/contracts.html#visibility-and-getters")
 
+			.put("block",
+					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+			.put("blockhash",
+					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+			.put("coinbase",
+					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+			.put("difficulty",
+					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+			.put("gaslimit",
+					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+			.put("number",
+					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+			.put("timestamp",
+					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+			.put("msg",
+					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+			.put("data",
+					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+			.put("gas",
+					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 			.put("sender",
+					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+			.put("sig",
+					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+			.put("value",
+					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+			.put("now",
+					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+			.put("tx",
+					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+			.put("gasprice",
 					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 			.put("origin",
 					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 
 			.put("this", "http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#contract-related")
 			.put("suicide",
+					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#contract-related")
+			.put("selfdestruct",
 					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#contract-related")
 			.build();
 	// TODO: Complete
