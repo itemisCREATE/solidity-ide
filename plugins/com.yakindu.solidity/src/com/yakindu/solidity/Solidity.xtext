@@ -19,9 +19,9 @@ terminal VERSION:
 
 SourceUnit returns types::Package:
 	{SourceUnit}
-	(pragma=PragmaDirective)?
-	(imports+=ImportDirective)*
-	member+=ContractDefinition;
+	((pragma=PragmaDirective)? &
+	(imports+=ImportDirective)* &
+	member+=ContractDefinition);
 
 PragmaDirective returns types::PackageMember:
 	{PragmaDirective} 'pragma' 'solidity' version=VERSION ';';
@@ -102,7 +102,7 @@ ModifierInvocationLiteral:
 
 FunctionDefinition returns types::Operation:
 	{FunctionDefinition} 'function' name=ID? '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')'
-	('external' | 'public' | 'internal' | 'private' | 'constant')*
+	('external' | 'public' | 'internal' | 'private' | 'pure' | 'constant' | 'view' | 'payable')*
 	('returns' '(' (returnParameters+=Parameter (',' returnParameters+=Parameter)*)? ')')? (';' | (block=Block));
 
 Parameter returns types::Parameter:
@@ -118,8 +118,7 @@ Statement:
 	IfStatement | WhileStatement | ForStatement | Block | (ThrowStatement | ReturnStatement | SimpleStatement) ';';
 
 ThrowStatement:
-	{ThrowStatement} 'throw'
-;
+	{ThrowStatement} 'throw';
 
 SimpleStatement:
 	VariableDefinition | ExpressionStatement;
