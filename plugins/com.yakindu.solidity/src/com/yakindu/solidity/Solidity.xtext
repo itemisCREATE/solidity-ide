@@ -115,13 +115,17 @@ EventDefinition returns types::Operation:
 	{EventDefinition} 'event' name=ID '(' (parameters+=IndexParameter (',' parameters+=IndexParameter)*)? ')' ';';
 
 Statement:
-	IfStatement | WhileStatement | ForStatement | Block | (ThrowStatement | ReturnStatement | SimpleStatement) ';';
+	IfStatement | WhileStatement | ForStatement | Block | PlaceholderStatement | (ThrowStatement | ReturnStatement | SimpleStatement) ';';
 
 ThrowStatement:
 	{ThrowStatement} 'throw';
 
 SimpleStatement:
 	VariableDefinition | ExpressionStatement;
+
+PlaceholderStatement:
+	{PlaceholderStatement} '_'
+;
 
 ReturnStatement:
 	{ReturnStatement} 'return' (expression=Expression)?;
