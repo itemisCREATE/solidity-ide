@@ -16,7 +16,6 @@ Require-Bundle: com.yakindu.solidity,
  org.eclipse.ui,
  org.eclipse.core.runtime,
  com.google.guava,
- org.eclipse.xtext.builder,
  org.eclipse.xtext.builder
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.yakindu.solidity.ide.contentassist.antlr.internal,

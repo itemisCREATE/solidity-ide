@@ -1,6 +1,5 @@
 package com.yakindu.solidity.ide.builder;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -30,9 +29,6 @@ public class SolidityBuilderParticipant implements IXtextBuilderParticipant {
 
 	public static final String ID = "com.yakindu.solidity.ide.builder.solidityBuilder";
 
-	private final String solc = getClass().getProtectionDomain().getCodeSource().getLocation().getFile()
-			+ "/compiler/solc.exe";
-
 	@Override
 	public void build(IBuildContext context, IProgressMonitor monitor) throws CoreException {
 		if (!isEnabled(context)) {
@@ -54,7 +50,15 @@ public class SolidityBuilderParticipant implements IXtextBuilderParticipant {
 				throw new OperationCanceledException();
 			}
 			String uri = delta.getUri().toString();
-			compile(findFile(uri, files), progress);
+			Object instance;
+			try {
+				instance = Class.forName("com.yakindu.solidity.ide.builder.SolidityCompiler").getConstructor()
+						.newInstance();
+				((ISolidityCompiler) instance).compile(findFile(uri, files), progress);
+			} catch (Exception e) {
+				//TODO
+				System.out.println();
+			}
 		}
 		context.getBuiltProject().refreshLocal(IProject.DEPTH_INFINITE, monitor);
 		progress.done();
@@ -109,28 +113,6 @@ public class SolidityBuilderParticipant implements IXtextBuilderParticipant {
 	// TODO configure by preference
 	protected Map<String, OutputConfiguration> getOutputConfigurations(IBuildContext context) {
 		return Maps.newHashMap();
-	}
-
-	private void compile(IFile file, SubMonitor progress) {
-		if (file == null) {
-			return;
-		}
-		progress.beginTask("compiling " + file.getName(), 10);
-		Process process;
-		try {
-			process = new ProcessBuilder(solc, "--bin", "--abi", "--ast-compact-json", "--asm-json",
-					file.getLocation().toOSString()).start();
-			OutputHandler handler = new OutputHandler(file);
-			handler.handleOutput(process.getInputStream());
-			handler.handleError(process.getErrorStream());
-			process.waitFor();
-			handler.shutdown();
-			progress.done();
-		} catch (IOException e) {
-			progress.done();
-		} catch (InterruptedException e) {
-			progress.done();
-		}
 	}
 
 }
