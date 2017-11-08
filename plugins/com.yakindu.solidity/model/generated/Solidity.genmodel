@@ -29,6 +29,12 @@
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Unit/SZABO"/>
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Unit/ETHER"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Solidity.ecore#//MultiOperator">
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//MultiOperator/mul"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//MultiOperator/div"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//MultiOperator/mod"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//MultiOperator/exp"/>
+    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Solidity.ecore#//PostFixOperator">
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//PostFixOperator/increment"/>
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//PostFixOperator/decrement"/>
@@ -112,6 +118,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//IndexParameter/indexed"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//EventDefinition"/>
+    <genClasses ecoreClass="Solidity.ecore#//NumericalMultiplyDivideExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//NumericalMultiplyDivideExpression/leftOperand"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//NumericalMultiplyDivideExpression/operator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//NumericalMultiplyDivideExpression/rightOperand"/>
+    </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//PostFixUnaryExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//PostFixUnaryExpression/operand"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//PostFixUnaryExpression/operator"/>

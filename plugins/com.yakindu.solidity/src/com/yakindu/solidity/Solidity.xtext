@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author andreas muelder
+ * @author florian antony
+ * 
+ */
 grammar com.yakindu.solidity.Solidity with org.yakindu.base.expressions.Expressions
 
 generate solidity "http://www.yakindu.com/solidity/Solidity"
@@ -120,7 +126,17 @@ ReturnStatement:
 ExpressionStatement:
 	expression=Expression;
 
-	// Remove TypeCast Expression
+@Override 
+NumericalMultiplyDivideExpression returns expressions::Expression:
+	NumericalUnaryExpression
+	=>({NumericalMultiplyDivideExpression.leftOperand=current}
+	operator=MultiOperator
+	rightOperand=NumericalUnaryExpression)*;
+
+enum MultiOperator:
+	 mul='*' | div='/' | mod='%' | exp= "**";
+
+// Remove TypeCast Expression
 @ Override NumericalUnaryExpression returns expressions::Expression:
 	PostFixUnaryExpression | {expressions::NumericalUnaryExpression}
 	operator=UnaryOperator operand=PostFixUnaryExpression;
