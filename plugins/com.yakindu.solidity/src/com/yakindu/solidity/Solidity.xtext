@@ -81,7 +81,7 @@ Enumerator returns types::Enumerator:
 	name=ID;
 
 ModifierDefinition returns types::Operation:
-	{ModifierDefinition} 'modifier' name=ID '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')'
+	{ModifierDefinition} 'modifier' name=ID ('(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')')?
 	block+=Block;
 
 Block:
