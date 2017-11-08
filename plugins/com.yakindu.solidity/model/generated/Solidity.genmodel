@@ -62,6 +62,7 @@
     <genClasses ecoreClass="Solidity.ecore#//Statement"/>
     <genClasses ecoreClass="Solidity.ecore#//ThrowStatement"/>
     <genClasses ecoreClass="Solidity.ecore#//SimpleStatement"/>
+    <genClasses ecoreClass="Solidity.ecore#//PlaceholderStatement"/>
     <genClasses ecoreClass="Solidity.ecore#//ReturnStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ReturnStatement/expression"/>
     </genClasses>
