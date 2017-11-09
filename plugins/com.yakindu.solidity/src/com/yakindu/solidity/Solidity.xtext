@@ -88,17 +88,13 @@ Block:
 	'{' {Block} (statements+=Statement)* '}';
 
 @ Override Literal returns expressions::Literal:
-	BoolLiteral | BigIntLiteral | AddressLiteral | BinaryLiteral | DoubleLiteral | FloatLiteral | StringLiteral |
-	NullLiteral | ModifierInvocationLiteral;
+	BoolLiteral | BigIntLiteral | AddressLiteral | BinaryLiteral | DoubleLiteral | FloatLiteral | StringLiteral | NullLiteral;
 
 BigIntLiteral:
 	value=BIGINT (unit=Unit)?;
 
 AddressLiteral:
 	value=ADDRESS;
-
-ModifierInvocationLiteral:
-	{ModifierInvocationLiteral} '_;';
 
 FunctionDefinition returns types::Operation:
 	{FunctionDefinition} 'function' name=ID? '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')'
@@ -115,7 +111,7 @@ EventDefinition returns types::Operation:
 	{EventDefinition} 'event' name=ID '(' (parameters+=IndexParameter (',' parameters+=IndexParameter)*)? ')' ';';
 
 Statement:
-	IfStatement | WhileStatement | ForStatement | Block | PlaceholderStatement | (ThrowStatement | ReturnStatement | SimpleStatement) ';';
+	IfStatement | WhileStatement | ForStatement | Block | (ThrowStatement | ReturnStatement | SimpleStatement | PlaceholderStatement) ';';
 
 ThrowStatement:
 	{ThrowStatement} 'throw';
