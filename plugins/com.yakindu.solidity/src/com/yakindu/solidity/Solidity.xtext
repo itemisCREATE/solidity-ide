@@ -105,7 +105,7 @@ FunctionDefinition returns types::Operation:
 	('returns' '(' (returnParameters+=Parameter (',' returnParameters+=Parameter)*)? ')')? (';' | (block=Block));
 
 Parameter returns types::Parameter:
-	typeSpecifier=TypeSpecifier (name=ID)?;
+	{Parameter} typeSpecifier=TypeSpecifier (storage=StorageLocation)? (name=ID)?;
 
 IndexParameter returns types::Parameter:
 	{IndexParameter} typeSpecifier=TypeSpecifier (indexed?="indexed")? (name=ID)?;
