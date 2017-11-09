@@ -11,10 +11,15 @@ import org.yakindu.base.expressions.expressions.ElementReferenceExpression
 import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.Declaration
+import org.yakindu.base.types.TypedElement
 
 class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 
 	@Inject extension BuildInDeclarations
+
+	override getScope(EObject context, EReference ref) {
+		return super.getScope(context, ref)
+	}
 
 	def scope_ElementReferenceExpression_reference(EObject context, EReference reference) {
 		var result = delegate.getScope(context, reference)
@@ -52,6 +57,11 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 			element = owner.feature
 		} else {
 			return getDelegate().getScope(context, reference);
+		}
+
+		if (element instanceof TypedElement) {
+			if(element.type instanceof ComplexType)
+			return Scopes.scopeFor((element.type as ComplexType).getAllFeatures())
 		}
 
 		var parentScope = delegate.getScope(context, reference)
