@@ -56,8 +56,11 @@ ArrayTypeSpecifier:
 SimpleTypeSpecifier returns TypeSpecifier:
 	type=[types::Type|QID];
 
+enum StorageLocation :
+	MEMORY = 'memory' | STORAGE='storage';
+
 VariableDeclaration returns types::Property:
-	{VariableDefinition} typeSpecifier=TypeSpecifier name=ID;
+	{VariableDefinition} typeSpecifier=TypeSpecifier (storage=StorageLocation)? name=ID;
 
 enum Visibility:
 	PUBLIC='public' | INTERNAL='internal' | PRIVATE='private';
@@ -160,7 +163,7 @@ VariableDefinitionProperty returns types::Property:
 	VariableDefinition;
 
 VariableDefinition:
-	('var' | typeSpecifier=SimpleTypeSpecifier) name=ID ('=' initialValue=Expression)?;
+	('var' | typeSpecifier=SimpleTypeSpecifier) (storage=StorageLocation)? name=ID ('=' initialValue=Expression)?;
 
 IfStatement:
 	'if' '(' condition=Expression ')'
