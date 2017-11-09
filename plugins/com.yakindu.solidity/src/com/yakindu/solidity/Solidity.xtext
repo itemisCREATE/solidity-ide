@@ -42,7 +42,7 @@ ContractPart returns types::Declaration:
 	TypeDefinition;
 
 StateVariableDefinition returns types::Property:
-	{VariableDefinition} typeSpecifier=TypeSpecifier (visibility=Visibility)? name=ID ('=' initialValue=Expression)? ';';
+	{VariableDefinition} typeSpecifier=TypeSpecifier ((visibility=Visibility)? & ('constant')?) name=ID ('=' initialValue=Expression)? ';';
 
 @ Override TypeSpecifier:
 	SimpleTypeSpecifier | MappingTypeSpecifier | ArrayTypeSpecifier;
@@ -60,7 +60,7 @@ VariableDeclaration returns types::Property:
 	{VariableDefinition} typeSpecifier=TypeSpecifier name=ID;
 
 enum Visibility:
-	PUBLIC='public' | INTERNAL='internal' | PRIVATE='private' | CONSTANT='constant';
+	PUBLIC='public' | INTERNAL='internal' | PRIVATE='private';
 
 enum Unit:
 	SECONDS='seconds' | MINUTES='minutes' | HOURS='hours' | DAYS='days' | WEEKS='weeks' | YEARS='years' | WEI='wei' |
