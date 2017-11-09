@@ -3,9 +3,12 @@ package com.yakindu.solidity.ide.builder;
 import java.io.IOException;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.SubMonitor;
 
-public abstract class SolidityCompilerBase implements ISolidityCompiler{
+public abstract class SolidityCompilerBase implements ISolidityCompiler {
 
 	public void compile(IFile file, SubMonitor progress) {
 		if (file == null) {
@@ -14,6 +17,7 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler{
 		progress.beginTask("compiling " + file.getName(), 10);
 		Process process;
 		try {
+			file.deleteMarkers(IMarker.PROBLEM, false, IResource.DEPTH_ONE);
 			process = new ProcessBuilder(getCompiler(), "--bin", "--abi", "--ast-compact-json", "--asm-json",
 					file.getLocation().toOSString()).start();
 			OutputHandler handler = new OutputHandler(file);
@@ -25,6 +29,8 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler{
 		} catch (IOException e) {
 			progress.done();
 		} catch (InterruptedException e) {
+			progress.done();
+		} catch (CoreException e) {
 			progress.done();
 		}
 	}

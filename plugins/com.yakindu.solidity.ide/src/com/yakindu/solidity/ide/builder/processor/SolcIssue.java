@@ -112,25 +112,14 @@ public class SolcIssue {
 	}
 
 	private int calculateIssueLength() {
-		int length = 0;
-		int opening = 0;
-		int closing = 0;
-		for (int i = issueDescription.getLineNumber(); i < lastLineNumber; i++) {
-			char[] chars = fileContent.get(i).toCharArray();
-			for (char c : chars) {
-				length++;
-				if (c == '{') {
-					opening++;
-				}
-				if (c == '}') {
-					closing++;
-				}
-				if (opening != 0 && opening == closing) {
-					return length;
-				}
-			}
+		String line = fileContent.get(issueDescription.getLineNumber());
+		if (line.contains("function")) {
+			return line.substring(line.indexOf("function"), line.indexOf(")") + 1).length();
 		}
-		return length;
+		if (line.contains("contract")) {
+			return line.substring(line.indexOf("contract"), line.indexOf("{")).length();
+		}
+		return 0;
 	}
 
 	public String getMessage() {
@@ -140,35 +129,4 @@ public class SolcIssue {
 	public int getSeverity() {
 		return issueDescription.getSeverity();
 	}
-
-	// private int issueStart(int lineNumber, int column) {
-	// int result = column - 1;
-	// try (BufferedReader reader = new BufferedReader(new
-	// FileReader(fileLocation()))) {
-	// for (int i = 1; i < lineNumber; i++) {
-	// String line = reader.readLine();
-	// result += line.length();
-	// result++;
-	// }
-	// } catch (Exception e) {
-	// // TODO
-	// }
-	// return result;
-	// }
-	//
-	// protected String format(String message) {
-	// return message.trim();
-	// }
-	//
-	// private int getSeverity(String type) {
-	// switch (type) {
-	// case "Warning" :
-	// return IMarker.SEVERITY_WARNING;
-	// case "Error" :
-	// return IMarker.SEVERITY_ERROR;
-	// default :
-	// return IMarker.SEVERITY_INFO;
-	// }
-	// }
-
 }
