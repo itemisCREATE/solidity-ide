@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: com.yakindu.solidity.ide.ubuntu.fragment
-Bundle-SymbolicName: com.yakindu.solidity.ide.ubuntu.fragment
+Bundle-SymbolicName: com.yakindu.solidity.ide.linux.fragment
 Bundle-Version: 0.7.0.qualifier
 Fragment-Host: com.yakindu.solidity.ide
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.yakindu.solidity.ide.builder
-Eclipse-PlatformFilter: (osgi.os=linux)
+Eclipse-PlatformFilter: (&(osgi.os=linux)(osgi.arch=x86_64))
