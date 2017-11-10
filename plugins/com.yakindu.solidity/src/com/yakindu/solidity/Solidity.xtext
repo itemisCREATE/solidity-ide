@@ -51,7 +51,7 @@ MappingTypeSpecifier:
 	{MappingTypeSpecifier} 'mapping' '(' from=TypeSpecifier '=>' to=TypeSpecifier ')';
 
 ArrayTypeSpecifier:
-	{SimpleTypeSpecifier} type=[types::Type|QID] ('[' (index+=Expression)? ']')+;
+	{ArrayTypeSpecifier} type=[types::Type|QID] ('[' (index+=Expression)? ']')+;
 
 SimpleTypeSpecifier returns TypeSpecifier:
 	type=[types::Type|QID];

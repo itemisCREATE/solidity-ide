@@ -18,12 +18,19 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="to" eType="#//TypeSpecifier"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ArrayTypeSpecifier" eSuperTypes="#//TypeSpecifier"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ArrayTypeSpecifier" eSuperTypes="#//TypeSpecifier">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="index" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="StorageLocation">
+    <eLiterals name="MEMORY" literal="memory"/>
+    <eLiterals name="STORAGE" value="1" literal="storage"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Visibility">
     <eLiterals name="PUBLIC" literal="public"/>
     <eLiterals name="INTERNAL" value="1" literal="internal"/>
     <eLiterals name="PRIVATE" value="2" literal="private"/>
-    <eLiterals name="CONSTANT" value="3" literal="constant"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Unit">
     <eLiterals name="SECONDS" literal="seconds"/>
@@ -48,7 +55,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="AddressLiteral" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Literal">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ModifierInvocationLiteral" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Literal"/>
   <eClassifiers xsi:type="ecore:EClass" name="Statement"/>
   <eClassifiers xsi:type="ecore:EClass" name="ThrowStatement" eSuperTypes="#//Statement"/>
   <eClassifiers xsi:type="ecore:EClass" name="SimpleStatement" eSuperTypes="#//Statement"/>
@@ -75,6 +81,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visibility" eType="#//Visibility"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="initialValue" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="storage" eType="#//StorageLocation"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IfStatement" eSuperTypes="#//Statement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
@@ -117,11 +124,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="ContractDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//ComplexType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ContractType"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SimpleTypeSpecifier" eSuperTypes="#//ArrayTypeSpecifier">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="index" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
-        containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Declaration">
     <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Type"
         containment="true"/>
@@ -137,6 +139,9 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="block" eType="#//Block"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Parameter">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="storage" eType="#//StorageLocation"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IndexParameter" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Parameter">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="indexed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
