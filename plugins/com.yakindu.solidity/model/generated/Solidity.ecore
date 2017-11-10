@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="solidity" nsURI="http://www.yakindu.com/solidity/Solidity" nsPrefix="solidity">
@@ -19,7 +18,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="to" eType="#//TypeSpecifier"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ArrayTypeSpecifier" eSuperTypes="#//TypeSpecifier"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ArrayTypeSpecifier" eSuperTypes="#//TypeSpecifier">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="index" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="StorageLocation">
     <eLiterals name="MEMORY" literal="memory"/>
     <eLiterals name="STORAGE" value="1" literal="storage"/>
@@ -131,11 +134,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="ContractDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//ComplexType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ContractType"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SimpleTypeSpecifier" eSuperTypes="#//ArrayTypeSpecifier">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="index" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
-        containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Declaration">
     <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Type"
         containment="true"/>
@@ -178,171 +176,3 @@
         containment="true"/>
   </eClassifiers>
 </ecore:EPackage>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="solidity" nsURI="http://www.yakindu.com/solidity/Solidity" nsPrefix="solidity">
-  <eClassifiers xsi:type="ecore:EClass" name="SolidityModel">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceunit" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Package"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="ContractType">
-    <eLiterals name="CONTRACT" literal="contract"/>
-    <eLiterals name="LIBRARY" value="1" literal="library"/>
-    <eLiterals name="INTERFACE" value="2" literal="interface"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TypeSpecifier" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//TypeSpecifier"/>
-  <eClassifiers xsi:type="ecore:EClass" name="MappingTypeSpecifier" eSuperTypes="#//TypeSpecifier">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="from" eType="#//TypeSpecifier"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="to" eType="#//TypeSpecifier"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ArrayTypeSpecifier" eSuperTypes="#//TypeSpecifier">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="index" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="StorageLocation">
-    <eLiterals name="MEMORY" literal="memory"/>
-    <eLiterals name="STORAGE" value="1" literal="storage"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="Visibility">
-    <eLiterals name="PUBLIC" literal="public"/>
-    <eLiterals name="INTERNAL" value="1" literal="internal"/>
-    <eLiterals name="PRIVATE" value="2" literal="private"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="Unit">
-    <eLiterals name="SECONDS" literal="seconds"/>
-    <eLiterals name="MINUTES" value="1" literal="minutes"/>
-    <eLiterals name="HOURS" value="2" literal="hours"/>
-    <eLiterals name="DAYS" value="3" literal="days"/>
-    <eLiterals name="WEEKS" value="4" literal="weeks"/>
-    <eLiterals name="YEARS" value="5" literal="years"/>
-    <eLiterals name="WEI" value="6" literal="wei"/>
-    <eLiterals name="FINNEY" value="7" literal="finney"/>
-    <eLiterals name="SZABO" value="8" literal="szabo"/>
-    <eLiterals name="ETHER" value="9" literal="ether"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Block" eSuperTypes="#//Statement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
-        eType="#//Statement" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BigIntLiteral" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Literal">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" eType="#//Unit"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AddressLiteral" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Literal">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Statement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ThrowStatement" eSuperTypes="#//Statement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SimpleStatement" eSuperTypes="#//Statement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="PlaceholderStatement" eSuperTypes="#//Statement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ReturnStatement" eSuperTypes="#//Statement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ExpressionStatement" eSuperTypes="#//SimpleStatement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="MultiOperator">
-    <eLiterals name="mul" literal="*"/>
-    <eLiterals name="div" value="1" literal="/"/>
-    <eLiterals name="mod" value="2" literal="%"/>
-    <eLiterals name="exp" value="3" literal="**"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="PostFixOperator">
-    <eLiterals name="increment" literal="++"/>
-    <eLiterals name="decrement" value="1" literal="--"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VariableDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Property #//SimpleStatement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visibility" eType="#//Visibility"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="initialValue" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="storage" eType="#//StorageLocation"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IfStatement" eSuperTypes="#//Statement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="then" eType="#//Statement"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="else" eType="#//Statement"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WhileStatement" eSuperTypes="#//Statement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//Statement"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ForStatement" eSuperTypes="#//Statement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="initialization" eType="#//SimpleStatement"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="afterthought" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="statement" eType="#//Statement"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SourceUnit" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Package">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="pragma" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//PackageMember"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//PackageMember"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PragmaDirective" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//PackageMember">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ImportDirective" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//PackageMember">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="importedNamespace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alias" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ContractDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//ComplexType">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ContractType"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TypeDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Declaration">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Type"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="StructDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//ComplexType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ModifierDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Operation">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="block" upperBound="-1"
-        eType="#//Block" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FunctionDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Operation">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="returnParameters" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Parameter"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="block" eType="#//Block"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Parameter">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="storage" eType="#//StorageLocation"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IndexParameter" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Parameter">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="indexed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EventDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Operation"/>
-  <eClassifiers xsi:type="ecore:EClass" name="NumericalMultiplyDivideExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="leftOperand" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//MultiOperator"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rightOperand" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PostFixUnaryExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="operand" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//PostFixOperator"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NewInstanceExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//FeatureCall">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//TypeSpecifier"
-        containment="true"/>
-  </eClassifiers>
-</ecore:EPackage>
->>>>>>> branch 'master' of https://github.com/andreasmuelder/sct4solidity.git
