@@ -24,10 +24,15 @@
 		<module>../com.yakindu.solidity.repository</module>
 		<!-- plugins -->
 		<module>../../plugins/com.yakindu.solidity</module>
+		<module>../../plugins/com.yakindu.solidity.ide.linux.fragment</module>
+		<module>../../plugins/com.yakindu.solidity.ide.win.fragment</module>
 		<module>../../plugins/com.yakindu.solidity.ide</module>
 		<module>../../plugins/com.yakindu.solidity.ui</module>
+		
+		
 		<!-- features -->
 		<module>../../features/com.yakindu.solidity.feature</module>
+		<module>../../features/com.yakindu.solidity.solc.feature</module>
 	</modules>
 	<build>
 		<plugins>
