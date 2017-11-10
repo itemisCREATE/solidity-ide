@@ -315,5 +315,18 @@ class BuildInDeclarations {
 		(typeSystem as AbstractTypeSystem).resource.contents += block
 		block
 	}
+	
+	def createLength(){
+		val length = TypesFactory.eINSTANCE.createProperty() => [
+			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+				type = typeSystem.getType(SolidityTypeSystem.INT)
+			]
+			name = "length"
+			const = true
+			readonly = true
+		]
+		(typeSystem as AbstractTypeSystem).resource.contents += length
+		length
+	}
 
 }

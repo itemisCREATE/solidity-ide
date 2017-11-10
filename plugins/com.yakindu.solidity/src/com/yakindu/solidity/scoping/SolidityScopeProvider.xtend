@@ -12,6 +12,7 @@ import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.Declaration
 import org.yakindu.base.types.TypedElement
+import com.yakindu.solidity.solidity.ArrayTypeSpecifier
 
 class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 
@@ -59,7 +60,11 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 			return getDelegate().getScope(context, reference);
 		}
 
+		
 		if (element instanceof TypedElement) {
+			if(element.typeSpecifier instanceof ArrayTypeSpecifier){
+				return Scopes.scopeFor(Lists.newArrayList(createLength));
+			}
 			if(element.type instanceof ComplexType)
 			return Scopes.scopeFor((element.type as ComplexType).getAllFeatures())
 		}
