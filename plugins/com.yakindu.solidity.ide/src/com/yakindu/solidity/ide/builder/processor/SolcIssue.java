@@ -88,8 +88,9 @@ public class SolcIssue {
 		int start = issueDescription.getColumnNumber() - 1;
 		int lineNumber = issueDescription.getLineNumber();
 		for (int i = 1; i < lineNumber; i++) {
-			start += fileContent.get(i).length();
-			start++;
+			String line = fileContent.get(i);
+			//+2 for \r\n at the end of each line
+			start += line.length()+2;
 		}
 		return start;
 	}
