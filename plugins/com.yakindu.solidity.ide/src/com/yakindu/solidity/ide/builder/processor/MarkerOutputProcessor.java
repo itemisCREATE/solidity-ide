@@ -3,16 +3,26 @@ package com.yakindu.solidity.ide.builder.processor;
 import java.util.ArrayList;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.xtext.validation.Issue;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
+import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.ui.editor.validation.MarkerCreator;
 
 import com.google.common.collect.Lists;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
 /**
  * @author Florian Antony - Initial contribution and API
  */
 public class MarkerOutputProcessor implements SolcOutputProcessor {
 
+	public final static String NORMAL_VALIDATION = "org.eclipse.xtext.ui.check.normal"; //$NON-NLS-1$
 	private static final String LINE_BREAK = System.getProperty("line.separator");
 
 	private final IFile file;
@@ -21,10 +31,21 @@ public class MarkerOutputProcessor implements SolcOutputProcessor {
 
 	private ArrayList<SolcIssue> issues;
 
+	private Resource resource;
+
+	@Inject
+	private MarkerCreator creator;
+	@Inject
+	private EObjectAtOffsetHelper offsetHelper;
+
 	public MarkerOutputProcessor(IFile file) {
+		// FIXME !!!!!!
+		Guice.createInjector().injectMembers(this);
 		this.issues = Lists.newArrayList();
 		this.file = file;
 		this.issue = "";
+		resource = new ResourceSetImpl().getResource(URI.createPlatformResourceURI(file.getFullPath().toString(), true),
+				true);
 	}
 
 	@Override
@@ -35,7 +56,10 @@ public class MarkerOutputProcessor implements SolcOutputProcessor {
 				if (parts.length < 6) {
 					return;
 				}
-				issues.add(new SolcIssue(file, issue));
+				SolcIssue solcIssue = new SolcIssue(file, issue);
+				EObject element = offsetHelper.resolveElementAt((XtextResource) resource, solcIssue.getOffset());
+				solcIssue.setUriToProblem(EcoreUtil.getURI(element));
+				issues.add(solcIssue);
 				issue = "";
 			}
 			issue += line;
@@ -43,20 +67,9 @@ public class MarkerOutputProcessor implements SolcOutputProcessor {
 			issue += (LINE_BREAK + line);
 		}
 	}
-
-	protected void createMarker(SolcIssue issue) {
-		try {
-			IMarker marker = file.createMarker(IMarker.PROBLEM);
-			marker.setAttribute(IMarker.LOCATION, issue.getLocation());
-			marker.setAttribute(IMarker.SEVERITY, issue.getSeverity());
-			marker.setAttribute(IMarker.CHAR_START, issue.getStart());
-			marker.setAttribute(IMarker.CHAR_END, issue.getEnd());
-			marker.setAttribute(IMarker.LINE_NUMBER, issue.getLineNumber());
-			marker.setAttribute(Issue.COLUMN_KEY, issue.getColumnKey());
-			marker.setAttribute(IMarker.MESSAGE, issue.getMessage());
-		} catch (CoreException e) {
-			// TODO logging
-		}
+	// TODO Implement xtext Issue and use MarkerCreator
+	protected void createMarker(SolcIssue issue) throws CoreException {
+		creator.createMarker(issue, file, NORMAL_VALIDATION);
 	}
 
 	private String fileLocation() {
@@ -66,7 +79,11 @@ public class MarkerOutputProcessor implements SolcOutputProcessor {
 	@Override
 	public void complete() {
 		for (SolcIssue issue : issues) {
-			createMarker(issue);
+			try {
+				createMarker(issue);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

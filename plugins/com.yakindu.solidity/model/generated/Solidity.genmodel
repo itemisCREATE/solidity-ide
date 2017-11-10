@@ -11,11 +11,14 @@
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//ContractType/LIBRARY"/>
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//ContractType/INTERFACE"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Solidity.ecore#//StorageLocation">
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//StorageLocation/MEMORY"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//StorageLocation/STORAGE"/>
+    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Solidity.ecore#//Visibility">
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Visibility/PUBLIC"/>
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Visibility/INTERNAL"/>
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Visibility/PRIVATE"/>
-      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Visibility/CONSTANT"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Solidity.ecore#//Unit">
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Unit/SECONDS"/>
@@ -28,6 +31,16 @@
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Unit/FINNEY"/>
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Unit/SZABO"/>
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Unit/ETHER"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Solidity.ecore#//FunctionModifier">
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//FunctionModifier/EXTERNAL"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//FunctionModifier/PUBLIC"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//FunctionModifier/INTERNAL"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//FunctionModifier/PRIVATE"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//FunctionModifier/PURE"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//FunctionModifier/CONSTANT"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//FunctionModifier/VIEW"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//FunctionModifier/PAYABLE"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Solidity.ecore#//MultiOperator">
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//MultiOperator/mul"/>
@@ -58,7 +71,6 @@
     <genClasses ecoreClass="Solidity.ecore#//AddressLiteral">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AddressLiteral/value"/>
     </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//ModifierInvocationLiteral"/>
     <genClasses ecoreClass="Solidity.ecore#//Statement"/>
     <genClasses ecoreClass="Solidity.ecore#//ThrowStatement"/>
     <genClasses ecoreClass="Solidity.ecore#//SimpleStatement"/>
@@ -72,6 +84,7 @@
     <genClasses ecoreClass="Solidity.ecore#//VariableDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//VariableDefinition/visibility"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//VariableDefinition/initialValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//VariableDefinition/storage"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//IfStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//IfStatement/condition"/>
@@ -113,8 +126,12 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ModifierDefinition/block"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//FunctionDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//FunctionDefinition/modifier"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//FunctionDefinition/returnParameters"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//FunctionDefinition/block"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//Parameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//Parameter/storage"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//IndexParameter">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//IndexParameter/indexed"/>

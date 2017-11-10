@@ -5,14 +5,16 @@ import java.io.FileReader;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IMarker;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.xtext.diagnostics.Severity;
+import org.eclipse.xtext.validation.CheckType;
+import org.eclipse.xtext.validation.Issue;
 
 import com.google.common.collect.Maps;
 
-public class SolcIssue {
+public class SolcIssue implements Issue {
 
 	private class IssueDescription {
-
 		private final String[] parts;
 
 		IssueDescription(String issue) {
@@ -25,18 +27,6 @@ public class SolcIssue {
 
 		int getColumnNumber() {
 			return Integer.parseInt(parts[3]);
-		}
-
-		public int getSeverity() {
-			String string = parts[4].trim();
-			switch (string) {
-				case "Warning" :
-					return IMarker.SEVERITY_WARNING;
-				case "Error" :
-					return IMarker.SEVERITY_ERROR;
-				default :
-					return IMarker.SEVERITY_INFO;
-			}
 		}
 
 		public String getMessage() {
@@ -80,27 +70,38 @@ public class SolcIssue {
 		return issueDescription.getFile() + "line: " + issueDescription.getLineNumber();
 	}
 
-	public int getLineNumber() {
+	private URI uriToProblem;
+
+	public void setUriToProblem(URI uri) {
+		uriToProblem = uri;
+	}
+
+	@Override
+	public URI getUriToProblem() {
+		return uriToProblem;
+	}
+
+	public Integer getLineNumber() {
 		return issueDescription.getLineNumber();
 	}
 
-	public int getStart() {
+	public Integer getOffset() {
 		int start = issueDescription.getColumnNumber() - 1;
 		int lineNumber = issueDescription.getLineNumber();
 		for (int i = 1; i < lineNumber; i++) {
 			String line = fileContent.get(i);
-			//+2 for \r\n at the end of each line
-			start += line.length()+2;
+			// +2 for \r\n at the end of each line
+			start += line.length() + 2;
 		}
 		return start;
 	}
 
-	public String getColumnKey() {
-		return issueDescription.getColumnNumber() + "";
+	public Integer getColumn() {
+		return issueDescription.getColumnNumber();
 	}
 
 	public int getEnd() {
-		int end = getStart();
+		int end = getOffset();
 		if (issueDescription.isMultiline()) {
 			end += calculateIssueLength();
 		} else {
@@ -127,7 +128,41 @@ public class SolcIssue {
 		return issueDescription.getMessage();
 	}
 
-	public int getSeverity() {
-		return issueDescription.getSeverity();
+	public Severity getSeverity() {
+		String string = issueDescription.parts[4].trim();
+		switch (string) {
+			case "Warning" :
+				return Severity.WARNING;
+			case "Error" :
+				return Severity.ERROR;
+			default :
+				return Severity.INFO;
+		}
+
+	}
+
+	@Override
+	public String getCode() {
+		return "TODO";
+	}
+
+	@Override
+	public CheckType getType() {
+		return CheckType.NORMAL;
+	}
+
+	@Override
+	public boolean isSyntaxError() {
+		return false;
+	}
+
+	@Override
+	public String[] getData() {
+		return new String[]{};
+	}
+
+	@Override
+	public Integer getLength() {
+		return calculateIssueLength();
 	}
 }

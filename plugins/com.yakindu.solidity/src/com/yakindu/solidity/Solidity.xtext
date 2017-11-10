@@ -101,8 +101,12 @@ AddressLiteral:
 
 FunctionDefinition returns types::Operation:
 	{FunctionDefinition} 'function' name=ID? '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')'
-	('external' | 'public' | 'internal' | 'private' | 'pure' | 'constant' | 'view' | 'payable')*
+	(modifier+=FunctionModifier)*
 	('returns' '(' (returnParameters+=Parameter (',' returnParameters+=Parameter)*)? ')')? (';' | (block=Block));
+
+enum FunctionModifier:
+	EXTERNAL='external' | PUBLIC='public' | INTERNAL='internal' | PRIVATE='private' | PURE='pure' | CONSTANT='constant' | VIEW='view' | PAYABLE='payable'
+;
 
 Parameter returns types::Parameter:
 	{Parameter} typeSpecifier=TypeSpecifier (storage=StorageLocation)? (name=ID)?;
