@@ -56,8 +56,7 @@ public class SolidityBuilderParticipant implements IXtextBuilderParticipant {
 						.newInstance();
 				((ISolidityCompiler) instance).compile(findFile(uri, files), progress);
 			} catch (Exception e) {
-				//TODO
-				System.out.println();
+				e.printStackTrace();
 			}
 		}
 		context.getBuiltProject().refreshLocal(IProject.DEPTH_INFINITE, monitor);
