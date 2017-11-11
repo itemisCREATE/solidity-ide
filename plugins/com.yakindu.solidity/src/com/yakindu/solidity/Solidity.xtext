@@ -50,8 +50,8 @@ StateVariableDefinition returns types::Property:
 MappingTypeSpecifier:
 	{MappingTypeSpecifier} 'mapping' '(' from=TypeSpecifier '=>' to=TypeSpecifier ')';
 
-ArrayTypeSpecifier:
-	{ArrayTypeSpecifier} type=[types::Type|QID] ('[' (index+=Expression)? ']')+;
+ArrayTypeSpecifier: //TODO index must be Expression
+	{ArrayTypeSpecifier} type=[types::Type|QID] ('[' (index+=PrimitiveValueExpression)? ']')+;
 
 SimpleTypeSpecifier returns TypeSpecifier:
 	type=[types::Type|QID];
@@ -167,7 +167,7 @@ VariableDefinitionProperty returns types::Property:
 	VariableDefinition;
 
 VariableDefinition:
-	('var' | typeSpecifier=SimpleTypeSpecifier) (storage=StorageLocation)? name=ID ('=' initialValue=Expression)?;
+	('var' | typeSpecifier=TypeSpecifier) (storage=StorageLocation)? name=ID ('=' initialValue=Expression)?;
 
 IfStatement:
 	'if' '(' condition=Expression ')'

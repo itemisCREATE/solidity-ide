@@ -13,10 +13,13 @@ import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.Declaration
 import org.yakindu.base.types.TypedElement
 import com.yakindu.solidity.solidity.ArrayTypeSpecifier
+import org.yakindu.base.types.typesystem.ITypeSystem
+import com.yakindu.solidity.typesystem.SolidityTypeSystem
 
 class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 
 	@Inject extension BuildInDeclarations
+	@Inject ITypeSystem typesystem;
 
 	override getScope(EObject context, EReference ref) {
 		return super.getScope(context, ref)
@@ -60,13 +63,13 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 			return getDelegate().getScope(context, reference);
 		}
 
-		
 		if (element instanceof TypedElement) {
-			if(element.typeSpecifier instanceof ArrayTypeSpecifier){
+			if (element.typeSpecifier instanceof ArrayTypeSpecifier ||
+				typesystem.isSuperType(element.type, typesystem.getType(SolidityTypeSystem.BYTES))) {
 				return Scopes.scopeFor(Lists.newArrayList(createLength));
 			}
-			if(element.type instanceof ComplexType)
-			return Scopes.scopeFor((element.type as ComplexType).getAllFeatures())
+			if (element.type instanceof ComplexType)
+				return Scopes.scopeFor((element.type as ComplexType).getAllFeatures())
 		}
 
 		var parentScope = delegate.getScope(context, reference)
