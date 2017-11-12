@@ -66,7 +66,10 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 		if (element instanceof TypedElement) {
 			if (element.typeSpecifier instanceof ArrayTypeSpecifier ||
 				typesystem.isSuperType(element.type, typesystem.getType(SolidityTypeSystem.BYTES))) {
-				return Scopes.scopeFor(Lists.newArrayList(createLength));
+				if (owner instanceof ElementReferenceExpression) {
+					if (owner.arraySelector.size == 0)
+						return Scopes.scopeFor(Lists.newArrayList(createLength));
+				}
 			}
 			if (element.type instanceof ComplexType)
 				return Scopes.scopeFor((element.type as ComplexType).getAllFeatures())
