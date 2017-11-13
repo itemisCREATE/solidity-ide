@@ -92,11 +92,11 @@ contract Offer {
     modifier onlyClient {
         if (msg.sender != address(client))
             throw;
-        _
+        _;
     }
 
     // Prevents methods from perfoming any value transfer
-    modifier noEther() {if (msg.value > 0) throw; _}
+    modifier noEther() {if (msg.value > 0) throw; _;}
 
     function Offer(
         address _contractor,
