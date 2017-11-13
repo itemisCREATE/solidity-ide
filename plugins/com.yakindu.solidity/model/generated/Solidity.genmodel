@@ -156,5 +156,8 @@
     <genClasses ecoreClass="Solidity.ecore#//NewInstanceExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//NewInstanceExpression/type"/>
     </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//TupleExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//TupleExpression/expressions"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

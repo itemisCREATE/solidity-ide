@@ -42,7 +42,8 @@ ContractPart returns types::Declaration:
 	TypeDefinition;
 
 StateVariableDefinition returns types::Property:
-	{VariableDefinition} typeSpecifier=TypeSpecifier ((visibility=Visibility)? & ('constant')?) name=ID ('=' initialValue=Expression)? ';';
+	{VariableDefinition} typeSpecifier=TypeSpecifier ((visibility=Visibility)? & ('constant')?) name=ID ('='
+	initialValue=Expression)? ';';
 
 @ Override TypeSpecifier:
 	SimpleTypeSpecifier | MappingTypeSpecifier | ArrayTypeSpecifier;
@@ -56,8 +57,8 @@ ArrayTypeSpecifier: //TODO index must be Expression
 SimpleTypeSpecifier returns TypeSpecifier:
 	type=[types::Type|QID];
 
-enum StorageLocation :
-	MEMORY = 'memory' | STORAGE='storage';
+enum StorageLocation:
+	MEMORY='memory' | STORAGE='storage';
 
 VariableDeclaration returns types::Property:
 	{VariableDefinition} typeSpecifier=TypeSpecifier (storage=StorageLocation)? name=ID;
@@ -74,8 +75,7 @@ TypeDefinition returns types::Declaration:
 	{TypeDefinition} definition=(StructDefinition | EnumDefinition);
 
 StructDefinition returns types::ComplexType:
-	{StructDefinition} 'struct' name=ID '{'
-	(features+=VariableDeclaration ';')* '}';
+	{StructDefinition} 'struct' name=ID '{' (features+=VariableDeclaration ';')* '}';
 
 EnumDefinition returns types::EnumerationType:
 	'enum' name=ID '{' (enumerator+=Enumerator (',' enumerator+=Enumerator)*)? '}';
@@ -84,14 +84,14 @@ Enumerator returns types::Enumerator:
 	name=ID;
 
 ModifierDefinition returns types::Operation:
-	{ModifierDefinition} 'modifier' name=ID ('(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')')?
-	block+=Block;
+	{ModifierDefinition} 'modifier' name=ID ('(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')')? block+=Block;
 
 Block:
 	'{' {Block} (statements+=Statement)* '}';
 
 @ Override Literal returns expressions::Literal:
-	BoolLiteral | BigIntLiteral | AddressLiteral | BinaryLiteral | DoubleLiteral | FloatLiteral | StringLiteral | NullLiteral;
+	BoolLiteral | BigIntLiteral | AddressLiteral | BinaryLiteral | DoubleLiteral | FloatLiteral | StringLiteral |
+	NullLiteral;
 
 BigIntLiteral:
 	value=BIGINT (unit=Unit)?;
@@ -101,24 +101,21 @@ AddressLiteral:
 
 FunctionDefinition returns types::Operation:
 	{FunctionDefinition} 'function' name=ID? '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')'
-	(modifier+=Modifier)*
-	('returns' '(' (returnParameters+=Parameter (',' returnParameters+=Parameter)*)? ')')? (';' | (block=Block));
+	(modifier+=Modifier)* ('returns' '(' (returnParameters+=Parameter (',' returnParameters+=Parameter)*)? ')')? (';' |
+	(block=Block));
 
 Modifier:
-	ModifierInvocation | BuildInModifier
-;
+	ModifierInvocation | BuildInModifier;
 
 BuildInModifier:
-	type=FunctionModifier
-;
+	type=FunctionModifier;
+
 enum FunctionModifier:
-	EXTERNAL='external' | PUBLIC='public' | INTERNAL='internal' | PRIVATE='private' | PURE='pure' | CONSTANT='constant' | VIEW='view' | PAYABLE='payable'
-;
+	EXTERNAL='external' | PUBLIC='public' | INTERNAL='internal' | PRIVATE='private' | PURE='pure' | CONSTANT='constant' |
+	VIEW='view' | PAYABLE='payable';
 
 ModifierInvocation:
-	{ModifierInvocation} reference=[ModifierDefinition|ID] ('('	(arguments+=Argument (',' arguments+=Argument)*)?')')? 
-;
-
+	{ModifierInvocation} reference=[ModifierDefinition|ID] ('(' (arguments+=Argument (',' arguments+=Argument)*)? ')')?;
 
 Parameter returns types::Parameter:
 	{Parameter} typeSpecifier=TypeSpecifier (storage=StorageLocation)? (name=ID)?;
@@ -130,7 +127,8 @@ EventDefinition returns types::Operation:
 	{EventDefinition} 'event' name=ID '(' (parameters+=IndexParameter (',' parameters+=IndexParameter)*)? ')' ';';
 
 Statement:
-	IfStatement | WhileStatement | ForStatement | Block | (ThrowStatement | ReturnStatement | SimpleStatement | PlaceholderStatement) ';';
+	IfStatement | WhileStatement | ForStatement | Block | (ThrowStatement | ReturnStatement | SimpleStatement |
+	PlaceholderStatement) ';';
 
 ThrowStatement:
 	{ThrowStatement} 'throw';
@@ -139,8 +137,7 @@ SimpleStatement:
 	VariableDefinition | ExpressionStatement;
 
 PlaceholderStatement:
-	{PlaceholderStatement} '_'
-;
+	{PlaceholderStatement} '_';
 
 ReturnStatement:
 	{ReturnStatement} 'return' (expression=Expression)?;
@@ -149,9 +146,7 @@ ExpressionStatement:
 	expression=Expression;
 
 @ Override NumericalMultiplyDivideExpression returns expressions::Expression:
-	NumericalUnaryExpression
-	=> ({NumericalMultiplyDivideExpression.leftOperand=current}
-	operator=MultiOperator
+	NumericalUnaryExpression => ({NumericalMultiplyDivideExpression.leftOperand=current} operator=MultiOperator
 	rightOperand=NumericalUnaryExpression)*;
 
 enum MultiOperator:
@@ -159,8 +154,8 @@ enum MultiOperator:
 
 	// Remove TypeCast Expression
 @ Override NumericalUnaryExpression returns expressions::Expression:
-	PostFixUnaryExpression | {expressions::NumericalUnaryExpression}
-	operator=UnaryOperator operand=PostFixUnaryExpression;
+	PostFixUnaryExpression | {expressions::NumericalUnaryExpression} operator=UnaryOperator
+	operand=PostFixUnaryExpression;
 
 PostFixUnaryExpression returns expressions::Expression:
 	PrimaryExpression ({PostFixUnaryExpression.operand=current} operator=PostFixOperator)*;
@@ -169,11 +164,14 @@ enum PostFixOperator:
 	increment="++" | decrement="--";
 
 @ Override PrimaryExpression returns expressions::Expression:
-	super | NewInstanceExpression;
+	PrimitiveValueExpression | FeatureCall | NewInstanceExpression | TupleExpression;
 
 NewInstanceExpression returns expressions::FeatureCall:
 	{NewInstanceExpression} 'new' type=TypeSpecifier operationCall?='(' (arguments+=Argument (',' arguments+=Argument)*)?
 	')';
+
+TupleExpression returns expressions::Expression:
+	{TupleExpression} ('(' (expressions+=Expression (',' expressions+=Expression)*)? ')');
 
 VariableDefinitionProperty returns types::Property:
 	VariableDefinition;
@@ -182,9 +180,7 @@ VariableDefinition:
 	('var' | typeSpecifier=TypeSpecifier) (storage=StorageLocation)? name=ID ('=' initialValue=Expression)?;
 
 IfStatement:
-	'if' '(' condition=Expression ')'
-	then=Statement
-	(=> 'else' else=Statement)?;
+	'if' '(' condition=Expression ')' then=Statement (=> 'else' else=Statement)?;
 
 WhileStatement:
 	'while' '(' condition=Expression ')' body=Statement;
