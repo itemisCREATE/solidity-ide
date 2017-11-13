@@ -3,9 +3,9 @@
  */
 package com.yakindu.solidity.ide
 
-
 /**
  * Use this class to register ide components.
  */
 class SolidityIdeModule extends AbstractSolidityIdeModule {
+	
 }

@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: com.yakindu.solidity.ide
 Bundle-Vendor: YAKINDU
 Bundle-Version: 0.7.0.qualifier
-Bundle-SymbolicName: com.yakindu.solidity.ide; singleton:=true
+Bundle-SymbolicName: com.yakindu.solidity.ide;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: com.yakindu.solidity,
  org.eclipse.xtext.ide,
@@ -19,6 +19,6 @@ Require-Bundle: com.yakindu.solidity,
  org.eclipse.xtext.builder,
  org.eclipse.xtext.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: com.yakindu.solidity.ide.contentassist.antlr.internal,
- com.yakindu.solidity.ide.contentassist.antlr
+Export-Package: com.yakindu.solidity.ide.contentassist.antlr,
+ com.yakindu.solidity.ide.contentassist.antlr.internal
 

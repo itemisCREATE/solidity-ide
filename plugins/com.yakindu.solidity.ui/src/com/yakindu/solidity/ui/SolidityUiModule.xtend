@@ -1,6 +1,7 @@
 package com.yakindu.solidity.ui
 
 import com.google.inject.Binder
+import com.google.inject.Provider
 import com.google.inject.name.Names
 import com.yakindu.solidity.ui.help.CustomCSSHelpHoverProvider
 import com.yakindu.solidity.ui.help.SolidityUserHelpDocumentationProvider
@@ -25,8 +26,9 @@ class SolidityUiModule extends AbstractSolidityUiModule {
 		binder.bind(DispatchingEObjectTextHover).to(CrossRefObjectTextHover)
 		binder.bind(String).annotatedWith(Names.named("stylesheet")).toInstance("/sphinx_rtd_theme.css")
 		binder.bind(IEObjectHoverProvider).to(CustomCSSHelpHoverProvider)
+ 
 	}
-	
+
 	override bindIEObjectHover() {
 		CrossRefObjectTextHover
 	}

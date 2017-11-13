@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>com.yakindu.solidity.ide.win.fragment</name>
+	<name>com.yakindu.solidity.compiler.win.fragment</name>
 	<comment></comment>
 	<projects>
 	</projects>
