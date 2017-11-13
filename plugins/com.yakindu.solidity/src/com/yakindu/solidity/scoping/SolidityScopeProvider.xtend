@@ -28,19 +28,18 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 	}
 
 	def scope_ElementReferenceExpression_reference(EObject context, EReference reference) {
-		var result = delegate.getScope(context, reference)
-		result = getSuperTypeScope(context, result);
+		var result = getSuperTypeScope(context);
+		result = delegate.getScope(context, reference)
 		result = result.createImplicitVariables
 		return result;
 	}
-	
-	def getSuperTypeScope(EObject context, IScope scope) {
-		val contract = EcoreUtil2.getContainerOfType(context, ContractDefinition)
-		if(contract === null) return scope
-		//TODO: VisibilitY?
-		return Scopes.scopeFor(contract.allFeatures, scope)
 
-		
+	def getSuperTypeScope(EObject context) {
+		val contract = EcoreUtil2.getContainerOfType(context, ContractDefinition)
+		if(contract === null) return IScope.NULLSCOPE
+		// TODO: VisibilitY?
+		return Scopes.scopeFor(contract.allFeatures)
+
 	}
 
 	def protected createImplicitVariables(IScope outer) {
