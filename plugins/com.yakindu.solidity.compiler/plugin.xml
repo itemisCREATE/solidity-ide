@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<?eclipse version="3.0"?>
+<plugin>
+ <extension point="org.eclipse.xtext.builder.participant">
+		<participant
+			class="com.yakindu.solidity.compiler.SolidityCompilerExecutableExtensionFactory:com.yakindu.solidity.compiler.builder.SolidityBuilderParticipant"
+			fileExtensions="sol"/>
+	</extension>
+</plugin>
