@@ -2,9 +2,13 @@ package com.yakindu.solidity.scoping
 
 import com.google.common.collect.Lists
 import com.google.inject.Inject
+import com.yakindu.solidity.solidity.ArrayTypeSpecifier
+import com.yakindu.solidity.solidity.ContractDefinition
 import com.yakindu.solidity.typesystem.BuildInDeclarations
+import com.yakindu.solidity.typesystem.SolidityTypeSystem
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
+import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
@@ -12,9 +16,7 @@ import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.Declaration
 import org.yakindu.base.types.TypedElement
-import com.yakindu.solidity.solidity.ArrayTypeSpecifier
 import org.yakindu.base.types.typesystem.ITypeSystem
-import com.yakindu.solidity.typesystem.SolidityTypeSystem
 
 class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 
@@ -27,8 +29,18 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 
 	def scope_ElementReferenceExpression_reference(EObject context, EReference reference) {
 		var result = delegate.getScope(context, reference)
+		result = getSuperTypeScope(context, result);
 		result = result.createImplicitVariables
 		return result;
+	}
+	
+	def getSuperTypeScope(EObject context, IScope scope) {
+		val contract = EcoreUtil2.getContainerOfType(context, ContractDefinition)
+		if(contract === null) return scope
+		//TODO: VisibilitY?
+		return Scopes.scopeFor(contract.allFeatures, scope)
+
+		
 	}
 
 	def protected createImplicitVariables(IScope outer) {

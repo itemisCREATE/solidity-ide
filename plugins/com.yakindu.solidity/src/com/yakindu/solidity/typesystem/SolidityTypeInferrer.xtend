@@ -13,6 +13,7 @@ import org.yakindu.base.types.Type
 import org.yakindu.base.types.typesystem.ITypeSystem
 
 import static org.yakindu.base.types.typesystem.ITypeSystem.REAL
+import org.eclipse.emf.ecore.EObject
 
 /**
  * 
@@ -22,6 +23,10 @@ import static org.yakindu.base.types.typesystem.ITypeSystem.REAL
 class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 
 	@Inject protected ITypeSystem ts;
+
+	def doInfer(EObject e){
+		null	
+	}
 
 	def doInfer(BigIntLiteral literal) {
 		InferenceResult.from(ts.getType(SolidityTypeSystem.INTEGER));

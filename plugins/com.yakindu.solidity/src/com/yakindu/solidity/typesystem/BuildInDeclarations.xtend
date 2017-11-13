@@ -322,8 +322,6 @@ class BuildInDeclarations {
 				type = typeSystem.getType(SolidityTypeSystem.INT)
 			]
 			name = "length"
-			const = true
-			readonly = true
 		]
 		(typeSystem as AbstractTypeSystem).resource.contents += length
 		length
