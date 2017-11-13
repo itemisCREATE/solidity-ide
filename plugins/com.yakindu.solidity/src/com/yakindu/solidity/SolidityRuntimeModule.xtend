@@ -8,6 +8,8 @@ import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
 import com.yakindu.solidity.scoping.SolidityScopeProvider
 import com.yakindu.solidity.terminals.SolidityValueConverterService
+import org.eclipse.xtext.validation.CompositeEValidator
+import com.google.inject.name.Names
 
 class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 
@@ -15,6 +17,7 @@ class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 		super.configure(binder)
 		binder.bind(ITypeSystem).to(SolidityTypeSystem);
 		binder.bind(ITypeSystemInferrer).to(SolidityTypeInferrer)
+		binder.bind(boolean).annotatedWith(Names.named(CompositeEValidator.USE_EOBJECT_VALIDATOR)).toInstance(false)
 	}
 
 	override bindIGlobalScopeProvider() {
@@ -24,7 +27,7 @@ class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 	override bindIScopeProvider() {
 		SolidityScopeProvider
 	}
-	
+
 	override bindIValueConverterService() {
 		SolidityValueConverterService
 	}
