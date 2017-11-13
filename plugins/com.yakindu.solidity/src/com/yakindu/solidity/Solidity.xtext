@@ -127,8 +127,8 @@ EventDefinition returns types::Operation:
 	{EventDefinition} 'event' name=ID '(' (parameters+=IndexParameter (',' parameters+=IndexParameter)*)? ')' ';';
 
 Statement:
-	IfStatement | WhileStatement | ForStatement | Block | (ThrowStatement | ReturnStatement | SimpleStatement |
-	PlaceholderStatement) ';';
+	IfStatement | WhileStatement | ForStatement | Block | InlineAssemblyStatement | (ThrowStatement | ReturnStatement |
+	SimpleStatement | PlaceholderStatement) ';';
 
 ThrowStatement:
 	{ThrowStatement} 'throw';
@@ -144,6 +144,12 @@ ReturnStatement:
 
 ExpressionStatement:
 	expression=Expression;
+
+InlineAssemblyStatement:
+	'assembly' kind=AssemblyKind? block=InlineAssemblyBlock;
+
+enum AssemblyKind:
+	EVMASM="evmasm";
 
 @ Override NumericalMultiplyDivideExpression returns expressions::Expression:
 	NumericalUnaryExpression => ({NumericalMultiplyDivideExpression.leftOperand=current} operator=MultiOperator
@@ -171,7 +177,8 @@ NewInstanceExpression returns expressions::FeatureCall:
 	')';
 
 TupleExpression returns expressions::Expression:
-	{TupleExpression} ('(' (expressions+=Expression (',' expressions+=Expression)*)? ')');
+	{TupleExpression} (('(' (expressions+=Expression (',' expressions+=Expression)*)? ')') | ('[' (expressions+=Expression
+	(',' expressions+=Expression)*)? ']'));
 
 VariableDefinitionProperty returns types::Property:
 	VariableDefinition;
@@ -194,4 +201,27 @@ terminal ADDRESS returns EBigInteger:
 
 terminal BIGINT returns EBigInteger:
 	('0'..'9')+;
+
+InlineAssemblyBlock:
+	{InlineAssemblyBlock} '{' (items+=AssemblyItem)* '}';
+
+	//TODO: AssemblyAssignment missing
+AssemblyItem returns EObject:
+	(FunctionalAssemblyExpression | InlineAssemblyBlock | AssemblyLocalBinding | AssemblyAssignment | AssemblyLabel |
+	BigIntLiteral | IDLiteral | AddressLiteral);
+
+IDLiteral:
+	value=ID;
+
+AssemblyAssignment:
+	(leftOperand=ID ':=' expression=FunctionalAssemblyExpression) | ('=:' rightOpernd=ID);
+
+AssemblyLocalBinding:
+	'let' name=ID ':=' expression=FunctionalAssemblyExpression;
+
+AssemblyLabel:
+	name=ID ':';
+
+FunctionalAssemblyExpression:
+	name=ID '(' (parameters+=AssemblyItem (',' parameters+=AssemblyItem)*)? ')';
 
