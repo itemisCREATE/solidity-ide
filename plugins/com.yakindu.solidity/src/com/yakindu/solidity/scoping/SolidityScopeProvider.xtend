@@ -18,6 +18,7 @@ import org.yakindu.base.types.Declaration
 import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.typesystem.ITypeSystem
 import com.yakindu.solidity.solidity.MappingTypeSpecifier
+import org.yakindu.base.types.EnumerationType
 
 class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 
@@ -74,7 +75,9 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 		} else {
 			return getDelegate().getScope(context, reference);
 		}
-
+		if (element instanceof EnumerationType) {
+			return Scopes.scopeFor(element.enumerator)
+		}
 		if (element instanceof TypedElement) {
 			if (element.typeSpecifier instanceof ArrayTypeSpecifier ||
 				typesystem.isSuperType(element.type, typesystem.getType(SolidityTypeSystem.BYTES))) {
