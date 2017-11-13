@@ -13,9 +13,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeSpecifier" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//TypeSpecifier"/>
   <eClassifiers xsi:type="ecore:EClass" name="MappingTypeSpecifier" eSuperTypes="#//TypeSpecifier">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="from" eType="#//TypeSpecifier"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="key" eType="#//TypeSpecifier"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="to" eType="#//TypeSpecifier"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//TypeSpecifier"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ArrayTypeSpecifier" eSuperTypes="#//TypeSpecifier">

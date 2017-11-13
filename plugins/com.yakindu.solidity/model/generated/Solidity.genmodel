@@ -60,8 +60,8 @@
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//TypeSpecifier"/>
     <genClasses ecoreClass="Solidity.ecore#//MappingTypeSpecifier">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//MappingTypeSpecifier/from"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//MappingTypeSpecifier/to"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//MappingTypeSpecifier/key"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//MappingTypeSpecifier/value"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//ArrayTypeSpecifier">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ArrayTypeSpecifier/index"/>

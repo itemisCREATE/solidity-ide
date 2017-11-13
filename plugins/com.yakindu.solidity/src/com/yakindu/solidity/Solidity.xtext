@@ -49,7 +49,7 @@ StateVariableDefinition returns types::Property:
 	SimpleTypeSpecifier | MappingTypeSpecifier | ArrayTypeSpecifier;
 
 MappingTypeSpecifier:
-	{MappingTypeSpecifier} 'mapping' '(' from=TypeSpecifier '=>' to=TypeSpecifier ')';
+	{MappingTypeSpecifier} 'mapping' '(' key=TypeSpecifier '=>' value=TypeSpecifier ')';
 
 ArrayTypeSpecifier: //TODO index must be Expression
 	{ArrayTypeSpecifier} type=[types::Type|QID] ('[' (index+=PrimitiveValueExpression)? ']')+;

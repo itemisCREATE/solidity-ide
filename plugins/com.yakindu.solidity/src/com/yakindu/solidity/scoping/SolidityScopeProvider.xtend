@@ -17,6 +17,7 @@ import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.Declaration
 import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.typesystem.ITypeSystem
+import com.yakindu.solidity.solidity.MappingTypeSpecifier
 
 class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 
@@ -80,6 +81,12 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 				if (owner instanceof ElementReferenceExpression) {
 					if (owner.arraySelector.size == 0)
 						return Scopes.scopeFor(Lists.newArrayList(createLength));
+				}
+			}
+			if (element.typeSpecifier instanceof MappingTypeSpecifier) {
+				val valueType = (element.typeSpecifier as MappingTypeSpecifier).value.type
+				if (valueType instanceof ComplexType) {
+					return Scopes.scopeFor((valueType as ComplexType).getAllFeatures())
 				}
 			}
 			if (element.type instanceof ComplexType)
