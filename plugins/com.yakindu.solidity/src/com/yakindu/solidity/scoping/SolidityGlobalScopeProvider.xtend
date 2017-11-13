@@ -8,13 +8,11 @@ import java.util.Set
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.emf.ecore.resource.URIConverter
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.scoping.impl.ImportUriGlobalScopeProvider
 import org.yakindu.base.types.typesystem.ITypeSystem
-import org.eclipse.emf.ecore.resource.ResourceSet
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
-import org.eclipse.emf.ecore.resource.URIConverter
 
 /**
  * 
