@@ -45,7 +45,7 @@ public class OutputHandler {
 		this.service.submit(new Runnable() {
 			@Override
 			public void run() {
-				try (final BufferedReader output = new BufferedReader(new InputStreamReader(stream))) {
+				try (final BufferedReader output = new BufferedReader(new InputStreamReader(stream, "UTF-8"))) {
 					processor.processLineForFile(output, file);
 				} catch (IOException e) {
 					e.printStackTrace();
