@@ -66,6 +66,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		solcIssue.setMessage(message);
 		solcIssue.setOffset(offset);
 		solcIssue.setLength(length);
+		solcIssue.setErrorCode("TODO");
 		EObject element = offsetHelper.resolveElementAt((XtextResource) resource, offset);
 		solcIssue.setUriToProblem(EcoreUtil.getURI(element));
 		return solcIssue;
@@ -73,7 +74,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 
 	private Map<Integer, String> getFileContent(IFile file) {
 		Map<Integer, String> content = Maps.newHashMap();
-		
+
 		try (BufferedReader reader = new BufferedReader(
 				new InputStreamReader(new FileInputStream(file.getLocation().toOSString()), "UTF-8"))) {
 			String line = reader.readLine();
@@ -90,7 +91,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 	}
 
 	private int calculateOffset(int columnNumber, int lineNumber) {
-		int start = columnNumber-1;
+		int start = columnNumber - 1;
 		for (int i = 1; i < lineNumber; i++) {
 			String line = fileContent.get(i);
 			// +2 for \r\n at the end of each line

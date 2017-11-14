@@ -14,6 +14,7 @@ public class SolcIssue implements Issue {
 	private Integer offset;
 	private Integer issueLength;
 	private Severity severity;
+	private String errorCode;
 
 	@Override
 	public URI getUriToProblem() {
@@ -42,7 +43,7 @@ public class SolcIssue implements Issue {
 
 	@Override
 	public String getCode() {
-		return "TODO";
+		return this.errorCode;
 	}
 
 	@Override
@@ -94,5 +95,9 @@ public class SolcIssue implements Issue {
 
 	void setLength(int length) {
 		this.issueLength = length;
+	}
+
+	void setErrorCode(String code) {
+		this.errorCode = code;
 	}
 }
