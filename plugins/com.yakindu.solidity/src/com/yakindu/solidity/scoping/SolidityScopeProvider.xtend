@@ -4,6 +4,7 @@ import com.google.common.collect.Lists
 import com.google.inject.Inject
 import com.yakindu.solidity.solidity.ArrayTypeSpecifier
 import com.yakindu.solidity.solidity.ContractDefinition
+import com.yakindu.solidity.solidity.MappingTypeSpecifier
 import com.yakindu.solidity.typesystem.BuildInDeclarations
 import com.yakindu.solidity.typesystem.SolidityTypeSystem
 import org.eclipse.emf.ecore.EObject
@@ -11,14 +12,14 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
+import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
 import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.Declaration
+import org.yakindu.base.types.EnumerationType
 import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.typesystem.ITypeSystem
-import com.yakindu.solidity.solidity.MappingTypeSpecifier
-import org.yakindu.base.types.EnumerationType
 
 class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 
@@ -31,7 +32,7 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 
 	def scope_ElementReferenceExpression_reference(EObject context, EReference reference) {
 		var result = getSuperTypeScope(context);
-		result = delegate.getScope(context, reference)
+		result = new SimpleScope(delegate.getScope(context, reference), result.allElements)
 		result = result.createImplicitVariables
 		return result;
 	}

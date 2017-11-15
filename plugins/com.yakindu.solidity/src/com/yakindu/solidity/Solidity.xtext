@@ -128,7 +128,7 @@ EventDefinition returns types::Operation:
 
 Statement:
 	IfStatement | WhileStatement | ForStatement | Block | InlineAssemblyStatement | (ThrowStatement | ReturnStatement |
-	SimpleStatement | PlaceholderStatement) ';';
+	ContinueStatement | BreakStatement | SimpleStatement | PlaceholderStatement) ';';
 
 ThrowStatement:
 	{ThrowStatement} 'throw';
@@ -141,6 +141,12 @@ PlaceholderStatement:
 
 ReturnStatement:
 	{ReturnStatement} 'return' (expression=Expression)?;
+
+ContinueStatement:
+	{ReturnStatement} 'continue';
+
+BreakStatement:
+	{ReturnStatement} 'break';
 
 ExpressionStatement:
 	expression=Expression;
