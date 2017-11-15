@@ -91,6 +91,9 @@
     <genClasses ecoreClass="Solidity.ecore#//ReturnStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ReturnStatement/expression"/>
     </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//DeleteStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//DeleteStatement/expression"/>
+    </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//ContinueStatement"/>
     <genClasses ecoreClass="Solidity.ecore#//BreakStatement"/>
     <genClasses ecoreClass="Solidity.ecore#//ExpressionStatement">

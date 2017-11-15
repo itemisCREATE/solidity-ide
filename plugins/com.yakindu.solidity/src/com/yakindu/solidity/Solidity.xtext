@@ -128,7 +128,7 @@ EventDefinition returns types::Operation:
 
 Statement:
 	IfStatement | WhileStatement | ForStatement | Block | InlineAssemblyStatement | (ThrowStatement | ReturnStatement |
-	ContinueStatement | BreakStatement | SimpleStatement | PlaceholderStatement) ';';
+	DeleteStatement | ContinueStatement | BreakStatement | SimpleStatement | PlaceholderStatement) ';';
 
 ThrowStatement:
 	{ThrowStatement} 'throw';
@@ -141,12 +141,15 @@ PlaceholderStatement:
 
 ReturnStatement:
 	{ReturnStatement} 'return' (expression=Expression)?;
+	//TODO Why is this an expression in solidity grammar?
+DeleteStatement:
+	{DeleteStatement} 'delete' expression=Expression;
 
 ContinueStatement:
-	{ReturnStatement} 'continue';
+	{ContinueStatement} 'continue';
 
 BreakStatement:
-	{ReturnStatement} 'break';
+	{BreakStatement} 'break';
 
 ExpressionStatement:
 	expression=Expression;

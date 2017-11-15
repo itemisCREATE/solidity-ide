@@ -11,8 +11,7 @@ import org.yakindu.base.types.Declaration;
 
 @SuppressWarnings("deprecation")
 public class SoliditySemanticHighlighter
-		implements
-			org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator {
+		implements org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator {
 
 	@Override
 	public void provideHighlightingFor(XtextResource resource,
@@ -37,22 +36,13 @@ public class SoliditySemanticHighlighter
 		EObject reference = expression.getReference();
 		if (reference instanceof Declaration) {
 			Declaration decl = (Declaration) expression.getReference();
-			if (decl.getName().equals("msg")) {
-				ICompositeNode node = NodeModelUtils.findActualNodeFor(expression);
-				acceptor.addPosition(node.getTotalOffset(), node.getLength() + 1,
-						DefaultHighlightingConfiguration.KEYWORD_ID);
-			}
-			if (decl.getName().equals("block")) {
-				ICompositeNode node = NodeModelUtils.findActualNodeFor(expression);
-				acceptor.addPosition(node.getTotalOffset(), node.getLength() + 1,
-						DefaultHighlightingConfiguration.KEYWORD_ID);
-			}
-			if (decl.getName().equals("tx")) {
-				ICompositeNode node = NodeModelUtils.findActualNodeFor(expression);
-				acceptor.addPosition(node.getTotalOffset(), node.getLength() + 1,
-						DefaultHighlightingConfiguration.KEYWORD_ID);
-			}
-			if (decl.getName().equals("now")) {
+			switch (decl.getName()) {
+			case "msg":
+			case "block":
+			case "tx":
+			case "now":
+			case "this":
+			case "super":
 				ICompositeNode node = NodeModelUtils.findActualNodeFor(expression);
 				acceptor.addPosition(node.getTotalOffset(), node.getLength() + 1,
 						DefaultHighlightingConfiguration.KEYWORD_ID);

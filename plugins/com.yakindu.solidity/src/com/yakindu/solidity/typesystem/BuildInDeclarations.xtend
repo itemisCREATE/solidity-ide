@@ -1,6 +1,8 @@
 package com.yakindu.solidity.typesystem
 
 import com.google.inject.Inject
+import java.util.ArrayList
+import org.eclipse.emf.ecore.EObject
 import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.typesystem.AbstractTypeSystem
 import org.yakindu.base.types.typesystem.ITypeSystem
@@ -13,6 +15,13 @@ class BuildInDeclarations {
 
 	@Inject
 	ITypeSystem typeSystem
+
+	def create new ArrayList<EObject>() all() {
+		addAll(
+			newArrayList(createMsg(), createAssert(), createRequire(), createRevert(), createAddmod(), createMulmod(),
+				createKeccak256(), createSha3(), createSha256(), createRipemd160(), createEcrecover(), createBlock(),
+				createSuicide(), createThis(), createSuper(), createNow(), createTransaction()))
+	}
 
 	/************************
 	 *     ERROR HANDLING 
@@ -261,6 +270,19 @@ class BuildInDeclarations {
 		]
 		(typeSystem as AbstractTypeSystem).resource.contents += this_
 		this_
+	}
+
+	def createSuper() {
+		var super_ = TypesFactory.eINSTANCE.createProperty => [
+			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+				type = typeSystem.getType(SolidityTypeSystem.ANY)
+			]
+			name = "super"
+			const = true
+			readonly = true
+		]
+		(typeSystem as AbstractTypeSystem).resource.contents += super_
+		super_
 	}
 
 	def createSuicide() {
