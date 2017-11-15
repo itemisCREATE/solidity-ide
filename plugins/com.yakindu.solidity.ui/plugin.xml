@@ -97,6 +97,18 @@
 			name="Templates">
 			<keywordReference id="com.yakindu.solidity.ui.keyword_Solidity"/>
 		</page>
+        <page
+           category="com.yakindu.solidity.Solidity"
+           class="com.yakindu.solidity.ui.preferences.SolidityCompilerPreferencePage"
+            id="com.yakindu.solidity.Solidity.compiler"
+            name="Compiler">
+        </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.yakindu.solidity.ui.preferences.SolidityPreferenceInitializer">
+      </initializer>
 	</extension>
 	<extension
 			point="org.eclipse.ui.propertyPages">
@@ -246,6 +258,7 @@
 			fileExtensions="sol"/>
 	</extension>
 	<extension point="org.eclipse.ui.preferencePages">
+		<!--
 		<page
 			category="com.yakindu.solidity.Solidity"
 			class="com.yakindu.solidity.ui.SolidityExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
@@ -253,6 +266,7 @@
 			name="Compiler">
 			<keywordReference id="com.yakindu.solidity.ui.keyword_Solidity"/>
 		</page>
+		-->
 	</extension>
 	<extension point="org.eclipse.ui.propertyPages">
 		<page

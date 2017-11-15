@@ -1,7 +1,5 @@
 package com.yakindu.solidity.ui.quickfix
 
-import com.yakindu.solidity.solidity.FunctionDefinition
-import com.yakindu.solidity.solidity.FunctionModifier
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
 import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification
@@ -16,9 +14,9 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	def capitalizeName(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Make this function public', 'Public function.', null, new ISemanticModification(){
 			override apply(EObject element, IModificationContext context) throws Exception {
-				val definition = element as FunctionDefinition
-				definition.modifier += FunctionModifier.PUBLIC 
-				println(element)
+//				val definition = element as FunctionDefinition
+//				definition.modifier += FunctionModifier.PUBLIC 
+//				println(element)
 			}
 			
 		});
