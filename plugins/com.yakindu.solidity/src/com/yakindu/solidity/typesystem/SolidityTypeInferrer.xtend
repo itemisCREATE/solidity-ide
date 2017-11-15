@@ -14,6 +14,7 @@ import org.yakindu.base.types.typesystem.ITypeSystem
 
 import static org.yakindu.base.types.typesystem.ITypeSystem.REAL
 import org.eclipse.emf.ecore.EObject
+import org.yakindu.base.types.inferrer.ITypeSystemInferrer.InferenceResult
 
 /**
  * 
@@ -24,8 +25,8 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 
 	@Inject protected ITypeSystem ts;
 
-	def doInfer(EObject e){
-		null	
+	def doInfer(EObject e) {
+		null
 	}
 
 	def doInfer(BigIntLiteral literal) {
@@ -45,19 +46,25 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 			ts.isSuperType(varResult.type, ts.getType(ITypeSystem.INTEGER))) {
 			return;
 		}
-		super.assertCompatible(varResult, valueResult, msg)
+		assertCompatible(varResult, valueResult, msg)
+	}
+
+	override protected assertCompatible(InferenceResult result1, InferenceResult result2, String msg) {
+		if (result1.type == ts.getType(ITypeSystem.ANY) || result2.type == ts.getType(ITypeSystem.ANY))
+			return;
+		super.assertCompatible(result1, result2, msg);
 	}
 
 	override doInfer(BoolLiteral literal) {
 		InferenceResult.from(ts.getType(SolidityTypeSystem.BOOL))
 	}
-	
+
 	def doInfer(NumericalMultiplyDivideExpression e) {
 		var result1 = inferTypeDispatch(e.getLeftOperand())
 		var result2 = inferTypeDispatch(e.getRightOperand())
 		assertCompatible(result1, result2, String.format(ARITHMETIC_OPERATORS, e.getOperator(), result1, result2))
 		assertIsSubType(result1, getResultFor(REAL),
-				String.format(ARITHMETIC_OPERATORS, e.getOperator(), result1, result2))
+			String.format(ARITHMETIC_OPERATORS, e.getOperator(), result1, result2))
 		getCommonType(result1, result2)
 	}
 
@@ -68,7 +75,7 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 		}
 		return super.doInfer(e)
 	}
-	
+
 	def doInfer(FunctionDefinition op) {
 		if (op.returnParameters.size == 0 && op.typeSpecifier === null)
 			getResultFor(ITypeSystem.VOID)

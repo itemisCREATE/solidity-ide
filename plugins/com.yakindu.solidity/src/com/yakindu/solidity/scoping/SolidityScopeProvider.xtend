@@ -12,7 +12,6 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
-import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
 import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.types.ComplexType
@@ -31,17 +30,17 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 	}
 
 	def scope_ElementReferenceExpression_reference(EObject context, EReference reference) {
-		var result = getSuperTypeScope(context);
-		result = new SimpleScope(delegate.getScope(context, reference), result.allElements)
+		var outer = delegate.getScope(context, reference)
+		var result = getSuperTypeScope(context, outer);
 		result = result.createImplicitVariables
 		return result;
 	}
 
-	def getSuperTypeScope(EObject context) {
+	def getSuperTypeScope(EObject context, IScope outer) {
 		val contract = EcoreUtil2.getContainerOfType(context, ContractDefinition)
-		if(contract === null) return IScope.NULLSCOPE
+		if(contract === null) return outer
 		// TODO: VisibilitY?
-		return Scopes.scopeFor(contract.allFeatures)
+		return Scopes.scopeFor(contract.allFeatures, outer)
 
 	}
 
@@ -84,7 +83,7 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 				typesystem.isSuperType(element.type, typesystem.getType(SolidityTypeSystem.BYTES))) {
 				if (owner instanceof ElementReferenceExpression) {
 					if (owner.arraySelector.size == 0)
-						return Scopes.scopeFor(Lists.newArrayList(createLength));
+						return Scopes.scopeFor(Lists.newArrayList(createLength, createPush));
 				}
 			}
 			if (element.typeSpecifier instanceof MappingTypeSpecifier) {

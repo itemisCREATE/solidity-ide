@@ -315,8 +315,8 @@ class BuildInDeclarations {
 		(typeSystem as AbstractTypeSystem).resource.contents += block
 		block
 	}
-	
-	def createLength(){
+
+	def createLength() {
 		val length = TypesFactory.eINSTANCE.createProperty() => [
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.INT)
@@ -325,6 +325,23 @@ class BuildInDeclarations {
 		]
 		(typeSystem as AbstractTypeSystem).resource.contents += length
 		length
+	}
+
+	def createPush() {
+		val push = TypesFactory.eINSTANCE.createOperation() => [
+			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+				type = typeSystem.getType(SolidityTypeSystem.INT)
+			]
+			parameters += TypesFactory.eINSTANCE.createParameter() => [
+				name = "element"
+				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+					type = typeSystem.getType(SolidityTypeSystem.ANY)
+				]
+			]
+			name = "push"
+		]
+		(typeSystem as AbstractTypeSystem).resource.contents += push
+		push
 	}
 
 }
