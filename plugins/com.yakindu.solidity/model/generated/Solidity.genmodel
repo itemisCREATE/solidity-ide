@@ -166,6 +166,12 @@
     <genClasses ecoreClass="Solidity.ecore#//ModifierDefinition">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ModifierDefinition/block"/>
     </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//DoubleLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//DoubleLiteral/unit"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//FloatLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//FloatLiteral/unit"/>
+    </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//FunctionDefinition">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//FunctionDefinition/modifier"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//FunctionDefinition/returnParameters"/>

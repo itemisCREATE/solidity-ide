@@ -96,6 +96,10 @@ Block:
 BigIntLiteral:
 	value=BIGINT (unit=Unit)?;
 
+@Override 
+DoubleLiteral returns expressions::DoubleLiteral:
+	{DoubleLiteral} value=DOUBLE (unit=Unit)?;
+
 AddressLiteral:
 	value=ADDRESS;
 

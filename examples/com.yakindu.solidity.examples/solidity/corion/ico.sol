@@ -5,7 +5,7 @@ import "./token.sol";
 import "./premium.sol";
 import "./moduleHandler.sol";
 
-contract ico is safeMath {
+contract ico is mortal {
     
     struct icoLevels_s {
         uint256 block;
@@ -73,8 +73,8 @@ contract ico is safeMath {
             startBlock = block.number;
         }
         icoLevels.push(icoLevels_s(startBlock + oneSegment * 1, 3));
-        icoLevels.push(icoLevels_s(startBlock + oneSegment / 7, 5));
-        icoLevels.push(icoLevels_s(startBlock, 10));
+        icoLevels.push(icoLevels_s(startBlock + oneSegment / 7, 5)); 
+        icoLevels.push(icoLevels_s(startBlock, 10)); 
         icoDelay = startBlock + oneSegment * 3;
         for ( uint256 a=0 ; a<genesisAddr.length ; a++ ) {
             interestDB[genesisAddr[a]][0].amount = genesisValue[a];
@@ -305,7 +305,7 @@ contract ico is safeMath {
             affilateAddress = 0x00;
         }
         uint256 _value = msg.value;
-        if ( beneficiaryAddress.balance < 0.2 ether ) {
+        if ( beneficiaryAddress.balance < 0.2 ether ) { 
             require( beneficiaryAddress.send(0.2 ether) );
             _value = safeSub(_value, 0.2 ether);
         }

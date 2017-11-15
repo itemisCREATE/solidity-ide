@@ -34,7 +34,7 @@ contract BasicIterator {
      Standard kill() function to recover funds 
      **********/
     
-    function kill()
+    function kill(uint8 parameter)
     { 
         if (msg.sender == creator)
         {
