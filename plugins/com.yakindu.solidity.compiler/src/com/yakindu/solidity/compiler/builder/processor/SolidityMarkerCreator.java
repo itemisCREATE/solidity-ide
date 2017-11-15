@@ -1,7 +1,6 @@
 package com.yakindu.solidity.compiler.builder.processor;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
@@ -74,10 +73,8 @@ public class SolidityMarkerCreator extends MarkerCreator {
 
 	private Map<Integer, String> getFileContent(IFile file) {
 		Map<Integer, String> content = Maps.newHashMap();
-
-		try (BufferedReader reader = new BufferedReader(
-				new InputStreamReader(new FileInputStream(file.getLocation().toOSString()), "UTF-8"))) {
-			String line = reader.readLine();
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getContents(), getEncoding(file)))) {
+			String line = reader.readLine().replaceAll("\r", "\n").replaceAll("\r\n", "\n");
 			int lastLineNumber = 1;
 			while (line != null) {
 				content.put(lastLineNumber, line);
@@ -90,12 +87,21 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		return content;
 	}
 
+	private String getEncoding(IFile file) {
+		try {
+			return file.getCharset();
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+		return "UTF-8";
+	}
+
 	private int calculateOffset(int columnNumber, int lineNumber) {
 		int start = columnNumber - 1;
 		for (int i = 1; i < lineNumber; i++) {
 			String line = fileContent.get(i);
-			// +2 for \r\n at the end of each line
-			start += line.length() + 2;
+			// +1 for \n at the end of each line
+			start += line.length() + 1;
 		}
 		return start;
 	}
