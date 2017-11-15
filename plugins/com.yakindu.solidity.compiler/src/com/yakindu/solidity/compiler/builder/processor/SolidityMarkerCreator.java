@@ -52,7 +52,12 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		int lineNumber = Integer.parseInt(parts[2]);
 		int columnNumber = Integer.parseInt(parts[3]);
 		Severity severity = calculateSeverity(parts[4].trim());
-		String message = parts[5].substring(0, parts[5].indexOf(System.getProperty("line.separator")));
+		String message;
+		if (severity == Severity.INFO) {
+			message = parts[4];
+		} else {
+			message = parts[5].substring(0, parts[5].indexOf(System.getProperty("line.separator")));
+		}
 		String issueDetails = parts[5].substring(parts[5].indexOf(System.getProperty("line.separator")),
 				parts[5].length());
 		boolean isMultiline = issueDetails.contains("Spanning multiple lines.");
@@ -74,10 +79,10 @@ public class SolidityMarkerCreator extends MarkerCreator {
 	private Map<Integer, String> getFileContent(IFile file) {
 		Map<Integer, String> content = Maps.newHashMap();
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getContents(), getEncoding(file)))) {
-			String line = reader.readLine().replaceAll("\r", "\n").replaceAll("\r\n", "\n");
+			String line = reader.readLine();
 			int lastLineNumber = 1;
 			while (line != null) {
-				content.put(lastLineNumber, line);
+				content.put(lastLineNumber, line.replaceAll("\r", "\n").replaceAll("\r\n", "\n"));
 				line = reader.readLine();
 				lastLineNumber++;
 			}
