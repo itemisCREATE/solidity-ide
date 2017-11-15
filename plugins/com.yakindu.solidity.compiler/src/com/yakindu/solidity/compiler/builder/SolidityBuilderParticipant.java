@@ -81,7 +81,8 @@ public class SolidityBuilderParticipant implements IXtextBuilderParticipant {
 				}
 				if (resource instanceof IFile) {
 					IFile file = (IFile) resource;
-					if (file.getFileExtension().equals("sol")) {
+					String fileExtension = file.getFileExtension();
+					if (fileExtension != null && fileExtension.equals("sol")) {
 						filesToCompile.add(file);
 					}
 				}
