@@ -6,15 +6,16 @@ import com.yakindu.solidity.solidity.BigIntLiteral
 import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.NumericalMultiplyDivideExpression
 import com.yakindu.solidity.solidity.PostFixUnaryExpression
+import org.eclipse.emf.ecore.EObject
 import org.yakindu.base.expressions.expressions.BoolLiteral
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
+import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.expressions.inferrer.ExpressionsTypeInferrer
 import org.yakindu.base.types.Type
+import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.typesystem.ITypeSystem
 
 import static org.yakindu.base.types.typesystem.ITypeSystem.REAL
-import org.eclipse.emf.ecore.EObject
-import org.yakindu.base.types.inferrer.ITypeSystemInferrer.InferenceResult
 
 /**
  * 
@@ -72,6 +73,14 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 	override doInfer(ElementReferenceExpression e) {
 		if (e.isOperationCall() && (e.reference instanceof Type)) {
 			return inferTypeDispatch(e.reference)
+		}
+		return super.doInfer(e)
+	}
+
+	// Type Cast	
+	override doInfer(FeatureCall e) {
+		if (e.isOperationCall() && (e.feature instanceof TypedElement)) {
+			return inferTypeDispatch(e.feature)
 		}
 		return super.doInfer(e)
 	}
