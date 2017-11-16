@@ -3,6 +3,7 @@ package com.yakindu.solidity.ui.preferences;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;
+import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -16,7 +17,7 @@ import com.yakindu.solidity.ui.internal.SolidityActivator;
 /**
  * 
  * @author andreas muelder - Initial contribution and API
- * 
+ * @author Florian Antony
  */
 public class SolidityCompilerPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
@@ -48,6 +49,7 @@ public class SolidityCompilerPreferencePage extends FieldEditorPreferencePage im
 				composite));
 		addField(new BooleanFieldEditor(SolidityPreferences.COMPILER_OUTPUT_ABI, "Enable solidity abi output",
 				composite));
+		addField(new StringFieldEditor(SolidityPreferences.COMPILER_OUTPUT_PATH, "Compiler output path", composite));
 	}
 
 	protected Composite createPageLayout(Composite parent) {

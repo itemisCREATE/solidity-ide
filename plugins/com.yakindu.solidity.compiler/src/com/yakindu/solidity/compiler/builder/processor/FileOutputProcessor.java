@@ -7,14 +7,20 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.jface.preference.IPreferenceStore;
 
 import com.google.common.collect.Maps;
+import com.google.inject.Inject;
+import com.yakindu.solidity.ui.preferences.SolidityPreferences;
 
 /**
  * @author Florian Antony - Initial contribution and API
  */
 
 public class FileOutputProcessor implements ISolcOutputProcessor {
+
+	@Inject
+	private IPreferenceStore preferences;
 
 	private class OutputFile {
 
@@ -100,9 +106,10 @@ public class FileOutputProcessor implements ISolcOutputProcessor {
 	}
 
 	private String getOutputFileName(IFile file) {
-		String outputDirectory = file.getParent().getParent().getLocation().toOSString() + "\\solidity-output\\";
+		String outputDirectory = file.getParent().getParent().getLocation().toOSString() + "\\"
+				+ preferences.getString(SolidityPreferences.COMPILER_OUTPUT_PATH);
 		String plainFileName = file.getName().replaceAll(".sol", "");
-		String fileName = outputDirectory + plainFileName + "\\" + plainFileName;
+		String fileName = outputDirectory + "\\" + plainFileName;
 		return fileName;
 	}
 
