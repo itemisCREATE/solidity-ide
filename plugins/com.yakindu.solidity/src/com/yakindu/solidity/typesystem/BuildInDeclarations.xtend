@@ -27,7 +27,6 @@ class BuildInDeclarations {
 	 *     ERROR HANDLING 
 	 ************************/
 	def createAssert() {
-		println("Test")
 		val assert = TypesFactory.eINSTANCE.createOperation() => [
 			parameters += TypesFactory.eINSTANCE.createParameter => [
 				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
