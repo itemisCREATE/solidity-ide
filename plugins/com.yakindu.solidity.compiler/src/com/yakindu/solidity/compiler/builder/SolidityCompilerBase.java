@@ -25,7 +25,6 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 		}
 		progress.beginTask("compiling ..." + file.getName(), 10);
 		try {
-
 			Process process = new ProcessBuilder(createParameter(file)).start();
 			handler.handleOutput(process.getInputStream(), file);
 			handler.handleError(process.getErrorStream(), file);

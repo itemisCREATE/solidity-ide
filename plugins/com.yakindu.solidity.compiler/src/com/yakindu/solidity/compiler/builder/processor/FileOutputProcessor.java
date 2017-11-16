@@ -9,6 +9,7 @@ import java.util.Map;
 import org.eclipse.core.resources.IFile;
 
 import com.google.common.collect.Maps;
+
 /**
  * @author Florian Antony - Initial contribution and API
  */
@@ -19,6 +20,7 @@ public class FileOutputProcessor implements ISolcOutputProcessor {
 
 		private final File output;
 		private String content = "";
+
 		public OutputFile(String absolutFileName) {
 			this.output = new File(absolutFileName);
 		}
@@ -30,6 +32,7 @@ public class FileOutputProcessor implements ISolcOutputProcessor {
 				content += (System.getProperty("line.separator") + line);
 			}
 		}
+
 		public void write() {
 			if (output.exists()) {
 				output.delete();
@@ -54,40 +57,53 @@ public class FileOutputProcessor implements ISolcOutputProcessor {
 		}
 	}
 
-	private CompileOutputType outputType;
-
-	private boolean switchContext(String line) {
+	private CompileOutputType switchContext(String line, CompileOutputType old) {
 		CompileOutputType outputType = CompileOutputType.getTypeForTrigger(line);
 		if (outputType != null) {
-			this.outputType = outputType;
-			return true;
+			return outputType;
 		}
-		return false;
+		return old;
 	}
 
 	@Override
 	public void processLineForFile(BufferedReader output, IFile file) throws IOException {
-		String outputDirectory = file.getParent().getParent().getLocation().toOSString() + "\\solidity-output\\";
-		String plainFileName = file.getName().replaceAll(".sol", "");
-		String fileName = outputDirectory + plainFileName + "\\" + plainFileName;
-		Map<CompileOutputType, OutputFile> outputFiles = Maps.newHashMap();
-		for (CompileOutputType type : CompileOutputType.values()) {
-			outputFiles.put(type, new OutputFile(fileName + type.EXTENSION));
-		}
+		String fileName = getOutputFileName(file);
+
+		CompileOutputType outputType = null;
+		Map<CompileOutputType, OutputFile> outputFiles = initializeOutputFiles(fileName);
 		String line;
 		line = output.readLine();
 		while (line != null && !Thread.currentThread().isInterrupted()) {
 			if (!line.isEmpty()) {
-				if (!switchContext(line)) {
+				outputType = switchContext(line, outputType);
+				if (outputType != null) {
 					outputFiles.get(outputType).addLine(line);
 				}
 			}
 			line = output.readLine();
 		}
+		writeFiles(outputFiles);
+	}
+
+	private Map<CompileOutputType, OutputFile> initializeOutputFiles(String fileName) {
+		Map<CompileOutputType, OutputFile> outputFiles = Maps.newHashMap();
+		for (CompileOutputType type : CompileOutputType.values()) {
+			outputFiles.put(type, new OutputFile(fileName + type.EXTENSION));
+		}
+		return outputFiles;
+	}
+
+	private void writeFiles(Map<CompileOutputType, OutputFile> outputFiles) {
 		for (OutputFile outputFile : outputFiles.values()) {
 			outputFile.write();
 		}
-		outputType = null;
+	}
+
+	private String getOutputFileName(IFile file) {
+		String outputDirectory = file.getParent().getParent().getLocation().toOSString() + "\\solidity-output\\";
+		String plainFileName = file.getName().replaceAll(".sol", "");
+		String fileName = outputDirectory + plainFileName + "\\" + plainFileName;
+		return fileName;
 	}
 
 }
