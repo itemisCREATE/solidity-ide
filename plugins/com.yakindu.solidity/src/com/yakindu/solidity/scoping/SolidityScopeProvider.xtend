@@ -20,10 +20,16 @@ import org.yakindu.base.types.EnumerationType
 import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.typesystem.ITypeSystem
 
+/**
+ * 
+ * @author andreas muelder - Initial contribution and API
+ * 
+ */
 class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 
 	@Inject extension BuildInDeclarations
 	@Inject ITypeSystem typesystem;
+	
 
 	override getScope(EObject context, EReference ref) {
 		return super.getScope(context, ref)
@@ -31,17 +37,10 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 
 	def scope_ElementReferenceExpression_reference(EObject context, EReference reference) {
 		var outer = delegate.getScope(context, reference)
-		var result = getSuperTypeScope(context, outer);
-		result = result.createImplicitVariables
-		return result;
-	}
-
-	def getSuperTypeScope(EObject context, IScope outer) {
-		val contract = EcoreUtil2.getContainerOfType(context, ContractDefinition)
-		if(contract === null) return outer
-		// TODO: VisibilitY?
-		return Scopes.scopeFor(contract.allFeatures, outer)
-
+		return new ElementReferenceScope(createImplicitVariables(outer), context, reference);
+//		var result = getSuperTypeScope(context, outer);
+//		result = result.createImplicitVariables
+//		return result;
 	}
 
 	def protected createImplicitVariables(IScope outer) {

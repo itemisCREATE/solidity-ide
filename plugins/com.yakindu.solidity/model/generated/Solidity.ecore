@@ -196,9 +196,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="DoubleLiteral" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//DoubleLiteral">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" eType="#//Unit"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FloatLiteral" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//FloatLiteral">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" eType="#//Unit"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FunctionDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Operation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="modifier" upperBound="-1"
         eType="#//Modifier" containment="true"/>

@@ -24,8 +24,8 @@ class SolidityGlobalScopeProvider extends DefaultGlobalScopeProvider {
 	IQualifiedNameProvider qualifiedNameProvider
 
 	override getScope(Resource resource, EReference reference, Predicate<IEObjectDescription> filter) {
-		var parentScope = super.getScope(resource, reference, filter)
-		return new TypeSystemAwareScope(parentScope, typeSystem, qualifiedNameProvider, reference.getEReferenceType());
+		val parentScope = super.getScope(resource, reference, filter)
+		new TypeSystemAwareScope(parentScope, typeSystem, qualifiedNameProvider, reference.getEReferenceType())
 	}
 
 }
