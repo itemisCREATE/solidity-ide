@@ -38,8 +38,16 @@ public class SolidityCompilerPreferencePage extends FieldEditorPreferencePage im
 
 	protected void createCompilerSettings(Composite parent) {
 		Composite composite = createGroupComposite(parent, "Solc compiler");
-		addField(new BooleanFieldEditor(SolidityPreferences.COMPILER_ENABLED, "Enable solidity compiler", composite));
 		addField(new FileFieldEditor(SolidityPreferences.COMPILER_PATH, "Path to solc", composite));
+		addField(new BooleanFieldEditor(SolidityPreferences.COMPILER_ENABLED, "Enable solidity compiler", composite));
+		addField(new BooleanFieldEditor(SolidityPreferences.COMPILER_OUTPUT_BIN, "Enable solidity bin output",
+				composite));
+		addField(new BooleanFieldEditor(SolidityPreferences.COMPILER_OUTPUT_AST, "Enable solidity ast output",
+				composite));
+		addField(new BooleanFieldEditor(SolidityPreferences.COMPILER_OUTPUT_ASM, "Enable solidity asm output",
+				composite));
+		addField(new BooleanFieldEditor(SolidityPreferences.COMPILER_OUTPUT_ABI, "Enable solidity abi output",
+				composite));
 	}
 
 	protected Composite createPageLayout(Composite parent) {

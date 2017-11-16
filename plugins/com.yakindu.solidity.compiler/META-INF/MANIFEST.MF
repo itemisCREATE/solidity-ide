@@ -22,6 +22,7 @@ Require-Bundle: com.yakindu.solidity,
  org.yakindu.base.xtext.utils.jface,
  com.google.inject,
  org.eclipse.emf.mwe.core,
- org.apache.log4j
+ org.apache.log4j,
+ com.yakindu.solidity.ui
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: com.yakindu.solidity.compiler.SolidityCompilerActivator

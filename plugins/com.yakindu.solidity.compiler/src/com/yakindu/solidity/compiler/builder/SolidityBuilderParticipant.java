@@ -12,6 +12,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.SubMonitor;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.xtext.builder.IXtextBuilderParticipant;
 import org.eclipse.xtext.generator.OutputConfiguration;
 import org.eclipse.xtext.resource.IResourceDescription;
@@ -20,6 +21,7 @@ import org.eclipse.xtext.resource.IResourceDescription.Delta;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
+import com.yakindu.solidity.ui.preferences.SolidityPreferences;
 
 /**
  * 
@@ -30,6 +32,8 @@ public class SolidityBuilderParticipant implements IXtextBuilderParticipant {
 
 	public static final String ID = "com.yakindu.solidity.ide.builder.solidityBuilder";
 
+	@Inject
+	private IPreferenceStore preferences;
 	@Inject
 	private ISolidityCompiler compiler;
 
@@ -104,7 +108,7 @@ public class SolidityBuilderParticipant implements IXtextBuilderParticipant {
 
 	// TODO turn it on and off by preference
 	private boolean isEnabled(IBuildContext context) {
-		return true;
+		return preferences.getBoolean(SolidityPreferences.COMPILER_ENABLED);
 	}
 
 	// TODO configure by preference
