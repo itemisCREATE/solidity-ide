@@ -3,6 +3,7 @@ package com.yakindu.solidity.ui.preferences;
 /**
  * 
  * @author andreas muelder - Initial contribution and API
+ * @author Florian Antony
  * 
  */
 public class SolidityPreferences {
@@ -14,5 +15,6 @@ public class SolidityPreferences {
 	public static final String COMPILER_OUTPUT_ABI = "compiler.output.abi";
 	public static final String COMPILER_OUTPUT_AST = "compiler.output.ast";
 	public static final String COMPILER_OUTPUT_ASM = "compiler.output.asm";
+	public static final String COMPILER_OUTPUT_PATH = "compiler.output.path";
 
 }
