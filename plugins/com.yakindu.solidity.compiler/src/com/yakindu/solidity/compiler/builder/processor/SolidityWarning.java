@@ -1,6 +1,7 @@
 package com.yakindu.solidity.compiler.builder.processor;
 
 public enum SolidityWarning {
+	WARNING_FILE_NO_PRAGMA_SOLIDITY("Source file does not specify required compiler version!"),
 	WARNING_FUNCTION_VISIBILITY("No visibility specified. Defaulting to"),
 	WARNING_FUNCTION_UNUSED_PARAMETER("Unused function parameter."),
 	WARNING_LOCAL_VARIABLE_UNUSED("Unused local variable."),
