@@ -8,6 +8,10 @@ import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.types.typesystem.ITypeSystem
+import org.yakindu.base.expressions.expressions.ElementReferenceExpression
+import org.yakindu.base.base.NamedElement
+import org.eclipse.xtext.EcoreUtil2
+import com.yakindu.solidity.solidity.ContractDefinition
 
 /**
  * 
@@ -33,6 +37,13 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 	}
 
 	def scope_FeatureCall_feature(FeatureCall context, EReference reference) {
+		if (context?.owner instanceof ElementReferenceExpression) {
+			var ref = (context.owner as ElementReferenceExpression).reference
+			if (ref instanceof NamedElement && ("super".equals((ref as NamedElement).name))) {
+				val features = EcoreUtil2.getContainerOfType(context, ContractDefinition)?.superTypes?.map[allFeatures].flatten
+				return Scopes.scopeFor(features)
+			}
+		}
 		return new FeatureCallScope(context, reference, declarations, typeSystem)
 	}
 

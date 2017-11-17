@@ -107,6 +107,13 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//VariableDefinition/visibility"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//VariableDefinition/initialValue"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//VariableDefinition/storage"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//VariableDefinition/identifier"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//IdentifierList">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//IdentifierList/identifier"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//Identifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//Identifier/name"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//IfStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//IfStatement/condition"/>
