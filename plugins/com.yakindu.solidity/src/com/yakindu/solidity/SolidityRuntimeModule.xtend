@@ -12,6 +12,7 @@ import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy
 import org.eclipse.xtext.validation.CompositeEValidator
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
+import com.yakindu.solidity.scoping.SolidityImportedNamespaceAwareLocalScopeProvider
 
 /**
  * 
@@ -40,4 +41,10 @@ class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 		SolidityValueConverterService
 	}
 
+	override configureIScopeProviderDelegate(Binder binder) {
+		binder.bind(org.eclipse.xtext.scoping.IScopeProvider).annotatedWith(
+			com.google.inject.name.Names.named(
+				org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider.NAMED_DELEGATE)).to(
+			SolidityImportedNamespaceAwareLocalScopeProvider);
+	}
 }
