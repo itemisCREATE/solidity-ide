@@ -166,6 +166,7 @@
     <genClasses ecoreClass="Solidity.ecore#//ContractDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//ContractDefinition/type"/>
     </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//UsingForDeclaration"/>
     <genClasses ecoreClass="Solidity.ecore#//TypeDefinition">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//TypeDefinition/definition"/>
     </genClasses>

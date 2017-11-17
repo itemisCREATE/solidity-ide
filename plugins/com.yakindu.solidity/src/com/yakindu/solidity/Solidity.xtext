@@ -38,8 +38,11 @@ enum ContractType:
 	CONTRACT='contract' | LIBRARY='library' | INTERFACE='interface';
 
 ContractPart returns types::Declaration:
-	StateVariableDefinition | ModifierDefinition | FunctionDefinition | EventDefinition |
+	StateVariableDefinition | UsingForDeclaration | ModifierDefinition | FunctionDefinition | EventDefinition |
 	TypeDefinition;
+
+UsingForDeclaration returns types::Declaration:
+	{UsingForDeclaration} 'using' name=ID 'for' ('*' | typeSpecifier=SimpleTypeSpecifier) ';';
 
 StateVariableDefinition returns types::Property:
 	{VariableDefinition} typeSpecifier=TypeSpecifier ((visibility=Visibility)? & ('constant')?) name=ID ('='
@@ -96,7 +99,7 @@ Block:
 BigIntLiteral:
 	value=BIGINT (unit=Unit)?;
 
-@Override 
+@ Override
 DoubleLiteral returns expressions::DoubleLiteral:
 	{DoubleLiteral} value=DOUBLE (unit=Unit)?;
 
@@ -197,13 +200,14 @@ VariableDefinitionProperty returns types::Property:
 	VariableDefinition;
 
 VariableDefinition:
-	('var' identifier=IdentifierList | (typeSpecifier=TypeSpecifier (storage=StorageLocation)? name=ID))  ('=' initialValue=Expression)?;
+	('var' identifier=IdentifierList | (typeSpecifier=TypeSpecifier (storage=StorageLocation)? name=ID)) ('='
+	initialValue=Expression)?;
 
-IdentifierList: {IdentifierList} identifier+=Identifier | ('(' (identifier+=Identifier (',' (identifier+=Identifier)?)*) ')');
+IdentifierList:
+	{IdentifierList} identifier+=Identifier | ('(' (identifier+=Identifier (',' (identifier+=Identifier)?)*) ')');
 
 Identifier:
-	name=ID
-;
+	name=ID;
 
 IfStatement:
 	'if' '(' condition=Expression ')' then=Statement (=> 'else' else=Statement)?;
