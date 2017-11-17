@@ -20,7 +20,7 @@ class BuildInDeclarations {
 		addAll(
 			newArrayList(createMsg(), createAssert(), createRequire(), createRevert(), createAddmod(), createMulmod(),
 				createKeccak256(), createSha3(), createSha256(), createRipemd160(), createEcrecover(), createBlock(),
-				createSuicide(), createThis(), createSuper(), createNow(), createTransaction()))
+				createSuicide(), createSelfdestruct(), createThis(), createSuper(), createNow(), createTransaction()))
 	}
 
 	/************************
@@ -294,6 +294,20 @@ class BuildInDeclarations {
 				name = "address"
 			]
 			name = "suicide"
+		]
+		(typeSystem as AbstractTypeSystem).resource.contents += suicide
+		suicide
+	}
+
+	def createSelfdestruct() {
+		val suicide = TypesFactory.eINSTANCE.createOperation() => [
+			parameters += TypesFactory.eINSTANCE.createParameter => [
+				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+					type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
+				]
+				name = "address"
+			]
+			name = "selfdestruct"
 		]
 		(typeSystem as AbstractTypeSystem).resource.contents += suicide
 		suicide
