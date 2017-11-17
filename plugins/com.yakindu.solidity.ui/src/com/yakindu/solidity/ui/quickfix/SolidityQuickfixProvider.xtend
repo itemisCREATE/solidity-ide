@@ -79,7 +79,14 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 
 	@Fix("WARNING_VARIABLE_STORAGE_POINTER")
 	def makeStoragePointerExplicit(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, 'Add payable to function', 'Add payable.', null, new ISemanticModification() {
+		acceptor.accept(issue, 'Add explicit storage keyword', 'storage.', null, new ISemanticModification() {
+			override apply(EObject element, IModificationContext context) throws Exception {
+				// FIXME This gets never called since ResourceServiceProviderRegistryImpl#getServiceProvider(URI uri, String contentType) returns null
+				println("TODO: makeStoragePointerExplicit")
+			}
+		})
+
+		acceptor.accept(issue, 'Add explicit memory keyword', 'memory.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				// FIXME This gets never called since ResourceServiceProviderRegistryImpl#getServiceProvider(URI uri, String contentType) returns null
 				println("TODO: makeStoragePointerExplicit")
