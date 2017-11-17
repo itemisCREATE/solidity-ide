@@ -42,7 +42,7 @@ ContractPart returns types::Declaration:
 	TypeDefinition;
 
 UsingForDeclaration returns types::Declaration:
-	{UsingForDeclaration} 'using' name=ID 'for' ('*' | typeSpecifier=SimpleTypeSpecifier) ';';
+	{UsingForDeclaration} 'using' contract=[ContractDefinition|ID] 'for' ('*' | typeSpecifier=SimpleTypeSpecifier) ';';
 
 StateVariableDefinition returns types::Property:
 	{VariableDefinition} typeSpecifier=TypeSpecifier ((visibility=Visibility)? & ('constant')?) name=ID ('='
@@ -204,7 +204,7 @@ VariableDefinition:
 	initialValue=Expression)?;
 
 IdentifierList:
-	{IdentifierList} identifier+=Identifier | ('(' (identifier+=Identifier (',' (identifier+=Identifier)?)*) ')');
+	{IdentifierList} (identifier+=Identifier | ('(' ((identifier+=Identifier)? (',' (identifier+=Identifier)?)*) ')'));
 
 Identifier:
 	name=ID;

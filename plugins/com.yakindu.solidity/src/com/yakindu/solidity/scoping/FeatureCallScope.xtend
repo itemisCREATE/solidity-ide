@@ -17,6 +17,7 @@ import org.yakindu.base.types.EnumerationType
 import org.yakindu.base.types.TypeSpecifier
 import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.typesystem.ITypeSystem
+import com.yakindu.solidity.solidity.ContractDefinition
 
 /**
  * 
@@ -54,6 +55,11 @@ class FeatureCallScope extends AbstractScope {
 			(reference as TypedElement).type?.getLocalElements
 		} else
 			newArrayList()
+	}
+	
+	def dispatch List<? extends EObject> getLocalElements(ContractDefinition it) {
+		//TODO: only constant 
+		it.allFeatures 
 	}
 
 	def dispatch List<? extends EObject> getLocalElements(FeatureCall it) {
