@@ -14,8 +14,8 @@ import org.eclipse.xtext.scoping.Scopes
 import org.yakindu.base.base.NamedElement
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
 import org.yakindu.base.expressions.expressions.FeatureCall
-import org.yakindu.base.types.Operation
 import org.yakindu.base.types.TypedElement
+import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
 
 /**
@@ -27,6 +27,7 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 
 	@Inject BuildInDeclarations declarations
 	@Inject ITypeSystem typeSystem
+	@Inject ITypeSystemInferrer inferrer;
 
 	override getScope(EObject context, EReference ref) {
 		return super.getScope(context, ref)
@@ -50,14 +51,16 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 				return Scopes.scopeFor(features)
 			}
 
-			return Scopes.scopeFor(usings(ref), new FeatureCallScope(context, reference, declarations, typeSystem))
+			return Scopes.scopeFor(usings(ref),
+				new FeatureCallScope(context, reference, declarations, typeSystem, inferrer))
 		}
-		new FeatureCallScope(context, reference, declarations, typeSystem)
+		new FeatureCallScope(context, reference, declarations, typeSystem, inferrer)
 	}
 
 	def dispatch List<? extends EObject> usings(TypedElement element) {
 		val root = EcoreUtil.getRootContainer(element)
-		val elements = root.eAllContents.filter(UsingForDeclaration).map[contract].map[allFeatures].toList.flatten.toList
+		val elements = root.eAllContents.filter(UsingForDeclaration).map[contract].map[allFeatures].toList.flatten.
+			toList
 		return elements
 	}
 
