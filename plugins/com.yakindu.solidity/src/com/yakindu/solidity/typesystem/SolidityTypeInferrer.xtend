@@ -1,22 +1,16 @@
 package com.yakindu.solidity.typesystem
 
-import com.google.common.collect.Lists
 import com.google.inject.Inject
 import com.yakindu.solidity.solidity.AddressLiteral
 import com.yakindu.solidity.solidity.BigIntLiteral
 import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.NumericalMultiplyDivideExpression
 import com.yakindu.solidity.solidity.PostFixUnaryExpression
-import java.util.List
 import org.eclipse.emf.ecore.EObject
-import org.yakindu.base.expressions.expressions.ArgumentExpression
 import org.yakindu.base.expressions.expressions.BoolLiteral
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
-import org.yakindu.base.expressions.expressions.Expression
 import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.expressions.inferrer.ExpressionsTypeInferrer
-import org.yakindu.base.types.ComplexType
-import org.yakindu.base.types.Operation
 import org.yakindu.base.types.Type
 import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.typesystem.ITypeSystem
@@ -61,31 +55,6 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 			return;
 		super.assertCompatible(result1, result2, msg);
 	}
-	
-//	override List<Expression> getOperationArguments(ArgumentExpression e) {
-//		if (e instanceof FeatureCall) {
-//			val operation = e.feature as Operation
-//			if (e.owner !== null && operation.isExtensionMethodOn(inferTypeDispatch(e.owner)?.type)) {
-//				return combine(e.owner, e.expressions);
-//			}
-//		}
-//		return e.expressions
-//	}
-//	
-//	def combine(Expression first, List<Expression> others) {
-//		val args = Lists.newArrayList
-//		args += first
-//		args += others
-//		args
-//	}
-//	
-//	def isExtensionMethodOn(Operation operation, Type callerType) {
-//		if (callerType instanceof ComplexType && (callerType as ComplexType).allFeatures.contains(operation)) {
-//			// method contained by caller, means it is not an extension method
-//			return false;
-//		}
-//		return true;
-//	}
 
 	override doInfer(BoolLiteral literal) {
 		InferenceResult.from(ts.getType(SolidityTypeSystem.BOOL))

@@ -1,6 +1,7 @@
 package com.yakindu.solidity.scoping
 
 import com.yakindu.solidity.solidity.ArrayTypeSpecifier
+import com.yakindu.solidity.solidity.ContractDefinition
 import com.yakindu.solidity.solidity.MappingTypeSpecifier
 import com.yakindu.solidity.typesystem.BuildInDeclarations
 import com.yakindu.solidity.typesystem.SolidityTypeSystem
@@ -17,7 +18,6 @@ import org.yakindu.base.types.EnumerationType
 import org.yakindu.base.types.TypeSpecifier
 import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.typesystem.ITypeSystem
-import com.yakindu.solidity.solidity.ContractDefinition
 
 /**
  * 
@@ -56,10 +56,10 @@ class FeatureCallScope extends AbstractScope {
 		} else
 			newArrayList()
 	}
-	
+
 	def dispatch List<? extends EObject> getLocalElements(ContractDefinition it) {
-		//TODO: only constant 
-		it.allFeatures 
+		// TODO: only constant 
+		it.allFeatures
 	}
 
 	def dispatch List<? extends EObject> getLocalElements(FeatureCall it) {
@@ -81,8 +81,9 @@ class FeatureCallScope extends AbstractScope {
 	def dispatch List<? extends EObject> getLocalElements(TypedElement it) {
 		return if (typeSystem.isSuperType(it.type, typeSystem.getType(SolidityTypeSystem.BYTES))) {
 			newArrayList(declarations.createLength, declarations.createPush)
-		} else
+		} else {
 			typeSpecifier?.getLocalElements
+		}
 	}
 
 	def dispatch List<? extends EObject> getLocalElements(ComplexType it) {
