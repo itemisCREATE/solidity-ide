@@ -176,7 +176,7 @@ enum MultiOperator:
 
 	// Remove TypeCast Expression
 @ Override NumericalUnaryExpression returns expressions::Expression:
-	PostFixUnaryExpression | {expressions::NumericalUnaryExpression} operator=UnaryOperator
+	PostFixUnaryExpression | {NumericalUnaryExpression} operator=UnaryOperatorEx
 	operand=PostFixUnaryExpression;
 
 PostFixUnaryExpression returns expressions::Expression:
@@ -184,6 +184,10 @@ PostFixUnaryExpression returns expressions::Expression:
 
 enum PostFixOperator:
 	increment="++" | decrement="--";
+
+enum UnaryOperatorEx:
+	increment="++" | decrement="--" | positive='+' | negative='-' | complement='~';
+
 
 @ Override PrimaryExpression returns expressions::Expression:
 	PrimitiveValueExpression | FeatureCall | NewInstanceExpression | TupleExpression;
