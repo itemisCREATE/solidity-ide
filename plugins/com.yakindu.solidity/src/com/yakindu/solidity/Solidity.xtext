@@ -42,7 +42,7 @@ ContractPart returns types::Declaration:
 	TypeDefinition;
 
 UsingForDeclaration returns types::Declaration:
-	{UsingForDeclaration} 'using' name=ID 'for' ('*' | typeSpecifier=SimpleTypeSpecifier) ';';
+	{UsingForDeclaration} 'using' contract=[ContractDefinition|ID] 'for' ('*' | typeSpecifier=SimpleTypeSpecifier) ';';
 
 StateVariableDefinition returns types::Property:
 	{VariableDefinition} typeSpecifier=TypeSpecifier ((visibility=Visibility)? & ('constant')?) name=ID ('='
@@ -176,7 +176,7 @@ enum MultiOperator:
 
 	// Remove TypeCast Expression
 @ Override NumericalUnaryExpression returns expressions::Expression:
-	PostFixUnaryExpression | {expressions::NumericalUnaryExpression} operator=UnaryOperator
+	PostFixUnaryExpression | {NumericalUnaryExpression} operator=UnaryOperatorEx
 	operand=PostFixUnaryExpression;
 
 PostFixUnaryExpression returns expressions::Expression:
@@ -184,6 +184,10 @@ PostFixUnaryExpression returns expressions::Expression:
 
 enum PostFixOperator:
 	increment="++" | decrement="--";
+
+enum UnaryOperatorEx:
+	increment="++" | decrement="--" | positive='+' | negative='-' | complement='~';
+
 
 @ Override PrimaryExpression returns expressions::Expression:
 	PrimitiveValueExpression | FeatureCall | NewInstanceExpression | TupleExpression;
@@ -204,7 +208,7 @@ VariableDefinition:
 	initialValue=Expression)?;
 
 IdentifierList:
-	{IdentifierList} identifier+=Identifier | ('(' (identifier+=Identifier (',' (identifier+=Identifier)?)*) ')');
+	{IdentifierList} (identifier+=Identifier | ('(' ((identifier+=Identifier)? (',' (identifier+=Identifier)?)*) ')'));
 
 Identifier:
 	name=ID;

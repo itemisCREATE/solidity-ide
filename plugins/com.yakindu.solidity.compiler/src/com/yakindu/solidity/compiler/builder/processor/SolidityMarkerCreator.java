@@ -20,6 +20,7 @@ import org.eclipse.xtext.ui.editor.validation.MarkerCreator;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+
 @Singleton
 public class SolidityMarkerCreator extends MarkerCreator {
 
@@ -54,9 +55,9 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		Severity severity = calculateSeverity(parts[4].trim());
 		String message;
 		if (severity == Severity.INFO) {
-			message = parts[4];
+			message = parts[4].trim();
 		} else {
-			message = parts[5].substring(0, parts[5].indexOf(System.getProperty("line.separator")));
+			message = parts[5].substring(0, parts[5].indexOf(System.getProperty("line.separator"))).trim();
 		}
 		String issueDetails = parts[5].substring(parts[5].indexOf(System.getProperty("line.separator")),
 				parts[5].length());
@@ -70,10 +71,21 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		solcIssue.setMessage(message);
 		solcIssue.setOffset(offset);
 		solcIssue.setLength(length);
-		solcIssue.setErrorCode("TODO");
+		solcIssue.setErrorCode(createErrorCodeFromMessage(severity, message));
 		EObject element = offsetHelper.resolveElementAt((XtextResource) resource, offset);
 		solcIssue.setUriToProblem(EcoreUtil.getURI(element));
 		return solcIssue;
+	}
+
+	private String createErrorCodeFromMessage(Severity severity, String message) {
+		switch (severity) {
+		case ERROR:
+			return "error";
+		case WARNING:
+			return SolidityWarning.getCodeForMessage(message);
+		default:
+			return "info";
+		}
 	}
 
 	private Map<Integer, String> getFileContent(IFile file) {
@@ -130,12 +142,12 @@ public class SolidityMarkerCreator extends MarkerCreator {
 
 	private Severity calculateSeverity(String severety) {
 		switch (severety) {
-			case "Warning" :
-				return Severity.WARNING;
-			case "Error" :
-				return Severity.ERROR;
-			default :
-				return Severity.INFO;
+		case "Warning":
+			return Severity.WARNING;
+		case "Error":
+			return Severity.ERROR;
+		default:
+			return Severity.INFO;
 		}
 	}
 }

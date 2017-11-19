@@ -111,6 +111,13 @@
     <eLiterals name="increment" literal="++"/>
     <eLiterals name="decrement" value="1" literal="--"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="UnaryOperatorEx">
+    <eLiterals name="increment" literal="++"/>
+    <eLiterals name="decrement" value="1" literal="--"/>
+    <eLiterals name="positive" value="2" literal="+"/>
+    <eLiterals name="negative" value="3" literal="-"/>
+    <eLiterals name="complement" value="4" literal="~"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VariableDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Property #//SimpleStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visibility" eType="#//Visibility"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="initialValue" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
@@ -193,7 +200,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="ContractDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//ComplexType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ContractType"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="UsingForDeclaration" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Declaration"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UsingForDeclaration" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Declaration">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contract" eType="#//ContractDefinition"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Declaration">
     <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Type"
         containment="true"/>
@@ -227,6 +236,11 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//MultiOperator"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rightOperand" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NumericalUnaryExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//UnaryOperatorEx"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operand" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PostFixUnaryExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression">

@@ -55,6 +55,13 @@
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//PostFixOperator/increment"/>
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//PostFixOperator/decrement"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Solidity.ecore#//UnaryOperatorEx">
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//UnaryOperatorEx/increment"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//UnaryOperatorEx/decrement"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//UnaryOperatorEx/positive"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//UnaryOperatorEx/negative"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//UnaryOperatorEx/complement"/>
+    </genEnums>
     <genClasses ecoreClass="Solidity.ecore#//SolidityModel">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//SolidityModel/sourceunit"/>
     </genClasses>
@@ -166,7 +173,9 @@
     <genClasses ecoreClass="Solidity.ecore#//ContractDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//ContractDefinition/type"/>
     </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//UsingForDeclaration"/>
+    <genClasses ecoreClass="Solidity.ecore#//UsingForDeclaration">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Solidity.ecore#//UsingForDeclaration/contract"/>
+    </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//TypeDefinition">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//TypeDefinition/definition"/>
     </genClasses>
@@ -193,6 +202,10 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//NumericalMultiplyDivideExpression/leftOperand"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//NumericalMultiplyDivideExpression/operator"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//NumericalMultiplyDivideExpression/rightOperand"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//NumericalUnaryExpression">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//NumericalUnaryExpression/operator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//NumericalUnaryExpression/operand"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//PostFixUnaryExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//PostFixUnaryExpression/operand"/>

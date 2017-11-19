@@ -16,6 +16,7 @@ import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.typesystem.ITypeSystem
 
 import static org.yakindu.base.types.typesystem.ITypeSystem.REAL
+import com.yakindu.solidity.solidity.VariableDefinition
 
 /**
  * 
@@ -99,5 +100,11 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 			return super.getResultFor(SolidityTypeSystem.BOOL)
 		else
 			return super.getResultFor(name)
+	}
+
+	def doInfer(VariableDefinition definition) {
+		if (definition.typeSpecifier !== null)
+			return inferTypeDispatch(definition.typeSpecifier)
+		return doInfer(definition.initialValue)
 	}
 }
