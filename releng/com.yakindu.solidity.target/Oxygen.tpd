@@ -2,7 +2,7 @@
 // see https://github.com/mbarbero/fr.obeo.releng.targetplatform
 
 target "YAKINDU Solidity Tools"
-with allEnvironments source
+with requirements source
 
 location "http://updates.yakindu.com/statecharts/releases" {
 	org.yakindu.base.feature.group
@@ -29,7 +29,20 @@ location "http://download.eclipse.org/releases/oxygen" {
 	org.eclipse.platform.sdk
 	org.eclipse.pde.source.feature.group
 	org.eclipse.emf.sdk.feature.group
-	org.eclipse.jdt.core // TODO Get rid off dependency in com.yakindu.sct.generator.solidity
+	// TODO Get rid off JDT dependency in com.yakindu.sct.generator.solidity
+	org.eclipse.jdt.core 
+	org.eclipse.jdt.core.manipulation
+	org.eclipse.jdt.debug
+	org.eclipse.jdt.launching
+	org.eclipse.jdt.ui
+	org.eclipse.ecf.core.feature.feature.group
+	org.eclipse.ecf.core.ssl.feature.feature.group
+	org.eclipse.ecf.filetransfer.feature.feature.group
+	org.eclipse.ecf.filetransfer.ssl.feature.feature.group
+	org.eclipse.ecf.filetransfer.httpclient4.feature.feature.group
+	org.eclipse.ecf.filetransfer.httpclient4.ssl.feature.feature.group
+	org.eclipse.xtend
+	org.eclipse.xtend.typesystem.emf
 }
 
 location "http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository" {
@@ -38,4 +51,5 @@ location "http://download.eclipse.org/tools/orbit/downloads/drops/R2014052502125
 	com.google.inject
 	com.google.inject.multibindings
 	org.apache.commons.io
+	org.apache.log4j
 }

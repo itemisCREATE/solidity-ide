@@ -1,41 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform -->
-<target name="YAKINDU Solidity Tools" sequenceNumber="1511097190">
+<target name="YAKINDU Solidity Tools" sequenceNumber="1511099925">
   <locations>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.yakindu.base.feature.group" version="3.1.1.201710271438"/>
       <unit id="org.yakindu.sct.feature.group" version="3.1.1.201710271438"/>
       <repository location="http://updates.yakindu.com/statecharts/releases"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.xtext.sdk.feature.group" version="2.13.0.v20171020-0920"/>
       <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.13.0"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.emf.mwe.core.feature.feature.group" version="1.3.20.v201605261103"/>
       <unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.9.0.v201605261103"/>
       <unit id="org.eclipse.emf.mwe2.launcher.feature.group" version="2.9.0.v201605261103"/>
       <unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.9.0.v201605261103"/>
       <repository location="http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.9.0"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="de.itemis.xtext.antlr.sdk.feature.group" version="2.1.1.v201405091103"/>
       <repository location="http://download.itemis.com/updates/releases/2.1.1"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.platform.sdk" version="4.7.1.M20171009-0410"/>
       <unit id="org.eclipse.pde.source.feature.group" version="3.13.1.v20171009-0537"/>
       <unit id="org.eclipse.emf.sdk.feature.group" version="2.13.0.v20170609-0928"/>
       <unit id="org.eclipse.jdt.core" version="3.13.50.v20171007-0855"/>
+      <unit id="org.eclipse.jdt.core.manipulation" version="1.9.50.v20170920-1015"/>
+      <unit id="org.eclipse.jdt.debug" version="3.11.50.v20170920-1717"/>
+      <unit id="org.eclipse.jdt.launching" version="3.9.50.v20171009-0349"/>
+      <unit id="org.eclipse.jdt.ui" version="3.13.50.v20170929-1653"/>
+      <unit id="org.eclipse.ecf.core.feature.feature.group" version="1.4.0.v20170516-2248"/>
+      <unit id="org.eclipse.ecf.core.ssl.feature.feature.group" version="1.1.0.v20170110-1317"/>
+      <unit id="org.eclipse.ecf.filetransfer.feature.feature.group" version="3.13.8.v20170715-2257"/>
+      <unit id="org.eclipse.ecf.filetransfer.ssl.feature.feature.group" version="1.1.0.v20170110-1317"/>
+      <unit id="org.eclipse.ecf.filetransfer.httpclient4.feature.feature.group" version="3.13.8.v20170715-2257"/>
+      <unit id="org.eclipse.ecf.filetransfer.httpclient4.ssl.feature.feature.group" version="1.1.0.v20170110-1317"/>
+      <unit id="org.eclipse.xtend" version="2.2.0.v201605260315"/>
+      <unit id="org.eclipse.xtend.typesystem.emf" version="2.2.0.v201605260315"/>
       <repository location="http://download.eclipse.org/releases/oxygen"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="com.google.gson" version="2.2.4.v201311231704"/>
       <unit id="com.google.guava" version="15.0.0.v201403281430"/>
       <unit id="com.google.inject" version="3.0.0.v201312141243"/>
       <unit id="com.google.inject.multibindings" version="3.0.0.v201402270930"/>
       <unit id="org.apache.commons.io" version="2.2.0.v201405211200"/>
+      <unit id="org.apache.log4j" version="1.2.15.v201012070815"/>
       <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository"/>
     </location>
   </locations>
