@@ -1,0 +1,41 @@
+// Defined with Target Platform Definition DSL
+// see https://github.com/mbarbero/fr.obeo.releng.targetplatform
+
+target "YAKINDU Solidity Tools"
+with allEnvironments source
+
+location "http://updates.yakindu.com/statecharts/releases" {
+	org.yakindu.base.feature.group
+	org.yakindu.sct.feature.group
+}
+
+location "http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.13.0" {
+	org.eclipse.xtext.sdk.feature.group
+}
+
+location "http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.9.0" {
+	org.eclipse.emf.mwe.core.feature.feature.group
+	org.eclipse.emf.mwe2.runtime.sdk.feature.group
+	org.eclipse.emf.mwe2.launcher.feature.group
+	org.eclipse.emf.mwe2.language.sdk.feature.group
+}
+
+location "http://download.itemis.com/updates/releases/2.1.1" {
+	de.itemis.xtext.antlr.sdk.feature.group
+}
+
+
+location "http://download.eclipse.org/releases/oxygen" {
+	org.eclipse.platform.sdk
+	org.eclipse.pde.source.feature.group
+	org.eclipse.emf.sdk.feature.group
+	org.eclipse.jdt.core // TODO Get rid off dependency in com.yakindu.sct.generator.solidity
+}
+
+location "http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository" {
+	com.google.gson
+	com.google.guava
+	com.google.inject
+	com.google.inject.multibindings
+	org.apache.commons.io
+}
