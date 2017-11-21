@@ -1,19 +1,23 @@
 package com.yakindu.solidity.ui.quickfix
 
+import com.google.inject.Inject
 import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.FunctionModifier
 import com.yakindu.solidity.solidity.SolidityFactory
+import com.yakindu.solidity.solidity.SourceUnit
+import com.yakindu.solidity.typesystem.BuildInDeclarations
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
 import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification
 import org.eclipse.xtext.ui.editor.quickfix.Fix
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
 import org.eclipse.xtext.validation.Issue
+import org.yakindu.base.expressions.expressions.ElementReferenceExpression
 import org.yakindu.base.expressions.ui.quickfix.ExpressionsQuickfixProvider
-import org.yakindu.base.types.Operation
-import com.yakindu.solidity.solidity.SourceUnit
 
 class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
+	
+	@Inject BuildInDeclarations declarations
 
 	@Fix("WARNING_FUNCTION_VISIBILITY")
 	def makeVisibilityExplicit(Issue issue, IssueResolutionAcceptor acceptor) {
@@ -68,10 +72,8 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	def replaceDeprecatedSuicide(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Replace with selfdestruct', 'selfdestruct', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
-				if (element instanceof Operation) {
-					// FIXME This gets never called since ResourceServiceProviderRegistryImpl#getServiceProvider(URI uri, String contentType) returns null
-					val operation = element as Operation
-					operation.name = "selfdestruct"
+				if (element instanceof ElementReferenceExpression) {
+					element.reference = declarations.createSelfdestruct
 				}
 			}
 		})
@@ -225,4 +227,17 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			})
 	}
 
+	@Fix("WARNING_FUNCTION_STATE_MUTABILITY_VIEW")
+	def addViewModifier(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Add \'view\' modifier', 'view function', null, new ISemanticModification() {
+			val modifier = SolidityFactory.eINSTANCE.createBuildInModifier
+			override apply(EObject element, IModificationContext context) throws Exception {
+				if (element instanceof FunctionDefinition) {
+					val definition = element as FunctionDefinition
+					modifier.type = FunctionModifier.VIEW
+					definition.modifier += modifier
+				}
+			}
+		})
+	}
 }
