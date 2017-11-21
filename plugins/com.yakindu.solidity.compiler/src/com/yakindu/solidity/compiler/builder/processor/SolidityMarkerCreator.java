@@ -72,7 +72,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		solcIssue.setOffset(offset);
 		solcIssue.setLength(length);
 		solcIssue.setErrorCode(createErrorCodeFromMessage(severity, message));
-		EObject element = offsetHelper.resolveElementAt((XtextResource) resource, offset);
+		EObject element = offsetHelper.resolveContainedElementAt((XtextResource) resource, offset);
 		solcIssue.setUriToProblem(EcoreUtil.getURI(element));
 		return solcIssue;
 	}
