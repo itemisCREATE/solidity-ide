@@ -1,10 +1,12 @@
 package com.yakindu.solidity.compiler.builder.processor;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.internal.utils.FileUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
@@ -31,6 +33,8 @@ public class SolidityMarkerCreator extends MarkerCreator {
 	public final static String NORMAL_VALIDATION = "org.eclipse.xtext.ui.check.normal"; //$NON-NLS-1$
 
 	private Map<Integer, String> fileContent;
+
+	private int lineEndingLength;
 
 	void createMarkers(List<String> issues, IFile file) {
 		fileContent = getFileContent(file);
@@ -88,13 +92,16 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		}
 	}
 
+	@SuppressWarnings("restriction")
 	private Map<Integer, String> getFileContent(IFile file) {
+		lineEndingLength = FileUtil.getLineSeparator(file).length();
 		Map<Integer, String> content = Maps.newHashMap();
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getContents(), getEncoding(file)))) {
+		try (BufferedReader reader = new BufferedReader(
+				new InputStreamReader(file.getContents(true), file.getCharset()));) {
 			String line = reader.readLine();
 			int lastLineNumber = 1;
 			while (line != null) {
-				content.put(lastLineNumber, line.replaceAll("\r", "\n").replaceAll("\r\n", "\n"));
+				content.put(lastLineNumber, line);
 				line = reader.readLine();
 				lastLineNumber++;
 			}
@@ -104,21 +111,12 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		return content;
 	}
 
-	private String getEncoding(IFile file) {
-		try {
-			return file.getCharset();
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
-		return "UTF-8";
-	}
-
 	private int calculateOffset(int columnNumber, int lineNumber) {
 		int start = columnNumber - 1;
 		for (int i = 1; i < lineNumber; i++) {
 			String line = fileContent.get(i);
 			// +1 for \n at the end of each line
-			start += line.length() + 1;
+			start += line.length() + lineEndingLength;
 		}
 		return start;
 	}
