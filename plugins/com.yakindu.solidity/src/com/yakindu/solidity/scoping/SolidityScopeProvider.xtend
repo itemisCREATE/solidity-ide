@@ -51,21 +51,17 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 				return Scopes.scopeFor(features)
 			}
 
-			return Scopes.scopeFor(usings(ref),
+			return Scopes.scopeFor(usings(context),
 				new FeatureCallScope(context, reference, declarations, typeSystem, inferrer))
 		}
 		new FeatureCallScope(context, reference, declarations, typeSystem, inferrer)
 	}
 
-	def dispatch List<? extends EObject> usings(TypedElement element) {
-		val root = EcoreUtil.getRootContainer(element)
+	def dispatch List<? extends EObject> usings(EObject context) {
+		val root = EcoreUtil.getRootContainer(context)
 		val elements = root.eAllContents.filter(UsingForDeclaration).map[contract].map[allFeatures].toList.flatten.
 			toList
 		return elements
-	}
-
-	def dispatch List<? extends EObject> usings(EObject o) {
-		newArrayList()
 	}
 
 }
