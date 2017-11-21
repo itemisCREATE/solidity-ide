@@ -4,7 +4,6 @@ import com.google.inject.Inject
 import com.yakindu.solidity.solidity.ContractDefinition
 import com.yakindu.solidity.solidity.UsingForDeclaration
 import com.yakindu.solidity.typesystem.BuildInDeclarations
-import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.util.EcoreUtil
@@ -14,7 +13,6 @@ import org.eclipse.xtext.scoping.Scopes
 import org.yakindu.base.base.NamedElement
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
 import org.yakindu.base.expressions.expressions.FeatureCall
-import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
 
@@ -57,7 +55,7 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 		new FeatureCallScope(context, reference, declarations, typeSystem, inferrer)
 	}
 
-	def dispatch List<? extends EObject> usings(EObject context) {
+	def usings(EObject context) {
 		val root = EcoreUtil.getRootContainer(context)
 		val elements = root.eAllContents.filter(UsingForDeclaration).map[contract].map[allFeatures].toList.flatten.
 			toList
