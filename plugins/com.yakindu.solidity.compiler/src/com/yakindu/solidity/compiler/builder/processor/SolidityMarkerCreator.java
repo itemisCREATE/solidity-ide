@@ -1,7 +1,6 @@
 package com.yakindu.solidity.compiler.builder.processor;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +23,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
+@SuppressWarnings("restriction")
 public class SolidityMarkerCreator extends MarkerCreator {
 
 	@Inject
@@ -92,7 +92,6 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		}
 	}
 
-	@SuppressWarnings("restriction")
 	private Map<Integer, String> getFileContent(IFile file) {
 		lineEndingLength = FileUtil.getLineSeparator(file).length();
 		Map<Integer, String> content = Maps.newHashMap();
