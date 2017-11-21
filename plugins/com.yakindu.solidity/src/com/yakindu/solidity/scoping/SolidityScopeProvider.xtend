@@ -62,4 +62,9 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 		return elements
 	}
 
+	def scope_ComplexType_superTypes(EObject context, EReference reference) {
+		val outer = delegate.getScope(context, reference)
+		Scopes.scopeFor(declarations.superContracts, outer)
+
+	}
 }

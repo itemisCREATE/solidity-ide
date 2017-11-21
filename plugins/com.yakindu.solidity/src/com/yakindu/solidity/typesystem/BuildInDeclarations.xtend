@@ -1,6 +1,8 @@
 package com.yakindu.solidity.typesystem
 
 import com.google.inject.Inject
+import com.yakindu.solidity.solidity.FunctionModifier
+import com.yakindu.solidity.solidity.SolidityFactory
 import java.util.ArrayList
 import org.eclipse.emf.ecore.EObject
 import org.yakindu.base.types.TypesFactory
@@ -21,6 +23,11 @@ class BuildInDeclarations {
 			newArrayList(createMsg(), createAssert(), createRequire(), createRevert(), createAddmod(), createMulmod(),
 				createKeccak256(), createSha3(), createSha256(), createRipemd160(), createEcrecover(), createBlock(),
 				createSuicide(), createSelfdestruct(), createThis(), createSuper(), createNow(), createTransaction()))
+	}
+	
+	def create new ArrayList<EObject>() superContracts() {
+		addAll(
+			newArrayList(createOwned(), createMortal()))
 	}
 
 	/************************
@@ -380,4 +387,45 @@ class BuildInDeclarations {
 		push
 	}
 
+	def createOwned() {
+		val owned = SolidityFactory.eINSTANCE.createContractDefinition() => [
+			name = "owned"
+			features += SolidityFactory.eINSTANCE.createVariableDefinition() => [
+				name = "owner"
+				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+					type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
+				]
+			]
+			features += SolidityFactory.eINSTANCE.createFunctionDefinition() => [
+				name = "owned"
+				modifier += SolidityFactory.eINSTANCE.createBuildInModifier() => [
+					type = FunctionModifier.PUBLIC
+				]
+			]
+			features += SolidityFactory.eINSTANCE.createModifierDefinition() => [
+				name = "onlyOwner"
+			]
+
+		]
+		return owned
+	}
+
+	def createMortal() {
+		val mortal = SolidityFactory.eINSTANCE.createContractDefinition() => [
+			name = "mortal"
+			superTypes += createOwned
+			features += SolidityFactory.eINSTANCE.createFunctionDefinition() => [
+				name = "close"
+				modifier += SolidityFactory.eINSTANCE.createBuildInModifier() => [
+					type = FunctionModifier.PUBLIC
+				]
+				modifier += SolidityFactory.eINSTANCE.createModifierInvocation() => [
+					reference = SolidityFactory.eINSTANCE.createModifierDefinition() => [
+						name = "onlyOwner"
+					]
+				]
+			]
+		]
+		return mortal
+	}
 }

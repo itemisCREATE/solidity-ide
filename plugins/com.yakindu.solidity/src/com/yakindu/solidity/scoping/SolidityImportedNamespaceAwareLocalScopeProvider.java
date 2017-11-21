@@ -45,9 +45,10 @@ public class SolidityImportedNamespaceAwareLocalScopeProvider extends ImportedNa
 				ContractDefinition contract = (ContractDefinition) next;
 				EList<ComplexType> superTypes = contract.getSuperTypes();
 				for (ComplexType complexType : superTypes) {
-					// if (complexType.eIsProxy() || complexType.getName() == null)
+					// if (complexType.eIsProxy() || complexType.getName() ==
+					// null)
 					// continue;
-					ImportNormalizer resolver = createImportedNamespaceResolver(complexType.getName()+".*", false);
+					ImportNormalizer resolver = createImportedNamespaceResolver(complexType.getName() + ".*", false);
 					result.add(resolver);
 				}
 				allContents.prune();
