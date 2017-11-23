@@ -15,6 +15,7 @@ import org.yakindu.base.expressions.expressions.ElementReferenceExpression
 import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
+import com.yakindu.solidity.solidity.ModifierDefinition
 
 /**
  * 
@@ -29,6 +30,10 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 
 	override getScope(EObject context, EReference ref) {
 		return super.getScope(context, ref)
+	}
+
+	def scope_ModifierInvocation_reference(EObject context, EReference reference){
+		Scopes.scopeFor(EcoreUtil2.getContainerOfType(context, ContractDefinition).allFeatures.filter(ModifierDefinition))
 	}
 
 	def scope_ElementReferenceExpression_reference(EObject context, EReference reference) {
