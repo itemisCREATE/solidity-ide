@@ -45,6 +45,19 @@ location "http://download.eclipse.org/releases/oxygen" {
 	org.eclipse.ecf.filetransfer.httpclient4.ssl.feature.feature.group
 	org.eclipse.xtend
 	org.eclipse.xtend.typesystem.emf
+	org.junit
+	org.junit.jupiter.api
+	org.junit.jupiter.engine
+	org.junit.jupiter.params
+	org.junit.platform.commons
+	org.junit.platform.engine
+	org.junit.platform.launcher
+	org.junit.platform.runner
+	org.junit.jupiter.migrationsupport
+	org.junit.platform.suite.api
+	org.junit.vintage.engine
+	org.hamcrest.core
+	org.opentest4j
 }
 
 location "http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository" {

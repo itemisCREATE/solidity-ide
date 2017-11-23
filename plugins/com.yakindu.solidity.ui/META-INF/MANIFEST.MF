@@ -16,7 +16,7 @@ Require-Bundle: com.yakindu.solidity,
  org.eclipse.compare,
  org.eclipse.xtext.builder,
  org.eclipse.xtend.lib;resolution:=optional,
- org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.13.0",
  org.yakindu.base.expressions.ui,
  org.yakindu.base.types,
  org.yakindu.base.xtext.utils.jface
