@@ -2,10 +2,11 @@ package com.yakindu.solidity.typesystem
 
 import com.google.inject.Inject
 import com.yakindu.solidity.solidity.AddressLiteral
-import com.yakindu.solidity.solidity.BigIntLiteral
 import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.NumericalMultiplyDivideExpression
 import com.yakindu.solidity.solidity.PostFixUnaryExpression
+import com.yakindu.solidity.solidity.VariableDefinition
+import java.math.BigDecimal
 import org.eclipse.emf.ecore.EObject
 import org.yakindu.base.expressions.expressions.BoolLiteral
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
@@ -16,7 +17,6 @@ import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.typesystem.ITypeSystem
 
 import static org.yakindu.base.types.typesystem.ITypeSystem.REAL
-import com.yakindu.solidity.solidity.VariableDefinition
 
 /**
  * 
@@ -31,7 +31,7 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 		null
 	}
 
-	def doInfer(BigIntLiteral literal) {
+	def doInfer(BigDecimal literal) {
 		InferenceResult.from(ts.getType(SolidityTypeSystem.INTEGER));
 	}
 
