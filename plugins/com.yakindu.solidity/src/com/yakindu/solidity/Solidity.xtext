@@ -14,9 +14,6 @@ import "http://www.yakindu.org/base/types/2.0.0" as types
 SolidityModel:
 	(sourceunit+=SourceUnit)*;
 
-terminal VERSION:
-	'^' INT . INT . INT;
-
 SourceUnit returns types::Package:
 	{SourceUnit}
 	((pragma=PragmaDirective)? &
@@ -93,11 +90,10 @@ Block:
 	'{' {Block} (statements+=Statement)* '}';
 
 @ Override Literal returns expressions::Literal:
-	BoolLiteral | BigIntLiteral | AddressLiteral | BinaryLiteral | DoubleLiteral | FloatLiteral | StringLiteral |
-	NullLiteral;
+	BoolLiteral | DecimalNumberLiteral | AddressLiteral | BinaryLiteral | StringLiteral | NullLiteral;
 
-BigIntLiteral:
-	value=BIGINT (unit=Unit)?;
+DecimalNumberLiteral:
+	value=DECIMAL (unit=Unit)?;
 
 @ Override
 DoubleLiteral returns expressions::DoubleLiteral:
@@ -176,8 +172,7 @@ enum MultiOperator:
 
 	// Remove TypeCast Expression
 @ Override NumericalUnaryExpression returns expressions::Expression:
-	PostFixUnaryExpression | {NumericalUnaryExpression} operator=UnaryOperatorEx
-	operand=PostFixUnaryExpression;
+	PostFixUnaryExpression | {NumericalUnaryExpression} operator=UnaryOperatorEx operand=PostFixUnaryExpression;
 
 PostFixUnaryExpression returns expressions::Expression:
 	PrimaryExpression ({PostFixUnaryExpression.operand=current} operator=PostFixOperator)*;
@@ -187,7 +182,6 @@ enum PostFixOperator:
 
 enum UnaryOperatorEx:
 	increment="++" | decrement="--" | positive='+' | negative='-' | complement='~';
-
 
 @ Override PrimaryExpression returns expressions::Expression:
 	PrimitiveValueExpression | FeatureCall | NewInstanceExpression | TupleExpression;
@@ -223,19 +217,13 @@ ForStatement:
 	'for' '(' (initialization=SimpleStatement)? ';' (condition=Expression)? ';' (afterthought=Expression)? ')'
 	statement=Statement;
 
-terminal ADDRESS returns EBigInteger:
-	('0') ('x' | 'X') ('0'..'9' | 'a'..'f' | 'A'..'F')+;
-
-terminal BIGINT returns EBigInteger:
-	('0'..'9')+;
-
 InlineAssemblyBlock:
 	{InlineAssemblyBlock} '{' (items+=AssemblyItem)* '}';
 
 	//TODO: AssemblyAssignment missing
 AssemblyItem returns EObject:
 	(FunctionalAssemblyExpression | InlineAssemblyBlock | AssemblyLocalBinding | AssemblyAssignment | AssemblyLabel |
-	BigIntLiteral | IDLiteral | AddressLiteral);
+	DecimalNumberLiteral | IDLiteral | AddressLiteral);
 
 IDLiteral:
 	value=ID;
@@ -251,4 +239,13 @@ AssemblyLabel:
 
 FunctionalAssemblyExpression:
 	name=ID '(' (parameters+=AssemblyItem (',' parameters+=AssemblyItem)*)? ')';
+
+terminal ADDRESS returns EBigInteger:
+	('0x') ('0'..'9' | 'a'..'f' | 'A'..'F')+;
+
+terminal DECIMAL returns EBigDecimal:
+	('0'..'9')+ ('.' ('0'..'9')*)? (('e' | 'E') ('0'..'9')+)?;
+
+terminal VERSION:
+	'^' INT . INT . INT;
 

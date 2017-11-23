@@ -48,8 +48,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
         eType="#//Statement" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BigIntLiteral" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Literal">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DecimalNumberLiteral" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Literal">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigDecimal"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" eType="#//Unit"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AddressLiteral" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Literal">

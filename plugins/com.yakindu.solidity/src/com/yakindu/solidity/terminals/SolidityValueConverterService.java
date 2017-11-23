@@ -1,5 +1,6 @@
 package com.yakindu.solidity.terminals;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import org.eclipse.xtext.conversion.IValueConverter;
@@ -15,17 +16,17 @@ import com.google.inject.Inject;
  */
 public class SolidityValueConverterService extends ExpressionsValueConverterService {
 
-	public static final String BIGINT = "BIGINT";
+	public static final String DECIMAL = "DECIMAL";
 	public static final String ADDRESS = "ADDRESS";
 
 	@Inject
-	private BIGINTValueConverter bigIntConverter;
+	private DECIMALValueConverter decimalConverter;
 	@Inject
 	private ADDRESSValueConverter addressConverter;
 	
-	@ValueConverter(rule = BIGINT)
-	public IValueConverter<BigInteger> BIGINT() {
-		return bigIntConverter;
+	@ValueConverter(rule = DECIMAL)
+	public IValueConverter<BigDecimal> BIGINT() {
+		return decimalConverter;
 	}
 	
 	@ValueConverter(rule = ADDRESS)

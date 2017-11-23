@@ -76,9 +76,9 @@
     <genClasses ecoreClass="Solidity.ecore#//Block">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//Block/statements"/>
     </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//BigIntLiteral">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//BigIntLiteral/value"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//BigIntLiteral/unit"/>
+    <genClasses ecoreClass="Solidity.ecore#//DecimalNumberLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//DecimalNumberLiteral/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//DecimalNumberLiteral/unit"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//AddressLiteral">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AddressLiteral/value"/>
