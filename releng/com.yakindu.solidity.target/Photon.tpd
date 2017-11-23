@@ -25,10 +25,8 @@ location "http://download.itemis.com/updates/releases/2.1.1" {
 }
 
 
-location "http://download.eclipse.org/releases/oxygen" {
+location "http://download.eclipse.org/releases/photon" {
 	org.eclipse.platform.sdk
-	org.eclipse.equinox.executable.feature.group
-	org.eclipse.equinox.concurrent
 	org.eclipse.pde.source.feature.group
 	org.eclipse.emf.sdk.feature.group
 	// TODO Get rid off JDT dependency in com.yakindu.sct.generator.solidity

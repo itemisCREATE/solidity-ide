@@ -3,7 +3,7 @@
       id="com.yakindu.solidity.feature"
       label="Solidity Editor Feature"
       version="0.7.0.qualifier"
-      provider-name="TBD">
+      provider-name="YAKINDU">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="com.yakindu.solidity.solc.feature"
-      label="Solc bundle"
-      version="1.0.0.qualifier"
+      label="Solc Feature"
+      version="0.7.0.qualifier"
       provider-name="YAKINDU">
 
    <description url="http://www.example.com/description">
@@ -18,8 +18,9 @@
    </license>
 
    <plugin
-         id="com.yakindu.solidity.ide.linux.fragment"
+         id="com.yakindu.solidity.compiler.linux.fragment"
          os="linux"
+         arch="x86_64"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -27,8 +28,9 @@
          unpack="false"/>
 
    <plugin
-         id="com.yakindu.solidity.ide.win.fragment"
+         id="com.yakindu.solidity.compiler.win.fragment"
          os="win32"
+         arch="x86_64"
          download-size="0"
          install-size="0"
          version="0.0.0"

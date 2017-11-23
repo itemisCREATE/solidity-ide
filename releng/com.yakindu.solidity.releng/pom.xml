@@ -10,8 +10,8 @@
 
 	<!-- this is the parent POM from which all modules inherit common settings -->
 	<properties>
-		<tycho-version>0.24.0</tycho-version>
-		<tycho-extras-version>0.24.0</tycho-extras-version>
+		<tycho-version>1.0.0</tycho-version>
+		<tycho-extras-version>${tycho-version}</tycho-extras-version>
 		<xtext-version>2.12.0</xtext-version>
 		<mwe-version>2.9.0.201605261059</mwe-version>
 		<antrun-version>1.6</antrun-version>
@@ -19,20 +19,23 @@
 		<testFailureIgnore>false</testFailureIgnore>
 	</properties>
 	<modules>
-		<!--  releng  -->
+		<!-- releng -->
 		<module>../com.yakindu.solidity.target</module>
 		<module>../com.yakindu.solidity.repository</module>
 		<!-- plugins -->
 		<module>../../plugins/com.yakindu.solidity</module>
-		<module>../../plugins/com.yakindu.solidity.ide.linux.fragment</module>
-		<module>../../plugins/com.yakindu.solidity.ide.win.fragment</module>
 		<module>../../plugins/com.yakindu.solidity.ide</module>
 		<module>../../plugins/com.yakindu.solidity.ui</module>
-		
-		
+		<module>../../plugins/com.yakindu.solidity.compiler</module>
+		<module>../../plugins/com.yakindu.solidity.compiler.linux.fragment</module>
+		<module>../../plugins/com.yakindu.solidity.compiler.win.fragment</module>
+
 		<!-- features -->
 		<module>../../features/com.yakindu.solidity.feature</module>
 		<module>../../features/com.yakindu.solidity.solc.feature</module>
+
+		<!-- product -->
+		<module>../com.yakindu.solidity.app</module>
 	</modules>
 	<build>
 		<plugins>
@@ -120,11 +123,6 @@
 					<version>3.0.0</version>
 				</plugin>
 				<plugin>
-					<groupId>org.fornax.toolsupport</groupId>
-					<artifactId>fornax-oaw-m2-plugin</artifactId>
-					<version>3.6.0</version>
-				</plugin>
-				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>build-helper-maven-plugin</artifactId>
 					<version>1.10</version>
@@ -159,7 +157,7 @@
 					<artifactId>target-platform-configuration</artifactId>
 					<version>${tycho-version}</version>
 					<configuration>
-					<environments>
+						<environments>
 							<environment>
 								<os>linux</os>
 								<ws>gtk</ws>
@@ -187,31 +185,18 @@
 							</environment>
 						</environments>
 						<includePackedArtifacts>true</includePackedArtifacts>
-							<target>
-								<artifact>
-									<groupId>com.yakindu.solidity</groupId>
-									<artifactId>com.yakindu.solidity.target</artifactId>
-									<version>0.7.0-SNAPSHOT</version>
-									<classifier>Oxygen</classifier>
-								</artifact>
-							</target>
+						<target>
+							<artifact>
+								<groupId>com.yakindu.solidity</groupId>
+								<artifactId>com.yakindu.solidity.target</artifactId>
+								<version>${project.version}</version>
+								<classifier>Oxygen</classifier>
+							</artifact>
+						</target>
 					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
 
-	<pluginRepositories>
-		<!-- Fornax Workflow Runner plugin -->
-		<pluginRepository>
-			<id>fornax</id>
-			<url>http://www.fornax-platform.org/m2/repository</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
 </project>

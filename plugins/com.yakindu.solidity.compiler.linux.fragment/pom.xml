@@ -9,7 +9,26 @@
 		<version>0.7.0-SNAPSHOT</version>
 		<relativePath>../../releng/com.yakindu.solidity.releng/pom.xml</relativePath>
 	</parent>
-	<artifactId>com.yakindu.solidity.ide.linux.fragment</artifactId>
+	<artifactId>com.yakindu.solidity.compiler.linux.fragment</artifactId>
 	<groupId>com.yakindu.solidity</groupId>
 	<packaging>eclipse-plugin</packaging>
+	<build>
+		<plugins>
+			<!-- tycho is not able to automatically determine os/ws/arch of this bundle -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<configuration>
+					<resolver>p2</resolver>
+					<environments>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86_64</arch>
+						</environment>
+					</environments>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform -->
-<target name="YAKINDU Solidity Tools" sequenceNumber="1511395441">
+<target name="YAKINDU Solidity Tools" sequenceNumber="1511399691">
   <locations>
     <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.yakindu.base.feature.group" version="3.1.1.201710271438"/>
@@ -25,6 +25,8 @@
     </location>
     <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.platform.sdk" version="4.7.1.M20171009-0410"/>
+      <unit id="org.eclipse.equinox.executable.feature.group" version="3.7.1.v20170928-1359"/>
+      <unit id="org.eclipse.equinox.concurrent" version="1.1.0.v20130327-1442"/>
       <unit id="org.eclipse.pde.source.feature.group" version="3.13.1.v20171009-0537"/>
       <unit id="org.eclipse.emf.sdk.feature.group" version="2.13.0.v20170609-0928"/>
       <unit id="org.eclipse.jdt.core" version="3.13.50.v20171007-0855"/>
