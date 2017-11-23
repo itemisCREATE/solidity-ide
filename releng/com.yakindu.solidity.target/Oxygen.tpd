@@ -2,7 +2,7 @@
 // see https://github.com/mbarbero/fr.obeo.releng.targetplatform
 
 target "YAKINDU Solidity Tools"
-with requirements source
+with allEnvironments source
 
 location "http://updates.yakindu.com/statecharts/releases" {
 	org.yakindu.base.feature.group
