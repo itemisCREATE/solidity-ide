@@ -28,8 +28,12 @@ ImportDirective returns types::PackageMember:
 
 ContractDefinition returns types::ComplexType:
 	{ContractDefinition} type=ContractType name=ID
-	('is' superTypes+=[types::ComplexType|QID] (',' superTypes+=[types::ComplexType|QID])*)?
+	('is' superTypes+=[types::ComplexType|QID] (argumentList+=SuperTypeArgumentList)? (','
+	superTypes+=[types::ComplexType|QID] ((argumentList+=SuperTypeArgumentList)? ')')?)*)?
 	'{' (features+=ContractPart)* '}';
+
+SuperTypeArgumentList:
+	{SuperTypeArgumentList} '(' (arguments+=Expression (',' arguments+=Expression)*)? ')';
 
 enum ContractType:
 	CONTRACT='contract' | LIBRARY='library' | INTERFACE='interface';
@@ -118,7 +122,7 @@ enum FunctionModifier:
 	VIEW='view' | PAYABLE='payable';
 
 ModifierInvocation:
-	{ModifierInvocation} reference=[ModifierDefinition|ID] ('(' (arguments+=Argument (',' arguments+=Argument)*)? ')')?;
+	{ModifierInvocation} reference=[types::Operation|ID] ('(' (arguments+=Argument (',' arguments+=Argument)*)? ')')?;
 
 Parameter returns types::Parameter:
 	{Parameter} typeSpecifier=TypeSpecifier (storage=StorageLocation)? (name=ID)?;

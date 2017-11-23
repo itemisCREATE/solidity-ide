@@ -65,6 +65,9 @@
     <genClasses ecoreClass="Solidity.ecore#//SolidityModel">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//SolidityModel/sourceunit"/>
     </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//SuperTypeArgumentList">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//SuperTypeArgumentList/arguments"/>
+    </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//TypeSpecifier"/>
     <genClasses ecoreClass="Solidity.ecore#//MappingTypeSpecifier">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//MappingTypeSpecifier/key"/>
@@ -144,9 +147,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AssemblyLocalBinding/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblyLocalBinding/expression"/>
     </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//IDLiteral">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//IDLiteral/value"/>
-    </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//AssemblyAssignment">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AssemblyAssignment/leftOperand"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblyAssignment/expression"/>
@@ -158,6 +158,9 @@
     <genClasses ecoreClass="Solidity.ecore#//FunctionalAssemblyExpression">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//FunctionalAssemblyExpression/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//FunctionalAssemblyExpression/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//IDLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//IDLiteral/value"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//SourceUnit">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//SourceUnit/pragma"/>
@@ -172,6 +175,7 @@
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//ContractDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//ContractDefinition/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ContractDefinition/argumentList"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//UsingForDeclaration">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Solidity.ecore#//UsingForDeclaration/contract"/>

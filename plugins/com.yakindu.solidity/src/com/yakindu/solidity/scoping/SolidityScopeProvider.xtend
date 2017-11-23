@@ -16,6 +16,7 @@ import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
 import com.yakindu.solidity.solidity.ModifierDefinition
+import com.yakindu.solidity.solidity.FunctionDefinition
 
 /**
  * 
@@ -32,8 +33,15 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 		return super.getScope(context, ref)
 	}
 
-	def scope_ModifierInvocation_reference(EObject context, EReference reference){
-		Scopes.scopeFor(EcoreUtil2.getContainerOfType(context, ContractDefinition).allFeatures.filter(ModifierDefinition))
+	def scope_ModifierInvocation_reference(FunctionDefinition context, EReference reference) {
+		var outerScope = IScope.NULLSCOPE;
+		if (context.constructor) {
+			val ctors = context.contract.superTypes.map[allFeatures].flatten.filter(FunctionDefinition).filter [
+				isConstructor
+			]
+			outerScope = Scopes.scopeFor(ctors)
+		}
+		Scopes.scopeFor(context.contract.allFeatures.filter(ModifierDefinition), outerScope)
 	}
 
 	def scope_ElementReferenceExpression_reference(EObject context, EReference reference) {
@@ -71,5 +79,15 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 		val outer = delegate.getScope(context, reference)
 		Scopes.scopeFor(declarations.superContracts, outer)
 
+	}
+
+	def protected isConstructor(FunctionDefinition it) {
+		val contract = EcoreUtil2.getContainerOfType(it, ContractDefinition)
+		return contract?.name == name
+
+	}
+
+	def protected getContract(EObject context) {
+		EcoreUtil2.getContainerOfType(context, ContractDefinition)
 	}
 }

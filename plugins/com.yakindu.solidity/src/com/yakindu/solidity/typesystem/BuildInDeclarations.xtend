@@ -407,6 +407,7 @@ class BuildInDeclarations {
 			]
 
 		]
+		(typeSystem as AbstractTypeSystem).resource.contents += owned
 		return owned
 	}
 
@@ -426,6 +427,7 @@ class BuildInDeclarations {
 				]
 			]
 		]
+		(typeSystem as AbstractTypeSystem).resource.contents += mortal
 		return mortal
 	}
 }
