@@ -140,6 +140,10 @@
     <genClasses ecoreClass="Solidity.ecore#//InlineAssemblyBlock">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//InlineAssemblyBlock/items"/>
     </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//AssemblyLocalBinding">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AssemblyLocalBinding/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblyLocalBinding/expression"/>
+    </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//IDLiteral">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//IDLiteral/value"/>
     </genClasses>
@@ -147,10 +151,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AssemblyAssignment/leftOperand"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblyAssignment/expression"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AssemblyAssignment/rightOpernd"/>
-    </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//AssemblyLocalBinding">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AssemblyLocalBinding/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblyLocalBinding/expression"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//AssemblyLabel">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AssemblyLabel/name"/>

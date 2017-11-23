@@ -220,25 +220,24 @@ ForStatement:
 InlineAssemblyBlock:
 	{InlineAssemblyBlock} '{' (items+=AssemblyItem)* '}';
 
-	//TODO: AssemblyAssignment missing
 AssemblyItem returns EObject:
 	(FunctionalAssemblyExpression | InlineAssemblyBlock | AssemblyLocalBinding | AssemblyAssignment | AssemblyLabel |
 	DecimalNumberLiteral | IDLiteral | AddressLiteral);
 
-IDLiteral:
-	value=ID;
+AssemblyLocalBinding:
+	'let' name=ID ':=' expression=FunctionalAssemblyExpression;
 
 AssemblyAssignment:
 	(leftOperand=ID ':=' expression=FunctionalAssemblyExpression) | ('=:' rightOpernd=ID);
-
-AssemblyLocalBinding:
-	'let' name=ID ':=' expression=FunctionalAssemblyExpression;
 
 AssemblyLabel:
 	name=ID ':';
 
 FunctionalAssemblyExpression:
-	name=ID '(' (parameters+=AssemblyItem (',' parameters+=AssemblyItem)*)? ')';
+	=> name=ID ('(' (parameters+=AssemblyItem (',' parameters+=AssemblyItem)*)? ')')?;
+
+IDLiteral:
+	value=ID;
 
 terminal ADDRESS returns EBigInteger:
 	('0x') ('0'..'9' | 'a'..'f' | 'A'..'F')+;
