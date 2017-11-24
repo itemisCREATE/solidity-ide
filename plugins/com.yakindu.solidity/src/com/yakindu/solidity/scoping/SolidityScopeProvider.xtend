@@ -46,12 +46,12 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 
 	def scope_ElementReferenceExpression_reference(EObject context, EReference reference) {
 		var outer = delegate.getScope(context, reference)
-		return new ElementReferenceScope(createImplicitVariables(outer), context, reference);
+		return new ElementReferenceScope(outer, context, reference);
 	}
 
-	def protected createImplicitVariables(IScope outer) {
-		return Scopes.scopeFor(declarations.all, outer)
-	}
+//	def protected createImplicitVariables(IScope outer) {
+//		return Scopes.scopeFor(declarations.all, outer)
+//	}
 
 	def scope_FeatureCall_feature(FeatureCall context, EReference reference) {
 		if (context?.owner instanceof ElementReferenceExpression) {

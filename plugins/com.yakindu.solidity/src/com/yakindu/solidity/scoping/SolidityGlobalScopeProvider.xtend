@@ -1,21 +1,29 @@
 package com.yakindu.solidity.scoping
 
 import com.google.common.base.Predicate
-import com.google.inject.Inject
 import com.google.inject.Singleton
 import com.yakindu.solidity.solidity.ImportDirective
+import com.yakindu.solidity.typesystem.BuildInDeclarations
 import java.util.LinkedHashSet
 import java.util.Set
+import javax.inject.Inject
+import javax.inject.Provider
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.Path
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.ecore.resource.URIConverter
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.resource.IEObjectDescription
+import org.eclipse.xtext.resource.IResourceDescription
+import org.eclipse.xtext.resource.impl.ResourceDescriptionsData
+import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.impl.ImportUriGlobalScopeProvider
+import org.eclipse.xtext.scoping.impl.SelectableBasedScope
 import org.eclipse.xtext.util.IResourceScopeCache
+import org.yakindu.base.types.typesystem.AbstractTypeSystem
 import org.yakindu.base.types.typesystem.ITypeSystem
 
 /**
@@ -33,9 +41,17 @@ class SolidityGlobalScopeProvider extends ImportUriGlobalScopeProvider {
 	@Inject
 	private IResourceScopeCache cache;
 
+	@Inject
+	private Provider<ResourceSet> resourceSetProvider;
+	@Inject
+	private IResourceDescription.Manager descriptionManager;
+	private ResourceDescriptionsData resourceDescriptionsData;
+	private Object lock = new Object();
+	@Inject BuildInDeclarations buildIn
+
 	override getScope(Resource resource, EReference reference, Predicate<IEObjectDescription> filter) {
-		var parentScope = super.getScope(resource, reference, filter)
-		return new TypeSystemAwareScope(parentScope, typeSystem, qualifiedNameProvider, reference.getEReferenceType());
+		val libraryScope = resource.getScopeWithLibrary(reference)
+		return new TypeSystemAwareScope(libraryScope, typeSystem, qualifiedNameProvider, reference.getEReferenceType());
 	}
 
 	override protected getImportedUris(Resource resource) {
@@ -67,5 +83,16 @@ class SolidityGlobalScopeProvider extends ImportUriGlobalScopeProvider {
 		var normalizedURI = resource.resourceSet.URIConverter.normalize(uri)
 		val file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(normalizedURI.toPlatformString(true)))
 		normalizedURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true)
+	}
+
+
+	private def IScope getScopeWithLibrary(Resource resource, EReference reference) {
+		var stdlib = (typeSystem as AbstractTypeSystem).resource
+
+		resourceDescriptionsData = new ResourceDescriptionsData(#[descriptionManager.getResourceDescription(stdlib)])
+		return SelectableBasedScope.createScope(
+				super.getScope(resource, reference, null), 
+				resourceDescriptionsData,
+				reference.getEReferenceType(), false);
 	}
 }

@@ -5,36 +5,60 @@ import com.yakindu.solidity.solidity.FunctionModifier
 import com.yakindu.solidity.solidity.SolidityFactory
 import java.util.ArrayList
 import org.eclipse.emf.ecore.EObject
+import org.yakindu.base.types.Property
 import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.typesystem.AbstractTypeSystem
 import org.yakindu.base.types.typesystem.ITypeSystem
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.yakindu.base.types.Operation
+import com.yakindu.solidity.solidity.ContractDefinition
 
 /**
  * @author andreas muelder - Initial contribution and API
  * @author Florian Antony
  */
+@Accessors(PUBLIC_GETTER)
 class BuildInDeclarations {
 
-	@Inject
 	ITypeSystem typeSystem
-
-	def create new ArrayList<EObject>() all() {
-		addAll(
-			newArrayList(createMsg(), createAssert(), createRequire(), createRevert(), createAddmod(), createMulmod(),
-				createKeccak256(), createSha3(), createSha256(), createRipemd160(), createEcrecover(), createBlock(),
-				createSuicide(), createSelfdestruct(), createThis(), createSuper(), createNow(), createTransaction()))
-	}
+	
+	boolean installed
+	Operation assert_
+	Operation require
+	Operation revert
+	Operation addmod
+	Operation mulmod
+	Operation keccak256
+	Operation sha3
+	Operation sha256
+	Operation ripemd160
+	Operation ecrecover
+	Operation suicide
+	Operation selfdestruct
+	Property msg
+	Property this_
+	Property super_
+	Property now
+	Property tx
+	Property block
+	Property length
+	Operation push
+	ContractDefinition owned
+	ContractDefinition mortal
+	
 	
 	def create new ArrayList<EObject>() superContracts() {
-		addAll(
-			newArrayList(createOwned(), createMortal()))
+		addAll(#[owned, mortal])
 	}
 
-	/************************
-	 *     ERROR HANDLING 
-	 ************************/
-	def createAssert() {
-		val assert = TypesFactory.eINSTANCE.createOperation() => [
+	@Inject
+	new (ITypeSystem typeSystem) {
+		/************************
+		 *     ERROR HANDLING 
+		 ************************/
+		
+		
+		assert_ = TypesFactory.eINSTANCE.createOperation() => [
 			parameters += TypesFactory.eINSTANCE.createParameter => [
 				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.BOOL)
@@ -46,12 +70,8 @@ class BuildInDeclarations {
 				type = typeSystem.getType(SolidityTypeSystem.VOID)
 			]
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += assert
-		assert
-	}
-
-	def createRequire() {
-		val require = TypesFactory.eINSTANCE.createOperation() => [
+	
+		require = TypesFactory.eINSTANCE.createOperation() => [
 			parameters += TypesFactory.eINSTANCE.createParameter => [
 				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.BOOL)
@@ -63,26 +83,18 @@ class BuildInDeclarations {
 				type = typeSystem.getType(SolidityTypeSystem.VOID)
 			]
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += require
-		require
-	}
-
-	def createRevert() {
-		val revert = TypesFactory.eINSTANCE.createOperation() => [
+	
+		revert = TypesFactory.eINSTANCE.createOperation() => [
 			name = "revert"
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.VOID)
 			]
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += revert
-		revert
-	}
-
-	/************************
-	 *     MATH and CRYPTO
-	 ************************/
-	def createAddmod() {
-		val addmod = TypesFactory.eINSTANCE.createOperation() => [
+	
+		/************************
+		 *     MATH and CRYPTO
+		 ************************/
+		addmod = TypesFactory.eINSTANCE.createOperation() => [
 			parameters += TypesFactory.eINSTANCE.createParameter => [
 				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.UINT)
@@ -105,14 +117,10 @@ class BuildInDeclarations {
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.UINT)
 			]
-
+	
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += addmod
-		addmod
-	}
-
-	def createMulmod() {
-		val addmod = TypesFactory.eINSTANCE.createOperation() => [
+	
+		mulmod = TypesFactory.eINSTANCE.createOperation() => [
 			parameters += TypesFactory.eINSTANCE.createParameter => [
 				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.UINT)
@@ -135,14 +143,10 @@ class BuildInDeclarations {
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.UINT)
 			]
-
+	
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += addmod
-		addmod
-	}
-
-	def createKeccak256() {
-		val keccak256 = TypesFactory.eINSTANCE.createOperation() => [
+	
+		keccak256 = TypesFactory.eINSTANCE.createOperation() => [
 			parameters += TypesFactory.eINSTANCE.createParameter => [
 				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.ANY)
@@ -154,14 +158,10 @@ class BuildInDeclarations {
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.BYTES32)
 			]
-
+	
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += keccak256
-		keccak256
-	}
-
-	def createSha256() {
-		val sha256 = TypesFactory.eINSTANCE.createOperation() => [
+	
+		sha256 = TypesFactory.eINSTANCE.createOperation() => [
 			parameters += TypesFactory.eINSTANCE.createParameter => [
 				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.ANY)
@@ -173,14 +173,10 @@ class BuildInDeclarations {
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.BYTES32)
 			]
-
+	
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += sha256
-		sha256
-	}
-
-	def createSha3() {
-		val sha3 = TypesFactory.eINSTANCE.createOperation() => [
+	
+		sha3 = TypesFactory.eINSTANCE.createOperation() => [
 			parameters += TypesFactory.eINSTANCE.createParameter => [
 				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.ANY)
@@ -192,14 +188,10 @@ class BuildInDeclarations {
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.BYTES32)
 			]
-
+	
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += sha3
-		sha3
-	}
-
-	def createRipemd160() {
-		val ripemd160 = TypesFactory.eINSTANCE.createOperation() => [
+	
+		ripemd160 = TypesFactory.eINSTANCE.createOperation() => [
 			parameters += TypesFactory.eINSTANCE.createParameter => [
 				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.ANY)
@@ -211,14 +203,10 @@ class BuildInDeclarations {
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.BYTES20)
 			]
-
+	
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += ripemd160
-		ripemd160
-	}
-
-	def createEcrecover() {
-		val ecrecover = TypesFactory.eINSTANCE.createOperation() => [
+	
+		ecrecover = TypesFactory.eINSTANCE.createOperation() => [
 			parameters += TypesFactory.eINSTANCE.createParameter => [
 				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.BYTES32)
@@ -247,14 +235,10 @@ class BuildInDeclarations {
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
 			]
-
+	
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += ecrecover
-		ecrecover
-	}
-
-	def createNow() {
-		var now = TypesFactory.eINSTANCE.createProperty => [
+	
+		now = TypesFactory.eINSTANCE.createProperty => [
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.UINT)
 			]
@@ -262,12 +246,8 @@ class BuildInDeclarations {
 			const = true
 			readonly = true
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += now
-		now
-	}
-
-	def createThis() {
-		var this_ = TypesFactory.eINSTANCE.createProperty => [
+	
+		this_ = TypesFactory.eINSTANCE.createProperty => [
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
 			]
@@ -275,12 +255,8 @@ class BuildInDeclarations {
 			const = true
 			readonly = true
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += this_
-		this_
-	}
-
-	def createSuper() {
-		var super_ = TypesFactory.eINSTANCE.createProperty => [
+	
+		super_ = TypesFactory.eINSTANCE.createProperty => [
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.ANY)
 			]
@@ -288,12 +264,8 @@ class BuildInDeclarations {
 			const = true
 			readonly = true
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += super_
-		super_
-	}
-
-	def createSuicide() {
-		val suicide = TypesFactory.eINSTANCE.createOperation() => [
+	
+		suicide = TypesFactory.eINSTANCE.createOperation() => [
 			parameters += TypesFactory.eINSTANCE.createParameter => [
 				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
@@ -302,12 +274,8 @@ class BuildInDeclarations {
 			]
 			name = "suicide"
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += suicide
-		suicide
-	}
-
-	def createSelfdestruct() {
-		val suicide = TypesFactory.eINSTANCE.createOperation() => [
+	
+		selfdestruct = TypesFactory.eINSTANCE.createOperation() => [
 			parameters += TypesFactory.eINSTANCE.createParameter => [
 				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
@@ -316,12 +284,8 @@ class BuildInDeclarations {
 			]
 			name = "selfdestruct"
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += suicide
-		suicide
-	}
-
-	def createMsg() {
-		val msg = TypesFactory.eINSTANCE.createProperty() => [
+	
+		msg = TypesFactory.eINSTANCE.createProperty() => [
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.MESSAGE)
 			]
@@ -329,12 +293,8 @@ class BuildInDeclarations {
 			const = true
 			readonly = true
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += msg
-		msg
-	}
-
-	def createTransaction() {
-		val tx = TypesFactory.eINSTANCE.createProperty() => [
+	
+		tx = TypesFactory.eINSTANCE.createProperty() => [
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.TRANSACTION)
 			]
@@ -342,12 +302,8 @@ class BuildInDeclarations {
 			const = true
 			readonly = true
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += tx
-		tx
-	}
-
-	def createBlock() {
-		val block = TypesFactory.eINSTANCE.createProperty() => [
+	
+		block = TypesFactory.eINSTANCE.createProperty() => [
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.BLOCK)
 			]
@@ -355,23 +311,15 @@ class BuildInDeclarations {
 			const = true
 			readonly = true
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += block
-		block
-	}
-
-	def createLength() {
-		val length = TypesFactory.eINSTANCE.createProperty() => [
+	
+		length = TypesFactory.eINSTANCE.createProperty() => [
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.INT)
 			]
 			name = "length"
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += length
-		length
-	}
-
-	def createPush() {
-		val push = TypesFactory.eINSTANCE.createOperation() => [
+	
+		push = TypesFactory.eINSTANCE.createOperation() => [
 			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.INT)
 			]
@@ -383,12 +331,8 @@ class BuildInDeclarations {
 			]
 			name = "push"
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += push
-		push
-	}
-
-	def createOwned() {
-		val owned = SolidityFactory.eINSTANCE.createContractDefinition() => [
+	
+		owned = SolidityFactory.eINSTANCE.createContractDefinition() => [
 			name = "owned"
 			features += SolidityFactory.eINSTANCE.createVariableDefinition() => [
 				name = "owner"
@@ -405,16 +349,12 @@ class BuildInDeclarations {
 			features += SolidityFactory.eINSTANCE.createModifierDefinition() => [
 				name = "onlyOwner"
 			]
-
+	
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += owned
-		return owned
-	}
-
-	def createMortal() {
-		val mortal = SolidityFactory.eINSTANCE.createContractDefinition() => [
+	
+		mortal = SolidityFactory.eINSTANCE.createContractDefinition() => [
 			name = "mortal"
-			superTypes += createOwned
+			superTypes += owned
 			features += SolidityFactory.eINSTANCE.createFunctionDefinition() => [
 				name = "close"
 				modifier += SolidityFactory.eINSTANCE.createBuildInModifier() => [
@@ -427,7 +367,13 @@ class BuildInDeclarations {
 				]
 			]
 		]
-		(typeSystem as AbstractTypeSystem).resource.contents += mortal
-		return mortal
+		
+		
+		val all = #[
+			msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256,
+			ripemd160, ecrecover, block, suicide, selfdestruct, this_, now, tx
+		]
+		all.forEach[(typeSystem as AbstractTypeSystem).resource.contents += it]
+		
 	}
 }

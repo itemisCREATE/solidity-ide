@@ -78,7 +78,7 @@ class FeatureCallScope extends AbstractScope {
 	}
 
 	def dispatch List<? extends EObject> getLocalElements(ArrayTypeSpecifier it) {
-		newArrayList(declarations.createLength, declarations.createPush)
+		newArrayList(declarations.length, declarations.push)
 	}
 
 	def dispatch List<? extends EObject> getLocalElements(MappingTypeSpecifier it) {
@@ -87,7 +87,7 @@ class FeatureCallScope extends AbstractScope {
 
 	def dispatch List<? extends EObject> getLocalElements(TypedElement it) {
 		return if (typeSystem.isSuperType(it.type, typeSystem.getType(SolidityTypeSystem.BYTES))) {
-			newArrayList(declarations.createLength, declarations.createPush)
+			newArrayList(declarations.length, declarations.push)
 		} else if (typeSpecifier === null && it instanceof VariableDefinition) {
 			inferrer.infer(it)?.type?.localElements
 		} else {
