@@ -1,10 +1,14 @@
 package com.yakindu.solidity.ui.quickfix
 
 import com.google.inject.Inject
+import com.yakindu.solidity.solidity.Block
 import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.FunctionModifier
+import com.yakindu.solidity.solidity.IfStatement
 import com.yakindu.solidity.solidity.SolidityFactory
 import com.yakindu.solidity.solidity.SourceUnit
+import com.yakindu.solidity.solidity.ThrowStatement
+import com.yakindu.solidity.solidity.TypeSpecifier
 import com.yakindu.solidity.typesystem.BuildInDeclarations
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
@@ -13,10 +17,13 @@ import org.eclipse.xtext.ui.editor.quickfix.Fix
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
 import org.eclipse.xtext.validation.Issue
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
+import org.yakindu.base.expressions.expressions.ExpressionsFactory
 import org.yakindu.base.expressions.ui.quickfix.ExpressionsQuickfixProvider
 
+import static extension org.eclipse.xtext.EcoreUtil2.*
+
 class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
-	
+
 	@Inject BuildInDeclarations declarations
 
 	@Fix("WARNING_FUNCTION_VISIBILITY")
@@ -99,11 +106,14 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 
 	@Fix("WARNING_FUNCTION_UNUSED_PARAMETER")
 	def removeUnusedFunctionParameter(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, 'Removed unused parameter', 'Removed unused parameter.', null,
+		acceptor.accept(issue, 'Removed unused parameter declaration', 'Removed unused parameter declaration.', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
-					// FIXME This gets never called since ResourceServiceProviderRegistryImpl#getServiceProvider(URI uri, String contentType) returns null
-					println("TODO: removeUnusedFunctionParameter")
+					if (element instanceof TypeSpecifier) {
+						var parameter = element.eContainer
+						var function = element.eContainer.eContainer as FunctionDefinition
+						function.parameters.remove(parameter)
+					}
 				}
 			})
 	}
@@ -113,8 +123,11 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		acceptor.accept(issue, 'Remove unused local variable', 'remove unused local variable', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
-					// FIXME This gets never called since ResourceServiceProviderRegistryImpl#getServiceProvider(URI uri, String contentType) returns null
-					println("TODO: removeUnusedLocalVariable")
+					if (element instanceof TypeSpecifier) {
+						var definition = element.eContainer
+						var block = element.eContainer.eContainer as Block;
+						block.statements.remove(definition)
+					}
 				}
 			})
 	}
@@ -123,9 +136,13 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	def makeFunctionPayable(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Add payable to function', 'Add payable.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
-				// FIXME This gets never called since ResourceServiceProviderRegistryImpl#getServiceProvider(URI uri, String contentType) returns null
-				println("TODO: makeFunctionPayable")
+				if (element instanceof ElementReferenceExpression) {
+					val modifier = SolidityFactory.eINSTANCE.createBuildInModifier
+					modifier.type = FunctionModifier.PAYABLE
+					val functionDefinition = element.getContainerOfType(FunctionDefinition)
+					}
 			}
+
 		})
 	}
 
@@ -134,22 +151,62 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		acceptor.accept(issue, 'Replace with revert', 'revert(\'Something bad happened\').', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
-					// FIXME This gets never called since ResourceServiceProviderRegistryImpl#getServiceProvider(URI uri, String contentType) returns null
-					println("TODO: replaceDeprecatedCallcode -> revert")
+					if (element instanceof ThrowStatement) {
+						val block = element.getContainerOfType(Block)
+						block.statements.remove(element)
+						block.statements += SolidityFactory.eINSTANCE.createExpressionStatement => [
+							expression = ExpressionsFactory.eINSTANCE.createElementReferenceExpression => [
+								val revert = declarations.createRevert
+								reference = revert
+							]
+						]
+					}
 				}
 			})
+
 		acceptor.accept(issue, 'Replace with assert', 'assert(condition)', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
-				// FIXME This gets never called since ResourceServiceProviderRegistryImpl#getServiceProvider(URI uri, String contentType) returns null
-				// TODO This is a little complicated since the surrounding if statement needes to be replaced as well
-				println("TODO: replaceDeprecatedCallcode -> assert")
+				if (element instanceof ThrowStatement) {
+					val ifStatement = element.getContainerOfType(IfStatement)
+					if (ifStatement !== null) {
+						val condition = ifStatement.condition
+						val block = ifStatement.eContainer as Block
+						block.statements.set(
+							block.statements.indexOf(ifStatement),
+							SolidityFactory.eINSTANCE.createExpressionStatement => [
+								expression = ExpressionsFactory.eINSTANCE.createElementReferenceExpression => [
+									reference = declarations.builtin_assert
+									arguments += ExpressionsFactory.eINSTANCE.createArgument => [
+										value = condition
+									]
+								]
+							]
+						)
+					}
+				}
 			}
 		})
+
 		acceptor.accept(issue, 'Replace with require', 'require(condition)', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
-				// FIXME This gets never called since ResourceServiceProviderRegistryImpl#getServiceProvider(URI uri, String contentType) returns null
-				// TODO This is a little complicated since the surrounding if statement needes to be replaced as well
-				println("TODO: replaceDeprecatedCallcode -> require")
+				if (element instanceof ThrowStatement) {
+					val ifStatement = element.getContainerOfType(IfStatement)
+					if (ifStatement !== null) {
+						val condition = ifStatement.condition
+						val block = ifStatement.eContainer as Block
+						block.statements.set(
+							block.statements.indexOf(ifStatement),
+							SolidityFactory.eINSTANCE.createExpressionStatement => [
+								expression = ExpressionsFactory.eINSTANCE.createElementReferenceExpression => [
+									reference = declarations.createRequire
+									arguments += ExpressionsFactory.eINSTANCE.createArgument => [
+										value = condition
+									]
+								]
+							]
+						)
+					}
+				}
 			}
 		})
 	}
@@ -158,8 +215,9 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	def replaceDeprecatedCallcode(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Replace callcode with delegatecall', 'Add payable.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
-				// FIXME This gets never called since ResourceServiceProviderRegistryImpl#getServiceProvider(URI uri, String contentType) returns null
-				println("TODO: replaceDeprecatedCallcode")
+				if (element instanceof ElementReferenceExpression) {
+					print(element);
+				}
 			}
 		})
 	}
@@ -231,6 +289,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	def addViewModifier(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Add \'view\' modifier', 'view function', null, new ISemanticModification() {
 			val modifier = SolidityFactory.eINSTANCE.createBuildInModifier
+
 			override apply(EObject element, IModificationContext context) throws Exception {
 				if (element instanceof FunctionDefinition) {
 					val definition = element as FunctionDefinition
@@ -240,4 +299,5 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			}
 		})
 	}
+
 }
