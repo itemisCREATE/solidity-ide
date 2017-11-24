@@ -122,9 +122,6 @@
     <genClasses ecoreClass="Solidity.ecore#//IdentifierList">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//IdentifierList/identifier"/>
     </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//Identifier">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//Identifier/name"/>
-    </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//IfStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//IfStatement/condition"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//IfStatement/then"/>
@@ -144,7 +141,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//InlineAssemblyBlock/items"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//AssemblyLocalBinding">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AssemblyLocalBinding/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AssemblyLocalBinding/label"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblyLocalBinding/expression"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//AssemblyAssignment">
@@ -153,10 +150,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AssemblyAssignment/rightOpernd"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//AssemblyLabel">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AssemblyLabel/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AssemblyLabel/label"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//FunctionalAssemblyExpression">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//FunctionalAssemblyExpression/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//FunctionalAssemblyExpression/label"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//FunctionalAssemblyExpression/parameters"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//IDLiteral">
@@ -221,5 +218,6 @@
     <genClasses ecoreClass="Solidity.ecore#//TupleExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//TupleExpression/expressions"/>
     </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//Identifier"/>
   </genPackages>
 </genmodel:GenModel>
