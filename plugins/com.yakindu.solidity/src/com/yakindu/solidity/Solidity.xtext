@@ -229,16 +229,16 @@ AssemblyItem returns EObject:
 	DecimalNumberLiteral | IDLiteral | AddressLiteral);
 
 AssemblyLocalBinding:
-	'let' name=ID ':=' expression=(FunctionalAssemblyExpression | DecimalNumberLiteral);
+	'let' label=ID ':=' expression=(FunctionalAssemblyExpression | DecimalNumberLiteral);
 
 AssemblyAssignment:
 	(leftOperand=ID ':=' expression=FunctionalAssemblyExpression) | ('=:' rightOpernd=ID);
 
 AssemblyLabel:
-	name=ID ':';
+	label=ID ':';
 
 FunctionalAssemblyExpression:
-	=> name=ID ('(' (parameters+=AssemblyItem (',' parameters+=AssemblyItem)*)? ')')?;
+	=> label=ID ('(' (parameters+=AssemblyItem (',' parameters+=AssemblyItem)*)? ')')?;
 
 IDLiteral:
 	value=ID;
