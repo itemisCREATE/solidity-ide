@@ -22,6 +22,7 @@ import org.yakindu.base.types.TypeSpecifier
 import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
+import com.yakindu.solidity.solidity.FunctionDefinition
 
 /**
  * 
@@ -90,6 +91,9 @@ class FeatureCallScope extends AbstractScope {
 			newArrayList(declarations.createLength, declarations.createPush)
 		} else if (typeSpecifier === null && it instanceof VariableDefinition) {
 			inferrer.infer(it)?.type?.localElements
+		}else if (it instanceof FunctionDefinition) {
+			// TODO handle multi return parameters properly
+			return it.returnParameters?.head.getLocalElements
 		} else {
 			typeSpecifier?.getLocalElements
 		}
