@@ -13,12 +13,14 @@ public class SolidityCompilerModule implements Module {
 	@Override
 	public void configure(Binder binder) {
 		try {
+			// try to instantiate platform specific implementation
+			// will fail currently on Mac, thus the binding does not happen there
 			binder.bind(ISolidityCompiler.class).to((Class<? extends ISolidityCompiler>) Class
 					.forName("com.yakindu.solidity.compiler.builder.SolidityCompiler"));
-			binder.bind(IPreferenceStore.class)
-					.toInstance((IPreferenceStore) SolidityActivator.getInstance().getPreferenceStore());
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			System.err.println("SolidityCompilerModule: "+e.getMessage());
 		}
+		binder.bind(IPreferenceStore.class)
+				.toInstance((IPreferenceStore) SolidityActivator.getInstance().getPreferenceStore());
 	}
 }

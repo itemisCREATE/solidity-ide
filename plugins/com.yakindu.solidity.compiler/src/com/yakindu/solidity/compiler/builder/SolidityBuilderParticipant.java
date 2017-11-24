@@ -34,12 +34,12 @@ public class SolidityBuilderParticipant implements IXtextBuilderParticipant {
 
 	@Inject
 	private IPreferenceStore preferences;
-	@Inject
+	@Inject(optional=true)
 	private ISolidityCompiler compiler;
 
 	@Override
 	public void build(IBuildContext context, IProgressMonitor monitor) throws CoreException {
-		if (!isEnabled(context)) {
+		if (!isEnabled(context) || compiler == null) {
 			return;
 		}
 		final List<IResourceDescription.Delta> deltas = getRelevantDeltas(context);
