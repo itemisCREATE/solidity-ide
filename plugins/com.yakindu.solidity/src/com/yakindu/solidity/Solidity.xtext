@@ -208,8 +208,8 @@ VariableDefinition:
 IdentifierList:
 	{IdentifierList} (identifier+=Identifier | ('(' ((identifier+=Identifier)? (',' (identifier+=Identifier)?)*) ')'));
 
-Identifier:
-	name=ID;
+Identifier returns types::Declaration:
+	{Identifier} name=ID;
 
 IfStatement:
 	'if' '(' condition=Expression ')' then=Statement (=> 'else' else=Statement)?;
