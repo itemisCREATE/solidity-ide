@@ -10,6 +10,7 @@ import com.yakindu.solidity.solidity.SourceUnit
 import com.yakindu.solidity.solidity.ThrowStatement
 import com.yakindu.solidity.solidity.TypeSpecifier
 import com.yakindu.solidity.typesystem.BuildInDeclarations
+import static com.yakindu.solidity.validation.IssueCodes.*
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
 import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification
@@ -26,7 +27,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 
 	@Inject BuildInDeclarations declarations
 
-	@Fix("WARNING_FUNCTION_VISIBILITY")
+	@Fix(WARNING_FUNCTION_VISIBILITY)
 	def makeVisibilityExplicit(Issue issue, IssueResolutionAcceptor acceptor) {
 		val modifier = SolidityFactory.eINSTANCE.createBuildInModifier
 		acceptor.accept(issue, 'Make this function public', 'Public function.', null, new ISemanticModification() {
@@ -60,7 +61,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		})
 	}
 
-	@Fix("WARNING_FILE_NO_PRAGMA_SOLIDITY")
+	@Fix(WARNING_FILE_NO_PRAGMA_SOLIDITY)
 	def addDefaultSolidityPragma(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Add default solidity pragma', 'Add solidity pragma ^0.4.18.', null,
 			new ISemanticModification() {
@@ -75,18 +76,18 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			})
 	}
 
-	@Fix("WARNING_DEPRECATED_SUICIDE")
+	@Fix(WARNING_DEPRECATED_SUICIDE)
 	def replaceDeprecatedSuicide(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Replace with selfdestruct', 'selfdestruct', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				if (element instanceof ElementReferenceExpression) {
-					element.reference = declarations.createSelfdestruct
+					element.reference = declarations.selfdestruct
 				}
 			}
 		})
 	}
 
-	@Fix("WARNING_VARIABLE_STORAGE_POINTER")
+	@Fix(WARNING_VARIABLE_STORAGE_POINTER)
 	def makeStoragePointerExplicit(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Add explicit storage keyword', 'storage.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
@@ -104,7 +105,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 
 	}
 
-	@Fix("WARNING_FUNCTION_UNUSED_PARAMETER")
+	@Fix(WARNING_FUNCTION_UNUSED_PARAMETER)
 	def removeUnusedFunctionParameter(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Removed unused parameter declaration', 'Removed unused parameter declaration.', null,
 			new ISemanticModification() {
@@ -118,7 +119,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			})
 	}
 
-	@Fix("WARNING_LOCAL_VARIABLE_UNUSED")
+	@Fix(WARNING_LOCAL_VARIABLE_UNUSED)
 	def removeUnusedLocalVariable(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Remove unused local variable', 'remove unused local variable', null,
 			new ISemanticModification() {
@@ -132,7 +133,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			})
 	}
 
-	@Fix("WARNING_MSG_VALUE_IN_NON_PAYABLE")
+	@Fix(WARNING_MSG_VALUE_IN_NON_PAYABLE)
 	def makeFunctionPayable(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Add payable to function', 'Add payable.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
@@ -146,7 +147,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		})
 	}
 
-	@Fix("WARNING_DEPRECATED_THROW")
+	@Fix(WARNING_DEPRECATED_THROW)
 	def replaceDeprecatedThrow(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Replace with revert', 'revert(\'Something bad happened\').', null,
 			new ISemanticModification() {
@@ -156,7 +157,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 						block.statements.remove(element)
 						block.statements += SolidityFactory.eINSTANCE.createExpressionStatement => [
 							expression = ExpressionsFactory.eINSTANCE.createElementReferenceExpression => [
-								val revert = declarations.createRevert
+								val revert = declarations.revert
 								reference = revert
 							]
 						]
@@ -175,7 +176,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 							block.statements.indexOf(ifStatement),
 							SolidityFactory.eINSTANCE.createExpressionStatement => [
 								expression = ExpressionsFactory.eINSTANCE.createElementReferenceExpression => [
-									reference = declarations.builtin_assert
+									reference = declarations.assert_
 									arguments += ExpressionsFactory.eINSTANCE.createArgument => [
 										value = condition
 									]
@@ -198,7 +199,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 							block.statements.indexOf(ifStatement),
 							SolidityFactory.eINSTANCE.createExpressionStatement => [
 								expression = ExpressionsFactory.eINSTANCE.createElementReferenceExpression => [
-									reference = declarations.createRequire
+									reference = declarations.require
 									arguments += ExpressionsFactory.eINSTANCE.createArgument => [
 										value = condition
 									]
@@ -211,7 +212,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		})
 	}
 
-	@Fix("WARNING_DEPRECATED_CALLCODE")
+	@Fix(WARNING_DEPRECATED_CALLCODE)
 	def replaceDeprecatedCallcode(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Replace callcode with delegatecall', 'Add payable.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
@@ -222,7 +223,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		})
 	}
 
-	@Fix("WARNING_DEPRECATED_UNARY")
+	@Fix(WARNING_DEPRECATED_UNARY)
 	def replaceDeprecatedUnaryExpression(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Replace unary expression', 'x++ to x=x+1.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
@@ -232,7 +233,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		})
 	}
 
-	@Fix("WARNING_DEPRECATED_SHA3")
+	@Fix(WARNING_DEPRECATED_SHA3)
 	def replaceDeprecatedSha3(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Replace Sha3 with keccak256', 'keccak256(...) returns (bytes32).', null,
 			new ISemanticModification() {
@@ -243,7 +244,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			})
 	}
 
-	@Fix("WARNING_DEPRECATED_NAMED_FUNCTION_PARAMETER")
+	@Fix(WARNING_DEPRECATED_NAMED_FUNCTION_PARAMETER)
 	def replaceDeprecatedNamedFunctionParameter(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Remove parameter name', 'remove parameter name', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
@@ -253,7 +254,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		})
 	}
 
-	@Fix("WARNING_DEPRECATED_NAMED_FUNCTION_RETURN_VALUES")
+	@Fix(WARNING_DEPRECATED_NAMED_FUNCTION_RETURN_VALUES)
 	def replaceDeprecatedNamedFunctionReturnValues(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Remove named return values', 'remove named return values', null,
 			new ISemanticModification() {
@@ -264,7 +265,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			})
 	}
 
-	@Fix("WARNING_AMBIGUES_TYPE_INFERRENCE")
+	@Fix(WARNING_AMBIGUES_TYPE_INFERRENCE)
 	def replaceVarWithSpecificType(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Infer runtime type', 'var a = 5; -> int a = 5', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
@@ -274,7 +275,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		})
 	}
 
-	@Fix("WARNING_USSAGE_OF_SEND")
+	@Fix(WARNING_USSAGE_OF_SEND)
 	def replaceSendWithTransfer(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Replace send with transfer', 'address.send(amount); -> address.transfer(amount);', null,
 			new ISemanticModification() {
@@ -285,7 +286,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			})
 	}
 
-	@Fix("WARNING_FUNCTION_STATE_MUTABILITY_VIEW")
+	@Fix(WARNING_FUNCTION_STATE_MUTABILITY_VIEW)
 	def addViewModifier(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Add \'view\' modifier', 'view function', null, new ISemanticModification() {
 			val modifier = SolidityFactory.eINSTANCE.createBuildInModifier
