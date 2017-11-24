@@ -229,7 +229,7 @@ AssemblyItem returns EObject:
 	DecimalNumberLiteral | IDLiteral | AddressLiteral);
 
 AssemblyLocalBinding:
-	'let' name=ID ':=' expression=FunctionalAssemblyExpression;
+	'let' name=ID ':=' expression=(FunctionalAssemblyExpression | DecimalNumberLiteral);
 
 AssemblyAssignment:
 	(leftOperand=ID ':=' expression=FunctionalAssemblyExpression) | ('=:' rightOpernd=ID);
