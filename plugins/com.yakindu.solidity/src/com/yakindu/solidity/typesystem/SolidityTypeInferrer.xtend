@@ -17,6 +17,7 @@ import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.typesystem.ITypeSystem
 
 import static org.yakindu.base.types.typesystem.ITypeSystem.REAL
+import com.yakindu.solidity.solidity.DecimalNumberLiteral
 
 /**
  * 
@@ -41,6 +42,9 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 
 	def doInfer(PostFixUnaryExpression exp) {
 		return inferTypeDispatch(exp.operand)
+	}
+	def doInfer(DecimalNumberLiteral literal){
+		return getResultFor(SolidityTypeSystem.INTEGER);
 	}
 
 	override assertAssignable(InferenceResult varResult, InferenceResult valueResult, String msg) {

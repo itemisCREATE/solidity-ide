@@ -4,23 +4,33 @@ import com.google.inject.Inject
 import com.yakindu.solidity.solidity.FunctionModifier
 import com.yakindu.solidity.solidity.SolidityFactory
 import java.util.ArrayList
+import javax.inject.Singleton
 import org.eclipse.emf.ecore.EObject
+import org.yakindu.base.types.Operation
 import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.typesystem.AbstractTypeSystem
 import org.yakindu.base.types.typesystem.ITypeSystem
+import org.eclipse.xtend.lib.annotations.Accessors
 
 /**
  * @author andreas muelder - Initial contribution and API
  * @author Florian Antony
  */
+@Singleton
+@Accessors(PUBLIC_GETTER)
 class BuildInDeclarations {
 
 	@Inject
 	ITypeSystem typeSystem
+	
+	Operation builtin_assert
 
 	def create new ArrayList<EObject>() all() {
+		if (builtin_assert === null) {
+			builtin_assert = createAssert()
+		}
 		addAll(
-			newArrayList(createMsg(), createAssert(), createRequire(), createRevert(), createAddmod(), createMulmod(),
+			newArrayList(createMsg(), builtin_assert, createRequire(), createRevert(), createAddmod(), createMulmod(),
 				createKeccak256(), createSha3(), createSha256(), createRipemd160(), createEcrecover(), createBlock(),
 				createSuicide(), createSelfdestruct(), createThis(), createSuper(), createNow(), createTransaction()))
 	}
