@@ -62,11 +62,9 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 					flatten
 				return Scopes.scopeFor(features)
 			}
-
-			return Scopes.scopeFor(usings(context),
-				new FeatureCallScope(context, reference, declarations, typeSystem, inferrer))
 		}
-		new FeatureCallScope(context, reference, declarations, typeSystem, inferrer)
+		return Scopes.scopeFor(usings(context),
+			new FeatureCallScope(context, reference, declarations, typeSystem, inferrer))
 	}
 
 	def usings(EObject context) {
