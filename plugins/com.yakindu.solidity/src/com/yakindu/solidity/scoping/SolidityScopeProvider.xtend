@@ -2,21 +2,22 @@ package com.yakindu.solidity.scoping
 
 import com.google.inject.Inject
 import com.yakindu.solidity.solidity.ContractDefinition
+import com.yakindu.solidity.solidity.FunctionDefinition
+import com.yakindu.solidity.solidity.ModifierDefinition
 import com.yakindu.solidity.solidity.UsingForDeclaration
 import com.yakindu.solidity.typesystem.BuildInDeclarations
+import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
-import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.yakindu.base.base.NamedElement
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
 import org.yakindu.base.expressions.expressions.FeatureCall
+import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
-import com.yakindu.solidity.solidity.ModifierDefinition
-import com.yakindu.solidity.solidity.FunctionDefinition
 
 /**
  * 
@@ -61,18 +62,26 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 					flatten
 				return Scopes.scopeFor(features)
 			}
-
-			return Scopes.scopeFor(usings(context),
-				new FeatureCallScope(context, reference, declarations, typeSystem, inferrer))
 		}
-		new FeatureCallScope(context, reference, declarations, typeSystem, inferrer)
+		return Scopes.scopeFor(usings(context),
+			new FeatureCallScope(context, reference, declarations, typeSystem, inferrer))
 	}
 
 	def usings(EObject context) {
-		val root = EcoreUtil.getRootContainer(context)
-		val elements = root.eAllContents.filter(UsingForDeclaration).map[contract].map[allFeatures].toList.flatten.
-			toList
+		val root = EcoreUtil2.getContainerOfType(context, ContractDefinition)
+		val List<ComplexType> contracts = newArrayList()
+		root.getAllSuperTypes(contracts)
+		contracts += root.superTypes
+		val elements = contracts.map[eAllContents.toList].flatten.filter(UsingForDeclaration).map[contract].map [
+			allFeatures
+		].toList.flatten.toList
 		return elements
+	}
+
+	def protected void getAllSuperTypes(ComplexType type, List<ComplexType> result) {
+		result += type
+		result += type.superTypes
+		type.superTypes.forEach[it.getAllSuperTypes(result)]
 	}
 
 	def scope_ComplexType_superTypes(EObject context, EReference reference) {
