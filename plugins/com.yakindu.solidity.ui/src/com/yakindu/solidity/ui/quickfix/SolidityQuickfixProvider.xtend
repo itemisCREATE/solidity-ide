@@ -177,6 +177,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 							SolidityFactory.eINSTANCE.createExpressionStatement => [
 								expression = ExpressionsFactory.eINSTANCE.createElementReferenceExpression => [
 									reference = declarations.assert_
+									operationCall = true
 									arguments += ExpressionsFactory.eINSTANCE.createArgument => [
 										value = condition
 									]
