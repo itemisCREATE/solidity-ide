@@ -1,8 +1,8 @@
 package com.yakindu.solidity.ui
 
 import com.google.inject.Binder
-import com.google.inject.Provider
 import com.google.inject.name.Names
+import com.yakindu.solidity.ui.editor.SolidityHyperlinkHelper
 import com.yakindu.solidity.ui.help.CustomCSSHelpHoverProvider
 import com.yakindu.solidity.ui.help.SolidityUserHelpDocumentationProvider
 import com.yakindu.solidity.ui.highlighting.SolidityHighlightingConfiguration
@@ -11,6 +11,7 @@ import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider
 import org.eclipse.xtext.ui.editor.hover.DispatchingEObjectTextHover
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider
+import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator
 import org.yakindu.base.utils.jface.help.CrossRefObjectTextHover
@@ -32,5 +33,7 @@ class SolidityUiModule extends AbstractSolidityUiModule {
 	override bindIEObjectHover() {
 		CrossRefObjectTextHover
 	}
+
+	def Class<? extends IHyperlinkHelper> bindIHyperlinkHelper() { SolidityHyperlinkHelper }
 
 }
