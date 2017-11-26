@@ -1,7 +1,6 @@
 package com.yakindu.solidity.typesystem;
 
 import com.google.inject.Singleton
-import javax.inject.Inject
 import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.typesystem.GenericTypeSystem
 import org.yakindu.base.types.typesystem.ITypeSystem
@@ -12,8 +11,6 @@ import org.yakindu.base.types.typesystem.ITypeSystem
  */
 @Singleton
 public class SolidityTypeSystem extends GenericTypeSystem {
-
-	private static val SolidityTypeSystem INSTANCE = new SolidityTypeSystem()
 
 	public static val String BOOL = "bool"
 	public static val String UINT = "uint"
@@ -53,14 +50,7 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 	public static val String SEND = "send"
 	public static val String AMOUNT = "amount"
 
-	protected new() {
-	}
-
-	static def SolidityTypeSystem getInstance() {
-		return INSTANCE
-	}
-
-	@Inject extension TypesFactory
+	static extension TypesFactory typesFactory = TypesFactory.eINSTANCE
 
 	override initRegistries() {
 		super.initRegistries()
