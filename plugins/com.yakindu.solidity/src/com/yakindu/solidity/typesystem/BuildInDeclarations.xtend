@@ -52,41 +52,41 @@ class BuildInDeclarations {
 	}
 
 	@Inject
-	new (ITypeSystem typeSystem) {
+	new (ITypeSystem typeSystem, TypesFactory typesFactory, SolidityFactory solidityFactory) {
 		/************************
 		 *     ERROR HANDLING 
 		 ************************/
 		
 		
-		assert_ = TypesFactory.eINSTANCE.createOperation() => [
-			parameters += TypesFactory.eINSTANCE.createParameter => [
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+		assert_ = typesFactory.createOperation() => [
+			parameters += typesFactory.createParameter => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.BOOL)
 				]
 				name = "condition"
 			]
 			name = "assert"
-			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+			typeSpecifier = typesFactory.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.VOID)
 			]
 		]
 	
-		require = TypesFactory.eINSTANCE.createOperation() => [
-			parameters += TypesFactory.eINSTANCE.createParameter => [
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+		require = typesFactory.createOperation() => [
+			parameters += typesFactory.createParameter => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.BOOL)
 				]
 				name = "condition"
 			]
 			name = "require"
-			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+			typeSpecifier = typesFactory.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.VOID)
 			]
 		]
 	
-		revert = TypesFactory.eINSTANCE.createOperation() => [
+		revert = typesFactory.createOperation() => [
 			name = "revert"
-			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+			typeSpecifier = typesFactory.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.VOID)
 			]
 		]
@@ -94,152 +94,152 @@ class BuildInDeclarations {
 		/************************
 		 *     MATH and CRYPTO
 		 ************************/
-		addmod = TypesFactory.eINSTANCE.createOperation() => [
-			parameters += TypesFactory.eINSTANCE.createParameter => [
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+		addmod = typesFactory.createOperation() => [
+			parameters += typesFactory.createParameter => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.UINT)
 				]
 				name = "x"
 			]
-			parameters += TypesFactory.eINSTANCE.createParameter => [
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+			parameters += typesFactory.createParameter => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.UINT)
 				]
 				name = "y"
 			]
-			parameters += TypesFactory.eINSTANCE.createParameter => [
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+			parameters += typesFactory.createParameter => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.UINT)
 				]
 				name = "k"
 			]
 			name = "addmod"
-			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+			typeSpecifier = typesFactory.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.UINT)
 			]
 	
 		]
 	
-		mulmod = TypesFactory.eINSTANCE.createOperation() => [
-			parameters += TypesFactory.eINSTANCE.createParameter => [
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+		mulmod = typesFactory.createOperation() => [
+			parameters += typesFactory.createParameter => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.UINT)
 				]
 				name = "x"
 			]
-			parameters += TypesFactory.eINSTANCE.createParameter => [
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+			parameters += typesFactory.createParameter => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.UINT)
 				]
 				name = "y"
 			]
-			parameters += TypesFactory.eINSTANCE.createParameter => [
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+			parameters += typesFactory.createParameter => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.UINT)
 				]
 				name = "k"
 			]
 			name = "mulmod"
-			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+			typeSpecifier = typesFactory.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.UINT)
 			]
 	
 		]
 	
-		keccak256 = TypesFactory.eINSTANCE.createOperation() => [
-			parameters += TypesFactory.eINSTANCE.createParameter => [
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+		keccak256 = typesFactory.createOperation() => [
+			parameters += typesFactory.createParameter => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.ANY)
 				]
 				name = "argument"
 				varArgs = true
 			]
 			name = "keccak256"
-			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+			typeSpecifier = typesFactory.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.BYTES32)
 			]
 	
 		]
 	
-		sha256 = TypesFactory.eINSTANCE.createOperation() => [
-			parameters += TypesFactory.eINSTANCE.createParameter => [
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+		sha256 = typesFactory.createOperation() => [
+			parameters += typesFactory.createParameter => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.ANY)
 				]
 				name = "argument"
 				varArgs = true
 			]
 			name = "sha256"
-			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+			typeSpecifier = typesFactory.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.BYTES32)
 			]
 	
 		]
 	
-		sha3 = TypesFactory.eINSTANCE.createOperation() => [
-			parameters += TypesFactory.eINSTANCE.createParameter => [
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+		sha3 = typesFactory.createOperation() => [
+			parameters += typesFactory.createParameter => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.ANY)
 				]
 				name = "argument"
 				varArgs = true
 			]
 			name = "sha3"
-			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+			typeSpecifier = typesFactory.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.BYTES32)
 			]
 	
 		]
 	
-		ripemd160 = TypesFactory.eINSTANCE.createOperation() => [
-			parameters += TypesFactory.eINSTANCE.createParameter => [
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+		ripemd160 = typesFactory.createOperation() => [
+			parameters += typesFactory.createParameter => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.ANY)
 				]
 				varArgs = true
 				name = "argument"
 			]
 			name = "ripemd160"
-			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+			typeSpecifier = typesFactory.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.BYTES20)
 			]
 	
 		]
 	
-		ecrecover = TypesFactory.eINSTANCE.createOperation() => [
-			parameters += TypesFactory.eINSTANCE.createParameter => [
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+		ecrecover = typesFactory.createOperation() => [
+			parameters += typesFactory.createParameter => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.BYTES32)
 				]
 				name = "hash"
 			]
-			parameters += TypesFactory.eINSTANCE.createParameter => [
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+			parameters += typesFactory.createParameter => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.UINT8)
 				]
 				name = "v"
 			]
-			parameters += TypesFactory.eINSTANCE.createParameter => [
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+			parameters += typesFactory.createParameter => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.BYTES32)
 				]
 				name = "r"
 			]
-			parameters += TypesFactory.eINSTANCE.createParameter => [
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+			parameters += typesFactory.createParameter => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.BYTES32)
 				]
 				name = "s"
 			]
 			name = "ecrecover"
-			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+			typeSpecifier = typesFactory.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
 			]
 	
 		]
 	
-		now = TypesFactory.eINSTANCE.createProperty => [
-			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+		now = typesFactory.createProperty => [
+			typeSpecifier = typesFactory.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.UINT)
 			]
 			name = "now"
@@ -247,8 +247,8 @@ class BuildInDeclarations {
 			readonly = true
 		]
 	
-		this_ = TypesFactory.eINSTANCE.createProperty => [
-			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+		this_ = typesFactory.createProperty => [
+			typeSpecifier = typesFactory.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
 			]
 			name = "this"
@@ -256,8 +256,8 @@ class BuildInDeclarations {
 			readonly = true
 		]
 	
-		super_ = TypesFactory.eINSTANCE.createProperty => [
-			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+		super_ = typesFactory.createProperty => [
+			typeSpecifier = typesFactory.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.ANY)
 			]
 			name = "super"
@@ -265,9 +265,9 @@ class BuildInDeclarations {
 			readonly = true
 		]
 	
-		suicide = TypesFactory.eINSTANCE.createOperation() => [
-			parameters += TypesFactory.eINSTANCE.createParameter => [
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+		suicide = typesFactory.createOperation() => [
+			parameters += typesFactory.createParameter => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
 				]
 				name = "address"
@@ -275,9 +275,9 @@ class BuildInDeclarations {
 			name = "suicide"
 		]
 	
-		selfdestruct = TypesFactory.eINSTANCE.createOperation() => [
-			parameters += TypesFactory.eINSTANCE.createParameter => [
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+		selfdestruct = typesFactory.createOperation() => [
+			parameters += typesFactory.createParameter => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
 				]
 				name = "address"
@@ -285,8 +285,8 @@ class BuildInDeclarations {
 			name = "selfdestruct"
 		]
 	
-		msg = TypesFactory.eINSTANCE.createProperty() => [
-			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+		msg = typesFactory.createProperty() => [
+			typeSpecifier = typesFactory.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.MESSAGE)
 			]
 			name = "msg"
@@ -294,8 +294,8 @@ class BuildInDeclarations {
 			readonly = true
 		]
 	
-		tx = TypesFactory.eINSTANCE.createProperty() => [
-			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+		tx = typesFactory.createProperty() => [
+			typeSpecifier = typesFactory.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.TRANSACTION)
 			]
 			name = "tx"
@@ -303,8 +303,8 @@ class BuildInDeclarations {
 			readonly = true
 		]
 	
-		block = TypesFactory.eINSTANCE.createProperty() => [
-			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+		block = typesFactory.createProperty() => [
+			typeSpecifier = typesFactory.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.BLOCK)
 			]
 			name = "block"
@@ -312,56 +312,56 @@ class BuildInDeclarations {
 			readonly = true
 		]
 	
-		length = TypesFactory.eINSTANCE.createProperty() => [
-			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+		length = typesFactory.createProperty() => [
+			typeSpecifier = typesFactory.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.INT)
 			]
 			name = "length"
 		]
 	
-		push = TypesFactory.eINSTANCE.createOperation() => [
-			typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+		push = typesFactory.createOperation() => [
+			typeSpecifier = typesFactory.createTypeSpecifier() => [
 				type = typeSystem.getType(SolidityTypeSystem.INT)
 			]
-			parameters += TypesFactory.eINSTANCE.createParameter() => [
+			parameters += typesFactory.createParameter() => [
 				name = "element"
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.ANY)
 				]
 			]
 			name = "push"
 		]
 	
-		owned = SolidityFactory.eINSTANCE.createContractDefinition() => [
+		owned = solidityFactory.createContractDefinition() => [
 			name = "owned"
-			features += SolidityFactory.eINSTANCE.createVariableDefinition() => [
+			features += solidityFactory.createVariableDefinition() => [
 				name = "owner"
-				typeSpecifier = TypesFactory.eINSTANCE.createTypeSpecifier() => [
+				typeSpecifier = typesFactory.createTypeSpecifier() => [
 					type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
 				]
 			]
-			features += SolidityFactory.eINSTANCE.createFunctionDefinition() => [
+			features += solidityFactory.createFunctionDefinition() => [
 				name = "owned"
-				modifier += SolidityFactory.eINSTANCE.createBuildInModifier() => [
+				modifier += solidityFactory.createBuildInModifier() => [
 					type = FunctionModifier.PUBLIC
 				]
 			]
-			features += SolidityFactory.eINSTANCE.createModifierDefinition() => [
+			features += solidityFactory.createModifierDefinition() => [
 				name = "onlyOwner"
 			]
 	
 		]
 	
-		mortal = SolidityFactory.eINSTANCE.createContractDefinition() => [
+		mortal = solidityFactory.createContractDefinition() => [
 			name = "mortal"
 			superTypes += owned
-			features += SolidityFactory.eINSTANCE.createFunctionDefinition() => [
+			features += solidityFactory.createFunctionDefinition() => [
 				name = "close"
-				modifier += SolidityFactory.eINSTANCE.createBuildInModifier() => [
+				modifier += solidityFactory.createBuildInModifier() => [
 					type = FunctionModifier.PUBLIC
 				]
-				modifier += SolidityFactory.eINSTANCE.createModifierInvocation() => [
-					reference = SolidityFactory.eINSTANCE.createModifierDefinition() => [
+				modifier += solidityFactory.createModifierInvocation() => [
+					reference = solidityFactory.createModifierDefinition() => [
 						name = "onlyOwner"
 					]
 				]
