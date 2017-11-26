@@ -187,6 +187,16 @@ enum PostFixOperator:
 enum UnaryOperatorEx:
 	increment="++" | decrement="--" | positive='+' | negative='-' | complement='~';
 
+@ Override
+ElementReferenceExpression returns expressions::ElementReferenceExpression:
+	{expressions::ElementReferenceExpression} reference=[EObject|ID] (=> operationCall?='(' (arguments+=Argument (','
+	arguments+=Argument)*)? ')')? ('[' arraySelector+=Expression ']')*;
+
+	//Disables named parameter calls
+@ Override
+Argument:
+	value=ConditionalExpression;
+
 @ Override PrimaryExpression returns expressions::Expression:
 	PrimitiveValueExpression | FeatureCall | NewInstanceExpression | TupleExpression;
 

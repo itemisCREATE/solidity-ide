@@ -113,6 +113,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//InlineAssemblyStatement/kind"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//InlineAssemblyStatement/block"/>
     </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//Argument"/>
     <genClasses ecoreClass="Solidity.ecore#//VariableDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//VariableDefinition/visibility"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//VariableDefinition/initialValue"/>

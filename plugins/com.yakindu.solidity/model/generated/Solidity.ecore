@@ -77,8 +77,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="ModifierInvocation" eSuperTypes="#//Modifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Operation"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Argument"
-        containment="true"/>
+        eType="#//Argument" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Statement"/>
   <eClassifiers xsi:type="ecore:EClass" name="ThrowStatement" eSuperTypes="#//Statement"/>
@@ -123,6 +122,7 @@
     <eLiterals name="negative" value="3" literal="-"/>
     <eLiterals name="complement" value="4" literal="~"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Argument" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Argument"/>
   <eClassifiers xsi:type="ecore:EClass" name="VariableDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Property #//SimpleStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visibility" eType="#//Visibility"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="initialValue" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
