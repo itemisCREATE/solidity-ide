@@ -13,6 +13,8 @@ import org.eclipse.xtext.validation.CompositeEValidator
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
 import com.yakindu.solidity.scoping.SolidityImportedNamespaceAwareLocalScopeProvider
+import org.yakindu.base.types.TypesFactory
+import org.yakindu.base.types.TypesPackage
 
 /**
  * 
@@ -27,6 +29,8 @@ class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 		binder.bind(ITypeSystemInferrer).to(SolidityTypeInferrer)
 		binder.bind(boolean).annotatedWith(Names.named(CompositeEValidator.USE_EOBJECT_VALIDATOR)).toInstance(false)
 		binder.bind(IDefaultResourceDescriptionStrategy).to(SolidityResourceDescriptionStrategy);
+		binder.bind(TypesFactory).toInstance(TypesFactory.eINSTANCE)
+		binder.bind(TypesPackage).toInstance(TypesPackage.eINSTANCE)
 	}
 
 	override bindIGlobalScopeProvider() {
