@@ -368,12 +368,11 @@ class BuildInDeclarations {
 			]
 		]
 		
-		
-		val all = #[
-			msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256,  length, push,
-			ripemd160, ecrecover, block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal
-		]
 		all.forEach[(typeSystem as AbstractTypeSystem).resource.contents += it]
-		
+	}
+	
+	def all(){
+	#[msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256,  length, push,
+		ripemd160, ecrecover, block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]	
 	}
 }

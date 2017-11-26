@@ -26,6 +26,7 @@
 		<module>../../plugins/com.yakindu.solidity</module>
 		<module>../../plugins/com.yakindu.solidity.ide</module>
 		<module>../../plugins/com.yakindu.solidity.ui</module>
+		<module>../../plugins/com.yakindu.solidity.tests</module>
 		<module>../../plugins/com.yakindu.solidity.compiler</module>
 		<module>../../plugins/com.yakindu.solidity.compiler.linux.fragment</module>
 		<module>../../plugins/com.yakindu.solidity.compiler.win.fragment</module>

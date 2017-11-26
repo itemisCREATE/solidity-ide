@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.util.ParseHelper;
 import org.eclipse.xtext.testing.validation.ValidationTestHelper;
+import org.junit.Assert;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -43,6 +44,7 @@ public class ReferenceExamplesTest {
 	public void test_parseReferenceFile(Path path) throws Exception {
 		String content = new String(Files.readAllBytes(path));
 		SolidityModel model = parseHelper.parse(content, URI.createFileURI(path.toAbsolutePath().toString()), set);
+		Assert.assertNotNull("Could not load model " + path, model);
 		validationHelper.assertNoErrors(model);
 	}
 
