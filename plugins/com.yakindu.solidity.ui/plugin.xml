@@ -484,5 +484,14 @@
          </property>
       </product>
    </extension>
-
+	<extension
+			point="org.eclipse.ui.preferencePages">
+		<page
+			category="com.yakindu.solidity.Solidity"
+			class="com.yakindu.solidity.ui.SolidityExecutableExtensionFactory:com.yakindu.solidity.ui.preferences.FoldingPreferences"
+			id="com.yakindu.solidity.Solidity.folding"
+			name="Folding">
+			<keywordReference id="com.yakindu.solidity.ui.keyword_Solidity"/>
+		</page>
+	</extension>
 </plugin>

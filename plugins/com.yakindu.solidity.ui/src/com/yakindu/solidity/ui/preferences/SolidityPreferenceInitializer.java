@@ -10,6 +10,7 @@ import com.yakindu.solidity.ui.internal.SolidityActivator;
  * 
  * @author andreas muelder - Initial contribution and API
  * @author Florian Antony
+ * @author Karsten Thoms
  */
 public class SolidityPreferenceInitializer extends AbstractPreferenceInitializer {
 
@@ -25,6 +26,9 @@ public class SolidityPreferenceInitializer extends AbstractPreferenceInitializer
 		getPreferenceStore().setDefault(SolidityPreferences.COMPILER_OUTPUT_BIN, true);
 		getPreferenceStore().setDefault(SolidityPreferences.COMPILER_OUTPUT_ASM, false);
 		getPreferenceStore().setDefault(SolidityPreferences.COMPILER_OUTPUT_PATH, DEFAULT_OUTPUT_PATH);
+
+		getPreferenceStore().setDefault(SolidityPreferences.FOLDING_COMMENT_AUTOFOLD, SolidityPreferences.FOLDING_COMMENT_AUTOFOLD_HEADER);
+		getPreferenceStore().setDefault(SolidityPreferences.FOLDING_COMMENT_LINECOUNT, 5);
 	}
 
 	protected IPreferenceStore getPreferenceStore() {

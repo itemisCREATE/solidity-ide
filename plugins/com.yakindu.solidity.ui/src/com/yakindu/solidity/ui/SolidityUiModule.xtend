@@ -2,6 +2,7 @@ package com.yakindu.solidity.ui
 
 import com.google.inject.Binder
 import com.google.inject.name.Names
+import com.yakindu.solidity.ui.editor.SolidityFoldingRegionProvider
 import com.yakindu.solidity.ui.editor.SolidityHyperlinkHelper
 import com.yakindu.solidity.ui.help.CustomCSSHelpHoverProvider
 import com.yakindu.solidity.ui.help.SolidityUserHelpDocumentationProvider
@@ -9,6 +10,7 @@ import com.yakindu.solidity.ui.highlighting.SolidityHighlightingConfiguration
 import com.yakindu.solidity.ui.highlighting.SoliditySemanticHighlighter
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider
+import org.eclipse.xtext.ui.editor.folding.IFoldingRegionProvider
 import org.eclipse.xtext.ui.editor.hover.DispatchingEObjectTextHover
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider
 import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper
@@ -36,4 +38,5 @@ class SolidityUiModule extends AbstractSolidityUiModule {
 
 	def Class<? extends IHyperlinkHelper> bindIHyperlinkHelper() { SolidityHyperlinkHelper }
 
+	def Class<? extends IFoldingRegionProvider> bindIFoldingRegionProvider() { SolidityFoldingRegionProvider }
 }
