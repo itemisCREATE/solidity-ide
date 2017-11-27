@@ -4,14 +4,12 @@ import org.eclipse.xtext.xtext.generator.*
 import org.eclipse.xtext.xtext.generator.model.project.*
 
 var rootPath = ".."
-var projectName = "com.yakindu.solidity"
-var runtimeProject = "../${projectName}"
 Workflow {
 	
 	
 	bean = org.eclipse.emf.mwe.utils.StandaloneSetup {
 		scanClassPath = true
-		platformUri = "${runtimeProject}/.."
+		platformUri = "."
 		registerGenModelFile = "platform:/resource/org.yakindu.base.types/model/base.genmodel"
 		registerGenModelFile = "platform:/resource/org.yakindu.base.types/model/types.genmodel"
 		registerGenModelFile = "platform:/resource/org.yakindu.base.expressions/model/Expressions.genmodel"
@@ -46,9 +44,6 @@ Workflow {
 			fileExtensions = "sol"
 			serializer = {
 				generateStub = false
-			}
-			validator = {
-			// composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
 			}
 			formatter = {
 				generateStub = true
