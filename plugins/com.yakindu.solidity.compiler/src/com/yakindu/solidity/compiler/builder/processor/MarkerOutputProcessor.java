@@ -32,6 +32,9 @@ public class MarkerOutputProcessor implements ISolcOutputProcessor {
 			}
 			line = output.readLine();
 		}
+		if(!issue.isEmpty()){
+			issues.add(issue);
+		}
 		creator.createMarkers(issues, file);
 	}
 
