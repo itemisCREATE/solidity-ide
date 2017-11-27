@@ -49,21 +49,21 @@
          id="org.eclipse.xtext.xbase.lib"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.13.0.v20171020-0659"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.xtext.util"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.13.0.v20171020-0708"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.xtext.ui.shared"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.13.0.v20171020-0732"
          unpack="false"/>
 
    <plugin
@@ -126,14 +126,14 @@
          id="org.eclipse.xtend.lib"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.13.0.v20171020-0659"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.xtend.lib.macro"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.13.0.v20171020-0659"
          unpack="false"/>
 
    <plugin
@@ -147,42 +147,42 @@
          id="org.eclipse.xtext.ui.codetemplates.ui"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.13.0.v20171020-0732"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.xtext.ide"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.13.0.v20171020-0708"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.xtext"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.13.0.v20171020-0708"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.xtext.builder"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.13.0.v20171020-0732"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.xtext.ui.codetemplates"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.13.0.v20171020-0732"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.xtext.smap"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.13.0.v20171020-0717"
          unpack="false"/>
 
    <plugin
@@ -245,7 +245,7 @@
          id="org.eclipse.xtext.ui"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.13.0.v20171020-0732"
          unpack="false"/>
 
    <plugin
@@ -266,7 +266,7 @@
          id="org.eclipse.xtext.xbase.ide"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.13.0.v20171020-0717"
          unpack="false"/>
 
    <plugin
@@ -280,28 +280,28 @@
          id="org.eclipse.xtext.common.types"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.13.0.v20171020-0717"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.xtext.common.types.ui"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.13.0.v20171020-0732"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.xtext.xbase"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.13.0.v20171020-0717"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.xtext.ui.codetemplates.ide"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.13.0.v20171020-0732"
          unpack="false"/>
 
    <plugin
