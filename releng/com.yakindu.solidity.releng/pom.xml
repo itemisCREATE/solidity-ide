@@ -125,7 +125,7 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>1.10</version>
+					<version>3.0.0</version>
 				</plugin>
 				<plugin>
 					<groupId>org.eclipse.xtend</groupId>
@@ -190,7 +190,7 @@
 								<groupId>com.yakindu.solidity</groupId>
 								<artifactId>com.yakindu.solidity.target</artifactId>
 								<version>${project.version}</version>
-								<classifier>Oxygen</classifier>
+								<classifier>Photon</classifier>
 							</artifact>
 						</target>
 					</configuration>

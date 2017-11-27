@@ -7,4 +7,36 @@
 	<artifactId>com.yakindu.solidity.target</artifactId>
 	<version>0.7.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<id>attach-artifacts</id>
+						<phase>package</phase>
+						<goals>
+							<goal>attach-artifact</goal>
+						</goals>
+						<configuration>
+							<artifacts>
+								<artifact>
+									<file>Oxygen.target</file>
+									<type>target</type>
+									<classifier>Oxygen</classifier>
+								</artifact>
+								<artifact>
+									<file>Photon.target</file>
+									<type>target</type>
+									<classifier>Photon</classifier>
+								</artifact>
+							</artifacts>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
