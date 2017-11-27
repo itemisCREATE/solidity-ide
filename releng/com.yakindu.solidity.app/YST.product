@@ -4,7 +4,7 @@
 <product name="YAKINDU SOLIDITY TOOLS" uid="com.yakindu.solidity.app" id="com.yakindu.solidity.ui.YST" application="org.eclipse.ui.ide.workbench" version="0.7.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
-      <image path="/com.yakindu.solidity.app/icons/icon_256x256.png"/>
+      <image path="/com.yakindu.solidity.app/icons/icon_128x128.png"/>
       <text>
          (c) itemis AG, 2017. All rights reserved.
       </text>
@@ -24,17 +24,18 @@
    <windowImages i16="/com.yakindu.solidity.app/icons/icon_16x16.png" i32="/com.yakindu.solidity.app/icons/icon_32x32.png" i48="/com.yakindu.solidity.app/icons/icon_48x48.png" i64="/com.yakindu.solidity.app/icons/icon_64x64.png" i128="/com.yakindu.solidity.app/icons/icon_128x128.png" i256="/com.yakindu.solidity.app/icons/icon_256x256.png"/>
 
    <splash
-      location="com.yakindu.solidity.app"
+      location="com.yakindu.solidity.ui"
       startupProgressRect="5,275,445,15"
       startupMessageRect="7,252,445,20"
       startupForegroundColor="8080C0" />
    <launcher name="YST">
       <win useIco="true">
-         <ico path="yst.ico"/>
+         <ico path="icons/icon.ico"/>
          <bmp/>
       </win>
    </launcher>
-
+   
+    <intro introId="com.yakindu.solidity.intro"/>
 
    <vm>
       <macos include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8</macos>
