@@ -4,7 +4,7 @@
 <product name="YAKINDU SOLIDITY TOOLS" uid="com.yakindu.solidity.app" id="com.yakindu.solidity.ui.YST" application="org.eclipse.ui.ide.workbench" version="0.7.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
-      <image path="/com.yakindu.solidity.ui/icons/YSTLogo96.png"/>
+      <image path="/com.yakindu.solidity.app/icons/icon_256x256.png"/>
       <text>
          (c) itemis AG, 2017. All rights reserved.
       </text>
@@ -21,16 +21,20 @@
       </vmArgsMac>
    </launcherArgs>
 
-   <windowImages i16="/com.yakindu.solidity.ui/icons/YSTLogo16.png" i32="/com.yakindu.solidity.ui/icons/YSTLogo32.png" i48="/com.yakindu.solidity.ui/icons/YSTLogo48.png" i64="/com.yakindu.solidity.ui/icons/YSTLogo64.png" i128="/com.yakindu.solidity.ui/icons/YSTLogo128.png"/>
+   <windowImages i16="/com.yakindu.solidity.app/icons/icon_16x16.png" i32="/com.yakindu.solidity.app/icons/icon_32x32.png" i48="/com.yakindu.solidity.app/icons/icon_48x48.png" i64="/com.yakindu.solidity.app/icons/icon_64x64.png" i128="/com.yakindu.solidity.app/icons/icon_128x128.png" i256="/com.yakindu.solidity.app/icons/icon_256x256.png"/>
 
    <splash
-      location="com.yakindu.solidity.ui" />
+      location="com.yakindu.solidity.app"
+      startupProgressRect="5,275,445,15"
+      startupMessageRect="7,252,445,20"
+      startupForegroundColor="8080C0" />
    <launcher name="YST">
       <win useIco="true">
          <ico path="yst.ico"/>
          <bmp/>
       </win>
    </launcher>
+
 
    <vm>
       <macos include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8</macos>
@@ -66,20 +70,20 @@
       <feature id="org.eclipse.e4.rcp" installMode="root"/>
    </features>
 
-   <configurations>s
-     <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
+   <configurations>
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
       <plugin id="org.eclipse.update.configurator" autoStart="true" startLevel="3" />
-      <property name="osgi.splashPath" value="platform:/base/plugins/com.yakindu.solidity.ui" />
-      <property name="preferenceCustomization" value="plugin_customization.ini" />
       <property name="eclipse.buildId" value="${unqualifiedVersion}.${buildQualifier}" />
       <property name="org.eclipse.update.reconcile" value="false" />
       <property name="osgi.bundles.defaultStartLevel" value="4" />
       <property name="osgi.instance.area.default" value="@user.home/solidity/ws" />
+      <property name="osgi.splashPath" value="platform:/base/plugins/com.yakindu.solidity.ui" />
+      <property name="preferenceCustomization" value="plugin_customization.ini" />
    </configurations>
 
    <preferencesInfo>
