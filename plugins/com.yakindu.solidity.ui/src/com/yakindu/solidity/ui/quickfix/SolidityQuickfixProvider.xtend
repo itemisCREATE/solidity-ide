@@ -5,12 +5,13 @@ import com.yakindu.solidity.solidity.Block
 import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.FunctionModifier
 import com.yakindu.solidity.solidity.IfStatement
+import com.yakindu.solidity.solidity.Parameter
 import com.yakindu.solidity.solidity.SolidityFactory
 import com.yakindu.solidity.solidity.SourceUnit
 import com.yakindu.solidity.solidity.ThrowStatement
 import com.yakindu.solidity.solidity.TypeSpecifier
 import com.yakindu.solidity.typesystem.BuildInDeclarations
-import static com.yakindu.solidity.validation.IssueCodes.*
+import com.yakindu.solidity.typesystem.SolidityTypeSystem
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
 import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification
@@ -19,17 +20,23 @@ import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
 import org.eclipse.xtext.validation.Issue
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
 import org.yakindu.base.expressions.expressions.ExpressionsFactory
+import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.expressions.ui.quickfix.ExpressionsQuickfixProvider
+import org.yakindu.base.types.ComplexType
+
+import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import com.yakindu.solidity.solidity.BuildInModifier
 
 class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 
 	@Inject BuildInDeclarations declarations
+	@Inject extension SolidityFactory
 
 	@Fix(WARNING_FUNCTION_VISIBILITY)
 	def makeVisibilityExplicit(Issue issue, IssueResolutionAcceptor acceptor) {
-		val modifier = SolidityFactory.eINSTANCE.createBuildInModifier
+		val modifier = createBuildInModifier
 		acceptor.accept(issue, 'Make this function public', 'Public function.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				if (element instanceof FunctionDefinition) {
@@ -68,7 +75,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element.eContainer instanceof SourceUnit) {
 						val sourceUnit = element.eContainer as SourceUnit
-						val pragma = SolidityFactory.eINSTANCE.createPragmaDirective
+						val pragma = createPragmaDirective
 						pragma.version = "^0.4.18"
 						sourceUnit.pragma = pragma
 					}
@@ -111,9 +118,11 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element instanceof TypeSpecifier) {
-						var parameter = element.eContainer
-						var function = element.eContainer.eContainer as FunctionDefinition
-						function.parameters.remove(parameter)
+						var parameter = element.getContainerOfType(Parameter)
+						var function = element.getContainerOfType(FunctionDefinition)
+						if (!function.parameters.remove(parameter)) {
+							parameter.name = null
+						}
 					}
 				}
 			})
@@ -125,8 +134,8 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element instanceof TypeSpecifier) {
-						var definition = element.eContainer
-						var block = element.eContainer.eContainer as Block;
+						var definition = element.getContainerOfType(FunctionDefinition)
+						var block = element.getContainerOfType(Block)
 						block.statements.remove(definition)
 					}
 				}
@@ -138,10 +147,21 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		acceptor.accept(issue, 'Add payable to function', 'Add payable.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				if (element instanceof ElementReferenceExpression) {
-					val modifier = SolidityFactory.eINSTANCE.createBuildInModifier
-					modifier.type = FunctionModifier.PAYABLE
 					val functionDefinition = element.getContainerOfType(FunctionDefinition)
-					}
+					val functionModifiers = functionDefinition.modifier
+					functionModifiers.filter [
+						it instanceof BuildInModifier && (
+							(it as BuildInModifier).type == FunctionModifier.CONSTANT ||
+							(it as BuildInModifier).type == FunctionModifier.PURE ||
+							(it as BuildInModifier).type == FunctionModifier.VIEW ||
+							(it as BuildInModifier).type == FunctionModifier.INTERNAL ||
+							(it as BuildInModifier).type == FunctionModifier.PRIVATE 
+						)
+					].filterNull.forEach[incompatible|functionDefinition.modifier.remove(incompatible)]
+					functionDefinition.modifier += createBuildInModifier => [
+						type = FunctionModifier.PAYABLE
+					]
+				}
 			}
 
 		})
@@ -155,7 +175,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 					if (element instanceof ThrowStatement) {
 						val block = element.getContainerOfType(Block)
 						block.statements.remove(element)
-						block.statements += SolidityFactory.eINSTANCE.createExpressionStatement => [
+						block.statements += createExpressionStatement => [
 							expression = ExpressionsFactory.eINSTANCE.createElementReferenceExpression => [
 								val revert = declarations.revert
 								reference = revert
@@ -174,7 +194,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 						val block = ifStatement.eContainer as Block
 						block.statements.set(
 							block.statements.indexOf(ifStatement),
-							SolidityFactory.eINSTANCE.createExpressionStatement => [
+							createExpressionStatement => [
 								expression = ExpressionsFactory.eINSTANCE.createElementReferenceExpression => [
 									reference = declarations.assert_
 									operationCall = true
@@ -198,7 +218,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 						val block = ifStatement.eContainer as Block
 						block.statements.set(
 							block.statements.indexOf(ifStatement),
-							SolidityFactory.eINSTANCE.createExpressionStatement => [
+							createExpressionStatement => [
 								expression = ExpressionsFactory.eINSTANCE.createElementReferenceExpression => [
 									reference = declarations.require
 									arguments += ExpressionsFactory.eINSTANCE.createArgument => [
@@ -218,7 +238,9 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		acceptor.accept(issue, 'Replace callcode with delegatecall', 'Add payable.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				if (element instanceof ElementReferenceExpression) {
-					print(element);
+					val featureCall = element.getContainerOfType(FeatureCall)
+					val features = featureCall.feature.getContainerOfType(ComplexType).features
+					featureCall.feature = features.findFirst[name == SolidityTypeSystem.DELEGATECALL]
 				}
 			}
 		})
@@ -281,8 +303,11 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		acceptor.accept(issue, 'Replace send with transfer', 'address.send(amount); -> address.transfer(amount);', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
-					// FIXME This gets never called since ResourceServiceProviderRegistryImpl#getServiceProvider(URI uri, String contentType) returns null
-					println("TODO: replaceSendWithTransfer")
+					if (element instanceof ElementReferenceExpression) {
+						val featureCall = element.getContainerOfType(FeatureCall)
+						val features = featureCall.feature.getContainerOfType(ComplexType).features
+						featureCall.feature = features.findFirst[name == SolidityTypeSystem.TRANSFER]
+					}
 				}
 			})
 	}
@@ -290,13 +315,26 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	@Fix(WARNING_FUNCTION_STATE_MUTABILITY_VIEW)
 	def addViewModifier(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Add \'view\' modifier', 'view function', null, new ISemanticModification() {
-			val modifier = SolidityFactory.eINSTANCE.createBuildInModifier
-
 			override apply(EObject element, IModificationContext context) throws Exception {
 				if (element instanceof FunctionDefinition) {
 					val definition = element as FunctionDefinition
-					modifier.type = FunctionModifier.VIEW
-					definition.modifier += modifier
+					definition.modifier += createBuildInModifier => [
+						type = FunctionModifier.VIEW
+					]
+				}
+			}
+		})
+	}
+
+	@Fix(WARNING_FUNCTION_STATE_MUTABILITY_PURE)
+	def addPureModifier(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Add \'pure\' modifier', 'pure function', null, new ISemanticModification() {
+			override apply(EObject element, IModificationContext context) throws Exception {
+				if (element instanceof FunctionDefinition) {
+					val definition = element as FunctionDefinition
+					definition.modifier += createBuildInModifier => [
+						type = FunctionModifier.PURE
+					]
 				}
 			}
 		})
