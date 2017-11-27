@@ -17,7 +17,8 @@ public enum SolidityWarning {
 	WARNING_AMBIGUES_TYPE_INFERRENCE("The type of this variable was inferred as"),
 	WARNING_USSAGE_OF_SEND("Failure condition of 'send' ignored."),
 	WARNING_VARIABLE_STORAGE_POINTER("Variable is declared as a storage pointer."),
-	WARNING_FUNCTION_STATE_MUTABILITY_VIEW("Function state mutability can be restricted to view");
+	WARNING_FUNCTION_STATE_MUTABILITY_VIEW("Function state mutability can be restricted to view"),
+	WARNING_FUNCTION_STATE_MUTABILITY_PURE("Function state mutability can be restricted to pure");
 
 	private final String message;
 

@@ -8,6 +8,7 @@
 			contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
 			default="true"
 			extensions="sol"
+			icon="icons/icon_16x16.png"
 			id="com.yakindu.solidity.Solidity"
 			name="Solidity Editor">
 		</editor>

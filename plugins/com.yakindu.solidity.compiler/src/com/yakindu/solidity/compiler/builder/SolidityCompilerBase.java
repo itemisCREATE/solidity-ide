@@ -20,6 +20,7 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 	private OutputHandler handler;
 
 	public void compile(IFile file, IProgressMonitor progress) {
+
 		if (file == null) {
 			return;
 		}
@@ -28,8 +29,12 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 			Process process = new ProcessBuilder(createParameter(file)).start();
 			handler.handleOutput(process.getInputStream(), file);
 			handler.handleError(process.getErrorStream(), file);
-			process.waitFor();
+			int exitCode = process.waitFor();
+			if (exitCode != 0) {
+				throw new Exception("Solidity compiler invocation failed with exit code " + exitCode + ".");
+			}
 			progress.done();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			progress.done();
