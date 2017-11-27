@@ -1,9 +1,8 @@
 package com.yakindu.solidity.typesystem;
 
 import com.google.inject.Singleton
+import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.typesystem.GenericTypeSystem
-
-import static org.yakindu.base.types.TypesFactory.*
 import org.yakindu.base.types.typesystem.ITypeSystem
 
 /**
@@ -12,8 +11,6 @@ import org.yakindu.base.types.typesystem.ITypeSystem
  */
 @Singleton
 public class SolidityTypeSystem extends GenericTypeSystem {
-
-	private static val SolidityTypeSystem INSTANCE = new SolidityTypeSystem()
 
 	public static val String BOOL = "bool"
 	public static val String UINT = "uint"
@@ -53,12 +50,7 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 	public static val String SEND = "send"
 	public static val String AMOUNT = "amount"
 
-	protected new() {
-	}
-
-	static def SolidityTypeSystem getInstance() {
-		return INSTANCE
-	}
+	static extension TypesFactory typesFactory = TypesFactory.eINSTANCE
 
 	override initRegistries() {
 		super.initRegistries()
@@ -81,11 +73,11 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 		declareSuperType(getType(INT), getType(ANY))
 		INT.declareExplicitSizeTypes(8)
 
-		declarePrimitive(com.yakindu.solidity.typesystem.SolidityTypeSystem.BYTES)
-		declarePrimitive(com.yakindu.solidity.typesystem.SolidityTypeSystem.BYTE)
-		declareSuperType(getType(com.yakindu.solidity.typesystem.SolidityTypeSystem.BYTES), getType(INTEGER))
-		declareSuperType(getType(com.yakindu.solidity.typesystem.SolidityTypeSystem.BYTE), getType(INTEGER))
-		com.yakindu.solidity.typesystem.SolidityTypeSystem.BYTES.declareExplicitSizeTypes(1);
+		declarePrimitive(SolidityTypeSystem.BYTES)
+		declarePrimitive(SolidityTypeSystem.BYTE)
+		declareSuperType(getType(SolidityTypeSystem.BYTES), getType(INTEGER))
+		declareSuperType(getType(SolidityTypeSystem.BYTE), getType(INTEGER))
+		SolidityTypeSystem.BYTES.declareExplicitSizeTypes(1);
 
 		var address = createAddress()
 		declareType(address, ADDRESS)
@@ -117,37 +109,37 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 	}
 
 	def createMessage() {
-		eINSTANCE.createComplexType => [ type |
+		createComplexType => [ type |
 			type.name = MESSAGE
 			type.abstract = true
-			type.features += eINSTANCE.createProperty => [
+			type.features += createProperty => [
 				name = GAS
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				typeSpecifier = createTypeSpecifier => [
 					type = getType(INTEGER)
 				]
 				readonly = true
 			]
-			type.features += eINSTANCE.createProperty => [
+			type.features += createProperty => [
 				name = SENDER
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				typeSpecifier = createTypeSpecifier => [
 					type = getType(ADDRESS)
 				]
 			]
-			type.features += eINSTANCE.createProperty => [
+			type.features += createProperty => [
 				name = SIG
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				typeSpecifier = createTypeSpecifier => [
 					type = getType(BYTES4)
 				]
 			]
-			type.features += eINSTANCE.createProperty => [
+			type.features += createProperty => [
 				name = VALUE
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				typeSpecifier = createTypeSpecifier => [
 					type = getType(INTEGER)
 				]
 			]
-			type.features += eINSTANCE.createProperty => [
+			type.features += createProperty => [
 				name = DATA
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				typeSpecifier = createTypeSpecifier => [
 					type = getType(BYTES)
 				]
 			]
@@ -156,19 +148,19 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 	}
 
 	def createTransaction() {
-		eINSTANCE.createComplexType => [ type |
+		createComplexType => [ type |
 			type.name = TRANSACTION
-			type.features += eINSTANCE.createProperty => [
+			type.features += createProperty => [
 				name = GAS_PRICE
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				typeSpecifier = createTypeSpecifier => [
 					type = getType(UINT)
 				]
 				readonly = true
 			]
 
-			type.features += eINSTANCE.createProperty => [
+			type.features += createProperty => [
 				name = ORIGIN
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				typeSpecifier = createTypeSpecifier => [
 					type = getType(ADDRESS)
 				]
 				readonly = true
@@ -177,51 +169,51 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 	}
 
 	def createBlock() {
-		eINSTANCE.createComplexType => [ type |
+		createComplexType => [ type |
 			type.name = BLOCK
-			type.features += eINSTANCE.createProperty => [
+			type.features += createProperty => [
 				name = COINBASE
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				typeSpecifier = createTypeSpecifier => [
 					type = getType(ADDRESS)
 				]
 				readonly = true
 			]
 
-			type.features += eINSTANCE.createProperty => [
+			type.features += createProperty => [
 				name = DIFFICULTY
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				typeSpecifier = createTypeSpecifier => [
 					type = getType(UINT)
 				]
 				readonly = true
 			]
-			type.features += eINSTANCE.createProperty => [
+			type.features += createProperty => [
 				name = GAS_LIMIT
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				typeSpecifier = createTypeSpecifier => [
 					type = getType(UINT)
 				]
 				readonly = true
 			]
-			type.features += eINSTANCE.createProperty => [
+			type.features += createProperty => [
 				name = BLOCK_NUMBER
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				typeSpecifier = createTypeSpecifier => [
 					type = getType(UINT)
 				]
 				readonly = true
 			]
-			type.features += eINSTANCE.createProperty => [
+			type.features += createProperty => [
 				name = BLOCK_TIMESTAMP
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				typeSpecifier = createTypeSpecifier => [
 					type = getType(UINT)
 				]
 				readonly = true
 			]
-			type.features += eINSTANCE.createOperation => [
+			type.features += createOperation => [
 				name = BLOCK_HASH
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
-					type = getType(com.yakindu.solidity.typesystem.SolidityTypeSystem.BYTES + "32")
+				typeSpecifier = createTypeSpecifier => [
+					type = getType(SolidityTypeSystem.BYTES + "32")
 				]
-				parameters += eINSTANCE.createParameter => [
-					typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				parameters += createParameter => [
+					typeSpecifier = createTypeSpecifier => [
 						type = getType(UINT)
 					]
 					name = BLOCK_NUMBER
@@ -232,75 +224,75 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 	}
 
 	def createAddress() {
-		eINSTANCE.createComplexType => [ type |
+		createComplexType => [ type |
 			type.name = ADDRESS
-			type.features += eINSTANCE.createProperty => [
+			type.features += createProperty => [
 				name = BALANCE
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				typeSpecifier = createTypeSpecifier => [
 					type = getType(INTEGER)
 				]
 				readonly = true
 			]
-			type.features += eINSTANCE.createOperation => [
+			type.features += createOperation => [
 				name = TRANSFER
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				typeSpecifier = createTypeSpecifier => [
 					type = getType(VOID)
 				]
-				parameters += eINSTANCE.createParameter => [
-					typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				parameters += createParameter => [
+					typeSpecifier = createTypeSpecifier => [
 						type = getType(UINT + "256")
 					]
 					name = AMOUNT
 				]
 			]
-			type.features += eINSTANCE.createOperation => [
+			type.features += createOperation => [
 				name = SEND
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				typeSpecifier = createTypeSpecifier => [
 					type = getType(BOOL)
 				]
-				parameters += eINSTANCE.createParameter => [
-					typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				parameters += createParameter => [
+					typeSpecifier = createTypeSpecifier => [
 						type = getType(UINT + "256")
 					]
 					name = AMOUNT
 				]
 			]
-			type.features += eINSTANCE.createOperation => [
-				parameters += eINSTANCE.createParameter => [
-					typeSpecifier = eINSTANCE.createTypeSpecifier => [
+			type.features += createOperation => [
+				parameters += createParameter => [
+					typeSpecifier = createTypeSpecifier => [
 						type = getType(ANY)
 					]
 					name = "target"
 					varArgs = true;
 				]
 				name = CALL
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				typeSpecifier = createTypeSpecifier => [
 					type = getType(ITypeSystem.BOOLEAN)
 				]
 			]
-			type.features += eINSTANCE.createOperation => [
-				parameters += eINSTANCE.createParameter => [
-					typeSpecifier = eINSTANCE.createTypeSpecifier => [
+			type.features += createOperation => [
+				parameters += createParameter => [
+					typeSpecifier = createTypeSpecifier => [
 						type = getType(ANY)
 					]
 					name = "target"
 					varArgs = true;
 				]
 				name = CALLCODE
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				typeSpecifier = createTypeSpecifier => [
 					type = getType(ITypeSystem.BOOLEAN)
 				]
 			]
-			type.features += eINSTANCE.createOperation => [
-				parameters += eINSTANCE.createParameter => [
-					typeSpecifier = eINSTANCE.createTypeSpecifier => [
+			type.features += createOperation => [
+				parameters += createParameter => [
+					typeSpecifier = createTypeSpecifier => [
 						type = getType(ANY)
 					]
 					name = "target"
 					varArgs = true
 				]
 				name = DELEGATECALL
-				typeSpecifier = eINSTANCE.createTypeSpecifier => [
+				typeSpecifier = createTypeSpecifier => [
 					type = getType(ITypeSystem.BOOLEAN)
 				]
 			]

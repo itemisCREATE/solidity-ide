@@ -10,12 +10,14 @@ import java.util.concurrent.TimeUnit;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
+import org.eclipse.xtext.documentation.impl.MultiLineCommentDocumentationProvider;
 import org.yakindu.base.types.Property;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableMap;
+import com.google.inject.Inject;
 
 /**
  * 
@@ -25,7 +27,7 @@ import com.google.common.collect.ImmutableMap;
  */
 public class SolidityUserHelpDocumentationProvider implements IEObjectDocumentationProvider {
 	// @formatter:off
-	private static final ImmutableMap<String, String> PERMALINKS = ImmutableMap.<String, String> builder()
+	private static final ImmutableMap<String, String> PERMALINKS = ImmutableMap.<String, String>builder()
 			.put("pragma", "https://solidity.readthedocs.io/en/develop/layout-of-source-files.html#version-pragma")
 
 			.put("contract",
@@ -91,11 +93,14 @@ public class SolidityUserHelpDocumentationProvider implements IEObjectDocumentat
 	private LoadingCache<String, String> cache = CacheBuilder.newBuilder().maximumSize(100)
 			.expireAfterWrite(1, TimeUnit.HOURS).build(new CacheLoader<String, String>() {
 				public String load(String key) {
-					return getDocumentatinInternal(key);
+					return getDocumentationInternal(key);
 				}
 			});
 
-	protected String getDocumentatinInternal(String url) {
+	@Inject
+	private MultiLineCommentDocumentationProvider delegate;
+
+	protected String getDocumentationInternal(String url) {
 		StringBuilder builder = new StringBuilder();
 		URL content;
 		try {
@@ -120,6 +125,7 @@ public class SolidityUserHelpDocumentationProvider implements IEObjectDocumentat
 		return builder.toString();
 	}
 
+	@Override
 	public String getDocumentation(EObject o) {
 		String url = null;
 		if (o instanceof Keyword) {
@@ -128,7 +134,10 @@ public class SolidityUserHelpDocumentationProvider implements IEObjectDocumentat
 		if (o instanceof Property) {
 			url = PERMALINKS.get(((Property) o).getName());
 		}
-		return getDocumentationFromCache(url);
+		String documentation = getDocumentationFromCache(url);
+		if (documentation != null)
+			return documentation;
+		return delegate.getDocumentation(o);
 	}
 
 	private String getDocumentationFromCache(String url) {
@@ -139,7 +148,7 @@ public class SolidityUserHelpDocumentationProvider implements IEObjectDocumentat
 				e.printStackTrace();
 			}
 		}
-		return "No online documentation found...";
+		return null;
 	}
 
 }

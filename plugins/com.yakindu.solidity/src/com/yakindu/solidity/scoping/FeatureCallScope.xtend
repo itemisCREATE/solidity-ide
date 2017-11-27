@@ -93,7 +93,7 @@ class FeatureCallScope extends AbstractScope {
 			inferrer.infer(it)?.type?.localElements
 		}else if (it instanceof FunctionDefinition) {
 			// TODO handle multi return parameters properly
-			return it.returnParameters?.head.getLocalElements
+			return it.returnParameters?.head?.getLocalElements
 		} else {
 			typeSpecifier?.getLocalElements
 		}

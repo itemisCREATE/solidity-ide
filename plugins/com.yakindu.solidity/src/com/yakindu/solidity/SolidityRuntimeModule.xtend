@@ -19,6 +19,9 @@ import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.TypesPackage
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
+import com.yakindu.solidity.scoping.SolidityImportedNamespaceAwareLocalScopeProvider
+import org.yakindu.base.types.TypesFactory
+import org.yakindu.base.types.TypesPackage
 
 /**
  * 

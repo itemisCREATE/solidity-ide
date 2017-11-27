@@ -1,29 +1,20 @@
 package com.yakindu.solidity.scoping
 
 import com.google.common.base.Predicate
-import com.google.inject.Singleton
 import com.yakindu.solidity.solidity.ImportDirective
 import com.yakindu.solidity.typesystem.BuildInDeclarations
 import java.util.LinkedHashSet
 import java.util.Set
 import javax.inject.Inject
-import javax.inject.Provider
-import org.eclipse.core.resources.ResourcesPlugin
-import org.eclipse.core.runtime.Path
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.resource.Resource
-import org.eclipse.emf.ecore.resource.ResourceSet
-import org.eclipse.emf.ecore.resource.URIConverter
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.resource.IEObjectDescription
-import org.eclipse.xtext.resource.IResourceDescription
-import org.eclipse.xtext.resource.impl.ResourceDescriptionsData
 import org.eclipse.xtext.scoping.IScope
+import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.ImportUriGlobalScopeProvider
-import org.eclipse.xtext.scoping.impl.SelectableBasedScope
 import org.eclipse.xtext.util.IResourceScopeCache
-import org.yakindu.base.types.typesystem.AbstractTypeSystem
 import org.yakindu.base.types.typesystem.ITypeSystem
 
 /**
@@ -31,23 +22,16 @@ import org.yakindu.base.types.typesystem.ITypeSystem
  * @author andreas muelder - Initial contribution and API
  * 
  */
-@Singleton
 class SolidityGlobalScopeProvider extends ImportUriGlobalScopeProvider {
 
 	@Inject
-	ITypeSystem typeSystem
+	protected ITypeSystem typeSystem
 	@Inject
-	IQualifiedNameProvider qualifiedNameProvider
+	protected IQualifiedNameProvider qualifiedNameProvider
 	@Inject
-	private IResourceScopeCache cache;
-
+	protected IResourceScopeCache cache;
 	@Inject
-	private Provider<ResourceSet> resourceSetProvider;
-	@Inject
-	private IResourceDescription.Manager descriptionManager;
-	private ResourceDescriptionsData resourceDescriptionsData;
-	private Object lock = new Object();
-	@Inject BuildInDeclarations buildIn
+	protected BuildInDeclarations buildIn
 
 	override getScope(Resource resource, EReference reference, Predicate<IEObjectDescription> filter) {
 		val libraryScope = resource.getScopeWithLibrary(reference)
@@ -69,7 +53,7 @@ class SolidityGlobalScopeProvider extends ImportUriGlobalScopeProvider {
 	def protected void getTransientImportUris(Resource resource, Set<URI> result) {
 		resource.allContents.filter(ImportDirective).forEach [
 			val normalizedURI = createNormalizedURI(it, resource)
-			if (URIConverter.INSTANCE.exists(normalizedURI, null) && !result.contains(normalizedURI)) {
+			if (resource.resourceSet.URIConverter.exists(normalizedURI, null) && !result.contains(normalizedURI)) {
 				result += normalizedURI
 				getTransientImportUris(resource.resourceSet.getResource(normalizedURI, true), result)
 			}
@@ -79,20 +63,35 @@ class SolidityGlobalScopeProvider extends ImportUriGlobalScopeProvider {
 	def createNormalizedURI(ImportDirective it, Resource resource) {
 		val URI uri = URI.createURI(resource.URI.trimSegments(1).toString + "/" +
 			if(importedNamespace.toLowerCase.endsWith(".sol")) importedNamespace else importedNamespace + ".sol")
-		// for whatever reason URIConverter normalize does not remove ../ segments so we have to convert to an IFile and back
-		var normalizedURI = resource.resourceSet.URIConverter.normalize(uri)
-		val file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(normalizedURI.toPlatformString(true)))
-		normalizedURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true)
+		return resource.normalize(uri)
 	}
 
+	/**
+	 * removes dot segments of the uri
+	 */
+	def protected normalize(Resource resource, URI uri) {
+		var normalizedURI = resource.resourceSet.URIConverter.normalize(uri)
+		val newSegments = newArrayList()
+		normalizedURI.segmentsList.filter[it != "."].forEach [
+			if (it == "..") {
+				newSegments.remove(it)
+				newSegments.remove(newSegments.size - 1)
+			} else
+				newSegments.add(it)
+		]
+		normalizedURI = normalizedURI.trimSegments(normalizedURI.segmentCount)
+		normalizedURI = normalizedURI.appendSegments(newSegments.toArray(#[]))
+		normalizedURI
+	}
 
 	private def IScope getScopeWithLibrary(Resource resource, EReference reference) {
-		var stdlib = (typeSystem as AbstractTypeSystem).resource
-
-		resourceDescriptionsData = new ResourceDescriptionsData(#[descriptionManager.getResourceDescription(stdlib)])
-		return SelectableBasedScope.createScope(
-				super.getScope(resource, reference, null), 
-				resourceDescriptionsData,
-				reference.getEReferenceType(), false);
+		return Scopes.scopeFor(buildIn.all, super.getScope(resource, reference, null))
+//		var stdlib = (typeSystem as AbstractTypeSystem).resource
+// 		if (resourceDescriptionsData === null) {
+//			resourceDescriptionsData = new ResourceDescriptionsData(
+//				#[descriptionManager.getResourceDescription(stdlib)])
+//		}
+//		return SelectableBasedScope.createScope(super.getScope(resource, reference, null), resourceDescriptionsData,
+//			reference.getEReferenceType(), false);
 	}
 }
