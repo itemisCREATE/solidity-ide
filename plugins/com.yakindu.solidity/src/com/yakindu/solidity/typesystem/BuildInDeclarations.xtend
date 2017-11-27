@@ -12,15 +12,21 @@ import org.yakindu.base.types.typesystem.ITypeSystem
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.yakindu.base.types.Operation
 import com.yakindu.solidity.solidity.ContractDefinition
+import org.yakindu.base.types.Type
+import org.yakindu.base.types.Parameter
+import org.yakindu.base.types.TypedElement
+import static com.yakindu.solidity.typesystem.SolidityTypeSystem.*
 
 /**
  * @author andreas muelder - Initial contribution and API
  * @author Florian Antony
+ * @author Karsten Thoms
  */
 @Accessors(PUBLIC_GETTER)
 class BuildInDeclarations {
 
 	ITypeSystem typeSystem
+	TypesFactory typesFactory
 	
 	boolean installed
 	Operation assert_
@@ -56,288 +62,100 @@ class BuildInDeclarations {
 		/************************
 		 *     ERROR HANDLING 
 		 ************************/
+		this.typeSystem = typeSystem
+		this.typesFactory = typesFactory
 		
+		val ADDRESS = ADDRESS.typeForName
+		val ANY     = ANY.typeForName
+		val BOOL    = BOOL.typeForName
+		val BYTES20 = BYTES20.typeForName
+		val BYTES32 = BYTES32.typeForName
+		val INT     = INT.typeForName
+		val UINT    = UINT.typeForName
+		val UINT8   = UINT8.typeForName
+		val VOID    = VOID.typeForName
 		
-		assert_ = typesFactory.createOperation() => [
-			parameters += typesFactory.createParameter => [
-				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.BOOL)
-				]
-				name = "condition"
-			]
-			name = "assert"
-			typeSpecifier = typesFactory.createTypeSpecifier() => [
-				type = typeSystem.getType(SolidityTypeSystem.VOID)
-			]
+		assert_ = createOperation("assert", BOOL) => [
+			parameters += createParameter("condition", BOOL)
 		]
 	
-		require = typesFactory.createOperation() => [
-			parameters += typesFactory.createParameter => [
-				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.BOOL)
-				]
-				name = "condition"
-			]
-			name = "require"
-			typeSpecifier = typesFactory.createTypeSpecifier() => [
-				type = typeSystem.getType(SolidityTypeSystem.VOID)
-			]
+		require = createOperation("require", VOID) => [
+			parameters += createParameter("condition", BOOL)
 		]
 	
-		revert = typesFactory.createOperation() => [
-			name = "revert"
-			typeSpecifier = typesFactory.createTypeSpecifier() => [
-				type = typeSystem.getType(SolidityTypeSystem.VOID)
-			]
-		]
+		revert = createOperation("revert", VOID)
 	
 		/************************
 		 *     MATH and CRYPTO
 		 ************************/
-		addmod = typesFactory.createOperation() => [
-			parameters += typesFactory.createParameter => [
-				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.UINT)
-				]
-				name = "x"
-			]
-			parameters += typesFactory.createParameter => [
-				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.UINT)
-				]
-				name = "y"
-			]
-			parameters += typesFactory.createParameter => [
-				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.UINT)
-				]
-				name = "k"
-			]
-			name = "addmod"
-			typeSpecifier = typesFactory.createTypeSpecifier() => [
-				type = typeSystem.getType(SolidityTypeSystem.UINT)
-			]
-	
+		addmod = createOperation("addmod", UINT) => [
+			parameters += createParameter("x", UINT)
+			parameters += createParameter("y", UINT)
+			parameters += createParameter("k", UINT)
 		]
 	
-		mulmod = typesFactory.createOperation() => [
-			parameters += typesFactory.createParameter => [
-				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.UINT)
-				]
-				name = "x"
-			]
-			parameters += typesFactory.createParameter => [
-				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.UINT)
-				]
-				name = "y"
-			]
-			parameters += typesFactory.createParameter => [
-				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.UINT)
-				]
-				name = "k"
-			]
-			name = "mulmod"
-			typeSpecifier = typesFactory.createTypeSpecifier() => [
-				type = typeSystem.getType(SolidityTypeSystem.UINT)
-			]
-	
+		mulmod = createOperation("mulmod", UINT) => [
+			parameters += createParameter("x", UINT)
+			parameters += createParameter("y", UINT)
+			parameters += createParameter("k", UINT)
 		]
 	
-		keccak256 = typesFactory.createOperation() => [
-			parameters += typesFactory.createParameter => [
-				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.ANY)
-				]
-				name = "argument"
-				varArgs = true
-			]
-			name = "keccak256"
-			typeSpecifier = typesFactory.createTypeSpecifier() => [
-				type = typeSystem.getType(SolidityTypeSystem.BYTES32)
-			]
-	
+		keccak256 = createOperation("keccak256", BYTES32) => [
+			parameters += createParameter("argument", UINT) => [varArgs = true]
 		]
 	
-		sha256 = typesFactory.createOperation() => [
-			parameters += typesFactory.createParameter => [
-				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.ANY)
-				]
-				name = "argument"
-				varArgs = true
-			]
-			name = "sha256"
-			typeSpecifier = typesFactory.createTypeSpecifier() => [
-				type = typeSystem.getType(SolidityTypeSystem.BYTES32)
-			]
-	
+		sha256 = createOperation("sha256", BYTES32) => [
+			parameters += createParameter("argument", UINT) => [varArgs = true]
 		]
 	
-		sha3 = typesFactory.createOperation() => [
-			parameters += typesFactory.createParameter => [
-				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.ANY)
-				]
-				name = "argument"
-				varArgs = true
-			]
-			name = "sha3"
-			typeSpecifier = typesFactory.createTypeSpecifier() => [
-				type = typeSystem.getType(SolidityTypeSystem.BYTES32)
-			]
-	
+		sha3 = createOperation("sha3", BYTES32) => [
+			parameters += createParameter("argument", UINT) => [varArgs = true]
 		]
 	
-		ripemd160 = typesFactory.createOperation() => [
-			parameters += typesFactory.createParameter => [
-				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.ANY)
-				]
-				varArgs = true
-				name = "argument"
-			]
-			name = "ripemd160"
-			typeSpecifier = typesFactory.createTypeSpecifier() => [
-				type = typeSystem.getType(SolidityTypeSystem.BYTES20)
-			]
-	
+		ripemd160 = createOperation("ripemd160", BYTES20) => [
+			parameters += createParameter("argument", UINT) => [varArgs = true]
 		]
 	
-		ecrecover = typesFactory.createOperation() => [
-			parameters += typesFactory.createParameter => [
-				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.BYTES32)
-				]
-				name = "hash"
-			]
-			parameters += typesFactory.createParameter => [
-				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.UINT8)
-				]
-				name = "v"
-			]
-			parameters += typesFactory.createParameter => [
-				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.BYTES32)
-				]
-				name = "r"
-			]
-			parameters += typesFactory.createParameter => [
-				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.BYTES32)
-				]
-				name = "s"
-			]
-			name = "ecrecover"
-			typeSpecifier = typesFactory.createTypeSpecifier() => [
-				type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
-			]
-	
+		ecrecover = createOperation("ecrecover", ADDRESS) => [
+			parameters += createParameter("hash", BYTES32)
+			parameters += createParameter("v", UINT8)
+			parameters += createParameter("r", BYTES32)
+			parameters += createParameter("s", BYTES32)
 		]
 	
-		now = typesFactory.createProperty => [
-			typeSpecifier = typesFactory.createTypeSpecifier() => [
-				type = typeSystem.getType(SolidityTypeSystem.UINT)
-			]
-			name = "now"
-			const = true
-			readonly = true
+		now = createConstant("now", UINT)
+	
+		this_ = createConstant("this", ADDRESS)
+
+		super_ = createConstant("super", ANY)
+	
+		suicide = createOperation("suicide", VOID) => [
+			parameters += createParameter("address", ADDRESS)
 		]
 	
-		this_ = typesFactory.createProperty => [
-			typeSpecifier = typesFactory.createTypeSpecifier() => [
-				type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
-			]
-			name = "this"
-			const = true
-			readonly = true
+		selfdestruct = createOperation("selfdestruct", VOID) => [
+			parameters += createParameter("address", ADDRESS)
 		]
 	
-		super_ = typesFactory.createProperty => [
-			typeSpecifier = typesFactory.createTypeSpecifier() => [
-				type = typeSystem.getType(SolidityTypeSystem.ANY)
-			]
-			name = "super"
-			const = true
-			readonly = true
-		]
+		msg = createConstant("msg", MESSAGE.typeForName)
+
+		tx = createConstant("tx", TRANSACTION.typeForName)
+
+		block = createConstant("block", BLOCK.typeForName)
+
+		length = createProperty("length", INT)
 	
-		suicide = typesFactory.createOperation() => [
-			parameters += typesFactory.createParameter => [
-				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
-				]
-				name = "address"
-			]
-			name = "suicide"
-		]
-	
-		selfdestruct = typesFactory.createOperation() => [
-			parameters += typesFactory.createParameter => [
-				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
-				]
-				name = "address"
-			]
-			name = "selfdestruct"
-		]
-	
-		msg = typesFactory.createProperty() => [
-			typeSpecifier = typesFactory.createTypeSpecifier() => [
-				type = typeSystem.getType(SolidityTypeSystem.MESSAGE)
-			]
-			name = "msg"
-			const = true
-			readonly = true
-		]
-	
-		tx = typesFactory.createProperty() => [
-			typeSpecifier = typesFactory.createTypeSpecifier() => [
-				type = typeSystem.getType(SolidityTypeSystem.TRANSACTION)
-			]
-			name = "tx"
-			const = true
-			readonly = true
-		]
-	
-		block = typesFactory.createProperty() => [
-			typeSpecifier = typesFactory.createTypeSpecifier() => [
-				type = typeSystem.getType(SolidityTypeSystem.BLOCK)
-			]
-			name = "block"
-			const = true
-			readonly = true
-		]
-	
-		length = typesFactory.createProperty() => [
-			typeSpecifier = typesFactory.createTypeSpecifier() => [
-				type = typeSystem.getType(SolidityTypeSystem.INT)
-			]
-			name = "length"
-		]
-	
-		push = typesFactory.createOperation() => [
-			typeSpecifier = typesFactory.createTypeSpecifier() => [
-				type = typeSystem.getType(SolidityTypeSystem.INT)
-			]
-			parameters += typesFactory.createParameter() => [
-				name = "element"
-				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.ANY)
-				]
-			]
-			name = "push"
+		push = createOperation("push", INT) => [
+			parameters += createParameter("element", ANY)
 		]
 	
 		owned = solidityFactory.createContractDefinition() => [
+			(typeSystem as AbstractTypeSystem).resource.contents += it
 			name = "owned"
 			features += solidityFactory.createVariableDefinition() => [
 				name = "owner"
 				typeSpecifier = typesFactory.createTypeSpecifier() => [
-					type = typeSystem.getType(SolidityTypeSystem.ADDRESS)
+					type = ADDRESS
 				]
 			]
 			features += solidityFactory.createFunctionDefinition() => [
@@ -353,6 +171,7 @@ class BuildInDeclarations {
 		]
 	
 		mortal = solidityFactory.createContractDefinition() => [
+			(typeSystem as AbstractTypeSystem).resource.contents += it
 			name = "mortal"
 			superTypes += owned
 			features += solidityFactory.createFunctionDefinition() => [
@@ -367,12 +186,61 @@ class BuildInDeclarations {
 				]
 			]
 		]
-		
-		all.forEach[(typeSystem as AbstractTypeSystem).resource.contents += it]
 	}
 	
 	def all(){
 	#[msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256,  length, push,
 		ripemd160, ecrecover, block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]	
+	}
+	
+	def private <T extends TypedElement> T withType (T it, Type theType) {
+		typeSpecifier = typesFactory.createTypeSpecifier => [
+			type = theType
+		]
+		it
+	}
+	
+	def private Type getTypeForName (String typeName) {
+		typeSystem.getType(typeName)		
+	}
+	
+	def private Operation createOperation (String name, Type type) {
+		typesFactory.createOperation => [
+			(typeSystem as AbstractTypeSystem).resource.contents += it
+			it.name = name
+			typeSpecifier = typesFactory.createTypeSpecifier => [
+				it.type = type
+			]
+		]
+	}
+
+	def private Parameter createParameter (String name, Type type) {
+		typesFactory.createParameter => [
+			(typeSystem as AbstractTypeSystem).resource.contents += it
+			it.name = name
+			typeSpecifier = typesFactory.createTypeSpecifier => [
+				it.type = type
+			]
+		]		
+	}
+
+	def private Property createConstant (String name, Type type) {
+		createProperty(name, type, true, true)
+	}
+
+	def private Property createProperty (String name, Type type) {
+		createProperty(name, type, false, false)
+	}
+
+	def private Property createProperty (String name, Type type, boolean const, boolean readonly) {
+		typesFactory.createProperty => [
+			(typeSystem as AbstractTypeSystem).resource.contents += it
+			it.name = name
+			typeSpecifier = typesFactory.createTypeSpecifier => [
+				it.type = type
+			]
+			it.const = const
+			it.readonly = readonly
+		]		
 	}
 }
