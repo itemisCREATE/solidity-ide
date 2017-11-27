@@ -58,6 +58,7 @@ location "http://download.eclipse.org/releases/oxygen" {
 	org.junit.vintage.engine
 	org.hamcrest.core
 	org.opentest4j
+	org.apiguardian
 }
 
 location "http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository" {
