@@ -15,6 +15,8 @@ import org.yakindu.base.types.PackageMember
 /**
  * Code formatter for Solidity according to 
  * <a href="http://solidity.readthedocs.io/en/develop/style-guide.html">Solidity Styleguide</a>.
+ * 
+ * @author Karsten Thoms - Initial contribution and API
  */
 class SolidityFormatter extends AbstractFormatter2 {
 	
