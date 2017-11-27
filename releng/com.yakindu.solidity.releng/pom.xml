@@ -21,7 +21,6 @@
 	<modules>
 		<!-- releng -->
 		<module>../com.yakindu.solidity.target</module>
-		<module>../com.yakindu.solidity.repository</module>
 		<!-- plugins -->
 		<module>../../plugins/com.yakindu.solidity</module>
 		<module>../../plugins/com.yakindu.solidity.ide</module>
