@@ -75,7 +75,7 @@ class BuildInDeclarations {
 		val UINT8   = UINT8.typeForName
 		val VOID    = VOID.typeForName
 		
-		assert_ = createOperation("assert", BOOL) => [
+		assert_ = createOperation("assert", VOID) => [
 			parameters += createParameter("condition", BOOL)
 		]
 	
@@ -101,19 +101,19 @@ class BuildInDeclarations {
 		]
 	
 		keccak256 = createOperation("keccak256", BYTES32) => [
-			parameters += createParameter("argument", UINT) => [varArgs = true]
+			parameters += createParameter("argument", ANY) => [varArgs = true]
 		]
 	
 		sha256 = createOperation("sha256", BYTES32) => [
-			parameters += createParameter("argument", UINT) => [varArgs = true]
+			parameters += createParameter("argument", ANY) => [varArgs = true]
 		]
 	
 		sha3 = createOperation("sha3", BYTES32) => [
-			parameters += createParameter("argument", UINT) => [varArgs = true]
+			parameters += createParameter("argument", ANY) => [varArgs = true]
 		]
 	
 		ripemd160 = createOperation("ripemd160", BYTES20) => [
-			parameters += createParameter("argument", UINT) => [varArgs = true]
+			parameters += createParameter("argument", ANY) => [varArgs = true]
 		]
 	
 		ecrecover = createOperation("ecrecover", ADDRESS) => [
