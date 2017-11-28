@@ -20,7 +20,8 @@ import org.eclipse.ui.intro.config.IIntroAction;
 
 /**
  * 
- * Open the welcome page links in the system default browser
+ * @author andreas muelder - Initial contribution and API
+ * 
  */
 public class OpenURLWithExternalBrowserAction extends Action implements IIntroAction {
 
