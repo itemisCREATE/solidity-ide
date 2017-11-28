@@ -28,21 +28,25 @@ import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import com.yakindu.solidity.solidity.BuildInModifier
+import com.yakindu.solidity.solidity.VariableDefinition
+import com.yakindu.solidity.solidity.StorageLocation
 
 class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 
 	@Inject BuildInDeclarations declarations
 	@Inject extension SolidityFactory
+	extension ExpressionsFactory factory = ExpressionsFactory.eINSTANCE
 
 	@Fix(WARNING_FUNCTION_VISIBILITY)
 	def makeVisibilityExplicit(Issue issue, IssueResolutionAcceptor acceptor) {
-		val modifier = createBuildInModifier
 		acceptor.accept(issue, 'Make this function public', 'Public function.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				if (element instanceof FunctionDefinition) {
 					val definition = element as FunctionDefinition
-					modifier.type = FunctionModifier.PUBLIC
-					definition.modifier += modifier
+					definition.modifier += createBuildInModifier => [
+						type = FunctionModifier.PUBLIC
+
+					]
 				}
 			}
 		})
@@ -51,8 +55,9 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				if (element instanceof FunctionDefinition) {
 					val definition = element as FunctionDefinition
-					modifier.type = FunctionModifier.PRIVATE
-					definition.modifier += modifier
+					definition.modifier += createBuildInModifier => [
+						type = FunctionModifier.PRIVATE
+					]
 				}
 			}
 		})
@@ -61,8 +66,9 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				if (element instanceof FunctionDefinition) {
 					val definition = element as FunctionDefinition
-					modifier.type = FunctionModifier.INTERNAL
-					definition.modifier += modifier
+					definition.modifier += createBuildInModifier => [
+						type = FunctionModifier.INTERNAL
+					]
 				}
 			}
 		})
@@ -98,15 +104,16 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	def makeStoragePointerExplicit(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Add explicit storage keyword', 'storage.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
-				// FIXME This gets never called since ResourceServiceProviderRegistryImpl#getServiceProvider(URI uri, String contentType) returns null
-				println("TODO: makeStoragePointerExplicit")
+				var definition = element.getContainerOfType(VariableDefinition)
+				definition.storage = StorageLocation.STORAGE;
 			}
 		})
 
 		acceptor.accept(issue, 'Add explicit memory keyword', 'memory.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
-				// FIXME This gets never called since ResourceServiceProviderRegistryImpl#getServiceProvider(URI uri, String contentType) returns null
-				println("TODO: makeStoragePointerExplicit")
+				var definition = element.getContainerOfType(VariableDefinition)
+				definition.storage = StorageLocation.MEMORY;
+
 			}
 		})
 
@@ -134,7 +141,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element instanceof TypeSpecifier) {
-						var definition = element.getContainerOfType(FunctionDefinition)
+						var definition = element.getContainerOfType(VariableDefinition)
 						var block = element.getContainerOfType(Block)
 						block.statements.remove(definition)
 					}
@@ -176,8 +183,9 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 						val block = element.getContainerOfType(Block)
 						block.statements.remove(element)
 						block.statements += createExpressionStatement => [
-							expression = ExpressionsFactory.eINSTANCE.createElementReferenceExpression => [
+							expression = createElementReferenceExpression => [
 								val revert = declarations.revert
+								operationCall = true
 								reference = revert
 							]
 						]
@@ -195,11 +203,16 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 						block.statements.set(
 							block.statements.indexOf(ifStatement),
 							createExpressionStatement => [
-								expression = ExpressionsFactory.eINSTANCE.createElementReferenceExpression => [
+								expression = createElementReferenceExpression => [
 									reference = declarations.assert_
 									operationCall = true
 									arguments += ExpressionsFactory.eINSTANCE.createArgument => [
-										value = condition
+										value = createLogicalNotExpression => [
+											operand = createParenthesizedExpression => [
+												expression = condition
+
+											]
+										]
 									]
 								]
 							]
@@ -219,10 +232,16 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 						block.statements.set(
 							block.statements.indexOf(ifStatement),
 							createExpressionStatement => [
-								expression = ExpressionsFactory.eINSTANCE.createElementReferenceExpression => [
+								expression = createElementReferenceExpression => [
 									reference = declarations.require
+									operationCall = true
 									arguments += ExpressionsFactory.eINSTANCE.createArgument => [
-										value = condition
+										value = createLogicalNotExpression => [
+											operand = createParenthesizedExpression => [
+												expression = condition
+
+											]
+										]
 									]
 								]
 							]
@@ -246,57 +265,27 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		})
 	}
 
-	@Fix(WARNING_DEPRECATED_UNARY)
-	def replaceDeprecatedUnaryExpression(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, 'Replace unary expression', 'x++ to x=x+1.', null, new ISemanticModification() {
-			override apply(EObject element, IModificationContext context) throws Exception {
-				// FIXME This gets never called since ResourceServiceProviderRegistryImpl#getServiceProvider(URI uri, String contentType) returns null
-				println("TODO: replaceDeprecatedUnaryExpression")
-			}
-		})
-	}
-
 	@Fix(WARNING_DEPRECATED_SHA3)
 	def replaceDeprecatedSha3(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Replace Sha3 with keccak256', 'keccak256(...) returns (bytes32).', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
-					// FIXME This gets never called since ResourceServiceProviderRegistryImpl#getServiceProvider(URI uri, String contentType) returns null
-					println("TODO: replaceDeprecatedSha3")
+					if (element instanceof ElementReferenceExpression) {
+						element.reference = declarations.keccak256
+					}
 				}
 			})
 	}
 
-	@Fix(WARNING_DEPRECATED_NAMED_FUNCTION_PARAMETER)
-	def replaceDeprecatedNamedFunctionParameter(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, 'Remove parameter name', 'remove parameter name', null, new ISemanticModification() {
-			override apply(EObject element, IModificationContext context) throws Exception {
-				// FIXME This gets never called since ResourceServiceProviderRegistryImpl#getServiceProvider(URI uri, String contentType) returns null
-				println("TODO: replaceDeprecatedNamedFunctionParameter")
-			}
-		})
-	}
-
-	@Fix(WARNING_DEPRECATED_NAMED_FUNCTION_RETURN_VALUES)
-	def replaceDeprecatedNamedFunctionReturnValues(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, 'Remove named return values', 'remove named return values', null,
-			new ISemanticModification() {
-				override apply(EObject element, IModificationContext context) throws Exception {
-					// FIXME This gets never called since ResourceServiceProviderRegistryImpl#getServiceProvider(URI uri, String contentType) returns null
-					println("TODO: replaceDeprecatedNamedFunctionReturnValues")
-				}
-			})
-	}
-
-	@Fix(WARNING_AMBIGUES_TYPE_INFERRENCE)
-	def replaceVarWithSpecificType(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, 'Infer runtime type', 'var a = 5; -> int a = 5', null, new ISemanticModification() {
-			override apply(EObject element, IModificationContext context) throws Exception {
-				// FIXME This gets never called since ResourceServiceProviderRegistryImpl#getServiceProvider(URI uri, String contentType) returns null
-				println("TODO: replaceVarWithSpecificType")
-			}
-		})
-	}
+// TODO: This is not possible due to a missing feature in our solidity language
+//	@Fix(WARNING_DEPRECATED_NAMED_FUNCTION_RETURN_VALUES)
+//	def replaceDeprecatedNamedFunctionReturnValues(Issue issue, IssueResolutionAcceptor acceptor) {
+//		acceptor.accept(issue, 'Remove named return values', 'remove named return values', null,
+//			new ISemanticModification() {
+//				override apply(EObject element, IModificationContext context) throws Exception {
+//				}
+//			})
+//	}
 
 	@Fix(WARNING_USSAGE_OF_SEND)
 	def replaceSendWithTransfer(Issue issue, IssueResolutionAcceptor acceptor) {
@@ -339,5 +328,4 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			}
 		})
 	}
-
 }
