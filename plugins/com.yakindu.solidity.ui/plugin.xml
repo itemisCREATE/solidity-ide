@@ -105,12 +105,6 @@
             name="Compiler">
         </page>
    </extension>
-   <extension
-         point="org.eclipse.core.runtime.preferences">
-      <initializer
-            class="com.yakindu.solidity.ui.preferences.SolidityPreferenceInitializer">
-      </initializer>
-	</extension>
 	<extension
 			point="org.eclipse.ui.propertyPages">
 		<page
@@ -216,6 +210,15 @@
 				</reference>
 			</activeWhen>
 		</handler>
+	</extension>
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type
+			base-type="org.eclipse.core.runtime.text"
+			file-extensions="sol"
+			id="com.yakindu.solidity.Solidity.contenttype"
+			name="Solidity File"
+			priority="normal">
+		</content-type>
 	</extension>
 	<!-- adding resource factories -->
 	<extension
@@ -453,7 +456,7 @@
             name="YAKINDU SOLIDITY TOOLS">
          <property
                name="windowImages"
-               value="platform:/plugin/com.yakindu.solidity.app/icons/icon_16x16.png,platform:/plugin/com.yakindu.solidity.app/icons/icon_32x32.png,platform:/plugin/com.yakindu.solidity.app/icons/icon_48x48.png,platform:/plugin/com.yakindu.solidity.app/icons/icon_64x64.png,platform:/plugin/com.yakindu.solidity.app/icons/icon_128x128.png,platform:/plugin/com.yakindu.solidity.app/icons/icon_256x256.png">
+               value="platform:/plugin/com.yakindu.solidity.ui/icons/icon_16x16.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_32x32.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_48x48.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_64x64.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_128x128.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_256x256.png">
          </property>
          <property
                name="aboutText"
@@ -461,7 +464,7 @@
          </property>
          <property
                name="aboutImage"
-               value="platform:/plugin/com.yakindu.solidity.app/icons/icon_256x256.png">
+               value="platform:/plugin/com.yakindu.solidity.ui/icons/icon_256x256.png">
          </property>
          <property
                name="appName"
@@ -485,6 +488,12 @@
          </property>
       </product>
    </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.yakindu.solidity.ui.preferences.SolidityPreferenceInitializer">
+      </initializer>
+	</extension>
 	<extension
 			point="org.eclipse.ui.preferencePages">
 		<page
