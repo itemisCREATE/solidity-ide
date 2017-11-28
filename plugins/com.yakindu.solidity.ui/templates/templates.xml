@@ -1,4 +1,58 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates>
-<template id="sol_001" autoinsert="true" context="com.yakindu.solidity.Solidity.kw_event" deleted="false" description="Creates an Event defintion" enabled="true" name="Create Event">event ${name} (${cursor});</template>
-<template id="sol_002" autoinsert="true" context="com.yakindu.solidity.Solidity.StateVariableDefinition" deleted="false" description="Creates a Variable definition" enabled="true" name="Create Variable">${type:CrossReference('SolidityPackage.SimpleTypeSpecifier.type')} ${name};</template>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<templates>
+	<template id="block_001" autoinsert="true"
+		context="com.yakindu.solidity.Solidity.Block" deleted="false"
+		description="Creates a 'assert' postcondition " enabled="true" name="assert">
+		assert (${cursor});
+	</template>
+	<template id="block_002" autoinsert="true"
+		context="com.yakindu.solidity.Solidity.Block" deleted="false"
+		description="Creates a 'require'  precondition " enabled="true" name="require">
+		require	(${cursor});
+	</template>
+
+	<template id="contract_001" autoinsert="true"
+		context="com.yakindu.solidity.Solidity.ContractPart" deleted="false"
+		description="Creates an internal variable definition" enabled="true"
+		name="Create internal field">
+		${type:CrossReference('SolidityPackage.TypeSpecifier.type')} internal ${name};
+	</template>
+	<template id="contract_002" autoinsert="true"
+		context="com.yakindu.solidity.Solidity.ContractPart" deleted="false"
+		description="Creates a private variable definition" enabled="true"
+		name="Create private field">
+		${type:CrossReference('SolidityPackage.TypeSpecifier.type')} private ${name};
+	</template>
+	<template id="contract_003" autoinsert="true"
+		context="com.yakindu.solidity.Solidity.ContractPart" deleted="false"
+		description="Creates a public constant" enabled="true"
+		name="Create public constant">
+		${type:CrossReference('SolidityPackage.TypeSpecifier.type')} public constant ${name};
+	</template>
+	<template id="contract_004" autoinsert="true"
+		context="com.yakindu.solidity.Solidity.ContractPart" deleted="false"
+		description="Creates a public variable definition" enabled="true"
+		name="Create public field">
+		${type:CrossReference('SolidityPackage.TypeSpecifier.type')} public ${name};
+	</template>
+	<template id="contract_005" autoinsert="true"
+		context="com.yakindu.solidity.Solidity.ContractPart" deleted="false"
+		description="Creates an event definition" enabled="true" name="event">
+		event ${name} (${cursor});
+	</template>
+	<template id="contract_006" autoinsert="true"
+		context="com.yakindu.solidity.Solidity.ContractPart" deleted="false"
+		description="Creates a function" enabled="true" name="function">function ${name}
+		() ${mod:CrossReference(FunctionModifier)} returns (){
+			${cursor}
+		}
+	</template>
+	<template id="contract_007" autoinsert="true"
+		context="com.yakindu.solidity.Solidity.ContractPart" deleted="false"
+		description="Creates a custom modifier" enabled="true" name="modifier">modifier
+		${name} (${cursor}){
+			_;
+		}
+	</template>
+
 </templates>
