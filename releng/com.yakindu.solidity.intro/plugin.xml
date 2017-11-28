@@ -10,18 +10,14 @@
       </intro>
       <introProductBinding
             introId="com.yakindu.solidity.intro"
-            productId="com.yakindu.solidity.app">
-      </introProductBinding>
-       <introProductBinding
-            introId="com.yakindu.solidity.intro"
-            productId="com.yakindu.solidity.app">
+            productId="com.yakindu.solidity.ui.YST">
       </introProductBinding>
    </extension>
    <extension
          point="org.eclipse.ui.intro.config">
       <config
             content="introContent.xml"
-            id="com.yakindu.sctpro.intro.introConfigId"
+            id="com.yakindu.solidity.intro.introConfigId"
             introId="com.yakindu.solidity.intro">
          <presentation
                home-page-id="root">

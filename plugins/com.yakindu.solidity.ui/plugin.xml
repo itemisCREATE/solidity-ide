@@ -429,26 +429,6 @@
 
    <!-- CUSTOMIZATION -->
    <extension
-         id="YES"
-         point="org.eclipse.core.runtime.products">
-      <product
-            application="org.eclipse.ui.ide.workbench"
-            name="YAKINDU Solidity Tools">
-         <property
-               name="appName"
-               value="YAKINDU Solidity Tools">
-         </property>
-         <property
-               name="aboutImage"
-               value="icons/YSTLogo96.png">
-         </property>
-         <property
-               name="windowImages"
-               value="icons/YSTLogo16.png,icons/YSTLogo32.png,icons/YSTLogo48.png,icons/YSTLogo64.png,icons/YSTLogo128.png">
-         </property>
-      </product>
-   </extension>
-   <extension
          id="YST"
          point="org.eclipse.core.runtime.products">
       <product
