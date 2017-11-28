@@ -13,14 +13,13 @@ import com.yakindu.solidity.solidity.FunctionModifier
 import com.yakindu.solidity.solidity.IndexParameter
 import com.yakindu.solidity.solidity.MappingTypeSpecifier
 import com.yakindu.solidity.solidity.Modifier
-import com.yakindu.solidity.solidity.Parameter
 import com.yakindu.solidity.solidity.VariableDefinition
-import com.yakindu.solidity.solidity.Visibility
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
+import org.yakindu.base.base.NamedElement
 import org.yakindu.base.types.Package
-import org.yakindu.base.types.Type
 import org.yakindu.base.types.TypeSpecifier
+import com.yakindu.solidity.solidity.ModifierInvocation
 
 /**
  * Provides labels for EObjects.
@@ -38,138 +37,91 @@ class SolidityLabelProvider extends DefaultEObjectLabelProvider {
 		return null
 	}
 
-	def dispatch String text(ContractDefinition contract) {
-		contract.name
+	def dispatch String text(NamedElement it) {
+		name
 	}
 
 	def dispatch String text(VariableDefinition it) {
-		name + ": " + type.name
+		'''«name» : «typeSpecifier.text()»'''.toString
 	}
 
-	def dispatch String text(EventDefinition event) {
-		event.name + " : event"
+	def dispatch String text(EventDefinition it) {
+		'''«name» : event'''.toString
 	}
 
-	def dispatch String text(Parameter param) {
-		if (param.name !== null) {
-			param.name + " : " + param.typeSpecifier.name
-		} else {
-			param.typeSpecifier.name
-		}
-	}
-
-	def dispatch String text(IndexParameter param) {
-		param.name + " : " + param.typeSpecifier.name
+	def dispatch String text(IndexParameter it) {
+		'''«name» : «typeSpecifier.text()»'''
 	}
 
 	def dispatch String text(FunctionDefinition it) {
-		val buildInModifiers = modifier
-			.filter(BuildInModifier)
-			.filter[isVisibility]
-			.map[type.getName.toVisibilityNotation]
-			.join(" ")
-
-		val functionModifier = modifier
-			.filter(BuildInModifier)
-			.filter[!isVisibility]
-			.map[type.getName.toLowerCase]
-			.join(" ")
+		val functionModifier = modifier.filter[!isVisibility].filterNull.map [
+			text()
+		].join(" ")
 
 		val returnType = if (returnParameters.isEmpty) {
 				"void"
 			} else {
 				returnParameters.map[type.name].join(",")
 			}
-		
-		
-		return '''«buildInModifiers» «name»(«parameters.map[type.name].join(",")»)«IF !functionModifier.empty»[«functionModifier»]«ENDIF»: «returnType»'''
-	}
-	
-	def dispatch boolean isVisibility(Modifier modifier) {
-		false;
+
+		return '''«name»(«parameters.map[type.name].join(",")»)«IF !functionModifier.empty»[«functionModifier»]«ENDIF»: «returnType»'''
 	}
 
-	def dispatch boolean isVisibility(BuildInModifier modifier) {
-		modifier.type === FunctionModifier.PUBLIC || modifier.type === FunctionModifier.INTERNAL ||
-			modifier.type === FunctionModifier.EXTERNAL || modifier.type === FunctionModifier.PRIVATE
+	def dispatch String text(ModifierInvocation it) {
+		'''«it.reference.name.toLowerCase»'''
 	}
 
-	def dispatch String text(BuildInModifier modifier) {
-		modifier.toString
+	def dispatch String text(FunctionModifier it) {
+		'''«it.getName»'''
 	}
 
-	def dispatch String text(FunctionModifier modifier) {
-		modifier.getName
+	def dispatch String text(BuildInModifier it) {
+		'''«it.type.getName»'''
 	}
 
-	def dispatch String text(MappingTypeSpecifier specifier) {
-		val key = specifier.key.name
-		val value = specifier.value.name
-		return "(" + key + " => " + value + ")"
+	def dispatch boolean isVisibility(BuildInModifier it) {
+		type === FunctionModifier.PUBLIC || type === FunctionModifier.INTERNAL || type === FunctionModifier.EXTERNAL ||
+			type === FunctionModifier.PRIVATE
 	}
 
-	def dispatch String text(ArrayTypeSpecifier specifier) {
-		specifier.type.name + "[]"
+	def dispatch boolean isVisibility(Modifier it) {
+		false
 	}
 
-	def dispatch String text(TypeSpecifier specifier) {
-		specifier.type.name;
+	def dispatch String text(MappingTypeSpecifier it) {
+		'''( «key.text()» => «value.text()»)'''
 	}
 
-	def dispatch String text(Type type) {
+	def dispatch String text(ArrayTypeSpecifier it) {
+		'''«type.text()»[]'''
+	}
+
+	def dispatch String text(TypeSpecifier it) {
 		type.name;
 	}
-
-	def String toVisibilityNotation(Visibility visibility) {
-		visibility.getName.toVisibilityNotation
-
-	}
-
-	def String toVisibilityNotation(String name) {
-		switch (name) {
-			case "PUBLIC": {
-				return "+"
-			}
-			case "PRIVATE": {
-				return "-"
-			}
-			case "INTERNAL": {
-				return "~"
-			}
-			default: {
-				return name
-			}
-		}
-	}
-	
-	def private getName (TypeSpecifier it) {
-		type.name
-	}
-
 
 	def dispatch String image(Object obj) {
 		return null
 	}
 
-	def dispatch String image (ContractDefinition it) {
+	def dispatch String image(ContractDefinition it) {
 		"contract.png"
 	}
 
-	def dispatch String image (VariableDefinition it) {
+	def dispatch String image(VariableDefinition it) {
 		"variable.gif"
 	}
 
-	def dispatch String image (FunctionDefinition it) {
+	def dispatch String image(FunctionDefinition it) {
 		"function.gif"
 	}
 
-	def dispatch String image (EventDefinition it) {
+	def dispatch String image(EventDefinition it) {
 		"event.gif"
 	}
 
-	def dispatch String image (Package it) {
+	def dispatch String image(Package it) {
 		"import.gif"
 	}
-
 
 }
