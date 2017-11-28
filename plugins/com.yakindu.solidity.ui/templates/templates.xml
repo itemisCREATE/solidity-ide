@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates>
+<template id="sol_001" autoinsert="true" context="com.yakindu.solidity.Solidity.kw_event" deleted="false" description="Creates an Event defintion" enabled="true" name="Create Event">event ${name} (${cursor});</template>
+<template id="sol_002" autoinsert="true" context="com.yakindu.solidity.Solidity.StateVariableDefinition" deleted="false" description="Creates a Variable definition" enabled="true" name="Create Variable">${type:CrossReference('SolidityPackage.SimpleTypeSpecifier.type')} ${name};</template>
+</templates>

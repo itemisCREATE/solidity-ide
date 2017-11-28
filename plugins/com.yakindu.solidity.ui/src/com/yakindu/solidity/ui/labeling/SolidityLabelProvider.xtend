@@ -147,6 +147,10 @@ class SolidityLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 
+	def dispatch String image(Object obj) {
+		return null
+	}
+
 	def dispatch String image (ContractDefinition it) {
 		"contract.png"
 	}
