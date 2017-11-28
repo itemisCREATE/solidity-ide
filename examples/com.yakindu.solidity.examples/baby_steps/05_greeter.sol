@@ -3,6 +3,7 @@
 	It takes a string upon creation and then repeats it when greet() is called.
 */
 
+
 contract Greeter          // The contract definition. A constructor of the same name will be automatically called on contract creation. 
 {
     address creator;     // At first, an empty "address"-type variable of the name "creator". Will be set in the constructor.

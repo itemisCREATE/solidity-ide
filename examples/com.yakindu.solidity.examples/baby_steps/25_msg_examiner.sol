@@ -12,6 +12,7 @@ contract msgExaminer {
     uint contract_creation_tx_gasprice;
     address contract_creation_tx_origin;
 
+
     function msgExaminer() public 
     {
         creator = msg.sender; 								// msg is a global variable

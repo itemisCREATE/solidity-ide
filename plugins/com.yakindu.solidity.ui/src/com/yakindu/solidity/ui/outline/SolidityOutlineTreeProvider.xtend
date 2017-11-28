@@ -4,29 +4,16 @@
 package com.yakindu.solidity.ui.outline
 
 import com.google.inject.Inject
-import com.yakindu.solidity.solidity.ContractDefinition
-import com.yakindu.solidity.solidity.EventDefinition
-import com.yakindu.solidity.solidity.ExpressionStatement
-import com.yakindu.solidity.solidity.ForStatement
-import com.yakindu.solidity.solidity.FunctionDefinition
-import com.yakindu.solidity.solidity.IfStatement
-import com.yakindu.solidity.solidity.IndexParameter
-import com.yakindu.solidity.solidity.InlineAssemblyStatement
-import com.yakindu.solidity.solidity.PlaceholderStatement
-import com.yakindu.solidity.solidity.ReturnStatement
-import com.yakindu.solidity.solidity.SimpleStatement
 import com.yakindu.solidity.solidity.SolidityModel
 import com.yakindu.solidity.solidity.SourceUnit
-import com.yakindu.solidity.solidity.Statement
-import com.yakindu.solidity.solidity.TypeSpecifier
-import com.yakindu.solidity.solidity.VariableDefinition
+import java.util.List
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.swt.graphics.Image
+import org.eclipse.xtext.ui.IImageHelper
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider
-import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode
-import com.yakindu.solidity.solidity.Block
-import com.yakindu.solidity.solidity.BuildInModifier
+import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode
+import org.yakindu.base.types.Declaration
+import org.yakindu.base.types.Package
 
 /**
  * Customization of the default outline structure.
@@ -34,121 +21,38 @@ import com.yakindu.solidity.solidity.BuildInModifier
  * See https://www.eclipse.org/Xtext/documentation/310_eclipse_support.html#outline
  */
 class SolidityOutlineTreeProvider extends DefaultOutlineTreeProvider {
-
-	@Inject extension NodeNaming;
-
-	def _createChildren(IOutlineNode parentNode, SolidityModel model) {
-		model.sourceunit.forEach [ unit |
-			unit.import.forEach[import|createLeafNode(parentNode, import, import.name)]
-			unit.member.forEach[member|createNode(parentNode, member)]
+	@Inject IImageHelper imageHelper
+	
+	override protected void _createChildren(DocumentRootNode parentNode, EObject rootElement) {
+		for (EObject content : rootElement.eContents()) {
+			createNode(parentNode, content)
+		}
+	}
+	
+	def void _createNode(IOutlineNode parentNode, SolidityModel model) {
+	}
+	
+	def void _createChildren(IOutlineNode parentNode, SourceUnit model) {
+		val imports = model.import.toList
+		if (!imports.empty) {
+			createImportNode (parentNode, imports)
+		}
+		model.member.forEach[member|
+			createNode(parentNode, member)
 		]
 	}
-
-	def _createChildren(IOutlineNode parentNode, FunctionDefinition function) {
-		function?.parameters?.forEach [
-			createLeafNode(parentNode, it, it.toName);
-		]
-		function?.modifier?.filter[mod|! (mod instanceof BuildInModifier)].filterNull.forEach [
-			createLeafNode(parentNode, it, it.toName);
-		]
-		createNode(parentNode, function.block)
-	}
-
-	def _createChildren(IOutlineNode parentNode, IfStatement ifStatement) {
-		val condition = ifStatement.condition;
-		if (condition !== null) {
-			createLeafNode(parentNode, condition, "Condition");
-		}
-		val then = ifStatement.then;
-		if (then !== null) {
-			createLeafNode(parentNode, then, "Then");
-		}
-		val ^else = ifStatement.^else;
-		if (^else !== null) {
-			createLeafNode(parentNode, ^else, "Else");
+	
+	def private createImportNode (IOutlineNode parentNode, List<Package> imports) {
+		val importParent = new SimpleOutlineNode(parentNode, imageHelper.getImage("importgroup"), "Imports", false)
+		for (imp: imports) {
+			createNode(importParent, imp)
 		}
 	}
 
-	def _createChildren(IOutlineNode parentNode, ForStatement forStatement) {
-		val condition = forStatement.condition;
-		if (condition !== null) {
-			createLeafNode(parentNode, condition, "Condition");
+	override protected _isLeaf(EObject element) {
+		switch element {
+			Declaration: true
+			default: return super._isLeaf(element)
 		}
-		val initialization = forStatement.initialization;
-		if (condition !== null) {
-			createLeafNode(parentNode, initialization, "Initialization");
-		}
-		val after = forStatement.afterthought;
-		if (condition !== null) {
-			createLeafNode(parentNode, after, "Afterthought");
-		}
-
 	}
-
-	def createLeafNode(IOutlineNode node, EObject object, String text) {
-		return new EObjectNode(object, node, (null as Image), text, true);
-	}
-
-	def _createNode(IOutlineNode parentNode, Block block) {
-		return new EObjectNode(block, parentNode, (null as Image), block.toName, false);
-	}
-
-	def _createNode(IOutlineNode parentNode, SourceUnit unit) {
-		return new EObjectNode(unit, parentNode, (null as Image), unit.toName, false);
-	}
-
-	def _createNode(IOutlineNode parentNode, ContractDefinition contract) {
-		return new EObjectNode(contract, parentNode, (null as Image), contract.toName, false);
-	}
-
-	def _createNode(IOutlineNode parentNode, EventDefinition event) {
-		return new EObjectNode(event, parentNode, (null as Image), event.toName, false);
-	}
-
-	def _createNode(IOutlineNode parentNode, IndexParameter param) {
-		return createLeafNode(parentNode, param, param.toName);
-	}
-
-	def _createNode(IOutlineNode parentNode, FunctionDefinition function) {
-		return new EObjectNode(function, parentNode, (null as Image), function.toName, false);
-	}
-
-	def _createNode(IOutlineNode parentNode, IfStatement ifStatement) {
-		return new EObjectNode(ifStatement, parentNode, (null as Image), "If Statement", false);
-	}
-
-	def _createNode(IOutlineNode parentNode, ForStatement forStatement) {
-		return new EObjectNode(forStatement, parentNode, (null as Image), "For Statement", false);
-	}
-
-	def _createNode(IOutlineNode parentNode, Statement statement) {
-		createLeafNode(parentNode, statement, "Statement")
-	}
-
-	def _createNode(IOutlineNode parentNode, InlineAssemblyStatement assembler) {
-		createEObjectNode(parentNode, assembler)
-	}
-
-	def _createNode(IOutlineNode parentNode, PlaceholderStatement placeholder) {
-		createEObjectNode(parentNode, placeholder)
-	}
-
-	def _createNode(IOutlineNode parentNode, ReturnStatement returnStatement) {
-		createLeafNode(parentNode, returnStatement, "Return Statement")
-	}
-
-	def _createNode(IOutlineNode parentNode, VariableDefinition variableDefinition) {
-		val nodeName = variableDefinition.visibility.toVisibilityNotation + " " + variableDefinition.name + " : " +
-			(variableDefinition.typeSpecifier as TypeSpecifier).toName
-		createLeafNode(parentNode, variableDefinition, nodeName)
-	}
-
-	def _createNode(IOutlineNode parentNode, ExpressionStatement expression) {
-		createLeafNode(parentNode, expression, "Expression")
-	}
-
-	def _createNode(IOutlineNode parentNode, SimpleStatement simpleStatement) {
-		createEObjectNode(parentNode, simpleStatement)
-	}
-
 }
