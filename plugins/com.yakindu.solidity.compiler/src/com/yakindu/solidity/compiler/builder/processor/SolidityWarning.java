@@ -31,7 +31,6 @@ public enum SolidityWarning {
 				}
 			}
 		}
-		System.out.println(message);
 		return "UNKNOWN";
 	}
 }
