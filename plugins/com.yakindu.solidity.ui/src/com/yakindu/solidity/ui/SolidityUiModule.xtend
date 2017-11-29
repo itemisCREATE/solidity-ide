@@ -5,12 +5,14 @@ import com.google.inject.name.Names
 import com.yakindu.solidity.ui.contentassist.SolidityContentProposalPriorities
 import com.yakindu.solidity.ui.editor.SolidityFoldingRegionProvider
 import com.yakindu.solidity.ui.editor.SolidityHyperlinkHelper
+import com.yakindu.solidity.ui.editor.SolidityIndentationInformation
 import com.yakindu.solidity.ui.help.CustomCSSHelpHoverProvider
 import com.yakindu.solidity.ui.help.SolidityUserHelpDocumentationProvider
 import com.yakindu.solidity.ui.highlighting.SolidityHighlightingConfiguration
 import com.yakindu.solidity.ui.highlighting.SoliditySemanticHighlighter
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider
+import org.eclipse.xtext.formatting.IIndentationInformation
 import org.eclipse.xtext.ui.editor.contentassist.IContentProposalPriorities
 import org.eclipse.xtext.ui.editor.folding.IFoldingRegionProvider
 import org.eclipse.xtext.ui.editor.hover.DispatchingEObjectTextHover
@@ -31,7 +33,7 @@ class SolidityUiModule extends AbstractSolidityUiModule {
 		binder.bind(DispatchingEObjectTextHover).to(CrossRefObjectTextHover)
 		binder.bind(String).annotatedWith(Names.named("stylesheet")).toInstance("/sphinx_rtd_theme.css")
 		binder.bind(IEObjectHoverProvider).to(CustomCSSHelpHoverProvider)
- 
+
 	}
 
 	override bindIEObjectHover() {
@@ -41,7 +43,13 @@ class SolidityUiModule extends AbstractSolidityUiModule {
 	def Class<? extends IHyperlinkHelper> bindIHyperlinkHelper() { SolidityHyperlinkHelper }
 
 	def Class<? extends IFoldingRegionProvider> bindIFoldingRegionProvider() { SolidityFoldingRegionProvider }
-	
-	def Class<? extends IContentProposalPriorities> bindIContentProposalPriorities() { SolidityContentProposalPriorities }
-	
+
+	def Class<? extends IContentProposalPriorities> bindIContentProposalPriorities() {
+		SolidityContentProposalPriorities
+	}
+
+	override Class<? extends IIndentationInformation> bindIIndentationInformation() {
+		return SolidityIndentationInformation;
+	}
+
 }
