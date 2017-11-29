@@ -20,6 +20,8 @@ import org.yakindu.base.base.NamedElement
 import org.yakindu.base.types.Package
 import org.yakindu.base.types.TypeSpecifier
 import com.yakindu.solidity.solidity.ModifierInvocation
+import com.yakindu.solidity.solidity.PragmaDirective
+import com.yakindu.solidity.solidity.ImportDirective
 
 /**
  * Provides labels for EObjects.
@@ -45,6 +47,14 @@ class SolidityLabelProvider extends DefaultEObjectLabelProvider {
 		'''«name» : «typeSpecifier.text()»'''.toString
 	}
 
+	def dispatch String text(ImportDirective it) {
+		'''import «importedNamespace»'''.toString
+	}
+
+	def dispatch String text(PragmaDirective it) {
+		'''pragma solidity «version»'''.toString
+	}
+
 	def dispatch String text(EventDefinition it) {
 		'''«name» : event'''.toString
 	}
@@ -68,15 +78,15 @@ class SolidityLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	def dispatch String text(ModifierInvocation it) {
-		'''«it.reference.name.toLowerCase»'''
+		'''«it.reference.name»'''
 	}
 
 	def dispatch String text(FunctionModifier it) {
-		'''«it.getName»'''
+		'''«it.getName.toLowerCase»'''
 	}
 
 	def dispatch String text(BuildInModifier it) {
-		'''«it.type.getName»'''
+		'''«it.type.getName.toLowerCase»'''
 	}
 
 	def dispatch boolean isVisibility(BuildInModifier it) {

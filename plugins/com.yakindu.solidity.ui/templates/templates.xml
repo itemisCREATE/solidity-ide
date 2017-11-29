@@ -8,7 +8,7 @@
 		context="com.yakindu.solidity.Solidity.Block" deleted="false"
 		description="Creates a 'require'  precondition " enabled="true" name="require">require (${cursor});
 	</template>
-
+  
 	<template id="contract_001" autoinsert="true"
 		context="com.yakindu.solidity.Solidity.ContractPart" deleted="false"
 		description="Creates an internal variable definition" enabled="true"
