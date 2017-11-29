@@ -10,18 +10,19 @@ import com.yakindu.solidity.solidity.ContractDefinition
 import com.yakindu.solidity.solidity.EventDefinition
 import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.FunctionModifier
+import com.yakindu.solidity.solidity.ImportDirective
 import com.yakindu.solidity.solidity.IndexParameter
 import com.yakindu.solidity.solidity.MappingTypeSpecifier
 import com.yakindu.solidity.solidity.Modifier
+import com.yakindu.solidity.solidity.ModifierDefinition
+import com.yakindu.solidity.solidity.ModifierInvocation
+import com.yakindu.solidity.solidity.PragmaDirective
 import com.yakindu.solidity.solidity.VariableDefinition
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
 import org.yakindu.base.base.NamedElement
-import org.yakindu.base.types.Package
 import org.yakindu.base.types.TypeSpecifier
-import com.yakindu.solidity.solidity.ModifierInvocation
-import com.yakindu.solidity.solidity.PragmaDirective
-import com.yakindu.solidity.solidity.ImportDirective
+import org.yakindu.base.types.EnumerationType
 
 /**
  * Provides labels for EObjects.
@@ -56,7 +57,11 @@ class SolidityLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	def dispatch String text(EventDefinition it) {
-		'''«name» : event'''.toString
+		'''«name» («parameters.map[type.name].join(", ")»)'''.toString
+	}
+	
+	def dispatch String text(EnumerationType it) {
+		'''«name»'''.toString
 	}
 
 	def dispatch String text(IndexParameter it) {
@@ -71,10 +76,14 @@ class SolidityLabelProvider extends DefaultEObjectLabelProvider {
 		val returnType = if (returnParameters.isEmpty) {
 				"void"
 			} else {
-				returnParameters.map[type.name].join(",")
+				returnParameters.map[type.name].join(", ")
 			}
 
-		return '''«name»(«parameters.map[type.name].join(",")»)«IF !functionModifier.empty»[«functionModifier»]«ENDIF»: «returnType»'''
+		return '''«name»(«parameters.map[type.name].join(", ")»)«IF !functionModifier.empty»[«functionModifier»]«ENDIF»: «returnType»'''
+	}
+
+	def dispatch String text(ModifierDefinition it) {
+		'''«it.name» («parameters.map[type.name].join(", ")»)'''
 	}
 
 	def dispatch String text(ModifierInvocation it) {
@@ -114,6 +123,14 @@ class SolidityLabelProvider extends DefaultEObjectLabelProvider {
 		return null
 	}
 
+	def dispatch String image(PragmaDirective it) {
+		"pragma.gif"
+	}
+	
+	def dispatch String image(ImportDirective it) {
+		"import.gif"
+	}
+
 	def dispatch String image(ContractDefinition it) {
 		"contract.png"
 	}
@@ -130,8 +147,12 @@ class SolidityLabelProvider extends DefaultEObjectLabelProvider {
 		"event.gif"
 	}
 
-	def dispatch String image(Package it) {
-		"import.gif"
+	def dispatch String image(ModifierDefinition it) {
+		"modifier.gif"
+	}
+
+	def dispatch String image(EnumerationType it) {
+		"enum.gif"
 	}
 
 }
