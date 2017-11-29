@@ -74,7 +74,7 @@
 				<configuration>
 					<products>
 						<product>
-							<id>com.yakindu.solidity.application</id>
+							<id>com.yakindu.solidity.app.YST</id>
 							<rootFolder>yakindu-solidity</rootFolder>
 							<rootFolders>
 								<macosx>YAKINDU SOLIDITY.application</macosx>
