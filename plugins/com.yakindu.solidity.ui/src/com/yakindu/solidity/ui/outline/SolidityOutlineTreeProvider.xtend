@@ -3,50 +3,40 @@
  */
 package com.yakindu.solidity.ui.outline
 
-import com.google.inject.Inject
 import com.yakindu.solidity.solidity.SolidityModel
 import com.yakindu.solidity.solidity.SourceUnit
-import java.util.List
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.ui.IImageHelper
-import org.eclipse.xtext.ui.editor.outline.IOutlineNode
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode
 import org.yakindu.base.types.Declaration
-import org.yakindu.base.types.Package
 
 /**
  * Customization of the default outline structure.
  * 
  * See https://www.eclipse.org/Xtext/documentation/310_eclipse_support.html#outline
+ * 
+ * @author Florian Antony
  */
+ 
 class SolidityOutlineTreeProvider extends DefaultOutlineTreeProvider {
-	@Inject IImageHelper imageHelper
-	
-	override protected void _createChildren(DocumentRootNode parentNode, EObject rootElement) {
-		for (EObject content : rootElement.eContents()) {
-			createNode(parentNode, content)
-		}
-	}
-	
-	def void _createNode(IOutlineNode parentNode, SolidityModel model) {
-	}
-	
-	def void _createChildren(IOutlineNode parentNode, SourceUnit model) {
-		val imports = model.import.toList
-		if (!imports.empty) {
-			createImportNode (parentNode, imports)
-		}
-		model.member.forEach[member|
-			createNode(parentNode, member)
+
+	def void _createNode(DocumentRootNode parentNode, SolidityModel it) {
+		sourceunit.forEach [ unit |
+			createNode(parentNode, unit)
 		]
+
 	}
-	
-	def private createImportNode (IOutlineNode parentNode, List<Package> imports) {
-		val importParent = new SimpleOutlineNode(parentNode, imageHelper.getImage("importgroup"), "Imports", false)
-		for (imp: imports) {
-			createNode(importParent, imp)
+
+	def void _createNode(DocumentRootNode parentNode, SourceUnit it) {
+		if(pragma !== null){
+			_createNode(parentNode, pragma)
 		}
+		imports.forEach [ import |
+			_createNode(parentNode, import)
+		]
+		member.forEach [ member |
+			_createNode(parentNode, member)
+		]
 	}
 
 	override protected _isLeaf(EObject element) {
