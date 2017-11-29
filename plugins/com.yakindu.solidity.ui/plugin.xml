@@ -98,13 +98,13 @@
 			name="Templates">
 			<keywordReference id="com.yakindu.solidity.ui.keyword_Solidity"/>
 		</page>
-        <page
-           category="com.yakindu.solidity.Solidity"
-           class="com.yakindu.solidity.ui.preferences.SolidityCompilerPreferencePage"
-            id="com.yakindu.solidity.Solidity.compiler"
-            name="Compiler">
-        </page>
-   </extension>
+		  <page
+			  category="com.yakindu.solidity.Solidity"
+			  class="com.yakindu.solidity.ui.preferences.SolidityCompilerPreferencePage"
+				id="com.yakindu.solidity.Solidity.compiler"
+				name="Compiler">
+		  </page>
+	</extension>
 	<extension
 			point="org.eclipse.ui.propertyPages">
 		<page
@@ -427,52 +427,52 @@
 	</extension>
 
 
-   <!-- CUSTOMIZATION -->
-   <extension
-         id="YST"
-         point="org.eclipse.core.runtime.products">
-      <product
-            application="org.eclipse.ui.ide.workbench"
-            name="YAKINDU SOLIDITY TOOLS">
-         <property
-               name="windowImages"
-               value="platform:/plugin/com.yakindu.solidity.ui/icons/icon_16x16.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_32x32.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_48x48.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_64x64.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_128x128.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_256x256.png">
-         </property>
-         <property
-               name="aboutText"
-               value="(c) itemis AG, 2017. All rights reserved.">
-         </property>
-         <property
-               name="aboutImage"
-               value="platform:/plugin/com.yakindu.solidity.ui/icons/icon_256x256.png">
-         </property>
-         <property
-               name="appName"
-               value="YAKINDU SOLIDITY TOOLS">
-         </property>
-         <property
-               name="startupForegroundColor"
-               value="8080C0">
-         </property>
-         <property
-               name="startupMessageRect"
-               value="7,252,445,20">
-         </property>
-         <property
-               name="startupProgressRect"
-               value="5,275,445,15">
-         </property>
-         <property
-               name="preferenceCustomization"
-               value="plugin_customization.ini">
-         </property>
-      </product>
-   </extension>
-   <extension
-         point="org.eclipse.core.runtime.preferences">
-      <initializer
-            class="com.yakindu.solidity.ui.preferences.SolidityPreferenceInitializer">
-      </initializer>
+	<!-- CUSTOMIZATION -->
+	<extension
+			id="YST"
+			point="org.eclipse.core.runtime.products">
+		<product
+				application="org.eclipse.ui.ide.workbench"
+				name="YAKINDU SOLIDITY TOOLS">
+			<property
+					name="windowImages"
+					value="platform:/plugin/com.yakindu.solidity.ui/icons/icon_16x16.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_32x32.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_48x48.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_64x64.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_128x128.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_256x256.png">
+			</property>
+			<property
+					name="aboutText"
+					value="(c) itemis AG, 2017. All rights reserved.">
+			</property>
+			<property
+					name="aboutImage"
+					value="platform:/plugin/com.yakindu.solidity.ui/icons/icon_256x256.png">
+			</property>
+			<property
+					name="appName"
+					value="YAKINDU SOLIDITY TOOLS">
+			</property>
+			<property
+					name="startupForegroundColor"
+					value="8080C0">
+			</property>
+			<property
+					name="startupMessageRect"
+					value="7,252,445,20">
+			</property>
+			<property
+					name="startupProgressRect"
+					value="5,275,445,15">
+			</property>
+			<property
+					name="preferenceCustomization"
+					value="plugin_customization.ini">
+			</property>
+		</product>
+	</extension>
+	<extension
+			point="org.eclipse.core.runtime.preferences">
+		<initializer
+				class="com.yakindu.solidity.ui.preferences.SolidityPreferenceInitializer">
+		</initializer>
 	</extension>
 	<extension
 			point="org.eclipse.ui.preferencePages">
@@ -484,4 +484,44 @@
 			<keywordReference id="com.yakindu.solidity.ui.keyword_Solidity"/>
 		</page>
 	</extension>
+	<!-- Wizards -->
+	<extension
+			point="org.eclipse.ui.newWizards">
+		<category
+			id="com.yakindu.solidity.wizards"
+			name="Solidity">
+		</category>
+		<wizard
+				category="com.yakindu.solidity.wizards"
+				icon="icons/icon_16x16.png"
+				id="com.yakindu.solidity.ui.wizards.NewSolidityFile"
+				canFinishEarly="false"
+				hasPages="false"
+				name="New Solidity File">
+				<class class="com.yakindu.solidity.ui.SolidityExecutableExtensionFactory">
+				<parameter name="javatype" value="true" />
+				<parameter name="guicekey" value="com.yakindu.solidity.ui.wizard.NewFileWizard" />
+			</class>
+			<description>
+					Create a new Solidity file
+			</description>
+		</wizard>
+	</extension>
+	<extension
+		point="org.eclipse.ui.perspectiveExtensions">
+		 <perspectiveExtension
+				targetID="org.eclipse.ui.resourcePerspective">
+			<newWizardShortcut
+				id="com.yakindu.solidity.ui.wizards.NewSolidityFile">
+			</newWizardShortcut>
+		</perspectiveExtension>
+	</extension>
+	<extension
+			point="org.eclipse.ui.navigator.navigatorContent">
+		<commonWizard
+			type="new"
+			wizardId="com.yakindu.solidity.ui.wizards.NewSolidityFile">
+			<enablement></enablement>
+		</commonWizard>
+	 </extension>
 </plugin>
