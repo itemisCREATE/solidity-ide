@@ -5,6 +5,7 @@ Bundle-SymbolicName: com.yakindu.solidity.compiler;singleton:=true
 Bundle-Version: 0.7.0.qualifier
 Bundle-Vendor: YAKINDU
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Eclipse-BundleShape: dir
 Require-Bundle: com.yakindu.solidity,
  com.yakindu.solidity.ide,
  org.eclipse.xtext.ui,

@@ -365,7 +365,7 @@
          install-size="0"
          version="0.0.0"
          fragment="true"
-         unpack="false"/>
+         unpack="true"/>
 
    <plugin
          id="com.yakindu.solidity.compiler.win.fragment"
@@ -373,6 +373,6 @@
          install-size="0"
          version="0.0.0"
          fragment="true"
-         unpack="false"/>
+         unpack="true"/>
 
 </feature>
