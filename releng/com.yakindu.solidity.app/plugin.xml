@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-<extension
-			id="com.yakindu.solidity.application"
+<extension id="YST"
 			point="org.eclipse.core.runtime.products">
 		<product
 				application="org.eclipse.ui.ide.workbench"
 				name="YAKINDU SOLIDITY TOOLS">
 			<property
 					name="windowImages"
-					value="platform:/plugin/com.yakindu.solidity.ui/icons/icon_16x16.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_32x32.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_48x48.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_64x64.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_128x128.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_256x256.png">
+					value="images/icon_16x16.png,images/icon_32x32.png,images/icon_48x48.png,images/icon_64x64.png,images/icon_128x128.png,images/icon_256x256.png">
 			</property>
 			<property
 					name="aboutText"
-					value="(c) itemis AG, 2017. All rights reserved.">
+					value="YAKINDU Solidity Tools (c) itemis AG, 2017. All rights reserved.">
 			</property>
 			<property
 					name="aboutImage"
-					value="platform:/plugin/com.yakindu.solidity.ui/icons/icon_256x256.png">
+					value="images/icon_128x128.png">
 			</property>
 			<property
 					name="appName"
@@ -35,10 +34,10 @@
 					name="startupProgressRect"
 					value="5,275,445,15">
 			</property>
-			<property
-					name="preferenceCustomization"
-					value="plugin_customization.ini">
-			</property>
+   <property
+         name="preferenceCustomization"
+         value="plugin_customization.ini">
+   </property>
 		</product>
 	</extension>
 </plugin>
