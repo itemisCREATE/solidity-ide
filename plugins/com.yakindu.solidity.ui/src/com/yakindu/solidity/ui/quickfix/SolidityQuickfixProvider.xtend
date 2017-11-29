@@ -1,17 +1,22 @@
 package com.yakindu.solidity.ui.quickfix
 
 import com.google.inject.Inject
+import com.yakindu.solidity.SolidityRuntimeModule
 import com.yakindu.solidity.solidity.Block
+import com.yakindu.solidity.solidity.BuildInModifier
 import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.FunctionModifier
 import com.yakindu.solidity.solidity.IfStatement
 import com.yakindu.solidity.solidity.Parameter
 import com.yakindu.solidity.solidity.SolidityFactory
 import com.yakindu.solidity.solidity.SourceUnit
+import com.yakindu.solidity.solidity.StorageLocation
 import com.yakindu.solidity.solidity.ThrowStatement
 import com.yakindu.solidity.solidity.TypeSpecifier
+import com.yakindu.solidity.solidity.VariableDefinition
 import com.yakindu.solidity.typesystem.BuildInDeclarations
 import com.yakindu.solidity.typesystem.SolidityTypeSystem
+import javax.inject.Named
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
 import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification
@@ -27,14 +32,13 @@ import org.yakindu.base.types.ComplexType
 import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import com.yakindu.solidity.solidity.BuildInModifier
-import com.yakindu.solidity.solidity.VariableDefinition
-import com.yakindu.solidity.solidity.StorageLocation
 
 class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 
 	@Inject BuildInDeclarations declarations
 	@Inject extension SolidityFactory
+	@Inject @Named(SolidityRuntimeModule.SOLIDITY_VERSION) String solcVersion
+	
 	extension ExpressionsFactory factory = ExpressionsFactory.eINSTANCE
 
 	@Fix(WARNING_FUNCTION_VISIBILITY)
@@ -76,13 +80,13 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 
 	@Fix(WARNING_FILE_NO_PRAGMA_SOLIDITY)
 	def addDefaultSolidityPragma(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, 'Add default solidity pragma', 'Add solidity pragma ^0.4.18.', null,
+		acceptor.accept(issue, 'Add default solidity pragma', 'Add solidity pragma ^'+solcVersion+'.', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element.eContainer instanceof SourceUnit) {
 						val sourceUnit = element.eContainer as SourceUnit
 						val pragma = createPragmaDirective
-						pragma.version = "^0.4.18"
+						pragma.version = "^"+solcVersion
 						sourceUnit.pragma = pragma
 					}
 				}

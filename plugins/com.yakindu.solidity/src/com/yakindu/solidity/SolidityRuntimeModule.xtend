@@ -19,9 +19,6 @@ import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.TypesPackage
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
-import com.yakindu.solidity.scoping.SolidityImportedNamespaceAwareLocalScopeProvider
-import org.yakindu.base.types.TypesFactory
-import org.yakindu.base.types.TypesPackage
 
 /**
  * 
@@ -29,7 +26,8 @@ import org.yakindu.base.types.TypesPackage
  * 
  */
 class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
-
+	public static final String SOLIDITY_VERSION = "SOLIDITY_VERSION"
+	
 	override configure(Binder binder) {
 		super.configure(binder)
 		binder.bind(ITypeSystem).to(SolidityTypeSystem);
@@ -40,6 +38,7 @@ class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 		binder.bind(SolidityFactory).toInstance(SolidityFactory.eINSTANCE)
 		binder.bind(TypesPackage).toInstance(TypesPackage.eINSTANCE)
 		binder.bind(TypesFactory).toInstance(TypesFactory.eINSTANCE)
+		binder.bind(String).annotatedWith(Names.named(SOLIDITY_VERSION)).toInstance("0.4.18")
 	}
 
 	override bindIGlobalScopeProvider() {
