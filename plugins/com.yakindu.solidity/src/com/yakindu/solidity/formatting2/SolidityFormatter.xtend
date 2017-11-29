@@ -1,20 +1,16 @@
 package com.yakindu.solidity.formatting2
 
-import com.google.inject.Inject
-import com.yakindu.solidity.services.SolidityGrammarAccess
 import com.yakindu.solidity.solidity.Block
 import com.yakindu.solidity.solidity.ContractDefinition
 import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.ImportDirective
 import com.yakindu.solidity.solidity.SolidityModel
-import com.yakindu.solidity.solidity.SolidityPackage
 import com.yakindu.solidity.solidity.SourceUnit
+import com.yakindu.solidity.solidity.StructDefinition
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import org.yakindu.base.types.Package
 import org.yakindu.base.types.PackageMember
-import org.eclipse.xtext.EcoreUtil2
-import com.yakindu.solidity.solidity.StructDefinition
 
 /**
  * Code formatter for Solidity according to 
@@ -24,8 +20,6 @@ import com.yakindu.solidity.solidity.StructDefinition
  */
 class SolidityFormatter extends AbstractFormatter2 {
 	
-	@Inject extension SolidityGrammarAccess
-	@Inject extension SolidityPackage
 
 	def dispatch void format(SolidityModel solidityModel, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
