@@ -25,7 +25,7 @@
 		<module>../../plugins/com.yakindu.solidity</module>
 		<module>../../plugins/com.yakindu.solidity.ide</module>
 		<module>../../plugins/com.yakindu.solidity.ui</module>
-		<module>../../plugins/com.yakindu.solidity.tests</module>
+
 		<module>../../plugins/com.yakindu.solidity.compiler</module>
 		<module>../../plugins/com.yakindu.solidity.compiler.linux.fragment</module>
 		<module>../../plugins/com.yakindu.solidity.compiler.win.fragment</module>
@@ -36,7 +36,20 @@
 
 		<!-- product -->
 		<module>../com.yakindu.solidity.app</module>
+		<module>../com.yakindu.solidity.intro</module>
 	</modules>
+	<profiles>
+		<profile>
+			<id>tests</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<modules>
+				<!-- test plugins -->
+				<module>../../plugins/com.yakindu.solidity.tests</module>
+			</modules>
+		</profile>
+	</profiles>
 	<build>
 		<plugins>
 			<plugin>
