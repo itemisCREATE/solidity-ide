@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="com.yakindu.solidity.solc.feature"
-      label="Solc Feature"
+      label="Solidity Tools Solc Feature"
       version="0.7.0.qualifier"
-      provider-name="YAKINDU">
+      provider-name="YAKINDU"
+      plugin="com.yakindu.solidity.branding">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]

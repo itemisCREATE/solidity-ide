@@ -25,7 +25,6 @@ import org.yakindu.base.types.Operation
 import org.yakindu.base.types.Parameter
 import org.yakindu.base.types.Property
 import org.yakindu.base.types.Type
-import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.typesystem.AbstractTypeSystem
 import org.yakindu.base.types.typesystem.ITypeSystem
@@ -208,18 +207,11 @@ class BuildInDeclarations {
 			block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]
 	}
 
-	def private <T extends TypedElement> T withType(T it, Type theType) {
-		typeSpecifier = typesFactory.createTypeSpecifier => [
-			type = theType
-		]
-		it
-	}
-
-	def private Type getTypeForName(String typeName) {
+	def protected Type getTypeForName(String typeName) {
 		typeSystem.getType(typeName)
 	}
 
-	def private Operation createOperation(String name, Type type) {
+	def protected Operation createOperation(String name, Type type) {
 		typesFactory.createOperation => [
 			(typeSystem as AbstractTypeSystem).resource.contents += it
 			it.name = name
@@ -229,7 +221,7 @@ class BuildInDeclarations {
 		]
 	}
 
-	def private Parameter createParameter(String name, Type type) {
+	def protected Parameter createParameter(String name, Type type) {
 		typesFactory.createParameter => [
 			(typeSystem as AbstractTypeSystem).resource.contents += it
 			it.name = name
@@ -239,15 +231,15 @@ class BuildInDeclarations {
 		]
 	}
 
-	def private Property createConstant(String name, Type type) {
+	def protected Property createConstant(String name, Type type) {
 		createProperty(name, type, true, true)
 	}
 
-	def private Property createProperty(String name, Type type) {
+	def protected Property createProperty(String name, Type type) {
 		createProperty(name, type, false, false)
 	}
 
-	def private Property createProperty(String name, Type type, boolean const, boolean readonly) {
+	def protected Property createProperty(String name, Type type, boolean const, boolean readonly) {
 		typesFactory.createProperty => [
 			(typeSystem as AbstractTypeSystem).resource.contents += it
 			it.name = name

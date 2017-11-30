@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: com.yakindu.solidity.tests
+Bundle-Name: Solidity Tools Language Tests
 Bundle-Vendor: YAKINDU
 Bundle-Version: 0.7.0.qualifier
 Bundle-SymbolicName: com.yakindu.solidity.tests;singleton:=true

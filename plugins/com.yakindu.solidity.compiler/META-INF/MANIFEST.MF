@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Compiler
+Bundle-Name: Solidity Tools Compiler
 Bundle-SymbolicName: com.yakindu.solidity.compiler;singleton:=true
 Bundle-Version: 0.7.0.qualifier
 Bundle-Vendor: YAKINDU

@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Solidity Welcome Page
+Bundle-Name: Solidity Tools Welcome Page
 Bundle-SymbolicName: com.yakindu.solidity.intro;singleton:=true
 Bundle-Version: 0.7.0.qualifier
 Bundle-Activator: com.yakindu.solidity.intro.Activator
-Bundle-Vendor: itemis AG
+Bundle-Vendor: YAKINDU
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.ui.intro,

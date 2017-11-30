@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: YAKINDU Solidity Tools App
+Bundle-Name: Solidity Tools Application
 Bundle-SymbolicName: com.yakindu.solidity.app;singleton:=true
 Bundle-Version: 0.7.0.qualifier
-Bundle-Vendor: itemis AG
+Bundle-Vendor: YAKINDU
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

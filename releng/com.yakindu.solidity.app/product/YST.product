@@ -60,6 +60,8 @@
 
    <features>
       <feature id="com.yakindu.solidity.feature" installMode="root"/>
+      <feature id="com.yakindu.solidity.app.feature" installMode="root"/>
+      <feature id="com.yakindu.solidity.solc.feature" installMode="root"/>
       <feature id="org.eclipse.platform" installMode="root"/>
       <feature id="org.eclipse.emf.ecore" installMode="root"/>
       <feature id="org.eclipse.equinox.p2.user.ui" installMode="root"/>
@@ -76,7 +78,6 @@
       <feature id="org.eclipse.ecf.core.ssl.feature" installMode="root"/>
       <feature id="org.eclipse.ecf.filetransfer.ssl.feature" installMode="root"/>
       <feature id="org.eclipse.e4.rcp" installMode="root"/>
-      <feature id="com.yakindu.solidity.app.feature"/>
    </features>
 
    <configurations>

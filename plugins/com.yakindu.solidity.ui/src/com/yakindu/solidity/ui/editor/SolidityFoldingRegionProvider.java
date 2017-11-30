@@ -23,7 +23,6 @@ import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.ITypedRegion;
 import org.eclipse.xtext.ui.editor.folding.DefaultFoldingRegionProvider;
 import org.eclipse.xtext.ui.editor.folding.IFoldingRegionAcceptor;
-import org.eclipse.xtext.ui.editor.model.ITokenTypeToPartitionTypeMapperExtension;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 import org.eclipse.xtext.util.ITextRegion;
@@ -35,22 +34,17 @@ import com.yakindu.solidity.solidity.SolidityPackage;
 import com.yakindu.solidity.ui.preferences.SolidityPreferences;
 
 /**
- * Additionally to the default behavior all leading single comment lines are combined to
- * a initially collapsed region. This region usually contains CVS log comments and can
- * be rather long.
+ * Additionally to the default behavior all leading single comment lines are
+ * combined to a initially collapsed region. This region usually contains CVS
+ * log comments and can be rather long.
  * 
  * @author Karsten Thoms (karsten.thoms@itemis.de)
  */
 public class SolidityFoldingRegionProvider extends DefaultFoldingRegionProvider {
 	private static final Logger log = Logger.getLogger(SolidityFoldingRegionProvider.class);
-	private static final Set<EClass> FOLDING_TYPES = Sets.newHashSet(
-			SolidityPackage.Literals.CONTRACT_DEFINITION
-			, SolidityPackage.Literals.FUNCTION_DEFINITION
-		);
-			
-	
-	@Inject
-	private ITokenTypeToPartitionTypeMapperExtension tokenTypeToPartitionTypeMapperExtension;
+	private static final Set<EClass> FOLDING_TYPES = Sets.newHashSet(SolidityPackage.Literals.CONTRACT_DEFINITION,
+			SolidityPackage.Literals.FUNCTION_DEFINITION);
+
 	@Inject
 	private IPreferenceStoreAccess prefs;
 
@@ -61,11 +55,12 @@ public class SolidityFoldingRegionProvider extends DefaultFoldingRegionProvider 
 			super.computeObjectFolding(eObject, foldingRegionAcceptor, initiallyFolded);
 		}
 	}
-	
-	
+
 	@Override
-	protected void computeCommentFolding(IXtextDocument xtextDocument, IFoldingRegionAcceptor<ITextRegion> foldingRegionAcceptor, ITypedRegion typedRegion, boolean initiallyFolded) {
-		
+	protected void computeCommentFolding(IXtextDocument xtextDocument,
+			IFoldingRegionAcceptor<ITextRegion> foldingRegionAcceptor, ITypedRegion typedRegion,
+			boolean initiallyFolded) {
+
 		String text;
 		try {
 			text = xtextDocument.get(typedRegion.getOffset(), typedRegion.getLength());
@@ -77,22 +72,22 @@ public class SolidityFoldingRegionProvider extends DefaultFoldingRegionProvider 
 		} catch (BadLocationException e) {
 			log.error(e, e);
 		}
-		
+
 	}
-	
-	private boolean shouldCreateCommentFolding (int lines) {
+
+	private boolean shouldCreateCommentFolding(int lines) {
 		int threshold = prefs.getPreferenceStore().getInt(SolidityPreferences.FOLDING_COMMENT_LINECOUNT);
 		return lines > threshold;
 	}
-	
-	private boolean shouldCollapse (ITypedRegion beginRegion, int lines) {
+
+	private boolean shouldCollapse(ITypedRegion beginRegion, int lines) {
 		String autofoldOption = prefs.getPreferenceStore().getString(SolidityPreferences.FOLDING_COMMENT_AUTOFOLD);
 		if (SolidityPreferences.FOLDING_COMMENT_AUTOFOLD_NONE.equals(autofoldOption))
 			return false;
 		if (SolidityPreferences.FOLDING_COMMENT_AUTOFOLD_ALL.equals(autofoldOption))
 			return true;
 		if (SolidityPreferences.FOLDING_COMMENT_AUTOFOLD_HEADER.equals(autofoldOption))
-			return beginRegion.getOffset()==0;
+			return beginRegion.getOffset() == 0;
 		return false;
 	}
 }
