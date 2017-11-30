@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2017 committers of YAKINDU and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ * 	Andreas Muelder - Itemis AG - initial API and implementation
+ * 	Karsten Thoms   - Itemis AG - initial API and implementation
+ * 	Florian Antony  - Itemis AG - initial API and implementation
+ * 	committers of YAKINDU 
+ * 
+ */
 package com.yakindu.solidity.formatting2
 
 import com.yakindu.solidity.solidity.Block
@@ -17,39 +31,37 @@ import org.yakindu.base.types.PackageMember
  * <a href="http://solidity.readthedocs.io/en/develop/style-guide.html">Solidity Styleguide</a>.
  * 
  * @author Karsten Thoms - Initial contribution and API
+ * @author Florian Antony
  */
 class SolidityFormatter extends AbstractFormatter2 {
-	
 
 	def dispatch void format(SolidityModel solidityModel, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
 		for (Package _package : solidityModel.getSourceunit()) {
 			_package.format;
 		}
-		solidityModel.allRegionsFor.keywords('=','==').forEach[
+		solidityModel.allRegionsFor.keywords('=', '==').forEach [
 			surround[oneSpace]
 		]
-		solidityModel.allRegionsFor.keywords(';').forEach[
+		solidityModel.allRegionsFor.keywords(';').forEach [
 			prepend[noSpace]
 		]
-
 
 //		solidityModel.allRegionsFor.keywordPairs('{','}').forEach[
 //			key.append[noSpace]
 //			value.prepend[noSpace]
 //		]
-
-		solidityModel.allRegionsFor.keywordPairs('[',']').forEach[
+		solidityModel.allRegionsFor.keywordPairs('[', ']').forEach [
 			key.append[noSpace]
 			value.prepend[noSpace]
 		]
 
-		solidityModel.allRegionsFor.keywordPairs('(',')').forEach[
+		solidityModel.allRegionsFor.keywordPairs('(', ')').forEach [
 			key.append[noSpace]
 			value.prepend[noSpace]
 		]
-		
-		// EcoreUtil2.eAllOfType(solidityModel, Block).forEach[format]
+
+	// EcoreUtil2.eAllOfType(solidityModel, Block).forEach[format]
 	}
 
 	def dispatch void format(SourceUnit sourceUnit, extension IFormattableDocument document) {
@@ -62,14 +74,14 @@ class SolidityFormatter extends AbstractFormatter2 {
 			packageMember.format;
 		}
 	}
-	
+
 	def dispatch void format(ImportDirective element, extension IFormattableDocument document) {
 		element.regionFor.keyword("import").append[oneSpace]
 	}
 
 	def dispatch void format(ContractDefinition element, extension IFormattableDocument document) {
-		element.prepend[setNewLines(2,2,2)]
-		element.append[setNewLines(2,2,2)]
+		element.prepend[setNewLines(2, 2, 2)]
+		element.append[setNewLines(2, 2, 2)]
 
 		element.regionFor.keyword('{') => [
 			append[newLine]
@@ -82,15 +94,15 @@ class SolidityFormatter extends AbstractFormatter2 {
 	}
 
 	def dispatch void format(FunctionDefinition element, extension IFormattableDocument document) {
-		element.prepend[setNewLines(2,2,2)]
-		element.append[setNewLines(2,2,2)]
+		element.prepend[setNewLines(2, 2, 2)]
+		element.append[setNewLines(2, 2, 2)]
 
 		element.block.format
 	}
 
 	def dispatch void format(StructDefinition element, extension IFormattableDocument document) {
-		element.prepend[setNewLines(1,2,2)]
-		element.append[setNewLines(1,2,2)]
+		element.prepend[setNewLines(1, 2, 2)]
+		element.append[setNewLines(1, 2, 2)]
 
 		element.interior[indent]
 		element.regionFor.keyword('{') => [
@@ -100,7 +112,7 @@ class SolidityFormatter extends AbstractFormatter2 {
 		element.regionFor.keyword('}') => [
 			prepend[newLine]
 		]
-		element.features.forEach[
+		element.features.forEach [
 			prepend[newLine]
 		]
 	}
@@ -114,7 +126,7 @@ class SolidityFormatter extends AbstractFormatter2 {
 		element.regionFor.keyword('}') => [
 			prepend[newLine]
 		]
-		element.statements.forEach[
+		element.statements.forEach [
 			prepend[newLine]
 		]
 	}

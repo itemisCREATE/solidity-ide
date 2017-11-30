@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2017 committers of YAKINDU and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ * 	Andreas Muelder - Itemis AG - initial API and implementation
+ * 	Karsten Thoms   - Itemis AG - initial API and implementation
+ * 	Florian Antony  - Itemis AG - initial API and implementation
+ * 	committers of YAKINDU 
+ * 
+ */
 package com.yakindu.solidity.compiler.builder.processor;
 
 import java.io.BufferedReader;
@@ -22,6 +36,11 @@ import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+/**
+ * 
+ * @author Florian Antony - Initial contribution and API
+ * @author Andreas Muelder
+ */
 @Singleton
 @SuppressWarnings("restriction")
 public class SolidityMarkerCreator extends MarkerCreator {
@@ -83,12 +102,12 @@ public class SolidityMarkerCreator extends MarkerCreator {
 
 	private String createErrorCodeFromMessage(Severity severity, String message) {
 		switch (severity) {
-		case ERROR:
-			return "error";
-		case WARNING:
-			return SolidityWarning.getCodeForMessage(message);
-		default:
-			return "info";
+			case ERROR :
+				return "error";
+			case WARNING :
+				return SolidityWarning.getCodeForMessage(message);
+			default :
+				return "info";
 		}
 	}
 
@@ -139,12 +158,12 @@ public class SolidityMarkerCreator extends MarkerCreator {
 
 	private Severity calculateSeverity(String severety) {
 		switch (severety) {
-		case "Warning":
-			return Severity.WARNING;
-		case "Error":
-			return Severity.ERROR;
-		default:
-			return Severity.INFO;
+			case "Warning" :
+				return Severity.WARNING;
+			case "Error" :
+				return Severity.ERROR;
+			default :
+				return Severity.INFO;
 		}
 	}
 }
