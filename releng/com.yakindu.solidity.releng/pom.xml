@@ -18,9 +18,31 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<testFailureIgnore>false</testFailureIgnore>
 	</properties>
+	<profiles>
+		<profile>
+			<id>tests</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<modules>
+				<!-- test plugins -->
+				<module>../../plugins/com.yakindu.solidity.tests</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>product</id>
+			<modules>
+				<module>../com.yakindu.solidity.app</module>
+				<module>../com.yakindu.solidity.app/product</module>
+				<module>../com.yakindu.solidity.intro</module>
+				<module>../../features/com.yakindu.solidity.app.feature</module>
+			</modules>
+		</profile>
+	</profiles>
 	<modules>
 		<!-- releng -->
 		<module>../com.yakindu.solidity.target</module>
+		<module>../com.yakindu.solidity.repository</module>
 		<!-- plugins -->
 		<module>../../plugins/com.yakindu.solidity</module>
 		<module>../../plugins/com.yakindu.solidity.ide</module>
@@ -34,22 +56,10 @@
 		<module>../../features/com.yakindu.solidity.feature</module>
 		<module>../../features/com.yakindu.solidity.solc.feature</module>
 
-		<!-- product -->
-		<module>../com.yakindu.solidity.app</module>
-		<module>../com.yakindu.solidity.intro</module>
 	</modules>
-	<profiles>
-		<profile>
-			<id>tests</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<modules>
-				<!-- test plugins -->
-				<module>../../plugins/com.yakindu.solidity.tests</module>
-			</modules>
-		</profile>
-	</profiles>
+
+
+
 	<build>
 		<plugins>
 			<plugin>
