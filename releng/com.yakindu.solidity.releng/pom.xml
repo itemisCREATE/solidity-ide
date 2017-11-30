@@ -32,7 +32,10 @@
 		<profile>
 			<id>product</id>
 			<modules>
-				<module>../com.yakindu.solidity.app/releng</module>
+				<module>../com.yakindu.solidity.app</module>
+				<module>../com.yakindu.solidity.app/product</module>
+				<module>../com.yakindu.solidity.intro</module>
+				<module>../../features/com.yakindu.solidity.app.feature</module>
 			</modules>
 		</profile>
 	</profiles>

@@ -5,9 +5,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.yakindu.solidity</groupId>
-		<artifactId>com.yakindu.solidity.app.releng</artifactId>
+		<artifactId>com.yakindu.solidity.releng</artifactId>
 		<version>0.7.0-SNAPSHOT</version>
-		<relativePath>../../releng/com.yakindu.solidity.app/releng/pom.xml</relativePath>
+		<relativePath>../../releng/com.yakindu.solidity.releng/pom.xml</relativePath>
 	</parent>
 	<groupId>com.yakindu.solidity</groupId>
 	<artifactId>com.yakindu.solidity.app.feature</artifactId>
