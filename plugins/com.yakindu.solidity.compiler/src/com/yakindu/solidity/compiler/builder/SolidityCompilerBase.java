@@ -14,15 +14,22 @@
  */
 package com.yakindu.solidity.compiler.builder;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.osgi.framework.Bundle;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import com.yakindu.solidity.compiler.SolidityCompilerActivator;
 import com.yakindu.solidity.compiler.builder.processor.OutputHandler;
 import com.yakindu.solidity.ui.preferences.SolidityPreferences;
 
@@ -32,14 +39,15 @@ import com.yakindu.solidity.ui.preferences.SolidityPreferences;
  *
  */
 public abstract class SolidityCompilerBase implements ISolidityCompiler {
+
 	@Inject
 	private IPreferenceStore preferences;
-
 	@Inject
 	private OutputHandler handler;
 
+	protected abstract Path getPath();
+	
 	public void compile(IFile file, IProgressMonitor progress) {
-
 		if (file == null) {
 			return;
 		}
@@ -92,6 +100,14 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 		return pathToCompiler;
 	}
 
-	protected abstract String getFallbackCompilerPath();
-
+	protected String getFallbackCompilerPath() {
+		Bundle bundle = Platform.getBundle(SolidityCompilerActivator.PLUGIN_ID);
+		URL url = FileLocator.find(bundle, getPath(), null);
+		try {
+			URL fileURL = FileLocator.toFileURL(url);
+			return fileURL.getFile();
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
+	}
 }

@@ -6,5 +6,4 @@ Bundle-Version: 0.7.0.qualifier
 Fragment-Host: com.yakindu.solidity.compiler
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.yakindu.solidity.compiler.builder
-Eclipse-BundleShape: dir
 
