@@ -35,10 +35,7 @@
    <windowImages i16="/com.yakindu.solidity.app/images/icon_16x16.png" i32="/com.yakindu.solidity.app/images/icon_32x32.png" i48="/com.yakindu.solidity.app/images/icon_48x48.png" i64="/com.yakindu.solidity.app/images/icon_64x64.png" i128="/com.yakindu.solidity.app/images/icon_128x128.png" i256="/com.yakindu.solidity.app/images/icon_256x256.png"/>
 
    <splash
-      location="com.yakindu.solidity.app"
-      startupProgressRect="5,275,445,15"
-      startupMessageRect="7,252,445,20"
-      startupForegroundColor="8080C0" />
+      location="com.yakindu.solidity.app" />
    <launcher name="YST">
       <win useIco="true">
          <bmp/>

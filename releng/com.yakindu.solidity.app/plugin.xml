@@ -22,22 +22,6 @@
 					name="appName"
 					value="YAKINDU SOLIDITY TOOLS">
 			</property>
-			<property
-					name="startupForegroundColor"
-					value="8080C0">
-			</property>
-			<property
-					name="startupMessageRect"
-					value="7,252,445,20">
-			</property>
-			<property
-					name="startupProgressRect"
-					value="5,275,445,15">
-			</property>
-   <property
-         name="preferenceCustomization"
-         value="plugin_customization.ini">
-   </property>
 		</product>
 	</extension>
 </plugin>
