@@ -1,3 +1,18 @@
+/**
+ * Copyright (c) 2017 committers of YAKINDU and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ * 	Andreas Muelder - Itemis AG - initial API and implementation
+ * 	Karsten Thoms   - Itemis AG - initial API and implementation
+ * 	Florian Antony  - Itemis AG - initial API and implementation
+ * 	committers of YAKINDU 
+ * 
+ */
+
 package com.yakindu.solidity
 
 import com.google.inject.Binder
@@ -27,7 +42,7 @@ import org.yakindu.base.types.typesystem.ITypeSystem
  */
 class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 	public static final String SOLIDITY_VERSION = "SOLIDITY_VERSION"
-	
+
 	override configure(Binder binder) {
 		super.configure(binder)
 		binder.bind(ITypeSystem).to(SolidityTypeSystem);
@@ -54,9 +69,7 @@ class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 	}
 
 	override configureIScopeProviderDelegate(Binder binder) {
-		binder.bind(IScopeProvider).annotatedWith(
-			Names.named(
-				AbstractDeclarativeScopeProvider.NAMED_DELEGATE)).to(
+		binder.bind(IScopeProvider).annotatedWith(Names.named(AbstractDeclarativeScopeProvider.NAMED_DELEGATE)).to(
 			SolidityImportedNamespaceAwareLocalScopeProvider);
 	}
 }

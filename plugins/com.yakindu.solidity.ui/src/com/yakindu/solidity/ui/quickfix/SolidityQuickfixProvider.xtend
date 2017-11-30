@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2017 committers of YAKINDU and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ * 	Andreas Muelder - Itemis AG - initial API and implementation
+ * 	Karsten Thoms   - Itemis AG - initial API and implementation
+ * 	Florian Antony  - Itemis AG - initial API and implementation
+ * 	committers of YAKINDU 
+ * 
+ */
 package com.yakindu.solidity.ui.quickfix
 
 import com.google.inject.Inject
@@ -33,12 +47,17 @@ import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
 
+/** 
+ * @author andreas muelder - Initial contribution and API
+ * @author Florian Antony
+ * @author Karsten Thoms
+ */
 class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 
 	@Inject BuildInDeclarations declarations
 	@Inject extension SolidityFactory
 	@Inject @Named(SolidityRuntimeModule.SOLIDITY_VERSION) String solcVersion
-	
+
 	extension ExpressionsFactory factory = ExpressionsFactory.eINSTANCE
 
 	@Fix(WARNING_FUNCTION_VISIBILITY)
@@ -80,13 +99,13 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 
 	@Fix(WARNING_FILE_NO_PRAGMA_SOLIDITY)
 	def addDefaultSolidityPragma(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, 'Add default solidity pragma', 'Add solidity pragma ^'+solcVersion+'.', null,
+		acceptor.accept(issue, 'Add default solidity pragma', 'Add solidity pragma ^' + solcVersion + '.', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element.eContainer instanceof SourceUnit) {
 						val sourceUnit = element.eContainer as SourceUnit
 						val pragma = createPragmaDirective
-						pragma.version = "^"+solcVersion
+						pragma.version = "^" + solcVersion
 						sourceUnit.pragma = pragma
 					}
 				}
@@ -290,7 +309,6 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 //				}
 //			})
 //	}
-
 	@Fix(WARNING_USSAGE_OF_SEND)
 	def replaceSendWithTransfer(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Replace send with transfer', 'address.send(amount); -> address.transfer(amount);', null,
