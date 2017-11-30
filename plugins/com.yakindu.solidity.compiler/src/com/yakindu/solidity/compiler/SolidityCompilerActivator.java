@@ -5,6 +5,8 @@ import org.osgi.framework.BundleContext;
 
 public class SolidityCompilerActivator extends AbstractUIPlugin {
 
+	public static final String PLUGIN_ID = "com.yakindu.solidity.compiler";
+	
 	private static SolidityCompilerActivator INSTANCE;
 
 	@Override

@@ -45,27 +45,27 @@ class SolidityLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	def dispatch String text(VariableDefinition it) {
-		'''«name» : «typeSpecifier.text()»'''.toString
+		'''Â«nameÂ» : Â«typeSpecifier.text()Â»'''.toString
 	}
 
 	def dispatch String text(ImportDirective it) {
-		'''import «importedNamespace»'''.toString
+		'''import Â«importedNamespaceÂ»'''.toString
 	}
 
 	def dispatch String text(PragmaDirective it) {
-		'''pragma solidity «version»'''.toString
+		'''pragma solidity Â«versionÂ»'''.toString
 	}
 
 	def dispatch String text(EventDefinition it) {
-		'''«name» («parameters.map[type.name].join(", ")»)'''.toString
+		'''Â«nameÂ» (Â«parameters.map[type.name].join(", ")Â»)'''.toString
 	}
-	
+
 	def dispatch String text(EnumerationType it) {
-		'''«name»'''.toString
+		'''Â«nameÂ»'''.toString
 	}
 
 	def dispatch String text(IndexParameter it) {
-		'''«name» : «typeSpecifier.text()»'''
+		'''Â«nameÂ» : Â«typeSpecifier.text()Â»'''
 	}
 
 	def dispatch String text(FunctionDefinition it) {
@@ -79,23 +79,23 @@ class SolidityLabelProvider extends DefaultEObjectLabelProvider {
 				returnParameters.map[type.name].join(", ")
 			}
 
-		return '''«name»(«parameters.map[type.name].join(", ")»)«IF !functionModifier.empty»[«functionModifier»]«ENDIF»: «returnType»'''
+		return '''Â«nameÂ»(Â«parameters.map[type.name].join(", ")Â»)Â«IF !functionModifier.emptyÂ»[Â«functionModifierÂ»] Â«ENDIFÂ» :Â«returnTypeÂ» '''
 	}
 
 	def dispatch String text(ModifierDefinition it) {
-		'''«it.name» («parameters.map[type.name].join(", ")»)'''
+		'''Â«nameÂ»(Â«parameters.map[type.name].join(", ")Â»)'''
 	}
 
 	def dispatch String text(ModifierInvocation it) {
-		'''«it.reference.name»'''
+		'''Â«reference.nameÂ»'''
 	}
 
 	def dispatch String text(FunctionModifier it) {
-		'''«it.getName.toLowerCase»'''
+		'''Â«getName.toLowerCaseÂ»'''
 	}
 
 	def dispatch String text(BuildInModifier it) {
-		'''«it.type.getName.toLowerCase»'''
+		'''Â«type.getName.toLowerCaseÂ»'''
 	}
 
 	def dispatch boolean isVisibility(BuildInModifier it) {
@@ -108,11 +108,11 @@ class SolidityLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	def dispatch String text(MappingTypeSpecifier it) {
-		'''( «key.text()» => «value.text()»)'''
+		'''( Â«key.text()Â» => Â«value.text()Â»)'''
 	}
 
 	def dispatch String text(ArrayTypeSpecifier it) {
-		'''«type.text()»[]'''
+		'''Â«type.text()Â»[]'''
 	}
 
 	def dispatch String text(TypeSpecifier it) {
@@ -126,7 +126,7 @@ class SolidityLabelProvider extends DefaultEObjectLabelProvider {
 	def dispatch String image(PragmaDirective it) {
 		"pragma.gif"
 	}
-	
+
 	def dispatch String image(ImportDirective it) {
 		"import.gif"
 	}

@@ -10,7 +10,7 @@
       </intro>
       <introProductBinding
             introId="com.yakindu.solidity.intro"
-            productId="com.yakindu.solidity.ui.YST">
+            productId="com.yakindu.solidity.app.YST">
       </introProductBinding>
    </extension>
    <extension

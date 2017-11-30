@@ -353,10 +353,28 @@
          unpack="false"/>
 
    <plugin
-         id="com.yakindu.solidity.intro"
+         id="com.yakindu.solidity.compiler"
          download-size="0"
          install-size="0"
          version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.yakindu.solidity.compiler.linux.fragment"
+         os="linux"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.yakindu.solidity.compiler.win.fragment"
+         os="win32"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
          unpack="false"/>
 
 </feature>

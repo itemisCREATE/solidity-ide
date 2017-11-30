@@ -1,5 +1,7 @@
 package com.yakindu.solidity.compiler.builder;
 
+import org.eclipse.core.runtime.Path;
+
 import com.yakindu.solidity.compiler.builder.SolidityCompilerBase;
 
 /**
@@ -8,7 +10,8 @@ import com.yakindu.solidity.compiler.builder.SolidityCompilerBase;
 public class SolidityCompiler extends SolidityCompilerBase {
 
 	@Override
-	protected String getFallbackCompilerPath() {
-		return getClass().getProtectionDomain().getCodeSource().getLocation().getFile() + "/compiler/solc";
+	protected Path getPath() {
+		return new Path("compiler/solc");
 	}
+
 }
