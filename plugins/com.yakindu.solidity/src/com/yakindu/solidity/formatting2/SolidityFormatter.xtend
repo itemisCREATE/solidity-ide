@@ -20,6 +20,7 @@ import org.yakindu.base.types.PackageMember
  * <a href="http://solidity.readthedocs.io/en/develop/style-guide.html">Solidity Styleguide</a>.
  * 
  * @author Karsten Thoms - Initial contribution and API
+ * @author Florian Antony
  */
 class SolidityFormatter extends AbstractFormatter2 {
 
@@ -28,23 +29,23 @@ class SolidityFormatter extends AbstractFormatter2 {
 		for (Package _package : solidityModel.getSourceunit()) {
 			_package.format;
 		}
-		solidityModel.allRegionsFor.keywords('=', '==').forEach [
+		solidityModel.allRegionsFor.keywords('=', '==').forEach[
 			surround[oneSpace]
 		]
-		solidityModel.allRegionsFor.keywords(';').forEach [
+		solidityModel.allRegionsFor.keywords(';').forEach[
 			prepend[noSpace]
 			append[newLine]
 		]
-		solidityModel.allRegionsFor.keywords('else').forEach [
+		solidityModel.allRegionsFor.keywords('else').forEach[
 			surround[oneSpace]
 		]
 
-		solidityModel.allRegionsFor.keywordPairs('[', ']').forEach [
+		solidityModel.allRegionsFor.keywordPairs('[', ']').forEach[
 			key.append[noSpace]
 			value.prepend[noSpace]
 		]
 
-		solidityModel.allRegionsFor.keywordPairs('(', ')').forEach [
+		solidityModel.allRegionsFor.keywordPairs('(', ')').forEach[
 			key.append[noSpace]
 			value.prepend[noSpace]
 		]
@@ -110,7 +111,7 @@ class SolidityFormatter extends AbstractFormatter2 {
 		element.regionFor.keyword('}') => [
 			prepend[newLine]
 		]
-		element.features.forEach [
+		element.features.forEach[
 			prepend[newLine]
 		]
 	}
@@ -133,7 +134,7 @@ class SolidityFormatter extends AbstractFormatter2 {
 				prepend[newLine]
 			]
 		}
-		element.statements.forEach [
+		element.statements.forEach[
 			prepend[newLine]
 			format
 		]
