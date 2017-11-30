@@ -9,9 +9,7 @@
 		<version>0.7.0-SNAPSHOT</version>
 		<relativePath>../releng/pom.xml</relativePath>
 	</parent>
-	<groupId>com.yakindu.solidity</groupId>
-	<artifactId>com.yakindusolidity.product</artifactId>
-	<version>0.7.0-SNAPSHOT</version>
+	<artifactId>com.yakindu.solidity.product</artifactId>
 	<packaging>eclipse-repository</packaging>
 	<properties>
 		<tycho-version>1.0.0</tycho-version>
@@ -22,7 +20,6 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
-				<version>${tycho-version}</version>
 				<configuration>
 					<environments>
 						<environment>
@@ -51,6 +48,14 @@
 							<arch>x86_64</arch>
 						</environment>
 					</environments>
+					<target>
+						<artifact>
+							<groupId>com.yakindu.solidity</groupId>
+							<artifactId>com.yakindu.solidity.target</artifactId>
+							<version>${project.version}</version>
+							<classifier>Photon</classifier>
+						</artifact>
+					</target>
 				</configuration>
 			</plugin>
 			<plugin>

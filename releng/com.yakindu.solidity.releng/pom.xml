@@ -29,6 +29,12 @@
 				<module>../../plugins/com.yakindu.solidity.tests</module>
 			</modules>
 		</profile>
+		<profile>
+			<id>product</id>
+			<modules>
+				<module>../com.yakindu.solidity.app/releng</module>
+			</modules>
+		</profile>
 	</profiles>
 	<modules>
 		<!-- releng -->

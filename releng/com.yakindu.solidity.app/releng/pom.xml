@@ -3,42 +3,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.yakindu.solidity</groupId>
+	<parent>
+		<groupId>com.yakindu.solidity</groupId>
+		<artifactId>com.yakindu.solidity.releng</artifactId>
+		<version>0.7.0-SNAPSHOT</version>
+		<relativePath>../../releng/com.yakindu.solidity.releng/pom.xml</relativePath>
+	</parent>
 	<artifactId>com.yakindu.solidity.app.releng</artifactId>
-	<version>0.7.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<properties>
-		<tycho-version>1.0.0</tycho-version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<yst-repository>E:/git/sct4solidity/releng/com.yakindu.solidity.repository/target/repository/</yst-repository>
-	</properties>
-	<repositories>
-		<repository>
-			<id>Yakindu Solidity</id>
-			<url>file:///${yst-repository}</url>
-			<layout>p2</layout>
-		</repository>
-		<repository>
-			<id>Eclipse Photon</id>
-			<url>http://download.eclipse.org/releases/photon</url>
-			<layout>p2</layout>
-		</repository>
-	</repositories>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-maven-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<extensions>true</extensions>
-			</plugin>
-		</plugins>
-	</build>
 	<modules>
 		<module>../</module>
 		<module>../product</module>
 		<module>../../com.yakindu.solidity.intro</module>
-		<module>../../com.yakindu.solidity.target</module>
 		<module>../../../features/com.yakindu.solidity.app.feature</module>
 	</modules>
 </project>
