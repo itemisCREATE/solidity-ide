@@ -94,7 +94,6 @@
       <property name="org.eclipse.update.reconcile" value="false" />
       <property name="osgi.bundles.defaultStartLevel" value="4" />
       <property name="osgi.instance.area.default" value="@user.home/solidity/ws" />
-      <property name="osgi.splashPath" value="platform:/base/plugins/com.yakindu.solidity.ui" />
       <property name="preferenceCustomization" value="plugin_customization.ini" />
    </configurations>
 
