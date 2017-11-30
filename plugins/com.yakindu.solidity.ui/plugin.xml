@@ -429,46 +429,6 @@
 
 	<!-- CUSTOMIZATION -->
 	<extension
-			id="YST"
-			point="org.eclipse.core.runtime.products">
-		<product
-				application="org.eclipse.ui.ide.workbench"
-				name="YAKINDU SOLIDITY TOOLS">
-			<property
-					name="windowImages"
-					value="platform:/plugin/com.yakindu.solidity.ui/icons/icon_16x16.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_32x32.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_48x48.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_64x64.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_128x128.png,platform:/plugin/com.yakindu.solidity.ui/icons/icon_256x256.png">
-			</property>
-			<property
-					name="aboutText"
-					value="(c) itemis AG, 2017. All rights reserved.">
-			</property>
-			<property
-					name="aboutImage"
-					value="platform:/plugin/com.yakindu.solidity.ui/icons/icon_256x256.png">
-			</property>
-			<property
-					name="appName"
-					value="YAKINDU SOLIDITY TOOLS">
-			</property>
-			<property
-					name="startupForegroundColor"
-					value="8080C0">
-			</property>
-			<property
-					name="startupMessageRect"
-					value="7,252,445,20">
-			</property>
-			<property
-					name="startupProgressRect"
-					value="5,275,445,15">
-			</property>
-			<property
-					name="preferenceCustomization"
-					value="plugin_customization.ini">
-			</property>
-		</product>
-	</extension>
-	<extension
 			point="org.eclipse.core.runtime.preferences">
 		<initializer
 				class="com.yakindu.solidity.ui.preferences.SolidityPreferenceInitializer">

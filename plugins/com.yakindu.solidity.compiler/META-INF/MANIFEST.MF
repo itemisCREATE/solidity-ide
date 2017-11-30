@@ -5,6 +5,7 @@ Bundle-SymbolicName: com.yakindu.solidity.compiler;singleton:=true
 Bundle-Version: 0.7.0.qualifier
 Bundle-Vendor: YAKINDU
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Eclipse-BundleShape: dir
 Require-Bundle: com.yakindu.solidity,
  com.yakindu.solidity.ide,
  org.eclipse.xtext.ui,
@@ -16,12 +17,8 @@ Require-Bundle: com.yakindu.solidity,
  org.eclipse.compare,
  org.eclipse.xtext.builder,
  org.eclipse.xtend.lib;resolution:=optional,
- org.eclipse.xtext.xbase.lib,
- org.yakindu.base.expressions.ui,
  org.yakindu.base.types,
- org.yakindu.base.xtext.utils.jface,
  com.google.inject,
- org.eclipse.emf.mwe.core,
  org.apache.log4j,
  com.yakindu.solidity.ui
 Bundle-ActivationPolicy: lazy
