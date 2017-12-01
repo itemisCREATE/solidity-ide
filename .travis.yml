@@ -1,3 +1,19 @@
+sudo: false
 language: java
-jdk: oraclejdk8
-script: mvn clean verify -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn  --batch-mode -fae -Dmaven.test.failure.ignore=true  -f releng/com.yakindu.solidity.releng/pom.xml 
+dist: precise
+jdk: 
+ - oraclejdk8
+cache:
+  directories:
+  - $HOME/.m2
+env:
+  global:
+  - DISPLAY=:99.0
+before_install:
+- sh -e /etc/init.d/xvfb start - sleep 10
+script:
+- cd releng/org.yakindu.solidity.releng
+- mvn clean verify -P!tests
+- cd ../org.yakindu.sct.repository/target
+- zip -r updatesite.zip repository
+- cd $TRAVIS_BUILD_DIR
