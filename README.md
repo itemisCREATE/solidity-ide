@@ -27,7 +27,7 @@ Download a package from our download page:
 https://info.itemis.com/yakindu/solidity/download/
 
 or install via Update Site into latest Eclipse:
-https://updates.yakindu.com/solidity/releases
+https://updates.yakindu.com/solidity/milestones
 
 ## How to Contribute
 We appreciate any feedback and there are various ways to contribute feedback:
