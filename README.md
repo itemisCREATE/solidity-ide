@@ -22,9 +22,12 @@ The source code of YAKINDU Solidity IDE is provided under the Eclipse Public Lic
 Note that YAKINDU Solidity IDE is in early beta state and we give no warranty on the correctness of any output it produces. If you find a bug or have a feature request please use our issue tracker to report it. 
 
 ## Download & Installation
-In addition to the source code provided here on GitHub we also provide ready-tu-use builds for Windows and Linux  (OS X is under construction) along with an Eclipse update site. If you just want to use YAKINDU Solidity IDE we strongly recommend to go this way.
-Download a package from our download page <LINK>.
-Follow the installation instructions <LINK>.
+In addition to the source code provided here on GitHub we also provide ready-tu-use builds for Windows (Linux and OS X is under construction) along with an Eclipse update site. If you just want to use YAKINDU Solidity IDE we strongly recommend to go this way.
+Download a package from our download page:
+https://info.itemis.com/yakindu/solidity/download/
+
+or install via Update Site into latest Eclipse:
+https://updates.yakindu.com/solidity/releases
 
 ## How to Contribute
 We appreciate any feedback and there are various ways to contribute feedback:
