@@ -2,12 +2,19 @@
 
 The free to use, open source YAKINDU Solidity IDE provides an integrated development environment for ethereum / solidity based smart contracts. 
 
-It features all the goodies you can expect from a professional IDE including code completion, quick fixes, outline, navigation, semantic highlighting, compiler integration, and more. 
+It features all the goodies you can expect from a professional IDE including.
+ * code completion
+ * quick fixes
+ * templates
+ * live validation
+ * outline
+ * code navigation
+ * semantic highlighting
+ * solidity compiler integration
+ * and much more!
 
-Being Eclipse based YAKINDU Solidity IDE can easily integrate into you existing toolchain.   
+As an Eclipse based IDE, YAKINDU Solidity can easily be integrated into you existing toolchain.   
 
-## Professional Support
-Need professional support for YAKINDU Solidity IDE? Contact us: yakindu@itemis.com
 
 ## License
 The source code of YAKINDU Solidity IDE is provided under the Eclipse Public License.
@@ -15,7 +22,7 @@ The source code of YAKINDU Solidity IDE is provided under the Eclipse Public Lic
 Note that YAKINDU Solidity IDE is in early beta state and we give no warranty on the correctness of any output it produces. If you find a bug or have a feature request please use our issue tracker to report it. 
 
 ## Download & Installation
-In addition to the source code provided here on GitHub we also provide ready-tu-use builds for Windows and  Linux  (OS X is under construction) along with an Eclipse update site. If you just want to use YAKINDU Solidity IDE we strongly recommend to go this way.
+In addition to the source code provided here on GitHub we also provide ready-tu-use builds for Windows and Linux  (OS X is under construction) along with an Eclipse update site. If you just want to use YAKINDU Solidity IDE we strongly recommend to go this way.
 Download a package from our download page <LINK>.
 Follow the installation instructions <LINK>.
 
