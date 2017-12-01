@@ -12,7 +12,7 @@ env:
 before_install:
 - sh -e /etc/init.d/xvfb start - sleep 10
 script:
-- cd releng/org.yakindu.solidity.releng
+- cd releng/com.yakindu.solidity.releng
 - mvn clean verify -P!tests
 - cd ../org.yakindu.sct.repository/target
 - zip -r updatesite.zip repository
