@@ -14,6 +14,3 @@ before_install:
 script:
 - cd releng/com.yakindu.solidity.releng
 - mvn clean verify -P!tests
-- cd ../org.yakindu.sct.repository/target
-- zip -r updatesite.zip repository
-- cd $TRAVIS_BUILD_DIR
