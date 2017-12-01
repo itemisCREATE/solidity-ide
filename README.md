@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Yakindu/solidity-ide.svg?branch=master)](https://travis-ci.org/Yakindu/solidity-ide)
+
 # YAKINDU Solidity IDE
 
 The free to use, open source YAKINDU Solidity IDE provides an integrated development environment for ethereum / solidity based smart contracts. 
