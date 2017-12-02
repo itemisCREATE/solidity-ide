@@ -27,12 +27,12 @@ class NewFileTemplate {
 	val String solidityVersion
 
 	def generate() '''
-		pragma solidity «solidityVersion»;
+		pragma solidity ^«solidityVersion»;
 		
-		contract �contractName� {
+		contract «contractName» {
 		    address creator;
 		
-		    function �contractName� () {
+		    function «contractName» () {
 		        creator = msg.sender;
 		    }
 		
