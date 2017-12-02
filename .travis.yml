@@ -9,6 +9,7 @@ cache:
 env:
   global:
   - DISPLAY=:99.0
+  - MAVEN_OPTS="-Xmx4g"
 before_install:
 - sh -e /etc/init.d/xvfb start - sleep 10
 script:
