@@ -10,8 +10,8 @@ contract Test7 {
 
     function init(){
         proposals.push(Proposal({
-                name: proposalNames[i],
-                voteCount: 0
+                voteCount: 0,
+                name: "Test"
             }));
     }
 

@@ -215,7 +215,7 @@ Argument:
 	SimpleArgument | NamedArgument
 ;
 NamedArgument:
-	parameter=[types::Parameter] ':'  value=ConditionalExpression;
+	reference=[EObject] ':'  value=ConditionalExpression;
 	
 SimpleArgument:
 	value=ConditionalExpression;

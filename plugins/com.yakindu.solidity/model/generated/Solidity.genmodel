@@ -114,7 +114,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//InlineAssemblyStatement/block"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//Argument"/>
-    <genClasses ecoreClass="Solidity.ecore#//NamedArgument"/>
+    <genClasses ecoreClass="Solidity.ecore#//NamedArgument">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Solidity.ecore#//NamedArgument/reference"/>
+    </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//SimpleArgument"/>
     <genClasses ecoreClass="Solidity.ecore#//VariableDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//VariableDefinition/visibility"/>
