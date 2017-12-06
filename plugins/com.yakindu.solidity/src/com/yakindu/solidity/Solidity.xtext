@@ -204,12 +204,20 @@ enum UnaryOperatorEx:
 
 @ Override
 ElementReferenceExpression returns expressions::ElementReferenceExpression:
-	{expressions::ElementReferenceExpression} reference=[EObject|ID] (=> operationCall?='(' (arguments+=Argument (','
-	arguments+=Argument)*)? ')')? ('[' arraySelector+=Expression ']')*;
+	{expressions::ElementReferenceExpression} reference=[EObject|ID] (=> operationCall?='(' 
+		(((arguments+=SimpleArgument (',' arguments+=SimpleArgument)*)? ) | 
+			('{' (arguments+=NamedArgument (',' arguments+=NamedArgument)*)? '}')
+		)
+	')')? ('[' arraySelector+=Expression ']')*;
 
-	//Disables named parameter calls
 @ Override
 Argument:
+	SimpleArgument | NamedArgument
+;
+NamedArgument:
+	parameter=[types::Parameter] ':'  value=ConditionalExpression;
+	
+SimpleArgument:
 	value=ConditionalExpression;
 
 @ Override PrimaryExpression returns expressions::Expression:
