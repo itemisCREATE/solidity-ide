@@ -15,6 +15,8 @@
 package com.yakindu.solidity.compiler.builder;
 
 import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.net.URL;
 import java.util.List;
 
@@ -31,6 +33,8 @@ import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.yakindu.solidity.compiler.SolidityCompilerActivator;
 import com.yakindu.solidity.compiler.builder.processor.OutputHandler;
+import com.yakindu.solidity.compilerparameter.ParameterBuilder;
+import com.yakindu.solidity.compilerparameter.Source;
 import com.yakindu.solidity.ui.preferences.SolidityPreferences;
 
 /**
@@ -46,7 +50,7 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 	private OutputHandler handler;
 
 	protected abstract Path getPath();
-	
+
 	public void compile(IFile file, IProgressMonitor progress) {
 		if (file == null) {
 			return;
@@ -69,27 +73,40 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 	}
 
 	private List<String> createParameter(IResource file) {
-		boolean bin = preferences.getBoolean(SolidityPreferences.COMPILER_OUTPUT_BIN);
-		boolean ast = preferences.getBoolean(SolidityPreferences.COMPILER_OUTPUT_AST);
-		boolean abi = preferences.getBoolean(SolidityPreferences.COMPILER_OUTPUT_ABI);
-		boolean asm = preferences.getBoolean(SolidityPreferences.COMPILER_OUTPUT_ASM);
+		ParameterBuilder builder = new ParameterBuilder().addSource(file.getName(), new Source((IFile) file));
+			
 		List<String> parameters = Lists.newArrayList();
-		parameters.add(getCompilerPath());
-		if (bin) {
-			parameters.add("--bin");
-		}
-		if (abi) {
-			parameters.add("--abi");
-		}
-		if (ast) {
-			parameters.add("--ast");
-		}
-		if (asm) {
-			parameters.add("--asm");
 
-		}
-		parameters.add(file.getLocation().toOSString());
+		parameters.add(getCompilerPath());
+		parameters.add("--standard-json");
+		parameters.add(builder.buildJson());
 		return parameters;
+
+		// boolean bin =
+		// preferences.getBoolean(SolidityPreferences.COMPILER_OUTPUT_BIN);
+		// boolean ast =
+		// preferences.getBoolean(SolidityPreferences.COMPILER_OUTPUT_AST);
+		// boolean abi =
+		// preferences.getBoolean(SolidityPreferences.COMPILER_OUTPUT_ABI);
+		// boolean asm =
+		// preferences.getBoolean(SolidityPreferences.COMPILER_OUTPUT_ASM);
+		// List<String> parameters = Lists.newArrayList();
+		// parameters.add(getCompilerPath());
+		// if (bin) {
+		// parameters.add("--bin");
+		// }
+		// if (abi) {
+		// parameters.add("--abi");
+		// }
+		// if (ast) {
+		// parameters.add("--ast");
+		// }
+		// if (asm) {
+		// parameters.add("--asm");
+		//
+		// }
+		// parameters.add(file.getLocation().toOSString());
+		// return parameters;
 	}
 
 	private String getCompilerPath() {
