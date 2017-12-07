@@ -2,7 +2,7 @@
 <feature
       id="com.yakindu.solidity.app.feature"
       label="Solidity Tools Application Feature"
-      version="0.7.0.qualifier"
+      version="0.7.1.qualifier"
       provider-name="YAKINDU"
       plugin="com.yakindu.solidity.branding">
 
