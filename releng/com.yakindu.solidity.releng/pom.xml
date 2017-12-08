@@ -38,6 +38,64 @@
 				<module>../../features/com.yakindu.solidity.app.feature</module>
 			</modules>
 		</profile>
+		<profile>
+			<id>Oxygen.target</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<xtext-version>2.12.0</xtext-version>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>target-platform-configuration</artifactId>
+						<version>${tycho-version}</version>
+						<configuration>
+							<includePackedArtifacts>true</includePackedArtifacts>
+							<target>
+								<artifact>
+									<groupId>com.yakindu.solidity</groupId>
+									<artifactId>com.yakindu.solidity.target</artifactId>
+									<version>0.7.1-SNAPSHOT</version>
+									<classifier>Oxygen</classifier>
+								</artifact>
+							</target>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>Photon.target</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<xtext-version>2.13.0</xtext-version>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>target-platform-configuration</artifactId>
+						<version>${tycho-version}</version>
+						<configuration>
+							<includePackedArtifacts>true</includePackedArtifacts>
+							<target>
+								<artifact>
+									<groupId>com.yakindu.solidity</groupId>
+									<artifactId>com.yakindu.solidity.target</artifactId>
+									<version>${project.version}</version>
+									<classifier>Photon</classifier>
+								</artifact>
+							</target>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 	<modules>
 		<!-- releng -->
