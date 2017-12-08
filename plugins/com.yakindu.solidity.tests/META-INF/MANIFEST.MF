@@ -8,7 +8,7 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: com.yakindu.solidity,
  org.eclipse.xtext.testing,
  org.eclipse.xtext.xbase.testing,
- org.eclipse.xtext.xbase.lib;bundle-version="2.13.0",
+ org.eclipse.xtext.xbase.lib,
  org.junit.platform.commons;bundle-version="1.0.0",
  org.junit.platform.launcher;bundle-version="1.0.0",
  org.junit.platform.engine;bundle-version="1.0.0",
