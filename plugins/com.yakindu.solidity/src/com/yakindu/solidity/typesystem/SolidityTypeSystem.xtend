@@ -281,7 +281,7 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 				]
 				name = CALL
 				typeSpecifier = createTypeSpecifier => [
-					type = getType(ITypeSystem.BOOLEAN)
+					type = getType(BOOL)
 				]
 			]
 			type.features += createOperation => [
@@ -294,7 +294,7 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 				]
 				name = CALLCODE
 				typeSpecifier = createTypeSpecifier => [
-					type = getType(ITypeSystem.BOOLEAN)
+					type = getType(BOOL)
 				]
 			]
 			type.features += createOperation => [
@@ -307,7 +307,7 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 				]
 				name = DELEGATECALL
 				typeSpecifier = createTypeSpecifier => [
-					type = getType(ITypeSystem.BOOLEAN)
+					type = getType(BOOL)
 				]
 			]
 		]
