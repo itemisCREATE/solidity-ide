@@ -12,7 +12,6 @@
 	<properties>
 		<tycho-version>1.0.0</tycho-version>
 		<tycho-extras-version>${tycho-version}</tycho-extras-version>
-		<xtext-version>2.13.0</xtext-version>
 		<mwe-version>2.9.1.201705291010</mwe-version>
 		<antrun-version>1.6</antrun-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -38,12 +37,70 @@
 				<module>../../features/com.yakindu.solidity.app.feature</module>
 			</modules>
 		</profile>
+		<profile>
+			<id>Oxygen.target</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<xtext-version>2.12.0</xtext-version>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>target-platform-configuration</artifactId>
+						<version>${tycho-version}</version>
+						<configuration>
+							<includePackedArtifacts>true</includePackedArtifacts>
+							<target>
+								<artifact>
+									<groupId>com.yakindu.solidity</groupId>
+									<artifactId>com.yakindu.solidity.target</artifactId>
+									<version>${project.version}</version>
+									<classifier>Oxygen</classifier>
+								</artifact>
+							</target>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>Photon.target</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<xtext-version>2.13.0</xtext-version>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>target-platform-configuration</artifactId>
+						<version>${tycho-version}</version>
+						<configuration>
+							<includePackedArtifacts>true</includePackedArtifacts>
+							<target>
+								<artifact>
+									<groupId>com.yakindu.solidity</groupId>
+									<artifactId>com.yakindu.solidity.target</artifactId>
+									<version>${project.version}</version>
+									<classifier>Photon</classifier>
+								</artifact>
+							</target>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 	<modules>
 		<!-- releng -->
 		<module>../com.yakindu.solidity.target</module>
 		<module>../com.yakindu.solidity.repository</module>
-		
+
 		<!-- plugins -->
 		<module>../../releng/com.yakindu.solidity.branding</module>
 		<module>../../plugins/com.yakindu.solidity</module>
@@ -226,14 +283,6 @@
 							</environment>
 						</environments>
 						<includePackedArtifacts>true</includePackedArtifacts>
-						<target>
-							<artifact>
-								<groupId>com.yakindu.solidity</groupId>
-								<artifactId>com.yakindu.solidity.target</artifactId>
-								<version>${project.version}</version>
-								<classifier>Photon</classifier>
-							</artifact>
-						</target>
 					</configuration>
 				</plugin>
 			</plugins>
