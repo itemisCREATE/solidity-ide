@@ -68,7 +68,7 @@
 			</build>
 		</profile>
 		<profile>
-			<id>Oxygen.target</id>
+			<id>Photon.target</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
@@ -87,7 +87,7 @@
 								<artifact>
 									<groupId>com.yakindu.solidity</groupId>
 									<artifactId>com.yakindu.solidity.target</artifactId>
-									<version>0.7.1-SNAPSHOT</version>
+									<version>${project.version}</version>
 									<classifier>Photon</classifier>
 								</artifact>
 							</target>
