@@ -9,8 +9,11 @@ env:
   global:
   - DISPLAY=:99.0
   - MAVEN_OPTS="-Xmx4g"
+  matrix:
+  - TARGET=Oxygen.target
+  - TARGET=Photon.target
 before_install:
 - sh -e /etc/init.d/xvfb start - sleep 10
 script:
 - cd releng/com.yakindu.solidity.releng
-- mvn clean verify -P!tests
+- mvn clean verify -P$TARGET,!tests
