@@ -16,7 +16,9 @@ package com.yakindu.solidity.typesystem
 
 import com.google.inject.Inject
 import com.yakindu.solidity.solidity.AddressLiteral
+import com.yakindu.solidity.solidity.DecimalNumberLiteral
 import com.yakindu.solidity.solidity.FunctionDefinition
+import com.yakindu.solidity.solidity.NewInstanceExpression
 import com.yakindu.solidity.solidity.NumericalMultiplyDivideExpression
 import com.yakindu.solidity.solidity.PostFixUnaryExpression
 import com.yakindu.solidity.solidity.VariableDefinition
@@ -31,7 +33,6 @@ import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.typesystem.ITypeSystem
 
 import static org.yakindu.base.types.typesystem.ITypeSystem.REAL
-import com.yakindu.solidity.solidity.DecimalNumberLiteral
 
 /**
  * 
@@ -62,7 +63,11 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 	def doInfer(DecimalNumberLiteral literal) {
 		return getResultFor(SolidityTypeSystem.INTEGER);
 	}
-
+	
+	def doInfer(NewInstanceExpression it){
+		inferTypeDispatch(type)
+	}
+ 
 	override assertAssignable(InferenceResult varResult, InferenceResult valueResult, String msg) {
 		if (ts.isSame(valueResult.type, ts.getType(ITypeSystem.INTEGER)) &&
 			ts.isSuperType(varResult.type, ts.getType(ITypeSystem.INTEGER))) {

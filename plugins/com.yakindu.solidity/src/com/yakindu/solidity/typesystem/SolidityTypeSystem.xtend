@@ -18,6 +18,8 @@ import com.google.inject.Singleton
 import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.typesystem.GenericTypeSystem
 import org.yakindu.base.types.typesystem.ITypeSystem
+import org.yakindu.base.types.Type
+import com.yakindu.solidity.solidity.ContractDefinition
 
 /**
  * @author andreas muelder - Initial contribution and API
@@ -75,16 +77,13 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 
 		declarePrimitive(BOOL)
 		declareSuperType(getType(BOOL), getType(BOOLEAN))
-		declareSuperType(getType(BOOL), getType(ANY))
 
 		declarePrimitive(UINT)
 		declareSuperType(getType(UINT), getType(INTEGER))
-		declareSuperType(getType(UINT), getType(ANY))
 		UINT.declareExplicitSizeTypes(8)
 
 		declarePrimitive(INT)
 		declareSuperType(getType(INT), getType(INTEGER))
-		declareSuperType(getType(INT), getType(ANY))
 		INT.declareExplicitSizeTypes(8)
 
 		declarePrimitive(SolidityTypeSystem.BYTES)
@@ -96,7 +95,7 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 		var address = createAddress()
 		declareType(address, ADDRESS)
 		resource.getContents().add(address);
-		declareSuperType(getType(ADDRESS), getType(ANY))
+		declareSuperType(getType(ADDRESS), getType(INTEGER))
 
 		var msg = createMessage()
 		declareType(msg, MESSAGE)
@@ -120,6 +119,13 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 			declareSuperType(getType(type), getType(ANY))
 			lastType = type
 		}
+	}
+	
+	override getDirectSuperTypes(Type type) {
+		var superTypes = super.getDirectSuperTypes(type)
+		if(type instanceof ContractDefinition)
+			superTypes += getType(ADDRESS)
+		return superTypes
 	}
 
 	def createMessage() {
