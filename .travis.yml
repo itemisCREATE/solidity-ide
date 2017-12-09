@@ -17,6 +17,9 @@ before_install:
 script:
 - cd releng/com.yakindu.solidity.releng
 - mvn clean verify -P$TARGET,!tests
+- cd ../com.yakindu.solidity.repository/target
+- zip -r repository.zip repository
+- cd $TRAVIS_BUILD_DIR
 deploy:
   skip_cleanup: true
   provider: releases
