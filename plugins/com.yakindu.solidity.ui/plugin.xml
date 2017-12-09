@@ -456,7 +456,7 @@
 				icon="icons/icon_16x16.png"
 				id="com.yakindu.solidity.ui.wizards.NewSolidityFile"
 				canFinishEarly="false"
-				hasPages="false"
+				hasPages="true"
 				name="New Solidity File">
 				<class class="com.yakindu.solidity.ui.SolidityExecutableExtensionFactory">
 				<parameter name="javatype" value="true" />
