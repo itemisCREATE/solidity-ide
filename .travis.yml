@@ -17,3 +17,12 @@ before_install:
 script:
 - cd releng/com.yakindu.solidity.releng
 - mvn clean verify -P$TARGET,!tests
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: ASYPdl2XkOGppdfoKW13ynFjGmWi6vrjxZafQKhEyvSsLRIALY9a0rgtbZtGw96zpBypoUNF4pcJw9FKSZgdLY/nyjIMnI3xRW2gMmLEoaPhBgRMs4ldfAv1PCi18Hm/pZdEaKKKwuFj2WkPBEjLC2JY5/bYCcQGZLOYbse7uZ/eytaZGs+rXxjynNltNwg8K0QDcsFOWLuuVU9k6EzNZfPbuD43Qm/LQquPY1GimGrakVKWeQgYlk8bP7gkgAlnf2A3aJVS6snhG2pOZtd+/pL2b8eDw7g0slwAlppxxjH/FWFHXLU30fSPg1D1JrBWf53ReyIlh1JOOhvYgO4c7WZPtK5Z9bDEXWy4DFqPa5ErsD2UsdT2X4O1vRMa+TI2vLSsn++WYApgWHL1Bv/DqEZjLIq/QkXLkKm4eam5uPKwX72YxWgtdMpeepoUM0HGLjIL302hnx0v2Vz8ciWddB7w0sjPHTUnKU1fHBTHLt9HkHIa9SJ4...(line truncated)...
+  file: releng/com.yakindu.solidity.repository/target/repository/repository.zip
+  on:
+    tags: Yakindu/solidity-ide
+    condition: "$TRAVIS_TAG =~ ^release.*$"
