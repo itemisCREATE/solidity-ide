@@ -12,22 +12,39 @@
  * 	committers of YAKINDU 
  * 
  */
-package com.yakindu.solidity.compiler.builder;
+package com.yakindu.solidity.compiler.parameter;
 
-import java.util.List;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.URI;
+import com.google.gson.Gson;
 
 /**
  * 
  * @author Florian Antony - Initial contribution and API
  *
  */
-public interface ISolidityCompiler {
+public class ParameterBuilder {
 
-	public void compile(IFile file, IProgressMonitor progress);
+	private Parameter parameter;
 
-	public void compile(List<URI> uris, IProgressMonitor progress);
+	public ParameterBuilder() {
+		this("Solidity");
+	}
+
+	public ParameterBuilder(String language) {
+		this.parameter = new Parameter();
+		this.parameter.setLanguage(language);
+	}
+
+	public String buildJson() {
+		return new Gson().toJson(parameter);
+	}
+
+	public ParameterBuilder addSource(String name, Source source) {
+		this.parameter.getSources().put(name, source);
+		return this;
+	}
+
+	public ParameterBuilder setStettings(Settings settings) {
+		parameter.setSettings(settings);
+		return this;
+	}
 }

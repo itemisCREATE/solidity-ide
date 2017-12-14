@@ -12,22 +12,16 @@
  * 	committers of YAKINDU 
  * 
  */
-package com.yakindu.solidity.compiler.builder;
+package com.yakindu.solidity.compiler.parameter;
 
-import java.util.List;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.URI;
+import java.util.Map;
 
 /**
  * 
  * @author Florian Antony - Initial contribution and API
  *
  */
-public interface ISolidityCompiler {
+public class Library {
 
-	public void compile(IFile file, IProgressMonitor progress);
-
-	public void compile(List<URI> uris, IProgressMonitor progress);
+	Map<String, String> addresses;
 }

@@ -12,22 +12,22 @@
  * 	committers of YAKINDU 
  * 
  */
-package com.yakindu.solidity.compiler.builder;
-
-import java.util.List;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.URI;
+package com.yakindu.solidity.compiler.parameter;
 
 /**
  * 
  * @author Florian Antony - Initial contribution and API
  *
  */
-public interface ISolidityCompiler {
+public class Metadata {
 
-	public void compile(IFile file, IProgressMonitor progress);
+	private Boolean useLiteralContent;
 
-	public void compile(List<URI> uris, IProgressMonitor progress);
+	public Boolean getUseLiteralContent() {
+		return useLiteralContent;
+	}
+
+	public void setUseLiteralContent(Boolean useLiteralContent) {
+		this.useLiteralContent = useLiteralContent;
+	}
 }

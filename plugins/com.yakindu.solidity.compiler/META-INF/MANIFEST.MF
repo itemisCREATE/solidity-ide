@@ -23,4 +23,4 @@ Require-Bundle: com.yakindu.solidity,
  com.google.gson
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: com.yakindu.solidity.compiler.SolidityCompilerActivator
-Export-Package: com.yakindu.solidity.compilerparameter
+Export-Package: com.yakindu.solidity.compiler.parameter

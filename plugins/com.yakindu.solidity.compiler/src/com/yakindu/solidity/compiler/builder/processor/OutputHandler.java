@@ -35,7 +35,7 @@ public class OutputHandler {
 	private MarkerOutputProcessor markerProcessor;
 
 	@Inject
-	private FileOutputProcessor outputFileWriter;
+	private JsonOutputProcessor outputFileWriter;
 
 	public OutputHandler() {
 		this.service = Executors.newFixedThreadPool(2);
@@ -53,6 +53,11 @@ public class OutputHandler {
 		processCompilerOutput(inputStream, outputFileWriter, file);
 	}
 
+	private void processCompilerOutput(InputStream stream, JsonOutputProcessor processor) {
+		processCompilerOutput(stream, processor, null);
+
+	}
+
 	private void processCompilerOutput(final InputStream stream, final ISolcOutputProcessor processor,
 			final IFile file) {
 
@@ -67,4 +72,9 @@ public class OutputHandler {
 			}
 		});
 	}
+
+	public void handleOutput(InputStream inputStream) {
+		processCompilerOutput(inputStream, outputFileWriter);
+	}
+
 }
