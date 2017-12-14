@@ -15,9 +15,11 @@
 package com.yakindu.solidity.scoping
 
 import com.google.inject.Inject
+import com.yakindu.solidity.solidity.Argument
 import com.yakindu.solidity.solidity.ContractDefinition
 import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.ModifierDefinition
+import com.yakindu.solidity.solidity.StructDefinition
 import com.yakindu.solidity.solidity.UsingForDeclaration
 import com.yakindu.solidity.typesystem.BuildInDeclarations
 import java.util.List
@@ -30,6 +32,7 @@ import org.yakindu.base.base.NamedElement
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
 import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.types.ComplexType
+import org.yakindu.base.types.Operation
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
 
@@ -45,8 +48,41 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 	@Inject ITypeSystem typeSystem
 	@Inject ITypeSystemInferrer inferrer;
 
-	override getScope(EObject context, EReference ref) {
-		return super.getScope(context, ref)
+	def scope_NamedArgument_reference(Argument object, EReference ref) {
+		var parameters = object?.eContainer?.elements
+		return if(parameters !== null) Scopes.scopeFor(parameters) else IScope.NULLSCOPE;
+	}
+
+	def scope_NamedArgument_reference(ElementReferenceExpression exp, EReference ref) {
+		var parameters = exp?.elements
+		return if(parameters !== null) Scopes.scopeFor(parameters) else IScope.NULLSCOPE;
+	}
+
+	def scope_NamedArgument_reference(FeatureCall fc, EReference ref) {
+		var parameters = fc?.elements
+		return if(parameters !== null) Scopes.scopeFor(parameters) else IScope.NULLSCOPE;
+	}
+
+	def dispatch getElements(ElementReferenceExpression it) {
+		return if (reference instanceof Operation)
+			(reference as Operation).parameters
+		else if (reference instanceof StructDefinition) {
+			(reference as StructDefinition).allFeatures
+		} else
+			null
+	}
+
+	def dispatch getElements(FeatureCall it) {
+		return if (feature instanceof Operation)
+			(feature as Operation).parameters
+		else if (feature instanceof StructDefinition) {
+			(feature as StructDefinition).allFeatures
+		} else
+			null
+	}
+
+	def dispatch getElements(EObject object) {
+		println()
 	}
 
 	def scope_ModifierInvocation_reference(FunctionDefinition context, EReference reference) {

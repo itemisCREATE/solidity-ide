@@ -88,7 +88,6 @@ public class FileOutputProcessor implements ISolcOutputProcessor {
 	@Override
 	public void processLineForFile(BufferedReader output, IFile file) throws IOException {
 		String fileName = getOutputFileName(file);
-
 		CompileOutputType outputType = null;
 		Map<CompileOutputType, OutputFile> outputFiles = initializeOutputFiles(fileName);
 		String line;
@@ -120,7 +119,7 @@ public class FileOutputProcessor implements ISolcOutputProcessor {
 	}
 
 	private String getOutputFileName(IFile file) {
-		String outputDirectory = file.getParent().getParent().getLocation().toOSString() + "\\"
+		String outputDirectory = file.getProject().getLocation().toOSString() + "\\"
 				+ preferences.getString(SolidityPreferences.COMPILER_OUTPUT_PATH);
 		String plainFileName = file.getName().replaceAll(".sol", "");
 		String fileName = outputDirectory + "\\" + plainFileName;
