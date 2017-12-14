@@ -19,6 +19,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -60,9 +61,8 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 			Process process = new ProcessBuilder(createParameter(file)).start();
 			handler.handleOutput(process.getInputStream(), file);
 			handler.handleError(process.getErrorStream(), file);
-			int exitCode = process.waitFor();
-			if (exitCode != 0) {
-				throw new Exception("Solidity compiler invocation failed with exit code " + exitCode + ".");
+			if (process.waitFor(30, TimeUnit.SECONDS) && process.exitValue() != 0) {
+				throw new Exception("Solidity compiler invocation failed with exit code " + process.exitValue() + ".");
 			}
 			progress.done();
 
@@ -73,13 +73,13 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 	}
 
 	private List<String> createParameter(IResource file) {
-		ParameterBuilder builder = new ParameterBuilder().addSource(file.getName(), new Source((IFile) file));
-			
+//		ParameterBuilder builder = new ParameterBuilder().addSource(file.getName(), new Source((IFile) file));
+
 		List<String> parameters = Lists.newArrayList();
 
 		parameters.add(getCompilerPath());
 		parameters.add("--standard-json");
-		parameters.add(builder.buildJson());
+//		parameters.add(builder.buildJson());
 		return parameters;
 
 		// boolean bin =

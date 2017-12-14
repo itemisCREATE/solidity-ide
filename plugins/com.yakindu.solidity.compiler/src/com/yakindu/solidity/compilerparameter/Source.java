@@ -9,7 +9,7 @@ import org.eclipse.core.resources.IFile;
 public class Source {
 
 	String keccak256;
-	String content;
+	String content ="";
 	List<String> urls;
 
 	public Source(IFile file) {
@@ -17,7 +17,7 @@ public class Source {
 				new InputStreamReader(file.getContents(true), file.getCharset()));) {
 			String line = reader.readLine();
 			while (line != null) {
-				content += line;
+				content += line.trim();
 				line = reader.readLine();
 			}
 		} catch (Exception e) {
