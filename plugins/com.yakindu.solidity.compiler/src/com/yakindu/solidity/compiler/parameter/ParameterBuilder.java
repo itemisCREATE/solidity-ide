@@ -14,37 +14,72 @@
  */
 package com.yakindu.solidity.compiler.parameter;
 
-import com.google.gson.Gson;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.gson.GsonBuilder;
 
 /**
- * 
  * @author Florian Antony - Initial contribution and API
- *
  */
 public class ParameterBuilder {
 
 	private Parameter parameter;
+	private GsonBuilder gsonBuilder;
 
 	public ParameterBuilder() {
 		this("Solidity");
 	}
 
 	public ParameterBuilder(String language) {
+		gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();
 		this.parameter = new Parameter();
 		this.parameter.setLanguage(language);
+		this.parameter.setSettings(defaultSettings());
+	}
+
+	private Settings defaultSettings() {
+		Settings settings = new Settings();
+		settings.setOptimizer(defaultOptimizer());
+		settings.setOutputSelection(defaultOutputSelection());
+		return settings;
+	}
+
+	private OutputSelection defaultOutputSelection() {
+		OutputSelection selection = new OutputSelection();
+		Map<String, Map<String, List<String>>> output = Maps.newHashMap();
+		HashMap<String, List<String>> internalOutputs = Maps.newHashMap();
+		internalOutputs.put("*", Lists.newArrayList());
+		output.put("*", internalOutputs);
+		selection.setOutput(output);
+		return selection;
+	}
+
+	private Optimizer defaultOptimizer() {
+		Optimizer optimizer = new Optimizer();
+		optimizer.setEnabled(false);
+		optimizer.setRuns(0);
+		return optimizer;
 	}
 
 	public String buildJson() {
-		return new Gson().toJson(parameter);
+		return gsonBuilder.create().toJson(parameter);
+	}
+
+	public ParameterBuilder addOutput(String key) {
+		List<String> outputKeys = this.parameter.getSettings().getOutputSelection().getOutput().get("*").get("*");
+		if (!outputKeys.contains(key)) {
+			outputKeys.add(key);
+		}
+		return this;
 	}
 
 	public ParameterBuilder addSource(String name, Source source) {
 		this.parameter.getSources().put(name, source);
-		return this;
-	}
-
-	public ParameterBuilder setStettings(Settings settings) {
-		parameter.setSettings(settings);
 		return this;
 	}
 }

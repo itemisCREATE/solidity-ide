@@ -14,107 +14,50 @@
  */
 package com.yakindu.solidity.compiler.builder.processor;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Map;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import com.google.common.collect.Maps;
+import com.google.gson.Gson;
 import com.google.inject.Inject;
+import com.yakindu.solidity.compiler.result.Abi;
+import com.yakindu.solidity.compiler.result.Ast;
+import com.yakindu.solidity.compiler.result.Bytecode;
+import com.yakindu.solidity.compiler.result.CompiledContract;
+import com.yakindu.solidity.compiler.result.CompiledSource;
+import com.yakindu.solidity.compiler.result.CompilerOutput;
+import com.yakindu.solidity.compiler.result.EvmOutput;
 import com.yakindu.solidity.ui.preferences.SolidityPreferences;
 
 /**
  * @author Florian Antony - Initial contribution and API
  */
 
-public class FileOutputProcessor implements ISolcOutputProcessor {
+public class FileOutputProcessor {
 
 	@Inject
 	private IPreferenceStore preferences;
 
-	private class OutputFile {
 
-		private final File output;
-		private String content = "";
-
-		public OutputFile(String absolutFileName) {
-			this.output = new File(absolutFileName);
+	public void writeOutputFiles(CompilerOutput compilerOutput, Set<IResource> filesToCompile) {
+		for (Entry<String, CompiledSource> entry : compilerOutput.getSources().entrySet()) {
+			String outputFileName = getOutputFileName(findFileForName(filesToCompile, entry.getKey()));
+			writeASTFile(outputFileName, entry.getValue().getAst());
 		}
-
-		public void addLine(String line) {
-			if (content.isEmpty()) {
-				content += line;
-			} else {
-				content += (System.getProperty("line.separator") + line);
-			}
-		}
-
-		public void write() {
-			if (output.exists()) {
-				output.delete();
-			}
-			if (content.isEmpty()) {
-				return;
-			}
-			try {
-				output.getParentFile().mkdirs();
-				if (output.createNewFile()) {
-					try (FileWriter writer = new FileWriter(output)) {
-						writer.write(content);
-						writer.flush();
-					} catch (IOException e) {
-						throw e;
-					}
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-		}
-	}
-
-	private CompileOutputType switchContext(String line, CompileOutputType old) {
-		CompileOutputType outputType = CompileOutputType.getTypeForTrigger(line);
-		if (outputType != null) {
-			return outputType;
-		}
-		return old;
-	}
-
-	@Override
-	public void processLineForFile(BufferedReader output, IFile file) throws IOException {
-		String fileName = getOutputFileName(file);
-		CompileOutputType outputType = null;
-		Map<CompileOutputType, OutputFile> outputFiles = initializeOutputFiles(fileName);
-		String line;
-		line = output.readLine();
-		while (line != null && !Thread.currentThread().isInterrupted()) {
-			if (!line.isEmpty()) {
-				outputType = switchContext(line, outputType);
-				if (outputType != null) {
-					outputFiles.get(outputType).addLine(line);
-				}
-			}
-			line = output.readLine();
-		}
-		writeFiles(outputFiles);
-	}
-
-	private Map<CompileOutputType, OutputFile> initializeOutputFiles(String fileName) {
-		Map<CompileOutputType, OutputFile> outputFiles = Maps.newHashMap();
-		for (CompileOutputType type : CompileOutputType.values()) {
-			outputFiles.put(type, new OutputFile(fileName + type.EXTENSION));
-		}
-		return outputFiles;
-	}
-
-	private void writeFiles(Map<CompileOutputType, OutputFile> outputFiles) {
-		for (OutputFile outputFile : outputFiles.values()) {
-			outputFile.write();
+		for (Entry<String, CompiledContract> entry : compilerOutput.getContracts().entrySet()) {
+			String outputFileName = getOutputFileName(findFileForName(filesToCompile, entry.getKey()));
+			CompiledContract contract = entry.getValue();
+			writeABIFile(outputFileName, contract.getAbi());
+			EvmOutput evmOutput = contract.getEvm();
+			writeBINFile(outputFileName, evmOutput.getBytecode());
+			writeASMFile(outputFileName, evmOutput.getAssembly());
 		}
 	}
 
@@ -124,6 +67,52 @@ public class FileOutputProcessor implements ISolcOutputProcessor {
 		String plainFileName = file.getName().replaceAll(".sol", "");
 		String fileName = outputDirectory + "\\" + plainFileName;
 		return fileName;
+	}
+
+	private void writeASMFile(String outputFileName, String assembly) {
+		writeFile(outputFileName + CompileOutputType.ASM.extension(), assembly);
+	}
+
+	private void writeBINFile(String outputFileName, Bytecode bytecode) {
+		writeFile(outputFileName + CompileOutputType.BIN.extension(), new Gson().toJson(bytecode));
+	}
+
+	private void writeASTFile(String outputFileName, String ast) {
+		writeFile(outputFileName + CompileOutputType.AST.extension(),ast);
+	}
+
+	private void writeABIFile(String outputFileName, List<Abi> abi) {
+		writeFile(outputFileName + CompileOutputType.ABI.extension(), new Gson().toJson(abi));
+	}
+
+	private void writeFile(String outputFileName, String content) {
+		File file = new File(outputFileName);
+		if (file.exists()) {
+			file.delete();
+		}
+		if (content.isEmpty()) {
+			return;
+		}
+		try {
+			file.getParentFile().mkdirs();
+			if (file.createNewFile()) {
+				try (FileWriter writer = new FileWriter(outputFileName)) {
+					writer.write(content);
+					writer.flush();
+				} catch (IOException e) {
+					throw e;
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private IFile findFileForName(Set<IResource> filesToCompile, String fileName) {
+		IFile errorFile = filesToCompile.stream().filter(file -> file.getName().equals(fileName))
+				.map(file -> (IFile) file).findFirst().orElse(null);
+		return errorFile;
 	}
 
 }

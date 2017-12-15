@@ -20,5 +20,14 @@ package com.yakindu.solidity.compiler.result;
  *
  */
 public class Ast {
+	private String ast;
 
+	public String getAst() {
+		return ast;
+	}
+
+	public void setAst(String ast) {
+		this.ast = ast;
+	}
+	
 }

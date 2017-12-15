@@ -14,6 +14,8 @@
  */
 package com.yakindu.solidity.compiler.builder.processor;
 
+import com.yakindu.solidity.ui.preferences.SolidityPreferences;
+
 /**
  * 
  * @author Florian Antony - Initial contribution and API
@@ -21,24 +23,20 @@ package com.yakindu.solidity.compiler.builder.processor;
  */
 public enum CompileOutputType {
 
-	BINARY(".bin"), AST(".ast"), ASM(".asm"), ABI(".abi");
+	BIN(SolidityPreferences.COMPILER_OUTPUT_BIN), AST(SolidityPreferences.COMPILER_OUTPUT_AST), ASM(
+			SolidityPreferences.COMPILER_OUTPUT_ASM), ABI(SolidityPreferences.COMPILER_OUTPUT_ABI);
 
-	public final String EXTENSION;
+	public final String PREFERENCE_KEY;
 
-	CompileOutputType(String fileExtension) {
-		this.EXTENSION = fileExtension;
+	CompileOutputType(String preferenceKey) {
+		this.PREFERENCE_KEY = preferenceKey;
 	}
 
-	public static CompileOutputType getTypeForTrigger(String trigger) {
-		if (trigger.startsWith("Contract JSON ABI")) {
-			return CompileOutputType.ABI;
-		} else if (trigger.startsWith("Binary:")) {
-			return CompileOutputType.BINARY;
-		} else if (trigger.startsWith("Syntax trees:") || trigger.startsWith("JSON AST (compact format):")) {
-			return CompileOutputType.AST;
-		} else if (trigger.startsWith("EVM assembly:")) {
-			return CompileOutputType.ASM;
-		}
-		return null;
+	public String extension() {
+		return "." + outputKey();
+	}
+
+	public String outputKey() {
+		return this.name().toLowerCase();
 	}
 }

@@ -14,6 +14,9 @@
  */
 package com.yakindu.solidity.compiler.parameter;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 
  * @author Florian Antony - Initial contribution and API
@@ -21,5 +24,14 @@ package com.yakindu.solidity.compiler.parameter;
  */
 public class OutputSelection {
 
-	
+	private Map<String, Map<String, List<String>>> output;
+
+	public Map<String, Map<String, List<String>>> getOutput() {
+		return output;
+	}
+
+	public void setOutput(Map<String, Map<String, List<String>>> output) {
+		this.output = output;
+	}
+
 }

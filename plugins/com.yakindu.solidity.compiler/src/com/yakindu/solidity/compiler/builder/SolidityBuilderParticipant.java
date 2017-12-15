@@ -71,37 +71,6 @@ public class SolidityBuilderParticipant implements IXtextBuilderParticipant {
 
 	}
 
-//	private IFile findFile(String uri, List<IFile> files) {
-//		for (IFile iFile : files) {
-//			if (uri.endsWith(iFile.getFullPath().toString())) {
-//				return iFile;
-//			}
-//		}
-//		return null;
-//	}
-//
-//	private List<IFile> getFiles(IBuildContext context) throws CoreException {
-//		List<IFile> filesToCompile = Lists.newArrayList();
-//		IProject project = context.getBuiltProject();
-//		project.accept(new IResourceVisitor() {
-//			@Override
-//			public boolean visit(IResource resource) throws CoreException {
-//				if (resource instanceof IContainer) {
-//					return true;
-//				}
-//				if (resource instanceof IFile) {
-//					IFile file = (IFile) resource;
-//					String fileExtension = file.getFileExtension();
-//					if (fileExtension != null && fileExtension.equals("sol")) {
-//						filesToCompile.add(file);
-//					}
-//				}
-//				return false;
-//			}
-//		});
-//		return filesToCompile;
-//	}
-
 	private List<Delta> getRelevantDeltas(IBuildContext context) {
 		List<Delta> filtered = Lists.newArrayList();
 		for (Delta delta : context.getDeltas()) {

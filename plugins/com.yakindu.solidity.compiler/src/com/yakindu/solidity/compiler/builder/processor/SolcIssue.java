@@ -14,6 +14,7 @@
  */
 package com.yakindu.solidity.compiler.builder.processor;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.validation.CheckType;
@@ -29,6 +30,7 @@ public class SolcIssue implements Issue {
 	private Integer issueLength;
 	private Severity severity;
 	private String errorCode;
+	private IFile file;
 
 	@Override
 	public URI getUriToProblem() {
@@ -114,4 +116,14 @@ public class SolcIssue implements Issue {
 	void setErrorCode(String code) {
 		this.errorCode = code;
 	}
+
+	public void setIFile(IFile file) {
+		this.file = file;
+	}
+
+	public IFile getIFile() {
+		return file;
+	}
+	
+	
 }

@@ -15,12 +15,11 @@
 package com.yakindu.solidity.compiler.parameter;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import org.eclipse.core.internal.utils.FileUtil;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.IPath;
 
 /**
  * 
@@ -34,23 +33,13 @@ public class Source {
 	List<String> urls;
 
 	public Source(IFile file) {
+		@SuppressWarnings("restriction")
+		String seperator = FileUtil.getLineSeparator(file);
 		try (BufferedReader reader = new BufferedReader(
 				new InputStreamReader(file.getContents(true), file.getCharset()));) {
 			String line = reader.readLine();
 			while (line != null) {
-				content += line.trim();
-				line = reader.readLine();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public Source(IPath path) {
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(path.toFile())));) {
-			String line = reader.readLine();
-			while (line != null) {
-				content += line.trim();
+				content += line +seperator;
 				line = reader.readLine();
 			}
 		} catch (Exception e) {
