@@ -14,8 +14,10 @@
  */
 package com.yakindu.solidity.compiler.builder;
 
-import org.eclipse.core.resources.IFile;
+import java.util.List;
+
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.URI;
 
 /**
  * 
@@ -24,5 +26,5 @@ import org.eclipse.core.runtime.IProgressMonitor;
  */
 public interface ISolidityCompiler {
 
-	public void compile(IFile file, IProgressMonitor progress);
+	public void compile(List<URI> uris, IProgressMonitor progress);
 }

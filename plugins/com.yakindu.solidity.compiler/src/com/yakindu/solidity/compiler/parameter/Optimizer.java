@@ -12,31 +12,31 @@
  * 	committers of YAKINDU 
  * 
  */
-package com.yakindu.solidity.compiler.builder.processor;
-
-import com.yakindu.solidity.ui.preferences.SolidityPreferences;
+package com.yakindu.solidity.compiler.parameter;
 
 /**
  * 
  * @author Florian Antony - Initial contribution and API
  *
  */
-public enum CompileOutputType {
+public class Optimizer {
 
-	BIN(SolidityPreferences.COMPILER_OUTPUT_BIN), AST(SolidityPreferences.COMPILER_OUTPUT_AST), ASM(
-			SolidityPreferences.COMPILER_OUTPUT_ASM), ABI(SolidityPreferences.COMPILER_OUTPUT_ABI);
+	private Boolean enabled;
+	private Integer runs;
 
-	public final String PREFERENCE_KEY;
-
-	CompileOutputType(String preferenceKey) {
-		this.PREFERENCE_KEY = preferenceKey;
+	public Boolean getEnabled() {
+		return enabled;
 	}
 
-	public String extension() {
-		return "." + outputKey();
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
 	}
 
-	public String outputKey() {
-		return this.name().toLowerCase();
+	public Integer getRuns() {
+		return runs;
+	}
+
+	public void setRuns(Integer runs) {
+		this.runs = runs;
 	}
 }

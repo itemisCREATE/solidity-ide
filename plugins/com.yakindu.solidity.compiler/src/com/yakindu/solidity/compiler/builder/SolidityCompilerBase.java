@@ -15,23 +15,33 @@
 package com.yakindu.solidity.compiler.builder;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.osgi.framework.Bundle;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 import com.yakindu.solidity.compiler.SolidityCompilerActivator;
 import com.yakindu.solidity.compiler.builder.processor.OutputHandler;
+import com.yakindu.solidity.compiler.parameter.ParameterBuilder;
+import com.yakindu.solidity.compiler.parameter.Source;
 import com.yakindu.solidity.ui.preferences.SolidityPreferences;
+import com.yakindu.solidity.compiler.builder.processor.CompileOutputType;
 
 /**
  * 
@@ -42,23 +52,25 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 
 	@Inject
 	private IPreferenceStore preferences;
+
 	@Inject
 	private OutputHandler handler;
 
 	protected abstract Path getPath();
-	
-	public void compile(IFile file, IProgressMonitor progress) {
-		if (file == null) {
+
+	@Override
+	public void compile(List<URI> uris, IProgressMonitor progress) {
+		Set<IResource> filesToCompile = getFilesToCompile(uris);
+		if (filesToCompile.isEmpty() || progress.isCanceled()) {
 			return;
 		}
-		progress.beginTask("compiling ..." + file.getName(), 10);
+		progress.beginTask("compiling ...", filesToCompile.size());
 		try {
-			Process process = new ProcessBuilder(createParameter(file)).start();
-			handler.handleOutput(process.getInputStream(), file);
-			handler.handleError(process.getErrorStream(), file);
-			int exitCode = process.waitFor();
-			if (exitCode != 0) {
-				throw new Exception("Solidity compiler invocation failed with exit code " + exitCode + ".");
+			Process process = new ProcessBuilder(getCompilerPath(), "--standard-json").start();
+			sendInput(process.getOutputStream(), filesToCompile);
+			handler.handleOutput(process.getInputStream(), filesToCompile);
+			if (process.waitFor(30, TimeUnit.SECONDS) && process.exitValue() != 0) {
+				throw new Exception("Solidity compiler invocation failed with exit code " + process.exitValue() + ".");
 			}
 			progress.done();
 
@@ -66,30 +78,56 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 			e.printStackTrace();
 			progress.done();
 		}
+
 	}
 
-	private List<String> createParameter(IResource file) {
-		boolean bin = preferences.getBoolean(SolidityPreferences.COMPILER_OUTPUT_BIN);
-		boolean ast = preferences.getBoolean(SolidityPreferences.COMPILER_OUTPUT_AST);
-		boolean abi = preferences.getBoolean(SolidityPreferences.COMPILER_OUTPUT_ABI);
-		boolean asm = preferences.getBoolean(SolidityPreferences.COMPILER_OUTPUT_ASM);
-		List<String> parameters = Lists.newArrayList();
-		parameters.add(getCompilerPath());
-		if (bin) {
-			parameters.add("--bin");
+	private Set<IResource> getFilesToCompile(List<URI> uris) {
+		Set<IResource> filesToCompile = Sets.newHashSet();
+		for (URI uri : uris) {
+			IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(uri.toPlatformString(true));
+			filesToCompile.add(resource);
+			filesToCompile.addAll(addImports(uri));
 		}
-		if (abi) {
-			parameters.add("--abi");
-		}
-		if (ast) {
-			parameters.add("--ast");
-		}
-		if (asm) {
-			parameters.add("--asm");
+		return filesToCompile;
+	}
 
+	private Set<IResource> addImports(URI uri) {
+		// TODO resolve uris to imported contracts
+		return Sets.newHashSet();
+	}
+
+	private void sendInput(OutputStream stream, Set<IResource> filesToCompile) {
+		try (OutputStreamWriter writer = new OutputStreamWriter(stream, Charset.forName("UTF-8"));) {
+			ParameterBuilder builder = new ParameterBuilder();
+			boolean bin = preferences.getBoolean(CompileOutputType.BIN.PREFERENCE_KEY);
+			boolean ast = preferences.getBoolean(CompileOutputType.AST.PREFERENCE_KEY);
+			boolean abi = preferences.getBoolean(CompileOutputType.ABI.PREFERENCE_KEY);
+			boolean asm = preferences.getBoolean(CompileOutputType.ASM.PREFERENCE_KEY);
+			if (bin) {
+				builder.addOutput(CompileOutputType.BIN.outputKey());
+			}
+			if (abi) {
+				builder.addOutput(CompileOutputType.ABI.outputKey());
+			}
+			if (ast) {
+				builder.addOutput(CompileOutputType.AST.outputKey());
+			}
+			if (asm) {
+				builder.addOutput(CompileOutputType.ASM.outputKey());
+
+			}
+			for (IResource resource : filesToCompile) {
+				if (resource instanceof IFile) {
+					IFile file = (IFile) resource;
+					builder.addSource(file.getLocation().lastSegment(), new Source(file));
+				}
+			}
+			writer.write(builder.buildJson());
+			writer.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		parameters.add(file.getLocation().toOSString());
-		return parameters;
+
 	}
 
 	private String getCompilerPath() {

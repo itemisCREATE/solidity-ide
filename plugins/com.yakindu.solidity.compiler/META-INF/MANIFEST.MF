@@ -19,6 +19,8 @@ Require-Bundle: com.yakindu.solidity,
  org.yakindu.base.types,
  com.google.inject,
  org.apache.log4j,
- com.yakindu.solidity.ui
+ com.yakindu.solidity.ui,
+ com.google.gson
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: com.yakindu.solidity.compiler.SolidityCompilerActivator
+Export-Package: com.yakindu.solidity.compiler.parameter

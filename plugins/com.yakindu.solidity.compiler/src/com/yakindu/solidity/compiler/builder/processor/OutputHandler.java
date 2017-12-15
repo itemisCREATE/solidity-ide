@@ -14,57 +14,109 @@
  */
 package com.yakindu.solidity.compiler.builder.processor;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
-import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.inject.Inject;
+import com.yakindu.solidity.compiler.result.Bytecode;
+import com.yakindu.solidity.compiler.result.CompiledContract;
+import com.yakindu.solidity.compiler.result.CompiledSource;
+import com.yakindu.solidity.compiler.result.CompilerOutput;
+import com.yakindu.solidity.compiler.result.Documentation;
+import com.yakindu.solidity.compiler.result.EvmOutput;
+import com.yakindu.solidity.compiler.result.GasEstimates;
+
 /**
  * @author Florian Antony - Initial contribution and API
  */
 public class OutputHandler {
 
-	private final ExecutorService service;
-
 	@Inject
-	private MarkerOutputProcessor markerProcessor;
+	private SolidityMarkerCreator markerCreator;
 
 	@Inject
 	private FileOutputProcessor outputFileWriter;
 
+	private final GsonBuilder gson;
+
 	public OutputHandler() {
-		this.service = Executors.newFixedThreadPool(2);
+		gson = new GsonBuilder();
+		registerTypeAdapters();
+
 	}
 
-	public void shutdown() {
-		service.shutdown();
-	}
+	private void registerTypeAdapters() {
+		gson.registerTypeAdapter(CompiledSource.class, new JsonDeserializer<CompiledSource>() {
 
-	public void handleError(final InputStream errorStream, IFile file) {
-		processCompilerOutput(errorStream, markerProcessor, file);
-	}
-
-	public void handleOutput(InputStream inputStream, IFile file) {
-		processCompilerOutput(inputStream, outputFileWriter, file);
-	}
-
-	private void processCompilerOutput(final InputStream stream, final ISolcOutputProcessor processor,
-			final IFile file) {
-
-		this.service.submit(new Runnable() {
 			@Override
-			public void run() {
-				try (final BufferedReader output = new BufferedReader(new InputStreamReader(stream, "UTF-8"))) {
-					processor.processLineForFile(output, file);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+			public CompiledSource deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+					throws JsonParseException {
+				JsonObject object = json.getAsJsonObject();
+				String ast = object.get("ast").getAsJsonObject().toString();
+				;
+				CompiledSource source = new CompiledSource();
+				source.setAst(ast);
+				source.setId(object.get("id").getAsInt());
+				return source;
 			}
 		});
+
+		gson.registerTypeAdapter(CompiledContract.class, new JsonDeserializer<CompiledContract>() {
+
+			@Override
+			public CompiledContract deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+					throws JsonParseException {
+				CompiledContract contract = new CompiledContract();
+				for (Entry<String, JsonElement> elements : json.getAsJsonObject().entrySet()) {
+					contract.setName(elements.getKey());
+					JsonObject contractData = elements.getValue().getAsJsonObject();
+					contract.setAbi(context.deserialize(contractData.get("abi"), List.class));
+					contract.setDevdoc(context.deserialize(contractData.get("devdoc"), Documentation.class));
+					contract.setEvm(context.deserialize(contractData.get("evm"), EvmOutput.class));
+					contract.setUserdoc(context.deserialize(contractData.get("userdoc"), Documentation.class));
+				}
+				return contract;
+			}
+		});
+
+		gson.registerTypeAdapter(EvmOutput.class, new JsonDeserializer<EvmOutput>() {
+
+			@Override
+			public EvmOutput deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+					throws JsonParseException {
+				EvmOutput evm = new EvmOutput();
+				JsonObject jsonEvm = json.getAsJsonObject();
+				evm.setAssembly(jsonEvm.get("assembly").getAsString());
+				evm.setBytecode(context.deserialize(jsonEvm.get("bytecode"), Bytecode.class));
+				evm.setDeployedBytecode(context.deserialize(jsonEvm.get("deployedBytecode"), Bytecode.class));
+				evm.setGasEstimates(context.deserialize(jsonEvm.get("gasEstimates"), GasEstimates.class));
+				evm.setMethodIdentifiers(context.deserialize(jsonEvm.get("methodIdentifiers"), Map.class));
+				return evm;
+			}
+		});
+	}
+
+	public void handleOutput(final InputStream stream, final Set<IResource> filesToCompile) {
+		try (final InputStreamReader output = new InputStreamReader(stream, "UTF-8")) {
+			CompilerOutput compilerOutput = gson.create().fromJson(output, CompilerOutput.class);
+			markerCreator.createMarkers(compilerOutput, filesToCompile);
+			outputFileWriter.writeOutputFiles(compilerOutput, filesToCompile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

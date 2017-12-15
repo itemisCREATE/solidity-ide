@@ -18,9 +18,14 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.core.internal.utils.FileUtil;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -35,6 +40,10 @@ import org.eclipse.xtext.ui.editor.validation.MarkerCreator;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.yakindu.solidity.compiler.result.CompileError;
+import com.yakindu.solidity.compiler.result.CompiledContract;
+import com.yakindu.solidity.compiler.result.CompilerOutput;
+import com.yakindu.solidity.compiler.result.GasEstimates;
 
 /**
  * 
@@ -45,49 +54,99 @@ import com.google.inject.Singleton;
 @SuppressWarnings("restriction")
 public class SolidityMarkerCreator extends MarkerCreator {
 
+	final Pattern pattern = Pattern.compile("\\^-*\\^");
+
 	@Inject
 	private EObjectAtOffsetHelper offsetHelper;
 
 	// NORMAL_VALIDATION
 	public final static String NORMAL_VALIDATION = "org.eclipse.xtext.ui.check.normal"; //$NON-NLS-1$
 
-	private Map<Integer, String> fileContent;
+	void createMarkers(final CompilerOutput compilerOutput, final Set<IResource> filesToCompile) {
+		if (compilerOutput == null) {
+			return;
+		}
+		createErrorMarkers(compilerOutput.getErrors(), filesToCompile);
+		createInfoMarkers(compilerOutput.getContracts(), filesToCompile);
+	}
 
-	private int lineEndingLength;
+	private void createInfoMarkers(Map<String, CompiledContract> contracts, Set<IResource> filesToCompile) {
+		for (Entry<String, CompiledContract> contract : contracts.entrySet()) {
+			IFile file = findFileForName(filesToCompile, contract.getKey());
+			createInfoMarkers(contract.getValue(), file);
+		}
+	}
 
-	void createMarkers(List<String> issues, IFile file) {
-		fileContent = getFileContent(file);
+	private void createInfoMarkers(CompiledContract contract, IFile file) {
 
-		for (String issue : issues) {
-			Resource resource = new ResourceSetImpl()
-					.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(), true), true);
-			SolcIssue solcIssue = createSolcIssue(issue, resource);
-			try {
-				super.createMarker(solcIssue, file, NORMAL_VALIDATION);
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
+		GasEstimates gasEstimates = contract.getEvm().getGasEstimates();
+
+		SolcIssue solcIssue = new SolcIssue();
+		solcIssue.setIFile(file);
+		solcIssue.setLineNumber(1);
+		solcIssue.setSeverity(Severity.INFO);
+		String message = prettyPrint(gasEstimates);
+		solcIssue.setMessage(message);
+		solcIssue.setErrorCode(createErrorCodeFromMessage(Severity.INFO, message));
+		EObject element = getEObject(file, 0);
+		solcIssue.setUriToProblem(EcoreUtil.getURI(element));
+
+		try {
+			super.createMarker(solcIssue, file, NORMAL_VALIDATION);
+		} catch (CoreException e) {
+			e.printStackTrace();
 		}
 
 	}
 
-	private SolcIssue createSolcIssue(String issue, Resource resource) {
-		String[] parts = issue.split(":");
-		int lineNumber = Integer.parseInt(parts[2]);
-		int columnNumber = Integer.parseInt(parts[3]);
-		Severity severity = calculateSeverity(parts[4].trim());
-		String message;
-		if (severity == Severity.INFO) {
-			message = parts[4].trim();
-		} else {
-			message = parts[5].substring(0, parts[5].indexOf(System.getProperty("line.separator"))).trim();
+	private String prettyPrint(GasEstimates gasEstimates) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Gas estimations:\n");
+		builder.append("\tCreation:\n");
+		printMethodEstimations(gasEstimates.getCreation(), builder);
+		builder.append("\tInternal:\n");
+		printMethodEstimations(gasEstimates.getInternal(), builder);
+		builder.append("\tExternal:\n");
+		printMethodEstimations(gasEstimates.getExternal(), builder);
+		return builder.toString();
+	}
+
+	private void printMethodEstimations(Map<String, String> map, StringBuilder builder) {
+		if (map != null) {
+			for (Entry<String, String> entry : map.entrySet()) {
+				builder.append("\t\t" + entry.getKey() + ": " + entry.getValue() + "\n");
+			}
 		}
-		String issueDetails = parts[5].substring(parts[5].indexOf(System.getProperty("line.separator")),
-				parts[5].length());
-		boolean isMultiline = issueDetails.contains("Spanning multiple lines.");
-		int offset = calculateOffset(columnNumber, lineNumber);
-		int length = calculateIssueLength(lineNumber, issueDetails, isMultiline);
+	}
+
+	private void createErrorMarkers(final List<CompileError> errors, final Set<IResource> filesToCompile) {
+		if (errors == null) {
+			return;
+		}
+		for (CompileError error : errors) {
+			SolcIssue issue = createSolcIssue(error, filesToCompile);
+			try {
+				super.createMarker(issue, issue.getIFile(), NORMAL_VALIDATION);
+			} catch (CoreException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private SolcIssue createSolcIssue(CompileError error, Set<IResource> filesToCompile) {
+		String[] parts = error.getFormattedMessage().split(":");
+		String fileName = partAtIndex(parts, 0);
+		IFile errorFile = findFileForName(filesToCompile, fileName);
+		int lineNumber = extractNumber(partAtIndex(parts, 1));
+		int columnNumber = extractNumber(partAtIndex(parts, 2));
+		Map<Integer, String> fileContent = getFileContent(errorFile);
+		int offset = calculateOffset(fileContent, columnNumber, lineNumber);
+		int length = calculateIssueLength(fileContent.get(lineNumber), partAtIndex(parts, 4));
+
+		Severity severity = calculateSeverity(error.getSeverity());
+		String message = error.getMessage();
 		SolcIssue solcIssue = new SolcIssue();
+		solcIssue.setIFile(errorFile);
 		solcIssue.setLineNumber(lineNumber);
 		solcIssue.setColumnNumber(columnNumber);
 		solcIssue.setSeverity(severity);
@@ -95,9 +154,39 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		solcIssue.setOffset(offset);
 		solcIssue.setLength(length);
 		solcIssue.setErrorCode(createErrorCodeFromMessage(severity, message));
-		EObject element = offsetHelper.resolveContainedElementAt((XtextResource) resource, offset);
+		EObject element = getEObject(errorFile, offset);
 		solcIssue.setUriToProblem(EcoreUtil.getURI(element));
 		return solcIssue;
+	}
+
+	private String partAtIndex(String[] parts, int i) {
+		try {
+			return parts[i];
+		} catch (IndexOutOfBoundsException e) {
+			e.printStackTrace();
+			return "";
+		}
+	}
+
+	private int extractNumber(String value) {
+		try {
+			return Integer.parseInt(value);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	private IFile findFileForName(Set<IResource> filesToCompile, String fileName) {
+		IFile errorFile = filesToCompile.stream().filter(file -> file.getName().equals(fileName))
+				.map(file -> (IFile) file).findFirst().orElse((IFile)filesToCompile.stream().findFirst().orElse(null));
+		return errorFile;
+	}
+
+	private EObject getEObject(IFile errorFile, int offset) {
+		Resource resource = new ResourceSetImpl()
+				.getResource(URI.createPlatformResourceURI(errorFile.getFullPath().toString(), true), true);
+		return offsetHelper.resolveContainedElementAt((XtextResource) resource, offset);
 	}
 
 	private String createErrorCodeFromMessage(Severity severity, String message) {
@@ -112,14 +201,14 @@ public class SolidityMarkerCreator extends MarkerCreator {
 	}
 
 	private Map<Integer, String> getFileContent(IFile file) {
-		lineEndingLength = FileUtil.getLineSeparator(file).length();
+		String fileEnding = FileUtil.getLineSeparator(file);
 		Map<Integer, String> content = Maps.newHashMap();
 		try (BufferedReader reader = new BufferedReader(
 				new InputStreamReader(file.getContents(true), file.getCharset()));) {
 			String line = reader.readLine();
 			int lastLineNumber = 1;
 			while (line != null) {
-				content.put(lastLineNumber, line);
+				content.put(lastLineNumber, line + fileEnding);
 				line = reader.readLine();
 				lastLineNumber++;
 			}
@@ -129,38 +218,43 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		return content;
 	}
 
-	private int calculateOffset(int columnNumber, int lineNumber) {
+	private int calculateOffset(Map<Integer, String> fileContent, int columnNumber, int lineNumber) {
 		int start = columnNumber - 1;
 		for (int i = 1; i < lineNumber; i++) {
 			String line = fileContent.get(i);
-			// +1 for \n at the end of each line
-			start += line.length() + lineEndingLength;
+			start += line.length();
 		}
-		return start;
+		return (start > 0)? start : 0;
 	}
 
-	private int calculateIssueLength(int lineNumber, String issueDetails, boolean isMultiline) {
-		String line = fileContent.get(lineNumber);
-		if (isMultiline) {
-			if (line.contains("function")) {
-				return line.substring(line.indexOf("function"), line.indexOf(")") + 1).length();
+	private int calculateIssueLength(String errorLine, String issueDetails) {
+		if (issueDetails.contains("Spanning multiple lines.")) {
+			if (errorLine.contains("function")) {
+				return errorLine.substring(errorLine.indexOf("function"), errorLine.indexOf(")") + 1).length();
 			}
-			if (line.contains("contract")) {
-				return line.substring(line.indexOf("contract"), line.indexOf("{")).length();
+			if (errorLine.contains("contract")) {
+				return errorLine.substring(errorLine.indexOf("contract"), errorLine.indexOf("{")).length();
 			}
 		} else {
-			int first = issueDetails.indexOf("^");
-			int last = issueDetails.lastIndexOf("^");
-			return (last - first);
+			return calculateIssueLength(issueDetails);
+		}
+		return 0;
+	}
+
+	private int calculateIssueLength(String errorMessage) {
+		Matcher matcher = pattern.matcher(errorMessage);
+		if (matcher.find()) {
+			return matcher.group(0).length();
+
 		}
 		return 0;
 	}
 
 	private Severity calculateSeverity(String severety) {
 		switch (severety) {
-			case "Warning" :
+			case "warning" :
 				return Severity.WARNING;
-			case "Error" :
+			case "error" :
 				return Severity.ERROR;
 			default :
 				return Severity.INFO;

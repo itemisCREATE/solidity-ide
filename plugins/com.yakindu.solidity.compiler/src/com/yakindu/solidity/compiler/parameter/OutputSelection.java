@@ -12,31 +12,26 @@
  * 	committers of YAKINDU 
  * 
  */
-package com.yakindu.solidity.compiler.builder.processor;
+package com.yakindu.solidity.compiler.parameter;
 
-import com.yakindu.solidity.ui.preferences.SolidityPreferences;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 
  * @author Florian Antony - Initial contribution and API
  *
  */
-public enum CompileOutputType {
+public class OutputSelection {
 
-	BIN(SolidityPreferences.COMPILER_OUTPUT_BIN), AST(SolidityPreferences.COMPILER_OUTPUT_AST), ASM(
-			SolidityPreferences.COMPILER_OUTPUT_ASM), ABI(SolidityPreferences.COMPILER_OUTPUT_ABI);
+	private Map<String, Map<String, List<String>>> output;
 
-	public final String PREFERENCE_KEY;
-
-	CompileOutputType(String preferenceKey) {
-		this.PREFERENCE_KEY = preferenceKey;
+	public Map<String, Map<String, List<String>>> getOutput() {
+		return output;
 	}
 
-	public String extension() {
-		return "." + outputKey();
+	public void setOutput(Map<String, Map<String, List<String>>> output) {
+		this.output = output;
 	}
 
-	public String outputKey() {
-		return this.name().toLowerCase();
-	}
 }

@@ -12,31 +12,50 @@
  * 	committers of YAKINDU 
  * 
  */
-package com.yakindu.solidity.compiler.builder.processor;
-
-import com.yakindu.solidity.ui.preferences.SolidityPreferences;
+package com.yakindu.solidity.compiler.result;
 
 /**
  * 
  * @author Florian Antony - Initial contribution and API
  *
  */
-public enum CompileOutputType {
+public class CompiledSource {
 
-	BIN(SolidityPreferences.COMPILER_OUTPUT_BIN), AST(SolidityPreferences.COMPILER_OUTPUT_AST), ASM(
-			SolidityPreferences.COMPILER_OUTPUT_ASM), ABI(SolidityPreferences.COMPILER_OUTPUT_ABI);
+	private Integer id;
+	private String ast;
+	private String name;
+	private String src;
 
-	public final String PREFERENCE_KEY;
-
-	CompileOutputType(String preferenceKey) {
-		this.PREFERENCE_KEY = preferenceKey;
+	public Integer getId() {
+		return id;
 	}
 
-	public String extension() {
-		return "." + outputKey();
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public String outputKey() {
-		return this.name().toLowerCase();
+	public String getAst() {
+		return ast;
+	}
+
+	public void setAst(String ast) {
+		this.ast = ast;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+
+	}
+
+	public void setSrc(String src) {
+		this.src = src;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getSrc() {
+		return src;
 	}
 }
