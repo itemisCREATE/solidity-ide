@@ -135,13 +135,13 @@ public class SolidityMarkerCreator extends MarkerCreator {
 
 	private SolcIssue createSolcIssue(CompileError error, Set<IResource> filesToCompile) {
 		String[] parts = error.getFormattedMessage().split(":");
-		String fileName = parts[0];
+		String fileName = partAtIndex(parts, 0);
 		IFile errorFile = findFileForName(filesToCompile, fileName);
-		int lineNumber = Integer.parseInt(parts[1]);
-		int columnNumber = Integer.parseInt(parts[2]);
+		int lineNumber = extractNumber(partAtIndex(parts, 1));
+		int columnNumber = extractNumber(partAtIndex(parts, 2));
 		Map<Integer, String> fileContent = getFileContent(errorFile);
 		int offset = calculateOffset(fileContent, columnNumber, lineNumber);
-		int length = calculateIssueLength(fileContent.get(lineNumber), parts[4]);
+		int length = calculateIssueLength(fileContent.get(lineNumber), partAtIndex(parts, 4));
 
 		Severity severity = calculateSeverity(error.getSeverity());
 		String message = error.getMessage();
@@ -159,9 +159,27 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		return solcIssue;
 	}
 
+	private String partAtIndex(String[] parts, int i) {
+		try {
+			return parts[i];
+		} catch (IndexOutOfBoundsException e) {
+			e.printStackTrace();
+			return "";
+		}
+	}
+
+	private int extractNumber(String value) {
+		try {
+			return Integer.parseInt(value);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
 	private IFile findFileForName(Set<IResource> filesToCompile, String fileName) {
 		IFile errorFile = filesToCompile.stream().filter(file -> file.getName().equals(fileName))
-				.map(file -> (IFile) file).findFirst().orElse(null);
+				.map(file -> (IFile) file).findFirst().orElse((IFile)filesToCompile.stream().findFirst().orElse(null));
 		return errorFile;
 	}
 
@@ -173,12 +191,12 @@ public class SolidityMarkerCreator extends MarkerCreator {
 
 	private String createErrorCodeFromMessage(Severity severity, String message) {
 		switch (severity) {
-		case ERROR:
-			return "error";
-		case WARNING:
-			return SolidityWarning.getCodeForMessage(message);
-		default:
-			return "info";
+			case ERROR :
+				return "error";
+			case WARNING :
+				return SolidityWarning.getCodeForMessage(message);
+			default :
+				return "info";
 		}
 	}
 
@@ -206,7 +224,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 			String line = fileContent.get(i);
 			start += line.length();
 		}
-		return start;
+		return (start > 0)? start : 0;
 	}
 
 	private int calculateIssueLength(String errorLine, String issueDetails) {
@@ -223,7 +241,6 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		return 0;
 	}
 
-
 	private int calculateIssueLength(String errorMessage) {
 		Matcher matcher = pattern.matcher(errorMessage);
 		if (matcher.find()) {
@@ -235,12 +252,12 @@ public class SolidityMarkerCreator extends MarkerCreator {
 
 	private Severity calculateSeverity(String severety) {
 		switch (severety) {
-		case "warning":
-			return Severity.WARNING;
-		case "error":
-			return Severity.ERROR;
-		default:
-			return Severity.INFO;
+			case "warning" :
+				return Severity.WARNING;
+			case "error" :
+				return Severity.ERROR;
+			default :
+				return Severity.INFO;
 		}
 	}
 }

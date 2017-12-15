@@ -46,6 +46,7 @@ public class SolidityBuilderParticipant implements IXtextBuilderParticipant {
 
 	@Inject
 	private IPreferenceStore preferences;
+	
 	@Inject(optional = true)
 	private ISolidityCompiler compiler;
 

@@ -28,7 +28,6 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.yakindu.solidity.compiler.result.Abi;
-import com.yakindu.solidity.compiler.result.Ast;
 import com.yakindu.solidity.compiler.result.Bytecode;
 import com.yakindu.solidity.compiler.result.CompiledContract;
 import com.yakindu.solidity.compiler.result.CompiledSource;
@@ -114,5 +113,4 @@ public class FileOutputProcessor {
 				.map(file -> (IFile) file).findFirst().orElse(null);
 		return errorFile;
 	}
-
 }

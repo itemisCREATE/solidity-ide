@@ -26,6 +26,7 @@ import org.eclipse.core.resources.IFile;
  * @author Florian Antony - Initial contribution and API
  *
  */
+@SuppressWarnings("restriction")
 public class Source {
 
 	String keccak256;
@@ -33,13 +34,12 @@ public class Source {
 	List<String> urls;
 
 	public Source(IFile file) {
-		@SuppressWarnings("restriction")
 		String seperator = FileUtil.getLineSeparator(file);
 		try (BufferedReader reader = new BufferedReader(
 				new InputStreamReader(file.getContents(true), file.getCharset()));) {
 			String line = reader.readLine();
 			while (line != null) {
-				content += line +seperator;
+				content += line + seperator;
 				line = reader.readLine();
 			}
 		} catch (Exception e) {
