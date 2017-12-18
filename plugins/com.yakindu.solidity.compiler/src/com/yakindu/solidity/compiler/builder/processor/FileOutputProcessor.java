@@ -85,6 +85,9 @@ public class FileOutputProcessor {
 	}
 
 	private void writeFile(String outputFileName, String content) {
+		if(content == null) {
+			return;
+		}
 		File file = new File(outputFileName);
 		if (file.exists()) {
 			file.delete();
