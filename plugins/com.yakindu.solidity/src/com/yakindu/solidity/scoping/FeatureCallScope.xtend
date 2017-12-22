@@ -43,6 +43,7 @@ import org.yakindu.base.types.typesystem.ITypeSystem
  * 
  * @author andreas muelder - Initial contribution and API
  * @author Karsten Thoms
+ * @author Thomas Kutz
  */
 class FeatureCallScope extends AbstractScope {
 
