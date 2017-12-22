@@ -78,7 +78,9 @@ public class SolidityMarkerCreator extends MarkerCreator {
 	}
 
 	private void createInfoMarkers(CompiledContract contract, IFile file) {
-
+		if (contract.getEvm() == null || contract.getEvm().getGasEstimates() == null) {
+			return;
+		}
 		GasEstimates gasEstimates = contract.getEvm().getGasEstimates();
 
 		SolcIssue solcIssue = new SolcIssue();
