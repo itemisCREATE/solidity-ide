@@ -102,6 +102,9 @@ public class SolidityMarkerCreator extends MarkerCreator {
 	}
 
 	private String prettyPrint(GasEstimates gasEstimates) {
+		if(gasEstimates == null) {
+			return null;
+		}
 		StringBuilder builder = new StringBuilder();
 		builder.append("Gas estimations:\n");
 		builder.append("\tCreation:\n");
