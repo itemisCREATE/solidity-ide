@@ -86,7 +86,8 @@ public class OutputHandler {
 					contract.setAbi(context.deserialize(contractData.get("abi"), List.class));
 					contract.setDevdoc(context.deserialize(contractData.get("devdoc"), Documentation.class));
 					contract.setEvm(context.deserialize(contractData.get("evm"), EvmOutput.class));
-					contract.setUserdoc(context.deserialize(contractData.get("userdoc"), Documentation.class));
+					JsonElement element = contractData.get("userdoc");
+					contract.setUserdoc(context.deserialize(element, Documentation.class));
 				}
 				return contract;
 			}
