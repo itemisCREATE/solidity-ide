@@ -23,14 +23,15 @@ import java.util.Map;
  */
 public class Documentation {
 
-	private Map<String, String> methods;
+	private Map<String, Map<String, String>> methods;
 
-	public Map<String, String> getMethods() {
+	public Map<String, Map<String, String>> getMethods() {
 		return methods;
 	}
 
-	public void setMethods(Map<String, String> methods) {
+	public void setMethods(Map<String, Map<String, String>> methods) {
 		this.methods = methods;
 	}
 
 }
+ 

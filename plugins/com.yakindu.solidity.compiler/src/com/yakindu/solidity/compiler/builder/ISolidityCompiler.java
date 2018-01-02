@@ -19,11 +19,14 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 
+import com.google.inject.ImplementedBy;
+
 /**
  * 
  * @author Florian Antony - Initial contribution and API
  *
  */
+@ImplementedBy(SolidityCompilerBase.class)
 public interface ISolidityCompiler {
 
 	public void compile(List<URI> uris, IProgressMonitor progress);

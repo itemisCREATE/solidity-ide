@@ -31,32 +31,33 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.osgi.framework.Bundle;
 
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 import com.yakindu.solidity.compiler.SolidityCompilerActivator;
+import com.yakindu.solidity.compiler.builder.processor.CompileOutputType;
 import com.yakindu.solidity.compiler.builder.processor.OutputHandler;
 import com.yakindu.solidity.compiler.parameter.ParameterBuilder;
 import com.yakindu.solidity.compiler.parameter.Source;
-import com.yakindu.solidity.ui.preferences.SolidityPreferences;
-import com.yakindu.solidity.compiler.builder.processor.CompileOutputType;
+import com.yakindu.solidity.ui.preferences.SolidityPreferencesFacade;
 
 /**
  * 
  * @author Florian Antony - Initial contribution and API
  *
  */
-public abstract class SolidityCompilerBase implements ISolidityCompiler {
-
+public class SolidityCompilerBase implements ISolidityCompiler {
+	
 	@Inject
-	private IPreferenceStore preferences;
+	private SolidityPreferencesFacade prefs;
 
 	@Inject
 	private OutputHandler handler;
 
-	protected abstract Path getPath();
+	protected Path getPath() {
+		throw new IllegalStateException("No path to solc defined. Please specify it in preferences.");
+	}
 
 	@Override
 	public void compile(List<URI> uris, IProgressMonitor progress) {
@@ -99,22 +100,17 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 	private void sendInput(OutputStream stream, Set<IResource> filesToCompile) {
 		try (OutputStreamWriter writer = new OutputStreamWriter(stream, Charset.forName("UTF-8"));) {
 			ParameterBuilder builder = new ParameterBuilder();
-			boolean bin = preferences.getBoolean(CompileOutputType.BIN.PREFERENCE_KEY);
-			boolean ast = preferences.getBoolean(CompileOutputType.AST.PREFERENCE_KEY);
-			boolean abi = preferences.getBoolean(CompileOutputType.ABI.PREFERENCE_KEY);
-			boolean asm = preferences.getBoolean(CompileOutputType.ASM.PREFERENCE_KEY);
-			if (bin) {
+			if (prefs.isWriteBINFile()) {
 				builder.addOutput(CompileOutputType.BIN.outputKey());
 			}
-			if (abi) {
+			if (prefs.isWriteABIFile()) {
 				builder.addOutput(CompileOutputType.ABI.outputKey());
 			}
-			if (ast) {
+			if (prefs.isWriteASTFile()) {
 				builder.addOutput(CompileOutputType.AST.outputKey());
 			}
-			if (asm) {
+			if (prefs.isWriteASMFile()) {
 				builder.addOutput(CompileOutputType.ASM.outputKey());
-
 			}
 			for (IResource resource : filesToCompile) {
 				if (resource instanceof IFile) {
@@ -131,7 +127,7 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 	}
 
 	private String getCompilerPath() {
-		String pathToCompiler = preferences.getString(SolidityPreferences.COMPILER_PATH);
+		String pathToCompiler = prefs.getCompilerPath();
 		if (pathToCompiler == null || pathToCompiler.isEmpty()) {
 			return getFallbackCompilerPath();
 		}

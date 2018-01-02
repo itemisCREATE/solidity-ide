@@ -25,6 +25,7 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IResource;
 
+import com.google.common.collect.Sets;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -66,10 +67,8 @@ public class OutputHandler {
 			public CompiledSource deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
 					throws JsonParseException {
 				JsonObject object = json.getAsJsonObject();
-				String ast = object.get("ast").getAsJsonObject().toString();
-				;
 				CompiledSource source = new CompiledSource();
-				source.setAst(ast);
+				source.setAst(readObjectMemberAsString(object, "ast"));
 				source.setId(object.get("id").getAsInt());
 				return source;
 			}
@@ -81,16 +80,18 @@ public class OutputHandler {
 			public CompiledContract deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
 					throws JsonParseException {
 				CompiledContract contract = new CompiledContract();
-				for (Entry<String, JsonElement> elements : json.getAsJsonObject().entrySet()) {
-					contract.setName(elements.getKey());
-					JsonObject contractData = elements.getValue().getAsJsonObject();
+				for (Entry<String, JsonElement> contractEntry : readMembersAsSet(json)) {
+					contract.setName(contractEntry.getKey());
+					JsonObject contractData = contractEntry.getValue().getAsJsonObject();
 					contract.setAbi(context.deserialize(contractData.get("abi"), List.class));
 					contract.setDevdoc(context.deserialize(contractData.get("devdoc"), Documentation.class));
 					contract.setEvm(context.deserialize(contractData.get("evm"), EvmOutput.class));
-					contract.setUserdoc(context.deserialize(contractData.get("userdoc"), Documentation.class));
+					JsonElement element = contractData.get("userdoc");
+					contract.setUserdoc(context.deserialize(element, Documentation.class));
 				}
 				return contract;
 			}
+
 		});
 
 		gson.registerTypeAdapter(EvmOutput.class, new JsonDeserializer<EvmOutput>() {
@@ -100,14 +101,30 @@ public class OutputHandler {
 					throws JsonParseException {
 				EvmOutput evm = new EvmOutput();
 				JsonObject jsonEvm = json.getAsJsonObject();
-				evm.setAssembly(jsonEvm.get("assembly").getAsString());
+				evm.setAssembly(readStringMember(jsonEvm, "assembly"));
 				evm.setBytecode(context.deserialize(jsonEvm.get("bytecode"), Bytecode.class));
 				evm.setDeployedBytecode(context.deserialize(jsonEvm.get("deployedBytecode"), Bytecode.class));
 				evm.setGasEstimates(context.deserialize(jsonEvm.get("gasEstimates"), GasEstimates.class));
 				evm.setMethodIdentifiers(context.deserialize(jsonEvm.get("methodIdentifiers"), Map.class));
 				return evm;
 			}
+
 		});
+	}
+
+	private Set<Entry<String, JsonElement>> readMembersAsSet(JsonElement json) {
+		JsonObject object = json.getAsJsonObject();
+		return (object == null) ? Sets.newHashSet() : object.entrySet();
+	}
+
+	private String readObjectMemberAsString(JsonObject object, String key) {
+		JsonElement element = object.get(key);
+		return (element == null) ? null : element.getAsJsonObject().toString();
+	}
+
+	private String readStringMember(JsonObject object, String key) {
+		JsonElement element = object.get(key);
+		return (element == null) ? null : element.getAsString();
 	}
 
 	public void handleOutput(final InputStream stream, final Set<IResource> filesToCompile) {

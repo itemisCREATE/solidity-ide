@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.resource.XtextResource;
@@ -44,6 +45,7 @@ import com.yakindu.solidity.compiler.result.CompileError;
 import com.yakindu.solidity.compiler.result.CompiledContract;
 import com.yakindu.solidity.compiler.result.CompilerOutput;
 import com.yakindu.solidity.compiler.result.GasEstimates;
+import com.yakindu.solidity.solidity.SourceUnit;
 
 /**
  * 
@@ -54,7 +56,8 @@ import com.yakindu.solidity.compiler.result.GasEstimates;
 @SuppressWarnings("restriction")
 public class SolidityMarkerCreator extends MarkerCreator {
 
-	final Pattern pattern = Pattern.compile("\\^-*\\^");
+	final Pattern issueLength = Pattern.compile("\\^-*\\^");
+	final Pattern issueContractNameLine= Pattern.compile("contract \\w*");
 
 	@Inject
 	private EObjectAtOffsetHelper offsetHelper;
@@ -78,7 +81,9 @@ public class SolidityMarkerCreator extends MarkerCreator {
 	}
 
 	private void createInfoMarkers(CompiledContract contract, IFile file) {
-
+		if (contract.getEvm() == null || contract.getEvm().getGasEstimates() == null) {
+			return;
+		}
 		GasEstimates gasEstimates = contract.getEvm().getGasEstimates();
 
 		SolcIssue solcIssue = new SolcIssue();
@@ -100,6 +105,9 @@ public class SolidityMarkerCreator extends MarkerCreator {
 	}
 
 	private String prettyPrint(GasEstimates gasEstimates) {
+		if(gasEstimates == null) {
+			return null;
+		}
 		StringBuilder builder = new StringBuilder();
 		builder.append("Gas estimations:\n");
 		builder.append("\tCreation:\n");
@@ -186,6 +194,10 @@ public class SolidityMarkerCreator extends MarkerCreator {
 	private EObject getEObject(IFile errorFile, int offset) {
 		Resource resource = new ResourceSetImpl()
 				.getResource(URI.createPlatformResourceURI(errorFile.getFullPath().toString(), true), true);
+		if(offset == 0){
+			EObject object = resource.getContents().get(0);
+			return EcoreUtil2.getAllContentsOfType(object, SourceUnit.class).get(0);
+		}
 		return offsetHelper.resolveContainedElementAt((XtextResource) resource, offset);
 	}
 
@@ -233,15 +245,15 @@ public class SolidityMarkerCreator extends MarkerCreator {
 				return errorLine.substring(errorLine.indexOf("function"), errorLine.indexOf(")") + 1).length();
 			}
 			if (errorLine.contains("contract")) {
-				return errorLine.substring(errorLine.indexOf("contract"), errorLine.indexOf("{")).length();
+				return calculateIssueLength(issueDetails, this.issueContractNameLine);
 			}
 		} else {
-			return calculateIssueLength(issueDetails);
+			return calculateIssueLength(issueDetails, this.issueLength);
 		}
 		return 0;
 	}
 
-	private int calculateIssueLength(String errorMessage) {
+	private int calculateIssueLength(String errorMessage, Pattern pattern) {
 		Matcher matcher = pattern.matcher(errorMessage);
 		if (matcher.find()) {
 			return matcher.group(0).length();

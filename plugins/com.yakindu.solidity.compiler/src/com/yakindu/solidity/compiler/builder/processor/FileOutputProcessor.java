@@ -23,7 +23,6 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.jface.preference.IPreferenceStore;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
@@ -33,36 +32,42 @@ import com.yakindu.solidity.compiler.result.CompiledContract;
 import com.yakindu.solidity.compiler.result.CompiledSource;
 import com.yakindu.solidity.compiler.result.CompilerOutput;
 import com.yakindu.solidity.compiler.result.EvmOutput;
-import com.yakindu.solidity.ui.preferences.SolidityPreferences;
+import com.yakindu.solidity.ui.preferences.SolidityPreferencesFacade;
 
 /**
  * @author Florian Antony - Initial contribution and API
  */
 
 public class FileOutputProcessor {
-
-	@Inject
-	private IPreferenceStore preferences;
+	
+	@Inject 
+	private SolidityPreferencesFacade prefs;
 
 
 	public void writeOutputFiles(CompilerOutput compilerOutput, Set<IResource> filesToCompile) {
-		for (Entry<String, CompiledSource> entry : compilerOutput.getSources().entrySet()) {
-			String outputFileName = getOutputFileName(findFileForName(filesToCompile, entry.getKey()));
-			writeASTFile(outputFileName, entry.getValue().getAst());
+		if (prefs.isWriteASTFile()) {
+			for (Entry<String, CompiledSource> entry : compilerOutput.getSources().entrySet()) {
+				String outputFileName = getOutputFileName(findFileForName(filesToCompile, entry.getKey()));
+				writeASTFile(outputFileName, entry.getValue().getAst());
+			}
 		}
 		for (Entry<String, CompiledContract> entry : compilerOutput.getContracts().entrySet()) {
 			String outputFileName = getOutputFileName(findFileForName(filesToCompile, entry.getKey()));
 			CompiledContract contract = entry.getValue();
-			writeABIFile(outputFileName, contract.getAbi());
+			if (contract != null && prefs.isWriteABIFile())
+				writeABIFile(outputFileName, contract.getAbi());
+			
 			EvmOutput evmOutput = contract.getEvm();
-			writeBINFile(outputFileName, evmOutput.getBytecode());
-			writeASMFile(outputFileName, evmOutput.getAssembly());
+			if (evmOutput != null && prefs.isWriteBINFile())
+				writeBINFile(outputFileName, evmOutput.getBytecode());
+			if (evmOutput != null && prefs.isWriteASMFile())
+				writeASMFile(outputFileName, evmOutput.getAssembly());
 		}
 	}
 
 	private String getOutputFileName(IFile file) {
 		String outputDirectory = file.getProject().getLocation().toOSString() + "\\"
-				+ preferences.getString(SolidityPreferences.COMPILER_OUTPUT_PATH);
+				+ prefs.getCompilerOutputPath();
 		String plainFileName = file.getName().replaceAll(".sol", "");
 		String fileName = outputDirectory + "\\" + plainFileName;
 		return fileName;
@@ -85,11 +90,14 @@ public class FileOutputProcessor {
 	}
 
 	private void writeFile(String outputFileName, String content) {
+		if(content == null) {
+			return;
+		}
 		File file = new File(outputFileName);
 		if (file.exists()) {
 			file.delete();
 		}
-		if (content.isEmpty()) {
+		if (content == null || content.isEmpty()) {
 			return;
 		}
 		try {

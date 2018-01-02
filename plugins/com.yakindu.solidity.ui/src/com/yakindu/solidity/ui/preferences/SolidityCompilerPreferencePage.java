@@ -14,10 +14,14 @@
  */
 package com.yakindu.solidity.ui.preferences;
 
+import java.io.File;
+
+import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;
 import org.eclipse.jface.preference.StringFieldEditor;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -34,6 +38,8 @@ import com.yakindu.solidity.ui.internal.SolidityActivator;
  * @author Florian Antony
  */
 public class SolidityCompilerPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
+
+	private FileFieldEditor compilerPathFieldEditor;
 
 	public SolidityCompilerPreferencePage() {
 		super(GRID);
@@ -53,7 +59,8 @@ public class SolidityCompilerPreferencePage extends FieldEditorPreferencePage im
 
 	protected void createCompilerSettings(Composite parent) {
 		Composite composite = createGroupComposite(parent, "Solc compiler");
-		addField(new FileFieldEditor(SolidityPreferences.COMPILER_PATH, "Path to solc", composite));
+		compilerPathFieldEditor = new FileFieldEditor(SolidityPreferences.COMPILER_PATH, "Path to solc", composite);
+		addField(compilerPathFieldEditor);
 		addField(new BooleanFieldEditor(SolidityPreferences.COMPILER_ENABLED, "Enable solidity compiler", composite));
 		addField(new BooleanFieldEditor(SolidityPreferences.COMPILER_OUTPUT_BIN, "Enable solidity bin output",
 				composite));
@@ -86,6 +93,27 @@ public class SolidityCompilerPreferencePage extends FieldEditorPreferencePage im
 		composite.setLayoutData(gridData);
 		group.setText(title);
 		return composite;
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		if (event.getProperty().equals("field_editor_value") && event.getSource().equals(compilerPathFieldEditor)) {
+			validateFile();
+		}
+		super.propertyChange(event);
+	}
+
+	private void validateFile() {
+		File file = new File(compilerPathFieldEditor.getStringValue());
+		if (file.exists() && file.isFile() && file.canExecute()
+				&& (file.getName().contains("solc") || file.getName().contains("solcjs"))) {
+			if (file.getName().contains("solcjs")) {
+				setMessage("Use of 'solcjs' is discuraged!", DialogPage.WARNING);
+			}
+		} else {
+			setValid(false);
+			setErrorMessage("Path must point to 'solc' or 'solcjs' executable");
+		}
 	}
 
 	public void init(IWorkbench workbench) {
