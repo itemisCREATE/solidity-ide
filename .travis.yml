@@ -16,7 +16,7 @@ before_install:
 - sh -e /etc/init.d/xvfb start - sleep 10
 script:
 - cd releng/com.yakindu.solidity.releng
-- mvn clean verify -P$TARGET,!tests
+- mvn clean verify -P$TARGET,tests
 - cd ../com.yakindu.solidity.repository/target
 - zip -r repository.zip repository
 - cd $TRAVIS_BUILD_DIR
