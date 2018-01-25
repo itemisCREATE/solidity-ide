@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="YAKINDU Solidity Tools" sequenceNumber="1511786225">
+<?pde version="3.8"?><target name="YAKINDU Solidity Tools" sequenceNumber="23">
 <locations>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.yakindu.base.feature.group" version="3.2.0.201801111201"/>
@@ -28,11 +28,7 @@
 <unit id="org.eclipse.emf.sdk.feature.group" version="2.13.0.v20170609-0928"/>
 <unit id="org.eclipse.equinox.concurrent" version="1.1.0.v20130327-1442"/>
 <unit id="org.eclipse.equinox.executable.feature.group" version="3.7.2.v20171108-1834"/>
-<unit id="org.eclipse.jdt.core" version="3.13.100.v_OTDT_r261_201712031505"/>
-<unit id="org.eclipse.jdt.core.manipulation" version="1.9.50.v20170920-1015"/>
-<unit id="org.eclipse.jdt.debug" version="3.11.50.v20170920-1717"/>
-<unit id="org.eclipse.jdt.launching" version="3.9.51.v20171114-1018"/>
-<unit id="org.eclipse.jdt.ui" version="3.13.51.v20171122-0652"/>
+<unit id="org.eclipse.jdt.feature.group" version="3.13.2.v20171130-0906"/>
 <unit id="org.eclipse.pde.source.feature.group" version="3.13.2.v20171130-0510"/>
 <unit id="org.eclipse.platform.sdk" version="4.7.2.M20171130-0510"/>
 <unit id="org.eclipse.xtend" version="2.2.0.v201605260315"/>
