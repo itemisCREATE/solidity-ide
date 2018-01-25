@@ -111,10 +111,6 @@
     <eLiterals name="mod" value="2" literal="%"/>
     <eLiterals name="exp" value="3" literal="**"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="PostFixOperator">
-    <eLiterals name="increment" literal="++"/>
-    <eLiterals name="decrement" value="1" literal="--"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="UnaryOperatorEx">
     <eLiterals name="increment" literal="++"/>
     <eLiterals name="decrement" value="1" literal="--"/>
@@ -251,11 +247,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//UnaryOperatorEx"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="operand" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
         containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PostFixUnaryExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="operand" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//PostFixOperator"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NewInstanceExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//FeatureCall">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//TypeSpecifier"

@@ -30,4 +30,4 @@ Export-Package: com.yakindu.solidity,
  com.yakindu.solidity.validation,
  com.yakindu.solidity.formatting2
 Import-Package: org.apache.log4j,
- org.eclipse.core.runtime.preferences;version="3.3.0"
+ org.eclipse.core.runtime.preferences
