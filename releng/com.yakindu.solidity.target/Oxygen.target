@@ -1,68 +1,66 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde?>
-<!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform -->
-<target name="YAKINDU Solidity Tools" sequenceNumber="1511786223">
-  <locations>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.yakindu.base.feature.group" version="3.1.1.201710271438"/>
-      <unit id="org.yakindu.sct.feature.group" version="3.1.1.201710271438"/>
-      <repository location="http://updates.yakindu.com/statecharts/releases"/>
-    </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.emf.mwe.core.feature.feature.group" version="1.3.20.v201605261103"/>
-      <unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.9.0.v201605261103"/>
-      <unit id="org.eclipse.emf.mwe2.launcher.feature.group" version="2.9.0.v201605261103"/>
-      <unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.9.0.v201605261103"/>
-      <repository location="http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.9.0"/>
-    </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="de.itemis.xtext.antlr.sdk.feature.group" version="2.1.1.v201405091103"/>
-      <repository location="http://download.itemis.com/updates/releases/2.1.1"/>
-    </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.platform.sdk" version="4.7.1.M20171009-0410"/>
-      <unit id="org.eclipse.equinox.executable.feature.group" version="3.7.1.v20170928-1359"/>
-      <unit id="org.eclipse.equinox.concurrent" version="1.1.0.v20130327-1442"/>
-      <unit id="org.eclipse.pde.source.feature.group" version="3.13.1.v20171009-0537"/>
-      <unit id="org.eclipse.emf.sdk.feature.group" version="2.13.0.v20170609-0928"/>
-      <unit id="org.eclipse.jdt.core" version="3.13.50.v20171007-0855"/>
-      <unit id="org.eclipse.jdt.core.manipulation" version="1.9.50.v20170920-1015"/>
-      <unit id="org.eclipse.jdt.debug" version="3.11.50.v20170920-1717"/>
-      <unit id="org.eclipse.jdt.launching" version="3.9.50.v20171009-0349"/>
-      <unit id="org.eclipse.jdt.ui" version="3.13.50.v20170929-1653"/>
-      <unit id="org.eclipse.ecf.core.feature.feature.group" version="1.4.0.v20170516-2248"/>
-      <unit id="org.eclipse.ecf.core.ssl.feature.feature.group" version="1.1.0.v20170110-1317"/>
-      <unit id="org.eclipse.ecf.filetransfer.feature.feature.group" version="3.13.8.v20170715-2257"/>
-      <unit id="org.eclipse.ecf.filetransfer.ssl.feature.feature.group" version="1.1.0.v20170110-1317"/>
-      <unit id="org.eclipse.ecf.filetransfer.httpclient4.feature.feature.group" version="3.13.8.v20170715-2257"/>
-      <unit id="org.eclipse.ecf.filetransfer.httpclient4.ssl.feature.feature.group" version="1.1.0.v20170110-1317"/>
-      <unit id="org.eclipse.xtend" version="2.2.0.v201605260315"/>
-      <unit id="org.eclipse.xtend.typesystem.emf" version="2.2.0.v201605260315"/>
-      <unit id="org.junit" version="4.12.0.v201504281640"/>
-      <unit id="org.junit.jupiter.api" version="5.0.0.v20170910-2246"/>
-      <unit id="org.junit.jupiter.engine" version="5.0.0.v20170910-2246"/>
-      <unit id="org.junit.jupiter.params" version="5.0.0.v20170910-2246"/>
-      <unit id="org.junit.platform.commons" version="1.0.0.v20170910-2246"/>
-      <unit id="org.junit.platform.engine" version="1.0.0.v20170910-2246"/>
-      <unit id="org.junit.platform.launcher" version="1.0.0.v20170910-2246"/>
-      <unit id="org.junit.platform.runner" version="1.0.0.v20170910-2246"/>
-      <unit id="org.junit.jupiter.migrationsupport" version="5.0.0.v20170910-2246"/>
-      <unit id="org.junit.platform.suite.api" version="1.0.0.v20170910-2246"/>
-      <unit id="org.junit.vintage.engine" version="4.12.0.v20170910-2246"/>
-      <unit id="org.hamcrest.core" version="1.3.0.v201303031735"/>
-      <unit id="org.opentest4j" version="1.0.0.v20170910-2246"/>
-      <unit id="org.apiguardian" version="1.0.0.v20170910-2246"/>
-      <unit id="org.eclipse.xtext.sdk.feature.group" version="2.12.0.v20170519-1412"/>
-      <repository location="http://download.eclipse.org/releases/oxygen"/>
-    </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="com.google.gson" version="2.2.4.v201311231704"/>
-      <unit id="com.google.guava" version="15.0.0.v201403281430"/>
-      <unit id="com.google.inject" version="3.0.0.v201312141243"/>
-      <unit id="com.google.inject.multibindings" version="3.0.0.v201402270930"/>
-      <unit id="org.apache.commons.io" version="2.2.0.v201405211200"/>
-      <unit id="org.apache.log4j" version="1.2.15.v201012070815"/>
-      <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository"/>
-    </location>
-  </locations>
+<?pde version="3.8"?><target name="YAKINDU Solidity Tools" sequenceNumber="1511786225">
+<locations>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.yakindu.base.feature.group" version="3.2.0.201801111201"/>
+<unit id="org.yakindu.sct.feature.group" version="3.2.0.201801111201"/>
+<repository location="http://updates.yakindu.com/statecharts/releases"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.emf.mwe.core.feature.feature.group" version="1.3.20.v201605261103"/>
+<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.9.0.v201605261103"/>
+<unit id="org.eclipse.emf.mwe2.launcher.feature.group" version="2.9.0.v201605261103"/>
+<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.9.0.v201605261103"/>
+<repository location="http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.9.0"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="de.itemis.xtext.antlr.sdk.feature.group" version="2.1.1.v201405091103"/>
+<repository location="http://download.itemis.com/updates/releases/2.1.1"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.apiguardian" version="1.0.0.v20170910-2246"/>
+<unit id="org.eclipse.ecf.core.feature.feature.group" version="1.4.0.v20170516-2248"/>
+<unit id="org.eclipse.ecf.core.ssl.feature.feature.group" version="1.1.0.v20170110-1317"/>
+<unit id="org.eclipse.ecf.filetransfer.feature.feature.group" version="3.13.8.v20170715-2257"/>
+<unit id="org.eclipse.ecf.filetransfer.httpclient4.feature.feature.group" version="3.13.8.v20170715-2257"/>
+<unit id="org.eclipse.ecf.filetransfer.httpclient4.ssl.feature.feature.group" version="1.1.0.v20170110-1317"/>
+<unit id="org.eclipse.ecf.filetransfer.ssl.feature.feature.group" version="1.1.0.v20170110-1317"/>
+<unit id="org.eclipse.emf.sdk.feature.group" version="2.13.0.v20170609-0928"/>
+<unit id="org.eclipse.equinox.concurrent" version="1.1.0.v20130327-1442"/>
+<unit id="org.eclipse.equinox.executable.feature.group" version="3.7.2.v20171108-1834"/>
+<unit id="org.eclipse.jdt.core" version="3.13.100.v_OTDT_r261_201712031505"/>
+<unit id="org.eclipse.jdt.core.manipulation" version="1.9.50.v20170920-1015"/>
+<unit id="org.eclipse.jdt.debug" version="3.11.50.v20170920-1717"/>
+<unit id="org.eclipse.jdt.launching" version="3.9.51.v20171114-1018"/>
+<unit id="org.eclipse.jdt.ui" version="3.13.51.v20171122-0652"/>
+<unit id="org.eclipse.pde.source.feature.group" version="3.13.2.v20171130-0510"/>
+<unit id="org.eclipse.platform.sdk" version="4.7.2.M20171130-0510"/>
+<unit id="org.eclipse.xtend" version="2.2.0.v201605260315"/>
+<unit id="org.eclipse.xtend.typesystem.emf" version="2.2.0.v201605260315"/>
+<unit id="org.eclipse.xtext.sdk.feature.group" version="2.12.0.v20170519-1412"/>
+<unit id="org.hamcrest.core" version="1.3.0.v201303031735"/>
+<unit id="org.junit" version="4.12.0.v201504281640"/>
+<unit id="org.junit.jupiter.api" version="5.0.0.v20170910-2246"/>
+<unit id="org.junit.jupiter.engine" version="5.0.0.v20170910-2246"/>
+<unit id="org.junit.jupiter.migrationsupport" version="5.0.0.v20170910-2246"/>
+<unit id="org.junit.jupiter.params" version="5.0.0.v20170910-2246"/>
+<unit id="org.junit.platform.commons" version="1.0.0.v20170910-2246"/>
+<unit id="org.junit.platform.engine" version="1.0.0.v20170910-2246"/>
+<unit id="org.junit.platform.launcher" version="1.0.0.v20170910-2246"/>
+<unit id="org.junit.platform.runner" version="1.0.0.v20170910-2246"/>
+<unit id="org.junit.platform.suite.api" version="1.0.0.v20170910-2246"/>
+<unit id="org.junit.vintage.engine" version="4.12.0.v20170910-2246"/>
+<unit id="org.opentest4j" version="1.0.0.v20170910-2246"/>
+<repository location="http://download.eclipse.org/releases/oxygen"/>
+</location>
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="com.google.gson" version="2.2.4.v201311231704"/>
+<unit id="com.google.guava" version="15.0.0.v201403281430"/>
+<unit id="com.google.inject" version="3.0.0.v201312141243"/>
+<unit id="com.google.inject.multibindings" version="3.0.0.v201402270930"/>
+<unit id="org.apache.commons.io" version="2.2.0.v201405211200"/>
+<unit id="org.apache.log4j" version="1.2.15.v201012070815"/>
+<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository"/>
+</location>
+</locations>
 </target>

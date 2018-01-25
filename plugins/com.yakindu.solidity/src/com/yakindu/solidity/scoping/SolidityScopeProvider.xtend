@@ -82,13 +82,13 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 	}
 
 	def dispatch getElements(EObject object) {
-		println()
+		throw new IllegalStateException("Unknown element " + object)
 	}
 
 	def scope_ModifierInvocation_reference(FunctionDefinition context, EReference reference) {
 		var outerScope = IScope.NULLSCOPE;
 		if (context.constructor) {
-			val ctors = context.contract.superTypes.map[allFeatures].flatten.filter(FunctionDefinition).filter [
+			val ctors = context.contract.superTypes.filter(ComplexType).map[allFeatures].flatten.filter(FunctionDefinition).filter [
 				isConstructor
 			]
 			outerScope = Scopes.scopeFor(ctors)
@@ -101,14 +101,11 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 		return new ElementReferenceScope(outer, context, reference);
 	}
 
-//	def protected createImplicitVariables(IScope outer) {
-//		return Scopes.scopeFor(declarations.all, outer)
-//	}
 	def scope_FeatureCall_feature(FeatureCall context, EReference reference) {
 		if (context?.owner instanceof ElementReferenceExpression) {
 			var ref = (context.owner as ElementReferenceExpression).reference
 			if (ref instanceof NamedElement && ("super".equals((ref as NamedElement).name))) {
-				val features = EcoreUtil2.getContainerOfType(context, ContractDefinition)?.superTypes?.map[allFeatures].
+				val features = EcoreUtil2.getContainerOfType(context, ContractDefinition)?.superTypes?.filter(ComplexType).map[allFeatures].
 					flatten
 				return Scopes.scopeFor(features)
 			}
@@ -121,7 +118,7 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 		val root = EcoreUtil2.getContainerOfType(context, ContractDefinition)
 		val List<ComplexType> contracts = newArrayList()
 		root.getAllSuperTypes(contracts)
-		contracts += root.superTypes
+		contracts += root.superTypes.filter(ComplexType)
 		val elements = contracts.map[eAllContents.toList].flatten.filter(UsingForDeclaration).map[contract].map [
 			allFeatures
 		].toList.flatten.toList
@@ -130,8 +127,8 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 
 	def protected void getAllSuperTypes(ComplexType type, List<ComplexType> result) {
 		result += type
-		result += type.superTypes
-		type.superTypes.forEach[it.getAllSuperTypes(result)]
+		result += type.superTypes.filter(ComplexType)
+		type.superTypes.filter(ComplexType).forEach[it.getAllSuperTypes(result)]
 	}
 
 	def scope_ComplexType_superTypes(EObject context, EReference reference) {

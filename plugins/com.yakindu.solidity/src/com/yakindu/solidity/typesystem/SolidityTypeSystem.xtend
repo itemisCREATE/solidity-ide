@@ -15,11 +15,10 @@
 package com.yakindu.solidity.typesystem;
 
 import com.google.inject.Singleton
+import com.yakindu.solidity.solidity.ContractDefinition
+import org.yakindu.base.types.Type
 import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.typesystem.GenericTypeSystem
-import org.yakindu.base.types.typesystem.ITypeSystem
-import org.yakindu.base.types.Type
-import com.yakindu.solidity.solidity.ContractDefinition
 
 /**
  * @author andreas muelder - Initial contribution and API

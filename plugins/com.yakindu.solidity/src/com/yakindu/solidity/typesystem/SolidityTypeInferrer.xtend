@@ -20,7 +20,6 @@ import com.yakindu.solidity.solidity.DecimalNumberLiteral
 import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.NewInstanceExpression
 import com.yakindu.solidity.solidity.NumericalMultiplyDivideExpression
-import com.yakindu.solidity.solidity.PostFixUnaryExpression
 import com.yakindu.solidity.solidity.VariableDefinition
 import java.math.BigDecimal
 import org.eclipse.emf.ecore.EObject
@@ -54,10 +53,6 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 
 	def doInfer(AddressLiteral literal) {
 		InferenceResult.from(ts.getType(SolidityTypeSystem.ADDRESS));
-	}
-
-	def doInfer(PostFixUnaryExpression exp) {
-		return inferTypeDispatch(exp.operand)
 	}
 
 	def doInfer(DecimalNumberLiteral literal) {

@@ -193,12 +193,6 @@ enum MultiOperator:
 @ Override NumericalUnaryExpression returns expressions::Expression:
 	PostFixUnaryExpression | {NumericalUnaryExpression} operator=UnaryOperatorEx operand=PostFixUnaryExpression;
 
-PostFixUnaryExpression returns expressions::Expression:
-	PrimaryExpression ({PostFixUnaryExpression.operand=current} operator=PostFixOperator)*;
-
-enum PostFixOperator:
-	increment="++" | decrement="--";
-
 enum UnaryOperatorEx:
 	increment="++" | decrement="--" | positive='+' | negative='-' | complement='~';
 
