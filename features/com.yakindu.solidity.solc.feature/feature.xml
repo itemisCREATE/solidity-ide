@@ -2,7 +2,7 @@
 <feature
       id="com.yakindu.solidity.solc.feature"
       label="Solidity Tools Solc Feature"
-      version="0.4.19.qualifier"
+      version="0.7.2.qualifier"
       provider-name="YAKINDU"
       plugin="com.yakindu.solidity.branding">
 
