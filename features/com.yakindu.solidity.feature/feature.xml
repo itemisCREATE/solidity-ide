@@ -2,7 +2,7 @@
 <feature
       id="com.yakindu.solidity.feature"
       label="Solidity Editor Feature"
-      version="0.7.1.qualifier"
+      version="0.7.2.qualifier"
       provider-name="YAKINDU">
 
    <description url="http://www.example.com/description">

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Solidity Tools Solc Compiler for Windows
 Bundle-SymbolicName: com.yakindu.solidity.compiler.win.fragment
-Bundle-Version: 0.7.1.qualifier
+Bundle-Version: 0.4.19.qualifier
 Fragment-Host: com.yakindu.solidity.compiler
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: YAKINDU

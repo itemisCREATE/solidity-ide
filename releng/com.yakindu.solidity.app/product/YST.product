@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="YAKINDU SOLIDITY TOOLS" uid="com.yakindu.solidity.app.YST" id="com.yakindu.solidity.app.YST" application="org.eclipse.ui.ide.workbench" version="0.7.1.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="YAKINDU SOLIDITY TOOLS" uid="com.yakindu.solidity.app.YST" id="com.yakindu.solidity.app.YST" application="org.eclipse.ui.ide.workbench" version="0.7.2.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="/com.yakindu.solidity.app/images/icon_128x128.png"/>
       <text>
-         YAKINDU Solidity Tools (c) itemis AG, 2017. All rights reserved.
+         YAKINDU Solidity Tools (c) itemis AG, 2018. All rights reserved.
       </text>
    </aboutInfo>
 

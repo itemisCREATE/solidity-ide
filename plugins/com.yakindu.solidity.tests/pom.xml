@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.yakindu.solidity</groupId>
 		<artifactId>com.yakindu.solidity.releng</artifactId>
-		<version>0.7.1-SNAPSHOT</version>
+		<version>0.7.2-SNAPSHOT</version>
 		<relativePath>../../releng/com.yakindu.solidity.releng/pom.xml</relativePath>
 	</parent>
 	<artifactId>com.yakindu.solidity.tests</artifactId>
