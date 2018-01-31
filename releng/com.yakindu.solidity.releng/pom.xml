@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.yakindu.solidity</groupId>
 	<artifactId>com.yakindu.solidity.releng</artifactId>
-	<version>0.7.1-SNAPSHOT</version>
+	<version>0.7.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<!-- this is the parent POM from which all modules inherit common settings -->
@@ -29,6 +29,9 @@
 		</profile>
 		<profile>
 			<id>product</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
 			<modules>
 				<module>../com.yakindu.solidity.app</module>
 				<module>../com.yakindu.solidity.app/product</module>

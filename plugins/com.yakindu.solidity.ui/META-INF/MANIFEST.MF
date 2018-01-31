@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Solidity Tools Editor Plugin
 Bundle-Vendor: YAKINDU
-Bundle-Version: 0.7.1.qualifier
+Bundle-Version: 0.7.2.qualifier
 Bundle-SymbolicName: com.yakindu.solidity.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: com.yakindu.solidity,
