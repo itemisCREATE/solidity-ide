@@ -53,7 +53,7 @@
 							<groupId>com.yakindu.solidity</groupId>
 							<artifactId>com.yakindu.solidity.target</artifactId>
 							<version>${project.version}</version>
-							<classifier>Photon</classifier>
+							<classifier>Oxygen</classifier>
 						</artifact>
 					</target>
 				</configuration>
