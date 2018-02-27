@@ -45,18 +45,12 @@ public class ParameterBuilder {
 	private Settings defaultSettings() {
 		Settings settings = new Settings();
 		settings.setOptimizer(defaultOptimizer());
-		settings.setOutputSelection(defaultOutputSelection());
-		return settings;
-	}
-
-	private OutputSelection defaultOutputSelection() {
-		OutputSelection selection = new OutputSelection();
 		Map<String, Map<String, List<String>>> output = Maps.newHashMap();
 		HashMap<String, List<String>> internalOutputs = Maps.newHashMap();
 		internalOutputs.put("*", Lists.newArrayList());
 		output.put("*", internalOutputs);
-		selection.setOutput(output);
-		return selection;
+		settings.setOutputSelection(output);
+		return settings;
 	}
 
 	private Optimizer defaultOptimizer() {
@@ -71,7 +65,7 @@ public class ParameterBuilder {
 	}
 
 	public ParameterBuilder addOutput(String key) {
-		List<String> outputKeys = this.parameter.getSettings().getOutputSelection().getOutput().get("*").get("*");
+		List<String> outputKeys = this.parameter.getSettings().getOutputSelection().get("*").get("*");
 		if (!outputKeys.contains(key)) {
 			outputKeys.add(key);
 		}
