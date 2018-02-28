@@ -101,16 +101,16 @@ public class SolidityCompilerBase implements ISolidityCompiler {
 		try (OutputStreamWriter writer = new OutputStreamWriter(stream, Charset.forName("UTF-8"));) {
 			ParameterBuilder builder = new ParameterBuilder();
 			if (prefs.isWriteBINFile()) {
-				builder.addOutput(CompileOutputType.BIN.outputKey());
+				builder.addOutput(CompileOutputType.BIN.COMPILER_KEY);
 			}
 			if (prefs.isWriteABIFile()) {
-				builder.addOutput(CompileOutputType.ABI.outputKey());
+				builder.addOutput(CompileOutputType.ABI.COMPILER_KEY);
 			}
 			if (prefs.isWriteASTFile()) {
-				builder.addOutput(CompileOutputType.AST.outputKey());
+				builder.addOutput(CompileOutputType.AST.COMPILER_KEY);
 			}
 			if (prefs.isWriteASMFile()) {
-				builder.addOutput(CompileOutputType.ASM.outputKey());
+				builder.addOutput(CompileOutputType.ASM.COMPILER_KEY);
 			}
 			for (IResource resource : filesToCompile) {
 				if (resource instanceof IFile) {

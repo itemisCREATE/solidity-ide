@@ -14,6 +14,7 @@
  */
 package com.yakindu.solidity.compiler.parameter;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,7 +28,7 @@ public class Settings {
 
 	private Map<String, Library> libraries;
 
-	private OutputSelection outputSelection;
+	private Map<String, Map<String, List<String>>> outputSelection;
 	
 	public Optimizer getOptimizer() {
 		return optimizer;
@@ -45,11 +46,11 @@ public class Settings {
 		this.libraries = libraries;
 	}
 
-	public OutputSelection getOutputSelection() {
+	public Map<String, Map<String, List<String>>> getOutputSelection() {
 		return outputSelection;
 	}
 
-	public void setOutputSelection(OutputSelection outputSelection) {
+	public void setOutputSelection(Map<String, Map<String, List<String>>> outputSelection) {
 		this.outputSelection = outputSelection;
 	}
 }

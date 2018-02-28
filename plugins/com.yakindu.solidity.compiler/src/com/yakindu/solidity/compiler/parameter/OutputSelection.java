@@ -23,7 +23,6 @@ import java.util.Map;
  *
  */
 public class OutputSelection {
-
 	private Map<String, Map<String, List<String>>> output;
 
 	public Map<String, Map<String, List<String>>> getOutput() {
@@ -33,5 +32,6 @@ public class OutputSelection {
 	public void setOutput(Map<String, Map<String, List<String>>> output) {
 		this.output = output;
 	}
+
 
 }

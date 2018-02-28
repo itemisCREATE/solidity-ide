@@ -61,6 +61,7 @@ public class OutputHandler {
 	}
 
 	private void registerTypeAdapters() {
+
 		gson.registerTypeAdapter(CompiledSource.class, new JsonDeserializer<CompiledSource>() {
 
 			@Override

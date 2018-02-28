@@ -143,12 +143,12 @@ public class SolidityMarkerCreator extends MarkerCreator {
 
 	private SolcIssue createSolcIssue(CompileError error, Set<IResource> filesToCompile) {
 		String[] parts = error.getFormattedMessage().split(":");
-		String fileName = partAtIndex(parts, 0);
+		String fileName = error.getSourceLocation().getFile();
 		IFile errorFile = findFileForName(filesToCompile, fileName);
 		int lineNumber = extractNumber(partAtIndex(parts, 1));
 		int columnNumber = extractNumber(partAtIndex(parts, 2));
 		Map<Integer, String> fileContent = getFileContent(errorFile);
-		int offset = calculateOffset(fileContent, columnNumber, lineNumber);
+		int offset = error.getSourceLocation().getStart(); 
 		int length = calculateIssueLength(fileContent.get(lineNumber), partAtIndex(parts, 4));
 
 		Severity severity = calculateSeverity(error.getSeverity());
@@ -228,15 +228,6 @@ public class SolidityMarkerCreator extends MarkerCreator {
 			e.printStackTrace();
 		}
 		return content;
-	}
-
-	private int calculateOffset(Map<Integer, String> fileContent, int columnNumber, int lineNumber) {
-		int start = columnNumber - 1;
-		for (int i = 1; i < lineNumber; i++) {
-			String line = fileContent.get(i);
-			start += line.length();
-		}
-		return (start > 0)? start : 0;
 	}
 
 	private int calculateIssueLength(String errorLine, String issueDetails) {

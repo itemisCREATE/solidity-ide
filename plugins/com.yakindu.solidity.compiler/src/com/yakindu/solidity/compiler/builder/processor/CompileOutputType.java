@@ -23,20 +23,18 @@ import com.yakindu.solidity.ui.preferences.SolidityPreferences;
  */
 public enum CompileOutputType {
 
-	BIN(SolidityPreferences.COMPILER_OUTPUT_BIN), AST(SolidityPreferences.COMPILER_OUTPUT_AST), ASM(
-			SolidityPreferences.COMPILER_OUTPUT_ASM), ABI(SolidityPreferences.COMPILER_OUTPUT_ABI);
-
+	BIN(SolidityPreferences.COMPILER_OUTPUT_BIN, "evm.bytecode.object"), AST(SolidityPreferences.COMPILER_OUTPUT_AST,
+			"ast"), ASM(SolidityPreferences.COMPILER_OUTPUT_ASM,
+					"evm.assembly"), ABI(SolidityPreferences.COMPILER_OUTPUT_ABI, "abi");
 	public final String PREFERENCE_KEY;
+	public final String COMPILER_KEY;
 
-	CompileOutputType(String preferenceKey) {
+	CompileOutputType(String preferenceKey, String compilerKey) {
 		this.PREFERENCE_KEY = preferenceKey;
+		this.COMPILER_KEY = compilerKey;
 	}
 
 	public String extension() {
-		return "." + outputKey();
-	}
-
-	public String outputKey() {
-		return this.name().toLowerCase();
+		return "." + this.name().toLowerCase();
 	}
 }
