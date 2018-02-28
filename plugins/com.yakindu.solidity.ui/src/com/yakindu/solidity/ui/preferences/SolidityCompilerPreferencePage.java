@@ -104,7 +104,11 @@ public class SolidityCompilerPreferencePage extends FieldEditorPreferencePage im
 	}
 
 	private void validateFile() {
-		File file = new File(compilerPathFieldEditor.getStringValue());
+		String pathToSolc = compilerPathFieldEditor.getStringValue();
+		if (pathToSolc == null || pathToSolc.isEmpty()) {
+			return;
+		}
+		File file = new File(pathToSolc);
 		if (file.exists() && file.isFile() && file.canExecute()
 				&& (file.getName().contains("solc") || file.getName().contains("solcjs"))) {
 			if (file.getName().contains("solcjs")) {
