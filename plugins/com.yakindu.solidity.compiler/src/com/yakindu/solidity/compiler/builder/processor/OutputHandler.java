@@ -131,9 +131,12 @@ public class OutputHandler {
 	public void handleOutput(final InputStream stream, final Set<IResource> filesToCompile) {
 		try (final InputStreamReader output = new InputStreamReader(stream, "UTF-8")) {
 			CompilerOutput compilerOutput = gson.create().fromJson(output, CompilerOutput.class);
+			if (compilerOutput == null) {
+				throw new IllegalArgumentException("The solidity compiler did not yield any output.");
+			}
 			markerCreator.createMarkers(compilerOutput, filesToCompile);
 			outputFileWriter.writeOutputFiles(compilerOutput, filesToCompile);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

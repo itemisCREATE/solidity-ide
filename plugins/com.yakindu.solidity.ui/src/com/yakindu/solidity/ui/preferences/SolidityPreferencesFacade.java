@@ -14,10 +14,6 @@ public class SolidityPreferencesFacade {
 	@Inject
 	private IPreferenceStore store;
 	
-	public boolean isWriteASTFile() {
-		return store.getBoolean(SolidityPreferences.COMPILER_OUTPUT_AST);
-	}
-	
 	public boolean isWriteABIFile() {
 		return store.getBoolean(SolidityPreferences.COMPILER_OUTPUT_ABI);
 	}

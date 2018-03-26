@@ -106,9 +106,6 @@ public class SolidityCompilerBase implements ISolidityCompiler {
 			if (prefs.isWriteABIFile()) {
 				builder.addOutput(CompileOutputType.ABI.COMPILER_KEY);
 			}
-			if (prefs.isWriteASTFile()) {
-				builder.addOutput(CompileOutputType.AST.COMPILER_KEY);
-			}
 			if (prefs.isWriteASMFile()) {
 				builder.addOutput(CompileOutputType.ASM.COMPILER_KEY);
 			}
@@ -118,6 +115,7 @@ public class SolidityCompilerBase implements ISolidityCompiler {
 					builder.addSource(file.getLocation().lastSegment(), new Source(file));
 				}
 			}
+			builder.addOutput(CompileOutputType.GAS.COMPILER_KEY);
 			writer.write(builder.buildJson());
 			writer.flush();
 		} catch (IOException e) {

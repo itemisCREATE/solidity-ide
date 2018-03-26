@@ -36,7 +36,6 @@ public class SolidityPreferenceInitializer extends AbstractPreferenceInitializer
 		boolean compilerInstalled = Platform.getBundle(COMPILER_PLUGIN) != null;
 		getPreferenceStore().setDefault(SolidityPreferences.COMPILER_ENABLED, compilerInstalled);
 		getPreferenceStore().setDefault(SolidityPreferences.COMPILER_OUTPUT_ABI, false);
-		getPreferenceStore().setDefault(SolidityPreferences.COMPILER_OUTPUT_AST, false);
 		getPreferenceStore().setDefault(SolidityPreferences.COMPILER_OUTPUT_BIN, true);
 		getPreferenceStore().setDefault(SolidityPreferences.COMPILER_OUTPUT_ASM, false);
 		getPreferenceStore().setDefault(SolidityPreferences.COMPILER_OUTPUT_PATH, DEFAULT_OUTPUT_PATH);

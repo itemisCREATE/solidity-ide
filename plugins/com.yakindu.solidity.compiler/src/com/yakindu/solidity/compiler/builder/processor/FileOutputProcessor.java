@@ -29,7 +29,6 @@ import com.google.inject.Inject;
 import com.yakindu.solidity.compiler.result.Abi;
 import com.yakindu.solidity.compiler.result.Bytecode;
 import com.yakindu.solidity.compiler.result.CompiledContract;
-import com.yakindu.solidity.compiler.result.CompiledSource;
 import com.yakindu.solidity.compiler.result.CompilerOutput;
 import com.yakindu.solidity.compiler.result.EvmOutput;
 import com.yakindu.solidity.ui.preferences.SolidityPreferencesFacade;
@@ -39,24 +38,17 @@ import com.yakindu.solidity.ui.preferences.SolidityPreferencesFacade;
  */
 
 public class FileOutputProcessor {
-	
-	@Inject 
+
+	@Inject
 	private SolidityPreferencesFacade prefs;
 
-
 	public void writeOutputFiles(CompilerOutput compilerOutput, Set<IResource> filesToCompile) {
-		if (prefs.isWriteASTFile()) {
-			for (Entry<String, CompiledSource> entry : compilerOutput.getSources().entrySet()) {
-				String outputFileName = getOutputFileName(findFileForName(filesToCompile, entry.getKey()));
-				writeASTFile(outputFileName, entry.getValue().getAst());
-			}
-		}
 		for (Entry<String, CompiledContract> entry : compilerOutput.getContracts().entrySet()) {
 			String outputFileName = getOutputFileName(findFileForName(filesToCompile, entry.getKey()));
 			CompiledContract contract = entry.getValue();
 			if (contract != null && prefs.isWriteABIFile())
 				writeABIFile(outputFileName, contract.getAbi());
-			
+
 			EvmOutput evmOutput = contract.getEvm();
 			if (evmOutput != null && prefs.isWriteBINFile())
 				writeBINFile(outputFileName, evmOutput.getBytecode());
@@ -66,11 +58,8 @@ public class FileOutputProcessor {
 	}
 
 	private String getOutputFileName(IFile file) {
-		String outputDirectory = file.getProject().getLocation().toOSString() + "\\"
-				+ prefs.getCompilerOutputPath();
 		String plainFileName = file.getName().replaceAll(".sol", "");
-		String fileName = outputDirectory + "\\" + plainFileName;
-		return fileName;
+		return file.getProject().getLocation().append(prefs.getCompilerOutputPath()).append(plainFileName).toOSString();
 	}
 
 	private void writeASMFile(String outputFileName, String assembly) {
@@ -81,16 +70,16 @@ public class FileOutputProcessor {
 		writeFile(outputFileName + CompileOutputType.BIN.extension(), new Gson().toJson(bytecode));
 	}
 
-	private void writeASTFile(String outputFileName, String ast) {
-		writeFile(outputFileName + CompileOutputType.AST.extension(),ast);
-	}
+//	private void writeASTFile(String outputFileName, String ast) {
+//		writeFile(outputFileName + CompileOutputType.AST.extension(), ast);
+//	}
 
 	private void writeABIFile(String outputFileName, List<Abi> abi) {
 		writeFile(outputFileName + CompileOutputType.ABI.extension(), new Gson().toJson(abi));
 	}
 
 	private void writeFile(String outputFileName, String content) {
-		if(content == null) {
+		if (content == null) {
 			return;
 		}
 		File file = new File(outputFileName);
