@@ -53,7 +53,7 @@ class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 		binder.bind(SolidityFactory).toInstance(SolidityFactory.eINSTANCE)
 		binder.bind(TypesPackage).toInstance(TypesPackage.eINSTANCE)
 		binder.bind(TypesFactory).toInstance(TypesFactory.eINSTANCE)
-		binder.bind(String).annotatedWith(Names.named(SOLIDITY_VERSION)).toInstance("0.4.21")
+		binder.bind(String).annotatedWith(Names.named(SOLIDITY_VERSION)).toInstance("0.4.23")
 	}
 
 	override bindIGlobalScopeProvider() {
