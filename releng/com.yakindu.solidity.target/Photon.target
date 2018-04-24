@@ -32,8 +32,7 @@
 <unit id="org.eclipse.emf.sdk.feature.group" version="2.14.0.v20180308-1144"/>
 <unit id="org.eclipse.equinox.concurrent" version="1.1.100.v20171221-2204"/>
 <unit id="org.eclipse.equinox.executable.feature.group" version="3.8.0.v20180207-1446"/>
-<unit id="org.eclipse.jdt.core" version="3.14.0.v_OTDT_r270_201803131721"/>
-<unit id="org.eclipse.jdt.core.manipulation" version="1.10.0.v20180302-1956"/>
+<unit id="org.eclipse.jdt.feature.group" version="3.14.0.v20180308-0630"/>
 <unit id="org.eclipse.jdt.debug" version="3.11.100.v20180304-2206"/>
 <unit id="org.eclipse.jdt.launching" version="3.10.0.v20180303-2257"/>
 <unit id="org.eclipse.jdt.ui" version="3.14.0.v20180305-0824"/>
