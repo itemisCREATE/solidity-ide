@@ -86,6 +86,11 @@
 							</rootFolders>
 						</product>
 					</products>
+					<formats>
+						<win32>zip</win32>
+						<linux>tar.gz</linux>
+						<macosx>tar.gz</macosx>
+					</formats>
 				</configuration>
 			</plugin>
 		</plugins>
