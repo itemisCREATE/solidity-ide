@@ -18,6 +18,7 @@ import com.google.inject.Inject
 import com.yakindu.solidity.SolidityRuntimeModule
 import com.yakindu.solidity.solidity.Block
 import com.yakindu.solidity.solidity.BuildInModifier
+import com.yakindu.solidity.solidity.ContractDefinition
 import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.FunctionModifier
 import com.yakindu.solidity.solidity.IfStatement
@@ -59,6 +60,27 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	@Inject @Named(SolidityRuntimeModule.SOLIDITY_VERSION) String solcVersion
 
 	extension ExpressionsFactory factory = ExpressionsFactory.eINSTANCE
+
+	@Fix(WARNING_DEPRECATED_FUNCTION_CONSTRUCTOR)
+	def useConstructorKeywordInsteadOfFunction(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Use constructor keyword instead', 'contructor keyword', null,
+			new ISemanticModification() {
+
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof FunctionDefinition) {
+						val definition = element as FunctionDefinition
+						val contract = definition.eContainer as ContractDefinition
+						val index = contract.features.indexOf(definition);
+						contract.features.remove(definition);
+						contract.features.add(index, createConstructorDefinition => [
+							block = definition.block
+							parameters += definition.parameters
+							modifier += definition.modifier
+						])
+					}
+				}
+			})
+	}
 
 	@Fix(WARNING_FUNCTION_VISIBILITY)
 	def makeVisibilityExplicit(Issue issue, IssueResolutionAcceptor acceptor) {
@@ -104,8 +126,9 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element.eContainer instanceof SourceUnit) {
 						val sourceUnit = element.eContainer as SourceUnit
-						val pragma = createPragmaDirective
-						pragma.version = "^" + solcVersion
+						val pragma = createPragmaDirective => [
+							version = "^" + solcVersion
+						]
 						sourceUnit.pragma = pragma
 					}
 				}
@@ -343,6 +366,13 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				if (element instanceof FunctionDefinition) {
 					val definition = element as FunctionDefinition
+					// Constant & pure exclude each other
+					val constant = definition.modifier.findFirst [ it |
+						it instanceof BuildInModifier && (it as BuildInModifier).type == FunctionModifier.CONSTANT
+					]
+					if (constant !== null) {
+						definition.modifier.remove(constant)
+					}
 					definition.modifier += createBuildInModifier => [
 						type = FunctionModifier.PURE
 					]
