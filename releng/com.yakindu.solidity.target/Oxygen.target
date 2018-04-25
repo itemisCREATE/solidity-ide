@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="YAKINDU Solidity Tools" sequenceNumber="23">
+<?pde version="3.8"?><target name="YAKINDU Solidity Tools" sequenceNumber="24">
 <locations>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.yakindu.base.feature.group" version="3.2.0.201801111201"/>
-<unit id="org.yakindu.sct.feature.group" version="3.2.0.201801111201"/>
+<unit id="org.yakindu.base.feature.group" version="3.3.2.201804191418"/>
+<unit id="org.yakindu.sct.feature.group" version="3.3.2.201804191418"/>
 <repository location="http://updates.yakindu.com/statecharts/releases"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">

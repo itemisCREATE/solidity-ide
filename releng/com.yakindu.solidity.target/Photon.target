@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="YAKINDU Solidity Tools" sequenceNumber="1511790788">
+<?pde version="3.8"?><target name="YAKINDU Solidity Tools" sequenceNumber="1511790789">
 <locations>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.yakindu.base.feature.group" version="3.2.0.201801111201"/>
-<unit id="org.yakindu.sct.feature.group" version="3.2.0.201801111201"/>
+<unit id="org.yakindu.base.feature.group" version="3.3.2.201804191418"/>
+<unit id="org.yakindu.sct.feature.group" version="3.3.2.201804191418"/>
 <repository location="http://updates.yakindu.com/statecharts/releases"/>
 </location>
 <location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
@@ -32,8 +32,8 @@
 <unit id="org.eclipse.emf.sdk.feature.group" version="2.14.0.v20180308-1144"/>
 <unit id="org.eclipse.equinox.concurrent" version="1.1.100.v20171221-2204"/>
 <unit id="org.eclipse.equinox.executable.feature.group" version="3.8.0.v20180207-1446"/>
-<unit id="org.eclipse.jdt.feature.group" version="3.14.0.v20180308-0630"/>
 <unit id="org.eclipse.jdt.debug" version="3.11.100.v20180304-2206"/>
+<unit id="org.eclipse.jdt.feature.group" version="3.14.0.v20180308-0630"/>
 <unit id="org.eclipse.jdt.launching" version="3.10.0.v20180303-2257"/>
 <unit id="org.eclipse.jdt.ui" version="3.14.0.v20180305-0824"/>
 <unit id="org.eclipse.pde.source.feature.group" version="3.13.100.v20180308-0630"/>
