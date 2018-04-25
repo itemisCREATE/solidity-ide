@@ -31,6 +31,7 @@ public enum SolidityWarning {
 	WARNING_DEPRECATED_SHA3("\"sha3\" has been deprecated in favour of \"keccak256\""),
 	WARNING_DEPRECATED_SUICIDE("\"suicide\" has been deprecated in favour of \"selfdestruct\""),
 	WARNING_DEPRECATED_NAMED_FUNCTION_RETURN_VALUES("Naming function type return parameters is deprecated."),
+	WARNING_DEPRECATED_FUNCTION_CONSTRUCTOR("Defining constructors as functions with the same name as the contract is deprecated. Use \"constructor(...) { ... }\" instead."),
 	WARNING_AMBIGUES_ADDRESS("This looks like an address but has an invalid checksum."),
 	WARNING_USSAGE_OF_SEND("Failure condition of 'send' ignored."),
 	WARNING_VARIABLE_STORAGE_POINTER("Variable is declared as a storage pointer."),
@@ -51,7 +52,7 @@ public enum SolidityWarning {
 				}
 			}
 		}
-		System.out.println(message);
+		new RuntimeException(message).printStackTrace();
 		return "UNKNOWN";
 	}
 }
