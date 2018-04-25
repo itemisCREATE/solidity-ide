@@ -28,8 +28,9 @@ public interface SolidityPreferences {
 
 	String COMPILER_OUTPUT_BIN = "compiler.output.bin";
 	String COMPILER_OUTPUT_ABI = "compiler.output.abi";
-	String COMPILER_OUTPUT_AST = "compiler.output.ast";
+//	String COMPILER_OUTPUT_AST = "compiler.output.ast";
 	String COMPILER_OUTPUT_ASM = "compiler.output.asm";
+	String COMPILER_OUTPUT_GAS = "compiler.output.gas";
 	String COMPILER_OUTPUT_PATH = "compiler.output.path";
 
 	String FOLDING_COMMENT_AUTOFOLD = "folding.comment.autofold";
