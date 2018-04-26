@@ -52,5 +52,3 @@ If you are familiar with Eclipse plugin development then you may want to checkou
 5. Build Xtext grammar: Right click on com.yakindu.solidity.GenerateSolidity.mwe2 => Run As.. => MWE2 Workflow
 
 After these steps all projects should compile without errors. To launch a runtime instance which has these projects as installed plugins, just right-click on a project => Run As => Eclipse Application
-
-# Thanks
