@@ -36,7 +36,8 @@ public enum SolidityWarning {
 	WARNING_USSAGE_OF_SEND("Failure condition of 'send' ignored."),
 	WARNING_VARIABLE_STORAGE_POINTER("Variable is declared as a storage pointer."),
 	WARNING_FUNCTION_STATE_MUTABILITY_VIEW("Function state mutability can be restricted to view"),
-	WARNING_FUNCTION_STATE_MUTABILITY_PURE("Function state mutability can be restricted to pure");
+	WARNING_FUNCTION_STATE_MUTABILITY_PURE("Function state mutability can be restricted to pure"),
+	WARNING_SHADOWED_DECLARATION("This declaration shadows an existing declaration.");
 
 	private final String message;
 
