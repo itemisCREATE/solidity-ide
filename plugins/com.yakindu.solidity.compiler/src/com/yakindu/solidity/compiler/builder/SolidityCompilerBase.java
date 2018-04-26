@@ -14,6 +14,7 @@
  */
 package com.yakindu.solidity.compiler.builder;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -48,7 +49,7 @@ import com.yakindu.solidity.ui.preferences.SolidityPreferencesFacade;
  *
  */
 public class SolidityCompilerBase implements ISolidityCompiler {
-	
+
 	@Inject
 	private SolidityPreferencesFacade prefs;
 
@@ -137,6 +138,9 @@ public class SolidityCompilerBase implements ISolidityCompiler {
 		URL url = FileLocator.find(bundle, getPath(), null);
 		try {
 			URL fileURL = FileLocator.toFileURL(url);
+			File file = new File(fileURL.toURI());
+			if (!file.canExecute())
+				file.setExecutable(true);
 			return fileURL.getFile();
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
