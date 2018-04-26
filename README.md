@@ -2,6 +2,8 @@
 
 # YAKINDU Solidity IDE
 
+[Download all-in-one distribution here](https://info.itemis.com/yakindu/solidity/download/ "YAKINDU Solidity Tools download")
+
 The free to use, open source YAKINDU Solidity IDE provides an integrated development environment for ethereum / solidity based smart contracts. 
 
 It features all the goodies you can expect from a professional IDE, including
