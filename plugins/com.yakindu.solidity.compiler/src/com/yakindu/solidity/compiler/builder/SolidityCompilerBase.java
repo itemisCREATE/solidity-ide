@@ -142,7 +142,7 @@ public class SolidityCompilerBase implements ISolidityCompiler {
 			if (!file.canExecute())
 				file.setExecutable(true);
 			return fileURL.getFile();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
 	}
