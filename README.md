@@ -19,6 +19,8 @@ It features all the goodies you can expect from a professional IDE, including
 
 As an Eclipse based IDE, YAKINDU Solidity can easily be integrated into your existing toolchain.   
 
+![Image of YAKINDU Solidity Tools](https://github.com/Yakindu/solidity-ide/blob/master/screenshot.png)
+
 
 ## License
 The source code of YAKINDU Solidity IDE is provided under the Eclipse Public License.
