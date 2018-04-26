@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017 committers of YAKINDU and others.
+ * Copyright (c) 2018 committers of YAKINDU and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,65 +23,40 @@ import org.eclipse.xtext.ui.editor.utils.TextStyle;
 /**
  * 
  * @author andreas muelder - Initial contribution and API
+ * @author florian antony
  * 
  */
 public class SolidityHighlightingConfiguration extends DefaultHighlightingConfiguration {
 
-	public static final String VERSION = "version";
-	public static final String TYPES = "types";
-	public static final String PARAMETER = "parameter";
-	public static final String FUNCTION_NAME = "function_name";
-	public static final String FEATURESCALL = "feature";
-	
-	
+	public static final String STATE_VARIABLE = "state_variable";
+	public static final String FUNCTION_PARAMETER = "function_parameter";
+
 	@Override
 	public void configure(IHighlightingConfigurationAcceptor acceptor) {
 		super.configure(acceptor);
-		acceptor.acceptDefaultHighlighting(VERSION, "VariableDefinition", solidityVersionTextStyle());
-		acceptor.acceptDefaultHighlighting(TYPES, "VariableDefinition", typeTextStyle());
-		acceptor.acceptDefaultHighlighting(PARAMETER, "VariableDefinition", typeTextStyle());
-		acceptor.acceptDefaultHighlighting(FUNCTION_NAME, "VariableDefinition", functionNameTextStyle());
-		acceptor.acceptDefaultHighlighting(FEATURESCALL, "VariableDefinition", featureCallTextStyle());
-		
+		acceptor.acceptDefaultHighlighting(STATE_VARIABLE, "StateVariable", stateVariableTextStyle());
+		acceptor.acceptDefaultHighlighting(FUNCTION_PARAMETER, "FunctionParameter", localVariableTextStyle());
+
 	}
-	
-	private TextStyle typeTextStyle() {
-		TextStyle textStyle = defaultTextStyle().copy();
+
+	private TextStyle localVariableTextStyle() {
+		TextStyle textStyle = keywordTextStyle();
+		textStyle.setStyle(SWT.NONE);
+		return textStyle;
+	}
+
+	private TextStyle stateVariableTextStyle() {
+		TextStyle textStyle = keywordTextStyle();
 		textStyle.setColor(new RGB(49, 132, 149));
-		return textStyle;
-	}
-	
-	private TextStyle functionNameTextStyle() {
-		TextStyle textStyle = defaultTextStyle().copy();
-		textStyle.setColor(new RGB(0, 0, 162));
-		return textStyle;
-	}
-
-	private TextStyle solidityVersionTextStyle() {
-		TextStyle textStyle = defaultTextStyle().copy();
-		textStyle.setColor(new RGB(0, 0, 205));
-		return textStyle;
-	}
-
-	private TextStyle featureCallTextStyle() {
-		TextStyle textStyle = defaultTextStyle().copy();
-		textStyle.setColor(new RGB(6, 150, 14));
+		textStyle.setStyle(SWT.NONE);
 		return textStyle;
 	}
 
 	@Override
 	public TextStyle keywordTextStyle() {
 		TextStyle textStyle = defaultTextStyle().copy();
-		textStyle.setColor(new RGB(00, 00, 255));
+		textStyle.setColor(new RGB(14, 48, 131));
 		textStyle.setStyle(SWT.BOLD);
-		return textStyle;
-	}
-	
-	@Override
-	public TextStyle commentTextStyle() {
-		TextStyle textStyle = defaultTextStyle().copy();
-		textStyle.setColor(new RGB(76, 136, 107));
-		textStyle.setStyle(SWT.ITALIC);
 		return textStyle;
 	}
 }
