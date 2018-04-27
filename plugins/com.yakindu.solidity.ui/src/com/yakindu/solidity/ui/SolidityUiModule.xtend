@@ -33,7 +33,6 @@ import org.eclipse.xtext.ui.editor.hover.DispatchingEObjectTextHover
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider
 import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration
-import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator
 import org.yakindu.base.utils.jface.help.CrossRefObjectTextHover
 
 /**
@@ -46,7 +45,7 @@ class SolidityUiModule extends AbstractSolidityUiModule {
 
 	override configure(Binder binder) {
 		super.configure(binder)
-		binder.bind(ISemanticHighlightingCalculator).to(SoliditySemanticHighlighter)
+		binder.bind(org.eclipse.xtext.ide.editor.syntaxcoloring.ISemanticHighlightingCalculator).to(SoliditySemanticHighlighter)
 		binder.bind(IHighlightingConfiguration).to(SolidityHighlightingConfiguration)
 		binder.bind(IEObjectDocumentationProvider).to(SolidityUserHelpDocumentationProvider)
 		binder.bind(DispatchingEObjectTextHover).to(CrossRefObjectTextHover)

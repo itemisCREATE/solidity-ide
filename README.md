@@ -2,6 +2,8 @@
 
 # YAKINDU Solidity IDE
 
+[Download all-in-one distribution here](https://info.itemis.com/yakindu/solidity/download/ "YAKINDU Solidity Tools download")
+
 The free to use, open source YAKINDU Solidity IDE provides an integrated development environment for ethereum / solidity based smart contracts. 
 
 It features all the goodies you can expect from a professional IDE, including
@@ -16,6 +18,8 @@ It features all the goodies you can expect from a professional IDE, including
  * and much more!
 
 As an Eclipse based IDE, YAKINDU Solidity can easily be integrated into your existing toolchain.   
+
+![Image of YAKINDU Solidity Tools](https://github.com/Yakindu/solidity-ide/blob/master/screenshot.png)
 
 
 ## License
@@ -48,5 +52,3 @@ If you are familiar with Eclipse plugin development then you may want to checkou
 5. Build Xtext grammar: Right click on com.yakindu.solidity.GenerateSolidity.mwe2 => Run As.. => MWE2 Workflow
 
 After these steps all projects should compile without errors. To launch a runtime instance which has these projects as installed plugins, just right-click on a project => Run As => Eclipse Application
-
-# Thanks
