@@ -113,7 +113,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		})
 	}
 
-	def dispatch fixVisibility(EObject element, BuildInModifier object2) {
+	def dispatch fixVisibility(EObject element, BuildInModifier modifier) {
 	}
 
 	def dispatch fixVisibility(FunctionDefinition function, BuildInModifier modifier) {
