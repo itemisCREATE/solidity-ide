@@ -59,4 +59,12 @@ public class SolidityHighlightingConfiguration extends DefaultHighlightingConfig
 		textStyle.setStyle(SWT.BOLD);
 		return textStyle;
 	}
+	
+	@Override
+	public TextStyle commentTextStyle() {
+		TextStyle textStyle = defaultTextStyle().copy();
+		textStyle.setColor(new RGB(128, 128, 128));
+		textStyle.setStyle(SWT.ITALIC);
+		return textStyle;
+	}
 }

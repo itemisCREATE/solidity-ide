@@ -203,7 +203,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 	private String createErrorCodeFromMessage(Severity severity, String message) {
 		switch (severity) {
 		case ERROR:
-			return "error";
+			return SolidityError.getCodeForMessage(message);
 		case WARNING:
 			return SolidityWarning.getCodeForMessage(message);
 		default:
