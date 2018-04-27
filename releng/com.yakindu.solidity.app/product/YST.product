@@ -51,7 +51,7 @@
 
    <license>
         <text>
-   (c) itemis AG, 2017. All rights reserved.
+   (c) itemis AG, 2018. All rights reserved.
          </text>
    </license>
 
@@ -94,6 +94,11 @@
       <property name="osgi.instance.area.default" value="@user.home/solidity/ws" />
       <property name="preferenceCustomization" value="plugin_customization.ini" />
    </configurations>
+
+   <repositories>
+      <repository location="http://updates.yakindu.com/solidity/releases/" enabled="true" />
+      <repository location="http://updates.yakindu.com/statecharts/releases/" enabled="true" />
+   </repositories>
 
    <preferencesInfo>
       <targetfile overwrite="false"/>
