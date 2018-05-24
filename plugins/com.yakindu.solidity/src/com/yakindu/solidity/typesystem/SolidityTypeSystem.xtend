@@ -67,6 +67,12 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 
 	static extension TypesFactory typesFactory = TypesFactory.eINSTANCE
 
+	val static INSTANCE = new SolidityTypeSystem();
+
+	def static GenericTypeSystem getInstance() {
+		return INSTANCE;
+	}
+
 	override initRegistries() {
 		super.initRegistries()
 
