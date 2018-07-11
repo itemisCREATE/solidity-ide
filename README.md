@@ -39,6 +39,7 @@ https://updates.yakindu.com/solidity/milestones
 ## How to Contribute
 We appreciate feedback of any kind and there are various ways to do so:
  * Report bugs and request features in our issue tracker
+ * Follow [@yakindu](https://twitter.com/yakindu) on twitter and spread the word about this project.
  * Get the source code (see below) - fork it - work on it - and provide pull requests ...
 
 ### Build everything from source
