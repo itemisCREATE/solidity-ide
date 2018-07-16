@@ -54,7 +54,8 @@ enum ContractType:
 	CONTRACT='contract' | LIBRARY='library' | INTERFACE='interface';
 
 ContractPart returns types::Declaration:
-	StateVariableDefinition | UsingForDeclaration | ModifierDefinition | FunctionDefinition | ConstructorDefinition | EventDefinition |
+	StateVariableDefinition | UsingForDeclaration | ModifierDefinition | FunctionDefinition | ConstructorDefinition |
+	EventDefinition |
 	TypeDefinition;
 
 UsingForDeclaration returns types::Declaration:
@@ -125,6 +126,9 @@ ConstructorDefinition returns types::Operation:
 	{ConstructorDefinition} 'constructor' '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')'
 	(modifier+=Modifier)* block=Block;
 
+EventDefinition returns types::Operation:
+	{EventDefinition} 'event' name=ID '(' (parameters+=IndexParameter (',' parameters+=IndexParameter)*)? ')' ';';
+
 FunctionDefinition returns types::Operation:
 	{FunctionDefinition} 'function' name=ID? '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')'
 	(modifier+=Modifier)* ('returns' '(' (returnParameters+=Parameter (',' returnParameters+=Parameter)*)? ')')? (';' |
@@ -149,8 +153,6 @@ Parameter returns types::Parameter:
 IndexParameter returns types::Parameter:
 	{IndexParameter} typeSpecifier=TypeSpecifier (indexed?="indexed")? (name=ID)?;
 
-EventDefinition returns types::Operation:
-	{EventDefinition} 'event' name=ID '(' (parameters+=IndexParameter (',' parameters+=IndexParameter)*)? ')' ';';
 
 Statement:
 	IfStatement | WhileStatement | ForStatement | Block | InlineAssemblyStatement | (ThrowStatement | ReturnStatement |
@@ -202,32 +204,33 @@ enum UnaryOperatorEx:
 
 @ Override
 ElementReferenceExpression returns expressions::ElementReferenceExpression:
-	{expressions::ElementReferenceExpression} reference=[EObject|ID] (=> operationCall?='(' 
-		(((arguments+=SimpleArgument (',' arguments+=SimpleArgument)*)? ) | 
-			('{' (arguments+=NamedArgument (',' arguments+=NamedArgument)*)? '}')
-		)
-	')')? ('[' arraySelector+=Expression ']')*;
+	{expressions::ElementReferenceExpression} reference=[EObject|ID] (=> operationCall?='(' (((arguments+=SimpleArgument
+	(',' arguments+=SimpleArgument)*)?) | ('{' (arguments+=NamedArgument (',' arguments+=NamedArgument)*)? '}')) ')')?
+	('[' arraySelector+=Expression ']')*;
 
 @ Override
 Argument:
-	SimpleArgument | NamedArgument
-;
+	SimpleArgument | NamedArgument;
+
 NamedArgument:
-	reference=[EObject] ':'  value=ConditionalExpression;
-	
+	reference=[EObject] ':' value=ConditionalExpression;
+
 SimpleArgument:
 	value=ConditionalExpression;
 
 @ Override PrimaryExpression returns expressions::Expression:
-	PrimitiveValueExpression | FeatureCall | NewInstanceExpression | TupleExpression;
+	PrimitiveValueExpression | FeatureCall | NewInstanceExpression | EmitExpression | TupleExpression;
 
 NewInstanceExpression returns expressions::FeatureCall:
 	{NewInstanceExpression} 'new' type=TypeSpecifier operationCall?='(' (arguments+=Argument (',' arguments+=Argument)*)?
 	')';
 
+EmitExpression returns expressions::FeatureCall:
+	{EmitExpression} 'emit'  event=[EventDefinition|ID] operationCall?='(' (arguments+=Argument (',' arguments+=Argument)*)? ')';
+
 TupleExpression returns expressions::Expression:
-	{TupleExpression} (('(' (expressions+=Expression (',' expressions+=Expression)*)? ')') | ('[' (expressions+=Expression
-	(',' expressions+=Expression)*)? ']'));
+	{TupleExpression} (('(' (expressions+=Expression (',' expressions+=Expression)*)? ')') | ('['
+	(expressions+=Expression (',' expressions+=Expression)*)? ']'));
 
 VariableDefinitionProperty returns types::Property:
 	VariableDefinition;
