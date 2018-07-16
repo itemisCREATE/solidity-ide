@@ -35,6 +35,7 @@ import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.Operation
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
+import com.yakindu.solidity.solidity.EmitExpression
 
 /**
  * 
@@ -97,7 +98,13 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 		Scopes.scopeFor(context.contract.allFeatures.filter(ModifierDefinition), outerScope)
 	}
 
+
 	def scope_ElementReferenceExpression_reference(EObject context, EReference reference) {
+		var outer = delegate.getScope(context, reference)
+		return new ElementReferenceScope(outer, context, reference);
+	}
+
+	def scope_EmitExpression_event(EmitExpression context, EReference reference) {
 		var outer = delegate.getScope(context, reference)
 		return new ElementReferenceScope(outer, context, reference);
 	}
