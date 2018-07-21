@@ -445,25 +445,37 @@
 		</page>
 	</extension>
 	<!-- Wizards -->
-	<extension
-			point="org.eclipse.ui.newWizards">
+	<extension point="org.eclipse.ui.newWizards">
 		<category
 			id="com.yakindu.solidity.wizards"
 			name="Solidity">
 		</category>
-		<wizard
-				category="com.yakindu.solidity.wizards"
+		<wizard	category="com.yakindu.solidity.wizards"
 				icon="icons/icon_16x16.png"
 				id="com.yakindu.solidity.ui.wizards.NewSolidityFile"
 				canFinishEarly="false"
 				hasPages="true"
 				name="New Solidity File">
-				<class class="com.yakindu.solidity.ui.SolidityExecutableExtensionFactory">
+			<class class="com.yakindu.solidity.ui.SolidityExecutableExtensionFactory">
 				<parameter name="javatype" value="true" />
 				<parameter name="guicekey" value="com.yakindu.solidity.ui.wizard.NewFileWizard" />
 			</class>
 			<description>
 					Create a new Solidity file
+			</description>
+		</wizard>
+		<wizard	category="com.yakindu.solidity.wizards"
+				icon="icons/icon_16x16.png"
+				id="com.yakindu.solidity.ui.wizards.NewCryptoCoin"
+				canFinishEarly="false"
+				hasPages="true"
+				name="New ERC20 Token">
+			<class class="com.yakindu.solidity.ui.SolidityExecutableExtensionFactory">
+				<parameter name="javatype" value="true" />
+				<parameter name="guicekey" value="com.yakindu.solidity.ui.wizard.NewCryptoCoinWizard" />
+			</class>
+			<description>
+					Create a new crypto coin as ERC20 Token
 			</description>
 		</wizard>
 	</extension>
