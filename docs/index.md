@@ -26,8 +26,7 @@ YAKINDU Solidity Tools features all the goodies you can expect from a profession
  
 ![Code Completion](https://cdn-images-1.medium.com/max/800/1*suh-p7fapC2NjX5Fhk7Unw.gif)
 
-## Quick fixes
->>>>>>> master
+## Quick Fixes
  Solidity is bleeding-edge technology, best practises change frequently, even syntax changes are common in new versions. Quick fixes can help to resolve issues, which are reported from the IDE or from the Soldity compiler, fast and reliably. We implemented an initial set of quick fixes that resolve simple SOLC warnings like “No visibility specified”. More sophisticated quick fixes are to come.
  
 ![Quick Fixes](https://cdn-images-1.medium.com/max/800/1*QHIHgHGLgcP1MZqBpUEr9A.gif)
@@ -51,7 +50,7 @@ Code formatting is always a matter of taste. In the Solidity documentation, ther
  * solidity compiler integration
  * and much more!
 
-# Future work
+# Future Work
 This is not the end of our efforts to make smart contract development better. This is what we plan to do in the next year:
 
 ![Roadmap](https://pbs.twimg.com/media/DiOzdZ3W0AENFDq.jpg)
