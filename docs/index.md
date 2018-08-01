@@ -59,7 +59,7 @@ This is not the end of our efforts to make smart contract development better. Th
 When examining various smart contracts it became somehow obvious that most of the contracts are basically a description of "who is allowed to do what, under which circumstances" which is in fact a very simple description of a state machine. Calling a method on such is nothing else than an incoming event on a state 
 We started to integrate YAKINDU SCT with YAKINDU Solidity IDE. This basically means that we can access build in features of solidiy like implicitly globally available variables, constants and functions while modeling our statechart. Once the user is satisfied with his model, and have performed the necessary verifications, we can generate the solidity code, EVM byte code and ABI with a single button press. 
 
-![Yakindu SCT integration](https://github.com/Yakindu/solidity-ide/blob/master/docs/ysct_yst.gif) 
+![Yakindu SCT integration](./ysct_yst.gif) 
 
 ## Langage Server Protocol 
 
@@ -72,19 +72,22 @@ With [LSP Support](https://microsoft.github.io/language-server-protocol/) you ca
 YAKINDU Solidity Tools is developed and driven by developers of itemis AG, a well-known consulting company specialized on model-based development and language engineering.
 
 ### Team
- [Florian Antony](https://de.linkedin.com/in/florian-antony-572b97167) 
+ [Florian Antony](https://de.linkedin.com/in/florian-antony-572b97167)
  (@FlorianAntony)
+ 
  Florian works as software engineer at itemis AG in Lünen, Germany. He is involved in developing the YAKINDU product family and has a
  strong interested in blockchain technology.
  
- [Andreas Mülder](https://de.linkedin.com/in/andreasmuelder/de) 
+ [Andreas Mülder](https://de.linkedin.com/in/andreasmuelder/de)
  (@andreasmuelder)
+ 
  Andreas works as a principal software engineer at itemis AG in Lünen, Germany. He is especially interested in Eclipse modeling
  technologies and technical project lead of the open source project YAKINDU Statechart tools. For more information, visit
  http://www.statecharts.org
   
  [Karsten Thoms](https://de.linkedin.com/in/karstenthoms)
  (@kthoms)
+ 
  Karsten works as software architect at itemis AG in Lünen, Germany. He is part of the Xtext team. He strongly believes that Model
  Driven Software Development helps to be more efficient in mission critical projects. He has more than 15 years of experience in the
  field of language engineering and is committer to several eclipse projects including Xtext and Platform.
