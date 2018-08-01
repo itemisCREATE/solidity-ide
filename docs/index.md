@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/Yakindu/solidity-ide.svg?branch=master)](https://travis-ci.org/Yakindu/solidity-ide)
-
 # YAKINDU Solidity Tools
 
 YAKINDU Solidity IDE is a solidity editor, that provides most of the features we all know and are used to from modern Java editors, including context sensitive help and code proposals, quick fixes, refactorings, templates and live validation
