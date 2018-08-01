@@ -62,7 +62,7 @@ We started to integrate YAKINDU SCT with YAKINDU Solidity IDE. This basically me
 
 ![Yakindu SCT integration](./ysct_yst.gif) 
 
-## Langage Server Protocol 
+## Language Server Protocol 
 
 With [LSP Support](https://microsoft.github.io/language-server-protocol/) you can use your favorite editor like Atom, Visual Studio Code or any other editor that supports LSP and thus benefit from most of the features. We are planning to implement a Solidity Language Server. With minimal implementation effort this allows others to reuse YAKINDU Solidity Tools features in any third party editor. 
 
