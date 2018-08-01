@@ -69,9 +69,18 @@ TBD
 
 ![itemis](https://www.itemis.com/hs-fs/hubfs/Corporate_Website/Logo-pur.png?t=1533137380606&width=130&name=Logo-pur.png)
 
-YAKINDU Statechart Tools is developed and driven by developers of itemis AG, a well-known consulting company specialized on model-based development and language engineering. 
+YAKINDU Statechart Tools is developed and driven by developers of itemis AG, a well-known consulting company specialized on model-based development and language engineering. The YAKINDU Solidity Tools are currently developed by
 
-TBD
+ * Florian Antony (@FlorianAntony)
+  TBD
+ * Andreas Mülder (@andreasmuelder)
+  ![Andreas](https://pbs.twimg.com/profile_images/921384204046422017/pjEaX8pJ_400x400.jpg)
+  Andreas works as a principal software engineer at itemis AG in Lünen, Germany. He is especially interested in Eclipse modeling technologies and technical project lead of the open source project YAKINDU Statechart tools. For more information, visit http://www.statecharts.org
+  
+ * Karten Thoms (@kthoms)
+ TBD
+
+
 
 
 
