@@ -74,7 +74,6 @@ YAKINDU Statechart Tools is developed and driven by developers of itemis AG, a w
  * Florian Antony (@FlorianAntony)
   TBD
  * Andreas Mülder (@andreasmuelder)
-  ![Andreas](https://pbs.twimg.com/profile_images/921384204046422017/pjEaX8pJ_400x400.jpg)
   Andreas works as a principal software engineer at itemis AG in Lünen, Germany. He is especially interested in Eclipse modeling technologies and technical project lead of the open source project YAKINDU Statechart tools. For more information, visit http://www.statecharts.org
   
  * Karten Thoms (@kthoms)
