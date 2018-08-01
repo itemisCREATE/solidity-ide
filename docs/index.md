@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Yakindu/solidity-ide/master/releng/com.yakindu.solidity.app/splash.bmp>
+  <img src="https://raw.githubusercontent.com/Yakindu/solidity-ide/master/releng/com.yakindu.solidity.app/splash.bmp" />
 </p>
             
 YAKINDU Solidity IDE is a solidity editor, that provides most of the features we all know and are used to from modern IDEs, including context sensitive help and code proposals, quick fixes, refactorings, templates and live validation.
