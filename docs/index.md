@@ -1,9 +1,11 @@
-![Splash](https://raw.githubusercontent.com/Yakindu/solidity-ide/master/releng/com.yakindu.solidity.app/splash.bmp)
-
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Yakindu/solidity-ide/master/releng/com.yakindu.solidity.app/splash.bmp>
+</p>
+            
 YAKINDU Solidity IDE is a solidity editor, that provides most of the features we all know and are used to from modern IDEs, including context sensitive help and code proposals, quick fixes, refactorings, templates and live validation.
 The source code of YAKINDU Solidity IDE is provided under the Eclipse Public License. Note that YAKINDU Solidity IDE is in beta state and we give no warranty on the correctness of any output it produces. If you find a bug or have a feature request please use our issue tracker to report it. 
 
-## Download & installation
+## Download & Installation
 
 In addition to the source code provided here on GitHub, we also provide ready-to-use builds for Windows (Linux and OS X is under construction) along with an Eclipse update site. If you just want to use YAKINDU Solidity IDE we strongly recommend to go this way.
 
@@ -12,7 +14,7 @@ In addition to the source code provided here on GitHub, we also provide ready-to
 Or install via update site into latest Eclipse:
 https://updates.yakindu.com/solidity/milestones
 
-## How to contribute
+## How To Contribute
 We appreciate feedback of any kind and there are various ways to do so:
  * Report bugs and request features in our issue tracker
  * Follow [@yakindu](https://twitter.com/yakindu) on twitter and spread the word about this project.
