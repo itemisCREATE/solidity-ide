@@ -2,7 +2,7 @@
   <img src="https://raw.githubusercontent.com/Yakindu/solidity-ide/master/releng/com.yakindu.solidity.app/splash.bmp" />
 </p>
             
-YAKINDU Solidity IDE is a solidity editor, that provides most of the features we all know and are used to from modern IDEs, including context sensitive help and code proposals, quick fixes, refactorings, templates and live validation.
+YAKINDU Solidity Tools is a solidity editor, that provides most of the features we all know and are used to from modern IDEs, including context sensitive help and code proposals, quick fixes, refactorings, templates and live validation.
 The source code of YAKINDU Solidity IDE is provided under the Eclipse Public License. Note that YAKINDU Solidity IDE is in beta state and we give no warranty on the correctness of any output it produces. If you find a bug or have a feature request please use our issue tracker to report it. 
 
 ## Download & Installation
