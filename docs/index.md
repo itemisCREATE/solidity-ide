@@ -70,9 +70,7 @@ With [LSP Support](https://microsoft.github.io/language-server-protocol/) you ca
 
 ## Who is behind YAKINDU Solidity Tools? 
 
-![itemis](https://www.itemis.com/hs-fs/hubfs/Corporate_Website/Logo-pur.png?t=1533137380606&width=130&name=Logo-pur.png)
-
-YAKINDU Solidity Tools is developed and driven by developers of itemis AG, a well-known consulting company specialized on model-based development and language engineering. The YAKINDU Solidity Tools are currently developed by
+YAKINDU Solidity Tools is developed and driven by developers of [itemis AG](https://www.itemis.com), a well-known consulting company specialized on model-based development and language engineering. The YAKINDU Solidity Tools are currently developed by
 
 ### Team
  [Florian Antony](https://de.linkedin.com/in/florian-antony-572b97167)
