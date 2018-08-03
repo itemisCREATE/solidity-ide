@@ -79,7 +79,7 @@ YAKINDU Solidity Tools is developed and driven by developers of itemis AG, a wel
  (@FlorianAntony)
  
  Florian works as software engineer at itemis AG in Lünen, Germany. He is involved in developing the YAKINDU product family and has a
- strong interested in blockchain technology.
+ strong interest in blockchain technology.
  
  [Andreas Mülder](https://de.linkedin.com/in/andreasmuelder/de)
  (@andreasmuelder)
