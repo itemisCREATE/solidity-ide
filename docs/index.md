@@ -73,22 +73,16 @@ With [LSP Support](https://microsoft.github.io/language-server-protocol/) you ca
 YAKINDU Solidity Tools is developed and driven by developers of [itemis AG](https://www.itemis.com), a well-known consulting company specialized on model-based development and language engineering. The YAKINDU Solidity Tools are currently developed by
 
 ### Team
- #### [Florian Antony](https://de.linkedin.com/in/florian-antony-572b97167)
- (@FlorianAntony)
- 
+ #### [Florian Antony](https://de.linkedin.com/in/florian-antony-572b97167) (@FlorianAntony)
  Florian works as software engineer at itemis AG in Lünen, Germany. He is involved in developing the YAKINDU product family and has a
  strong interest in blockchain technology.
  
- #### [Andreas Mülder](https://de.linkedin.com/in/andreasmuelder/de)
- (@andreasmuelder)
- 
+ #### [Andreas Mülder](https://de.linkedin.com/in/andreasmuelder/de) (@andreasmuelder)
  Andreas works as a principal software engineer at itemis AG in Lünen, Germany. He is especially interested in Eclipse modeling
  technologies and technical project lead of the open source project YAKINDU Statechart tools. For more information, visit
  http://www.statecharts.org
   
- #### [Karsten Thoms](https://de.linkedin.com/in/karstenthoms)
- (@kthoms)
- 
+ #### [Karsten Thoms](https://de.linkedin.com/in/karstenthoms) (@kthoms)
  Karsten works as software architect at itemis AG in Lünen, Germany. He is part of the Xtext team. He strongly believes that Model
  Driven Software Development helps to be more efficient in mission critical projects. He has more than 15 years of experience in the
  field of language engineering and is committer to several eclipse projects including Xtext and Platform.
