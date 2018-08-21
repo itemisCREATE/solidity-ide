@@ -56,6 +56,7 @@ class BuildInDeclarations {
 	Operation ecrecover
 	Operation suicide
 	Operation selfdestruct
+	Property abi
 	Property msg
 	Property this_
 	Property super_
@@ -102,6 +103,8 @@ class BuildInDeclarations {
 		/************************
 		 *     MATH and CRYPTO
 		 ************************/
+		abi = createConstant("abi", ABI.typeForName)
+
 		addmod = createOperation("addmod", UINT) => [
 			parameters += createParameter("x", UINT)
 			parameters += createParameter("y", UINT)
@@ -203,8 +206,8 @@ class BuildInDeclarations {
 	}
 
 	def all() {
-		#[msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, push, ripemd160, ecrecover,
-			block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]
+		#[msg, assert_, require, revert, abi, addmod, mulmod, keccak256, sha3, sha256, length, push, ripemd160,
+			ecrecover, block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]
 	}
 
 	def protected Type getTypeForName(String typeName) {
