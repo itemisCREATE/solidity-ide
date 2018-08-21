@@ -83,6 +83,7 @@ class BuildInDeclarations {
 		val ADDRESS = ADDRESS.typeForName
 		val ANY = ANY.typeForName
 		val BOOL = BOOL.typeForName
+		val BYTES = BYTES.typeForName
 		val BYTES20 = BYTES20.typeForName
 		val BYTES32 = BYTES32.typeForName
 		val INT = INT.typeForName
@@ -118,7 +119,7 @@ class BuildInDeclarations {
 		]
 
 		keccak256 = createOperation("keccak256", BYTES32) => [
-			parameters += createParameter("argument", ANY) => [varArgs = true]
+			parameters += createParameter("argument", BYTES) => [varArgs = false]
 		]
 
 		sha256 = createOperation("sha256", BYTES32) => [
