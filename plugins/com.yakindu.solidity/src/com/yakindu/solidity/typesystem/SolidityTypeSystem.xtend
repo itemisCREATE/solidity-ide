@@ -125,10 +125,10 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 			lastType = type
 		}
 	}
-	
+
 	override getDirectSuperTypes(Type type) {
 		var superTypes = super.getDirectSuperTypes(type)
-		if(type instanceof ContractDefinition)
+		if (type instanceof ContractDefinition)
 			superTypes += getType(ADDRESS)
 		return superTypes
 	}
@@ -283,16 +283,43 @@ public class SolidityTypeSystem extends GenericTypeSystem {
 				]
 			]
 			type.features += createOperation => [
+				name = CALL
+				typeSpecifier = createTypeSpecifier => [
+					type = getType(BOOL)
+				]
+				parameters += createParameter => [
+					typeSpecifier = createTypeSpecifier => [
+						type = getType(BYTES)
+					]
+					name = "target"
+					optional = false
+				]
 				parameters += createParameter => [
 					typeSpecifier = createTypeSpecifier => [
 						type = getType(ANY)
 					]
-					name = "target"
-					varArgs = true;
+					optional = true
+					varArgs = true
 				]
+			]
+			type.features += createOperation => [
 				name = CALL
 				typeSpecifier = createTypeSpecifier => [
 					type = getType(BOOL)
+				]
+				parameters += createParameter => [
+					typeSpecifier = createTypeSpecifier => [
+						type = getType(STRING)
+					]
+					name = "target"
+					optional = false
+				]
+				parameters += createParameter => [
+					typeSpecifier = createTypeSpecifier => [
+						type = getType(ANY)
+					]
+					optional = true
+					varArgs = true
 				]
 			]
 			type.features += createOperation => [
