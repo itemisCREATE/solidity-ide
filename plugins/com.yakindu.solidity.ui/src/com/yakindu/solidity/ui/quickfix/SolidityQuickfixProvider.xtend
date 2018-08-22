@@ -90,7 +90,15 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				element.fixVisibility(createBuildInModifier => [
 					type = FunctionModifier.PUBLIC
+				])
+			}
 
+		})
+
+		acceptor.accept(issue, 'Make this function external', 'External function.', null, new ISemanticModification() {
+			override apply(EObject element, IModificationContext context) throws Exception {
+				element.fixVisibility(createBuildInModifier => [
+					type = FunctionModifier.EXTERNAL
 				])
 			}
 
