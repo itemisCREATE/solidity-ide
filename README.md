@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/Yakindu/solidity-ide.svg?branch=master)](https://travis-ci.org/Yakindu/solidity-ide)
 
-# YAKINDU Solidity IDE
+# YAKINDU Solidity Tools
 
 [Download all-in-one distribution here](https://info.itemis.com/yakindu/solidity/download/ "YAKINDU Solidity Tools download")
 
