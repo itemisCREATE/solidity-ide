@@ -25,6 +25,7 @@ import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.ImportNormalizer;
 import org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider;
 import org.yakindu.base.types.Type;
+import org.yakindu.base.types.TypeSpecifier;
 import org.yakindu.base.types.TypesPackage;
 
 import com.google.common.collect.Lists;
@@ -58,9 +59,10 @@ public class SolidityImportedNamespaceAwareLocalScopeProvider extends ImportedNa
 			EObject next = allContents.next();
 			if (next instanceof ContractDefinition) {
 				ContractDefinition contract = (ContractDefinition) next;
-				EList<Type> superTypes = contract.getSuperTypes();
-				for (Type complexType : superTypes) {
-					ImportNormalizer resolver = createImportedNamespaceResolver(complexType.getName() + ".*", false);
+				EList<TypeSpecifier> superTypes = contract.getSuperTypes();
+				for (TypeSpecifier complexType : superTypes) {
+					Type type = complexType.getType();
+					ImportNormalizer resolver = createImportedNamespaceResolver(type.getName() + ".*", false);
 					result.add(resolver);
 				}
 				allContents.prune();

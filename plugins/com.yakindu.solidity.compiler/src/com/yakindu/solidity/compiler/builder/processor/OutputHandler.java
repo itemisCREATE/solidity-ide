@@ -14,7 +14,6 @@
  */
 package com.yakindu.solidity.compiler.builder.processor;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
