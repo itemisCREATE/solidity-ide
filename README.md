@@ -4,7 +4,7 @@
 
 [Download all-in-one distribution here](https://info.itemis.com/yakindu/solidity/download/ "YAKINDU Solidity Tools download")
 
-The free to use, open source YAKINDU Solidity IDE provides an integrated development environment for ethereum / solidity based smart contracts. 
+The free to use, open source YAKINDU Solidity Tools provides an integrated development environment for ethereum / solidity based smart contracts. 
 
 It features all the goodies you can expect from a professional IDE, including
  * code completion
@@ -17,18 +17,18 @@ It features all the goodies you can expect from a professional IDE, including
  * solidity compiler integration
  * and much more!
 
-As an Eclipse based IDE, YAKINDU Solidity can easily be integrated into your existing toolchain.   
+As an Eclipse based IDE, YAKINDU Solidity Tools can easily be integrated into your existing toolchain.   
 
 ![Image of YAKINDU Solidity Tools](https://github.com/Yakindu/solidity-ide/blob/master/screenshot.png)
 
 
 ## License
-The source code of YAKINDU Solidity IDE is provided under the Eclipse Public License.
+The source code of YAKINDU Solidity Tools is provided under the Eclipse Public License.
 
-Note that YAKINDU Solidity IDE is in early beta state and we give no warranty on the correctness of any output it produces. If you find a bug or have a feature request please use our issue tracker to report it. 
+Note that YAKINDU Solidity Tools is in early beta state and we give no warranty on the correctness of any output it produces. If you find a bug or have a feature request please use our issue tracker to report it. 
 
 ## Download & Installation
-In addition to the source code provided here on GitHub we also provide ready-to-use builds for Windows (Linux and OS X is under construction) along with an Eclipse update site. If you just want to use YAKINDU Solidity IDE we strongly recommend to go this way.
+In addition to the source code provided here on GitHub we also provide ready-to-use builds for Windows (Linux and OS X is under construction) along with an Eclipse update site. If you just want to use YAKINDU Solidity Tools we strongly recommend to go this way.
 
 Download a package from our download page:
 https://info.itemis.com/yakindu/solidity/download/
