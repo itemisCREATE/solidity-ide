@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.yakindu.solidity</groupId>
@@ -11,4 +12,41 @@
 	</parent>
 	<artifactId>com.yakindu.solidity.repository</artifactId>
 	<packaging>eclipse-repository</packaging>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Repository Group</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>jboss-snapshots-repository</id>
+			<name>JBoss Snapshots Repository</name>
+			<url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
+		</pluginRepository>
+	</pluginRepositories>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jboss.tools.tycho-plugins</groupId>
+				<artifactId>repository-utils</artifactId>
+				<version>1.1.0-SNAPSHOT</version>
+				<executions>
+					<!-- creates index.html and other artifacts -->
+					<execution>
+						<id>generate-facade</id>
+						<phase>package</phase>
+						<goals>
+							<goal>generate-repository-facade</goal>
+						</goals>
+						<configuration>
+							<!-- this adds repository references to the update site's content.xml -->
+							<associateSites>
+								<site>http://updates.yakindu.com/statecharts/releases</site>
+							</associateSites>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
