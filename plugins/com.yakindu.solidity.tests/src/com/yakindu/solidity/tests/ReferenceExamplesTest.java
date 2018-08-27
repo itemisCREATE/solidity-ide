@@ -13,7 +13,6 @@
  */
 package com.yakindu.solidity.tests;
 
-import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Iterables.isEmpty;
 import static org.junit.Assert.fail;
 
@@ -24,7 +23,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.inject.Inject;
 
@@ -42,6 +40,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.yakindu.solidity.solidity.SolidityModel;
 
@@ -62,13 +61,9 @@ public class ReferenceExamplesTest {
 	protected ValidationTestHelper validationHelper;
 	@Inject
 	protected ResourceSet set;
-
 	// FIXME
-	static Set<String> toFix = Stream.of(
-			  "ether-router.sol"
-			, "ico.sol"
-			, "moduleHandler.sol"
-			, "schelling.sol"
+	static Set<String> toFix = ImmutableSet.of(
+			 "ico.sol"
 			, "LMSRMarketMaker.sol"
 			, "StandardMarket.sol"
 			, "UltimateOracle.sol"
@@ -76,15 +71,14 @@ public class ReferenceExamplesTest {
 			, "MultiSigWallet.sol"
 			, "MultiSigWalletWithDailyLimit.sol"
 			, "strings.sol"
-			, "Bounty.sol"
 			, "RefundableCrowdsale.sol"
-			, "MultisigWallet.sol" // double?
+			, "MultisigWallet.sol"
 			, "VestedToken.sol"
 			, "Shareable.sol"
 			, "provider.sol"
 			, "73_named_parameter_calls.sol"
 			
-	).collect(Collectors.toSet());
+	);
 
 	
 	private Path path;
