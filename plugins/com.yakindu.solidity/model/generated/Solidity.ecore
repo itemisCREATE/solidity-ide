@@ -220,6 +220,13 @@
   <eClassifiers xsi:type="ecore:EClass" name="DoubleLiteral" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//DoubleLiteral">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" eType="#//Unit"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConstructorDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Operation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modifier" upperBound="-1"
+        eType="#//Modifier" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="block" eType="#//Block"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EventDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Operation"/>
   <eClassifiers xsi:type="ecore:EClass" name="FunctionDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Operation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="modifier" upperBound="-1"
         eType="#//Modifier" containment="true"/>
@@ -235,7 +242,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="IndexParameter" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Parameter">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="indexed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EventDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Operation"/>
   <eClassifiers xsi:type="ecore:EClass" name="NumericalMultiplyDivideExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="leftOperand" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
         containment="true"/>
@@ -251,6 +257,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="NewInstanceExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//FeatureCall">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//TypeSpecifier"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EmitExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//FeatureCall">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="event" eType="#//EventDefinition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TupleExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"

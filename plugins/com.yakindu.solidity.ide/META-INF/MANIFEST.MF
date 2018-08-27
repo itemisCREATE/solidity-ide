@@ -21,4 +21,5 @@ Require-Bundle: com.yakindu.solidity,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.yakindu.solidity.ide.contentassist.antlr,
  com.yakindu.solidity.ide.contentassist.antlr.internal
+Automatic-Module-Name: com.yakindu.solidity.ide
 
