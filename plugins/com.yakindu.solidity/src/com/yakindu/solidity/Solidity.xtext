@@ -43,8 +43,8 @@ ImportDirective returns types::PackageMember:
 
 ContractDefinition returns types::ComplexType:
 	{ContractDefinition} type=ContractType name=ID
-	('is' superTypes+=SimpleTypeSpecifier (argumentList+=SuperTypeArgumentList)? (','
-	superTypes+=SimpleTypeSpecifier ((argumentList+=SuperTypeArgumentList)? ')')?)*)?
+	('is' superTypes+=[types::ComplexType|QID] (argumentList+=SuperTypeArgumentList)? (','
+	superTypes+=[types::ComplexType|QID] ((argumentList+=SuperTypeArgumentList)? ')')?)*)?
 	'{' (features+=ContractPart)* '}';
 
 SuperTypeArgumentList:

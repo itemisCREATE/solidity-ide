@@ -187,9 +187,7 @@ class BuildInDeclarations {
 		mortal = solidityFactory.createContractDefinition() => [
 			(typeSystem as AbstractTypeSystem).resource.contents += it
 			name = "mortal"
-			superTypes += typesFactory.createTypeSpecifier() => [
-					type = owned
-				]
+			superTypes += owned
 			features += solidityFactory.createFunctionDefinition() => [
 				name = "close"
 				modifier += solidityFactory.createBuildInModifier() => [

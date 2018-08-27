@@ -25,7 +25,7 @@ import org.yakindu.base.types.typesystem.GenericTypeSystem
  * @author Florian Antony
  */
 @Singleton
-public class SolidityTypeSystem extends GenericTypeSystem {
+class SolidityTypeSystem extends GenericTypeSystem {
 
 	public static val String BOOL = "bool"
 	public static val String UINT = "uint"

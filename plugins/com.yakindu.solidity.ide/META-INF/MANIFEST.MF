@@ -7,7 +7,6 @@ Bundle-SymbolicName: com.yakindu.solidity.ide;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: com.yakindu.solidity,
  org.eclipse.xtext.ide,
- org.eclipse.xtext.xbase.ide,
  org.antlr.runtime,
  org.yakindu.base.expressions,
  org.eclipse.core.resources,
