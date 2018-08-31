@@ -28,6 +28,8 @@ import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import org.yakindu.base.types.Package
 import org.yakindu.base.types.PackageMember
+import com.yakindu.solidity.solidity.ConstructorDefinition
+import com.yakindu.solidity.solidity.VariableDefinition
 
 /**
  * Code formatter for Solidity according to 
@@ -83,34 +85,45 @@ class SolidityFormatter extends AbstractFormatter2 {
 	}
 
 	def dispatch void format(ContractDefinition element, extension IFormattableDocument document) {
-		element.prepend[setNewLines(3, 3, 3)]
-		element.append[setNewLines(3, 3, 3)]
+		element.prepend[setNewLines(1, 3, 3)]
+		element.append[setNewLines(1, 3, 3)]
 
-		element.regionFor.keyword('{') => [
-			append[newLine]
-		]
-		element.regionFor.keyword('}') => [
-			prepend[newLine]
-		]
+//		element.regionFor.keyword('{') => [
+//			append[newLine]
+//		]
+//		element.regionFor.keyword('}') => [
+//			prepend[newLine]
+//		]
 		element.interior[indent]
 		element.features.forEach[format]
 	}
 
 	def dispatch void format(FunctionDefinition element, extension IFormattableDocument document) {
-		element.prepend[setNewLines(2, 2, 2)]
-		element.append[setNewLines(2, 2, 2)]
+		element.prepend[setNewLines(1, 2, 2)]
+		element.append[setNewLines(1, 2, 2)]
 		element.block.format
+	}
+	
+	def dispatch void format(ConstructorDefinition element, extension IFormattableDocument document) {
+		element.prepend[setNewLines(1, 2, 2)]
+		element.append[setNewLines(1, 2, 2)]
+		element.block.format
+	}
+	
+	def dispatch void format(VariableDefinition element, extension IFormattableDocument document) {
+		element.prepend[setNewLines(1, 2, 2)]
+		element.append[setNewLines(1, 2, 2)]
 	}
 
 	def dispatch void format(ModifierDefinition element, extension IFormattableDocument document) {
-		element.prepend[setNewLines(2, 2, 2)]
-		element.append[setNewLines(2, 2, 2)]
+		element.prepend[setNewLines(1, 2, 2)]
+		element.append[setNewLines(1, 2, 2)]
 		element.block.format
 	}
 
 	def dispatch void format(EventDefinition element, extension IFormattableDocument document) {
-		element.prepend[setNewLines(2, 2, 2)]
-		element.append[setNewLines(2, 2, 2)]
+		element.prepend[setNewLines(1, 2, 2)]
+		element.append[setNewLines(1, 2, 2)]
 	}
 
 	def dispatch void format(StructDefinition element, extension IFormattableDocument document) {

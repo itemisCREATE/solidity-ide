@@ -11,4 +11,5 @@
          This category contains all solidity tool features.
       </description>
    </category-def>
+   <repository-reference location="http://upates.yakindu.com/statecharts/releases" enabled="true" />
 </site>

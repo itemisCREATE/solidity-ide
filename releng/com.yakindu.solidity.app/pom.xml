@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>com.yakindu.solidity</groupId>
 		<artifactId>com.yakindu.solidity.releng</artifactId>
-		<version>0.7.2-SNAPSHOT</version>
+		<version>0.7.3-SNAPSHOT</version>
 		<relativePath>../../releng/com.yakindu.solidity.releng/pom.xml</relativePath>
 	</parent>
 	<groupId>com.yakindu.solidity</groupId>
 	<artifactId>com.yakindu.solidity.app</artifactId>
 	<packaging>eclipse-plugin</packaging>
-	<version>0.7.2-SNAPSHOT</version>
+	<version>0.7.3-SNAPSHOT</version>
 </project>
  

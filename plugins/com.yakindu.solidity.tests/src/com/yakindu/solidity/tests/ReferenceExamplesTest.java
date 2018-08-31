@@ -13,7 +13,8 @@
  */
 package com.yakindu.solidity.tests;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static com.google.common.collect.Iterables.isEmpty;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.nio.file.FileVisitOption;
@@ -22,20 +23,25 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.inject.Inject;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.util.ParseHelper;
 import org.eclipse.xtext.testing.validation.ValidationTestHelper;
+import org.eclipse.xtext.validation.Issue;
 import org.junit.Assert;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
 import com.yakindu.solidity.solidity.SolidityModel;
 
 /**
@@ -44,22 +50,20 @@ import com.yakindu.solidity.solidity.SolidityModel;
  * 
  * @author Karsten Thoms
  */
-@ExtendWith(InjectionExtension.class)
 @InjectWith(SolidityInjectorProvider.class)
+@RunWith(Parameterized.class)
+@Parameterized.UseParametersRunnerFactory(XtextParametersRunnerFactory.class)
 public class ReferenceExamplesTest {
+	
 	@Inject
-	ParseHelper<SolidityModel> parseHelper;
+	protected ParseHelper<SolidityModel> parseHelper;
 	@Inject
-	ValidationTestHelper validationHelper;
+	protected ValidationTestHelper validationHelper;
 	@Inject
-	ResourceSet set;
-
+	protected ResourceSet set;
 	// FIXME
-	static Set<String> toFix = Stream.of(
-			  "ether-router.sol"
-			, "ico.sol"
-			, "moduleHandler.sol"
-			, "schelling.sol"
+	static Set<String> toFix = ImmutableSet.of(
+			 "ico.sol"
 			, "LMSRMarketMaker.sol"
 			, "StandardMarket.sol"
 			, "UltimateOracle.sol"
@@ -67,26 +71,42 @@ public class ReferenceExamplesTest {
 			, "MultiSigWallet.sol"
 			, "MultiSigWalletWithDailyLimit.sol"
 			, "strings.sol"
-			, "Bounty.sol"
 			, "RefundableCrowdsale.sol"
-			, "MultisigWallet.sol" // double?
+			, "MultisigWallet.sol"
 			, "VestedToken.sol"
-	).collect(Collectors.toSet());
+			, "Shareable.sol"
+			, "provider.sol"
+			, "73_named_parameter_calls.sol"
+			
+	);
 
-	@ParameterizedTest
-	@MethodSource("getReferenceFiles")
-	public void test_parseReferenceFile(Path path) throws Exception {
+	
+	private Path path;
+	    
+	public ReferenceExamplesTest(Path path) {
+		this.path = path;
+	}
+
+	@Test
+	public void parseReferenceFile() throws Exception {
 		String content = new String(Files.readAllBytes(path));
 		SolidityModel model = parseHelper.parse(content, URI.createFileURI(path.toAbsolutePath().toString()), set);
 		Assert.assertNotNull("Could not load model " + path, model);
-		validationHelper.assertNoErrors(model);
+		Iterable<Issue> issues = Iterables.filter(validationHelper.validate(model), new Predicate<Issue>() {
+			@Override
+			public boolean apply(Issue input) {
+				return Severity.ERROR == input.getSeverity();
+			}
+		});
+		if (!isEmpty(issues))
+			fail("Errors in resource: " + path + ": " + issues);
+	
 	}
-
-	@SuppressWarnings("unused")
-	private static Stream<Path> getReferenceFiles() throws IOException {
+	 @Parameters
+	public static Iterable<Path> getReferenceFiles() throws IOException {
 		Path baseDir = Paths.get("../../examples/com.yakindu.solidity.examples");
-		assertTrue(baseDir.toFile().exists());
+		Assert.assertTrue(baseDir.toFile().exists());
 		return Files.walk(baseDir, new FileVisitOption[0]).filter(f -> f.toString().endsWith(".sol"))
-				.filter(p -> !toFix.contains(p.getName(p.getNameCount()-1).toString()));
+				.filter(p -> !toFix.contains(p.getName(p.getNameCount()-1).toString())).collect(Collectors.toList());
 	}
 }
