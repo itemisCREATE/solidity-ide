@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+ <extension
+         point="org.yakindu.sct.domain.modules">
+      <Module
+            domainID="com.yakindu.domain.solidity"
+            feature="org.yakindu.sct.simulation"
+            moduleProvider="com.yakindu.sct.domain.solidity.ui.simulation.SoliditySimulationModuleProvider">
+      </Module>
+   </extension>
+   <extension
+         point="org.yakindu.sct.domain.modules">
+      <Module
+            domainID="com.yakindu.domain.solidity"
+            feature="org.yakindu.sct.editor"
+            moduleProvider="com.yakindu.sct.domain.solidity.ui.editor.SolidityDomainEditorModuleProvider">
+      </Module>
+   </extension>
+
+</plugin>

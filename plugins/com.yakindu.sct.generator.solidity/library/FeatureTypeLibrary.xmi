@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<sgen:FeatureTypeLibrary
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:sgen="http://www.yakindu.org/sct/statechart/SGen"
+    name="Solidity generator for SCT">
+  <types name="Solidity"
+      optional="true">
+    <parameters
+        name="Version"
+        optional="true"/>
+  </types>
+</sgen:FeatureTypeLibrary>
