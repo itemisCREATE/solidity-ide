@@ -48,7 +48,6 @@ import org.yakindu.base.types.typesystem.ITypeSystem
 class FeatureCallScope extends AbstractScope {
 
 	var FeatureCall context
-	var EReference ref
 	var BuildInDeclarations declarations
 	var ITypeSystem typeSystem
 	var ITypeSystemInferrer inferrer
@@ -57,7 +56,6 @@ class FeatureCallScope extends AbstractScope {
 		ITypeSystemInferrer inferrer) {
 		super(IScope.NULLSCOPE, false)
 		this.context = context
-		this.ref = ref
 		this.declarations = declarations
 		this.typeSystem = typeSystem
 		this.inferrer = inferrer

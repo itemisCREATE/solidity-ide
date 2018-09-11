@@ -209,7 +209,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="contract" eType="#//ContractDefinition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Declaration">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Type"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//ComplexType"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StructDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//ComplexType"/>
