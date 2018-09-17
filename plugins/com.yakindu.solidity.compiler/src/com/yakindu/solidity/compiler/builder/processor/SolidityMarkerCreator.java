@@ -230,9 +230,12 @@ public class SolidityMarkerCreator extends MarkerCreator {
 	}
 
 	private int calculateIssueLength(String errorLine, String issueDetails) {
-		if (issueDetails.contains("Spanning multiple lines.")) {
+		if (spansOverMultipleLines(issueDetails)) {
 			if (errorLine.contains("function")) {
 				return errorLine.substring(errorLine.indexOf("function"), errorLine.indexOf(")") + 1).length();
+			}
+			if (errorLine.contains("constructor")) {
+				return errorLine.substring(errorLine.indexOf("constructor"), errorLine.indexOf(")") + 1).length();
 			}
 			if (errorLine.contains("contract")) {
 				return calculateIssueLength(issueDetails, this.issueContractNameLine);
@@ -241,6 +244,11 @@ public class SolidityMarkerCreator extends MarkerCreator {
 			return calculateIssueLength(issueDetails, this.issueLength);
 		}
 		return 0;
+	}
+
+	private boolean spansOverMultipleLines(String issueDetails) {
+		return issueDetails.contains("Spanning multiple lines.")
+				|| issueDetails.contains("spans across multiple lines");
 	}
 
 	private int calculateIssueLength(String errorMessage, Pattern pattern) {
