@@ -49,6 +49,7 @@ import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import org.yakindu.base.types.Operation
+import com.yakindu.solidity.solidity.PragmaDirective
 
 /** 
  * @author andreas muelder - Initial contribution and API
@@ -62,6 +63,20 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	@Inject @Named(SolidityRuntimeModule.SOLIDITY_VERSION) String solcVersion
 
 	extension ExpressionsFactory factory = ExpressionsFactory.eINSTANCE
+
+	@Fix(WARNING_SOLIDITY_VERSION_NOT_THE_DEFAULT)
+	def changeToDefaultPragma(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Change version to ' + solcVersion, 'solidity version', null,
+			new ISemanticModification() {
+
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof PragmaDirective) {
+						element.version = "^" + solcVersion
+					}
+				}
+
+			})
+	}
 
 	@Fix(WARNING_DEPRECATED_FUNCTION_CONSTRUCTOR)
 	def useConstructorKeywordInsteadOfFunction(Issue issue, IssueResolutionAcceptor acceptor) {

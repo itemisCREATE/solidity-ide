@@ -35,10 +35,10 @@ import org.eclipse.xtext.ui.editor.hover.IEObjectHover
  * @author Florian Antony
  */
 class SolidityProposalProvider extends AbstractSolidityProposalProvider {
-	private static final Set<String> IGNORED_KEYWORDS = Collections.unmodifiableSet(
-		#{"+", "-", "*", "/", "%", "&", "++", "--", "(", ")", "[", "]", "{", "}", ";", ",", ".", ":", "?", "!",
-			"^", "=", "==", "!=", "+=", "-=", "*=", "/=", "%=", "/=", "^=", "&&=", "||=", "&=", "|=", "|", "||", "|||",
-			"or", "&", "&&", "and", "<", ">", "<=", ">=", "<<", "=>", "event"}
+	static final Set<String> IGNORED_KEYWORDS = Collections.unmodifiableSet(
+		#{"+", "-", "*", "/", "%", "&", "++", "--", "(", ")", "[", "]", "{", "}", ";", ",", ".", ":", "?", "!", "^",
+			"=", "==", "!=", "+=", "-=", "*=", "/=", "%=", "/=", "^=", "&&=", "||=", "&=", "|=", "|", "||", "|||", "or",
+			"&", "&&", "and", "<", ">", "<=", ">=", "<<", "=>", "event"}
 	);
 
 	@Inject @Named(SolidityRuntimeModule.SOLIDITY_VERSION) String solcVersion
