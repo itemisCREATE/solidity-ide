@@ -14,12 +14,21 @@
  */
 package com.yakindu.solidity.validation
 
+import com.google.inject.name.Named
+import com.yakindu.solidity.SolidityRuntimeModule
+import com.yakindu.solidity.solidity.PragmaDirective
+import com.yakindu.solidity.solidity.SolidityPackage
 import java.util.List
+import javax.inject.Inject
+import org.eclipse.xtext.validation.Check
 import org.yakindu.base.expressions.expressions.AssignmentExpression
 import org.yakindu.base.expressions.expressions.Expression
 import org.yakindu.base.types.Operation
 
 class SolidityValidator extends AbstractSolidityValidator {
+	val public SOLIDITY_VERSION_NOT_DEFAULT = "Solidity version does not match the default version"
+
+	@Inject @Named(SolidityRuntimeModule.SOLIDITY_VERSION) String solcVersion
 
 	override protected assertOperationArguments(Operation operation, List<Expression> args) {
 		// TODO Disabled, doesn't work with extension operations
@@ -29,4 +38,11 @@ class SolidityValidator extends AbstractSolidityValidator {
 		// TODO Disables, doesn't work with Parameters
 	}
 
+	@Check
+	def protected checkPragmaVersion(PragmaDirective pragma) {
+		if (!("^" + solcVersion).equals(pragma.version)) {
+			warning(SOLIDITY_VERSION_NOT_DEFAULT + " (" + solcVersion + ")", pragma,
+				SolidityPackage.Literals.PRAGMA_DIRECTIVE__VERSION, IssueCodes.WARNING_SOLIDITY_VERSION_NOT_THE_DEFAULT)
+		}
+	}
 }
