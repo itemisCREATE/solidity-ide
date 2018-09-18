@@ -31,12 +31,18 @@ SolidityModel:
 
 SourceUnit returns types::Package:
 	{SourceUnit}
-	((pragma=PragmaDirective)? &
+	((pragma+=PragmaDirective)* &
 	(imports+=ImportDirective)* &
 	member+=ContractDefinition);
 
 PragmaDirective returns types::PackageMember:
-	{PragmaDirective} 'pragma' 'solidity' version=VERSION ';';
+	PragmaSolidityDirective | PragmaExperimentalDirective;
+
+PragmaSolidityDirective returns PragmaDirective:
+	{PragmaSolidityDirective} 'pragma' 'solidity' version=VERSION ';';
+
+PragmaExperimentalDirective returns PragmaDirective:
+	{PragmaExperimentalDirective} 'pragma' 'experimental' value=STRING ';';
 
 ImportDirective returns types::PackageMember:
 	{ImportDirective} 'import' importedNamespace=STRING ('as' alias=STRING)? ';';
@@ -65,7 +71,8 @@ StateVariableDefinition returns types::Property:
 	{VariableDefinition} typeSpecifier=TypeSpecifier ((visibility=Visibility)? & ('constant')?) name=ID ('='
 	initialValue=Expression)? ';';
 
-@ Override TypeSpecifier:
+@Override
+TypeSpecifier:
 	SimpleTypeSpecifier | MappingTypeSpecifier | ArrayTypeSpecifier;
 
 MappingTypeSpecifier:
@@ -109,13 +116,14 @@ ModifierDefinition returns types::Operation:
 Block:
 	'{' {Block} (statements+=Statement)* '}';
 
-@ Override Literal returns expressions::Literal:
+@Override
+Literal returns expressions::Literal:
 	BoolLiteral | DecimalNumberLiteral | AddressLiteral | BinaryLiteral | StringLiteral | NullLiteral;
 
 DecimalNumberLiteral:
 	value=DECIMAL (unit=Unit)?;
 
-@ Override
+@Override
 DoubleLiteral returns expressions::DoubleLiteral:
 	{DoubleLiteral} value=DOUBLE (unit=Unit)?;
 
@@ -153,7 +161,6 @@ Parameter returns types::Parameter:
 IndexParameter returns types::Parameter:
 	{IndexParameter} typeSpecifier=TypeSpecifier (indexed?="indexed")? (name=ID)?;
 
-
 Statement:
 	IfStatement | WhileStatement | ForStatement | Block | InlineAssemblyStatement | (ThrowStatement | ReturnStatement |
 	DeleteStatement | ContinueStatement | BreakStatement | SimpleStatement | PlaceholderStatement) ';';
@@ -188,7 +195,8 @@ InlineAssemblyStatement:
 enum AssemblyKind:
 	EVMASM="evmasm";
 
-@ Override NumericalMultiplyDivideExpression returns expressions::Expression:
+@Override
+NumericalMultiplyDivideExpression returns expressions::Expression:
 	NumericalUnaryExpression => ({NumericalMultiplyDivideExpression.leftOperand=current} operator=MultiOperator
 	rightOperand=NumericalUnaryExpression)*;
 
@@ -196,19 +204,20 @@ enum MultiOperator:
 	mul='*' | div='/' | mod='%' | exp="**";
 
 	// Remove TypeCast Expression
-@ Override NumericalUnaryExpression returns expressions::Expression:
+@Override
+NumericalUnaryExpression returns expressions::Expression:
 	PostFixUnaryExpression | {NumericalUnaryExpression} operator=UnaryOperatorEx operand=PostFixUnaryExpression;
 
 enum UnaryOperatorEx:
 	increment="++" | decrement="--" | positive='+' | negative='-' | complement='~';
 
-@ Override
+@Override
 ElementReferenceExpression returns expressions::ElementReferenceExpression:
 	{expressions::ElementReferenceExpression} reference=[EObject|ID] (=> operationCall?='(' (((arguments+=SimpleArgument
 	(',' arguments+=SimpleArgument)*)?) | ('{' (arguments+=NamedArgument (',' arguments+=NamedArgument)*)? '}')) ')')?
 	('[' arraySelector+=Expression ']')*;
 
-@ Override
+@Override
 Argument:
 	SimpleArgument | NamedArgument;
 
@@ -218,7 +227,8 @@ NamedArgument:
 SimpleArgument:
 	value=ConditionalExpression;
 
-@ Override PrimaryExpression returns expressions::Expression:
+@Override
+PrimaryExpression returns expressions::Expression:
 	PrimitiveValueExpression | FeatureCall | NewInstanceExpression | EmitExpression | TupleExpression;
 
 NewInstanceExpression returns expressions::FeatureCall:
@@ -226,7 +236,8 @@ NewInstanceExpression returns expressions::FeatureCall:
 	')';
 
 EmitExpression returns expressions::FeatureCall:
-	{EmitExpression} 'emit'  event=[EventDefinition|ID] operationCall?='(' (arguments+=Argument (',' arguments+=Argument)*)? ')';
+	{EmitExpression} 'emit' event=[EventDefinition|ID] operationCall?='(' (arguments+=Argument (','
+	arguments+=Argument)*)? ')';
 
 TupleExpression returns expressions::Expression:
 	{TupleExpression} (('(' (expressions+=Expression (',' expressions+=Expression)*)? ')') | ('['

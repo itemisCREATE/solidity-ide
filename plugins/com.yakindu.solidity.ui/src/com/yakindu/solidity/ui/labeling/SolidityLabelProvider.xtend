@@ -28,12 +28,14 @@ import com.yakindu.solidity.solidity.Modifier
 import com.yakindu.solidity.solidity.ModifierDefinition
 import com.yakindu.solidity.solidity.ModifierInvocation
 import com.yakindu.solidity.solidity.PragmaDirective
+import com.yakindu.solidity.solidity.PragmaExperimentalDirective
+import com.yakindu.solidity.solidity.PragmaSolidityDirective
 import com.yakindu.solidity.solidity.VariableDefinition
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
 import org.yakindu.base.base.NamedElement
-import org.yakindu.base.types.TypeSpecifier
 import org.yakindu.base.types.EnumerationType
+import org.yakindu.base.types.TypeSpecifier
 
 /**
  * Provides labels for EObjects.
@@ -67,8 +69,12 @@ class SolidityLabelProvider extends DefaultEObjectLabelProvider {
 		'''import «importedNamespace»'''.toString
 	}
 
-	def dispatch String text(PragmaDirective it) {
+	def dispatch String text(PragmaSolidityDirective it) {
 		'''pragma solidity «version»'''.toString
+	}
+	
+	def dispatch String text(PragmaExperimentalDirective it) {
+		'''pragma experimental «value»'''.toString
 	}
 
 	def dispatch String text(EventDefinition it) {

@@ -16,7 +16,7 @@ package com.yakindu.solidity.validation
 
 import com.google.inject.name.Named
 import com.yakindu.solidity.SolidityRuntimeModule
-import com.yakindu.solidity.solidity.PragmaDirective
+import com.yakindu.solidity.solidity.PragmaSolidityDirective
 import com.yakindu.solidity.solidity.SolidityPackage
 import java.util.List
 import javax.inject.Inject
@@ -39,10 +39,10 @@ class SolidityValidator extends AbstractSolidityValidator {
 	}
 
 	@Check
-	def protected checkPragmaVersion(PragmaDirective pragma) {
+	def protected checkPragmaVersion(PragmaSolidityDirective pragma) {
 		if (!("^" + solcVersion).equals(pragma.version)) {
 			warning(SOLIDITY_VERSION_NOT_DEFAULT + " (" + solcVersion + ")", pragma,
-				SolidityPackage.Literals.PRAGMA_DIRECTIVE__VERSION, IssueCodes.WARNING_SOLIDITY_VERSION_NOT_THE_DEFAULT)
+				SolidityPackage.Literals.PRAGMA_SOLIDITY_DIRECTIVE__VERSION, IssueCodes.WARNING_SOLIDITY_VERSION_NOT_THE_DEFAULT)
 		}
 	}
 }

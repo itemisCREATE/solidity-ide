@@ -24,7 +24,7 @@ import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.FunctionModifier
 import com.yakindu.solidity.solidity.IfStatement
 import com.yakindu.solidity.solidity.Parameter
-import com.yakindu.solidity.solidity.PragmaDirective
+import com.yakindu.solidity.solidity.PragmaSolidityDirective
 import com.yakindu.solidity.solidity.SolidityFactory
 import com.yakindu.solidity.solidity.SourceUnit
 import com.yakindu.solidity.solidity.StorageLocation
@@ -69,13 +69,11 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	def changeToDefaultPragma(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Change version to ' + solcVersion, 'solidity version', null,
 			new ISemanticModification() {
-
 				override apply(EObject element, IModificationContext context) throws Exception {
-					if (element instanceof PragmaDirective) {
+					if (element instanceof PragmaSolidityDirective) {
 						element.version = "^" + solcVersion
 					}
 				}
-
 			})
 	}
 
@@ -151,10 +149,10 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element.eContainer instanceof SourceUnit) {
 						val sourceUnit = element.eContainer as SourceUnit
-						val pragma = createPragmaDirective => [
+						val pragma = createPragmaSolidityDirective => [
 							version = "^" + solcVersion
 						]
-						sourceUnit.pragma = pragma
+						sourceUnit.pragma += pragma
 					}
 				}
 			})
