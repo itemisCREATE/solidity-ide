@@ -70,14 +70,14 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		createInfoMarkers(compilerOutput.getContracts(), filesToCompile);
 	}
 
-	private void createInfoMarkers(Map<String, CompiledContract> contracts, Set<IResource> filesToCompile) {
+	protected void createInfoMarkers(Map<String, CompiledContract> contracts, Set<IResource> filesToCompile) {
 		for (Entry<String, CompiledContract> contract : contracts.entrySet()) {
 			IFile file = findFileForName(filesToCompile, contract.getKey());
 			createInfoMarkers(contract.getValue(), file);
 		}
 	}
 
-	private void createInfoMarkers(CompiledContract contract, IFile file) {
+	protected void createInfoMarkers(CompiledContract contract, IFile file) {
 		if (contract.getEvm() == null || contract.getEvm().getGasEstimates() == null) {
 			return;
 		}
@@ -101,7 +101,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 
 	}
 
-	private String prettyPrint(GasEstimates gasEstimates) {
+	protected String prettyPrint(GasEstimates gasEstimates) {
 		if (gasEstimates == null) {
 			return null;
 		}
@@ -116,7 +116,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		return builder.toString();
 	}
 
-	private void printMethodEstimations(Map<String, String> map, StringBuilder builder) {
+	protected void printMethodEstimations(Map<String, String> map, StringBuilder builder) {
 		if (map != null) {
 			for (Entry<String, String> entry : map.entrySet()) {
 				builder.append("\t\t" + entry.getKey() + ": " + entry.getValue() + "\n");
@@ -124,7 +124,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		}
 	}
 
-	private void createErrorMarkers(final List<CompileError> errors, final Set<IResource> filesToCompile) {
+	protected void createErrorMarkers(final List<CompileError> errors, final Set<IResource> filesToCompile) {
 		if (errors == null) {
 			return;
 		}
@@ -138,7 +138,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		}
 	}
 
-	private SolcIssue createSolcIssue(CompileError error, Set<IResource> filesToCompile) {
+	protected SolcIssue createSolcIssue(CompileError error, Set<IResource> filesToCompile) {
 		String[] parts = error.getFormattedMessage().split(":");
 		String fileName = error.getSourceLocation().getFile();
 		IFile errorFile = findFileForName(filesToCompile, fileName);
@@ -166,7 +166,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		return solcIssue;
 	}
 
-	private String partAtIndex(String[] parts, int i) {
+	protected String partAtIndex(String[] parts, int i) {
 		try {
 			return parts[i];
 		} catch (IndexOutOfBoundsException e) {
@@ -175,7 +175,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		}
 	}
 
-	private int extractNumber(String value) {
+	protected int extractNumber(String value) {
 		try {
 			return Integer.parseInt(value);
 		} catch (NumberFormatException e) {
@@ -184,13 +184,13 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		}
 	}
 
-	private IFile findFileForName(Set<IResource> filesToCompile, String fileName) {
+	protected IFile findFileForName(Set<IResource> filesToCompile, String fileName) {
 		IFile errorFile = filesToCompile.stream().filter(file -> file.getName().equals(fileName))
 				.map(file -> (IFile) file).findFirst().orElse((IFile) filesToCompile.stream().findFirst().orElse(null));
 		return errorFile;
 	}
 
-	private EObject getEObject(IFile errorFile, int offset) {
+	protected EObject getEObject(IFile errorFile, int offset) {
 		Resource resource = new ResourceSetImpl()
 				.getResource(URI.createPlatformResourceURI(errorFile.getFullPath().toString(), true), true);
 		if (offset == 0) {
@@ -200,7 +200,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		return offsetHelper.resolveContainedElementAt((XtextResource) resource, offset);
 	}
 
-	private String createErrorCodeFromMessage(Severity severity, String message) {
+	protected String createErrorCodeFromMessage(Severity severity, String message) {
 		switch (severity) {
 		case ERROR:
 			return "error";
@@ -211,7 +211,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		}
 	}
 
-	private Map<Integer, String> getFileContent(IFile file) {
+	protected Map<Integer, String> getFileContent(IFile file) {
 		String fileEnding = FileUtil.getLineSeparator(file);
 		Map<Integer, String> content = Maps.newHashMap();
 		try (BufferedReader reader = new BufferedReader(
@@ -229,7 +229,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		return content;
 	}
 
-	private int calculateIssueLength(String errorLine, String issueDetails) {
+	protected int calculateIssueLength(String errorLine, String issueDetails) {
 		if (spansOverMultipleLines(issueDetails)) {
 			if (errorLine.contains("function")) {
 				return errorLine.substring(errorLine.indexOf("function"), errorLine.indexOf(")") + 1).length();
@@ -246,12 +246,12 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		return 0;
 	}
 
-	private boolean spansOverMultipleLines(String issueDetails) {
+	protected boolean spansOverMultipleLines(String issueDetails) {
 		return issueDetails.contains("Spanning multiple lines.")
 				|| issueDetails.contains("spans across multiple lines");
 	}
 
-	private int calculateIssueLength(String errorMessage, Pattern pattern) {
+	protected int calculateIssueLength(String errorMessage, Pattern pattern) {
 		Matcher matcher = pattern.matcher(errorMessage);
 		if (matcher.find()) {
 			return matcher.group(0).length();
@@ -260,7 +260,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		return 0;
 	}
 
-	private Severity calculateSeverity(String severety) {
+	protected Severity calculateSeverity(String severety) {
 		switch (severety) {
 		case "warning":
 			return Severity.WARNING;
