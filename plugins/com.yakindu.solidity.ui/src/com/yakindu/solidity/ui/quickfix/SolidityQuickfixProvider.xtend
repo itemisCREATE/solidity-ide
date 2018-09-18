@@ -24,6 +24,7 @@ import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.FunctionModifier
 import com.yakindu.solidity.solidity.IfStatement
 import com.yakindu.solidity.solidity.Parameter
+import com.yakindu.solidity.solidity.PragmaDirective
 import com.yakindu.solidity.solidity.SolidityFactory
 import com.yakindu.solidity.solidity.SourceUnit
 import com.yakindu.solidity.solidity.StorageLocation
@@ -34,6 +35,7 @@ import com.yakindu.solidity.typesystem.BuildInDeclarations
 import com.yakindu.solidity.typesystem.SolidityTypeSystem
 import javax.inject.Named
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
 import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification
 import org.eclipse.xtext.ui.editor.quickfix.Fix
@@ -44,12 +46,11 @@ import org.yakindu.base.expressions.expressions.ExpressionsFactory
 import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.expressions.ui.quickfix.ExpressionsQuickfixProvider
 import org.yakindu.base.types.ComplexType
+import org.yakindu.base.types.Operation
 
 import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.yakindu.base.types.Operation
-import com.yakindu.solidity.solidity.PragmaDirective
 
 /** 
  * @author andreas muelder - Initial contribution and API
@@ -101,6 +102,18 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 
 	@Fix(WARNING_FUNCTION_VISIBILITY)
 	def makeVisibilityExplicit(Issue issue, IssueResolutionAcceptor acceptor) {
+		val element = new ResourceSetImpl().getEObject(issue.uriToProblem, true);
+		if (!(element instanceof ConstructorDefinition)) {
+			acceptor.accept(issue, 'Make this function private', 'Private function.', null,
+				new ISemanticModification() {
+					override apply(EObject element, IModificationContext context) throws Exception {
+						element.fixVisibility(createBuildInModifier => [
+							type = FunctionModifier.PRIVATE
+						])
+					}
+				})
+
+		}
 		acceptor.accept(issue, 'Make this function public', 'Public function.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				element.fixVisibility(createBuildInModifier => [
@@ -109,14 +122,6 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 				])
 			}
 
-		})
-
-		acceptor.accept(issue, 'Make this function private', 'Private function.', null, new ISemanticModification() {
-			override apply(EObject element, IModificationContext context) throws Exception {
-				element.fixVisibility(createBuildInModifier => [
-					type = FunctionModifier.PRIVATE
-				])
-			}
 		})
 
 		acceptor.accept(issue, 'Make this function internal', 'Internal function.', null, new ISemanticModification() {
