@@ -14,6 +14,7 @@
  */
 package com.yakindu.solidity.ui.contentassist
 
+import com.google.common.base.Function
 import com.google.inject.name.Named
 import com.yakindu.solidity.SolidityRuntimeModule
 import java.util.Collections
@@ -26,10 +27,13 @@ import org.eclipse.jface.text.contentassist.ICompletionProposal
 import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.RuleCall
 import org.eclipse.xtext.XtextFactory
+import org.eclipse.xtext.resource.IEObjectDescription
+import org.eclipse.xtext.ui.editor.contentassist.AbstractJavaBasedContentProposalProvider.DefaultProposalCreator
 import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 import org.eclipse.xtext.ui.editor.hover.IEObjectHover
+import org.yakindu.base.types.Operation
 import org.yakindu.base.types.Type
 
 /**
@@ -74,6 +78,28 @@ class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 			return adapter.getText(element);
 		}
 		return super.getDisplayString(element, qualifiedNameAsString, shortName);
+	}
+
+	override Function<IEObjectDescription, ICompletionProposal> getProposalFactory(String ruleName,
+		ContentAssistContext contentAssistContext) {
+		return new DefaultProposalCreator(contentAssistContext, ruleName, getQualifiedNameConverter()) {
+			override ICompletionProposal apply(IEObjectDescription candidate) {
+				val proposal = super.apply(candidate)
+				val eObjectOrProxy = candidate.getEObjectOrProxy()
+				if (eObjectOrProxy.eIsProxy()) {
+					return proposal
+				}
+				if (eObjectOrProxy instanceof Operation) {
+					if (eObjectOrProxy.getParameters().size() > 0 &&
+						(proposal instanceof ConfigurableCompletionProposal)) {
+						val configurableProposal = proposal as ConfigurableCompletionProposal
+						configurableProposal.setReplacementString(configurableProposal.getReplacementString() + "()")
+						configurableProposal.setCursorPosition(configurableProposal.getCursorPosition() + 1)
+					}
+				}
+				return proposal;
+			}
+		};
 	}
 
 	static class AcceptorDelegate implements ICompletionProposalAcceptor {
