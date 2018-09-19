@@ -56,6 +56,7 @@ class BuildInDeclarations {
 	Operation ecrecover
 	Operation suicide
 	Operation selfdestruct
+	Property abi
 	Property msg
 	Property this_
 	Property super_
@@ -82,6 +83,7 @@ class BuildInDeclarations {
 		val ADDRESS = ADDRESS.typeForName
 		val ANY = ANY.typeForName
 		val BOOL = BOOL.typeForName
+		val BYTES = BYTES.typeForName
 		val BYTES20 = BYTES20.typeForName
 		val BYTES32 = BYTES32.typeForName
 		val INT = INT.typeForName
@@ -102,6 +104,8 @@ class BuildInDeclarations {
 		/************************
 		 *     MATH and CRYPTO
 		 ************************/
+		abi = createConstant("abi", ABI.typeForName)
+
 		addmod = createOperation("addmod", UINT) => [
 			parameters += createParameter("x", UINT)
 			parameters += createParameter("y", UINT)
@@ -115,7 +119,7 @@ class BuildInDeclarations {
 		]
 
 		keccak256 = createOperation("keccak256", BYTES32) => [
-			parameters += createParameter("argument", ANY) => [varArgs = true]
+			parameters += createParameter("argument", BYTES) => [varArgs = false]
 		]
 
 		sha256 = createOperation("sha256", BYTES32) => [
@@ -203,8 +207,8 @@ class BuildInDeclarations {
 	}
 
 	def all() {
-		#[msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, push, ripemd160, ecrecover,
-			block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]
+		#[msg, assert_, require, revert, abi, addmod, mulmod, keccak256, sha3, sha256, length, push, ripemd160,
+			ecrecover, block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]
 	}
 
 	def protected Type getTypeForName(String typeName) {
