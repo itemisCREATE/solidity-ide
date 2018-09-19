@@ -21,6 +21,10 @@ import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode
 import org.yakindu.base.types.Declaration
 
+/**
+ * @author Florian Antony - Initial contribution and API
+ * @author Karsten Thoms
+ */
 class SolidityOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 	def void _createNode(DocumentRootNode parentNode, SolidityModel it) {
