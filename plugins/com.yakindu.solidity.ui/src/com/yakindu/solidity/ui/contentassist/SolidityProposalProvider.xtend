@@ -20,6 +20,8 @@ import java.util.Collections
 import java.util.Set
 import javax.inject.Inject
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.edit.provider.ComposedAdapterFactory
+import org.eclipse.emf.edit.provider.IItemLabelProvider
 import org.eclipse.jface.text.contentassist.ICompletionProposal
 import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.RuleCall
@@ -28,6 +30,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 import org.eclipse.xtext.ui.editor.hover.IEObjectHover
+import org.yakindu.base.types.Type
 
 /**
  * @author Andreas Muelder - Initial contribution and API
@@ -35,6 +38,9 @@ import org.eclipse.xtext.ui.editor.hover.IEObjectHover
  * @author Florian Antony
  */
 class SolidityProposalProvider extends AbstractSolidityProposalProvider {
+
+	val composedAdapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
+
 	static final Set<String> IGNORED_KEYWORDS = Collections.unmodifiableSet(
 		#{"+", "-", "*", "/", "%", "&", "++", "--", "(", ")", "[", "]", "{", "}", ";", ",", ".", ":", "?", "!", "^",
 			"=", "==", "!=", "+=", "-=", "*=", "/=", "%=", "/=", "^=", "&&=", "||=", "&=", "|=", "|", "||", "|||", "or",
@@ -45,7 +51,7 @@ class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 
 	override complete_VERSION(EObject model, RuleCall ruleCall, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
-		acceptor.accept(createCompletionProposal("^"+solcVersion, solcVersion, null, context));
+		acceptor.accept(createCompletionProposal("^" + solcVersion, solcVersion, null, context));
 	}
 
 	override completeKeyword(Keyword keyword, ContentAssistContext contentAssistContext,
@@ -54,6 +60,20 @@ class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 			return
 		}
 		super.completeKeyword(keyword, contentAssistContext, acceptor)
+	}
+
+	override getDisplayString(EObject element, String qualifiedNameAsString, String shortName) {
+		if (element instanceof Type) {
+			return super.getDisplayString(element, qualifiedNameAsString, shortName);
+		}
+		if (element === null || element.eIsProxy()) {
+			return qualifiedNameAsString;
+		}
+		var adapter = composedAdapterFactory.adapt(element, IItemLabelProvider) as IItemLabelProvider;
+		if (adapter !== null) {
+			return adapter.getText(element);
+		}
+		return super.getDisplayString(element, qualifiedNameAsString, shortName);
 	}
 
 	static class AcceptorDelegate implements ICompletionProposalAcceptor {
