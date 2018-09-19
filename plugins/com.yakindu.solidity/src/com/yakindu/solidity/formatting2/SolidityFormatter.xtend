@@ -71,7 +71,7 @@ class SolidityFormatter extends AbstractFormatter2 {
 
 	def dispatch void format(SourceUnit sourceUnit, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		sourceUnit.getPragma.format;
+		sourceUnit.getPragma.forEach[format];
 		for (PackageMember packageMember : sourceUnit.getImports()) {
 			packageMember.format;
 		}
