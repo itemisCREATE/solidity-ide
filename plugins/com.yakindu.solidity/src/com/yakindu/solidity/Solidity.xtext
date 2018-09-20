@@ -31,8 +31,8 @@ SolidityModel:
 
 SourceUnit returns types::Package:
 	{SourceUnit}
-	((pragma+=PragmaDirective)* &
-	(imports+=ImportDirective)* &
+	((pragma+=PragmaDirective)* 
+	(imports+=ImportDirective)* 
 	member+=ContractDefinition);
 
 PragmaDirective returns types::PackageMember:
