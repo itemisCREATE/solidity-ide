@@ -55,7 +55,7 @@ npmInstall {
 	outputs.dir('out')
 }
 
-task vscodeExtension(dependsOn: [npmInstall, npmInstallVsce], type: NodeTask) {
+task vscodeExtension(dependsOn: [copyApplication, npmInstall, npmInstallVsce], type: NodeTask) {
 	ext.destDir = new File(buildDir, 'vscode')
 	ext.archiveName = "$project.name-${project.version}.vsix"
 	ext.destPath = "$destDir/$archiveName"
