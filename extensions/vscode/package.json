@@ -14,7 +14,7 @@
         "url": "https://github.com/Yakindu/solidity-ide/issues"
     },
     "engines": {
-        "vscode": "^1.22.0"
+        "vscode": "^1.27.2"
     },
     "categories": [
         "Languages"
