@@ -1,17 +1,17 @@
 {
-    "name": "xtext-vscode-example",
-    "displayName": "Xtext VS Code example",
-    "description": "A simple DSL example for VS Code",
-    "version": "0.0.14",
+    "name": "yakindu-solidity-ls",
+    "displayName": "YAKINDU Solidity",
+    "description": "Ethereum Solidity integration for VS Code",
+    "version": "0.7.3",
     "publisher": "itemis",
     "icon": "images/itemis.png",
     "license": "EPL-1.0",
     "repository": {
         "type": "git",
-        "url": "https://github.com/itemis/xtext-languageserver-example.git"
+        "url": "https://github.com/Yakindu/solidity-ide.git"
     },
     "bugs": {
-        "url": "https://github.com/itemis/xtext-languageserver-example/issues"
+        "url": "https://github.com/Yakindu/solidity-ide/issues"
     },
     "engines": {
         "vscode": "^1.22.0"
