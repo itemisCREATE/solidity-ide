@@ -44,3 +44,32 @@ task clean(type: Delete) {
   group 'Build'
   delete copyApplication.outputs
 }
+
+def inputFiles = fileTree(
+	dir: projectDir, 
+	excludes: [ 'out/**', '.gitignore', '.gradle/**', 'build/**', '*.gradle' ]
+)
+
+npmInstall {
+	inputs.files(inputFiles)
+	outputs.dir('out')
+}
+
+task vscodeExtension(dependsOn: [npmInstall, npmInstallVsce], type: NodeTask) {
+	ext.destDir = new File(buildDir, 'vscode')
+	ext.archiveName = "$project.name-${project.version}.vsix"
+	ext.destPath = "$destDir/$archiveName"
+	inputs.with {
+		files inputFiles
+		dir npmInstallVsce.destPath
+	}
+	outputs.dir destDir
+	doFirst {
+		destDir.mkdirs()
+	}
+	script = file("$npmInstallVsce.destPath/out/vsce")
+	args = [ 'package', '--out', destPath ]
+	execOverrides {
+		workingDir = projectDir
+	}
+}
