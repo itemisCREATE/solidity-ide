@@ -1,0 +1,43 @@
+task copyApplication(type: Sync) {
+    // TODO Copy plugins/com.yakindu.solidity.ide/target/languageserver to src/ls
+    /*
+    def installDistTask = project(':com.yakindu.solidity.ide').tasks.installDist
+    dependsOn installDistTask
+    from installDistTask.outputs
+    into 'src/ls'
+    */
+}
+
+clean {
+    doLast {
+        delete copyApplication.outputs
+    }
+}
+
+npmInstall.dependsOn copyApplication
+
+task installExtension(type: Exec, dependsOn: vscodeExtension) {
+    if (System.properties['os.name'].toLowerCase().contains('windows')) {
+        commandLine 'code.cmd'
+    } else {
+        commandLine 'code'
+    }
+    args '--install-extension', vscodeExtension.destPath
+}
+
+task startCode(type:Exec, dependsOn: installExtension) {
+    if (System.properties['os.name'].toLowerCase().contains('windows')) {
+        commandLine 'code.cmd'
+    } else {
+        commandLine 'code'
+    }
+    args "$rootProject.projectDir/demo/", '--new-window'
+}
+
+task publish(dependsOn: vscodeExtension, type: NodeTask) {
+    script = file("$rootProject.projectDir/node_modules/vsce/out/vsce")
+    args = [ 'publish', '-p', System.getenv('ACCESS_TOKEN'), project.version ]
+    execOverrides {
+        workingDir = projectDir
+    }
+}

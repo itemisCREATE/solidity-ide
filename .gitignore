@@ -4,3 +4,4 @@ target
 xtend-gen
 src-gen
 plugin.xml_gen
+.gradle
