@@ -7,16 +7,8 @@ Bundle-SymbolicName: com.yakindu.solidity.ide;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: com.yakindu.solidity,
  org.eclipse.xtext.ide,
- org.antlr.runtime,
- org.yakindu.base.expressions,
- org.eclipse.core.resources,
- org.eclipse.core.jobs,
- org.eclipse.equinox.common,
- org.eclipse.ui,
- org.eclipse.core.runtime,
- com.google.guava,
- org.eclipse.xtext.builder,
- org.eclipse.xtext.ui
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
+ org.yakindu.base.expressions;bundle-version="3.4.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.yakindu.solidity.ide.contentassist.antlr,
  com.yakindu.solidity.ide.contentassist.antlr.internal
