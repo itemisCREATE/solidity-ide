@@ -1,10 +1,10 @@
 {
     "name": "yakindu-solidity-ls",
     "displayName": "YAKINDU Solidity",
-    "description": "Ethereum Solidity integration for VS Code",
+    "description": "Solidity Language Server",
     "version": "0.7.3",
     "publisher": "itemis",
-    "icon": "images/itemis.png",
+    "icon": "images/yakindu.png",
     "license": "EPL-1.0",
     "repository": {
         "type": "git",
@@ -14,7 +14,7 @@
         "url": "https://github.com/Yakindu/solidity-ide/issues"
     },
     "engines": {
-        "vscode": "^1.27.2"
+        "vscode": "^1.27.0"
     },
     "categories": [
         "Languages"
