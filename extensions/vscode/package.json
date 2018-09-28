@@ -1,5 +1,5 @@
 {
-    "name": "yakindu-solidity-ls",
+  "name": "yakindu-solidity-ls",
   "displayName": "YAKINDU Solidity",
   "description": "Solidity Language Server",
   "version": "0.7.3",
