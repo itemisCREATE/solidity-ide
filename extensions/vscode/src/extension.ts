@@ -10,7 +10,8 @@ import { LanguageClient, LanguageClientOptions, ServerOptions } from 'vscode-lan
 export function activate(context: ExtensionContext) {
     // The server is a locally installed in src/ls
     let launcher = os.platform() === 'win32' ? 'solidity-ls.bat' : 'solidity-ls';
-    let script = context.asAbsolutePath(path.join('src', 'solidity', 'bin', launcher));
+    let script = context.asAbsolutePath(path.join('src', 'ls', 'bin', launcher));
+    console.log(script)
     
     let serverOptions: ServerOptions = {
         run : { command: script },
