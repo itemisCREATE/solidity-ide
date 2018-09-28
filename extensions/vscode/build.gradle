@@ -47,7 +47,14 @@ task clean(type: Delete) {
 
 def inputFiles = fileTree(
   dir: projectDir, 
-  excludes: [ 'out/**', '.gitignore', '.gradle/**', 'build/**', '*.gradle' ]
+  excludes: [ 
+    '.gitignore', 
+    '.project', 
+    'out/**', 
+    '*gradle/**', 
+    '*gradle*', 
+    'build/**',
+  ]
 )
 
 npmInstall {
