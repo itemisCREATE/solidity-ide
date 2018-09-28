@@ -15,7 +15,7 @@
 			<key>name</key>
 			<string>keyword.control.sol</string>
 			<key>match</key>
-			<string>\b(Hello|from)\b</string>
+			<string>\b(pragma|solidity|experimental|import|is|as|contract|library|interface|using|for|constant|mapping|memory|storage|public|internal|private)\b</string>
 		</dict>
 	</array>
 	<key>scopeName</key>
