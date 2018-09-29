@@ -20,15 +20,15 @@
     "Languages"
   ],
   "activationEvents": [
-    "onLanguage:sol"
+    "onLanguage:Solidity"
   ],
   "main": "out/extension",
   "contributes": {
     "languages": [
       {
-        "id": "solidity",
+        "id": "Solidity",
         "aliases": [
-          "solidity"
+          "Solidity"
         ],
         "extensions": [
           ".sol"
@@ -38,7 +38,7 @@
     ],
     "grammars": [
       {
-        "language": "solidity",
+        "language": "Solidity",
         "scopeName": "text.sol",
         "path": "./syntaxes/solidity.tmLanguage"
       }
