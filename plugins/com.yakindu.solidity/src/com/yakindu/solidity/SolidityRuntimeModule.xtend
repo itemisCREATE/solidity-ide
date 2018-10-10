@@ -34,6 +34,12 @@ import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.TypesPackage
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
+import com.yakindu.solidity.typesystem.builtin.IBuiltInDeclarationsProvider
+import com.yakindu.solidity.typesystem.builtin.SolidityBuiltInDeclarationsProvider
+import com.google.inject.multibindings.MapBinder
+import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations
+import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations4
+import com.yakindu.solidity.typesystem.builtin.SolidityVersions
 
 /**
  * 
@@ -41,7 +47,6 @@ import org.yakindu.base.types.typesystem.ITypeSystem
  * 
  */
 class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
-	public static final String SOLIDITY_VERSION = "SOLIDITY_VERSION"
 
 	override configure(Binder binder) {
 		super.configure(binder)
@@ -53,7 +58,13 @@ class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 		binder.bind(SolidityFactory).toInstance(SolidityFactory.eINSTANCE)
 		binder.bind(TypesPackage).toInstance(TypesPackage.eINSTANCE)
 		binder.bind(TypesFactory).toInstance(TypesFactory.eINSTANCE)
-		binder.bind(String).annotatedWith(Names.named(SOLIDITY_VERSION)).toInstance("0.4.25")
+		binder.bind(IBuiltInDeclarationsProvider).to(SolidityBuiltInDeclarationsProvider)
+
+		val builtInDeclatationBinder = MapBinder.newMapBinder(binder, SolidityVersions.Major, BuiltInDeclarations)
+		builtInDeclatationBinder.addBinding(SolidityVersions.Major.FOUR).to(BuiltInDeclarations4)
+
+		binder.bind(String).annotatedWith(Names.named(SolidityVersions.SOLIDITY_VERSION)).toInstance(
+			SolidityVersions.DEFAULT_VERSION)
 	}
 
 	override bindIGlobalScopeProvider() {

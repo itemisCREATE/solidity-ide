@@ -12,10 +12,9 @@
  * 	committers of YAKINDU 
  * 
  */
-package com.yakindu.solidity.typesystem
+package com.yakindu.solidity.typesystem.builtin
 
 import com.google.inject.Inject
-import com.yakindu.solidity.solidity.ContractDefinition
 import com.yakindu.solidity.solidity.FunctionModifier
 import com.yakindu.solidity.solidity.SolidityFactory
 import java.util.ArrayList
@@ -38,36 +37,12 @@ import static org.yakindu.base.types.typesystem.ITypeSystem.*
  * @author Karsten Thoms
  */
 @Accessors(PUBLIC_GETTER)
-class BuildInDeclarations {
+class BuiltInDeclarations4 extends BuiltInDeclarations {
 
 	ITypeSystem typeSystem
 	TypesFactory typesFactory
 
-	boolean installed
-	Operation assert_
-	Operation require
-	Operation revert
-	Operation addmod
-	Operation mulmod
-	Operation keccak256
-	Operation sha3
-	Operation sha256
-	Operation ripemd160
-	Operation ecrecover
-	Operation suicide
-	Operation selfdestruct
-	Property msg
-	Property this_
-	Property super_
-	Property now
-	Property tx
-	Property block
-	Property length
-	Operation push
-	ContractDefinition owned
-	ContractDefinition mortal
-
-	def create new ArrayList<EObject>() superContracts() {
+	override create new ArrayList<EObject>() superContracts() {
 		addAll(#[owned, mortal])
 	}
 
@@ -202,7 +177,7 @@ class BuildInDeclarations {
 		]
 	}
 
-	def all() {
+	override all() {
 		#[msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, push, ripemd160, ecrecover,
 			block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]
 	}

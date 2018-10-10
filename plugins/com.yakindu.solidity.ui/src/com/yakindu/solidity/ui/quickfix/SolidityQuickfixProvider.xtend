@@ -15,7 +15,6 @@
 package com.yakindu.solidity.ui.quickfix
 
 import com.google.inject.Inject
-import com.yakindu.solidity.SolidityRuntimeModule
 import com.yakindu.solidity.solidity.Block
 import com.yakindu.solidity.solidity.BuildInModifier
 import com.yakindu.solidity.solidity.ConstructorDefinition
@@ -31,8 +30,8 @@ import com.yakindu.solidity.solidity.StorageLocation
 import com.yakindu.solidity.solidity.ThrowStatement
 import com.yakindu.solidity.solidity.TypeSpecifier
 import com.yakindu.solidity.solidity.VariableDefinition
-import com.yakindu.solidity.typesystem.BuildInDeclarations
 import com.yakindu.solidity.typesystem.SolidityTypeSystem
+import com.yakindu.solidity.typesystem.builtin.IBuiltInDeclarationsProvider
 import javax.inject.Named
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
@@ -51,6 +50,7 @@ import org.yakindu.base.types.Operation
 import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import com.yakindu.solidity.typesystem.builtin.SolidityVersions
 
 /** 
  * @author andreas muelder - Initial contribution and API
@@ -59,9 +59,9 @@ import static extension org.eclipse.xtext.EcoreUtil2.*
  */
 class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 
-	@Inject BuildInDeclarations declarations
+	@Inject IBuiltInDeclarationsProvider buildInDeclarationsProvider
 	@Inject extension SolidityFactory
-	@Inject @Named(SolidityRuntimeModule.SOLIDITY_VERSION) String solcVersion
+	@Inject @Named(SolidityVersions.SOLIDITY_VERSION) String solcVersion
 
 	extension ExpressionsFactory factory = ExpressionsFactory.eINSTANCE
 
@@ -71,7 +71,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element instanceof PragmaSolidityDirective) {
-						element.version = "^" + solcVersion
+						element.version = solcVersion
 					}
 				}
 			})
@@ -163,7 +163,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		acceptor.accept(issue, 'Replace with selfdestruct', 'selfdestruct', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				if (element instanceof ElementReferenceExpression) {
-					element.reference = declarations.selfdestruct
+					element.reference = buildInDeclarationsProvider.provideFor(element).selfdestruct
 				}
 			}
 		})
@@ -253,7 +253,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 						block.statements.remove(element)
 						block.statements += createExpressionStatement => [
 							expression = createElementReferenceExpression => [
-								val revert = declarations.revert
+								val revert = buildInDeclarationsProvider.provideFor(element).revert
 								operationCall = true
 								reference = revert
 							]
@@ -273,7 +273,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 							block.statements.indexOf(ifStatement),
 							createExpressionStatement => [
 								expression = createElementReferenceExpression => [
-									reference = declarations.assert_
+									reference = buildInDeclarationsProvider.provideFor(element).assert_
 									operationCall = true
 									arguments += ExpressionsFactory.eINSTANCE.createArgument => [
 										value = createLogicalNotExpression => [
@@ -302,7 +302,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 							block.statements.indexOf(ifStatement),
 							createExpressionStatement => [
 								expression = createElementReferenceExpression => [
-									reference = declarations.require
+									reference = buildInDeclarationsProvider.provideFor(element).require
 									operationCall = true
 									arguments += ExpressionsFactory.eINSTANCE.createArgument => [
 										value = createLogicalNotExpression => [
@@ -340,7 +340,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element instanceof ElementReferenceExpression) {
-						element.reference = declarations.keccak256
+						element.reference = buildInDeclarationsProvider.provideFor(element).keccak256
 					}
 				}
 			})
