@@ -32,6 +32,7 @@ import com.yakindu.solidity.solidity.TypeSpecifier
 import com.yakindu.solidity.solidity.VariableDefinition
 import com.yakindu.solidity.typesystem.SolidityTypeSystem
 import com.yakindu.solidity.typesystem.builtin.IBuiltInDeclarationsProvider
+import com.yakindu.solidity.typesystem.builtin.SolidityVersions
 import javax.inject.Named
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
@@ -50,7 +51,6 @@ import org.yakindu.base.types.Operation
 import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import com.yakindu.solidity.typesystem.builtin.SolidityVersions
 
 /** 
  * @author andreas muelder - Initial contribution and API
@@ -110,8 +110,18 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 						])
 					}
 				})
+			acceptor.accept(issue, 'Make this function external', 'External function.', null,
+				new ISemanticModification() {
+					override apply(EObject element, IModificationContext context) throws Exception {
+						element.fixVisibility(createBuildInModifier => [
+							type = FunctionModifier.EXTERNAL
+						])
+					}
+
+				})
 
 		}
+
 		acceptor.accept(issue, 'Make this function public', 'Public function.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				element.fixVisibility(createBuildInModifier => [
