@@ -27,8 +27,8 @@ import com.yakindu.solidity.solidity.SolidityPackage
 import com.yakindu.solidity.terminals.SolidityValueConverterService
 import com.yakindu.solidity.typesystem.SolidityTypeInferrer
 import com.yakindu.solidity.typesystem.SolidityTypeSystem
-import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations
 import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations4
+import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations5
 import com.yakindu.solidity.typesystem.builtin.IBuiltInDeclarationsProvider
 import com.yakindu.solidity.typesystem.builtin.SolidityBuiltInDeclarationsProvider
 import com.yakindu.solidity.typesystem.builtin.SolidityVersions
@@ -36,7 +36,6 @@ import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy
 import org.eclipse.xtext.scoping.IScopeProvider
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.validation.CompositeEValidator
-import org.yakindu.base.expressions.scoping.ExpressionsScopeProvider
 import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.TypesPackage
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
@@ -45,6 +44,7 @@ import org.yakindu.base.types.typesystem.ITypeSystem
 /**
  * 
  * @author andreas muelder - Initial contribution and API
+ * @author Florian Antony
  * 
  */
 class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
@@ -63,6 +63,7 @@ class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 
 		val builtInDeclatationBinder = MapBinder.newMapBinder(binder, SolidityVersions.Major, BuiltInDeclarations)
 		builtInDeclatationBinder.addBinding(SolidityVersions.Major.FOUR).to(BuiltInDeclarations4)
+		builtInDeclatationBinder.addBinding(SolidityVersions.Major.FIVE).to(BuiltInDeclarations5)
 
 		binder.bind(String).annotatedWith(Names.named(SolidityVersions.SOLIDITY_VERSION)).toInstance(
 			SolidityVersions.DEFAULT_VERSION)

@@ -14,6 +14,8 @@
  */
 package com.yakindu.solidity.typesystem.builtin;
 
+import com.yakindu.solidity.typesystem.builtin.SolidityVersions;
+
 /**
  * @author Florian Antony - initial contribution and API.
  *
@@ -24,7 +26,7 @@ public interface SolidityVersions {
 	public static final String DEFAULT_VERSION = "^0.4.25";
 
 	public enum Major {
-		FOUR("^0.4");
+		FOUR("^0.4"), FIVE("^0.5");
 
 		protected final String version;
 
