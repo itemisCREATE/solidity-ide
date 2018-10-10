@@ -19,9 +19,9 @@ import com.google.inject.Singleton
 import com.yakindu.solidity.solidity.SolidityFactory
 import com.yakindu.solidity.typesystem.SolidityTypeSystem
 import org.yakindu.base.types.Operation
+import org.yakindu.base.types.Property
 import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.typesystem.ITypeSystem
-
 
 /**
  * @author Florian Antony - initial contribution and API.
@@ -30,9 +30,21 @@ import org.yakindu.base.types.typesystem.ITypeSystem
 @Singleton
 class BuiltInDeclarations5 extends BuiltInDeclarations {
 
+	protected Property abi
+
 	@Inject
 	protected new(ITypeSystem typeSystem, TypesFactory typesFactory, SolidityFactory solidityFactory) {
 		super(typeSystem, typesFactory, solidityFactory)
+	}
+
+	override protected initialize() {
+		super.initialize()
+		abi = createConstant("abi", SolidityTypeSystem.ABI.typeForName)
+	}
+
+	override all() {
+		#[abi, msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, push, ripemd160, ecrecover,
+			block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]
 	}
 
 	override protected Operation keccak256() {

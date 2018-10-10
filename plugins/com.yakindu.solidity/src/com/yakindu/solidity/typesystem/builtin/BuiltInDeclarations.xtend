@@ -19,9 +19,11 @@ import com.yakindu.solidity.solidity.FunctionModifier
 import com.yakindu.solidity.solidity.SolidityFactory
 import com.yakindu.solidity.typesystem.SolidityTypeSystem
 import java.util.ArrayList
+import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.yakindu.base.types.Operation
+import org.yakindu.base.types.PackageMember
 import org.yakindu.base.types.Parameter
 import org.yakindu.base.types.Property
 import org.yakindu.base.types.Type
@@ -92,7 +94,7 @@ abstract class BuiltInDeclarations {
 		initialize
 	}
 
-	def protected initialize() {
+	def protected void  initialize() {
 		/************************
 		 *     ERROR HANDLING 
 		 ************************/
@@ -140,7 +142,7 @@ abstract class BuiltInDeclarations {
 		addAll(#[owned, mortal])
 	}
 
-	def all() {
+	def List<PackageMember> all() {
 		#[msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, push, ripemd160, ecrecover,
 			block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]
 	}

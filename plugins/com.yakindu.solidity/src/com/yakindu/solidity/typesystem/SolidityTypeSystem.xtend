@@ -39,6 +39,12 @@ class SolidityTypeSystem extends GenericTypeSystem {
 	public static val String ADDRESS = "address"
 	public static val String BALANCE = "balance"
 
+	public static val String ABI = "abi"
+	public static val String ABI_ENCODE = "encode"
+	public static val String ABI_ENCODE_PACKAGE = "encodePacked"
+	public static val String ABI_ENCODE_WITH_SELECTOR = "encodeWithSelector"
+	public static val String ABI_ENCODE_WITH_SIGNATURE = "encodeWithSignature"
+
 	public static val String BLOCK = "block"
 	public static val String BLOCK_NUMBER = "number"
 	public static val String BLOCK_TIMESTAMP = "timestamp"
@@ -97,6 +103,10 @@ class SolidityTypeSystem extends GenericTypeSystem {
 		declareSuperType(getType(SolidityTypeSystem.BYTE), getType(INTEGER))
 		SolidityTypeSystem.BYTES.declareExplicitSizeTypes(1);
 
+		var abi = createAbi()
+		declareType(abi, ABI)
+		resource.getContents().add(abi)
+
 		var address = createAddress()
 		declareType(address, ADDRESS)
 		resource.getContents().add(address);
@@ -125,12 +135,85 @@ class SolidityTypeSystem extends GenericTypeSystem {
 			lastType = type
 		}
 	}
-	
+
 	override getDirectSuperTypes(Type type) {
 		var superTypes = super.getDirectSuperTypes(type)
-		if(type instanceof ContractDefinition)
+		if (type instanceof ContractDefinition)
 			superTypes += getType(ADDRESS)
 		return superTypes
+	}
+
+	def createAbi() {
+		createComplexType => [ type |
+			type.name = ABI
+			type.abstract = true
+			type.features += createOperation => [ operation |
+				operation.name = ABI_ENCODE
+				operation.typeSpecifier = createTypeSpecifier => [
+					type = getType(BYTES)
+				]
+				operation.parameters += createParameter => [ param |
+					param.varArgs = true
+					param.optional = false;
+					param.typeSpecifier = createTypeSpecifier => [
+						type = getType(ANY)
+					]
+				]
+			]
+			type.features += createOperation => [ operation |
+				operation.name = ABI_ENCODE_PACKAGE
+				operation.typeSpecifier = createTypeSpecifier => [
+					type = getType(BYTES)
+				]
+				operation.parameters += createParameter => [ param |
+					param.varArgs = true
+					param.optional = false;
+					param.typeSpecifier = createTypeSpecifier => [
+						type = getType(ANY)
+					]
+				]
+			]
+			type.features += createOperation => [ operation |
+				operation.name = ABI_ENCODE_WITH_SELECTOR
+				operation.typeSpecifier = createTypeSpecifier => [
+					type = getType(BYTES)
+				]
+				operation.parameters += createParameter => [ param |
+					param.name = "selector"
+					param.optional = false;
+					param.typeSpecifier = createTypeSpecifier => [
+						type = getType(BYTES4)
+					]
+				]
+				operation.parameters += createParameter => [ param |
+					param.varArgs = true
+					param.optional = true;
+					param.typeSpecifier = createTypeSpecifier => [
+						type = getType(ANY)
+					]
+				]
+			]
+			type.features += createOperation => [ operation |
+				operation.name = ABI_ENCODE_WITH_SIGNATURE
+				operation.typeSpecifier = createTypeSpecifier => [
+					type = getType(BYTES)
+				]
+				operation.parameters += createParameter => [ param |
+					param.name = "signature"
+					param.optional = false;
+					param.typeSpecifier = createTypeSpecifier => [
+						type = getType(STRING)
+					]
+				]
+				operation.parameters += createParameter => [ param |
+					param.varArgs = true
+					param.optional = true;
+					param.typeSpecifier = createTypeSpecifier => [
+						type = getType(ANY)
+					]
+				]
+			]
+		]
 	}
 
 	def createMessage() {
