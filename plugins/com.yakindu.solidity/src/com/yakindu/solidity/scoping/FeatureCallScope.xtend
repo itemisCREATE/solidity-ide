@@ -95,7 +95,10 @@ class FeatureCallScope extends AbstractScope {
 	}
 
 	def dispatch List<? extends EObject> getLocalElements(ArrayTypeSpecifier it) {
-		newArrayList(declarations.length, declarations.push)
+		return if (context.isOperationCall) {
+			type?.getLocalElements
+		} else
+			newArrayList(declarations.length, declarations.push)
 	}
 
 	def dispatch List<? extends EObject> getLocalElements(MappingTypeSpecifier it) {
@@ -122,8 +125,7 @@ class FeatureCallScope extends AbstractScope {
 	def dispatch List<? extends EObject> getLocalElements(EnumerationType it) {
 		enumerator.toList
 	}
-	
-	
+
 	def dispatch List<? extends EObject> getLocalElements(PrimitiveType it) {
 		return if (typeSystem.isSuperType(it, typeSystem.getType(SolidityTypeSystem.BYTES))) {
 			newArrayList(declarations.length, declarations.push)
