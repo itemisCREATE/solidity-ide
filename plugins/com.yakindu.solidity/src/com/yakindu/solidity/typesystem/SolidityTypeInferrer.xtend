@@ -32,6 +32,7 @@ import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.typesystem.ITypeSystem
 
 import static org.yakindu.base.types.typesystem.ITypeSystem.REAL
+import com.yakindu.solidity.solidity.MappingTypeSpecifier
 
 /**
  * 
@@ -79,6 +80,10 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 
 	override doInfer(BoolLiteral literal) {
 		InferenceResult.from(ts.getType(SolidityTypeSystem.BOOL))
+	}
+	
+	def doInfer(MappingTypeSpecifier mappingSpecifier){
+		doInfer(mappingSpecifier.value)
 	}
 
 	def doInfer(NumericalMultiplyDivideExpression e) {
