@@ -38,6 +38,7 @@ import org.yakindu.base.types.TypeSpecifier
 import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
+import org.yakindu.base.expressions.expressions.Expression
 
 /**
  * 
@@ -95,11 +96,25 @@ class FeatureCallScope extends AbstractScope {
 	}
 
 	def dispatch List<? extends EObject> getLocalElements(ArrayTypeSpecifier it) {
-		newArrayList(declarations.length, declarations.push)
+		return if (context.owner.isOperationCall) {
+			type?.getLocalElements
+		} else
+			newArrayList(declarations.length, declarations.push)
 	}
 
 	def dispatch List<? extends EObject> getLocalElements(MappingTypeSpecifier it) {
 		value.getLocalElements
+	}
+
+	def dispatch isOperationCall(Expression it) {
+		false
+	}
+	def dispatch isOperationCall(FeatureCall it) {
+		operationCall
+	}
+
+	def dispatch isOperationCall(ElementReferenceExpression it) {
+		operationCall
 	}
 
 	def dispatch List<? extends EObject> getLocalElements(TypedElement it) {
@@ -122,8 +137,7 @@ class FeatureCallScope extends AbstractScope {
 	def dispatch List<? extends EObject> getLocalElements(EnumerationType it) {
 		enumerator.toList
 	}
-	
-	
+
 	def dispatch List<? extends EObject> getLocalElements(PrimitiveType it) {
 		return if (typeSystem.isSuperType(it, typeSystem.getType(SolidityTypeSystem.BYTES))) {
 			newArrayList(declarations.length, declarations.push)
