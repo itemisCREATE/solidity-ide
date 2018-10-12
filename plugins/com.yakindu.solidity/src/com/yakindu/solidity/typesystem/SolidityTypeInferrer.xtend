@@ -31,6 +31,7 @@ import org.yakindu.base.expressions.expressions.BoolLiteral
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
 import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.expressions.inferrer.ExpressionsTypeInferrer
+import org.yakindu.base.types.Operation
 import org.yakindu.base.types.Type
 import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.typesystem.ITypeSystem
@@ -115,9 +116,11 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 
 	// Type Cast	
 	override doInfer(ElementReferenceExpression e) {
-		if (e.isOperationCall() && (e.reference instanceof Type)) {
+		if (e.isOperationCall() && ((e.reference instanceof Type)|| e.reference instanceof Operation)) {
 			return inferTypeDispatch(e.reference)
 		}
+		
+		
 		return super.doInfer(e)
 	}
 
