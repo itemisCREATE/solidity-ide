@@ -63,8 +63,8 @@ public class SolidityBuilderParticipant implements IXtextBuilderParticipant {
 			throw new OperationCanceledException();
 		}
 		progress.beginTask("Compiling solidity...", deltas.size());
-
-		List<URI> uris = deltas.stream().map(delta -> delta.getUri()).collect(Collectors.toList());
+		List<URI> uris = context.getResourceSet().getResources().stream().map(res -> res.getURI()).distinct()
+				.collect(Collectors.toList());
 		compiler.compile(uris, progress);
 		context.getBuiltProject().refreshLocal(IProject.DEPTH_INFINITE, progress);
 		progress.done();
