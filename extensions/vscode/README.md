@@ -4,6 +4,9 @@ This is a Solidity demo showing the [Xtext](https://www.eclipse.org/Xtext/) inte
 
 TODO Describe me!
 
+
+## Features
+
 The Xtext integration supports typical Xtext and Language Server features like
 
 * Syntax Highlighting
@@ -15,3 +18,4 @@ The Xtext integration supports typical Xtext and Language Server features like
 * Open Symbol
 
 A introductory article can be found [here](https://blogs.itemis.com/en/integrating-xtext-language-support-in-visual-studio-code)
+
