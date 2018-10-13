@@ -169,6 +169,7 @@
 
 
 	<build>
+		<defaultGoal>clean verify -P!tests,Photon.target</defaultGoal>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

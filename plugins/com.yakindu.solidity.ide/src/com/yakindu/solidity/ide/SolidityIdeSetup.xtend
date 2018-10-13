@@ -17,6 +17,9 @@ package com.yakindu.solidity.ide
 import com.google.inject.Guice
 import com.yakindu.solidity.SolidityRuntimeModule
 import com.yakindu.solidity.SolidityStandaloneSetup
+import com.yakindu.solidity.ide.internal.CustomContentAssistService
+import com.yakindu.solidity.ide.internal.SolidityIdeModule
+import org.eclipse.xtext.ide.server.contentassist.ContentAssistService
 import org.eclipse.xtext.util.Modules2
 
 /**
@@ -27,5 +30,4 @@ class SolidityIdeSetup extends SolidityStandaloneSetup {
 	override createInjector() {
 		Guice.createInjector(Modules2.mixin(new SolidityRuntimeModule, new SolidityIdeModule))
 	}
-	
 }
