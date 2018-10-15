@@ -19,7 +19,7 @@
  * @author florian antony
  * 
  */
-grammar com.yakindu.solidity.Solidity with org.yakindu.base.expressions.Expressions
+grammar com.yakindu.solidity.Solidity with org.eclipse.xtext.common.Terminals
 
 generate solidity "http://www.yakindu.com/solidity/Solidity"
 import "http://www.yakindu.org/base/expressions/Expressions" as expressions
@@ -31,8 +31,8 @@ SolidityModel:
 
 SourceUnit returns types::Package:
 	{SourceUnit}
-	((pragma+=PragmaDirective)* 
-	(imports+=ImportDirective)* 
+	((pragma+=PragmaDirective)*
+	(imports+=ImportDirective)*
 	member+=ContractDefinition);
 
 PragmaDirective returns types::PackageMember:
@@ -71,19 +71,6 @@ StateVariableDefinition returns types::Property:
 	{VariableDefinition} typeSpecifier=TypeSpecifier ((visibility=Visibility)? & ('constant')?) name=ID ('='
 	initialValue=Expression)? ';';
 
-@Override
-TypeSpecifier:
-	SimpleTypeSpecifier | MappingTypeSpecifier | ArrayTypeSpecifier;
-
-MappingTypeSpecifier:
-	{MappingTypeSpecifier} 'mapping' '(' key=TypeSpecifier '=>' value=TypeSpecifier ')';
-
-ArrayTypeSpecifier: //TODO index must be Expression
-	{ArrayTypeSpecifier} type=[types::Type|QID] ('[' (index+=PrimitiveValueExpression)? ']')+;
-
-SimpleTypeSpecifier returns TypeSpecifier:
-	type=[types::Type|QID];
-
 enum StorageLocation:
 	MEMORY='memory' | STORAGE='storage';
 
@@ -115,20 +102,6 @@ ModifierDefinition returns types::Operation:
 
 Block:
 	'{' {Block} (statements+=Statement)* '}';
-
-@Override
-Literal returns expressions::Literal:
-	BoolLiteral | DecimalNumberLiteral | AddressLiteral | BinaryLiteral | StringLiteral | NullLiteral;
-
-DecimalNumberLiteral:
-	value=DECIMAL (unit=Unit)?;
-
-@Override
-DoubleLiteral returns expressions::DoubleLiteral:
-	{DoubleLiteral} value=DOUBLE (unit=Unit)?;
-
-AddressLiteral:
-	value=ADDRESS;
 
 ConstructorDefinition returns types::Operation:
 	{ConstructorDefinition} 'constructor' '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')'
@@ -195,54 +168,6 @@ InlineAssemblyStatement:
 enum AssemblyKind:
 	EVMASM="evmasm";
 
-@Override
-NumericalMultiplyDivideExpression returns expressions::Expression:
-	NumericalUnaryExpression => ({NumericalMultiplyDivideExpression.leftOperand=current} operator=MultiOperator
-	rightOperand=NumericalUnaryExpression)*;
-
-enum MultiOperator:
-	mul='*' | div='/' | mod='%' | exp="**";
-
-	// Remove TypeCast Expression
-@Override
-NumericalUnaryExpression returns expressions::Expression:
-	PostFixUnaryExpression | {NumericalUnaryExpression} operator=UnaryOperatorEx operand=PostFixUnaryExpression;
-
-enum UnaryOperatorEx:
-	increment="++" | decrement="--" | positive='+' | negative='-' | complement='~';
-
-@Override
-ElementReferenceExpression returns expressions::ElementReferenceExpression:
-	{expressions::ElementReferenceExpression} reference=[EObject|ID] (=> operationCall?='(' (((arguments+=SimpleArgument
-	(',' arguments+=SimpleArgument)*)?) | ('{' (arguments+=NamedArgument (',' arguments+=NamedArgument)*)? '}')) ')')?
-	('[' arraySelector+=Expression ']')*;
-
-@Override
-Argument:
-	SimpleArgument | NamedArgument;
-
-NamedArgument:
-	reference=[EObject] ':' value=ConditionalExpression;
-
-SimpleArgument:
-	value=ConditionalExpression;
-
-@Override
-PrimaryExpression returns expressions::Expression:
-	PrimitiveValueExpression | FeatureCall | NewInstanceExpression | EmitExpression | TupleExpression;
-
-NewInstanceExpression returns expressions::FeatureCall:
-	{NewInstanceExpression} 'new' type=TypeSpecifier operationCall?='(' (arguments+=Argument (',' arguments+=Argument)*)?
-	')';
-
-EmitExpression returns expressions::FeatureCall:
-	{EmitExpression} 'emit' event=[EventDefinition|ID] operationCall?='(' (arguments+=Argument (','
-	arguments+=Argument)*)? ')';
-
-TupleExpression returns expressions::Expression:
-	{TupleExpression} (('(' (expressions+=Expression (',' expressions+=Expression)*)? ')') | ('['
-	(expressions+=Expression (',' expressions+=Expression)*)? ']'));
-
 VariableDefinitionProperty returns types::Property:
 	VariableDefinition;
 
@@ -294,6 +219,195 @@ AssemblyID:
 Keyword:
 	'return';
 
+Literal returns expressions::Literal:
+	BoolLiteral | DecimalNumberLiteral | AddressLiteral | BinaryLiteral | StringLiteral | NullLiteral;
+
+BoolLiteral:
+	{BoolLiteral} value=BOOL;
+
+DecimalNumberLiteral:
+	value=DECIMAL (unit=Unit)?;
+
+AddressLiteral:
+	value=ADDRESS;
+
+BinaryLiteral:
+	{BinaryLiteral} value=BINARY;
+
+StringLiteral:
+	{StringLiteral} value=STRING;
+
+NullLiteral:
+	{NullLiteral} 'null';
+
+// Operator Precedence by order
+Expression returns expressions::Expression:
+	AssignmentExpression;
+
+AssignmentExpression returns expressions::Expression:
+	ConditionalExpression ({expressions::AssignmentExpression.varRef=current} operator=AssignmentOperator
+	expression=ConditionalExpression)*;
+
+ConditionalExpression returns expressions::Expression:
+	LogicalOrExpression ({expressions::ConditionalExpression.condition=current} '?' trueCase=LogicalOrExpression ':'
+	falseCase=LogicalOrExpression)?;
+
+LogicalOrExpression returns expressions::Expression:
+	LogicalAndExpression ({expressions::LogicalOrExpression.leftOperand=current} LogicalOrOperator
+	rightOperand=LogicalAndExpression)*;
+
+LogicalAndExpression returns expressions::Expression:
+	LogicalNotExpression ({expressions::LogicalAndExpression.leftOperand=current}
+	LogicalAndOperator rightOperand=LogicalNotExpression)*;
+
+LogicalNotExpression returns expressions::Expression:
+	BitwiseXorExpression | {expressions::LogicalNotExpression} LogicalNotOperator
+	operand=BitwiseXorExpression;
+
+BitwiseXorExpression returns expressions::Expression:
+	BitwiseOrExpression ({expressions::BitwiseXorExpression.leftOperand=current} BitwiseXOrOperator
+	rightOperand=BitwiseOrExpression)*;
+
+BitwiseOrExpression returns expressions::Expression:
+	BitwiseAndExpression ({expressions::BitwiseOrExpression.leftOperand=current} BitwiseOrOperator
+	rightOperand=BitwiseAndExpression)*;
+
+BitwiseAndExpression returns expressions::Expression:
+	LogicalRelationExpression ({expressions::BitwiseAndExpression.leftOperand=current} BitwiseAndOperator
+	rightOperand=LogicalRelationExpression)*;
+
+LogicalRelationExpression returns expressions::Expression:
+	ShiftExpression
+	({expressions::LogicalRelationExpression.leftOperand=current} operator=RelationalOperator
+	rightOperand=ShiftExpression)*;
+
+ShiftExpression returns expressions::Expression:
+	NumericalAddSubtractExpression ({expressions::ShiftExpression.leftOperand=current} operator=ShiftOperator
+	rightOperand=NumericalAddSubtractExpression)*;
+
+NumericalAddSubtractExpression returns expressions::Expression:
+	NumericalMultiplyDivideExpression
+	=> ({expressions::NumericalAddSubtractExpression.leftOperand=current}
+	operator=AdditiveOperator
+	rightOperand=NumericalMultiplyDivideExpression)*;
+
+NumericalMultiplyDivideExpression returns expressions::Expression:
+	NumericalUnaryExpression
+	=> ({NumericalMultiplyDivideExpression.leftOperand=current}
+	operator=MultiplicativeOperator
+	rightOperand=NumericalUnaryExpression)*;
+
+NumericalUnaryExpression returns expressions::Expression:
+	PostFixUnaryExpression | {NumericalUnaryExpression} operator=UnaryOperator operand=PostFixUnaryExpression;
+
+PostFixUnaryExpression returns expressions::Expression:
+	PrimaryExpression ({expressions::PostFixUnaryExpression.operand=current} operator=PostFixOperator)*;
+
+PrimaryExpression returns expressions::Expression:
+	PrimitiveValueExpression | FeatureCall | NewInstanceExpression | EmitExpression | TupleExpression;
+
+NewInstanceExpression returns expressions::FeatureCall:
+	{NewInstanceExpression} 'new' type=TypeSpecifier operationCall?='(' (arguments+=Argument (',' arguments+=Argument)*)?
+	')';
+
+EmitExpression returns expressions::FeatureCall:
+	{EmitExpression} 'emit' event=[EventDefinition|ID] operationCall?='(' (arguments+=Argument (','
+	arguments+=Argument)*)? ')';
+
+TupleExpression returns expressions::Expression:
+	{TupleExpression} (('(' (expressions+=Expression (',' expressions+=Expression)*)? ')') | ('['
+	(expressions+=Expression (',' expressions+=Expression)*)? ']'));
+
+PrimitiveValueExpression returns expressions::PrimitiveValueExpression:
+	{PrimitiveValueExpression} value=Literal;
+
+FeatureCall returns expressions::Expression:
+	ElementReferenceExpression ({expressions::FeatureCall.owner=current} '.' feature=[EObject]
+	(=> operationCall?='(' (arguments+=Argument (',' arguments+=Argument)*)? ')'
+	|
+	=> (arrayAccess?='[' arraySelector+=Expression ']') => ('[' arraySelector+=Expression ']')*)?)*;
+
+ElementReferenceExpression returns expressions::ElementReferenceExpression:
+	{expressions::ElementReferenceExpression} reference=[EObject|ID] (=> operationCall?='(' (((arguments+=SimpleArgument
+	(',' arguments+=SimpleArgument)*)?) | ('{' (arguments+=NamedArgument (',' arguments+=NamedArgument)*)? '}')) ')')?
+	('[' arraySelector+=Expression ']')*;
+
+Argument returns expressions::Argument:
+	SimpleArgument | NamedArgument;
+
+NamedArgument:
+	reference=[EObject] ':' value=ConditionalExpression;
+
+SimpleArgument:
+	value=ConditionalExpression;
+
+ParenthesizedExpression returns expressions::Expression:
+	{expressions::ParenthesizedExpression} '(' expression=Expression ')';
+
+TypeSpecifier returns types::TypeSpecifier:
+	SimpleTypeSpecifier | MappingTypeSpecifier | ArrayTypeSpecifier;
+
+MappingTypeSpecifier:
+	{MappingTypeSpecifier} 'mapping' '(' key=TypeSpecifier '=>' value=TypeSpecifier ')';
+
+ArrayTypeSpecifier: //TODO index must be Expression
+	{ArrayTypeSpecifier} type=[types::Type|QID] ('[' (index+=PrimitiveValueExpression)? ']')+;
+
+SimpleTypeSpecifier returns TypeSpecifier:
+	type=[types::Type|QID];
+
+enum AssignmentOperator returns expressions::AssignmentOperator:
+	assign='='
+	| multAssign='*='
+	| divAssign='/='
+	| modAssign='%='
+	| addAssign='+='
+	| subAssign='-='
+	| leftShiftAssign='<<='
+	| rightShiftAssign='>>='
+	| andAssign='&='
+	| xorAssign='^='
+	| orAssign='|=';
+
+LogicalAndOperator:
+	'&&';
+
+LogicalOrOperator:
+	'||';
+
+LogicalNotOperator:
+	'!';
+
+BitwiseXOrOperator:
+	'^';
+
+BitwiseOrOperator:
+	'|';
+
+BitwiseAndOperator:
+	'&';
+
+	//TODO: Add increment and decrement
+enum UnaryOperator:
+	increment="++" | decrement="--" | positive='+' | negative='-' | complement='~';
+
+enum RelationalOperator returns expressions::RelationalOperator:
+	smaller='<' | smallerEqual='<=' | greater='>' | greaterEqual='>=' |
+	equals='==' | notEquals='!=';
+
+enum MultiplicativeOperator:
+	mul='*' | div='/' | mod='%' | exp="**";
+
+enum ShiftOperator returns expressions::ShiftOperator:
+	left='<<'
+	| right='>>';
+
+enum AdditiveOperator returns expressions::AdditiveOperator:
+	plus='+' | minus='-';
+
+enum PostFixOperator returns expressions::PostFixOperator:
+	increment="++" | decrement="--";
+
 terminal ADDRESS returns EBigInteger:
 	('0x') ('0'..'9' | 'a'..'f' | 'A'..'F')+;
 
@@ -302,4 +416,16 @@ terminal DECIMAL returns EBigDecimal:
 
 terminal VERSION:
 	'^' INT . INT . INT;
+
+terminal BOOL returns EBoolean:
+	'true' | 'false';
+
+terminal HEX returns EInt:
+	('0') ('x' | 'X') ('0'..'9' | 'a'..'f' | 'A'..'F')+;
+
+terminal BINARY returns EInt:
+	('0') ('b' | 'B') ('0' | '1')+;
+
+QID:
+	ID ('.' ID)*;
 
