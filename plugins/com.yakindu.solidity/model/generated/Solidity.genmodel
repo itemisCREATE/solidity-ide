@@ -135,9 +135,6 @@
     <genClasses ecoreClass="Solidity.ecore#//IDLiteral">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//IDLiteral/value"/>
     </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//BoolLiteral">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//BoolLiteral/value"/>
-    </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//DecimalNumberLiteral">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//DecimalNumberLiteral/value"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//DecimalNumberLiteral/unit"/>
@@ -145,13 +142,6 @@
     <genClasses ecoreClass="Solidity.ecore#//AddressLiteral">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AddressLiteral/value"/>
     </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//BinaryLiteral">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//BinaryLiteral/value"/>
-    </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//StringLiteral">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//StringLiteral/value"/>
-    </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//NullLiteral"/>
     <genClasses ecoreClass="Solidity.ecore#//NamedArgument">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Solidity.ecore#//NamedArgument/reference"/>
     </genClasses>

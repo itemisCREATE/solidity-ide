@@ -151,9 +151,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="IDLiteral">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BoolLiteral" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Literal">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DecimalNumberLiteral" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Literal">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigDecimal"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" eType="#//Unit"/>
@@ -161,13 +158,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="AddressLiteral" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Literal">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BinaryLiteral" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Literal">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="StringLiteral" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Literal">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NullLiteral" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Literal"/>
   <eClassifiers xsi:type="ecore:EClass" name="NamedArgument" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Argument">
     <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
   </eClassifiers>
