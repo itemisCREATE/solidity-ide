@@ -252,32 +252,32 @@ ConditionalExpression returns expressions::Expression:
 	falseCase=LogicalOrExpression)?;
 
 LogicalOrExpression returns expressions::Expression:
-	LogicalAndExpression ({expressions::LogicalOrExpression.leftOperand=current} LogicalOrOperator
+	LogicalAndExpression ({expressions::LogicalOrExpression.leftOperand=current} '||'
 	rightOperand=LogicalAndExpression)*;
 
 LogicalAndExpression returns expressions::Expression:
 	LogicalNotExpression ({expressions::LogicalAndExpression.leftOperand=current}
-	LogicalAndOperator rightOperand=LogicalNotExpression)*;
+	'&&' rightOperand=LogicalNotExpression)*;
 
 LogicalNotExpression returns expressions::Expression:
-	BitwiseXorExpression | {expressions::LogicalNotExpression} LogicalNotOperator
-	operand=BitwiseXorExpression;
+	LogicalRelationExpression | {expressions::LogicalNotExpression} '!'
+	operand=LogicalRelationExpression;
+
+LogicalRelationExpression returns expressions::Expression:
+	BitwiseXorExpression
+	({expressions::LogicalRelationExpression.leftOperand=current} operator=RelationalOperator
+	rightOperand=BitwiseXorExpression)*;
 
 BitwiseXorExpression returns expressions::Expression:
-	BitwiseOrExpression ({expressions::BitwiseXorExpression.leftOperand=current} BitwiseXOrOperator
+	BitwiseOrExpression ({expressions::BitwiseXorExpression.leftOperand=current} '^'
 	rightOperand=BitwiseOrExpression)*;
 
 BitwiseOrExpression returns expressions::Expression:
-	BitwiseAndExpression ({expressions::BitwiseOrExpression.leftOperand=current} BitwiseOrOperator
+	BitwiseAndExpression ({expressions::BitwiseOrExpression.leftOperand=current} '|'
 	rightOperand=BitwiseAndExpression)*;
 
 BitwiseAndExpression returns expressions::Expression:
-	LogicalRelationExpression ({expressions::BitwiseAndExpression.leftOperand=current} BitwiseAndOperator
-	rightOperand=LogicalRelationExpression)*;
-
-LogicalRelationExpression returns expressions::Expression:
-	ShiftExpression
-	({expressions::LogicalRelationExpression.leftOperand=current} operator=RelationalOperator
+	ShiftExpression ({expressions::BitwiseAndExpression.leftOperand=current} '&'
 	rightOperand=ShiftExpression)*;
 
 ShiftExpression returns expressions::Expression:
@@ -373,24 +373,6 @@ enum AssignmentOperator returns expressions::AssignmentOperator:
 	| andAssign='&='
 	| xorAssign='^='
 	| orAssign='|=';
-
-LogicalAndOperator:
-	'&&';
-
-LogicalOrOperator:
-	'||';
-
-LogicalNotOperator:
-	'!';
-
-BitwiseXOrOperator:
-	'^';
-
-BitwiseOrOperator:
-	'|';
-
-BitwiseAndOperator:
-	'&';
 
 	//TODO: Add increment and decrement
 enum UnaryOperator:
