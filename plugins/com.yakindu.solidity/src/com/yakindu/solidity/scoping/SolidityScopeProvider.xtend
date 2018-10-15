@@ -15,7 +15,6 @@
 package com.yakindu.solidity.scoping
 
 import com.google.inject.Inject
-import com.yakindu.solidity.solidity.Argument
 import com.yakindu.solidity.solidity.ContractDefinition
 import com.yakindu.solidity.solidity.EmitExpression
 import com.yakindu.solidity.solidity.FunctionDefinition
@@ -30,12 +29,14 @@ import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.yakindu.base.base.NamedElement
+import org.yakindu.base.expressions.expressions.Argument
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
 import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.Operation
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
+import org.yakindu.base.expressions.scoping.ExpressionsScopeProvider
 
 /**
  * 
@@ -43,7 +44,7 @@ import org.yakindu.base.types.typesystem.ITypeSystem
  * @author Florian Antony
  * @author Karsten Thoms
  */
-class SolidityScopeProvider extends AbstractSolidityScopeProvider {
+class SolidityScopeProvider extends ExpressionsScopeProvider {
 
 	@Inject IBuiltInDeclarationsProvider buildInDeclarationsProvider
 	@Inject ITypeSystem typeSystem
