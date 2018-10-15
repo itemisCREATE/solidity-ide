@@ -222,8 +222,8 @@ Keyword:
 Literal returns expressions::Literal:
 	BoolLiteral | DecimalNumberLiteral | AddressLiteral | BinaryLiteral | StringLiteral | NullLiteral;
 
-BoolLiteral:
-	{BoolLiteral} value=BOOL;
+BoolLiteral returns expressions::BoolLiteral:
+	{expressions::BoolLiteral} value=BOOL;
 
 DecimalNumberLiteral:
 	value=DECIMAL (unit=Unit)?;
@@ -231,14 +231,14 @@ DecimalNumberLiteral:
 AddressLiteral:
 	value=ADDRESS;
 
-BinaryLiteral:
-	{BinaryLiteral} value=BINARY;
+BinaryLiteral returns expressions::BinaryLiteral:
+	{expressions::BinaryLiteral} value=BINARY;
 
-StringLiteral:
-	{StringLiteral} value=STRING;
+StringLiteral returns expressions::StringLiteral:
+	{expressions::StringLiteral} value=STRING;
 
-NullLiteral:
-	{NullLiteral} 'null';
+NullLiteral returns expressions::NullLiteral:
+	{expressions::NullLiteral} 'null';
 
 Expression returns expressions::Expression:
 	AssignmentExpression;
@@ -374,7 +374,6 @@ enum AssignmentOperator returns expressions::AssignmentOperator:
 	| xorAssign='^='
 	| orAssign='|=';
 
-	//TODO: Add increment and decrement
 enum UnaryOperator:
 	increment="++" | decrement="--" | positive='+' | negative='-' | complement='~';
 
@@ -406,9 +405,6 @@ terminal VERSION:
 
 terminal BOOL returns EBoolean:
 	'true' | 'false';
-
-terminal HEX returns EInt:
-	('0') ('x' | 'X') ('0'..'9' | 'a'..'f' | 'A'..'F')+;
 
 terminal BINARY returns EInt:
 	('0') ('b' | 'B') ('0' | '1')+;
