@@ -264,16 +264,16 @@ LogicalNotExpression returns expressions::Expression:
 	operand=LogicalRelationExpression;
 
 LogicalRelationExpression returns expressions::Expression:
-	BitwiseXorExpression
+	BitwiseOrExpression
 	({expressions::LogicalRelationExpression.leftOperand=current} operator=RelationalOperator
-	rightOperand=BitwiseXorExpression)*;
-
-BitwiseXorExpression returns expressions::Expression:
-	BitwiseOrExpression ({expressions::BitwiseXorExpression.leftOperand=current} '^'
 	rightOperand=BitwiseOrExpression)*;
 
 BitwiseOrExpression returns expressions::Expression:
-	BitwiseAndExpression ({expressions::BitwiseOrExpression.leftOperand=current} '|'
+	BitwiseXorExpression ({expressions::BitwiseOrExpression.leftOperand=current} '|'
+	rightOperand=BitwiseXorExpression)*;
+
+BitwiseXorExpression returns expressions::Expression:
+	BitwiseAndExpression ({expressions::BitwiseXorExpression.leftOperand=current} '^'
 	rightOperand=BitwiseAndExpression)*;
 
 BitwiseAndExpression returns expressions::Expression:
