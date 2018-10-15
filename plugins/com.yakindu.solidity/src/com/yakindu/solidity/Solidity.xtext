@@ -240,7 +240,6 @@ StringLiteral:
 NullLiteral:
 	{NullLiteral} 'null';
 
-// Operator Precedence by order
 Expression returns expressions::Expression:
 	AssignmentExpression;
 
@@ -292,9 +291,15 @@ NumericalAddSubtractExpression returns expressions::Expression:
 	rightOperand=NumericalMultiplyDivideExpression)*;
 
 NumericalMultiplyDivideExpression returns expressions::Expression:
-	NumericalUnaryExpression
-	=> ({NumericalMultiplyDivideExpression.leftOperand=current}
+	ExponentialExpression
+	=> ({expressions::NumericalMultiplyDivideExpression.leftOperand=current}
 	operator=MultiplicativeOperator
+	rightOperand=ExponentialExpression)*;
+
+ExponentialExpression returns expressions::Expression:
+	NumericalUnaryExpression
+	=> ({ExponentialExpression.leftOperand=current}
+	'**'
 	rightOperand=NumericalUnaryExpression)*;
 
 NumericalUnaryExpression returns expressions::Expression:
@@ -395,8 +400,8 @@ enum RelationalOperator returns expressions::RelationalOperator:
 	smaller='<' | smallerEqual='<=' | greater='>' | greaterEqual='>=' |
 	equals='==' | notEquals='!=';
 
-enum MultiplicativeOperator:
-	mul='*' | div='/' | mod='%' | exp="**";
+enum MultiplicativeOperator returns expressions::MultiplicativeOperator:
+	mul='*' | div='/' | mod='%';
 
 enum ShiftOperator returns expressions::ShiftOperator:
 	left='<<'
