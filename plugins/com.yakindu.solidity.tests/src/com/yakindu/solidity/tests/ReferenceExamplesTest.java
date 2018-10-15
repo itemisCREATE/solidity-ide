@@ -70,12 +70,9 @@ public class ReferenceExamplesTest {
 			, "MilestoneTracker.sol"
 			, "MultiSigWallet.sol"
 			, "MultiSigWalletWithDailyLimit.sol"
-			, "strings.sol"
 			, "RefundableCrowdsale.sol"
 			, "MultisigWallet.sol"
 			, "VestedToken.sol"
-			, "Shareable.sol"
-			, "provider.sol"
 			, "73_named_parameter_calls.sol"
 			
 	);
