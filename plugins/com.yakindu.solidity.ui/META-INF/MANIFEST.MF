@@ -20,7 +20,8 @@ Require-Bundle: com.yakindu.solidity,
  org.yakindu.base.expressions.ui,
  org.yakindu.base.types,
  org.yakindu.base.xtext.utils.jface,
- org.eclipse.xtext.xbase.lib
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.emf.workspace
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.yakindu.solidity.ui.contentassist,
