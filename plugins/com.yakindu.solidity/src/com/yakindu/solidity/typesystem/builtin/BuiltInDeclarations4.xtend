@@ -63,6 +63,7 @@ class BuiltInDeclarations4 extends BuiltInDeclarations {
 		val UINT = UINT.typeForName
 		val UINT8 = UINT8.typeForName
 		val VOID = VOID.typeForName
+		val UINT256 = "uint256".typeForName
 
 		assert_ = createOperation("assert", VOID) => [
 			parameters += createParameter("condition", BOOL)
@@ -137,6 +138,14 @@ class BuiltInDeclarations4 extends BuiltInDeclarations {
 		push = createOperation("push", INT) => [
 			parameters += createParameter("element", ANY)
 		]
+		
+		gas = createOperation("gas", VOID) => [
+			parameters += createParameter("amount", UINT256)
+		]
+		
+		value = createOperation("value", VOID) => [
+			parameters += createParameter("amount", UINT256)
+		]
 
 		owned = solidityFactory.createContractDefinition() => [
 			(typeSystem as AbstractTypeSystem).resource.contents += it
@@ -175,6 +184,8 @@ class BuiltInDeclarations4 extends BuiltInDeclarations {
 				]
 			]
 		]
+		
+		
 	}
 
 	override all() {

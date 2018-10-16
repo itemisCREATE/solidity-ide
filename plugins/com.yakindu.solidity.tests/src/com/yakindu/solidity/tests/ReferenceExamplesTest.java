@@ -77,6 +77,7 @@ public class ReferenceExamplesTest {
 			, "Shareable.sol"
 			, "provider.sol"
 			, "73_named_parameter_calls.sol"
+			, "179_gas_value.sol"
 			
 	);
 

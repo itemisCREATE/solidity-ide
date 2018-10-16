@@ -30,15 +30,16 @@ import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.AbstractScope
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
+import org.yakindu.base.expressions.expressions.Expression
 import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.EnumerationType
+import org.yakindu.base.types.Operation
 import org.yakindu.base.types.PrimitiveType
 import org.yakindu.base.types.TypeSpecifier
 import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
-import org.yakindu.base.expressions.expressions.Expression
 
 /**
  * 
@@ -85,6 +86,10 @@ class FeatureCallScope extends AbstractScope {
 	def dispatch List<? extends EObject> getLocalElements(ContractDefinition it) {
 		// TODO: only constant 
 		it.allFeatures
+	}
+	
+	def dispatch getLocalElements(Operation it){
+		newArrayList(declarations.value, declarations.gas)
 	}
 
 	def dispatch List<? extends EObject> getLocalElements(FeatureCall it) {
