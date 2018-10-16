@@ -116,7 +116,7 @@ class BuiltInDeclarations4 extends BuiltInDeclarations {
 
 		this_ = createConstant("this", ADDRESS)
 
-		super_ = createConstant("super", ANY)
+		super_ = createConstant("super", ADDRESS)
 
 		suicide = createOperation("suicide", VOID) => [
 			parameters += createParameter("address", ADDRESS)

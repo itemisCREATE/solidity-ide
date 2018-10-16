@@ -36,6 +36,7 @@ import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.Operation
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
+import com.yakindu.solidity.typesystem.SolidityTypeSystem
 
 /**
  * 
@@ -114,10 +115,13 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 			if (ref instanceof NamedElement && ("super".equals((ref as NamedElement).name))) {
 				val features = EcoreUtil2.getContainerOfType(context, ContractDefinition)?.superTypes?.filter(
 					ComplexType).map[allFeatures].flatten
-				return Scopes.scopeFor(features)
+				var address = typeSystem.getType(SolidityTypeSystem.ADDRESS) as ComplexType
+				return Scopes.scopeFor(features + address.allFeatures)
 			} else if (ref instanceof NamedElement && ("this".equals((ref as NamedElement).name))) {
 				val features = EcoreUtil2.getContainerOfType(context, ContractDefinition).allFeatures
-				return Scopes.scopeFor(features)
+				var address = typeSystem.getType(SolidityTypeSystem.ADDRESS) as ComplexType
+				return Scopes.scopeFor(features + address.allFeatures)
+
 			}
 		}
 		return Scopes.scopeFor(usings(context),
