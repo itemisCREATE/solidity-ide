@@ -49,6 +49,8 @@ abstract class BuiltInDeclarations {
 	protected Property block
 	protected Property length
 	protected Operation push
+	protected Operation gas
+	protected Operation value
 	protected ContractDefinition owned
 	protected ContractDefinition mortal
 	
