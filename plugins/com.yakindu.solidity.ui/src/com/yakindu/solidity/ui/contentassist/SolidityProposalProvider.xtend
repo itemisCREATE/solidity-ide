@@ -91,7 +91,7 @@ class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 			}
 		})
 		result.forEach [
-			acceptor.accept(createCompletionProposal("\"" + rawLocation.makeRelativeTo(contextFile.rawLocation).toString + "\";", name, null, context))
+			acceptor.accept(createCompletionProposal("\"" + rawLocation.makeRelativeTo(contextFile.rawLocation).toString.replaceFirst("../","") + "\";", name, null, context))
 		]
 	}
 
