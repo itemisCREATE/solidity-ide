@@ -14,6 +14,7 @@
  */
 package com.yakindu.solidity.ui.outline
 
+import com.yakindu.solidity.solidity.ConstructorDefinition
 import com.yakindu.solidity.solidity.SolidityModel
 import com.yakindu.solidity.solidity.SourceUnit
 import org.eclipse.emf.ecore.EObject
@@ -24,6 +25,7 @@ import org.yakindu.base.types.Declaration
 /**
  * @author Florian Antony - Initial contribution and API
  * @author Karsten Thoms
+ * @author Jonathan Thoene
  */
 class SolidityOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
@@ -43,6 +45,13 @@ class SolidityOutlineTreeProvider extends DefaultOutlineTreeProvider {
 		member.forEach [ member |
 			_createNode(parentNode, member)
 		]
+	}
+	
+	override protected Object _text(Object element) {
+		switch element {
+			ConstructorDefinition: return "constructor"
+			default: return super._text(element)
+		}
 	}
 
 	override protected _isLeaf(EObject element) {
