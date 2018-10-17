@@ -27,23 +27,20 @@ class NewFileTemplate {
 	val String solidityVersion
 
 	def generate() '''
-		pragma solidity ^«solidityVersion»;
+		pragma solidity «solidityVersion»;
 		
 		contract «contractName» {
 		    address creator;
 		
-		    function «contractName» () {
+		    constructor() public{
 		        creator = msg.sender;
 		    }
 		
 		    // TODO Add functions
 		
-		    /**********
-		     Standard kill() function to recover funds 
-		     **********/
-		    function kill() {
+		    function kill() public {
 		        if (msg.sender == creator) {
-		            suicide(creator); // kills this contract and sends remaining funds back to creator
+		            selfdestruct(creator);
 		        }
 		    }
 		}
