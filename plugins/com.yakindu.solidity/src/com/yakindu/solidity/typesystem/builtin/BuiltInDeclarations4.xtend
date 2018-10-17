@@ -171,7 +171,9 @@ class BuiltInDeclarations4 extends BuiltInDeclarations {
 		mortal = solidityFactory.createContractDefinition() => [
 			(typeSystem as AbstractTypeSystem).resource.contents += it
 			name = "mortal"
-			superTypes += owned
+			superTypes += typesFactory.createTypeSpecifier => [
+				type = owned
+			]
 			features += solidityFactory.createFunctionDefinition() => [
 				name = "close"
 				modifier += solidityFactory.createBuildInModifier() => [

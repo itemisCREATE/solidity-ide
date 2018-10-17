@@ -49,8 +49,8 @@ ImportDirective returns types::PackageMember:
 
 ContractDefinition returns types::ComplexType:
 	{ContractDefinition} type=ContractType name=ID
-	('is' superTypes+=[types::ComplexType|QID] (argumentList+=SuperTypeArgumentList)? (','
-	superTypes+=[types::ComplexType|QID] ((argumentList+=SuperTypeArgumentList)? ')')?)*)?
+	('is' superTypes+=ComplexTypeSpecifier (argumentList+=SuperTypeArgumentList)? (','
+	superTypes+=ComplexTypeSpecifier ((argumentList+=SuperTypeArgumentList)? ')')?)*)?
 	'{' (features+=ContractPart)* '}';
 
 SuperTypeArgumentList:
@@ -358,8 +358,11 @@ MappingTypeSpecifier:
 ArrayTypeSpecifier: //TODO index must be Expression
 	{ArrayTypeSpecifier} type=[types::Type|QID] ('[' (index+=PrimitiveValueExpression)? ']')+;
 
-SimpleTypeSpecifier returns TypeSpecifier:
+SimpleTypeSpecifier returns types::TypeSpecifier:
 	type=[types::Type|QID];
+
+ComplexTypeSpecifier returns types::TypeSpecifier:
+	type=[types::ComplexType|QID];
 
 enum AssignmentOperator returns expressions::AssignmentOperator:
 	assign='='

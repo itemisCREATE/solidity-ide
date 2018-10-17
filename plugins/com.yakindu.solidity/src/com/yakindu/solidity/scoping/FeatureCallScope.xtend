@@ -86,7 +86,7 @@ class FeatureCallScope extends AbstractScope {
 		// TODO: only constant 
 		it.allFeatures
 	}
-	
+
 	def dispatch List<? extends EObject> getLocalElements(FeatureCall it) {
 		it.feature.localElements
 	}
@@ -109,6 +109,7 @@ class FeatureCallScope extends AbstractScope {
 	def dispatch isOperationCall(Expression it) {
 		false
 	}
+
 	def dispatch isOperationCall(FeatureCall it) {
 		operationCall
 	}
@@ -125,7 +126,9 @@ class FeatureCallScope extends AbstractScope {
 		} else if (it instanceof FunctionDefinition) {
 			// TODO handle multi return parameters properly
 			val result = newArrayList()
-			result += it.returnParameters?.head?.getLocalElements.toList
+			val returnType = it.returnParameters?.head?.getLocalElements?.toList
+			if (returnType !== null)
+				result += returnType
 			result += declarations.value
 			result += declarations.gas
 			result

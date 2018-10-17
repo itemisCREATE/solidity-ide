@@ -21,10 +21,12 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.ImportNormalizer;
 import org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider;
-import org.yakindu.base.types.Type;
+import org.yakindu.base.types.TypeSpecifier;
 import org.yakindu.base.types.TypesPackage;
 
 import com.google.common.collect.Lists;
@@ -58,10 +60,15 @@ public class SolidityImportedNamespaceAwareLocalScopeProvider extends ImportedNa
 			EObject next = allContents.next();
 			if (next instanceof ContractDefinition) {
 				ContractDefinition contract = (ContractDefinition) next;
-				EList<Type> superTypes = contract.getSuperTypes();
-				for (Type complexType : superTypes) {
-					ImportNormalizer resolver = createImportedNamespaceResolver(complexType.getName() + ".*", false);
-					result.add(resolver);
+				EList<TypeSpecifier> superTypes = contract.getSuperTypes();
+				for (TypeSpecifier specifier : superTypes) {
+					List<INode> nodesForFeature = NodeModelUtils.findNodesForFeature(specifier,
+							TypesPackage.Literals.TYPE_SPECIFIER__TYPE);
+					if (nodesForFeature.size() == 1) {
+						ImportNormalizer resolver = createImportedNamespaceResolver(
+								nodesForFeature.get(0).getText().trim() + ".*", false);
+						result.add(resolver);
+					}
 				}
 				allContents.prune();
 			}

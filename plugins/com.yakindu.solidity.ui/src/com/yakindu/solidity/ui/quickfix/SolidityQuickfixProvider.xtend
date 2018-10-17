@@ -28,10 +28,10 @@ import com.yakindu.solidity.solidity.SolidityFactory
 import com.yakindu.solidity.solidity.SourceUnit
 import com.yakindu.solidity.solidity.StorageLocation
 import com.yakindu.solidity.solidity.ThrowStatement
-import com.yakindu.solidity.solidity.TypeSpecifier
 import com.yakindu.solidity.solidity.VariableDefinition
 import com.yakindu.solidity.typesystem.SolidityTypeSystem
 import com.yakindu.solidity.typesystem.builtin.IBuiltInDeclarationsProvider
+import com.yakindu.solidity.typesystem.builtin.SolidityVersions
 import javax.inject.Named
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
@@ -46,11 +46,11 @@ import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.expressions.ui.quickfix.ExpressionsQuickfixProvider
 import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.Operation
+import org.yakindu.base.types.TypeSpecifier
 
 import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import com.yakindu.solidity.typesystem.builtin.SolidityVersions
 
 /** 
  * @author andreas muelder - Initial contribution and API

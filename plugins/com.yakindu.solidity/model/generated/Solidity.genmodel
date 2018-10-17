@@ -153,7 +153,6 @@
     <genClasses ecoreClass="Solidity.ecore#//ArrayTypeSpecifier">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ArrayTypeSpecifier/index"/>
     </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//TypeSpecifier"/>
     <genClasses ecoreClass="Solidity.ecore#//SourceUnit">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//SourceUnit/pragma"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//SourceUnit/imports"/>
