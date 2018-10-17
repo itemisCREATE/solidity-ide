@@ -15,7 +15,6 @@
 package com.yakindu.solidity.scoping
 
 import com.google.inject.Inject
-import com.yakindu.solidity.solidity.Argument
 import com.yakindu.solidity.solidity.ContractDefinition
 import com.yakindu.solidity.solidity.EmitExpression
 import com.yakindu.solidity.solidity.FunctionDefinition
@@ -30,12 +29,14 @@ import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.yakindu.base.base.NamedElement
+import org.yakindu.base.expressions.expressions.Argument
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
 import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.Operation
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
+import com.yakindu.solidity.typesystem.SolidityTypeSystem
 
 /**
  * 
@@ -98,7 +99,6 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 		Scopes.scopeFor(context.contract.allFeatures.filter(ModifierDefinition), outerScope)
 	}
 
-
 	def scope_ElementReferenceExpression_reference(EObject context, EReference reference) {
 		var outer = delegate.getScope(context, reference)
 		return new ElementReferenceScope(outer, context, reference);
@@ -115,11 +115,18 @@ class SolidityScopeProvider extends AbstractSolidityScopeProvider {
 			if (ref instanceof NamedElement && ("super".equals((ref as NamedElement).name))) {
 				val features = EcoreUtil2.getContainerOfType(context, ContractDefinition)?.superTypes?.filter(
 					ComplexType).map[allFeatures].flatten
-				return Scopes.scopeFor(features)
+				var address = typeSystem.getType(SolidityTypeSystem.ADDRESS) as ComplexType
+				return Scopes.scopeFor(features + address.allFeatures)
+			} else if (ref instanceof NamedElement && ("this".equals((ref as NamedElement).name))) {
+				val features = EcoreUtil2.getContainerOfType(context, ContractDefinition).allFeatures
+				var address = typeSystem.getType(SolidityTypeSystem.ADDRESS) as ComplexType
+				return Scopes.scopeFor(features + address.allFeatures)
+
 			}
 		}
 		return Scopes.scopeFor(usings(context),
-			new FeatureCallScope(context, reference, buildInDeclarationsProvider.provideFor(context), typeSystem, inferrer))
+			new FeatureCallScope(context, reference, buildInDeclarationsProvider.provideFor(context), typeSystem,
+				inferrer))
 	}
 
 	def usings(EObject context) {
