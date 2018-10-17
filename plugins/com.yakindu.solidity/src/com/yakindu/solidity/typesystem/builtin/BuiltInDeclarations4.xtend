@@ -14,11 +14,11 @@
  */
 package com.yakindu.solidity.typesystem.builtin
 
-import com.google.inject.Inject
 import com.google.inject.Singleton
 import com.yakindu.solidity.solidity.SolidityFactory
 import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.typesystem.ITypeSystem
+import javax.inject.Inject
 
 /**
  * @author andreas muelder - Initial contribution and API
@@ -28,6 +28,7 @@ import org.yakindu.base.types.typesystem.ITypeSystem
  @Singleton
 class BuiltInDeclarations4 extends BuiltInDeclarations {
 	
+	@Inject
 	protected new(ITypeSystem typeSystem, TypesFactory typesFactory, SolidityFactory solidityFactory) {
 		super(typeSystem, typesFactory, solidityFactory)
 	}

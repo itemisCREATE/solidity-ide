@@ -30,6 +30,7 @@ class SolidityTypeSystem extends GenericTypeSystem {
 	public static val String BOOL = "bool"
 	public static val String UINT = "uint"
 	public static val String UINT8 = "uint8"
+	public static val String UINT256 = "uint256"
 	public static val String INT = "int"
 	public static val String BYTE = "byte"
 	public static val String BYTES = "bytes"

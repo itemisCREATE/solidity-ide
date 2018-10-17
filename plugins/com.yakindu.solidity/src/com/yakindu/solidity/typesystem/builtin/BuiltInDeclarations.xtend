@@ -65,6 +65,8 @@ abstract class BuiltInDeclarations {
 	protected Property block
 	protected Property length
 	protected Operation push
+	protected Operation gas
+	protected Operation value
 	protected ContractDefinition owned
 	protected ContractDefinition mortal
 
@@ -76,6 +78,7 @@ abstract class BuiltInDeclarations {
 	protected Type INT
 	protected Type UINT
 	protected Type UINT8
+	protected Type UINT265
 	protected Type VOID
 
 	protected new(ITypeSystem typeSystem, TypesFactory typesFactory, SolidityFactory solidityFactory) {
@@ -90,6 +93,7 @@ abstract class BuiltInDeclarations {
 		INT = SolidityTypeSystem.INT.typeForName
 		UINT = SolidityTypeSystem.UINT.typeForName
 		UINT8 = SolidityTypeSystem.UINT8.typeForName
+		UINT265 = SolidityTypeSystem.UINT256.typeForName
 		VOID = SolidityTypeSystem.VOID.typeForName
 		initialize
 	}
@@ -123,6 +127,8 @@ abstract class BuiltInDeclarations {
 		tx = tx()
 		block = block()
 		length = length()
+		gas = gas()
+		value = value()
 		push = push()
 
 		/************************
@@ -227,6 +233,17 @@ abstract class BuiltInDeclarations {
 	def protected Operation push() {
 		createOperation("push", INT) => [
 			parameters += createParameter("element", ANY)
+		]
+	}
+
+	def protected Operation gas() {
+		createOperation("gas", VOID) => [
+			parameters += createParameter("amount", UINT265)
+		]
+	}
+	def protected Operation value() {
+		createOperation("value", VOID) => [
+			parameters += createParameter("amount", UINT265)
 		]
 	}
 
