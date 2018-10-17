@@ -16,6 +16,7 @@
 package com.yakindu.solidity
 
 import com.google.inject.Binder
+import com.google.inject.multibindings.MapBinder
 import com.google.inject.name.Names
 import com.yakindu.solidity.scoping.SolidityGlobalScopeProvider
 import com.yakindu.solidity.scoping.SolidityImportedNamespaceAwareLocalScopeProvider
@@ -26,20 +27,20 @@ import com.yakindu.solidity.solidity.SolidityPackage
 import com.yakindu.solidity.terminals.SolidityValueConverterService
 import com.yakindu.solidity.typesystem.SolidityTypeInferrer
 import com.yakindu.solidity.typesystem.SolidityTypeSystem
+import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations
+import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations4
+import com.yakindu.solidity.typesystem.builtin.IBuiltInDeclarationsProvider
+import com.yakindu.solidity.typesystem.builtin.SolidityBuiltInDeclarationsProvider
+import com.yakindu.solidity.typesystem.builtin.SolidityVersions
 import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy
 import org.eclipse.xtext.scoping.IScopeProvider
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.validation.CompositeEValidator
+import org.yakindu.base.expressions.scoping.ExpressionsScopeProvider
 import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.TypesPackage
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
-import com.yakindu.solidity.typesystem.builtin.IBuiltInDeclarationsProvider
-import com.yakindu.solidity.typesystem.builtin.SolidityBuiltInDeclarationsProvider
-import com.google.inject.multibindings.MapBinder
-import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations
-import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations4
-import com.yakindu.solidity.typesystem.builtin.SolidityVersions
 
 /**
  * 

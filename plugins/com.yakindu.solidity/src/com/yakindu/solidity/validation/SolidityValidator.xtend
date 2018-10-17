@@ -23,9 +23,10 @@ import javax.inject.Inject
 import org.eclipse.xtext.validation.Check
 import org.yakindu.base.expressions.expressions.AssignmentExpression
 import org.yakindu.base.expressions.expressions.Expression
+import org.yakindu.base.expressions.validation.ExpressionsValidator
 import org.yakindu.base.types.Operation
 
-class SolidityValidator extends AbstractSolidityValidator {
+class SolidityValidator extends ExpressionsValidator {
 	val public SOLIDITY_VERSION_NOT_DEFAULT = "Solidity version does not match the default version"
 
 	@Inject @Named(SolidityVersions.SOLIDITY_VERSION) String solcVersion
@@ -45,5 +46,11 @@ class SolidityValidator extends AbstractSolidityValidator {
 				SolidityPackage.Literals.PRAGMA_SOLIDITY_DIRECTIVE__VERSION,
 				IssueCodes.WARNING_SOLIDITY_VERSION_NOT_THE_DEFAULT)
 		}
+	}
+
+	override getEPackages() {
+		val superPackages = super.EPackages
+		superPackages += SolidityPackage.eINSTANCE
+		return superPackages
 	}
 }

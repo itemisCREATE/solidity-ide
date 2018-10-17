@@ -45,18 +45,12 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Solidity.ecore#//AssemblyKind">
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//AssemblyKind/EVMASM"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Solidity.ecore#//MultiOperator">
-      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//MultiOperator/mul"/>
-      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//MultiOperator/div"/>
-      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//MultiOperator/mod"/>
-      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//MultiOperator/exp"/>
-    </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Solidity.ecore#//UnaryOperatorEx">
-      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//UnaryOperatorEx/increment"/>
-      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//UnaryOperatorEx/decrement"/>
-      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//UnaryOperatorEx/positive"/>
-      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//UnaryOperatorEx/negative"/>
-      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//UnaryOperatorEx/complement"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Solidity.ecore#//UnaryOperator">
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//UnaryOperator/increment"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//UnaryOperator/decrement"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//UnaryOperator/positive"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//UnaryOperator/negative"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//UnaryOperator/complement"/>
     </genEnums>
     <genClasses ecoreClass="Solidity.ecore#//SolidityModel">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//SolidityModel/sourceunit"/>
@@ -65,23 +59,8 @@
     <genClasses ecoreClass="Solidity.ecore#//SuperTypeArgumentList">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//SuperTypeArgumentList/arguments"/>
     </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//TypeSpecifier"/>
-    <genClasses ecoreClass="Solidity.ecore#//MappingTypeSpecifier">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//MappingTypeSpecifier/key"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//MappingTypeSpecifier/value"/>
-    </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//ArrayTypeSpecifier">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ArrayTypeSpecifier/index"/>
-    </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//Block">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//Block/statements"/>
-    </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//DecimalNumberLiteral">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//DecimalNumberLiteral/value"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//DecimalNumberLiteral/unit"/>
-    </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//AddressLiteral">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AddressLiteral/value"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//Modifier"/>
     <genClasses ecoreClass="Solidity.ecore#//BuildInModifier">
@@ -110,11 +89,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//InlineAssemblyStatement/kind"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//InlineAssemblyStatement/block"/>
     </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//Argument"/>
-    <genClasses ecoreClass="Solidity.ecore#//NamedArgument">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Solidity.ecore#//NamedArgument/reference"/>
-    </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//SimpleArgument"/>
     <genClasses ecoreClass="Solidity.ecore#//VariableDefinition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//VariableDefinition/visibility"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//VariableDefinition/initialValue"/>
@@ -161,6 +135,25 @@
     <genClasses ecoreClass="Solidity.ecore#//IDLiteral">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//IDLiteral/value"/>
     </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//DecimalNumberLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//DecimalNumberLiteral/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//DecimalNumberLiteral/unit"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//AddressLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AddressLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//NamedArgument">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Solidity.ecore#//NamedArgument/reference"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//SimpleArgument"/>
+    <genClasses ecoreClass="Solidity.ecore#//MappingTypeSpecifier">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//MappingTypeSpecifier/key"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//MappingTypeSpecifier/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//ArrayTypeSpecifier">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ArrayTypeSpecifier/index"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//TypeSpecifier"/>
     <genClasses ecoreClass="Solidity.ecore#//SourceUnit">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//SourceUnit/pragma"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//SourceUnit/imports"/>
@@ -189,9 +182,6 @@
     <genClasses ecoreClass="Solidity.ecore#//ModifierDefinition">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ModifierDefinition/block"/>
     </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//DoubleLiteral">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//DoubleLiteral/unit"/>
-    </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//ConstructorDefinition">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ConstructorDefinition/modifier"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ConstructorDefinition/block"/>
@@ -208,10 +198,10 @@
     <genClasses ecoreClass="Solidity.ecore#//IndexParameter">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//IndexParameter/indexed"/>
     </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//NumericalMultiplyDivideExpression">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//NumericalMultiplyDivideExpression/leftOperand"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//NumericalMultiplyDivideExpression/operator"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//NumericalMultiplyDivideExpression/rightOperand"/>
+    <genClasses ecoreClass="Solidity.ecore#//Identifier"/>
+    <genClasses ecoreClass="Solidity.ecore#//ExponentialExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ExponentialExpression/leftOperand"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ExponentialExpression/rightOperand"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//NumericalUnaryExpression">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//NumericalUnaryExpression/operator"/>
@@ -226,6 +216,6 @@
     <genClasses ecoreClass="Solidity.ecore#//TupleExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//TupleExpression/expressions"/>
     </genClasses>
-    <genClasses ecoreClass="Solidity.ecore#//Identifier"/>
+    <genClasses ecoreClass="Solidity.ecore#//PrimitiveValueExpression"/>
   </genPackages>
 </genmodel:GenModel>

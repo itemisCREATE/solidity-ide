@@ -17,9 +17,13 @@ package com.yakindu.solidity.typesystem
 import com.google.inject.Inject
 import com.yakindu.solidity.solidity.AddressLiteral
 import com.yakindu.solidity.solidity.DecimalNumberLiteral
+import com.yakindu.solidity.solidity.ExponentialExpression
 import com.yakindu.solidity.solidity.FunctionDefinition
+import com.yakindu.solidity.solidity.Identifier
+import com.yakindu.solidity.solidity.MappingTypeSpecifier
 import com.yakindu.solidity.solidity.NewInstanceExpression
-import com.yakindu.solidity.solidity.NumericalMultiplyDivideExpression
+import com.yakindu.solidity.solidity.NumericalUnaryExpression
+import com.yakindu.solidity.solidity.TupleExpression
 import com.yakindu.solidity.solidity.VariableDefinition
 import java.math.BigDecimal
 import org.eclipse.emf.ecore.EObject
@@ -32,7 +36,6 @@ import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.typesystem.ITypeSystem
 
 import static org.yakindu.base.types.typesystem.ITypeSystem.REAL
-import com.yakindu.solidity.solidity.MappingTypeSpecifier
 
 /**
  * 
@@ -45,7 +48,23 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 	@Inject protected ITypeSystem ts;
 
 	def doInfer(EObject e) {
+		println("Missing doInfer in SolidityTypeInferrer for " + e.class)
 		null
+	}
+
+	def doInfer(Identifier identifier) {
+		identifier.typeSpecifier.inferTypeDispatch
+	}
+
+	def doInfer(TupleExpression it) {
+		// TODO ParanthesisExpression should be explicit in grammar
+		if (expressions.size == 1)
+			return expressions.head.inferTypeDispatch
+		null
+	}
+
+	def doInfer(NumericalUnaryExpression expression) {
+		expression.operand.inferTypeDispatch
 	}
 
 	def doInfer(BigDecimal literal) {
@@ -59,11 +78,11 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 	def doInfer(DecimalNumberLiteral literal) {
 		return getResultFor(SolidityTypeSystem.INTEGER);
 	}
-	
-	def doInfer(NewInstanceExpression it){
+
+	def doInfer(NewInstanceExpression it) {
 		inferTypeDispatch(type)
 	}
- 
+
 	override assertAssignable(InferenceResult varResult, InferenceResult valueResult, String msg) {
 		if (ts.isSame(valueResult.type, ts.getType(ITypeSystem.INTEGER)) &&
 			ts.isSuperType(varResult.type, ts.getType(ITypeSystem.INTEGER))) {
@@ -81,17 +100,16 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 	override doInfer(BoolLiteral literal) {
 		InferenceResult.from(ts.getType(SolidityTypeSystem.BOOL))
 	}
-	
-	def doInfer(MappingTypeSpecifier mappingSpecifier){
+
+	def doInfer(MappingTypeSpecifier mappingSpecifier) {
 		doInfer(mappingSpecifier.value)
 	}
 
-	def doInfer(NumericalMultiplyDivideExpression e) {
+	def doInfer(ExponentialExpression e) {
 		var result1 = inferTypeDispatch(e.getLeftOperand())
 		var result2 = inferTypeDispatch(e.getRightOperand())
-		assertCompatible(result1, result2, String.format(ARITHMETIC_OPERATORS, e.getOperator(), result1, result2))
-		assertIsSubType(result1, getResultFor(REAL),
-			String.format(ARITHMETIC_OPERATORS, e.getOperator(), result1, result2))
+		assertCompatible(result1, result2, String.format(ARITHMETIC_OPERATORS, '**', result1, result2))
+		assertIsSubType(result1, getResultFor(REAL), String.format(ARITHMETIC_OPERATORS, '**', result1, result2))
 		getCommonType(result1, result2)
 	}
 

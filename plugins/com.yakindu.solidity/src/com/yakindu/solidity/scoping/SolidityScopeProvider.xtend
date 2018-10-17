@@ -36,6 +36,7 @@ import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.Operation
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
+import org.yakindu.base.expressions.scoping.ExpressionsScopeProvider
 import com.yakindu.solidity.typesystem.SolidityTypeSystem
 
 /**
@@ -44,7 +45,7 @@ import com.yakindu.solidity.typesystem.SolidityTypeSystem
  * @author Florian Antony
  * @author Karsten Thoms
  */
-class SolidityScopeProvider extends AbstractSolidityScopeProvider {
+class SolidityScopeProvider extends ExpressionsScopeProvider {
 
 	@Inject IBuiltInDeclarationsProvider buildInDeclarationsProvider
 	@Inject ITypeSystem typeSystem
