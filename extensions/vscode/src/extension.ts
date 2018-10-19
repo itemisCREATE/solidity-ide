@@ -1,29 +1,25 @@
 'use strict';
 
-import * as path from 'path';
-import * as os from 'os';
+import * as net from 'net';
 
-import { Trace } from 'vscode-jsonrpc';
-import { commands, window, workspace, ExtensionContext, Uri } from 'vscode';
-import { LanguageClient, LanguageClientOptions, ServerOptions } from 'vscode-languageclient';
+import {Trace} from 'vscode-jsonrpc';
+import { window, workspace, commands, ExtensionContext, Uri } from 'vscode';
+import { LanguageClient, LanguageClientOptions, StreamInfo, Position as LSPosition, Location as LSLocation } from 'vscode-languageclient';
 
 export function activate(context: ExtensionContext) {
-    // The server is a locally installed in src/ls
-    let launcher = os.platform() === 'win32' ? 'solidity-ls.bat' : 'solidity-ls';
-    let script = context.asAbsolutePath(path.join('src', 'ls', 'bin', launcher));
-    console.log("Activating Solidity LS " + script)
-    
-    let serverOptions: ServerOptions = {
-        run : { command: script },
-        debug: { command: script, args: ['-Xdebug','-Xrunjdwp:server=y,transport=dt_socket,address=7777,suspend=n,quiet=y','-Xmx256m'] }
+    // The server is a started as a separate app and listens on port 5007
+    let connectionInfo = {
+        port: 5007
     };
-    
-    let clientOptions: LanguageClientOptions = {
-        documentSelector: ['sol'],
-        synchronize: {
-            fileEvents: workspace.createFileSystemWatcher('**/*.*')
-        }
-    };
+    let serverOptions = () => {
+        // Connect to language server via socket
+        let socket = net.connect(connectionInfo);
+        let result: StreamInfo = {
+            writer: socket,
+            reader: socket
+        };
+        return Promise.resolve(result);
+	};
     
     // Create the language client and start the client.
     let lc = new LanguageClient('Solidity LS', serverOptions, clientOptions);

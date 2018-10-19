@@ -26,7 +26,6 @@
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.yakindu.base.feature.group" version="3.4.0.201808160934"/>
-<unit id="org.yakindu.sct.feature.group" version="3.4.0.201808160934"/>
 <repository location="http://updates.yakindu.com/statecharts/releases"/>
 </location>
 </locations>
