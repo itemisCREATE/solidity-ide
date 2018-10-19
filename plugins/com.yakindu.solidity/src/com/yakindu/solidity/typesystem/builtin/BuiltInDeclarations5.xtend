@@ -43,8 +43,8 @@ class BuiltInDeclarations5 extends BuiltInDeclarations {
 	}
 
 	override all() {
-		#[abi, msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, push, ripemd160, ecrecover,
-			block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]
+		#[abi, msg, assert_, require, revert, addmod, mulmod, keccak256, sha256, length, push, ripemd160, ecrecover,
+			block, selfdestruct, this_, super_, now, tx, owned, mortal]
 	}
 
 	override protected Operation keccak256() {
