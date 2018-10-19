@@ -55,4 +55,20 @@ class BuiltInDeclarations5 extends BuiltInDeclarations {
 			]
 		]
 	}
+	override protected Operation sha256() {
+		createOperation("sha256", BYTES32) => [
+			parameters += createParameter("argument", SolidityTypeSystem.BYTES.typeForName) => [
+				optional = false
+				varArgs = false
+			]
+		]
+	}
+	override protected Operation ripemd160() {
+		createOperation("ripemd160", BYTES32) => [
+			parameters += createParameter("argument", SolidityTypeSystem.BYTES.typeForName) => [
+				optional = false
+				varArgs = false
+			]
+		]
+	}
 }
