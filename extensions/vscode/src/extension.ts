@@ -21,6 +21,13 @@ export function activate(context: ExtensionContext) {
         return Promise.resolve(result);
 	};
     
+    let clientOptions: LanguageClientOptions = {
+        documentSelector: ['mydsl'],
+        synchronize: {
+            fileEvents: workspace.createFileSystemWatcher('**/*.*')
+        }
+    };
+
     // Create the language client and start the client.
     let lc = new LanguageClient('Solidity LS', serverOptions, clientOptions);
     
