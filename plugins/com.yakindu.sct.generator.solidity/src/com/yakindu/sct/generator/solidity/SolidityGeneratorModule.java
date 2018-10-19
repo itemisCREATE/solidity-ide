@@ -17,7 +17,7 @@ import org.yakindu.sct.generator.core.types.ICodegenTypeSystemAccess;
 import org.yakindu.sct.model.sgen.GeneratorEntry;
 
 import com.google.inject.Binder;
-import com.yakindu.solidity.typesystem.SolidityTypeSystem;
+import com.yakindu.solidity.typesystem.SolidityTypeSystem4;
 
 /**
  * 
@@ -28,7 +28,7 @@ public class SolidityGeneratorModule implements IGeneratorModule {
 
     public void configure(GeneratorEntry entry, Binder binder) {
         binder.bind(IExecutionFlowGenerator.class).to(SolidityGenerator.class);
-        binder.bind(ITypeSystem.class).to(SolidityTypeSystem.class);
+        binder.bind(ITypeSystem.class).to(SolidityTypeSystem4.class);
         binder.bind(IQualifiedNameProvider.class).to(QualifiedNameProvider.class);
         binder.bind(ICodegenTypeSystemAccess.class).to(SolidityTypeSystemAccess.class);
     }

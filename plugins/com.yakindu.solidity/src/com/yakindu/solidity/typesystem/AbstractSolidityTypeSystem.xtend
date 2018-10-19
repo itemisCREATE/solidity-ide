@@ -24,8 +24,7 @@ import org.yakindu.base.types.typesystem.GenericTypeSystem
  * @author andreas muelder - Initial contribution and API
  * @author Florian Antony
  */
-@Singleton
-class SolidityTypeSystem extends GenericTypeSystem {
+abstract class AbstractSolidityTypeSystem extends GenericTypeSystem {
 
 	public static val String BOOL = "bool"
 	public static val String UINT = "uint"
@@ -74,12 +73,6 @@ class SolidityTypeSystem extends GenericTypeSystem {
 
 	static extension TypesFactory typesFactory = TypesFactory.eINSTANCE
 
-	val static INSTANCE = new SolidityTypeSystem();
-
-	def static GenericTypeSystem getInstance() {
-		return INSTANCE;
-	}
-
 	override initRegistries() {
 		super.initRegistries()
 
@@ -98,11 +91,11 @@ class SolidityTypeSystem extends GenericTypeSystem {
 		declareSuperType(getType(INT), getType(INTEGER))
 		INT.declareExplicitSizeTypes(8)
 
-		declarePrimitive(SolidityTypeSystem.BYTES)
-		declarePrimitive(SolidityTypeSystem.BYTE)
-		declareSuperType(getType(SolidityTypeSystem.BYTES), getType(INTEGER))
-		declareSuperType(getType(SolidityTypeSystem.BYTE), getType(INTEGER))
-		SolidityTypeSystem.BYTES.declareExplicitSizeTypes(1);
+		declarePrimitive(AbstractSolidityTypeSystem.BYTES)
+		declarePrimitive(AbstractSolidityTypeSystem.BYTE)
+		declareSuperType(getType(AbstractSolidityTypeSystem.BYTES), getType(INTEGER))
+		declareSuperType(getType(AbstractSolidityTypeSystem.BYTE), getType(INTEGER))
+		AbstractSolidityTypeSystem.BYTES.declareExplicitSizeTypes(1);
 
 		var abi = createAbi()
 		declareType(abi, ABI)
@@ -319,7 +312,7 @@ class SolidityTypeSystem extends GenericTypeSystem {
 			type.features += createOperation => [
 				name = BLOCK_HASH
 				typeSpecifier = createTypeSpecifier => [
-					type = getType(SolidityTypeSystem.BYTES + "32")
+					type = getType(AbstractSolidityTypeSystem.BYTES + "32")
 				]
 				parameters += createParameter => [
 					typeSpecifier = createTypeSpecifier => [

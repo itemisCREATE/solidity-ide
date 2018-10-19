@@ -16,6 +16,7 @@ package com.yakindu.solidity.ui.contentassist
 
 import com.google.common.base.Function
 import com.google.inject.name.Named
+import com.yakindu.solidity.typesystem.IPragmaAwareProvider
 import java.util.Collections
 import java.util.Set
 import javax.inject.Inject
@@ -34,7 +35,6 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 import org.eclipse.xtext.ui.editor.hover.IEObjectHover
 import org.yakindu.base.types.Operation
 import org.yakindu.base.types.Type
-import com.yakindu.solidity.typesystem.builtin.SolidityVersions
 
 /**
  * @author Andreas Muelder - Initial contribution and API
@@ -51,7 +51,7 @@ class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 			"&", "&&", "and", "<", ">", "<=", ">=", "<<", "=>", "event"}
 	);
 
-	@Inject @Named(SolidityVersions.SOLIDITY_VERSION) String solcVersion
+	@Inject @Named(IPragmaAwareProvider.SOLIDITY_VERSION) String solcVersion
 
 	override complete_VERSION(EObject model, RuleCall ruleCall, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {

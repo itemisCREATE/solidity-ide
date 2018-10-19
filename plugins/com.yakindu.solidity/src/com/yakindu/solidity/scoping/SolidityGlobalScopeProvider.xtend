@@ -16,7 +16,9 @@ package com.yakindu.solidity.scoping
 
 import com.google.common.base.Predicate
 import com.yakindu.solidity.solidity.ImportDirective
-import com.yakindu.solidity.typesystem.builtin.IBuiltInDeclarationsProvider
+import com.yakindu.solidity.typesystem.AbstractSolidityTypeSystem
+import com.yakindu.solidity.typesystem.IPragmaAwareProvider
+import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations
 import java.util.LinkedHashSet
 import java.util.Set
 import javax.inject.Inject
@@ -29,7 +31,6 @@ import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.ImportUriGlobalScopeProvider
 import org.eclipse.xtext.util.IResourceScopeCache
-import org.yakindu.base.types.typesystem.ITypeSystem
 
 /**
  * 
@@ -39,17 +40,17 @@ import org.yakindu.base.types.typesystem.ITypeSystem
 class SolidityGlobalScopeProvider extends ImportUriGlobalScopeProvider {
 
 	@Inject
-	protected ITypeSystem typeSystem
+	protected IPragmaAwareProvider<AbstractSolidityTypeSystem> typeSystemProvider
 	@Inject
 	protected IQualifiedNameProvider qualifiedNameProvider
 	@Inject
 	protected IResourceScopeCache cache;
 	@Inject
-	protected IBuiltInDeclarationsProvider buildInDeclarationsProvider
+	protected IPragmaAwareProvider<BuiltInDeclarations> buildInDeclarationsProvider
 
 	override getScope(Resource resource, EReference reference, Predicate<IEObjectDescription> filter) {
 		val libraryScope = resource.getScopeWithLibrary(reference)
-		return new TypeSystemAwareScope(libraryScope, typeSystem, qualifiedNameProvider, reference.getEReferenceType());
+		return new TypeSystemAwareScope(libraryScope, typeSystemProvider.provideFor(resource), qualifiedNameProvider, reference.getEReferenceType());
 	}
 
 	override protected getImportedUris(Resource resource) {

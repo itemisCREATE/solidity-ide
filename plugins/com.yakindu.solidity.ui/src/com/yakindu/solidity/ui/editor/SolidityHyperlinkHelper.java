@@ -22,22 +22,25 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.hyperlinking.HyperlinkHelper;
 import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkAcceptor;
 import org.yakindu.base.types.typesystem.AbstractTypeSystem;
-import org.yakindu.base.types.typesystem.ITypeSystem;
+
+import com.yakindu.solidity.typesystem.AbstractSolidityTypeSystem;
+import com.yakindu.solidity.typesystem.IPragmaAwareProvider;
 
 /**
  * Hyperlinking customizations:
  * <ul>
  * <li>Disable hyperlinks for build-in elements
  * 
- * @author Karsten Thoms - Initial contribution and API 
+ * @author Karsten Thoms - Initial contribution and API
  *
  */
 public class SolidityHyperlinkHelper extends HyperlinkHelper {
-	@Inject ITypeSystem typeSystem;
-	
+	@Inject
+	IPragmaAwareProvider<AbstractSolidityTypeSystem> typeSystemProvider;
+
 	@Override
 	public void createHyperlinksTo(XtextResource from, Region region, EObject target, IHyperlinkAcceptor acceptor) {
-		if (((AbstractTypeSystem)typeSystem).getResource() == target.eResource()) {
+		if (((AbstractTypeSystem) typeSystemProvider.provideFor(target)).getResource() == target.eResource()) {
 			// build-in elements are defined in the resource of the type system
 			// don't create hyperlinks to them
 			return;

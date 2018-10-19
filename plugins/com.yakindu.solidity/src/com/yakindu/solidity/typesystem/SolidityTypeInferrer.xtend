@@ -68,15 +68,15 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 	}
 
 	def doInfer(BigDecimal literal) {
-		InferenceResult.from(ts.getType(SolidityTypeSystem.INTEGER));
+		InferenceResult.from(ts.getType(AbstractSolidityTypeSystem.INTEGER));
 	}
 
 	def doInfer(AddressLiteral literal) {
-		InferenceResult.from(ts.getType(SolidityTypeSystem.ADDRESS));
+		InferenceResult.from(ts.getType(AbstractSolidityTypeSystem.ADDRESS));
 	}
 
 	def doInfer(DecimalNumberLiteral literal) {
-		return getResultFor(SolidityTypeSystem.INTEGER);
+		return getResultFor(AbstractSolidityTypeSystem.INTEGER);
 	}
 
 	def doInfer(NewInstanceExpression it) {
@@ -98,7 +98,7 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 	}
 
 	override doInfer(BoolLiteral literal) {
-		InferenceResult.from(ts.getType(SolidityTypeSystem.BOOL))
+		InferenceResult.from(ts.getType(AbstractSolidityTypeSystem.BOOL))
 	}
 
 	def doInfer(MappingTypeSpecifier mappingSpecifier) {
@@ -140,7 +140,7 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 
 	override protected getResultFor(String name) {
 		if (ITypeSystem.BOOLEAN.equals(name))
-			return super.getResultFor(SolidityTypeSystem.BOOL)
+			return super.getResultFor(AbstractSolidityTypeSystem.BOOL)
 		else
 			return super.getResultFor(name)
 	}

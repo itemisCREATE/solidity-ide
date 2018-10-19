@@ -30,9 +30,9 @@ import com.yakindu.solidity.solidity.StorageLocation
 import com.yakindu.solidity.solidity.ThrowStatement
 import com.yakindu.solidity.solidity.TypeSpecifier
 import com.yakindu.solidity.solidity.VariableDefinition
-import com.yakindu.solidity.typesystem.SolidityTypeSystem
-import com.yakindu.solidity.typesystem.builtin.IBuiltInDeclarationsProvider
-import com.yakindu.solidity.typesystem.builtin.SolidityVersions
+import com.yakindu.solidity.typesystem.AbstractSolidityTypeSystem
+import com.yakindu.solidity.typesystem.IPragmaAwareProvider
+import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations
 import javax.inject.Named
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
@@ -50,6 +50,7 @@ import org.yakindu.base.types.Operation
 
 import static com.yakindu.solidity.validation.IssueCodes.*
 
+import static extension com.yakindu.solidity.typesystem.AbstractSolidityTypeSystem.*
 import static extension org.eclipse.xtext.EcoreUtil2.*
 
 /** 
@@ -59,9 +60,10 @@ import static extension org.eclipse.xtext.EcoreUtil2.*
  */
 class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 
-	@Inject IBuiltInDeclarationsProvider buildInDeclarationsProvider
+	@Inject IPragmaAwareProvider<BuiltInDeclarations> declarationsProvider
+	@Inject IPragmaAwareProvider<AbstractSolidityTypeSystem> typeSystemProvider
 	@Inject extension SolidityFactory
-	@Inject @Named(SolidityVersions.SOLIDITY_VERSION) String solcVersion
+	@Inject @Named(IPragmaAwareProvider.SOLIDITY_VERSION) String solcVersion
 
 	extension ExpressionsFactory factory = ExpressionsFactory.eINSTANCE
 
@@ -173,7 +175,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		acceptor.accept(issue, 'Replace with selfdestruct', 'selfdestruct', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				if (element instanceof ElementReferenceExpression) {
-					element.reference = buildInDeclarationsProvider.provideFor(element).selfdestruct
+					element.reference = declarationsProvider.provideFor(element).selfdestruct
 				}
 			}
 		})
@@ -263,7 +265,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 						block.statements.remove(element)
 						block.statements += createExpressionStatement => [
 							expression = createElementReferenceExpression => [
-								val revert = buildInDeclarationsProvider.provideFor(element).revert
+								val revert = declarationsProvider.provideFor(element).revert
 								operationCall = true
 								reference = revert
 							]
@@ -283,7 +285,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 							block.statements.indexOf(ifStatement),
 							createExpressionStatement => [
 								expression = createElementReferenceExpression => [
-									reference = buildInDeclarationsProvider.provideFor(element).assert_
+									reference = declarationsProvider.provideFor(element).assert_
 									operationCall = true
 									arguments += ExpressionsFactory.eINSTANCE.createArgument => [
 										value = createLogicalNotExpression => [
@@ -312,7 +314,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 							block.statements.indexOf(ifStatement),
 							createExpressionStatement => [
 								expression = createElementReferenceExpression => [
-									reference = buildInDeclarationsProvider.provideFor(element).require
+									reference = declarationsProvider.provideFor(element).require
 									operationCall = true
 									arguments += ExpressionsFactory.eINSTANCE.createArgument => [
 										value = createLogicalNotExpression => [
@@ -338,7 +340,9 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 				if (element instanceof ElementReferenceExpression) {
 					val featureCall = element.getContainerOfType(FeatureCall)
 					val features = featureCall.feature.getContainerOfType(ComplexType).features
-					featureCall.feature = features.findFirst[name == SolidityTypeSystem.DELEGATECALL]
+					featureCall.feature = features.findFirst [
+						name == typeSystemProvider.provideFor(element).DELEGATECALL
+					]
 				}
 			}
 		})
@@ -350,7 +354,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element instanceof ElementReferenceExpression) {
-						element.reference = buildInDeclarationsProvider.provideFor(element).keccak256
+						element.reference = declarationsProvider.provideFor(element).keccak256
 					}
 				}
 			})
@@ -373,7 +377,9 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 					if (element instanceof ElementReferenceExpression) {
 						val featureCall = element.getContainerOfType(FeatureCall)
 						val features = featureCall.feature.getContainerOfType(ComplexType).features
-						featureCall.feature = features.findFirst[name == SolidityTypeSystem.TRANSFER]
+						featureCall.feature = features.findFirst [
+							name == typeSystemProvider.provideFor(element).TRANSFER
+						]
 					}
 				}
 			})

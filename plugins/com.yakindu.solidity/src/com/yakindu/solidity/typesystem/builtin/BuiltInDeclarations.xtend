@@ -17,7 +17,6 @@ package com.yakindu.solidity.typesystem.builtin
 import com.yakindu.solidity.solidity.ContractDefinition
 import com.yakindu.solidity.solidity.FunctionModifier
 import com.yakindu.solidity.solidity.SolidityFactory
-import com.yakindu.solidity.typesystem.SolidityTypeSystem
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.emf.ecore.EObject
@@ -31,7 +30,8 @@ import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.typesystem.AbstractTypeSystem
 import org.yakindu.base.types.typesystem.ITypeSystem
 
-import static com.yakindu.solidity.typesystem.SolidityTypeSystem.*
+import static com.yakindu.solidity.typesystem.AbstractSolidityTypeSystem.*
+import com.yakindu.solidity.typesystem.AbstractSolidityTypeSystem
 
 /**
  * @author Florian Antony - initial contribution and API.
@@ -85,16 +85,16 @@ abstract class BuiltInDeclarations {
 		this.typeSystem = typeSystem
 		this.typesFactory = typesFactory
 		this.solidityFactory = solidityFactory
-		ADDRESS = SolidityTypeSystem.ADDRESS.typeForName
-		ANY = SolidityTypeSystem.ANY.typeForName
-		BOOL = SolidityTypeSystem.BOOL.typeForName
-		BYTES20 = SolidityTypeSystem.BYTES20.typeForName
-		BYTES32 = SolidityTypeSystem.BYTES32.typeForName
-		INT = SolidityTypeSystem.INT.typeForName
-		UINT = SolidityTypeSystem.UINT.typeForName
-		UINT8 = SolidityTypeSystem.UINT8.typeForName
-		UINT265 = SolidityTypeSystem.UINT256.typeForName
-		VOID = SolidityTypeSystem.VOID.typeForName
+		ADDRESS = AbstractSolidityTypeSystem.ADDRESS.typeForName
+		ANY = AbstractSolidityTypeSystem.ANY.typeForName
+		BOOL = AbstractSolidityTypeSystem.BOOL.typeForName
+		BYTES20 = AbstractSolidityTypeSystem.BYTES20.typeForName
+		BYTES32 = AbstractSolidityTypeSystem.BYTES32.typeForName
+		INT = AbstractSolidityTypeSystem.INT.typeForName
+		UINT = AbstractSolidityTypeSystem.UINT.typeForName
+		UINT8 = AbstractSolidityTypeSystem.UINT8.typeForName
+		UINT265 = AbstractSolidityTypeSystem.UINT256.typeForName
+		VOID = AbstractSolidityTypeSystem.VOID.typeForName
 		initialize
 	}
 

@@ -20,7 +20,6 @@ import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.Identifier
 import com.yakindu.solidity.solidity.MappingTypeSpecifier
 import com.yakindu.solidity.solidity.VariableDefinition
-import com.yakindu.solidity.typesystem.SolidityTypeSystem
 import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations
 import java.util.List
 import org.eclipse.emf.ecore.EObject
@@ -39,6 +38,7 @@ import org.yakindu.base.types.TypeSpecifier
 import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
+import com.yakindu.solidity.typesystem.AbstractSolidityTypeSystem
 
 /**
  * 
@@ -118,7 +118,7 @@ class FeatureCallScope extends AbstractScope {
 	}
 
 	def dispatch List<? extends EObject> getLocalElements(TypedElement it) {
-		return if (typeSystem.isSuperType(it.type, typeSystem.getType(SolidityTypeSystem.BYTES))) {
+		return if (typeSystem.isSuperType(it.type, typeSystem.getType(AbstractSolidityTypeSystem.BYTES))) {
 			newArrayList(declarations.length, declarations.push)
 		} else if (typeSpecifier === null && it instanceof VariableDefinition) {
 			inferrer.infer(it)?.type?.localElements
@@ -143,7 +143,7 @@ class FeatureCallScope extends AbstractScope {
 	}
 
 	def dispatch List<? extends EObject> getLocalElements(PrimitiveType it) {
-		return if (typeSystem.isSuperType(it, typeSystem.getType(SolidityTypeSystem.BYTES))) {
+		return if (typeSystem.isSuperType(it, typeSystem.getType(AbstractSolidityTypeSystem.BYTES))) {
 			newArrayList(declarations.length, declarations.push)
 		} else {
 			newArrayList()

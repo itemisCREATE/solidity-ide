@@ -16,6 +16,7 @@
 package com.yakindu.solidity
 
 import com.google.inject.Binder
+import com.google.inject.TypeLiteral
 import com.google.inject.multibindings.MapBinder
 import com.google.inject.name.Names
 import com.yakindu.solidity.scoping.SolidityGlobalScopeProvider
@@ -25,13 +26,14 @@ import com.yakindu.solidity.scoping.SolidityScopeProvider
 import com.yakindu.solidity.solidity.SolidityFactory
 import com.yakindu.solidity.solidity.SolidityPackage
 import com.yakindu.solidity.terminals.SolidityValueConverterService
+import com.yakindu.solidity.typesystem.IPragmaAwareProvider
 import com.yakindu.solidity.typesystem.SolidityTypeInferrer
-import com.yakindu.solidity.typesystem.SolidityTypeSystem
+import com.yakindu.solidity.typesystem.SolidityTypeSystem5
+import com.yakindu.solidity.typesystem.SolidityTypeSystemProvider
+import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations
 import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations4
 import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations5
-import com.yakindu.solidity.typesystem.builtin.IBuiltInDeclarationsProvider
 import com.yakindu.solidity.typesystem.builtin.SolidityBuiltInDeclarationsProvider
-import com.yakindu.solidity.typesystem.builtin.SolidityVersions
 import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy
 import org.eclipse.xtext.scoping.IScopeProvider
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
@@ -40,7 +42,8 @@ import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.TypesPackage
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
-import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations
+import com.yakindu.solidity.typesystem.AbstractSolidityTypeSystem
+import com.yakindu.solidity.typesystem.SolidityTypeSystem4
 
 /**
  * 
@@ -50,9 +53,9 @@ import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations
  */
 class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 
-	override configure(Binder binder) {
+		override configure(Binder binder) {
 		super.configure(binder)
-		binder.bind(ITypeSystem).to(SolidityTypeSystem);
+		binder.bind(ITypeSystem).to(SolidityTypeSystem4)
 		binder.bind(ITypeSystemInferrer).to(SolidityTypeInferrer)
 		binder.bind(boolean).annotatedWith(Names.named(CompositeEValidator.USE_EOBJECT_VALIDATOR)).toInstance(false)
 		binder.bind(IDefaultResourceDescriptionStrategy).to(SolidityResourceDescriptionStrategy);
@@ -60,14 +63,23 @@ class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 		binder.bind(SolidityFactory).toInstance(SolidityFactory.eINSTANCE)
 		binder.bind(TypesPackage).toInstance(TypesPackage.eINSTANCE)
 		binder.bind(TypesFactory).toInstance(TypesFactory.eINSTANCE)
-		binder.bind(IBuiltInDeclarationsProvider).to(SolidityBuiltInDeclarationsProvider)
 
-		val builtInDeclatationBinder = MapBinder.newMapBinder(binder, SolidityVersions.Major, BuiltInDeclarations)
-		builtInDeclatationBinder.addBinding(SolidityVersions.Major.FOUR).to(BuiltInDeclarations4)
-		builtInDeclatationBinder.addBinding(SolidityVersions.Major.FIVE).to(BuiltInDeclarations5)
+		binder.bind(new TypeLiteral<IPragmaAwareProvider<BuiltInDeclarations>> {
+		}).to(SolidityBuiltInDeclarationsProvider)
+		val builtInDeclatationBinder = MapBinder.newMapBinder(binder, IPragmaAwareProvider.MajorSolidityVersion,
+			BuiltInDeclarations)
+		builtInDeclatationBinder.addBinding(IPragmaAwareProvider.MajorSolidityVersion.FOUR).to(BuiltInDeclarations4)
+		builtInDeclatationBinder.addBinding(IPragmaAwareProvider.MajorSolidityVersion.FIVE).to(BuiltInDeclarations5)
 
-		binder.bind(String).annotatedWith(Names.named(SolidityVersions.SOLIDITY_VERSION)).toInstance(
-			SolidityVersions.DEFAULT_VERSION)
+		binder.bind(new TypeLiteral<IPragmaAwareProvider<AbstractSolidityTypeSystem>> {
+		}).to(SolidityTypeSystemProvider)
+		
+		val typeSystemsBinder = MapBinder.newMapBinder(binder, IPragmaAwareProvider.MajorSolidityVersion, AbstractSolidityTypeSystem)
+		typeSystemsBinder.addBinding(IPragmaAwareProvider.MajorSolidityVersion.FOUR).to(SolidityTypeSystem4)
+		typeSystemsBinder.addBinding(IPragmaAwareProvider.MajorSolidityVersion.FIVE).to(SolidityTypeSystem5)
+
+		binder.bind(String).annotatedWith(Names.named(IPragmaAwareProvider.SOLIDITY_VERSION)).toInstance(
+			IPragmaAwareProvider.DEFAULT_VERSION)
 	}
 
 	override bindIGlobalScopeProvider() {

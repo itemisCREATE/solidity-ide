@@ -21,7 +21,9 @@ import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.ModifierDefinition
 import com.yakindu.solidity.solidity.StructDefinition
 import com.yakindu.solidity.solidity.UsingForDeclaration
-import com.yakindu.solidity.typesystem.builtin.IBuiltInDeclarationsProvider
+import com.yakindu.solidity.typesystem.AbstractSolidityTypeSystem
+import com.yakindu.solidity.typesystem.IPragmaAwareProvider
+import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations
 import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
@@ -32,12 +34,10 @@ import org.yakindu.base.base.NamedElement
 import org.yakindu.base.expressions.expressions.Argument
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
 import org.yakindu.base.expressions.expressions.FeatureCall
+import org.yakindu.base.expressions.scoping.ExpressionsScopeProvider
 import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.Operation
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
-import org.yakindu.base.types.typesystem.ITypeSystem
-import org.yakindu.base.expressions.scoping.ExpressionsScopeProvider
-import com.yakindu.solidity.typesystem.SolidityTypeSystem
 
 /**
  * 
@@ -47,8 +47,8 @@ import com.yakindu.solidity.typesystem.SolidityTypeSystem
  */
 class SolidityScopeProvider extends ExpressionsScopeProvider {
 
-	@Inject IBuiltInDeclarationsProvider buildInDeclarationsProvider
-	@Inject ITypeSystem typeSystem
+	@Inject IPragmaAwareProvider<BuiltInDeclarations> declarationsProvider
+	@Inject IPragmaAwareProvider<AbstractSolidityTypeSystem> typeSystemProvider
 	@Inject ITypeSystemInferrer inferrer;
 
 	def scope_NamedArgument_reference(Argument object, EReference ref) {
@@ -116,17 +116,17 @@ class SolidityScopeProvider extends ExpressionsScopeProvider {
 			if (ref instanceof NamedElement && ("super".equals((ref as NamedElement).name))) {
 				val features = EcoreUtil2.getContainerOfType(context, ContractDefinition)?.superTypes?.filter(
 					ComplexType).map[allFeatures].flatten
-				var address = typeSystem.getType(SolidityTypeSystem.ADDRESS) as ComplexType
+				var address = typeSystemProvider.provideFor(context).getType(AbstractSolidityTypeSystem.ADDRESS) as ComplexType
 				return Scopes.scopeFor(features + address.allFeatures)
 			} else if (ref instanceof NamedElement && ("this".equals((ref as NamedElement).name))) {
 				val features = EcoreUtil2.getContainerOfType(context, ContractDefinition).allFeatures
-				var address = typeSystem.getType(SolidityTypeSystem.ADDRESS) as ComplexType
+				var address = typeSystemProvider.provideFor(context).getType(AbstractSolidityTypeSystem.ADDRESS) as ComplexType
 				return Scopes.scopeFor(features + address.allFeatures)
 
 			}
 		}
 		return Scopes.scopeFor(usings(context),
-			new FeatureCallScope(context, reference, buildInDeclarationsProvider.provideFor(context), typeSystem,
+			new FeatureCallScope(context, reference, declarationsProvider.provideFor(context), typeSystemProvider.provideFor(context),
 				inferrer))
 	}
 
@@ -151,7 +151,7 @@ class SolidityScopeProvider extends ExpressionsScopeProvider {
 
 	def scope_ComplexType_superTypes(EObject context, EReference reference) {
 		val outer = delegate.getScope(context, reference)
-		Scopes.scopeFor(buildInDeclarationsProvider.provideFor(context).superContracts, outer)
+		Scopes.scopeFor(declarationsProvider.provideFor(context).superContracts, outer)
 
 	}
 

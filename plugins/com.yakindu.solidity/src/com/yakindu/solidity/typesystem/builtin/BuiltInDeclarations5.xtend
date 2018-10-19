@@ -17,11 +17,11 @@ package com.yakindu.solidity.typesystem.builtin
 import com.google.inject.Inject
 import com.google.inject.Singleton
 import com.yakindu.solidity.solidity.SolidityFactory
-import com.yakindu.solidity.typesystem.SolidityTypeSystem
 import org.yakindu.base.types.Operation
 import org.yakindu.base.types.Property
 import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.typesystem.ITypeSystem
+import com.yakindu.solidity.typesystem.SolidityTypeSystem5
 
 /**
  * @author Florian Antony - initial contribution and API.
@@ -39,7 +39,7 @@ class BuiltInDeclarations5 extends BuiltInDeclarations {
 
 	override protected initialize() {
 		super.initialize()
-		abi = createConstant("abi", SolidityTypeSystem.ABI.typeForName)
+		abi = createConstant("abi", SolidityTypeSystem5.ABI.typeForName)
 	}
 
 	override all() {
@@ -49,7 +49,7 @@ class BuiltInDeclarations5 extends BuiltInDeclarations {
 
 	override protected Operation keccak256() {
 		createOperation("keccak256", BYTES32) => [
-			parameters += createParameter("argument", SolidityTypeSystem.BYTES.typeForName) => [
+			parameters += createParameter("argument", SolidityTypeSystem5.BYTES.typeForName) => [
 				optional = false
 				varArgs = false
 			]
@@ -57,7 +57,7 @@ class BuiltInDeclarations5 extends BuiltInDeclarations {
 	}
 	override protected Operation sha256() {
 		createOperation("sha256", BYTES32) => [
-			parameters += createParameter("argument", SolidityTypeSystem.BYTES.typeForName) => [
+			parameters += createParameter("argument", SolidityTypeSystem5.BYTES.typeForName) => [
 				optional = false
 				varArgs = false
 			]
@@ -65,7 +65,7 @@ class BuiltInDeclarations5 extends BuiltInDeclarations {
 	}
 	override protected Operation ripemd160() {
 		createOperation("ripemd160", BYTES32) => [
-			parameters += createParameter("argument", SolidityTypeSystem.BYTES.typeForName) => [
+			parameters += createParameter("argument", SolidityTypeSystem5.BYTES.typeForName) => [
 				optional = false
 				varArgs = false
 			]

@@ -26,7 +26,7 @@ import com.yakindu.solidity.scoping.SolidityGlobalScopeProvider;
 import com.yakindu.solidity.scoping.SolidityScopeProvider;
 import com.yakindu.solidity.solidity.SolidityFactory;
 import com.yakindu.solidity.typesystem.SolidityTypeInferrer;
-import com.yakindu.solidity.typesystem.SolidityTypeSystem;
+import com.yakindu.solidity.typesystem.AbstractSolidityTypeSystem;
 /**
  * 
  * @author Andreas Muelder - Initial contribution and API
@@ -51,7 +51,7 @@ public class SolidityRuntimeModule extends STextRuntimeModule {
 
 	@Override
 	protected ITypeSystem getTypeSystem() {
-		return SolidityTypeSystem.getInstance();
+		return AbstractSolidityTypeSystem.getInstance();
 	}
 
 	@Override

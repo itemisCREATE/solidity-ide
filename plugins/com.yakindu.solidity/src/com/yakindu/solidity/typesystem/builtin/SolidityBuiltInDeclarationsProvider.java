@@ -14,59 +14,32 @@
  */
 package com.yakindu.solidity.typesystem.builtin;
 
-import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.xtext.EcoreUtil2;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.yakindu.solidity.solidity.PragmaSolidityDirective;
-import com.yakindu.solidity.solidity.SourceUnit;
-
-
+import com.yakindu.solidity.typesystem.IPragmaAwareProvider;
 
 /**
  * @author Florian Antony - initial contribution and API.
  *
  */
 @Singleton
-public class SolidityBuiltInDeclarationsProvider implements IBuiltInDeclarationsProvider {
+public class SolidityBuiltInDeclarationsProvider implements IPragmaAwareProvider<BuiltInDeclarations> {
 
 	@Inject
-	private Map<SolidityVersions.Major, BuiltInDeclarations> builtInDeclarations;
+	private Map<MajorSolidityVersion, BuiltInDeclarations> builtInDeclarations;
 
 	@Override
 	public BuiltInDeclarations provideFor(EObject element) {
-		return builtInDeclarations.get(SolidityVersions.majorVersion(calculatePragma(element)));
+		return builtInDeclarations.get(MajorSolidityVersion.versionFor(calculatePragma(element)));
 	}
 
 	@Override
 	public BuiltInDeclarations provideFor(Resource resource) {
-		return builtInDeclarations.get(SolidityVersions.majorVersion(calculatePragma(resource)));
-	}
-
-	private String calculatePragma(Resource resource) {
-		PragmaSolidityDirective pragma = (PragmaSolidityDirective) EcoreUtil2.eAllContentsAsList(resource).stream()
-				.filter(eObject -> eObject instanceof PragmaSolidityDirective).findFirst().orElseGet(() -> null);
-		if (pragma != null) {
-			return pragma.getVersion();
-		}
-		return SolidityVersions.DEFAULT_VERSION;
-	}
-
-	private String calculatePragma(EObject element) {
-		SourceUnit sourceUnit = (SourceUnit) EcoreUtil2.getContainerOfType(element, SourceUnit.class);
-		List<PragmaSolidityDirective> pragmaDirectives = EcoreUtil2.getAllContentsOfType(sourceUnit,
-				PragmaSolidityDirective.class);
-		if (!pragmaDirectives.isEmpty()) {
-			PragmaSolidityDirective pragmaDirective = pragmaDirectives.get(0);
-			if (pragmaDirective != null) {
-				return pragmaDirective.getVersion();
-			}
-		}
-		return SolidityVersions.DEFAULT_VERSION;
+		return builtInDeclarations.get(MajorSolidityVersion.versionFor(calculatePragma(resource)));
 	}
 }

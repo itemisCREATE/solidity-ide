@@ -11,7 +11,7 @@ package com.yakindu.sct.domain.solidity.ui.simulation;
 import org.yakindu.base.types.typesystem.ITypeSystem;
 import org.yakindu.sct.domain.generic.simulation.GenericSimulationModule;
 
-import com.yakindu.solidity.typesystem.SolidityTypeSystem;
+import com.yakindu.solidity.typesystem.SolidityTypeSystem4;
 /**
  * 
  * @author Andreas Muelder - Initial contribution and API
@@ -21,6 +21,6 @@ public class SoliditySimulationModule extends GenericSimulationModule {
 
 	@Override
 	protected ITypeSystem getTypeSystem() {
-		return SolidityTypeSystem.getInstance();
+		return SolidityTypeSystem4.getInstance();
 	}
 }
