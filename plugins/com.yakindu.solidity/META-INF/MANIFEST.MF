@@ -7,7 +7,7 @@ Bundle-SymbolicName: com.yakindu.solidity; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext,
  org.eclipse.equinox.common,
- org.yakindu.base.expressions,
+ org.yakindu.base.expressions;visibility:=reexport,
  org.eclipse.emf.ecore,
  org.eclipse.xtext.util,
  org.eclipse.xtend.lib,

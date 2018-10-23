@@ -12,8 +12,21 @@
  * 	committers of YAKINDU 
  * 
  */
-package org.yakindu.base.expressions.validation;
+package com.yakindu.solidity.ide.internal
 
-public class ExpressionsValidator extends ExpressionsJavaValidator {
+import com.yakindu.solidity.ide.AbstractSolidityIdeModule
+import org.eclipse.xtext.ide.server.contentassist.ContentAssistService
 
+/**
+ * 
+ * 
+ * Use this class to register ide components.
+ * @author Andreas Muelder - Initial contribution and API
+ * @author Florian Antony
+ */
+class SolidityIdeModule extends AbstractSolidityIdeModule {
+	// workaround for https://github.com/eclipse/xtext-eclipse/issues/834
+	def Class<? extends ContentAssistService> bindContentAssistService() {
+		return CustomContentAssistService
+	}	
 }
