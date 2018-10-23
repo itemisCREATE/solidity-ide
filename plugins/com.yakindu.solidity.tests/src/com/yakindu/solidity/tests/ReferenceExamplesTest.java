@@ -73,9 +73,7 @@ public class ReferenceExamplesTest {
 			, "RefundableCrowdsale.sol"
 			, "MultisigWallet.sol"
 			, "VestedToken.sol"
-			, "73_named_parameter_calls.sol"
 			, "179_gas_value.sol"
-			
 	);
 
 	
