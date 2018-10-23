@@ -17,7 +17,7 @@
     "vscode": "^1.28.0"
   },
   "categories": [
-    "Languages"
+    "Programming Languages"
   ],
   "activationEvents": [
     "onLanguage:Solidity"
@@ -41,16 +41,6 @@
         "language": "Solidity",
         "scopeName": "text.sol",
         "path": "./syntaxes/solidity.tmLanguage"
-      }
-    ],
-    "commands": [
-      {
-        "command": "sol.a.proxy",
-        "title": "Solidity Command A"
-      },
-      {
-        "command": "sol.b",
-        "title": "Solidity Command B"
       }
     ]
   },

@@ -7,7 +7,7 @@
 		<string>*.sol</string>
 	</array>
 	<key>name</key>
-	<string>solidity</string>
+	<string>Solidity</string>
 	<key>patterns</key>
 	<array>
 		<!-- Copied from https://github.com/davidhq/SublimeEthereum/blob/master/Solidity.tmLanguage -->

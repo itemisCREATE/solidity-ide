@@ -19,30 +19,18 @@ export function activate(context: ExtensionContext) {
             reader: socket
         };
         return Promise.resolve(result);
-	};
+    };
     
     let clientOptions: LanguageClientOptions = {
-        documentSelector: ['sol'],
+        documentSelector: ['Solidity'],
         synchronize: {
             fileEvents: workspace.createFileSystemWatcher('**/*.*')
         }
     };
-
+    
     // Create the language client and start the client.
-    let lc = new LanguageClient('Solidity LS', serverOptions, clientOptions);
-    
-    var disposable2 =commands.registerCommand("sol.a.proxy", async () => {
-        let activeEditor = window.activeTextEditor;
-        if (!activeEditor || !activeEditor.document || activeEditor.document.languageId !== 'sol') {
-            return;
-        }
+    let lc = new LanguageClient('Xtext Server', serverOptions, clientOptions);
 
-        if (activeEditor.document.uri instanceof Uri) {
-            commands.executeCommand("sol.a", activeEditor.document.uri.toString());
-        }
-    })
-    context.subscriptions.push(disposable2);
-    
     // enable tracing (.Off, .Messages, Verbose)
     lc.trace = Trace.Verbose;
     let disposable = lc.start();
