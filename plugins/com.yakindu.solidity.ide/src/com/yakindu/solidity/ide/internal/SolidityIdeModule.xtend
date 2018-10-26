@@ -16,6 +16,7 @@ package com.yakindu.solidity.ide.internal
 
 import com.yakindu.solidity.ide.AbstractSolidityIdeModule
 import org.eclipse.xtext.ide.server.contentassist.ContentAssistService
+import org.eclipse.xtext.ide.server.codeActions.ICodeActionService
 
 /**
  * 
@@ -28,5 +29,9 @@ class SolidityIdeModule extends AbstractSolidityIdeModule {
 	// workaround for https://github.com/eclipse/xtext-eclipse/issues/834
 	def Class<? extends ContentAssistService> bindContentAssistService() {
 		return CustomContentAssistService
-	}	
+	}
+	
+	def Class<? extends ICodeActionService> bindICodeActionService() {
+		return SolidityIdeCodeActionService
+	}
 }
