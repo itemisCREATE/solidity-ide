@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><?pde version="3.8"?><target name="Latest">
+	<locations>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipse.emf.sdk.feature.group" version="2.15.0.v20180905-1732"/>
+			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.15.0.v20180916-1232"/>
+			<repository location="http://download.eclipse.org/releases/latest/"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipse.pde.source.feature.group" version="3.13.200.v20180906-0745"/>
+			<unit id="org.eclipse.platform.sdk" version="4.9.0.I20180906-0745"/>
+			<repository location="http://download.eclipse.org/eclipse/updates/4.9"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="com.google.inject" version="3.0.0.v201605172100"/>
+			<unit id="com.google.inject.multibindings" version="3.0.0.v201605172100"/>
+			<unit id="org.apache.commons.io" version="2.2.0.v201405211200"/>
+			<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20180905201904/repository"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="de.itemis.xtext.antlr.feature.feature.group" version="2.1.1.v201405091103"/>
+			<unit id="de.itemis.xtext.antlr.sdk.feature.group" version="2.1.1.v201405091103"/>
+			<repository location="http://download.itemis.com/updates/releases/2.1.1/"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.yakindu.base.feature.group" version="3.4.0.201808160934"/>
+<unit id="org.yakindu.sct.feature.group" version="3.4.0.201808160934"/>
+<repository location="http://updates.yakindu.com/statecharts/releases"/>
+</location>
+	</locations>
+</target>
