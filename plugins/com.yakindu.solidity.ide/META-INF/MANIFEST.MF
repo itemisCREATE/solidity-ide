@@ -7,6 +7,8 @@ Bundle-SymbolicName: com.yakindu.solidity.ide;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: com.yakindu.solidity,
  org.eclipse.xtext.ide,
+ org.eclipse.xtend.lib,
+ org.eclipse.xtext.xbase.lib,
  org.eclipse.lsp4j;bundle-version="0.4.0",
  org.eclipse.lsp4j.jsonrpc;bundle-version="0.4.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
