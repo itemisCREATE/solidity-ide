@@ -20,7 +20,8 @@ script:
 - zip -r repository.zip repository
 - cd $TRAVIS_BUILD_DIR
 - cd extensions/vscode
-- gradlew vscodeExtension
+- pwd
+- ./gradlew vscodeExtension
 - cd $TRAVIS_BUILD_DIR
 deploy:
   skip_cleanup: true
