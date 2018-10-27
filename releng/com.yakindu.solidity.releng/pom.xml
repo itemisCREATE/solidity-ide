@@ -45,7 +45,7 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-				<mwe-version>2.9.0.201605261059</mwe-version>
+				<mwe-version>2.9.1.201705291010</mwe-version>
 				<xtext-version>2.15.0</xtext-version>
 			</properties>
 			<build>
