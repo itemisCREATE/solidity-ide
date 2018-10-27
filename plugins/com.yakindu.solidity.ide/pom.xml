@@ -167,6 +167,8 @@
 							<programs>
 								<program>
 									<id>solidity-ls</id>
+									<!-- Use RunServer for Socket connection -->
+									<!-- <mainClass>com.yakindu.solidity.ide.RunServer</mainClass> -->
 									<mainClass>org.eclipse.xtext.ide.server.ServerLauncher</mainClass>
 									<!-- uncomment to enable options <commandLineArguments> <commandLineArgument>-trace</commandLineArgument> 
 										<commandLineArgument>-log</commandLineArgument> <commandLineArgument>-noValidate</commandLineArgument> 
