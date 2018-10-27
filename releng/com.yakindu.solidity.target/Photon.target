@@ -8,7 +8,7 @@
 <unit id="org.eclipse.emf.sdk.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.xtext.sdk.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.lsp4j.sdk.feature.group" version="0.0.0"/>
-<repository location="http://download.eclipse.org/releases/photon/"/>
+<repository location="http://download.eclipse.org/releases/2018-09/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="com.google.gson" version="2.2.4.v201311231704"/>
@@ -21,8 +21,8 @@
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <repository location="http://download.eclipse.org/eclipse/updates/4.8"/>
-	<unit id="org.eclipse.platform.ide" version="4.8.0.I20180611-0500"/>
-	<unit id="org.eclipse.equinox.executable.feature.group" version="3.8.0.v20180518-2029"/>
+<unit id="org.eclipse.platform.ide" version="4.8.0.I20180611-0500"/>
+<unit id="org.eclipse.equinox.executable.feature.group" version="3.8.0.v20180518-2029"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.yakindu.base.feature.group" version="3.4.0.201808160934"/>
