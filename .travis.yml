@@ -16,11 +16,13 @@ env:
   - MAVEN_OPTS="-Xmx4g"
   matrix:
   - TARGET=Latest.target
+  - TARGET=Photon.target
+  - TARGET=Oxygen.target
 before_install:
 - sh -e /etc/init.d/xvfb start - sleep 10
 script:
 - cd releng/com.yakindu.solidity.releng
-- mvn clean verify -P$TARGET,tests -Dtycho.disableP2Mirrors=true
+- mvn clean verify -P$TARGET,tests
 - cd ../com.yakindu.solidity.repository/target
 - zip -r repository.zip repository
 - cd $TRAVIS_BUILD_DIR
