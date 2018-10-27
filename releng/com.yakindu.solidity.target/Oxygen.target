@@ -19,7 +19,7 @@
 <unit id="org.apache.commons.io" version="2.2.0.v201405211200"/>
 <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository/"/>
 </location>
-<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.platform.sdk" version="4.7.3.M20180330-0640"/>
 <repository location="http://download.eclipse.org/eclipse/updates/4.7"/>
 </location>
