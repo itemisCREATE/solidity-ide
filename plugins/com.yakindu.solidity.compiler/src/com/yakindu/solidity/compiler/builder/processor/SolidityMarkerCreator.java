@@ -37,6 +37,7 @@ import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.validation.MarkerCreator;
+import org.yakindu.base.types.Package;
 
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
@@ -45,7 +46,6 @@ import com.yakindu.solidity.compiler.result.CompileError;
 import com.yakindu.solidity.compiler.result.CompiledContract;
 import com.yakindu.solidity.compiler.result.CompilerOutput;
 import com.yakindu.solidity.compiler.result.GasEstimates;
-import com.yakindu.solidity.solidity.SourceUnit;
 
 /**
  * 
@@ -65,7 +65,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 	// NORMAL_VALIDATION
 	public final static String NORMAL_VALIDATION = "org.eclipse.xtext.ui.check.normal"; //$NON-NLS-1$
 
-	void createMarkers(final CompilerOutput compilerOutput, final Set<IResource> filesToCompile) {
+	public void createMarkers(final CompilerOutput compilerOutput, final Set<IResource> filesToCompile) {
 		createErrorMarkers(compilerOutput.getErrors(), filesToCompile);
 		createInfoMarkers(compilerOutput.getContracts(), filesToCompile);
 	}
@@ -195,7 +195,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 				.getResource(URI.createPlatformResourceURI(errorFile.getFullPath().toString(), true), true);
 		if (offset == 0) {
 			EObject object = resource.getContents().get(0);
-			return EcoreUtil2.getAllContentsOfType(object, SourceUnit.class).get(0);
+			return EcoreUtil2.getAllContentsOfType(object, Package.class).get(0);
 		}
 		return offsetHelper.resolveContainedElementAt((XtextResource) resource, offset);
 	}

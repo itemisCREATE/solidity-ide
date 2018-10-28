@@ -20,6 +20,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 
 import org.eclipse.core.resources.IResource;
@@ -31,7 +32,6 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.google.inject.Inject;
 import com.yakindu.solidity.compiler.result.Bytecode;
 import com.yakindu.solidity.compiler.result.CompiledContract;
 import com.yakindu.solidity.compiler.result.CompiledSource;
@@ -43,17 +43,11 @@ import com.yakindu.solidity.compiler.result.GasEstimates;
 /**
  * @author Florian Antony - Initial contribution and API
  */
-public class OutputHandler {
-
-	@Inject
-	private SolidityMarkerCreator markerCreator;
-
-	@Inject
-	private FileOutputProcessor outputFileWriter;
+public class OutputParser {
 
 	private final GsonBuilder gson;
 
-	public OutputHandler() {
+	public OutputParser() {
 		gson = new GsonBuilder();
 		registerTypeAdapters();
 
@@ -127,16 +121,15 @@ public class OutputHandler {
 		return (element == null) ? null : element.getAsString();
 	}
 
-	public void handleOutput(final InputStream stream, final Set<IResource> filesToCompile) {
+	public Optional<CompilerOutput> parse(final InputStream stream, final Set<IResource> filesToCompile) {
 		try (final InputStreamReader output = new InputStreamReader(stream, "UTF-8")) {
 			CompilerOutput compilerOutput = gson.create().fromJson(output, CompilerOutput.class);
-			if (compilerOutput == null) {
-				throw new IllegalArgumentException("The solidity compiler did not yield any output.");
+			if (compilerOutput != null) {
+				return Optional.of(compilerOutput);
 			}
-			markerCreator.createMarkers(compilerOutput, filesToCompile);
-			outputFileWriter.writeOutputFiles(compilerOutput, filesToCompile);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return Optional.empty();
 	}
 }

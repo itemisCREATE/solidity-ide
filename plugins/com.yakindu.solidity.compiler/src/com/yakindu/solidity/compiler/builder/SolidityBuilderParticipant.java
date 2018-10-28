@@ -16,9 +16,13 @@ package com.yakindu.solidity.compiler.builder;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
@@ -31,7 +35,12 @@ import org.eclipse.xtext.resource.IResourceDescription.Delta;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.google.inject.Inject;
+
+import com.yakindu.solidity.compiler.builder.processor.FileOutputProcessor;
+import com.yakindu.solidity.compiler.builder.processor.SolidityMarkerCreator;
+import com.yakindu.solidity.compiler.result.CompilerOutput;
 import com.yakindu.solidity.compiler.preferences.ICompilerPreferences;
 
 /**
@@ -45,9 +54,15 @@ public class SolidityBuilderParticipant implements IXtextBuilderParticipant {
 
 	@Inject
 	private ICompilerPreferences prefs;
-	
+
 	@Inject(optional = true)
 	private ISolidityCompiler compiler;
+
+	@Inject
+	private SolidityMarkerCreator markerCreator;
+
+	@Inject
+	private FileOutputProcessor outputFileWriter;
 
 	@Override
 	public void build(IBuildContext context, IProgressMonitor monitor) throws CoreException {
@@ -65,13 +80,33 @@ public class SolidityBuilderParticipant implements IXtextBuilderParticipant {
 		progress.beginTask("Compiling solidity...", deltas.size());
 		List<URI> uris = context.getResourceSet().getResources().stream().map(res -> res.getURI()).distinct()
 				.collect(Collectors.toList());
-		compiler.compile(uris, progress);
+		Set<IResource> resources = getFilesToCompile(uris);
+		Optional<CompilerOutput> output = compiler.compile(resources, progress);
+		if (output.isPresent()) {
+			markerCreator.createMarkers(output.get(), resources);
+			outputFileWriter.writeOutputFiles(output.get(), resources);
+		}
+
 		context.getBuiltProject().refreshLocal(IProject.DEPTH_INFINITE, progress);
 		progress.done();
-
 	}
 
-	private List<Delta> getRelevantDeltas(IBuildContext context) {
+	protected Set<IResource> getFilesToCompile(List<URI> uris) {
+		Set<IResource> filesToCompile = Sets.newHashSet();
+		for (URI uri : uris) {
+			IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(uri.toPlatformString(true));
+			filesToCompile.add(resource);
+			filesToCompile.addAll(addImports(uri));
+		}
+		return filesToCompile;
+	}
+
+	protected Set<IResource> addImports(URI uri) {
+		// TODO resolve uris to imported contracts
+		return Sets.newHashSet();
+	}
+
+	protected List<Delta> getRelevantDeltas(IBuildContext context) {
 		List<Delta> filtered = Lists.newArrayList();
 		for (Delta delta : context.getDeltas()) {
 			if (delta.getUri().fileExtension().equals("sol")) {
