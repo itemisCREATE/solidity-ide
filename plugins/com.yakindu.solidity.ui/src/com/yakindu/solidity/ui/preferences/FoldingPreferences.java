@@ -30,19 +30,19 @@ public class FoldingPreferences extends AbstractPreferencePage {
 		Composite parent = getFieldEditorParent();
 		
 		RadioGroupFieldEditor autoFoldCommentChoice = new RadioGroupFieldEditor(
-				SolidityPreferences.FOLDING_COMMENT_AUTOFOLD
+				ISolidityPreferencesConstants.FOLDING_COMMENT_AUTOFOLD
 				, "Auto-fold comments"
 				, 1
 				, new String[][] {
-					 {"None", SolidityPreferences.FOLDING_COMMENT_AUTOFOLD_NONE}
-					,{"Only header comment", SolidityPreferences.FOLDING_COMMENT_AUTOFOLD_HEADER}
-					,{"All", SolidityPreferences.FOLDING_COMMENT_AUTOFOLD_ALL}
+					 {"None", ISolidityPreferencesConstants.FOLDING_COMMENT_AUTOFOLD_NONE}
+					,{"Only header comment", ISolidityPreferencesConstants.FOLDING_COMMENT_AUTOFOLD_HEADER}
+					,{"All", ISolidityPreferencesConstants.FOLDING_COMMENT_AUTOFOLD_ALL}
 				}
 				, parent);
 		addField(autoFoldCommentChoice);
 		
 		IntegerFieldEditor longCommentLineCount = new IntegerFieldEditor(
-				SolidityPreferences.FOLDING_COMMENT_LINECOUNT
+				ISolidityPreferencesConstants.FOLDING_COMMENT_LINECOUNT
 				, "Enable folding for comments exceeding line count"
 				, parent);
 		addField(longCommentLineCount);

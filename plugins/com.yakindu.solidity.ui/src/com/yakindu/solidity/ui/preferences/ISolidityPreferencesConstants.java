@@ -21,17 +21,7 @@ package com.yakindu.solidity.ui.preferences;
  * @author Florian Antony
  * @author Karsten Thoms
  */
-public interface SolidityPreferences {
-
-	String COMPILER_ENABLED = "compiler.enabled";
-	String COMPILER_PATH = "compiler.path";
-
-	String COMPILER_OUTPUT_BIN = "compiler.output.bin";
-	String COMPILER_OUTPUT_ABI = "compiler.output.abi";
-//	String COMPILER_OUTPUT_AST = "compiler.output.ast";
-	String COMPILER_OUTPUT_ASM = "compiler.output.asm";
-	String COMPILER_OUTPUT_GAS = "compiler.output.gas";
-	String COMPILER_OUTPUT_PATH = "compiler.output.path";
+public interface ISolidityPreferencesConstants {
 
 	String FOLDING_COMMENT_AUTOFOLD = "folding.comment.autofold";
 	String FOLDING_COMMENT_AUTOFOLD_NONE = "folding.comment.autofold.none";

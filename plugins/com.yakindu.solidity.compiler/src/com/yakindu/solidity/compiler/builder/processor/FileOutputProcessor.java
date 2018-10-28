@@ -26,12 +26,12 @@ import org.eclipse.core.resources.IResource;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
+import com.yakindu.solidity.compiler.preferences.ICompilerPreferences;
 import com.yakindu.solidity.compiler.result.Abi;
 import com.yakindu.solidity.compiler.result.Bytecode;
 import com.yakindu.solidity.compiler.result.CompiledContract;
 import com.yakindu.solidity.compiler.result.CompilerOutput;
 import com.yakindu.solidity.compiler.result.EvmOutput;
-import com.yakindu.solidity.ui.preferences.SolidityPreferencesFacade;
 
 /**
  * @author Florian Antony - Initial contribution and API
@@ -40,7 +40,7 @@ import com.yakindu.solidity.ui.preferences.SolidityPreferencesFacade;
 public class FileOutputProcessor {
 
 	@Inject
-	private SolidityPreferencesFacade prefs;
+	private ICompilerPreferences prefs;
 
 	public void writeOutputFiles(CompilerOutput compilerOutput, Set<IResource> filesToCompile) {
 		for (Entry<String, CompiledContract> entry : compilerOutput.getContracts().entrySet()) {
