@@ -27,20 +27,23 @@ import java.util.concurrent.TimeUnit;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.util.URI;
 import org.osgi.framework.Bundle;
 
+import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 import com.yakindu.solidity.compiler.SolidityCompilerActivator;
 import com.yakindu.solidity.compiler.builder.processor.CompileOutputType;
 import com.yakindu.solidity.compiler.builder.processor.OutputParser;
 import com.yakindu.solidity.compiler.parameter.ParameterBuilder;
 import com.yakindu.solidity.compiler.parameter.Source;
-import com.yakindu.solidity.compiler.result.CompilerOutput;
 import com.yakindu.solidity.compiler.preferences.ICompilerPreferences;
+import com.yakindu.solidity.compiler.result.CompilerOutput;
 /**
  * 
  * @author Florian Antony - Initial contribution and API
