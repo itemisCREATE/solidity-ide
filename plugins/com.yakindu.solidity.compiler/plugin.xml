@@ -3,7 +3,7 @@
 <plugin>
  <extension point="org.eclipse.xtext.builder.participant">
 		<participant
-			class="com.yakindu.solidity.compiler.SolidityCompilerExecutableExtensionFactory:com.yakindu.solidity.compiler.builder.SolidityBuilderParticipant"
+			class="com.yakindu.solidity.compiler.SolidityBuilderParticipantFactory:com.yakindu.solidity.compiler.builder.SolidityBuilderParticipant"
 			fileExtensions="sol"/>
 	</extension>
 		<extension
