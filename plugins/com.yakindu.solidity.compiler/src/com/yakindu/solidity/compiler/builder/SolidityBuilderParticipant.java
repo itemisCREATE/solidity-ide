@@ -37,10 +37,11 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
+
 import com.yakindu.solidity.compiler.builder.processor.FileOutputProcessor;
 import com.yakindu.solidity.compiler.builder.processor.SolidityMarkerCreator;
 import com.yakindu.solidity.compiler.result.CompilerOutput;
-import com.yakindu.solidity.ui.preferences.SolidityPreferencesFacade;
+import com.yakindu.solidity.compiler.preferences.ICompilerPreferences;
 
 /**
  * 
@@ -52,7 +53,7 @@ public class SolidityBuilderParticipant implements IXtextBuilderParticipant {
 	public static final String ID = "com.yakindu.solidity.ide.builder.solidityBuilder";
 
 	@Inject
-	private SolidityPreferencesFacade prefs;
+	private ICompilerPreferences prefs;
 
 	@Inject(optional = true)
 	private ISolidityCompiler compiler;

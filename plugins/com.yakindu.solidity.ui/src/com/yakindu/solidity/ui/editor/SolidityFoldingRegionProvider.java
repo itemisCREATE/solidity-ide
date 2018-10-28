@@ -31,7 +31,7 @@ import org.eclipse.xtext.util.Strings;
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 import com.yakindu.solidity.solidity.SolidityPackage;
-import com.yakindu.solidity.ui.preferences.SolidityPreferences;
+import com.yakindu.solidity.ui.preferences.ISolidityPreferencesConstants;
 
 /**
  * Additionally to the default behavior all leading single comment lines are
@@ -76,17 +76,17 @@ public class SolidityFoldingRegionProvider extends DefaultFoldingRegionProvider 
 	}
 
 	private boolean shouldCreateCommentFolding(int lines) {
-		int threshold = prefs.getPreferenceStore().getInt(SolidityPreferences.FOLDING_COMMENT_LINECOUNT);
+		int threshold = prefs.getPreferenceStore().getInt(ISolidityPreferencesConstants.FOLDING_COMMENT_LINECOUNT);
 		return lines > threshold;
 	}
 
 	private boolean shouldCollapse(ITypedRegion beginRegion, int lines) {
-		String autofoldOption = prefs.getPreferenceStore().getString(SolidityPreferences.FOLDING_COMMENT_AUTOFOLD);
-		if (SolidityPreferences.FOLDING_COMMENT_AUTOFOLD_NONE.equals(autofoldOption))
+		String autofoldOption = prefs.getPreferenceStore().getString(ISolidityPreferencesConstants.FOLDING_COMMENT_AUTOFOLD);
+		if (ISolidityPreferencesConstants.FOLDING_COMMENT_AUTOFOLD_NONE.equals(autofoldOption))
 			return false;
-		if (SolidityPreferences.FOLDING_COMMENT_AUTOFOLD_ALL.equals(autofoldOption))
+		if (ISolidityPreferencesConstants.FOLDING_COMMENT_AUTOFOLD_ALL.equals(autofoldOption))
 			return true;
-		if (SolidityPreferences.FOLDING_COMMENT_AUTOFOLD_HEADER.equals(autofoldOption))
+		if (ISolidityPreferencesConstants.FOLDING_COMMENT_AUTOFOLD_HEADER.equals(autofoldOption))
 			return beginRegion.getOffset() == 0;
 		return false;
 	}
