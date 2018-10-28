@@ -65,7 +65,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 	// NORMAL_VALIDATION
 	public final static String NORMAL_VALIDATION = "org.eclipse.xtext.ui.check.normal"; //$NON-NLS-1$
 
-	void createMarkers(final CompilerOutput compilerOutput, final Set<IResource> filesToCompile) {
+	public void createMarkers(final CompilerOutput compilerOutput, final Set<IResource> filesToCompile) {
 		createErrorMarkers(compilerOutput.getErrors(), filesToCompile);
 		createInfoMarkers(compilerOutput.getContracts(), filesToCompile);
 	}

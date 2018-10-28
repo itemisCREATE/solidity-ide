@@ -14,12 +14,14 @@
  */
 package com.yakindu.solidity.compiler.builder;
 
-import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.URI;
 
 import com.google.inject.ImplementedBy;
+import com.yakindu.solidity.compiler.result.CompilerOutput;
 
 /**
  * 
@@ -29,5 +31,5 @@ import com.google.inject.ImplementedBy;
 @ImplementedBy(SolidityCompilerBase.class)
 public interface ISolidityCompiler {
 
-	public void compile(List<URI> uris, IProgressMonitor progress);
+	public Optional<CompilerOutput> compile(Set<IResource> resources, IProgressMonitor progress);
 }
