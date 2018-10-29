@@ -27,9 +27,11 @@ import com.yakindu.solidity.solidity.IfStatement
 import com.yakindu.solidity.solidity.ImportDirective
 import com.yakindu.solidity.solidity.MappingTypeSpecifier
 import com.yakindu.solidity.solidity.ModifierDefinition
+import com.yakindu.solidity.solidity.NamedArgument
 import com.yakindu.solidity.solidity.NewInstanceExpression
 import com.yakindu.solidity.solidity.NumericalUnaryExpression
 import com.yakindu.solidity.solidity.PragmaDirective
+import com.yakindu.solidity.solidity.SimpleArgument
 import com.yakindu.solidity.solidity.SolidityModel
 import com.yakindu.solidity.solidity.SourceUnit
 import com.yakindu.solidity.solidity.StructDefinition
@@ -66,13 +68,11 @@ class SolidityFormatter extends AbstractFormatter2 {
 
 	def dispatch void format(SolidityModel it, extension IFormattableDocument document) {
 		sourceunit.forEach[format]
+
 	}
 
 	def dispatch void format(SourceUnit it, extension IFormattableDocument document) {
 		imports.forEach[format]
-		allRegionsFor.keywords(';').forEach [
-			prepend[noSpace]
-		]
 
 		allRegionsFor.keywordPairs('[', ']').forEach [
 			key.append[noSpace]
@@ -96,7 +96,6 @@ class SolidityFormatter extends AbstractFormatter2 {
 	}
 
 	def dispatch void format(ContractDefinition it, extension IFormattableDocument document) {
-		prepend[newLines(2, 2, 3)]
 		interior[indent]
 		regionFor.keywordPairs('{', '}').forEach [
 			key.append[newLine; priority = IHiddenRegionFormatter.LOW_PRIORITY;].prepend[oneSpace]
@@ -182,11 +181,11 @@ class SolidityFormatter extends AbstractFormatter2 {
 		prepend[newLines(2, 2, 3)]
 		interior[indent]
 		regionFor.keyword("enum").append[oneSpace]
-		allRegionsFor.keyword(",").prepend[noSpace].append[newLines]
 		regionFor.keywordPairs('{', '}').forEach [
 			key.append[newLines].prepend[oneSpace]
 			value.surround[newLines; priority = IHiddenRegionFormatter.LOW_PRIORITY;]
 		]
+		enumerator.forEach[prepend[newLines]]
 	}
 
 	def dispatch void format(StructDefinition it, extension IFormattableDocument document) {
@@ -370,6 +369,7 @@ class SolidityFormatter extends AbstractFormatter2 {
 			key.append[noSpace]
 			value.prepend[noSpace]
 		]
+		arguments.forEach[format]
 		expressions.forEach[format]
 		arraySelector.forEach[format]
 	}
@@ -396,7 +396,18 @@ class SolidityFormatter extends AbstractFormatter2 {
 		condition.format
 		afterthought.prepend[noSpace]
 		statement.format
-		append[newLines()]
+		append[newLines]
+	}
+	
+	def dispatch void format(SimpleArgument it, extension IFormattableDocument document) {
+		prepend[oneSpace; priority = IHiddenRegionFormatter.LOW_PRIORITY]
+		append[noSpace; priority = IHiddenRegionFormatter.LOW_PRIORITY]
+		value.format
+	}
+	def dispatch void format(NamedArgument it, extension IFormattableDocument document) {
+		regionFor.keyword(":").surround[oneSpace]
+		surround[oneSpace; priority = IHiddenRegionFormatter.LOW_PRIORITY]
+		value.format
 	}
 
 	protected def void newLines(IHiddenRegionFormatter it) {
