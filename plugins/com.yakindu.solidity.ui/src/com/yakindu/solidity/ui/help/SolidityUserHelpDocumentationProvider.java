@@ -47,62 +47,61 @@ public class SolidityUserHelpDocumentationProvider implements IEObjectDocumentat
 			.put("contract",
 					"https://solidity.readthedocs.io/en/develop/structure-of-a-contract.html#structure-of-a-contract")
 
-			.put("interface", "http://solidity.readthedocs.io/en/develop/contracts.html#interfaces")
+			.put("interface", "https://solidity.readthedocs.io/en/develop/contracts.html#interfaces")
 
-			.put("library", "http://solidity.readthedocs.io/en/develop/contracts.html#libraries")
+			.put("library", "https://solidity.readthedocs.io/en/develop/contracts.html#libraries")
 
-			.put("mapping", "http://solidity.readthedocs.io/en/develop/types.html#mappings")
+			.put("mapping", "https://solidity.readthedocs.io/en/develop/types.html#mappings")
 
-			.put("enum", "http://solidity.readthedocs.io/en/develop/types.html#enums")
+			.put("enum", "https://solidity.readthedocs.io/en/develop/types.html#enums")
 
-			.put("modifier", "http://solidity.readthedocs.io/en/develop/contracts.html#function-modifiers")
+			.put("modifier", "https://solidity.readthedocs.io/en/develop/contracts.html#function-modifiers")
 
-			.put("public", "http://solidity.readthedocs.io/en/develop/contracts.html#visibility-and-getters")
-			.put("internal", "http://solidity.readthedocs.io/en/develop/contracts.html#visibility-and-getters")
-			.put("private", "http://solidity.readthedocs.io/en/develop/contracts.html#visibility-and-getters")
+			.put("public", "https://solidity.readthedocs.io/en/develop/contracts.html#visibility-and-getters")
+			.put("internal", "https://solidity.readthedocs.io/en/develop/contracts.html#visibility-and-getters")
+			.put("private", "https://solidity.readthedocs.io/en/develop/contracts.html#visibility-and-getters")
 
 			.put("block",
-					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+					"https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 			.put("blockhash",
-					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+					"https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 			.put("coinbase",
-					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+					"https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 			.put("difficulty",
-					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+					"https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 			.put("gaslimit",
-					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+					"https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 			.put("number",
-					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+					"https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 			.put("timestamp",
-					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+					"https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 			.put("msg",
-					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+					"https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 			.put("data",
-					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+					"https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 			.put("gas",
-					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+					"https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 			.put("sender",
-					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+					"https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 			.put("sig",
-					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+					"https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 			.put("value",
-					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+					"https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 			.put("now",
-					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+					"https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 			.put("tx",
-					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+					"https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 			.put("gasprice",
-					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+					"https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 			.put("origin",
-					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
+					"https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#special-variables-and-functions")
 
-			.put("this", "http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#contract-related")
+			.put("this", "https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#contract-related")
 			.put("suicide",
-					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#contract-related")
+					"https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#contract-related")
 			.put("selfdestruct",
-					"http://solidity.readthedocs.io/en/develop/units-and-global-variables.html#contract-related")
+					"https://solidity.readthedocs.io/en/develop/units-and-global-variables.html#contract-related")
 			.build();
-	// TODO: Complete
 	// @formatter:on
 	private LoadingCache<String, String> cache = CacheBuilder.newBuilder().maximumSize(100)
 			.expireAfterWrite(1, TimeUnit.HOURS).build(new CacheLoader<String, String>() {
@@ -136,7 +135,7 @@ public class SolidityUserHelpDocumentationProvider implements IEObjectDocumentat
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return builder.toString();
+		return builder.toString().replaceAll("Â¶", "");
 	}
 
 	@Override
