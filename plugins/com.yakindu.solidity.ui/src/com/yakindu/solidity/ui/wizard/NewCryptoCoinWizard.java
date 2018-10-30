@@ -40,7 +40,7 @@ import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.xtext.Constants;
 import org.eclipse.xtext.util.StringInputStream;
 
-import com.yakindu.solidity.SolidityRuntimeModule;
+import com.yakindu.solidity.typesystem.builtin.SolidityVersions;
 
 /**
  * @author Florian Antony - initial contribution and API
@@ -55,7 +55,7 @@ public class NewCryptoCoinWizard extends BasicNewProjectResourceWizard implement
 	String fileExtensions;
 
 	@Inject
-	@Named(SolidityRuntimeModule.SOLIDITY_VERSION)
+	@Named(SolidityVersions.SOLIDITY_VERSION)
 	String solidityVersion;
 
 	// private IFile newFile;
@@ -84,6 +84,7 @@ public class NewCryptoCoinWizard extends BasicNewProjectResourceWizard implement
 				final Composite composite = new Composite(parent, SWT.NONE);
 				GridDataFactory.fillDefaults().grab(true, true).applyTo(composite);
 				GridLayoutFactory.fillDefaults().numColumns(1).applyTo(composite);
+				GridLayoutFactory.fillDefaults().spacing(0,0).applyTo(composite);
 
 				final Group tokenNameConfigurationGroup = new Group(composite, SWT.NONE);
 				tokenNameConfigurationGroup.setText("Token Name");
@@ -130,12 +131,6 @@ public class NewCryptoCoinWizard extends BasicNewProjectResourceWizard implement
 				GridDataFactory.fillDefaults().span(2, 1).applyTo(tokenAmountConfigurationGroup);
 				totalSupplyText.setMessage("100000");
 				totalSupplyText.addModifyListener(modListener);
-
-				Label approveAndCallFallBackLable = new Label(tokenAmountConfigurationGroup, SWT.NONE);
-				approveAndCallFallBackLable.setText("Generate approve and call fallback:");
-				Button approveAndCallFallBack = new Button(tokenAmountConfigurationGroup, SWT.CHECK);
-				GridDataFactory.fillDefaults().span(2, 1).applyTo(approveAndCallFallBack);
-
 				setControl(composite);
 			}
 
@@ -177,7 +172,7 @@ public class NewCryptoCoinWizard extends BasicNewProjectResourceWizard implement
 		generateFile(project.getFile("SafeMath.sol"), template.generateSafeMath());
 		generateFile(project.getFile("Owned.sol"), template.generateOwned());
 		generateFile(project.getFile("ERC20Interface.sol"), template.generateERC20());
-		generateFile(project.getFile("ApproveAndCallFallBack.sol"), template.generateApproveAndCallFallBack());
+//		generateFile(project.getFile("ApproveAndCallFallBack.sol"), template.generateApproveAndCallFallBack());
 		String name = nameText.getText().replaceAll(" ", "") + "." + fileExtensions;
 		generateFile(project.getFile(name), template.generateToken());
 	}
