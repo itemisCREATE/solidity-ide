@@ -19,6 +19,7 @@ import org.yakindu.sct.model.stext.scoping.IPackageImport2URIMapper;
 import org.yakindu.sct.model.stext.validation.STextJavaValidator;
 
 import com.google.inject.Binder;
+import com.google.inject.multibindings.MapBinder;
 import com.google.inject.name.Names;
 import com.yakindu.sct.domain.solidity.scoping.SolidityImportUriMapper;
 import com.yakindu.sct.domain.solidity.validation.SolidityJavaValidator;
@@ -27,6 +28,10 @@ import com.yakindu.solidity.scoping.SolidityScopeProvider;
 import com.yakindu.solidity.solidity.SolidityFactory;
 import com.yakindu.solidity.typesystem.SolidityTypeInferrer;
 import com.yakindu.solidity.typesystem.SolidityTypeSystem;
+import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations;
+import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations4;
+import com.yakindu.solidity.typesystem.builtin.SolidityVersions;
+
 /**
  * 
  * @author Andreas Muelder - Initial contribution and API
@@ -43,6 +48,11 @@ public class SolidityRuntimeModule extends STextRuntimeModule {
 		binder.bind(TypesFactory.class).toInstance(TypesFactory.eINSTANCE);
 		binder.bind(SolidityFactory.class).toInstance(SolidityFactory.eINSTANCE);
 		binder.bind(ITypeSystem.class).toInstance(getTypeSystem());
+
+		MapBinder<SolidityVersions.Major, BuiltInDeclarations> builtInDeclatationBinder = MapBinder.newMapBinder(binder,
+				SolidityVersions.Major.class, BuiltInDeclarations.class);
+		builtInDeclatationBinder.addBinding(SolidityVersions.Major.FOUR).to(BuiltInDeclarations4.class);
+
 	}
 
 	public Class<? extends IPackageImport2URIMapper> bindIPackageImport2URIMapper() {
@@ -69,7 +79,7 @@ public class SolidityRuntimeModule extends STextRuntimeModule {
 	public Class<? extends IScopeProvider> bindIScopeProvider() {
 		return SolidityScopeProvider.class;
 	}
-	
+
 	@Override
 	public Class<? extends IGlobalScopeProvider> bindIGlobalScopeProvider() {
 		return SolidityGlobalScopeProvider.class;
