@@ -14,22 +14,48 @@
  */
 package com.yakindu.solidity.formatting2
 
+import com.yakindu.solidity.solidity.ArrayTypeSpecifier
 import com.yakindu.solidity.solidity.Block
+import com.yakindu.solidity.solidity.ConstructorDefinition
 import com.yakindu.solidity.solidity.ContractDefinition
+import com.yakindu.solidity.solidity.EmitExpression
 import com.yakindu.solidity.solidity.EventDefinition
+import com.yakindu.solidity.solidity.ExponentialExpression
+import com.yakindu.solidity.solidity.ForStatement
 import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.IfStatement
 import com.yakindu.solidity.solidity.ImportDirective
+import com.yakindu.solidity.solidity.MappingTypeSpecifier
 import com.yakindu.solidity.solidity.ModifierDefinition
+import com.yakindu.solidity.solidity.NamedArgument
+import com.yakindu.solidity.solidity.NewInstanceExpression
+import com.yakindu.solidity.solidity.NumericalUnaryExpression
+import com.yakindu.solidity.solidity.PragmaDirective
+import com.yakindu.solidity.solidity.SimpleArgument
 import com.yakindu.solidity.solidity.SolidityModel
 import com.yakindu.solidity.solidity.SourceUnit
 import com.yakindu.solidity.solidity.StructDefinition
+import com.yakindu.solidity.solidity.TupleExpression
+import com.yakindu.solidity.solidity.VariableDefinition
+import com.yakindu.solidity.solidity.WhileStatement
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
-import org.yakindu.base.types.Package
-import org.yakindu.base.types.PackageMember
-import com.yakindu.solidity.solidity.ConstructorDefinition
-import com.yakindu.solidity.solidity.VariableDefinition
+import org.eclipse.xtext.formatting2.IHiddenRegionFormatter
+import org.yakindu.base.expressions.expressions.AssignmentExpression
+import org.yakindu.base.expressions.expressions.BitwiseAndExpression
+import org.yakindu.base.expressions.expressions.BitwiseOrExpression
+import org.yakindu.base.expressions.expressions.BitwiseXorExpression
+import org.yakindu.base.expressions.expressions.ConditionalExpression
+import org.yakindu.base.expressions.expressions.FeatureCall
+import org.yakindu.base.expressions.expressions.LogicalAndExpression
+import org.yakindu.base.expressions.expressions.LogicalNotExpression
+import org.yakindu.base.expressions.expressions.LogicalOrExpression
+import org.yakindu.base.expressions.expressions.LogicalRelationExpression
+import org.yakindu.base.expressions.expressions.NumericalAddSubtractExpression
+import org.yakindu.base.expressions.expressions.NumericalMultiplyDivideExpression
+import org.yakindu.base.expressions.expressions.PostFixUnaryExpression
+import org.yakindu.base.expressions.expressions.ShiftExpression
+import org.yakindu.base.types.EnumerationType
 
 /**
  * Code formatter for Solidity according to 
@@ -40,130 +66,361 @@ import com.yakindu.solidity.solidity.VariableDefinition
  */
 class SolidityFormatter extends AbstractFormatter2 {
 
-	def dispatch void format(SolidityModel solidityModel, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		for (Package _package : solidityModel.getSourceunit()) {
-			_package.format;
-		}
-		solidityModel.allRegionsFor.keywords('=', '==').forEach[
-			surround[oneSpace]
+	def dispatch void format(SolidityModel it, extension IFormattableDocument document) {
+		sourceunit.forEach[format]
+
+	}
+
+	def dispatch void format(SourceUnit it, extension IFormattableDocument document) {
+		imports.forEach[format]
+
+		allRegionsFor.keywordPairs('[', ']').forEach [
+			key.append[noSpace]
+			value.prepend[noSpace]
 		]
-		solidityModel.allRegionsFor.keywords(';').forEach[
-			prepend[noSpace]
-			append[newLine]
+		allRegionsFor.keywordPairs('(', ')').forEach [
+			key.append[noSpace]
+			value.prepend[noSpace]
 		]
-		solidityModel.allRegionsFor.keywords('else').forEach[
-			surround[oneSpace]
+		pragma.forEach[format]
+		member.forEach[format]
+		append[noSpace]
+	}
+
+	def dispatch void format(PragmaDirective it, extension IFormattableDocument document) {
+		prepend[noSpace]
+	}
+
+	def dispatch void format(ImportDirective it, extension IFormattableDocument document) {
+		prepend[newLines]
+	}
+
+	def dispatch void format(ContractDefinition it, extension IFormattableDocument document) {
+		interior[indent]
+		regionFor.keywordPairs('{', '}').forEach [
+			key.append[newLine; priority = IHiddenRegionFormatter.LOW_PRIORITY;].prepend[oneSpace]
+			value.surround[newLines; priority = IHiddenRegionFormatter.LOW_PRIORITY;]
 		]
 
-		solidityModel.allRegionsFor.keywordPairs('[', ']').forEach[
+		regionFor.keyword("is").surround[oneSpace]
+		allRegionsFor.keywordPairs('(', ')').forEach [
+			key.append[noSpace]
+			value.prepend[noSpace]
+		]
+		features.forEach[format]
+	}
+
+	def dispatch void format(VariableDefinition it, extension IFormattableDocument document) {
+		prepend[newLines]
+		initialValue.format
+	}
+
+	def dispatch void format(ConstructorDefinition it, extension IFormattableDocument document) {
+		prepend[newLines(2, 2, 3)]
+		allRegionsFor.keywords("constructor", ",").forEach [
+			append[oneSpace]
+		]
+		allRegionsFor.keywordPairs('(', ')').forEach [
+			key.append[noSpace]
+			value.prepend[noSpace]
+		]
+		modifier.forEach [
+			prepend[oneSpace]
+		]
+		block.format
+	}
+
+	def dispatch void format(FunctionDefinition it, extension IFormattableDocument document) {
+		prepend[newLines(2, 2, 3)]
+		regionFor.keyword(",").append[oneSpace].prepend[noSpace]
+		allRegionsFor.keywordPairs('(', ')').forEach [
 			key.append[noSpace]
 			value.prepend[noSpace]
 		]
 
-		solidityModel.allRegionsFor.keywordPairs('(', ')').forEach[
+		modifier.forEach [
+			prepend[oneSpace]
+		]
+		block.format
+	}
+
+	def dispatch void format(MappingTypeSpecifier it, extension IFormattableDocument document) {
+		prepend[newLines(2, 2, 3)]
+		regionFor.keyword("mapping").append[oneSpace]
+		regionFor.keyword("'=>").surround[oneSpace]
+		allRegionsFor.keywordPairs('(', ')').forEach [
 			key.append[noSpace]
 			value.prepend[noSpace]
 		]
-
-	// EcoreUtil2.eAllOfType(solidityModel, Block).forEach[format]
 	}
 
-	def dispatch void format(SourceUnit sourceUnit, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		sourceUnit.getPragma.forEach[format];
-		for (PackageMember packageMember : sourceUnit.getImports()) {
-			packageMember.format;
-		}
-		for (PackageMember packageMember : sourceUnit.getMember()) {
-			packageMember.format;
-		}
+	def dispatch void format(ArrayTypeSpecifier it, extension IFormattableDocument document) {
+		prepend[newLines]
+		allRegionsFor.keywordPairs('[', ']').forEach [
+			key.append[noSpace]
+			value.prepend[noSpace]
+		]
 	}
 
-	def dispatch void format(ImportDirective element, extension IFormattableDocument document) {
-		element.regionFor.keyword("import").append[oneSpace]
+	def dispatch void format(ModifierDefinition it, extension IFormattableDocument document) {
+		prepend[newLines(2, 2, 3)]
+		regionFor.keyword("modifier").append[oneSpace]
+		regionFor.keyword(",").append[oneSpace].prepend[noSpace]
+		allRegionsFor.keywordPairs('(', ')').forEach [
+			key.append[noSpace]
+			value.prepend[noSpace]
+		]
+		block.format
 	}
 
-	def dispatch void format(ContractDefinition element, extension IFormattableDocument document) {
-		element.prepend[setNewLines(1, 3, 3)]
-		element.append[setNewLines(1, 3, 3)]
-
-//		element.regionFor.keyword('{') => [
-//			append[newLine]
-//		]
-//		element.regionFor.keyword('}') => [
-//			prepend[newLine]
-//		]
-		element.interior[indent]
-		element.features.forEach[format]
+	def dispatch void format(EventDefinition it, extension IFormattableDocument document) {
+		prepend[newLines]
 	}
 
-	def dispatch void format(FunctionDefinition element, extension IFormattableDocument document) {
-		element.prepend[setNewLines(1, 2, 2)]
-		element.append[setNewLines(1, 2, 2)]
-		element.block.format
+	def dispatch void format(EnumerationType it, extension IFormattableDocument document) {
+		prepend[newLines(2, 2, 3)]
+		interior[indent]
+		regionFor.keyword("enum").append[oneSpace]
+		regionFor.keywordPairs('{', '}').forEach [
+			key.append[newLines].prepend[oneSpace]
+			value.surround[newLines; priority = IHiddenRegionFormatter.LOW_PRIORITY;]
+		]
+		enumerator.forEach[prepend[newLines]]
+	}
+
+	def dispatch void format(StructDefinition it, extension IFormattableDocument document) {
+		prepend[newLines(2, 2, 3)]
+		interior[indent]
+		regionFor.keyword("struct").append[oneSpace]
+		regionFor.keywordPairs('{', '}').forEach [
+			key.append[newLines].prepend[oneSpace]
+			value.surround[newLines; priority = IHiddenRegionFormatter.LOW_PRIORITY;]
+		]
+		features.forEach[prepend[newLines]]
+	}
+
+	def dispatch void format(Block it, extension IFormattableDocument document) {
+		interior[indent]
+		regionFor.keywordPairs('{', '}').forEach [
+			key.append[newLines]
+			key.prepend[oneSpace]
+			value.prepend[noSpace]
+		]
+
+		statements.forEach[format; prepend[noSpace]; append[newLines()];]
+	}
+
+	def dispatch void format(AssignmentExpression it, extension IFormattableDocument document) {
+		allSemanticRegions.forEach [ region |
+			if (it.operator.literal == region.text) {
+				region.surround[oneSpace]
+			}
+		]
+	}
+
+	def dispatch void format(ConditionalExpression it, extension IFormattableDocument document) {
+		allRegionsFor.keywords("?", ":").forEach[surround[oneSpace]]
+		trueCase.format
+		falseCase.format
+	}
+
+	def dispatch void format(LogicalOrExpression it, extension IFormattableDocument document) {
+		regionFor.keyword("||").surround[oneSpace]
+		leftOperand.format
+		rightOperand.format
+	}
+
+	def dispatch void format(LogicalAndExpression it, extension IFormattableDocument document) {
+		regionFor.keyword("&&").surround[oneSpace]
+		leftOperand.format
+		rightOperand.format
+	}
+
+	def dispatch void format(LogicalNotExpression it, extension IFormattableDocument document) {
+		regionFor.keyword("!").surround[noSpace; priority = IHiddenRegionFormatter.LOW_PRIORITY;]
+		operand.format
+	}
+
+	def dispatch void format(LogicalRelationExpression it, extension IFormattableDocument document) {
+		allSemanticRegions.forEach [ region |
+			if (it.operator.literal == region.text) {
+				region.surround[oneSpace]
+			}
+		]
+		leftOperand.format
+		rightOperand.format
+	}
+
+	def dispatch void format(BitwiseOrExpression it, extension IFormattableDocument document) {
+		regionFor.keyword("|").surround[oneSpace]
+		leftOperand.format
+		rightOperand.format
+	}
+
+	def dispatch void format(BitwiseXorExpression it, extension IFormattableDocument document) {
+		regionFor.keyword("^").surround[oneSpace]
+		leftOperand.format
+		rightOperand.format
+	}
+
+	def dispatch void format(BitwiseAndExpression it, extension IFormattableDocument document) {
+		regionFor.keyword("&").surround[oneSpace]
+		leftOperand.format
+		rightOperand.format
+	}
+
+	def dispatch void format(ShiftExpression it, extension IFormattableDocument document) {
+		allSemanticRegions.forEach [ region |
+			if (it.operator.literal == region.text) {
+				region.surround[oneSpace]
+			}
+		]
+		leftOperand.format
+		rightOperand.format
+	}
+
+	def dispatch void format(NumericalAddSubtractExpression it, extension IFormattableDocument document) {
+		allSemanticRegions.forEach [ region |
+			if (it.operator.literal == region.text) {
+				region.surround[oneSpace]
+			}
+		]
+		leftOperand.format
+		rightOperand.format
+	}
+
+	def dispatch void format(NumericalMultiplyDivideExpression it, extension IFormattableDocument document) {
+		allSemanticRegions.forEach [ region |
+			if (it.operator.literal == region.text) {
+				region.surround[oneSpace]
+			}
+		]
+		leftOperand.format
+		rightOperand.format
+	}
+
+	def dispatch void format(ExponentialExpression it, extension IFormattableDocument document) {
+		regionFor.keyword("**").surround[oneSpace]
+		leftOperand.format
+		rightOperand.format
+	}
+
+	def dispatch void format(NumericalUnaryExpression it, extension IFormattableDocument document) {
+		allSemanticRegions.forEach [ region |
+			if (it.operator.literal == region.text) {
+				region.surround[oneSpace]
+			}
+		]
+		operand.format
+	}
+
+	def dispatch void format(PostFixUnaryExpression it, extension IFormattableDocument document) {
+		allSemanticRegions.forEach [ region |
+			if (it.operator.literal == region.text) {
+				region.surround[noSpace]
+			}
+		]
+		operand.format
+	}
+
+	def dispatch void format(NewInstanceExpression it, extension IFormattableDocument document) {
+		regionFor.keyword("new").append[oneSpace]
+		regionFor.keyword(",").append[oneSpace].prepend[noSpace]
+		allRegionsFor.keywordPairs('(', ')').forEach [
+			key.append[noSpace]
+			value.prepend[noSpace]
+		]
+		operationCall.format
+
+	}
+
+	def dispatch void format(EmitExpression it, extension IFormattableDocument document) {
+		regionFor.keyword("emit").append[oneSpace]
+		regionFor.keyword(",").append[oneSpace].prepend[noSpace]
+		allRegionsFor.keywordPairs('(', ')').forEach [
+			key.append[noSpace]
+			value.prepend[noSpace]
+		]
+		operationCall.format
+
+	}
+
+	def dispatch void format(TupleExpression it, extension IFormattableDocument document) {
+		regionFor.keyword(",").append[oneSpace].prepend[noSpace]
+		allRegionsFor.keywordPairs('(', ')').forEach [
+			key.append[noSpace]
+			value.prepend[noSpace]
+		]
+		allRegionsFor.keywordPairs('[', ']').forEach [
+			key.append[noSpace]
+			value.prepend[noSpace]
+		]
+		expressions.forEach[format]
+	}
+
+	def dispatch void format(FeatureCall it, extension IFormattableDocument document) {
+		regionFor.keyword(".").surround[noSpace]
+		regionFor.keyword(",").append[oneSpace].prepend[noSpace]
+		allRegionsFor.keywordPairs('(', ')').forEach [
+			key.append[noSpace]
+			value.prepend[noSpace]
+		]
+		allRegionsFor.keywordPairs('[', ']').forEach [
+			key.append[noSpace]
+			value.prepend[noSpace]
+		]
+		arguments.forEach[format]
+		expressions.forEach[format]
+		arraySelector.forEach[format]
+	}
+
+	def dispatch void format(IfStatement it, extension IFormattableDocument document) {
+		regionFor.keyword("if").append[oneSpace]
+		regionFor.keyword("else").surround[oneSpace; priority = IHiddenRegionFormatter.HIGH_PRIORITY]
+		condition.format
+		then.format
+		^else.format
+		append[newLines()]
+	}
+
+	def dispatch void format(WhileStatement it, extension IFormattableDocument document) {
+		regionFor.keyword("while").append[oneSpace]
+		condition.format
+		body.format
+		append[newLines()]
+	}
+
+	def dispatch void format(ForStatement it, extension IFormattableDocument document) {
+		regionFor.keyword("for").append[oneSpace]
+		initialization.prepend[noSpace]
+		condition.format
+		afterthought.prepend[noSpace]
+		statement.format
+		append[newLines]
 	}
 	
-	def dispatch void format(ConstructorDefinition element, extension IFormattableDocument document) {
-		element.prepend[setNewLines(1, 2, 2)]
-		element.append[setNewLines(1, 2, 2)]
-		element.block.format
+	def dispatch void format(SimpleArgument it, extension IFormattableDocument document) {
+		prepend[oneSpace; priority = IHiddenRegionFormatter.LOW_PRIORITY]
+		append[noSpace; priority = IHiddenRegionFormatter.LOW_PRIORITY]
+		value.format
 	}
-	
-	def dispatch void format(VariableDefinition element, extension IFormattableDocument document) {
-		element.prepend[setNewLines(1, 2, 2)]
-		element.append[setNewLines(1, 2, 2)]
-	}
-
-	def dispatch void format(ModifierDefinition element, extension IFormattableDocument document) {
-		element.prepend[setNewLines(1, 2, 2)]
-		element.append[setNewLines(1, 2, 2)]
-		element.block.format
+	def dispatch void format(NamedArgument it, extension IFormattableDocument document) {
+		regionFor.keyword(":").surround[oneSpace]
+		surround[oneSpace; priority = IHiddenRegionFormatter.LOW_PRIORITY]
+		value.format
 	}
 
-	def dispatch void format(EventDefinition element, extension IFormattableDocument document) {
-		element.prepend[setNewLines(1, 2, 2)]
-		element.append[setNewLines(1, 2, 2)]
+	protected def void newLines(IHiddenRegionFormatter it) {
+		newLines(1, 2, 3)
 	}
 
-	def dispatch void format(StructDefinition element, extension IFormattableDocument document) {
-		element.prepend[setNewLines(1, 2, 2)]
-		element.append[setNewLines(1, 2, 2)]
-
-		element.interior[indent]
-		element.regionFor.keyword('{') => [
-			prepend[noSpace]
-			append[newLine]
-		]
-		element.regionFor.keyword('}') => [
-			prepend[newLine]
-		]
-		element.features.forEach[
-			prepend[newLine]
-		]
+	protected def void newLines(IHiddenRegionFormatter it, int lines) {
+		newLines(1, lines, 3)
 	}
 
-	def dispatch void format(Block element, extension IFormattableDocument document) {
-		element.interior[indent]
-		if (element.eContainer instanceof IfStatement) {
-			element.regionFor.keyword('{') => [
-				append[newLine]
-			]
-			element.regionFor.keyword('}') => [
-				prepend[noSpace]
-			]
-		} else {
-			element.regionFor.keyword('{') => [
-				prepend[noSpace]
-				append[newLine]
-			]
-			element.regionFor.keyword('}') => [
-				prepend[newLine]
-			]
-		}
-		element.statements.forEach[
-			prepend[newLine]
-			format
-		]
+	protected def void newLines(IHiddenRegionFormatter it, int min, int lines, int max) {
+		noSpace
+		setNewLines(min, lines, max)
 	}
+
 }
