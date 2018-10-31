@@ -20,12 +20,13 @@
 <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.platform.sdk" version="4.7.3.M20180330-0640"/>
-<repository location="http://download.eclipse.org/eclipse/updates/4.7"/>
+	<unit id="org.eclipse.platform.sdk" version="4.7.3.M20180330-0640"/>
+	<repository location="http://download.eclipse.org/eclipse/updates/4.7"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.yakindu.base.feature.group" version="3.4.0.201808160934"/>
-<repository location="http://updates.yakindu.com/statecharts/releases"/>
+	<unit id="org.yakindu.base.feature.group" version="3.4.0.201808160934"/>
+	<unit id="org.yakindu.sct.feature.group" version="3.4.0.201808160934"/>
+	<repository location="http://updates.yakindu.com/statecharts/releases"/>
 </location>
 </locations>
 </target>
