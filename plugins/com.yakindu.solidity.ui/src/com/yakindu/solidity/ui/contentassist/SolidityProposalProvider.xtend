@@ -72,7 +72,7 @@ class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 		if (IGNORED_KEYWORDS.contains(keyword.value)) {
 			return
 		}
-		super.completeKeyword(keyword, contentAssistContext, acceptor)
+		super.completeKeyword(keyword, contentAssistContext, new AcceptorDelegate(acceptor, hover))
 	}
 	
 	override completeImportDirective_ImportedNamespace(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
