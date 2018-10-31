@@ -19,13 +19,14 @@
 <unit id="org.apache.commons.io" version="2.2.0.v201405211200"/>
 <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository/"/>
 </location>
-<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.yakindu.base.feature.group" version="3.4.0.201808160934"/>
-<repository location="http://updates.yakindu.com/statecharts/releases"/>
-</location>
 	<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 		<unit id="org.eclipse.platform.ide" version="4.9.0.I20180906-0745"/>
 		<repository location="http://download.eclipse.org/eclipse/updates/4.9"/>
+	</location>
+	<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+		<unit id="org.yakindu.base.feature.group" version="3.4.0.201808160934"/>
+		<unit id="org.yakindu.sct.feature.group" version="3.4.0.201808160934"/>
+		<repository location="http://updates.yakindu.com/statecharts/releases"/>
 	</location>
 </locations>
 </target>
