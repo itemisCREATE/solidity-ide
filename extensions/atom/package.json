@@ -1,10 +1,15 @@
 {
-  "name": "solidity",
+  "name": "atom",
   "main": "./lib/solidity",
   "version": "0.7.3",
   "description": "Solidity Language Server Protocol",
   "repository": "https://github.com/Yakindu/solidity-ide",
   "license": "EPL",
+  "keywords": [
+    "solidity",
+    "ethereum",
+    "grammar"
+  ],
   "engines": {
     "atom": ">=1.21.0"
   },
