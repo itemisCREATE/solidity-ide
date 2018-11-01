@@ -1,5 +1,5 @@
 {
-  "name": "atom",
+  "name": "ide-solidity",
   "main": "./lib/solidity",
   "version": "0.7.3",
   "description": "Solidity Language Server Protocol",

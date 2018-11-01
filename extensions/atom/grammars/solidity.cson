@@ -1,9 +1,8 @@
 # copied from https://github.com/jesseweed/language-solidity
-'scopeName': 'source.solidity'
+'scopeName': 'source.sol'
 'name': 'Solidity'
 'fileTypes': [
   "sol"
-  "solidity"
 ]
 'patterns': [
   {
