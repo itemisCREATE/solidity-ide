@@ -64,7 +64,7 @@ class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 
 	override complete_VERSION(EObject model, RuleCall ruleCall, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
-		acceptor.accept(createCompletionProposal("^" + solcVersion, solcVersion, null, context));
+		acceptor.accept(createCompletionProposal(solcVersion, solcVersion, null, context));
 	}
 
 	override completeKeyword(Keyword keyword, ContentAssistContext contentAssistContext,
