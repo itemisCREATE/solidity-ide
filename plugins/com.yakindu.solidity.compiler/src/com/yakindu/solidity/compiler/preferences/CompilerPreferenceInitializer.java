@@ -13,8 +13,8 @@ package com.yakindu.solidity.compiler.preferences;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
-import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.osgi.service.prefs.BackingStoreException;
 
 import com.yakindu.solidity.compiler.SolidityCompilerActivator;
@@ -44,7 +44,7 @@ public class CompilerPreferenceInitializer extends AbstractPreferenceInitializer
 	}
 
 	protected IEclipsePreferences getPreferenceStore() {
-		return DefaultScope.INSTANCE.getNode(SolidityCompilerActivator.PLUGIN_ID);
+		return InstanceScope.INSTANCE.getNode(SolidityCompilerActivator.PLUGIN_ID);
 	}
 
 }
