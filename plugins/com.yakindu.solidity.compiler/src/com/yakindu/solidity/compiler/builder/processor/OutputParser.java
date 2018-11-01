@@ -14,6 +14,7 @@
  */
 package com.yakindu.solidity.compiler.builder.processor;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
@@ -25,18 +26,21 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IResource;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.yakindu.solidity.compiler.result.Bytecode;
+import com.yakindu.solidity.compiler.result.CompileError;
 import com.yakindu.solidity.compiler.result.CompiledContract;
 import com.yakindu.solidity.compiler.result.CompiledSource;
 import com.yakindu.solidity.compiler.result.CompilerOutput;
-import com.yakindu.solidity.compiler.result.Documentation;
 import com.yakindu.solidity.compiler.result.EvmOutput;
 import com.yakindu.solidity.compiler.result.GasEstimates;
 
@@ -68,26 +72,6 @@ public class OutputParser {
 			}
 		});
 
-		gson.registerTypeAdapter(CompiledContract.class, new JsonDeserializer<CompiledContract>() {
-
-			@Override
-			public CompiledContract deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-					throws JsonParseException {
-				CompiledContract contract = new CompiledContract();
-				for (Entry<String, JsonElement> contractEntry : readMembersAsSet(json)) {
-					contract.setName(contractEntry.getKey());
-					JsonObject contractData = contractEntry.getValue().getAsJsonObject();
-					contract.setAbi(context.deserialize(contractData.get("abi"), List.class));
-					contract.setDevdoc(context.deserialize(contractData.get("devdoc"), Documentation.class));
-					contract.setEvm(context.deserialize(contractData.get("evm"), EvmOutput.class));
-					JsonElement element = contractData.get("userdoc");
-					contract.setUserdoc(context.deserialize(element, Documentation.class));
-				}
-				return contract;
-			}
-
-		});
-
 		gson.registerTypeAdapter(EvmOutput.class, new JsonDeserializer<EvmOutput>() {
 
 			@Override
@@ -101,6 +85,39 @@ public class OutputParser {
 				evm.setGasEstimates(context.deserialize(jsonEvm.get("gasEstimates"), GasEstimates.class));
 				evm.setMethodIdentifiers(context.deserialize(jsonEvm.get("methodIdentifiers"), Map.class));
 				return evm;
+			}
+
+		});
+
+		gson.registerTypeAdapter(CompilerOutput.class, new JsonDeserializer<CompilerOutput>() {
+
+			@Override
+			public CompilerOutput deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+					throws JsonParseException {
+				CompilerOutput output = new CompilerOutput();
+				JsonObject outputJson = json.getAsJsonObject();
+				output.setSources(context.deserialize(outputJson.get("sources"), Map.class));
+			
+				List<CompileError> errors = Lists.newArrayList();
+				JsonArray jsonArray = outputJson.getAsJsonArray("errors");
+				for (JsonElement jsonElement : jsonArray) {
+					errors.add(context.deserialize(jsonElement, CompileError.class));
+				}
+				output.setErrors(errors);
+				Set<Entry<String, JsonElement>> contractFiles = readMembersAsSet(outputJson.get("contracts"));
+				Map<String, Map<String, CompiledContract>> transformedContracts = Maps.newHashMap();
+				for (Entry<String, JsonElement> fileEntries : contractFiles) {
+					Set<Entry<String, JsonElement>> contractEntries = readMembersAsSet(fileEntries.getValue());
+					Map<String, CompiledContract> compiledContractMap = Maps.newHashMap();
+					for (Entry<String, JsonElement> contractEntry : contractEntries) {
+						compiledContractMap.put(contractEntry.getKey(),
+								context.deserialize(contractEntry.getValue(), CompiledContract.class));
+						
+						transformedContracts.put(fileEntries.getKey(), compiledContractMap);
+					} 
+				}
+				output.setContracts(transformedContracts);
+				return output;
 			}
 
 		});
@@ -122,7 +139,8 @@ public class OutputParser {
 	}
 
 	public Optional<CompilerOutput> parse(final InputStream stream, final Set<IResource> filesToCompile) {
-		try (final InputStreamReader output = new InputStreamReader(stream, "UTF-8")) {
+		try (final InputStreamReader output = new InputStreamReader(stream, "UTF-8");
+				final BufferedReader out = new BufferedReader(output);) {
 			CompilerOutput compilerOutput = gson.create().fromJson(output, CompilerOutput.class);
 			if (compilerOutput != null) {
 				return Optional.of(compilerOutput);

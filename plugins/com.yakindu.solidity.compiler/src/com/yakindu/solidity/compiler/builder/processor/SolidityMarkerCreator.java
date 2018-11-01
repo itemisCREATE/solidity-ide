@@ -27,6 +27,7 @@ import org.eclipse.core.internal.utils.FileUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -70,10 +71,13 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		createInfoMarkers(compilerOutput.getContracts(), filesToCompile);
 	}
 
-	protected void createInfoMarkers(Map<String, CompiledContract> contracts, Set<IResource> filesToCompile) {
-		for (Entry<String, CompiledContract> contract : contracts.entrySet()) {
-			IFile file = findFileForName(filesToCompile, contract.getKey());
-			createInfoMarkers(contract.getValue(), file);
+	protected void createInfoMarkers(Map<String, Map<String, CompiledContract>> contracts,
+			Set<IResource> filesToCompile) {
+		for (Entry<String, Map<String, CompiledContract>> contractEntry : contracts.entrySet()) {
+			IFile file = findFileForName(filesToCompile, contractEntry.getKey());
+			for (Entry<String, CompiledContract> contract : contractEntry.getValue().entrySet()) {
+				createInfoMarkers(contract.getValue(), file);
+			}
 		}
 	}
 
@@ -194,8 +198,14 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		Resource resource = new ResourceSetImpl()
 				.getResource(URI.createPlatformResourceURI(errorFile.getFullPath().toString(), true), true);
 		if (offset == 0) {
-			EObject object = resource.getContents().get(0);
-			return EcoreUtil2.getAllContentsOfType(object, Package.class).get(0);
+			EList<EObject> resourceContent = resource.getContents();
+			if (!resourceContent.isEmpty()) {
+				EObject object = resourceContent.get(0);
+				List<Package> packages = EcoreUtil2.getAllContentsOfType(object, Package.class);
+				if (!packages.isEmpty()) {
+					return packages.get(0);
+				}
+			}
 		}
 		return offsetHelper.resolveContainedElementAt((XtextResource) resource, offset);
 	}

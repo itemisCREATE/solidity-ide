@@ -26,24 +26,29 @@ public class CompilerOutput {
 
 	List<CompileError> errors;
 	Map<String, CompiledSource> sources;
-	Map<String, CompiledContract> contracts;
-	
+	Map<String, Map<String, CompiledContract>> contracts;
+
 	public List<CompileError> getErrors() {
 		return errors;
 	}
+
 	public void setErrors(List<CompileError> errors) {
 		this.errors = errors;
 	}
+
 	public Map<String, CompiledSource> getSources() {
 		return sources;
 	}
+
 	public void setSources(Map<String, CompiledSource> sources) {
 		this.sources = sources;
 	}
-	public Map<String, CompiledContract> getContracts() {
+
+	public Map<String, Map<String, CompiledContract>> getContracts() {
 		return contracts;
 	}
-	public void setContracts(Map<String, CompiledContract> contracts) {
+
+	public void setContracts(Map<String, Map<String, CompiledContract>> contracts) {
 		this.contracts = contracts;
 	}
 
