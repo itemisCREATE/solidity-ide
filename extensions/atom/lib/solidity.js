@@ -10,7 +10,7 @@ class SolidityLanguageClient extends AutoLanguageClient {
   getConnectionType() { return 'stdio' }
   startServerProcess () {
     let launcher = os.platform() === 'win32' ? 'solidity-ls.bat' : 'solidity-ls'
-    let lsDir = atom.packages.resolvePackagePath(path.join("ide-solidity", "ls", "bin"))
+    let lsDir = atom.packages.resolvePackagePath(path.join(__dirname, "ls", "bin"))
     return spawn(path.join(lsDir, launcher));
   }
 }
