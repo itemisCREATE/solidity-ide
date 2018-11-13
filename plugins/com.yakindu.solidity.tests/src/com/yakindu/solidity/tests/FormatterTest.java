@@ -33,7 +33,7 @@ import com.yakindu.solidity.solidity.SolidityModel;
 @InjectWith(SolidityInjectorProvider.class)
 @RunWith(Parameterized.class)
 @Parameterized.UseParametersRunnerFactory(XtextParametersRunnerFactory.class)
-public class FormatterTestBase {
+public class FormatterTest {
 	@Inject
 	protected ParseHelper<SolidityModel> parseHelper;
 	
@@ -53,7 +53,7 @@ public class FormatterTestBase {
 	
 	private FormatterTestData testData;
     
-	public FormatterTestBase(FormatterTestData testData) {
+	public FormatterTest(FormatterTestData testData) {
 		this.testData = testData;
 	}
 	
