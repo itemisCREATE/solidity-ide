@@ -14,7 +14,7 @@
     "atom": ">=1.21.0"
   },
   "dependencies": {
-    "atom-languageclient": "0.9.5"
+    "atom-languageclient": "0.9.8"
   },
   "enhancedScopes": [
     "source.sol"
@@ -60,6 +60,11 @@
     "outline-view": {
       "versions": {
         "0.1.0": "provideOutlines"
+      }
+    },
+    "code-actions": {
+      "versions": {
+        "0.1.0": "provideCodeActions"
       }
     }
   }
