@@ -22,6 +22,7 @@
 	<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 		<unit id="org.eclipse.platform.ide" version="4.9.0.I20180906-0745"/>
 		<repository location="http://download.eclipse.org/eclipse/updates/4.9"/>
+		<unit id="org.eclipse.equinox.sdk.feature.group" version="3.15.0.v20180904-1442"/>
 	</location>
 	<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 		<unit id="org.yakindu.base.feature.group" version="3.4.0.201808160934"/>
