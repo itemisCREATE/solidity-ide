@@ -22,6 +22,10 @@
       <discovery label="YAKINDU SCT Repository" url="http://updates.yakindu.com/statecharts/releases/"/>
    </url>
 
+   <requires>
+      <import feature="org.yakindu.base" version="3.4.0.201808160934" match="perfect"/>
+   </requires>
+
    <plugin
          id="com.yakindu.solidity"
          download-size="0"
