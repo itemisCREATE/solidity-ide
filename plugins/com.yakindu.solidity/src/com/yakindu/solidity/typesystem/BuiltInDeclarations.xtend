@@ -41,7 +41,6 @@ import static org.yakindu.base.types.typesystem.ITypeSystem.*
 class BuiltInDeclarations {
 
 	protected boolean installed
-	
 	protected Operation assert_
 	protected Operation require
 	protected Operation revert
@@ -54,8 +53,6 @@ class BuiltInDeclarations {
 	protected Operation ecrecover
 	protected Operation suicide
 	protected Operation selfdestruct
-
-	protected Property abi
 	protected Property msg
 	protected Property this_
 	protected Property super_
@@ -84,7 +81,7 @@ class BuiltInDeclarations {
 		val ADDRESS = ADDRESS.typeForName
 		val ANY = ANY.typeForName
 		val BOOL = BOOL.typeForName
-//		val BYTES20 = BYTES20.typeForName
+		val BYTES20 = BYTES20.typeForName
 		val BYTES32 = BYTES32.typeForName
 		val INT = INT.typeForName
 		val UINT = UINT.typeForName
@@ -118,28 +115,19 @@ class BuiltInDeclarations {
 		]
 
 		keccak256 = createOperation("keccak256", BYTES32) => [
-			parameters += createParameter("argument", SolidityTypeSystem.BYTES.typeForName) => [
-				optional = false
-				varArgs = false
-			]
+			parameters += createParameter("argument", ANY) => [varArgs = true]
 		]
 
 		sha256 = createOperation("sha256", BYTES32) => [
-			parameters += createParameter("argument", SolidityTypeSystem.BYTES.typeForName) => [
-				optional = false
-				varArgs = false
-			]
+			parameters += createParameter("argument", ANY) => [varArgs = true]
 		]
 
 		sha3 = createOperation("sha3", BYTES32) => [
 			parameters += createParameter("argument", ANY) => [varArgs = true]
 		]
 
-		ripemd160 = createOperation("ripemd160", BYTES32) => [
-			parameters += createParameter("argument", SolidityTypeSystem.BYTES.typeForName) => [
-				optional = false
-				varArgs = false
-			]
+		ripemd160 = createOperation("ripemd160", BYTES20) => [
+			parameters += createParameter("argument", ANY) => [varArgs = true]
 		]
 
 		ecrecover = createOperation("ecrecover", ADDRESS) => [
@@ -162,8 +150,6 @@ class BuiltInDeclarations {
 		selfdestruct = createOperation("selfdestruct", VOID) => [
 			parameters += createParameter("address", ADDRESS)
 		]
-		
-		abi = createConstant("abi", SolidityTypeSystem.ABI.typeForName)
 
 		msg = createConstant("msg", MESSAGE.typeForName)
 
@@ -226,7 +212,7 @@ class BuiltInDeclarations {
 	}
 
 	def all() {
-		#[abi, msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, push, ripemd160, ecrecover,
+		#[msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, push, ripemd160, ecrecover,
 			block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]
 	}
 

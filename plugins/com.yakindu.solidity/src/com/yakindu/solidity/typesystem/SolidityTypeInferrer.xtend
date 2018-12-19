@@ -116,10 +116,11 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 
 	// Type Cast	
 	override doInfer(ElementReferenceExpression e) {
-		if (e.isOperationCall() && ((e.reference instanceof Type) || e.reference instanceof Operation)) {
+		if (e.isOperationCall() && ((e.reference instanceof Type)|| e.reference instanceof Operation)) {
 			return inferTypeDispatch(e.reference)
 		}
-
+		
+		
 		return super.doInfer(e)
 	}
 
@@ -148,6 +149,8 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 	}
 
 	def doInfer(VariableDefinition definition) {
-		return inferTypeDispatch(definition.typeSpecifier)
+		if (definition.typeSpecifier !== null)
+			return inferTypeDispatch(definition.typeSpecifier)
+		return doInfer(definition.initialValue)
 	}
 }
