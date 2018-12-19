@@ -172,7 +172,7 @@ VariableDefinitionProperty returns types::Property:
 	VariableDefinition;
 
 VariableDefinition:
-	('var' identifier=IdentifierList | (typeSpecifier=TypeSpecifier (storage=StorageLocation)? name=ID)) ('='
+	(typeSpecifier=TypeSpecifier (storage=StorageLocation)? name=ID) ('='
 	initialValue=Expression)?;
 
 IdentifierList:

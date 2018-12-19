@@ -64,6 +64,7 @@ class SolidityTypeSystem extends GenericTypeSystem {
 	public static val String TRANSFER = "transfer"
 	public static val String SEND = "send"
 	public static val String AMOUNT = "amount"
+	public static val String ABI = "abi"
 
 	static extension TypesFactory typesFactory = TypesFactory.eINSTANCE
 
