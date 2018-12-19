@@ -149,8 +149,9 @@ class SolidityTypeInferrer extends ExpressionsTypeInferrer {
 	}
 
 	def doInfer(VariableDefinition definition) {
-		if (definition.typeSpecifier !== null)
+		if (definition.typeSpecifier !== null){
 			return inferTypeDispatch(definition.typeSpecifier)
-		return doInfer(definition.initialValue)
+		}
+		return inferTypeDispatch(definition.initialValue)
 	}
 }
