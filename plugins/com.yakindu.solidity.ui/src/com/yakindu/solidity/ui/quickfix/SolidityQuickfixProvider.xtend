@@ -55,6 +55,7 @@ import static extension org.eclipse.xtext.EcoreUtil2.*
 import com.yakindu.solidity.solidity.DecimalNumberLiteral
 import com.yakindu.solidity.solidity.Unit
 import java.math.BigDecimal
+import org.eclipse.xtext.ui.editor.quickfix.Fixes
 
 /** 
  * @author andreas muelder - Initial contribution and API
@@ -128,7 +129,36 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			})
 	}
 
-	@Fix(WARNING_DEPRECATED_FUNCTION_CONSTRUCTOR)
+	@Fix(ERROR_CONSTANT_MODIFIER_WAS_REMOVED)
+	def replaceConstantModifier(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Use "view" instead.', 'Use "view" instead.', null, new ISemanticModification() {
+			override apply(EObject element, IModificationContext context) throws Exception {
+				if (element instanceof BuildInModifier) {
+					val function = element.eContainer as FunctionDefinition
+					val index = function.modifier.indexOf(element);
+					function.modifier.remove(index)
+					function.modifier.add(index, createBuildInModifier => [
+						type = FunctionModifier.VIEW
+					])
+				}
+			}
+		})
+		acceptor.accept(issue, 'Use "pure" instead.', 'Use "pure" instead.', null, new ISemanticModification() {
+			override apply(EObject element, IModificationContext context) throws Exception {
+				if (element instanceof BuildInModifier) {
+					val function = element.eContainer as FunctionDefinition
+					val index = function.modifier.indexOf(element);
+					function.modifier.remove(index)
+					function.modifier.add(index, createBuildInModifier => [
+						type = FunctionModifier.PURE
+					])
+				}
+			}
+		})
+	}
+
+	@Fixes(@Fix(WARNING_DEPRECATED_FUNCTION_CONSTRUCTOR),
+	@Fix(ERROR_FUNCTION_NAME_EQUALS_CONTRACT_NAME_DISALLOWED))
 	def useConstructorKeywordInsteadOfFunction(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Use constructor keyword instead', 'contructor keyword', null,
 			new ISemanticModification() {
@@ -294,8 +324,8 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		})
 	}
 
-	@Fix(WARNING_DEPRECATED_THROW)
-	@Fix(ERROR_THROW_KEYWORD_DISALLOWED)
+	@Fixes(@Fix(WARNING_DEPRECATED_THROW),
+	@Fix(ERROR_THROW_KEYWORD_DISALLOWED))
 	def replaceDeprecatedThrow(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(
 			issue,
