@@ -52,6 +52,9 @@ import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import com.yakindu.solidity.solidity.DecimalNumberLiteral
+import com.yakindu.solidity.solidity.Unit
+import java.math.BigDecimal
 
 /** 
  * @author andreas muelder - Initial contribution and API
@@ -110,6 +113,19 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 				}
 			}
 		})
+	}
+
+	@Fix(ERROR_YEARS_IS_DISALLOWED)
+	def replaceYearsUnit(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Change years unit denomination to days', 'Change years unit denomination to days', null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof DecimalNumberLiteral) {
+						element.unit = Unit.DAYS
+						element.value = element.value.multiply(new BigDecimal(365))
+					}
+				}
+			})
 	}
 
 	@Fix(WARNING_DEPRECATED_FUNCTION_CONSTRUCTOR)
