@@ -1,4 +1,4 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.5.1;
 import "../Markets/Market.sol";
 import "../Tokens/Token.sol";
 import "../Events/Event.sol";

@@ -1,4 +1,4 @@
-pragma solidity ^0.4.6;
+pragma solidity ^0.5.1;
 
 /*
     Copyright 2016, Jordi Baylina

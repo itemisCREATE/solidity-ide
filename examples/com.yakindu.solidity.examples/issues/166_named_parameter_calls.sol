@@ -1,4 +1,4 @@
-pragma solidity ^0.4.25;
+pragma solidity ^0.5.1;
 
 contract NamedParameter{
     function callMe(int32 i, bool b) public{

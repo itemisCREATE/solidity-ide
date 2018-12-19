@@ -16,7 +16,7 @@ package com.yakindu.solidity.scoping
 
 import com.google.common.base.Predicate
 import com.yakindu.solidity.solidity.ImportDirective
-import com.yakindu.solidity.typesystem.builtin.IBuiltInDeclarationsProvider
+import com.yakindu.solidity.typesystem.BuiltInDeclarations
 import java.util.LinkedHashSet
 import java.util.Set
 import javax.inject.Inject
@@ -45,7 +45,7 @@ class SolidityGlobalScopeProvider extends ImportUriGlobalScopeProvider {
 	@Inject
 	protected IResourceScopeCache cache;
 	@Inject
-	protected IBuiltInDeclarationsProvider buildInDeclarationsProvider
+	protected BuiltInDeclarations buildInDeclarationsProvider
 
 	override getScope(Resource resource, EReference reference, Predicate<IEObjectDescription> filter) {
 		val libraryScope = resource.getScopeWithLibrary(reference)
@@ -99,7 +99,7 @@ class SolidityGlobalScopeProvider extends ImportUriGlobalScopeProvider {
 	}
 
 	private def IScope getScopeWithLibrary(Resource resource, EReference reference) {
-		return Scopes.scopeFor(buildInDeclarationsProvider.provideFor(resource).all, super.getScope(resource, reference, null))
+		return Scopes.scopeFor(buildInDeclarationsProvider.all, super.getScope(resource, reference, null))
 //		var stdlib = (typeSystem as AbstractTypeSystem).resource
 // 		if (resourceDescriptionsData === null) {
 //			resourceDescriptionsData = new ResourceDescriptionsData(

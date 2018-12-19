@@ -12,9 +12,10 @@
  * 	committers of YAKINDU 
  * 
  */
-package com.yakindu.solidity.typesystem.builtin
+package com.yakindu.solidity.typesystem
 
 import com.google.inject.Inject
+import com.yakindu.solidity.solidity.ContractDefinition
 import com.yakindu.solidity.solidity.FunctionModifier
 import com.yakindu.solidity.solidity.SolidityFactory
 import java.util.ArrayList
@@ -37,20 +38,43 @@ import static org.yakindu.base.types.typesystem.ITypeSystem.*
  * @author Karsten Thoms
  */
 @Accessors(PUBLIC_GETTER)
-class BuiltInDeclarations4 extends BuiltInDeclarations {
+class BuiltInDeclarations {
+
+	protected boolean installed
+	protected Operation assert_
+	protected Operation require
+	protected Operation revert
+	protected Operation addmod
+	protected Operation mulmod
+	protected Operation keccak256
+	protected Operation sha3
+	protected Operation sha256
+	protected Operation ripemd160
+	protected Operation ecrecover
+	protected Operation suicide
+	protected Operation selfdestruct
+	protected Property msg
+	protected Property this_
+	protected Property super_
+	protected Property now
+	protected Property tx
+	protected Property block
+	protected Property length
+	protected Operation push
+	protected Operation gas
+	protected Operation value
+	protected ContractDefinition owned
+	protected ContractDefinition mortal
 
 	ITypeSystem typeSystem
 	TypesFactory typesFactory
 
-	override create new ArrayList<EObject>() superContracts() {
+	def create new ArrayList<EObject>() superContracts() {
 		addAll(#[owned, mortal])
 	}
 
 	@Inject
 	new(ITypeSystem typeSystem, TypesFactory typesFactory, SolidityFactory solidityFactory) {
-		/************************
-		 *     ERROR HANDLING 
-		 ************************/
 		this.typeSystem = typeSystem
 		this.typesFactory = typesFactory
 
@@ -138,11 +162,11 @@ class BuiltInDeclarations4 extends BuiltInDeclarations {
 		push = createOperation("push", INT) => [
 			parameters += createParameter("element", ANY)
 		]
-		
+
 		gas = createOperation("gas", VOID) => [
 			parameters += createParameter("amount", UINT256)
 		]
-		
+
 		value = createOperation("value", VOID) => [
 			parameters += createParameter("amount", UINT256)
 		]
@@ -184,11 +208,10 @@ class BuiltInDeclarations4 extends BuiltInDeclarations {
 				]
 			]
 		]
-		
-		
+
 	}
 
-	override all() {
+	def all() {
 		#[msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, push, ripemd160, ecrecover,
 			block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]
 	}

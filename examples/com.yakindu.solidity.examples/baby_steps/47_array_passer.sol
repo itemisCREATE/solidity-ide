@@ -1,4 +1,4 @@
-import "mortal";
+import "mortal.sol";
 
 // contract Descriptor {
 // 	function getDescription() constant returns (uint16[3]){	

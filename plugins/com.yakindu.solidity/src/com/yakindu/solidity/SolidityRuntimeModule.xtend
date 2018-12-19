@@ -16,7 +16,6 @@
 package com.yakindu.solidity
 
 import com.google.inject.Binder
-import com.google.inject.multibindings.MapBinder
 import com.google.inject.name.Names
 import com.yakindu.solidity.scoping.SolidityGlobalScopeProvider
 import com.yakindu.solidity.scoping.SolidityImportedNamespaceAwareLocalScopeProvider
@@ -27,16 +26,10 @@ import com.yakindu.solidity.solidity.SolidityPackage
 import com.yakindu.solidity.terminals.SolidityValueConverterService
 import com.yakindu.solidity.typesystem.SolidityTypeInferrer
 import com.yakindu.solidity.typesystem.SolidityTypeSystem
-import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations
-import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations4
-import com.yakindu.solidity.typesystem.builtin.IBuiltInDeclarationsProvider
-import com.yakindu.solidity.typesystem.builtin.SolidityBuiltInDeclarationsProvider
-import com.yakindu.solidity.typesystem.builtin.SolidityVersions
 import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy
 import org.eclipse.xtext.scoping.IScopeProvider
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.validation.CompositeEValidator
-import org.yakindu.base.expressions.scoping.ExpressionsScopeProvider
 import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.TypesPackage
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
@@ -59,13 +52,7 @@ class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 		binder.bind(SolidityFactory).toInstance(SolidityFactory.eINSTANCE)
 		binder.bind(TypesPackage).toInstance(TypesPackage.eINSTANCE)
 		binder.bind(TypesFactory).toInstance(TypesFactory.eINSTANCE)
-		binder.bind(IBuiltInDeclarationsProvider).to(SolidityBuiltInDeclarationsProvider)
-
-		val builtInDeclatationBinder = MapBinder.newMapBinder(binder, SolidityVersions.Major, BuiltInDeclarations)
-		builtInDeclatationBinder.addBinding(SolidityVersions.Major.FOUR).to(BuiltInDeclarations4)
-
-		binder.bind(String).annotatedWith(Names.named(SolidityVersions.SOLIDITY_VERSION)).toInstance(
-			SolidityVersions.DEFAULT_VERSION)
+		binder.bind(String).annotatedWith(Names.named(SolidityVersion.SOLIDITY_VERSION)).toInstance(SolidityVersion.DEFAULT_SOLIDITY_VERSION)
 	}
 
 	override bindIGlobalScopeProvider() {

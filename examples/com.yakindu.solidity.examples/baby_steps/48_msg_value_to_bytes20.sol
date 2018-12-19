@@ -1,4 +1,4 @@
-import "mortal";
+import "/mortal.sol";
 
 contract MsgValueToBytes20 is mortal {
 
@@ -33,7 +33,6 @@ contract MsgValueToBytes20 is mortal {
     
 }
 
-
 /*
 
 msgvaluetobytes20.convertMsgValueToBytes20.sendTransaction({from:eth.coinbase,value:web3.toWei(.001,"ether")});
@@ -45,4 +44,4 @@ msgvaluetobytes20.convertMsgValueToBytes20.sendTransaction({from:eth.coinbase,va
 > msgvaluetobytes20.getFinalval();
 "0x0000000000000000000000000000000000002710"
 
-*/
+*/ 

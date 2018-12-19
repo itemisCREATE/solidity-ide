@@ -1,4 +1,4 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.5.1;
 
 
 /// @title Math library - Allows calculation of logarithmic and exponential functions

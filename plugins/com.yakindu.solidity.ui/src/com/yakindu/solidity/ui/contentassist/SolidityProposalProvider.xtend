@@ -16,7 +16,7 @@ package com.yakindu.solidity.ui.contentassist
 
 import com.google.common.base.Function
 import com.google.inject.name.Named
-import com.yakindu.solidity.typesystem.builtin.SolidityVersions
+import com.yakindu.solidity.SolidityVersion
 import java.util.Collections
 import java.util.HashSet
 import java.util.Set
@@ -60,7 +60,7 @@ class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 			"&", "&&", "and", "<", ">", "<=", ">=", "<<", "=>", "event"}
 	);
 
-	@Inject @Named(SolidityVersions.SOLIDITY_VERSION) String solcVersion
+	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) String solcVersion
 
 	override complete_VERSION(EObject model, RuleCall ruleCall, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {

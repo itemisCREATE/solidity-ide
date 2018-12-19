@@ -1,4 +1,4 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.5.1;
 
 import "./module.sol";
 import "./announcementTypes.sol";
