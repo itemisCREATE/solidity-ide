@@ -47,6 +47,7 @@ import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.expressions.ui.quickfix.ExpressionsQuickfixProvider
 import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.Operation
+import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 
 import static com.yakindu.solidity.validation.IssueCodes.*
 
@@ -61,9 +62,10 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 
 	@Inject BuiltInDeclarations declarations
 	@Inject extension SolidityFactory
+	@Inject ITypeSystemInferrer typeInferrer
 	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) String solcVersion
 
-	extension ExpressionsFactory factory = ExpressionsFactory.eINSTANCE
+	ExpressionsFactory factory = ExpressionsFactory.eINSTANCE
 
 	@Fix(WARNING_SOLIDITY_VERSION_NOT_THE_DEFAULT)
 	def changeToDefaultPragma(Issue issue, IssueResolutionAcceptor acceptor) {
@@ -75,6 +77,39 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 					}
 				}
 			})
+	}
+
+	/**
+	 * FROM THE COMPILER
+	 */
+	@Fix(ERROR_VAR_KEYWORD_DISALLOWED)
+	def replaceVarKeyword(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Inferr type information', 'Inferr type information', null, new ISemanticModification() {
+			override apply(EObject element, IModificationContext context) throws Exception {
+				if (element instanceof VariableDefinition) {
+					val definition = element as VariableDefinition
+					val inferredType = typeInferrer.infer(definition).type
+					val block = definition.eContainer as Block
+					val index = block.statements.indexOf(definition)
+					block.statements.remove(definition)
+					block.statements.add(index, createVariableDefinition => [
+						var identifier = definition.identifier.identifier
+						if (identifier.size == 1) {
+							name = identifier.get(0).name
+						} else {
+							// FIXME this relates to #230 tuple expressions have multiple identifiers
+							name = "x"
+						}
+						visibility = definition.visibility
+						initialValue = definition.initialValue
+						storage = definition.storage
+						typeSpecifier = createTypeSpecifier => [
+							type = inferredType
+						]
+					])
+				}
+			}
+		})
 	}
 
 	@Fix(WARNING_DEPRECATED_FUNCTION_CONSTRUCTOR)
@@ -244,23 +279,36 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	}
 
 	@Fix(WARNING_DEPRECATED_THROW)
+	@Fix(ERROR_THROW_KEYWORD_DISALLOWED)
 	def replaceDeprecatedThrow(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, 'Replace with revert', 'revert(\'Something bad happened\').', null,
+		acceptor.accept(
+			issue,
+			'Replace with revert',
+			'revert(\'Something bad happened\').',
+			null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element instanceof ThrowStatement) {
 						val block = element.getContainerOfType(Block)
+						val index = block.statements.indexOf(element)
 						block.statements.remove(element)
-						block.statements += createExpressionStatement => [
-							expression = createElementReferenceExpression => [
-								val revert = declarations.revert
+						block.statements.add(index, createExpressionStatement => [
+							expression = factory.createElementReferenceExpression => [
 								operationCall = true
-								reference = revert
+								reference = declarations.revert
+								arguments += createSimpleArgument => [
+									value = createPrimitiveValueExpression => [
+										value = factory.createStringLiteral => [
+											value = "Something bad happened"
+										]
+									]
+								]
 							]
-						]
+						])
 					}
 				}
-			})
+			}
+		)
 
 		acceptor.accept(issue, 'Replace with assert', 'assert(condition)', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
@@ -268,57 +316,69 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 					val ifStatement = element.getContainerOfType(IfStatement)
 					if (ifStatement !== null) {
 						val condition = ifStatement.condition
-						val block = ifStatement.eContainer as Block
-						block.statements.set(
-							block.statements.indexOf(ifStatement),
-							createExpressionStatement => [
-								expression = createElementReferenceExpression => [
-									reference = declarations.assert_
-									operationCall = true
-									arguments += ExpressionsFactory.eINSTANCE.createArgument => [
-										value = createLogicalNotExpression => [
-											operand = createParenthesizedExpression => [
-												expression = condition
-
-											]
+						val thenBlock = ifStatement.then as Block
+						val elseBlock = ifStatement.^else as Block
+						// only fix this if the throw statement is the only statement in the if clause
+						if (thenBlock.statements.size == 1 && elseBlock === null) {
+							val containingBlock = ifStatement.eContainer as Block
+							val index = containingBlock.statements.indexOf(ifStatement);
+							containingBlock.statements.remove(ifStatement)
+							containingBlock.statements.add(
+								index,
+								createExpressionStatement => [
+									expression = factory.createElementReferenceExpression => [
+										operationCall = true
+										reference = declarations.assert_
+										arguments += createSimpleArgument => [
+											value = condition
 										]
 									]
 								]
-							]
-						)
+							)
+						}
 					}
 				}
 			}
 		})
 
-		acceptor.accept(issue, 'Replace with require', 'require(condition)', null, new ISemanticModification() {
-			override apply(EObject element, IModificationContext context) throws Exception {
-				if (element instanceof ThrowStatement) {
-					val ifStatement = element.getContainerOfType(IfStatement)
-					if (ifStatement !== null) {
-						val condition = ifStatement.condition
-						val block = ifStatement.eContainer as Block
-						block.statements.set(
-							block.statements.indexOf(ifStatement),
-							createExpressionStatement => [
-								expression = createElementReferenceExpression => [
-									reference = declarations.require
-									operationCall = true
-									arguments += ExpressionsFactory.eINSTANCE.createArgument => [
-										value = createLogicalNotExpression => [
-											operand = createParenthesizedExpression => [
-												expression = condition
-
+		acceptor.accept(issue, 'Replace with require', 'require(condition, \'Precondition are not met\')', null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof ThrowStatement) {
+						val ifStatement = element.getContainerOfType(IfStatement)
+						if (ifStatement !== null) {
+							val condition = ifStatement.condition
+							val thenBlock = ifStatement.then as Block
+							val elseBlock = ifStatement.^else as Block
+							// only fix this if the throw statement is the only statement in the if clause
+							if (thenBlock.statements.size == 1 && elseBlock === null) {
+								val containingBlock = ifStatement.eContainer as Block
+								val index = containingBlock.statements.indexOf(ifStatement);
+								containingBlock.statements.remove(ifStatement)
+								containingBlock.statements.add(
+									index,
+									createExpressionStatement => [
+										expression = factory.createElementReferenceExpression => [
+											operationCall = true
+											reference = declarations.require
+											arguments += createSimpleArgument => [
+												value = condition
+											]
+											arguments += createSimpleArgument => [
+												value = createPrimitiveValueExpression => [
+													value = factory.createStringLiteral => [
+														value = "Preconditions are not satisfied"
+													]
+												]
 											]
 										]
 									]
-								]
-							]
-						)
+								)
+							}
+						}
 					}
 				}
-			}
-		})
+			})
 	}
 
 	@Fix(WARNING_DEPRECATED_CALLCODE)

@@ -95,10 +95,16 @@ class BuiltInDeclarations {
 
 		require = createOperation("require", VOID) => [
 			parameters += createParameter("condition", BOOL)
+			parameters += createParameter("message", BYTES32) => [
+				optional = true
+			]
 		]
 
-		revert = createOperation("revert", VOID)
-
+		revert = createOperation("revert", VOID) => [
+			parameters += createParameter("message", BYTES32) => [
+				optional = true
+			]
+		]
 		/************************
 		 *     MATH and CRYPTO
 		 ************************/
