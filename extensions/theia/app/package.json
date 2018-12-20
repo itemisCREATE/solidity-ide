@@ -8,11 +8,9 @@
     "@theia/editor": "next",
     "@theia/file-search": "next",
     "@theia/filesystem": "next",
-    "@theia/git": "next",
     "@theia/keymaps": "next",
     "@theia/languages": "next",
     "@theia/markers": "next",
-    "@theia/merge-conflicts": "next",
     "@theia/messages": "next",
     "@theia/metrics": "next",
     "@theia/monaco": "next",
@@ -27,14 +25,14 @@
     "@theia/typescript": "next",
     "@theia/userstorage": "next",
     "@theia/workspace": "next",
-    "@theia/xtext-dsl-extension": "0.1.0"
+    "xtext-dsl-extension": "0.1.0"
   },
   "devDependencies": {
     "@theia/cli": "next"
   },
   "scripts": {
     "prepare": "theia build",    
-    "start": "theia start ./../examples --hostname 0.0.0.0 --port 8080",
+    "start": "theia start ./../code --hostname 0.0.0.0 --port 8080",
     "watch": "theia build --watch"
   },
   "theia": {

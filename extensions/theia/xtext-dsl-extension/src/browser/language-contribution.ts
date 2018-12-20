@@ -1,5 +1,6 @@
 import { injectable, inject } from 'inversify';
 import { Workspace, Languages, LanguageClientFactory, BaseLanguageClientContribution } from '@theia/languages/lib/browser';
+import { MessageService } from "@theia/core/lib/common";
 
 @injectable()
 export class DslClientContribution extends BaseLanguageClientContribution {
@@ -10,9 +11,11 @@ export class DslClientContribution extends BaseLanguageClientContribution {
     constructor(
         @inject(Workspace) protected readonly workspace: Workspace,
         @inject(Languages) protected readonly languages: Languages,
-        @inject(LanguageClientFactory) protected readonly languageClientFactory: LanguageClientFactory
+        @inject(LanguageClientFactory) protected readonly languageClientFactory: LanguageClientFactory,
+        @inject(MessageService) protected readonly messageService: MessageService
     ) {
         super(workspace, languages, languageClientFactory);
+        messageService.info('This is only a test instance and will be destroyed in an hour!');
     }
 
     protected get globPatterns() {
@@ -166,7 +169,6 @@ export function registerDSL() {
                 // identifiers and keywords
                 [/[a-z_$][\w$]*/, {
                     cases: {
-                        '@typeKeywords': 'keyword',
                         '@keywords': 'keyword',
                         '@default': 'identifier'
                     }

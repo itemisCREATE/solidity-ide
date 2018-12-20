@@ -1,9 +1,11 @@
 {
-  "name": "@theia/xtext-dsl-extension",
+  "name": "xtext-dsl-extension",
   "keywords": [
     "theia-extension"
   ],
   "version": "0.1.0",
+  "author": "itemis AG",
+  "license": "EPL-1.0",
   "files": [
     "lib",
     "src"
