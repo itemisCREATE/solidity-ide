@@ -59,6 +59,8 @@ import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.eclipse.xtext.ui.editor.model.XtextDocumentUtil
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 
 /** 
  * @author andreas muelder - Initial contribution and API
@@ -80,6 +82,42 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element instanceof PragmaSolidityDirective) {
 						element.version = solcVersion
+					}
+				}
+			})
+	}
+
+	@Fix(ERROR_STATE_MUTABILITY_ONLY_ALLOWED_FOR_ADDRESS)
+	def removePayableToNonAddressDeclaration(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Remove payable declaration', 'Remove payable declaration', null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof Parameter) {
+						val param = (element as Parameter)
+						val document = context.xtextDocument
+						val node = NodeModelUtils.getNode(param)
+						val fixed = document.get(node.offset, node.length).replace("payable", "")
+						document.replace(node.offset, node.length, fixed)
+					}
+				}
+			})
+	}
+
+	@Fix(ERROR_MEMBER_TRANSFER_NOT_FOUND_OR_VISIBLE)
+	def addPayableToAddressDeclaration(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Add payable to declaration', 'Add payable to declaration', null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof ElementReferenceExpression) {
+						if (element.reference instanceof Parameter) {
+							val typeSpecifier = (element.reference as Parameter).typeSpecifier
+							if (typeSpecifier.type.name === SolidityTypeSystem.ADDRESS) {
+								val document = context.xtextDocument
+								val node = NodeModelUtils.getNode(typeSpecifier)
+								val fixed = document.get(node.offset, node.length) + " payable"
+								document.replace(node.offset, node.length, fixed)
+							}
+						}
 					}
 				}
 			})

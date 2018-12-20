@@ -350,7 +350,7 @@ ParenthesizedExpression returns expressions::Expression:
 	{expressions::ParenthesizedExpression} '(' expression=Expression ')';
 
 TypeSpecifier returns types::TypeSpecifier:
-	SimpleTypeSpecifier | MappingTypeSpecifier | ArrayTypeSpecifier;
+	SimpleTypeSpecifier ('payable')?| MappingTypeSpecifier | ArrayTypeSpecifier;
 
 MappingTypeSpecifier:
 	{MappingTypeSpecifier} 'mapping' '(' key=TypeSpecifier '=>' value=TypeSpecifier ')';
