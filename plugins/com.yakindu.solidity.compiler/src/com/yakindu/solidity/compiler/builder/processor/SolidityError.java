@@ -9,7 +9,9 @@ public enum SolidityError {
 	ERROR_DATA_LOCATION_MUST_BE_SPECIFIED_FOR_VARIABLE("Data location must be \"storage\" or \"memory\" for variable, but none was given."),
 	ERROR_DATA_LOCATION_MUST_BE_CALLDATA_FOR_EXTERNAL_PARAMETER("Data location must be \"calldata\" for parameter in external function, but none was given."),
 	ERROR_DATA_LOCATION_MUST_BE_MEMORY_FOR_PARAMETER("Data location must be \"memory\" for parameter in function, but none was given."),
+	ERROR_DATA_LOCATION_MUST_BE_STORAGE_OR_MEMORY_FOR_PARAMETER("Data location must be \"storage\" or \"memory\" for parameter in function, but none was given."),
 	ERROR_DATA_LOCATION_MUST_BE_MEMORY_FOR_RETURN_PARAMETER("Data location must be \"memory\" for return parameter in function, but none was given."),
+	ERROR_DATA_LOCATION_MUST_BE_MEMORY_OR_STORAGE_FOR_RETURN_PARAMETER("Data location must be \"storage\" or \"memory\" for return parameter in function, but none was given."),
 	ERROR_NO_VISIBILITY_SPECIFIED("No visibility specified.");
 	private final String message;
 

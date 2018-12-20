@@ -120,8 +120,23 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		)
 	}
 
-	@Fix(ERROR_DATA_LOCATION_MUST_BE_SPECIFIED_FOR_VARIABLE)
-	def addStorageModifierMemory(Issue issue, IssueResolutionAcceptor acceptor) {
+	@Fixes(@Fix(ERROR_DATA_LOCATION_MUST_BE_STORAGE_OR_MEMORY_FOR_PARAMETER),
+	@Fix(ERROR_DATA_LOCATION_MUST_BE_MEMORY_OR_STORAGE_FOR_RETURN_PARAMETER))
+	def addStorageModifierSorageOrMemoryForParameter(Issue issue, IssueResolutionAcceptor acceptor) {
+		changeStorageModifierToMemory(issue, acceptor)
+		acceptor.accept(issue, 'Add \'storage\' modifier.', 'Add \'storage\' modifier.', null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof ArrayTypeSpecifier || element instanceof MappingTypeSpecifier) {
+						// TODO FIXME: This is only valid IF there is no initial value, or the 'return type' of the initial value has the same storage modifier e.g. in the case of a function call. 
+						(element.eContainer as Parameter).fixDeclaration(StorageLocation.STORAGE, issue, context)
+					}
+				}
+			})
+	}
+
+	@Fixes(@Fix(ERROR_DATA_LOCATION_MUST_BE_SPECIFIED_FOR_VARIABLE))
+	def addStorageModifierSorageOrMemoryForVariable(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Add \'memory\' modifier.', 'Add \'memory\' modifier.', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
