@@ -100,8 +100,10 @@ public class OutputParser {
 			
 				List<CompileError> errors = Lists.newArrayList();
 				JsonArray jsonArray = outputJson.getAsJsonArray("errors");
-				for (JsonElement jsonElement : jsonArray) {
-					errors.add(context.deserialize(jsonElement, CompileError.class));
+				if(jsonArray != null) {
+					for (JsonElement jsonElement : jsonArray) {
+						errors.add(context.deserialize(jsonElement, CompileError.class));
+					}
 				}
 				output.setErrors(errors);
 				Set<Entry<String, JsonElement>> contractFiles = readMembersAsSet(outputJson.get("contracts"));
