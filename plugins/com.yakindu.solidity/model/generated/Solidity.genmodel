@@ -14,6 +14,7 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Solidity.ecore#//StorageLocation">
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//StorageLocation/MEMORY"/>
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//StorageLocation/STORAGE"/>
+      <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//StorageLocation/CALLDATA"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Solidity.ecore#//Visibility">
       <genEnumLiterals ecoreEnumLiteral="Solidity.ecore#//Visibility/PUBLIC"/>

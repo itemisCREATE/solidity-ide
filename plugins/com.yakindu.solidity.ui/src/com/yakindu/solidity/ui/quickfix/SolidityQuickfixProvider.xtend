@@ -16,13 +16,16 @@ package com.yakindu.solidity.ui.quickfix
 
 import com.google.inject.Inject
 import com.yakindu.solidity.SolidityVersion
+import com.yakindu.solidity.solidity.ArrayTypeSpecifier
 import com.yakindu.solidity.solidity.Block
 import com.yakindu.solidity.solidity.BuildInModifier
 import com.yakindu.solidity.solidity.ConstructorDefinition
 import com.yakindu.solidity.solidity.ContractDefinition
+import com.yakindu.solidity.solidity.DecimalNumberLiteral
 import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.FunctionModifier
 import com.yakindu.solidity.solidity.IfStatement
+import com.yakindu.solidity.solidity.MappingTypeSpecifier
 import com.yakindu.solidity.solidity.Parameter
 import com.yakindu.solidity.solidity.PragmaSolidityDirective
 import com.yakindu.solidity.solidity.SolidityFactory
@@ -30,15 +33,19 @@ import com.yakindu.solidity.solidity.SourceUnit
 import com.yakindu.solidity.solidity.StorageLocation
 import com.yakindu.solidity.solidity.ThrowStatement
 import com.yakindu.solidity.solidity.TypeSpecifier
+import com.yakindu.solidity.solidity.Unit
 import com.yakindu.solidity.solidity.VariableDefinition
 import com.yakindu.solidity.typesystem.BuiltInDeclarations
 import com.yakindu.solidity.typesystem.SolidityTypeSystem
+import java.math.BigDecimal
 import javax.inject.Named
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
+import org.eclipse.xtext.ui.editor.model.IXtextDocument
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
 import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification
 import org.eclipse.xtext.ui.editor.quickfix.Fix
+import org.eclipse.xtext.ui.editor.quickfix.Fixes
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
 import org.eclipse.xtext.validation.Issue
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
@@ -52,10 +59,6 @@ import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import com.yakindu.solidity.solidity.DecimalNumberLiteral
-import com.yakindu.solidity.solidity.Unit
-import java.math.BigDecimal
-import org.eclipse.xtext.ui.editor.quickfix.Fixes
 
 /** 
  * @author andreas muelder - Initial contribution and API
@@ -68,7 +71,6 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	@Inject extension SolidityFactory
 	@Inject ITypeSystemInferrer typeInferrer
 	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) String solcVersion
-
 	ExpressionsFactory factory = ExpressionsFactory.eINSTANCE
 
 	@Fix(WARNING_SOLIDITY_VERSION_NOT_THE_DEFAULT)
@@ -81,6 +83,94 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 					}
 				}
 			})
+	}
+
+	@Fix(ERROR_DATA_LOCATION_MUST_BE_CALLDATA_FOR_EXTERNAL_PARAMETER)
+	def changeStorageModifierToCalldata(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(
+			issue,
+			'Add \'calldata\' modifier.',
+			'Data location must be \"calldata\" for parameter in external function.',
+			null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof ArrayTypeSpecifier || element instanceof MappingTypeSpecifier) {
+						(element.eContainer as Parameter).fixDeclaration(StorageLocation.CALLDATA, issue, context)
+					}
+				}
+			}
+		)
+	}
+
+	@Fixes(@Fix(ERROR_DATA_LOCATION_MUST_BE_MEMORY_FOR_PARAMETER),		
+	@Fix(ERROR_DATA_LOCATION_MUST_BE_MEMORY_FOR_RETURN_PARAMETER))
+	def changeStorageModifierToMemory(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(
+			issue,
+			'Add \'memory\' modifier.',
+			'Data location must be "memory" here. Add \'memory\' modifier.',
+			null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof ArrayTypeSpecifier || element instanceof MappingTypeSpecifier) {
+						(element.eContainer as Parameter).fixDeclaration(StorageLocation.MEMORY, issue, context)
+					}
+				}
+			}
+		)
+	}
+
+	@Fix(ERROR_DATA_LOCATION_MUST_BE_SPECIFIED_FOR_VARIABLE)
+	def addStorageModifierMemory(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Add \'memory\' modifier.', 'Add \'memory\' modifier.', null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof ArrayTypeSpecifier || element instanceof MappingTypeSpecifier) {
+						(element.eContainer as VariableDefinition).fixDeclaration(StorageLocation.MEMORY, issue,
+							context)
+					}
+				}
+			})
+		acceptor.accept(issue, 'Add \'storage\' modifier.', 'Add \'storage\' modifier.', null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof ArrayTypeSpecifier || element instanceof MappingTypeSpecifier) {
+						// TODO FIXME: This is only valid IF there is no initial value, or the 'return type' of the initial value has the same storage modifier e.g. in the case of a function call. 
+						(element.eContainer as VariableDefinition).fixDeclaration(StorageLocation.STORAGE, issue,
+							context)
+					}
+				}
+			})
+	}
+
+	def dispatch fixDeclaration(VariableDefinition definition, StorageLocation location, Issue issue,
+		IModificationContext context) {
+		if (definition.storage != location) {
+			definition.storage = location
+		} else {
+			context.getXtextDocument().fixNamedDeclaration(definition.name, location, issue, context)
+		}
+	}
+
+	def dispatch fixDeclaration(Parameter param, StorageLocation location, Issue issue, IModificationContext context) {
+		if (param.storage != location) {
+			param.storage = location
+		} else {
+			context.getXtextDocument().fixNamedDeclaration(param.name, location, issue, context)
+		}
+	}
+
+	def void fixNamedDeclaration(IXtextDocument document, String name, StorageLocation location, Issue issue,
+		IModificationContext context) {
+		if (name === null) {
+			val fixed = document.get(issue.offset, issue.length) + " " + location.literal
+			document.replace(issue.offset, issue.length, fixed)
+		} else {
+			val issueString = document.get(issue.offset, issue.length)
+			val index = document.get(issue.offset, issue.length).lastIndexOf(name)
+			val fixed = issueString.substring(0, index) + location.literal + " " + name;
+			document.replace(issue.offset, issue.length, fixed)
+		}
 	}
 
 	/**
@@ -179,7 +269,8 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			})
 	}
 
-	@Fix(WARNING_FUNCTION_VISIBILITY)
+	@Fixes(@Fix(WARNING_FUNCTION_VISIBILITY),
+	@Fix(ERROR_NO_VISIBILITY_SPECIFIED))
 	def makeVisibilityExplicit(Issue issue, IssueResolutionAcceptor acceptor) {
 		val element = new ResourceSetImpl().getEObject(issue.uriToProblem, true);
 		if (!(element instanceof ConstructorDefinition)) {
@@ -193,7 +284,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 				})
 
 		}
-		acceptor.accept(issue, 'Make this function public', 'Public function.', null, new ISemanticModification() {
+		acceptor.accept(issue, 'Make this function \'public\'', 'Public function.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				element.fixVisibility(createBuildInModifier => [
 					type = FunctionModifier.PUBLIC
@@ -202,14 +293,22 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			}
 
 		})
-
-		acceptor.accept(issue, 'Make this function internal', 'Internal function.', null, new ISemanticModification() {
-			override apply(EObject element, IModificationContext context) throws Exception {
-				element.fixVisibility(createBuildInModifier => [
-					type = FunctionModifier.INTERNAL
-				])
-			}
-		})
+		acceptor.accept(issue, 'Make this function \'internal\'', 'Internal function.', null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					element.fixVisibility(createBuildInModifier => [
+						type = FunctionModifier.INTERNAL
+					])
+				}
+			})
+		acceptor.accept(issue, 'Make this function \'external\'', 'External function.', null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					element.fixVisibility(createBuildInModifier => [
+						type = FunctionModifier.EXTERNAL
+					])
+				}
+			})
 	}
 
 	def dispatch fixVisibility(EObject element, BuildInModifier modifier) {

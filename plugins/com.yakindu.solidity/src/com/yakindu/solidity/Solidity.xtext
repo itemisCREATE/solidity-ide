@@ -72,7 +72,7 @@ StateVariableDefinition returns types::Property:
 	initialValue=Expression)? ';';
 
 enum StorageLocation:
-	MEMORY='memory' | STORAGE='storage';
+	MEMORY='memory' | STORAGE='storage' | CALLDATA='calldata';
 
 VariableDeclaration returns types::Property:
 	{VariableDefinition} typeSpecifier=TypeSpecifier (storage=StorageLocation)? name=ID;
