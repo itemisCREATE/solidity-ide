@@ -51,13 +51,13 @@ import org.yakindu.base.types.Type
 class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 
 	val composedAdapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
-	
+
 	static final String EXTENSION = "sol"
-	
+
 	static final Set<String> IGNORED_KEYWORDS = Collections.unmodifiableSet(
 		#{"+", "-", "*", "/", "%", "&", "++", "--", "(", ")", "[", "]", "{", "}", ";", ",", ".", ":", "?", "!", "^",
 			"=", "==", "!=", "+=", "-=", "*=", "/=", "%=", "/=", "^=", "&&=", "||=", "&=", "|=", "|", "||", "|||", "or",
-			"&", "&&", "and", "<", ">", "<=", ">=", "<<", "=>", "event"}
+			"&", "&&", "and", "<", ">", "<=", ">=", "<<", "=>", "event", "var"}
 	);
 
 	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) String solcVersion
@@ -74,8 +74,9 @@ class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 		}
 		super.completeKeyword(keyword, contentAssistContext, new AcceptorDelegate(acceptor, hover))
 	}
-	
-	override completeImportDirective_ImportedNamespace(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+
+	override completeImportDirective_ImportedNamespace(EObject model, Assignment assignment,
+		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		val Set<IFile> result = new HashSet<IFile>();
 		val contextFile = WorkspaceSynchronizer.getFile(context.currentModel.eResource)
 		var workspace = contextFile.project
@@ -91,7 +92,10 @@ class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 			}
 		})
 		result.forEach [
-			acceptor.accept(createCompletionProposal("\"" + rawLocation.makeRelativeTo(contextFile.rawLocation).toString.replaceFirst("../","") + "\";", name, null, context))
+			acceptor.accept(
+				createCompletionProposal(
+					"\"" + rawLocation.makeRelativeTo(contextFile.rawLocation).toString.replaceFirst("../", "") + "\";",
+					name, null, context))
 		]
 	}
 
