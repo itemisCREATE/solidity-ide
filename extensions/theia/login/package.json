@@ -1,0 +1,36 @@
+{
+  "name": "containermanagement",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "compilerOptions": {
+    "target": "es6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc ./loading.ts; ts-node ./server.ts",
+    "cleaner": "ts-node ./cleaner.ts",
+    "parallel": "./node_modules/.bin/npm-run-all -p start cleaner"
+  },
+  "keywords": [
+    "Solidity"
+  ],
+  "author": "itemis AG",
+  "license": "EPL-1.0",
+  "dependencies": {
+    "@angular/common": "^7.1.4",
+    "@angular/core": "^7.1.4",
+    "@types/node": "^10.12.17",
+    "crypto-ts": "^1.0.2",
+    "csv-parser": "^2.1.0",
+    "express": "^4.16.4",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.5",
+    "rxjs": "^6.3.3",
+    "sleep": "^5.2.3",
+    "zone.js": "^0.8.26"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}

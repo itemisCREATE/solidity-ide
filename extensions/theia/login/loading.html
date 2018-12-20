@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Yakindu Solidty</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #headPicture{
+                width: 10%;
+                height: auto;
+                -webkit-animation:spin 1s linear infinite;
+                -moz-animation:spin 1s linear infinite;
+                animation:spin 1s linear infinite;
+            }
+            @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+            @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+            @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+        </style>
+        <script src="loading.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <img src="https://www.itemis.com/hubfs/Corporate_Website/header/itemis-yakindu.png" alt="Yakindu Solidty IDE" id="headPicture" >
+        <br>
+        <div id="shownText">
+            Your workspace is being created!
+        </div>
+        <script>
+            document.getElementById('shownText').innerText = "Your workspace '" + workspace + ":" + pName + "' is being created.";
+        </script>
+    </body>
+</html>

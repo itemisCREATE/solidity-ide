@@ -1,0 +1,10 @@
+#main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#headPicture{
+    width: 10%;
+    height: auto
+}
