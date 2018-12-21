@@ -17,6 +17,7 @@ package com.yakindu.solidity.compiler.builder.processor;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
@@ -126,8 +127,11 @@ public class OutputParser {
 	}
 
 	private Set<Entry<String, JsonElement>> readMembersAsSet(JsonElement json) {
-		JsonObject object = json.getAsJsonObject();
-		return (object == null) ? Sets.newHashSet() : object.entrySet();
+		if(json != null) {
+			JsonObject object = json.getAsJsonObject();
+			return (object == null) ? Sets.newHashSet() : object.entrySet();
+		}
+		return Sets.newHashSet();
 	}
 
 	private String readObjectMemberAsString(JsonObject object, String key) {
