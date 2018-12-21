@@ -41,6 +41,7 @@ import java.math.BigDecimal
 import javax.inject.Named
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.ui.editor.model.IXtextDocument
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
 import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification
@@ -59,8 +60,8 @@ import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.eclipse.xtext.ui.editor.model.XtextDocumentUtil
-import org.eclipse.xtext.nodemodel.util.NodeModelUtils
+import org.eclipse.xtext.EcoreUtil2
+import com.yakindu.solidity.solidity.Modifier
 
 /** 
  * @author andreas muelder - Initial contribution and API
@@ -103,7 +104,8 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			})
 	}
 
-	@Fix(ERROR_MEMBER_TRANSFER_NOT_FOUND_OR_VISIBLE)
+	@Fixes(@Fix(ERROR_MEMBER_TRANSFER_NOT_FOUND_OR_VISIBLE),
+	@Fix(ERROR_INVALID_IMPLICID_CONVERSION_TO_ADDRESS_PAYABLE))
 	def addPayableToAddressDeclaration(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Add payable to declaration', 'Add payable to declaration', null,
 			new ISemanticModification() {
@@ -111,6 +113,15 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 					if (element instanceof ElementReferenceExpression) {
 						if (element.reference instanceof Parameter) {
 							val typeSpecifier = (element.reference as Parameter).typeSpecifier
+							if (typeSpecifier.type.name === SolidityTypeSystem.ADDRESS) {
+								val document = context.xtextDocument
+								val node = NodeModelUtils.getNode(typeSpecifier)
+								val fixed = document.get(node.offset, node.length) + " payable"
+								document.replace(node.offset, node.length, fixed)
+							}
+						}
+						if (element.reference instanceof VariableDefinition) {
+							val typeSpecifier = (element.reference as VariableDefinition).typeSpecifier
 							if (typeSpecifier.type.name === SolidityTypeSystem.ADDRESS) {
 								val document = context.xtextDocument
 								val node = NodeModelUtils.getNode(typeSpecifier)
@@ -150,7 +161,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
-					if (element instanceof ArrayTypeSpecifier || element instanceof MappingTypeSpecifier) {
+					if (element instanceof TypeSpecifier) {
 						(element.eContainer as Parameter).fixDeclaration(StorageLocation.MEMORY, issue, context)
 					}
 				}
@@ -259,6 +270,15 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		})
 	}
 
+	def changeFunctionModifierTo(Modifier modifierToChange, FunctionModifier modifier) {
+		val function = modifierToChange.eContainer as FunctionDefinition
+		val index = function.modifier.indexOf(modifierToChange);
+		function.modifier.remove(index)
+		function.modifier.add(index, createBuildInModifier => [
+			type = modifier
+		])
+	}
+
 	@Fix(ERROR_YEARS_IS_DISALLOWED)
 	def replaceYearsUnit(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Change years unit denomination to days', 'Change years unit denomination to days', null,
@@ -272,29 +292,26 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			})
 	}
 
-	@Fix(ERROR_CONSTANT_MODIFIER_WAS_REMOVED)
-	def replaceConstantModifier(Issue issue, IssueResolutionAcceptor acceptor) {
+	@Fix(ERROR_FUNCTION_DECLARED_AS_PURE_BUT_MUST_BE_VIEW)
+	def declareFunctionAsView(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Use "view" instead.', 'Use "view" instead.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
-				if (element instanceof BuildInModifier) {
-					val function = element.eContainer as FunctionDefinition
-					val index = function.modifier.indexOf(element);
-					function.modifier.remove(index)
-					function.modifier.add(index, createBuildInModifier => [
-						type = FunctionModifier.VIEW
-					])
-				}
+				val functionDefinition = EcoreUtil2.getContainerOfType(element, FunctionDefinition)
+				val pure = functionDefinition.modifier.findFirst [
+					it instanceof BuildInModifier && (it as BuildInModifier).type === FunctionModifier.PURE
+				]
+				pure?.changeFunctionModifierTo(FunctionModifier.VIEW)
 			}
 		})
+	}
+
+	@Fix(ERROR_CONSTANT_MODIFIER_WAS_REMOVED)
+	def replaceConstantModifier(Issue issue, IssueResolutionAcceptor acceptor) {
+		declareFunctionAsView(issue, acceptor)
 		acceptor.accept(issue, 'Use "pure" instead.', 'Use "pure" instead.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				if (element instanceof BuildInModifier) {
-					val function = element.eContainer as FunctionDefinition
-					val index = function.modifier.indexOf(element);
-					function.modifier.remove(index)
-					function.modifier.add(index, createBuildInModifier => [
-						type = FunctionModifier.PURE
-					])
+					element.changeFunctionModifierTo(FunctionModifier.VIEW)
 				}
 			}
 		})

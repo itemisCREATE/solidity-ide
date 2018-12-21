@@ -5,6 +5,8 @@ public enum SolidityError {
 	ERROR_FUNCTION_NAME_EQUALS_CONTRACT_NAME_DISALLOWED("Functions are not allowed to have the same name as the contract."),
 	ERROR_CONSTANT_MODIFIER_WAS_REMOVED("The state mutability modifier \"constant\" was removed in version 0.5.0."),
 	ERROR_THROW_KEYWORD_DISALLOWED("\"throw\" is deprecated in favour of \"revert()\", \"require()\" and \"assert()\""),
+	ERROR_INVALID_IMPLICID_CONVERSION_TO_ADDRESS_PAYABLE("Invalid type for argument in function call. Invalid implicit conversion from address to address payable requested."),
+	ERROR_FUNCTION_DECLARED_AS_PURE_BUT_MUST_BE_VIEW("Function declared as pure, but this expression (potentially) reads from the environment or state and thus requires \"view\"."),
 	ERROR_YEARS_IS_DISALLOWED("Using \"years\" as a unit denomination is deprecated."),
 	ERROR_DATA_LOCATION_MUST_BE_SPECIFIED_FOR_VARIABLE("Data location must be \"storage\" or \"memory\" for variable, but none was given."),
 	ERROR_DATA_LOCATION_MUST_BE_CALLDATA_FOR_EXTERNAL_PARAMETER("Data location must be \"calldata\" for parameter in external function, but none was given."),
