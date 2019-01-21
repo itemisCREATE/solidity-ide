@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "scripts": {
+    "prepare": "lerna run prepare",
+    "build": "lerna run build",
+    "watch": "lerna run watch"
+  },
+  "devDependencies": {
+    "lerna": "2.4.0"
+  },
+  "workspaces": [
+    "xtext-dsl-extension", "app"
+  ]
+}
