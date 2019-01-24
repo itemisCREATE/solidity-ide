@@ -12,7 +12,7 @@ RUN git clone https://github.com/Yakindu/solidity-ide.git \
 
 #compile sources
 WORKDIR /home/node/login
-RUN echo "{}" > ./files/ides.json
+RUN mkdir files && echo "{}" > ./files/ides.json
 RUN npm i
 RUN npm run build
 

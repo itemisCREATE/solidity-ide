@@ -40,12 +40,12 @@ export function handleWorkspace(): string {
 function startContainer(name: string) {
     let runCmd: string = 'docker container run';
     runCmd += ' --name ' + name;
-    runCmd += ' -p 8080:8080';
+    //runCmd += ' -p 8080:8080';
     runCmd += ' --detach';
     runCmd += ' -l traefik.enable=true';
     runCmd += ' -l traefik.docker.network=traefik';
     runCmd += ' -l traefik.port=8080';
-    runCmd += ' -l ide_' + name;
+    runCmd += ' -l traefik.backend=ide_' + name;
     runCmd += ' -l traefik.frontend.rule=Host:solidity-ide.itemis.de;PathPrefixStrip:/' + name;
     runCmd += ' solidity-ide:latest';
     return (shell.exec(runCmd).code !== 0);
