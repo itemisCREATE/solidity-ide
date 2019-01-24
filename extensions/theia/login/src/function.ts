@@ -1,42 +1,9 @@
-import { csvData } from './models'
-
-const http = require('http');
 const path = require('path');
-
-const csv = require('csv-parser');
+const shell = require('shelljs');
 const fs = require('fs');
-const sleep = require('sleep');
 
 const stringLength: number = 50;
 const validChars: string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-export async function waitForCreation(uri: string, hash: string) {
-    var repeat: boolean = true;
-    while (repeat) {
-        try {
-            await isAvailable(uri, hash)
-            console.info("geschafft");
-            repeat = false;
-        } catch {
-            sleep.sleep(10);
-        }
-    }
-}
-
-async function isAvailable(uri: string, hash: string): Promise<number> {
-    const redirectURI: string = uri + "/" + hash;
-    let statusCode = -1;
-    return new Promise((resolve, reject) => {
-        http.get(redirectURI, (response) => {
-            statusCode = response['statusCode'];
-            if (statusCode === 200) {
-                resolve();
-            } else {
-                reject();
-            }
-        });
-    });
-}
 
 function randomString(): string {
     let rndStr: string = "";
@@ -46,61 +13,46 @@ function randomString(): string {
     return rndStr;
 }
 
-function dataToString(d: csvData): string {
-    return d.name + "," + d.date;
-}
-
-async function readCSV(): Promise<csvData[]> {
-    return new Promise((resolve, reject) => {
-        let results: csvData[] = [];
-        fs.createReadStream(path.join(__dirname + '/../data.csv'))
-            .pipe(csv(['name', 'date'], { separator: ',' }))
-            .on('data', (data) => {
-                results.push(data);
-            })
-            .on('end', () => {
-                resolve(results);
-            })
-    })
-}
-
-function writeCSVrow(rowData: csvData) {
-    const toWrite = dataToString(rowData) + "\n";
-    fs.appendFile(path.join(__dirname + '/../data.csv'), toWrite, function (err) {
+export async function writeIdeJSON(ides) {
+    fs.appendFile(path.join(__dirname + '/../files/ides.json'), ides.toString(), function (err) {
         if (err) {
             console.error(err);
         }
     });
 }
 
-async function checkCSVData(name: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-        let csvPromise = readCSV();
-        csvPromise.then((data) => {
-            data.forEach((row) => {
-                if (row.name === name) {
-                    reject();
-                }
-            });
-            resolve();
-        });
-        csvPromise.catch(() => {
-            reject();
-        });
-    });
+export function handleWorkspace(): string {
+    let ides = require("../files/ides.json");
+    let name: string = randomString();
+    while (ides.hasOwnProperty(name)) {
+        name = randomString();
+    }
+    let date: number =  new Date().getTime();
+    ides = {...ides, name:date};
+    if (startContainer) {
+        writeIdeJSON(ides);
+        return name;
+    } else {
+        return undefined;
+    }
 }
 
-export async function handleWorkspace(): Promise<string> {
-    let dataRow: csvData = {
-        name: randomString(),
-        date: new Date().getTime()
-    };
-    try {
-        await checkCSVData(dataRow.name);
-        writeCSVrow(dataRow);
-        return Promise.resolve(dataRow.name);
-    } catch {
-        handleWorkspace();
-    }
-    return Promise.reject();
+function startContainer(name: string) {
+    let runCmd: string = 'docker container run';
+    runCmd += ' --name ' + name;
+    runCmd += ' -p 8080:8080';
+    runCmd += ' --detach';
+    runCmd += ' -l traefik.enable=true';
+    runCmd += ' -l traefik.docker.network=traefik';
+    runCmd += ' -l traefik.port=8080';
+    runCmd += ' -l ide_' + name;
+    runCmd += ' -l traefik.frontend.rule=Host:solidity-ide.itemis.de;PathPrefixStrip:/' + name;
+    runCmd += ' solidity-ide:latest';
+    return (shell.exec(runCmd).code !== 0);
+}
+
+export function delContainer(name: string) {
+    let delCmd: string = 'docker container rm -f ';
+    delCmd += name;
+    return (shell.exec(delCmd).code !== 0);
 }

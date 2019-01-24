@@ -11,15 +11,13 @@ app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 app.use(express.static("public"));
 
 app.get("/workspace", (req, res) => {
-  func.handleWorkspace()
-  .catch(() => {
+  let ideName: string = func.handleWorkspace();
+  if (ideName === undefined) {
     res.status(501).send();
-  })
-  .then((hash: string) => {
-    func.waitForCreation(req.protocol + '://' + req.get('host'), hash)
-    .then(() => res.redirect("/" + hash));
-  });
-})
+  } else {
+    res.redirect("/" + ideName);
+  }
+});
 
 app.listen(port);
 

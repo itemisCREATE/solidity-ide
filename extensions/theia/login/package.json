@@ -19,7 +19,6 @@
   "author": "itemis AG",
   "license": "EPL-1.0",
   "dependencies": {
-    "csv-parser": "^2.1.0",
     "express": "^4.16.4",
     "jquery": "^3.3.1",
     "sleep": "^5.2.3"
