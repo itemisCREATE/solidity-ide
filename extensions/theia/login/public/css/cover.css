@@ -119,3 +119,24 @@ body {
 	background:url("../images/blacktocat.png");
 	background-repeat: no-repeat
 }
+
+#circle {
+    position: relative;
+    top: 100px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+	  width: 150px;
+    height: 150px;
+}
+
+.loader {
+  width: calc(100% - 0px);
+	height: calc(100% - 0px);
+	border: 8px solid;
+	border-radius: 50%;
+	animation: rotate 5s linear infinite;
+}
+
+@keyframes rotate {
+100% {transform: rotate(360deg);}
+} 
