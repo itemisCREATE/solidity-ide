@@ -59,6 +59,9 @@ class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 			"=", "==", "!=", "+=", "-=", "*=", "/=", "%=", "/=", "^=", "&&=", "||=", "&=", "|=", "|", "||", "|||", "or",
 			"&", "&&", "and", "<", ">", "<=", ">=", "<<", "=>", "event", "var"}
 	);
+	static final Set<String> IGNORED_OPERATIONS = Collections.unmodifiableSet(
+		#{"sha3", "suicide"}
+	);
 
 	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) String solcVersion
 
@@ -123,11 +126,16 @@ class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 					return proposal
 				}
 				if (eObjectOrProxy instanceof Operation) {
-					if (eObjectOrProxy.getParameters().size() > 0 &&
-						(proposal instanceof ConfigurableCompletionProposal)) {
-						val configurableProposal = proposal as ConfigurableCompletionProposal
-						configurableProposal.setReplacementString(configurableProposal.getReplacementString() + "()")
-						configurableProposal.setCursorPosition(configurableProposal.getCursorPosition() + 1)
+					if (!IGNORED_OPERATIONS.contains(eObjectOrProxy.name)) {
+						if (eObjectOrProxy.getParameters().size() > 0 &&
+							(proposal instanceof ConfigurableCompletionProposal)) {
+							val configurableProposal = proposal as ConfigurableCompletionProposal
+							configurableProposal.setReplacementString(configurableProposal.getReplacementString() +
+								"()")
+							configurableProposal.setCursorPosition(configurableProposal.getCursorPosition() + 1)
+						}
+					} else {
+						return null;
 					}
 				}
 				return proposal;

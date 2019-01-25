@@ -305,6 +305,31 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		})
 	}
 
+	@Fix(ERROR_FUNCTION_DECLARED_AS_VIEW_BUT_MUST_BE_PAYABLE_OR_NON_PAYABLE)
+	def declareFunctionAsPayableOrNonPayable(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Change to "payable".', 'Change to "payable".', null, new ISemanticModification() {
+			override apply(EObject element, IModificationContext context) throws Exception {
+				val functionDefinition = EcoreUtil2.getContainerOfType(element, FunctionDefinition)
+				val view = functionDefinition.modifier.findFirst [
+					it instanceof BuildInModifier && (it as BuildInModifier).type === FunctionModifier.VIEW
+				]
+				view?.changeFunctionModifierTo(FunctionModifier.PAYABLE)
+			}
+		})
+		acceptor.accept(issue, 'Remove \"view\" and make function non-payable.',
+			'Remove \"view\" and make function non-payable.', null, new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					val functionDefinition = EcoreUtil2.getContainerOfType(element, FunctionDefinition)
+					val view = functionDefinition.modifier.findFirst [
+						it instanceof BuildInModifier && (it as BuildInModifier).type === FunctionModifier.VIEW
+					]
+					if (view !== null) {
+						functionDefinition.modifier.remove(view);
+					}
+				}
+			})
+	}
+
 	@Fix(ERROR_CONSTANT_MODIFIER_WAS_REMOVED)
 	def replaceConstantModifier(Issue issue, IssueResolutionAcceptor acceptor) {
 		declareFunctionAsView(issue, acceptor)
@@ -408,7 +433,8 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			})
 	}
 
-	@Fix(WARNING_DEPRECATED_SUICIDE)
+	@Fixes(@Fix(WARNING_DEPRECATED_SUICIDE),
+		@Fix(ERROR_DEPRECATED_SUICIDE))
 	def replaceDeprecatedSuicide(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Replace with selfdestruct', 'selfdestruct', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
@@ -609,7 +635,8 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		})
 	}
 
-	@Fix(WARNING_DEPRECATED_SHA3)
+	@Fixes(@Fix(ERROR_DEPRECATED_SHA3),	
+	@Fix(WARNING_DEPRECATED_SHA3))
 	def replaceDeprecatedSha3(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Replace Sha3 with keccak256', 'keccak256(...) returns (bytes32).', null,
 			new ISemanticModification() {
