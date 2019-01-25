@@ -46,7 +46,7 @@ function startContainer(name: string) {
     runCmd += ' -l "traefik.docker.network=traefik"';
     runCmd += ' -l "traefik.port=8080"';
     runCmd += ' -l "traefik.backend=ide_' + name + '"';
-    runCmd += ' -l "traefik.frontend.rule=Host:solidity-ide.itemis.de;PathPrefixStrip:/"' + name;
+    runCmd += ' -l "traefik.frontend.rule=Host:solidity-ide.itemis.de;PathPrefixStrip:/' + name + '"';
     runCmd += ' solidity-ide:latest';
     return (shell.exec(runCmd).code !== 0);
 }

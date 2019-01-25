@@ -1,6 +1,10 @@
 FROM node:8.14.0-stretch AS com.yakindu.solidity.web.login
 LABEL maintainer="itemis AG"
 
+# Install SW as root
+RUN addgroup docker --gid=994
+RUN usermod -aG docker node
+
 #Switch to User node
 USER node
 WORKDIR /home/node
@@ -17,5 +21,5 @@ RUN npm i
 RUN npm run build
 
 # Startup
-EXPOSE 8080
+EXPOSE 4242
 CMD npm run parallel
