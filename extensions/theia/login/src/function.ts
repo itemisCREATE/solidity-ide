@@ -1,6 +1,11 @@
 const path = require('path');
 const shell = require('shelljs');
-const fs = require('fs');
+//const fs = require('fs');
+
+let ides = require("../files/ides.json");
+
+shell.config.fatal = true;
+shell.config.silent = true;
 
 const stringLength: number = 50;
 const validChars: string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -13,34 +18,38 @@ function randomString(): string {
     return rndStr;
 }
 
-export async function writeIdeJSON(ides) {
-    fs.appendFile(path.join(__dirname + '/../files/ides.json'), ides.toString(), function (err) {
-        if (err) {
-            console.error(err);
-        }
-    });
+export function getIDEs() {
+    return ides;
+}
+
+export function delIDE(name: string) {
+    delete ides[name];
+    delContainer(name);
+}
+
+export async function writeIDEs() {
+    shell.echo(JSON.stringify(ides)).to(__dirname + '/../files/ides.json');
 }
 
 export function handleWorkspace(): string {
-    let ides = require("../files/ides.json");
     let name: string = randomString();
     while (ides.hasOwnProperty(name)) {
         name = randomString();
     }
     let date: number =  new Date().getTime();
     ides = {...ides, name:date};
-    if (startContainer) {
-        writeIdeJSON(ides);
+    // if (startContainer(name)) {
+        startContainer(name)
+        writeIDEs();
         return name;
-    } else {
-        return undefined;
-    }
+    // } else {
+    //     return undefined;
+    // }
 }
 
 function startContainer(name: string) {
     let runCmd: string = 'docker container run';
     runCmd += ' --name ' + name;
-    //runCmd += ' -p 8080:8080';
     runCmd += ' --detach';
     runCmd += ' -l "traefik.enable=true"';
     runCmd += ' -l "traefik.docker.network=traefik"';
@@ -48,11 +57,11 @@ function startContainer(name: string) {
     runCmd += ' -l "traefik.backend=ide_' + name + '"';
     runCmd += ' -l "traefik.frontend.rule=Host:solidity-ide.itemis.de;PathPrefixStrip:/' + name + '"';
     runCmd += ' solidity-ide:latest';
-    return (shell.exec(runCmd).code !== 0);
+    shell.exec(runCmd);
 }
 
-export function delContainer(name: string) {
+function delContainer(name: string) {
     let delCmd: string = 'docker container rm -f ';
     delCmd += name;
-    return (shell.exec(delCmd).code !== 0);
+    shell.exec(delCmd);
 }

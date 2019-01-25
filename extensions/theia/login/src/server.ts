@@ -1,7 +1,8 @@
 import * as func from './function';
 
+const sleep = require('sleep');
+
 const express = require('express');
-const path = require('path');
 const port = process.env.PORT || 4242;
 
 const app = express();
@@ -13,9 +14,10 @@ app.use(express.static("public"));
 app.get("/workspace", (req, res) => {
   let ideName: string = func.handleWorkspace();
   if (ideName === undefined) {
-    res.status(501).send();
+    res.status(501).send("501 Internal Server Error");
   } else {
-    res.redirect("/" + ideName);
+    sleep.sleep(3);
+    res.redirect("/" + ideName + "/");
   }
 });
 
