@@ -137,7 +137,9 @@ class SolidityFormatter extends AbstractFormatter2 {
 			key.append[noSpace]
 			value.prepend[noSpace]
 		]
-
+		parameters.forEach [
+			p | p.typeSpecifier.append[oneSpace; priority = IHiddenRegionFormatter.HIGH_PRIORITY;]
+		]
 		modifier.forEach [
 			prepend[oneSpace]
 		]
@@ -398,12 +400,13 @@ class SolidityFormatter extends AbstractFormatter2 {
 		statement.format
 		append[newLines]
 	}
-	
+
 	def dispatch void format(SimpleArgument it, extension IFormattableDocument document) {
 		prepend[oneSpace; priority = IHiddenRegionFormatter.LOW_PRIORITY]
 		append[noSpace; priority = IHiddenRegionFormatter.LOW_PRIORITY]
 		value.format
 	}
+
 	def dispatch void format(NamedArgument it, extension IFormattableDocument document) {
 		regionFor.keyword(":").surround[oneSpace]
 		surround[oneSpace; priority = IHiddenRegionFormatter.LOW_PRIORITY]
