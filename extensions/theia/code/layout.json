@@ -1,0 +1,128 @@
+{
+    "mainPanel": {
+        "main": {
+            "type": "tab-area",
+            "widgets": [
+                {
+                    "constructionOptions": {
+                        "factoryId": "code-editor-opener",
+                        "options": "file:///home/node/theia/code/hello_world.sol"
+                    }
+                }
+            ],
+            "currentIndex": 0
+        }
+    },
+    "bottomPanel": {
+        "config": {
+            "main": null
+        },
+        "expanded": false
+    },
+    "leftPanel": {
+        "type": "sidepanel",
+        "items": [
+            {
+                "widget": {
+                    "constructionOptions": {
+                        "factoryId": "files"
+                    },
+                    "innerWidgetState": {
+                        "decorations": {},
+                        "root": {
+                            "id": "file:///home/node/theia/code",
+                            "uri": "file:///home/node/theia/code",
+                            "fileStat": {
+                                "uri": "file:///home/node/theia/code",
+                                "lastModification": 1548348210000,
+                                "isDirectory": true,
+                                "children": [
+                                    {
+                                        "uri": "file:///home/node/theia/code/.theia",
+                                        "lastModification": 1548348210000,
+                                        "isDirectory": true,
+                                        "children": []
+                                    },
+                                    {
+                                        "uri": "file:///home/node/theia/code/hello_world.sol",
+                                        "lastModification": 1548348210000,
+                                        "isDirectory": false,
+                                        "size": 765
+                                    }
+                                ]
+                            },
+                            "name": "code",
+                            "icon": "fa fa-folder",
+                            "visible": true,
+                            "children": [
+                                {
+                                    "id": "file:///home/node/theia/code/.theia",
+                                    "uri": "file:///home/node/theia/code/.theia",
+                                    "fileStat": {
+                                        "uri": "file:///home/node/theia/code/.theia",
+                                        "lastModification": 1548348210000,
+                                        "isDirectory": true,
+                                        "children": []
+                                    },
+                                    "name": ".theia",
+                                    "icon": "fa fa-folder",
+                                    "expanded": false,
+                                    "selected": false,
+                                    "children": []
+                                },
+                                {
+                                    "id": "file:///home/node/theia/code/hello_world.sol",
+                                    "uri": "file:///home/node/theia/code/hello_world.sol",
+                                    "fileStat": {
+                                        "uri": "file:///home/node/theia/code/hello_world.sol",
+                                        "lastModification": 1548348210000,
+                                        "isDirectory": false,
+                                        "size": 765
+                                    },
+                                    "name": "hello_world.sol",
+                                    "icon": "fa fa-file",
+                                    "selected": false
+                                }
+                            ],
+                            "expanded": true,
+                            "selected": true
+                        }
+                    }
+                },
+                "rank": 100,
+                "expanded": true
+            }
+        ],
+        "size": 489
+    },
+    "rightPanel": {
+        "type": "sidepanel",
+        "items": [
+            {
+                "widget": {
+                    "constructionOptions": {
+                        "factoryId": "outline-view"
+                    },
+                    "innerWidgetState": {
+                        "decorations": {},
+                        "root": {
+                            "id": "outline-view-root",
+                            "name": "Outline Root",
+                            "visible": false,
+                            "children": []
+                        }
+                    }
+                },
+                "rank": 500,
+                "expanded": true
+            }
+        ],
+        "size": 489
+    },
+    "statusBar": {
+        "entries": [
+            
+        ],
+        "backgroundColor": "var(--theia-warn-color0)"
+    }
+}

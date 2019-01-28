@@ -24,8 +24,11 @@ RUN git clone https://github.com/Yakindu/solidity-ide.git \
     && cp -r solidity-ide/extensions/theia ./theia\
     && sed -i -r 's;(.*)cp -r .\/..\/..\/..\/plugins\/com.yakindu.solidity.ide\/target\/languageserver\/\* .\/lsp\/",;\1cp -r /home/node/lsp/* ./lsp",;' /home/node/theia/xtext-dsl-extension/package.json\
     && rm -rf solidity-ide/
-RUN cd theia/ && yarn install
+
+WORKDIR /home/node/theia
+RUN yarn install
+RUN cd ./code && git clone https://github.com/fspiekermann/testRepo.git
 
 # Startup
 EXPOSE 8080 
-CMD cd /home/node/theia/app && yarn start
+CMD cd ./app && yarn start
