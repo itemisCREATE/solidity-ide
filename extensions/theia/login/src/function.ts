@@ -37,7 +37,7 @@ export function handleWorkspace(): string {
         name = randomString();
     }
     let date: number =  new Date().getTime();
-    ides = {...ides, name:date};
+    ides[name] = date;
     // if (startContainer(name)) {
         startContainer(name)
         writeIDEs();
