@@ -19,10 +19,8 @@ import * as path from 'path';
 import { Socket } from 'net';
 import { injectable } from 'inversify';
 import { createSocketConnection } from 'vscode-ws-jsonrpc/lib/server';
-import { Message, isRequestMessage } from 'vscode-ws-jsonrpc';
 import { IConnection, BaseLanguageServerContribution, LanguageServerStartOptions } from '@theia/languages/lib/node';
 import { SOLIDITY_LANGUAGE_ID, SOLIDITY_LANGUAGE_NAME, SolidityStartParams } from '../common';
-import { Message } from '@phosphor/messaging';
 
 export interface SolidityStartOptions extends LanguageServerStartOptions {
     parameters?: SolidityStartParams
@@ -123,10 +121,7 @@ export class SolidityContribution extends BaseLanguageServerContribution {
         console.info('+++++++++++++++' + JSON.stringify(dataString, handleCircles));
     }
 
-    protected map(message: Message): Message {
-
-
-
-        return  super.map(message);
-    }
+    // protected map(message: Message): Message {
+    //     return  super.map(message);
+    // }
 }
