@@ -11,16 +11,15 @@
     "src"
   ],
   "dependencies": {
-    "@theia/core": "next",
-    "@theia/languages": "next"
   },
   "devDependencies": {
+    "copyfiles": "latest",
     "rimraf": "latest",
-    "typescript": "latest"
+    "typescript": "^2.7.2"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn run build",
-    "copy-ls": "rm -rf ./lsp && mkdir lsp && cp -r ./../../../plugins/com.yakindu.solidity.ide/target/languageserver/* ./lsp/",
+    "copy-ls": "rimraf lsp && mkdir lsp && cp -r ../../../../plugins/com.yakindu.solidity.ide/target/languageserver/* ./lsp/",
     "clean": "rimraf lib",
     "build": "tsc && yarn run copy-ls",
     "watch": "tsc -w"

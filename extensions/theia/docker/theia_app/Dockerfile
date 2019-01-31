@@ -22,7 +22,7 @@ RUN git clone https://github.com/Yakindu/solidity-ide.git \
     && cd ../../.. \
     && cp -r solidity-ide/plugins/com.yakindu.solidity.ide/target/languageserver ./lsp\
     && cp -r solidity-ide/extensions/theia ./theia\
-    && sed -i -r 's;(.*)cp -r .\/..\/..\/..\/plugins\/com.yakindu.solidity.ide\/target\/languageserver\/\* .\/lsp\/",;\1cp -r /home/node/lsp/* ./lsp",;' /home/node/theia/xtext-dsl-extension/package.json\
+    && sed -i -r 's;(.*)cp -r ..\/..\/..\/..\/plugins\/com.yakindu.solidity.ide\/target\/languageserver\/\* .\/lsp\/",;\1cp -r /home/node/lsp/* ./lsp",;' /home/node/theia/xtext-dsl-extension/package.json\
     && rm -rf solidity-ide/
 
 WORKDIR /home/node/theia
