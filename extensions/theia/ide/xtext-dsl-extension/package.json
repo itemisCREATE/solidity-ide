@@ -26,8 +26,8 @@
   },
   "theiaExtensions": [
     {
-      "frontend": "lib/browser/frontend-extension",
-      "backend": "lib/node/backend-extension"
+      "frontend": "lib/browser/solidity-frontend-module",
+      "backend": "lib/node/solidity-backend-module"
     }
   ]
 }
