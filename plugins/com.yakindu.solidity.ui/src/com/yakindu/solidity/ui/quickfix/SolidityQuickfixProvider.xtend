@@ -21,11 +21,13 @@ import com.yakindu.solidity.solidity.Block
 import com.yakindu.solidity.solidity.BuildInModifier
 import com.yakindu.solidity.solidity.ConstructorDefinition
 import com.yakindu.solidity.solidity.ContractDefinition
+import com.yakindu.solidity.solidity.ContractType
 import com.yakindu.solidity.solidity.DecimalNumberLiteral
 import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.FunctionModifier
 import com.yakindu.solidity.solidity.IfStatement
 import com.yakindu.solidity.solidity.MappingTypeSpecifier
+import com.yakindu.solidity.solidity.Modifier
 import com.yakindu.solidity.solidity.Parameter
 import com.yakindu.solidity.solidity.PragmaSolidityDirective
 import com.yakindu.solidity.solidity.SolidityFactory
@@ -41,6 +43,7 @@ import java.math.BigDecimal
 import javax.inject.Named
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
+import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.ui.editor.model.IXtextDocument
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
@@ -60,9 +63,6 @@ import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.eclipse.xtext.EcoreUtil2
-import com.yakindu.solidity.solidity.Modifier
-import com.yakindu.solidity.solidity.ContractType
 
 /** 
  * @author andreas muelder - Initial contribution and API
@@ -368,9 +368,11 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	@Fixes(@Fix(WARNING_FUNCTION_VISIBILITY),
 	@Fix(ERROR_NO_VISIBILITY_SPECIFIED))
 	def makeVisibilityExplicit(Issue issue, IssueResolutionAcceptor acceptor) {
-		val element = new ResourceSetImpl().getEObject(issue.uriToProblem, true);
-		if ((element.eContainer as ContractDefinition).type != ContractType.INTERFACE) {
-			if (!(element instanceof ConstructorDefinition)) {
+		val operation = (new ResourceSetImpl().getEObject(issue.uriToProblem, true) as Operation);
+		val contract = (operation.eContainer as ContractDefinition)
+		if (contract.type != ContractType.INTERFACE && !operation.name.nullOrEmpty) {
+			if (!(operation instanceof ConstructorDefinition)) {
+
 				acceptor.accept(issue, 'Make this function private', 'Private function.', null,
 					new ISemanticModification() {
 						override apply(EObject element, IModificationContext context) throws Exception {
@@ -379,7 +381,6 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 							])
 						}
 					})
-
 			}
 			acceptor.accept(issue, 'Make this function \'public\'', 'Public function.', null,
 				new ISemanticModification() {
