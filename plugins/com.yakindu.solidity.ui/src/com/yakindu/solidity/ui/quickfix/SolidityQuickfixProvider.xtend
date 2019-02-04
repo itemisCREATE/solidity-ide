@@ -62,6 +62,7 @@ import static com.yakindu.solidity.validation.IssueCodes.*
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import org.eclipse.xtext.EcoreUtil2
 import com.yakindu.solidity.solidity.Modifier
+import com.yakindu.solidity.solidity.ContractType
 
 /** 
  * @author andreas muelder - Initial contribution and API
@@ -368,34 +369,38 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	@Fix(ERROR_NO_VISIBILITY_SPECIFIED))
 	def makeVisibilityExplicit(Issue issue, IssueResolutionAcceptor acceptor) {
 		val element = new ResourceSetImpl().getEObject(issue.uriToProblem, true);
-		if (!(element instanceof ConstructorDefinition)) {
-			acceptor.accept(issue, 'Make this function private', 'Private function.', null,
+		if ((element.eContainer as ContractDefinition).type != ContractType.INTERFACE) {
+			if (!(element instanceof ConstructorDefinition)) {
+				acceptor.accept(issue, 'Make this function private', 'Private function.', null,
+					new ISemanticModification() {
+						override apply(EObject element, IModificationContext context) throws Exception {
+							element.fixVisibility(createBuildInModifier => [
+								type = FunctionModifier.PRIVATE
+							])
+						}
+					})
+
+			}
+			acceptor.accept(issue, 'Make this function \'public\'', 'Public function.', null,
 				new ISemanticModification() {
 					override apply(EObject element, IModificationContext context) throws Exception {
 						element.fixVisibility(createBuildInModifier => [
-							type = FunctionModifier.PRIVATE
+							type = FunctionModifier.PUBLIC
+
+						])
+					}
+
+				})
+			acceptor.accept(issue, 'Make this function \'internal\'', 'Internal function.', null,
+				new ISemanticModification() {
+					override apply(EObject element, IModificationContext context) throws Exception {
+						element.fixVisibility(createBuildInModifier => [
+							type = FunctionModifier.INTERNAL
 						])
 					}
 				})
-
 		}
-		acceptor.accept(issue, 'Make this function \'public\'', 'Public function.', null, new ISemanticModification() {
-			override apply(EObject element, IModificationContext context) throws Exception {
-				element.fixVisibility(createBuildInModifier => [
-					type = FunctionModifier.PUBLIC
 
-				])
-			}
-
-		})
-		acceptor.accept(issue, 'Make this function \'internal\'', 'Internal function.', null,
-			new ISemanticModification() {
-				override apply(EObject element, IModificationContext context) throws Exception {
-					element.fixVisibility(createBuildInModifier => [
-						type = FunctionModifier.INTERNAL
-					])
-				}
-			})
 		acceptor.accept(issue, 'Make this function \'external\'', 'External function.', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
