@@ -10,7 +10,7 @@
 	<packaging>pom</packaging>
 	<!-- this is the parent POM from which all modules inherit common settings -->
 	<properties>
-		<tycho-version>1.1.0</tycho-version>
+		<tycho-version>1.2.0</tycho-version>
 		<tycho-extras-version>${tycho-version}</tycho-extras-version>
 		<antrun-version>1.6</antrun-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -45,8 +45,8 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-				<mwe-version>2.9.0.201605261059</mwe-version>
-				<xtext-version>2.12.0</xtext-version>
+				<mwe-version>2.9.1.201705291010</mwe-version>
+				<xtext-version>2.15.0</xtext-version>
 			</properties>
 			<build>
 				<plugins>
@@ -66,29 +66,6 @@
 							</target>
 						</configuration>
 					</plugin>
-					<plugin>
-						<!-- Workaround for https://github.com/eclipse/xtext/issues/1231 -->
-						<groupId>org.eclipse.xtend</groupId>
-						<artifactId>xtend-maven-plugin</artifactId>
-						<version>${xtext-version}</version>
-						<dependencies>
-							<dependency>
-								<groupId>org.eclipse.jdt</groupId>
-								<artifactId>org.eclipse.jdt.core</artifactId>
-								<version>3.13.102</version>
-							</dependency>
-							<dependency>
-								<groupId>org.eclipse.jdt</groupId>
-								<artifactId>org.eclipse.jdt.compiler.apt</artifactId>
-								<version>1.3.110</version>
-							</dependency>
-							<dependency>
-								<groupId>org.eclipse.jdt</groupId>
-								<artifactId>org.eclipse.jdt.compiler.tool</artifactId>
-								<version>1.2.101</version>
-							</dependency>
-						</dependencies>
-					</plugin>
 				</plugins>
 			</build>
 		</profile>
@@ -99,7 +76,7 @@
 			</activation>
 			<properties>
 				<mwe-version>2.9.1.201705291010</mwe-version>
-				<xtext-version>2.14.0</xtext-version>
+				<xtext-version>2.15.0</xtext-version>
 			</properties>
 			<build>
 				<plugins>
@@ -119,28 +96,35 @@
 							</target>
 						</configuration>
 					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>Latest.target</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<mwe-version>2.9.1.201705291010</mwe-version>
+				<xtext-version>2.15.0</xtext-version>
+			</properties>
+			<build>
+				<plugins>
 					<plugin>
-						<!-- Workaround for https://github.com/eclipse/xtext/issues/1231 -->
-						<groupId>org.eclipse.xtend</groupId>
-						<artifactId>xtend-maven-plugin</artifactId>
-						<version>${xtext-version}</version>
-						<dependencies>
-							<dependency>
-								<groupId>org.eclipse.jdt</groupId>
-								<artifactId>org.eclipse.jdt.core</artifactId>
-								<version>3.13.102</version>
-							</dependency>
-							<dependency>
-								<groupId>org.eclipse.jdt</groupId>
-								<artifactId>org.eclipse.jdt.compiler.apt</artifactId>
-								<version>1.3.110</version>
-							</dependency>
-							<dependency>
-								<groupId>org.eclipse.jdt</groupId>
-								<artifactId>org.eclipse.jdt.compiler.tool</artifactId>
-								<version>1.2.101</version>
-							</dependency>
-						</dependencies>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>target-platform-configuration</artifactId>
+						<version>${tycho-version}</version>
+						<configuration>
+							<includePackedArtifacts>true</includePackedArtifacts>
+							<target>
+								<artifact>
+									<groupId>com.yakindu.solidity</groupId>
+									<artifactId>com.yakindu.solidity.target</artifactId>
+									<version>${project.version}</version>
+									<classifier>Latest</classifier>
+								</artifact>
+							</target>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
@@ -169,6 +153,7 @@
 
 
 	<build>
+		<defaultGoal>clean verify -P!tests,Photon.target</defaultGoal>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

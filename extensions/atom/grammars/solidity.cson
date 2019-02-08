@@ -1,0 +1,139 @@
+# copied from https://github.com/jesseweed/language-solidity
+'scopeName': 'source.sol'
+'name': 'Solidity'
+'fileTypes': [
+  "sol"
+]
+'patterns': [
+  {
+    captures:
+      "2":
+        name: "support.function"
+    comment: "Events"
+    match: "\\b(event|enum)\\s+([A-Za-z_][A-Za-z0-9_]*)\\b"
+    name: "keyword.control"
+  }
+  {
+    begin: "(?=(contract|library|using|struct|function|modifier)\\s+)"
+    end: '((?=#)|(?=//)|(?=\n)|(?=\\()|(?={))'
+    comment: "Main keywords"
+    patterns: [
+      {
+        captures:
+          "1":
+            name: "keyword.control"
+        match: "\\b(contract|library|using|struct|function|modifier)\\b"
+      }
+      {
+        captures:
+          "1":
+            name: "entity.name.function"
+          "2":
+            name: "keyword.control"
+          "3":
+            name: "entity.name.function"
+        match: "([A-Za-z_][A-Za-z0-9_]*)(?:\\s+(?:(is)|,)\\s+([A-Za-z_][A-Za-z0-9_]*))?"
+      }
+    ]
+  }
+  {
+    include: "#builtin_types"
+  }
+  {
+    begin: "(?=(mapping)\\s*)"
+    end: '((?=;)|(?=\n))'
+    comment: "Mapping definitions"
+    patterns: [
+      {
+        captures:
+          "1":
+            name: "keyword.control"
+        match: "\\b(mapping)\\b"
+      }
+      {
+        include: "#builtin_types"
+      }
+      {
+        captures:
+          "1":
+            name: "keyword.control"
+        match: "\\b(private|public|internal|external|inherited)\\b"
+      }
+    ]
+  }
+  {
+    comment: "True and false keywords"
+    match: "\\b(true|false)\\b"
+    name: "constant.language"
+  }
+  {
+    comment: "Language keywords"
+    match: "\\b(var|import|function|constant|if|else|for|while|do|break|continue|returns?|private|public|internal|external|inherited|this|suicide|new|is|throw|\\_)\\b"
+    name: "keyword.control"
+  }
+  {
+    captures:
+      "1":
+        name: "constant.language"
+      "2":
+        name: "keyword.control"
+    comment: "Variable definitions"
+    match: "\\b([A-Za-z_][A-Za-z0-9_]+)(\\s+(?:private|public|internal|external|inherited))?\\s+([A-Za-z_][A-Za-z0-9_]*)\\;"
+  }
+  {
+    comment: "Operators"
+    match: "(=|!|>|<|\\||&|-\\=|\\+\\=)"
+    name: "keyword.control"
+  }
+  {
+    captures:
+      "1":
+        name: "constant.language"
+      "2":
+        name: "constant.language"
+    comment: "msg and block special usage"
+    match: "\\b(msg|block|tx)\\.([A-Za-z_][A-Za-z0-9_]*)\\b"
+  }
+  {
+    captures:
+      "1":
+        name: "support.type"
+    comment: "Function call"
+    match: "\\b([A-Za-z_][A-Za-z0-9_]*)\\s*\\("
+  }
+  {
+    comment: "Strings"
+    match: "([\\\"\\'].*?[\\\"\\'])"
+    name: "string.quoted"
+  }
+  {
+    comment: "Numbers"
+    match: "\\b(\\d+)\\b"
+    name: "constant.numeric"
+  }
+  {
+    comment: "Hexadecimal"
+    match: "\\b(0[xX][a-fA-F0-9]+)\\b"
+    name: "constant.numeric"
+  }
+  {
+    comment: "Comments"
+    match: "\\/\\/.*"
+    name: "comment"
+  }
+  {
+    begin: "(\\/\\*)"
+    comment: "Multiline comments"
+    end: "(\\*\\/)"
+    name: "comment"
+  }
+]
+'repository':
+  'builtin_types':
+    captures:
+      "1":
+        name: "constant.language"
+      "2":
+        name: "variable.parameter"
+    comment: "Built-in types"
+    match: "\\b(address|string\\d*|bytes\\d*|int\\d*|uint\\d*|bool|hash\\d*)\\b(?:\\s+(?:indexed\\s+)?([A-Za-z_][A-Za-z0-9_]*)\\s*[,\\)])?"

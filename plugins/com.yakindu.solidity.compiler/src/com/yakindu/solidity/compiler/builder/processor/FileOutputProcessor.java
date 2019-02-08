@@ -18,20 +18,21 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 
-import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
+import com.yakindu.solidity.compiler.preferences.ICompilerPreferences;
 import com.yakindu.solidity.compiler.result.Abi;
 import com.yakindu.solidity.compiler.result.Bytecode;
 import com.yakindu.solidity.compiler.result.CompiledContract;
 import com.yakindu.solidity.compiler.result.CompilerOutput;
 import com.yakindu.solidity.compiler.result.EvmOutput;
-import com.yakindu.solidity.ui.preferences.SolidityPreferencesFacade;
 
 /**
  * @author Florian Antony - Initial contribution and API
@@ -40,20 +41,23 @@ import com.yakindu.solidity.ui.preferences.SolidityPreferencesFacade;
 public class FileOutputProcessor {
 
 	@Inject
-	private SolidityPreferencesFacade prefs;
+	private ICompilerPreferences prefs;
+	private final GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
 
 	public void writeOutputFiles(CompilerOutput compilerOutput, Set<IResource> filesToCompile) {
-		for (Entry<String, CompiledContract> entry : compilerOutput.getContracts().entrySet()) {
-			String outputFileName = getOutputFileName(findFileForName(filesToCompile, entry.getKey()));
-			CompiledContract contract = entry.getValue();
-			if (contract != null && prefs.isWriteABIFile())
-				writeABIFile(outputFileName, contract.getAbi());
 
-			EvmOutput evmOutput = contract.getEvm();
-			if (evmOutput != null && prefs.isWriteBINFile())
-				writeBINFile(outputFileName, evmOutput.getBytecode());
-			if (evmOutput != null && prefs.isWriteASMFile())
-				writeASMFile(outputFileName, evmOutput.getAssembly());
+		for (Entry<String, Map<String, CompiledContract>> entry : compilerOutput.getContracts().entrySet()) {
+			String outputFileName = getOutputFileName(findFileForName(filesToCompile, entry.getKey()));
+			for (CompiledContract contract : entry.getValue().values()) {
+				if (contract != null && prefs.isWriteABIFile())
+					writeABIFile(outputFileName, contract.getAbi());
+
+				EvmOutput evmOutput = contract.getEvm();
+				if (evmOutput != null && prefs.isWriteBINFile())
+					writeBINFile(outputFileName, evmOutput.getBytecode());
+				if (evmOutput != null && prefs.isWriteASMFile())
+					writeASMFile(outputFileName, evmOutput.getAssembly());
+			}
 		}
 	}
 
@@ -67,7 +71,7 @@ public class FileOutputProcessor {
 	}
 
 	private void writeBINFile(String outputFileName, Bytecode bytecode) {
-		writeFile(outputFileName + CompileOutputType.BIN.extension(), new Gson().toJson(bytecode));
+		writeFile(outputFileName + CompileOutputType.BIN.extension(), gsonBuilder.create().toJson(bytecode));
 	}
 
 //	private void writeASTFile(String outputFileName, String ast) {
@@ -75,7 +79,7 @@ public class FileOutputProcessor {
 //	}
 
 	private void writeABIFile(String outputFileName, List<Abi> abi) {
-		writeFile(outputFileName + CompileOutputType.ABI.extension(), new Gson().toJson(abi));
+		writeFile(outputFileName + CompileOutputType.ABI.extension(), gsonBuilder.create().toJson(abi));
 	}
 
 	private void writeFile(String outputFileName, String content) {

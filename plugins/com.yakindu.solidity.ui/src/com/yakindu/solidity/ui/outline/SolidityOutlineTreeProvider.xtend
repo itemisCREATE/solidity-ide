@@ -15,6 +15,7 @@
 package com.yakindu.solidity.ui.outline
 
 import com.yakindu.solidity.solidity.ConstructorDefinition
+import com.yakindu.solidity.solidity.ImportDirective
 import com.yakindu.solidity.solidity.SolidityModel
 import com.yakindu.solidity.solidity.SourceUnit
 import org.eclipse.emf.ecore.EObject
@@ -50,6 +51,7 @@ class SolidityOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	override protected Object _text(Object element) {
 		switch element {
 			ConstructorDefinition: return "constructor"
+			ImportDirective : return element.importedNamespace.shortenImportedNamespace
 			default: return super._text(element)
 		}
 	}
@@ -59,5 +61,10 @@ class SolidityOutlineTreeProvider extends DefaultOutlineTreeProvider {
 			Declaration: true
 			default: return super._isLeaf(element)
 		}
+	}
+	
+	def protected String shortenImportedNamespace (String namespace) {
+		var segments = namespace.split("/");
+		return segments.get(segments.length-1).replace(".sol","")
 	}
 }

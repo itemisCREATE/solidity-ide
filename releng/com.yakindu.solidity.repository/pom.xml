@@ -29,7 +29,7 @@
 			<plugin>
 				<groupId>org.jboss.tools.tycho-plugins</groupId>
 				<artifactId>repository-utils</artifactId>
-				<version>1.1.0-SNAPSHOT</version>
+				<version>1.1.1-SNAPSHOT</version>
 				<executions>
 					<!-- creates index.html and other artifacts -->
 					<execution>
@@ -42,6 +42,7 @@
 							<!-- this adds repository references to the update site's content.xml -->
 							<associateSites>
 								<site>http://updates.yakindu.com/statecharts/releases</site>
+								<site>http://download.eclipse.org/releases/latest</site>
 							</associateSites>
 						</configuration>
 					</execution>

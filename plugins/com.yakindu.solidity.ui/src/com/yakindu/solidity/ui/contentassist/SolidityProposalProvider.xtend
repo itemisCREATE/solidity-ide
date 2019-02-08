@@ -16,13 +16,21 @@ package com.yakindu.solidity.ui.contentassist
 
 import com.google.common.base.Function
 import com.google.inject.name.Named
+import com.yakindu.solidity.SolidityVersion
 import java.util.Collections
+import java.util.HashSet
 import java.util.Set
 import javax.inject.Inject
+import org.eclipse.core.resources.IFile
+import org.eclipse.core.resources.IResource
+import org.eclipse.core.resources.IResourceVisitor
+import org.eclipse.core.runtime.CoreException
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory
 import org.eclipse.emf.edit.provider.IItemLabelProvider
+import org.eclipse.emf.workspace.util.WorkspaceSynchronizer
 import org.eclipse.jface.text.contentassist.ICompletionProposal
+import org.eclipse.xtext.Assignment
 import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.RuleCall
 import org.eclipse.xtext.XtextFactory
@@ -34,7 +42,6 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 import org.eclipse.xtext.ui.editor.hover.IEObjectHover
 import org.yakindu.base.types.Operation
 import org.yakindu.base.types.Type
-import com.yakindu.solidity.typesystem.builtin.SolidityVersions
 
 /**
  * @author Andreas Muelder - Initial contribution and API
@@ -45,17 +52,22 @@ class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 
 	val composedAdapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
 
+	static final String EXTENSION = "sol"
+
 	static final Set<String> IGNORED_KEYWORDS = Collections.unmodifiableSet(
 		#{"+", "-", "*", "/", "%", "&", "++", "--", "(", ")", "[", "]", "{", "}", ";", ",", ".", ":", "?", "!", "^",
 			"=", "==", "!=", "+=", "-=", "*=", "/=", "%=", "/=", "^=", "&&=", "||=", "&=", "|=", "|", "||", "|||", "or",
-			"&", "&&", "and", "<", ">", "<=", ">=", "<<", "=>", "event"}
+			"&", "&&", "and", "<", ">", "<=", ">=", "<<", "=>", "event", "var"}
+	);
+	static final Set<String> IGNORED_OPERATIONS = Collections.unmodifiableSet(
+		#{"sha3", "suicide"}
 	);
 
-	@Inject @Named(SolidityVersions.SOLIDITY_VERSION) String solcVersion
+	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) String solcVersion
 
 	override complete_VERSION(EObject model, RuleCall ruleCall, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
-		acceptor.accept(createCompletionProposal("^" + solcVersion, solcVersion, null, context));
+		acceptor.accept(createCompletionProposal(solcVersion, solcVersion, null, context));
 	}
 
 	override completeKeyword(Keyword keyword, ContentAssistContext contentAssistContext,
@@ -63,7 +75,31 @@ class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 		if (IGNORED_KEYWORDS.contains(keyword.value)) {
 			return
 		}
-		super.completeKeyword(keyword, contentAssistContext, acceptor)
+		super.completeKeyword(keyword, contentAssistContext, new AcceptorDelegate(acceptor, hover))
+	}
+
+	override completeImportDirective_ImportedNamespace(EObject model, Assignment assignment,
+		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		val Set<IFile> result = new HashSet<IFile>();
+		val contextFile = WorkspaceSynchronizer.getFile(context.currentModel.eResource)
+		var workspace = contextFile.project
+		workspace.accept(new IResourceVisitor() {
+			override visit(IResource resource) throws CoreException {
+				if (resource.type == IResource.FILE) {
+					var IFile file = resource as IFile
+					if (EXTENSION.equals(file.fileExtension.toLowerCase) && !contextFile.equals(file)) {
+						result.add(file)
+					}
+				}
+				return true;
+			}
+		})
+		result.forEach [
+			acceptor.accept(
+				createCompletionProposal(
+					"\"" + rawLocation.makeRelativeTo(contextFile.rawLocation).toString.replaceFirst("../", "") + "\";",
+					name, null, context))
+		]
 	}
 
 	override getDisplayString(EObject element, String qualifiedNameAsString, String shortName) {
@@ -90,11 +126,16 @@ class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 					return proposal
 				}
 				if (eObjectOrProxy instanceof Operation) {
-					if (eObjectOrProxy.getParameters().size() > 0 &&
-						(proposal instanceof ConfigurableCompletionProposal)) {
-						val configurableProposal = proposal as ConfigurableCompletionProposal
-						configurableProposal.setReplacementString(configurableProposal.getReplacementString() + "()")
-						configurableProposal.setCursorPosition(configurableProposal.getCursorPosition() + 1)
+					if (!IGNORED_OPERATIONS.contains(eObjectOrProxy.name)) {
+						if (eObjectOrProxy.getParameters().size() > 0 &&
+							(proposal instanceof ConfigurableCompletionProposal)) {
+							val configurableProposal = proposal as ConfigurableCompletionProposal
+							configurableProposal.setReplacementString(configurableProposal.getReplacementString() +
+								"()")
+							configurableProposal.setCursorPosition(configurableProposal.getCursorPosition() + 1)
+						}
+					} else {
+						return null;
 					}
 				}
 				return proposal;

@@ -20,6 +20,7 @@
   <eClassifiers xsi:type="ecore:EEnum" name="StorageLocation">
     <eLiterals name="MEMORY" literal="memory"/>
     <eLiterals name="STORAGE" value="1" literal="storage"/>
+    <eLiterals name="CALLDATA" value="2" literal="calldata"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Visibility">
     <eLiterals name="PUBLIC" literal="public"/>

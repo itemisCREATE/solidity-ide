@@ -21,7 +21,8 @@ import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.ModifierDefinition
 import com.yakindu.solidity.solidity.StructDefinition
 import com.yakindu.solidity.solidity.UsingForDeclaration
-import com.yakindu.solidity.typesystem.builtin.IBuiltInDeclarationsProvider
+import com.yakindu.solidity.typesystem.BuiltInDeclarations
+import com.yakindu.solidity.typesystem.SolidityTypeSystem
 import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
@@ -32,12 +33,11 @@ import org.yakindu.base.base.NamedElement
 import org.yakindu.base.expressions.expressions.Argument
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
 import org.yakindu.base.expressions.expressions.FeatureCall
+import org.yakindu.base.expressions.scoping.ExpressionsScopeProvider
 import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.Operation
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
-import org.yakindu.base.expressions.scoping.ExpressionsScopeProvider
-import com.yakindu.solidity.typesystem.SolidityTypeSystem
 
 /**
  * 
@@ -47,7 +47,7 @@ import com.yakindu.solidity.typesystem.SolidityTypeSystem
  */
 class SolidityScopeProvider extends ExpressionsScopeProvider {
 
-	@Inject IBuiltInDeclarationsProvider buildInDeclarationsProvider
+	@Inject BuiltInDeclarations builtInDeclarations
 	@Inject ITypeSystem typeSystem
 	@Inject ITypeSystemInferrer inferrer;
 
@@ -126,7 +126,7 @@ class SolidityScopeProvider extends ExpressionsScopeProvider {
 			}
 		}
 		return Scopes.scopeFor(usings(context),
-			new FeatureCallScope(context, reference, buildInDeclarationsProvider.provideFor(context), typeSystem,
+			new FeatureCallScope(context, reference, builtInDeclarations, typeSystem,
 				inferrer))
 	}
 
@@ -151,7 +151,7 @@ class SolidityScopeProvider extends ExpressionsScopeProvider {
 
 	def scope_ComplexType_superTypes(EObject context, EReference reference) {
 		val outer = delegate.getScope(context, reference)
-		Scopes.scopeFor(buildInDeclarationsProvider.provideFor(context).superContracts, outer)
+		Scopes.scopeFor(builtInDeclarations.superContracts, outer)
 
 	}
 

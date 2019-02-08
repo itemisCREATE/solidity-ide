@@ -14,7 +14,7 @@
  */
 package com.yakindu.solidity.compiler;
 
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -22,7 +22,7 @@ import org.osgi.framework.BundleContext;
  * @author Florian Antony - Initial contribution and API
  *
  */
-public class SolidityCompilerActivator extends AbstractUIPlugin {
+public class SolidityCompilerActivator extends Plugin {
 
 	public static final String PLUGIN_ID = "com.yakindu.solidity.compiler";
 	

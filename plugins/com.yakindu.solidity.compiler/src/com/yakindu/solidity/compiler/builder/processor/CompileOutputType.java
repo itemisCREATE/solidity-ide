@@ -14,7 +14,11 @@
  */
 package com.yakindu.solidity.compiler.builder.processor;
 
-import com.yakindu.solidity.ui.preferences.SolidityPreferences;
+import static com.yakindu.solidity.compiler.preferences.ICompilerPreferences.COMPILER_OUTPUT_ABI;
+import static com.yakindu.solidity.compiler.preferences.ICompilerPreferences.COMPILER_OUTPUT_ASM;
+import static com.yakindu.solidity.compiler.preferences.ICompilerPreferences.COMPILER_OUTPUT_GAS;
+
+import com.yakindu.solidity.compiler.preferences.ICompilerPreferences;
 
 /**
  * 
@@ -23,10 +27,8 @@ import com.yakindu.solidity.ui.preferences.SolidityPreferences;
  */
 public enum CompileOutputType {
 
-	BIN(SolidityPreferences.COMPILER_OUTPUT_BIN,
-			"evm.bytecode.object"), ASM(SolidityPreferences.COMPILER_OUTPUT_ASM, "evm.assembly"), ABI(
-					SolidityPreferences.COMPILER_OUTPUT_ABI,
-					"abi"), GAS(SolidityPreferences.COMPILER_OUTPUT_GAS, "evm.gasEstimates");
+	BIN(ICompilerPreferences.COMPILER_OUTPUT_BIN, "evm.bytecode.object"), ASM(COMPILER_OUTPUT_ASM, "evm.assembly"),
+	ABI(COMPILER_OUTPUT_ABI, "abi"), GAS(COMPILER_OUTPUT_GAS, "evm.gasEstimates");
 	public final String PREFERENCE_KEY;
 	public final String COMPILER_KEY;
 

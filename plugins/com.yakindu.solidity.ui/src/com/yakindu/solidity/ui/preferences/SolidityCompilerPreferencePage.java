@@ -14,8 +14,16 @@
  */
 package com.yakindu.solidity.ui.preferences;
 
+import static com.yakindu.solidity.compiler.preferences.ICompilerPreferences.COMPILER_ENABLED;
+import static com.yakindu.solidity.compiler.preferences.ICompilerPreferences.COMPILER_OUTPUT_ABI;
+import static com.yakindu.solidity.compiler.preferences.ICompilerPreferences.COMPILER_OUTPUT_ASM;
+import static com.yakindu.solidity.compiler.preferences.ICompilerPreferences.COMPILER_OUTPUT_BIN;
+import static com.yakindu.solidity.compiler.preferences.ICompilerPreferences.COMPILER_OUTPUT_PATH;
+import static com.yakindu.solidity.compiler.preferences.ICompilerPreferences.COMPILER_PATH;
+
 import java.io.File;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
@@ -29,8 +37,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
-import com.yakindu.solidity.ui.internal.SolidityActivator;
+import com.yakindu.solidity.compiler.SolidityCompilerActivator;
 
 /**
  * 
@@ -59,16 +68,13 @@ public class SolidityCompilerPreferencePage extends FieldEditorPreferencePage im
 
 	protected void createCompilerSettings(Composite parent) {
 		Composite composite = createGroupComposite(parent, "Solc compiler");
-		compilerPathFieldEditor = new FileFieldEditor(SolidityPreferences.COMPILER_PATH, "Path to solc", composite);
+		compilerPathFieldEditor = new FileFieldEditor(COMPILER_PATH, "Path to solc", composite);
 		addField(compilerPathFieldEditor);
-		addField(new BooleanFieldEditor(SolidityPreferences.COMPILER_ENABLED, "Enable solidity compiler", composite));
-		addField(new BooleanFieldEditor(SolidityPreferences.COMPILER_OUTPUT_BIN, "Enable solidity bin output",
-				composite));
-		addField(new BooleanFieldEditor(SolidityPreferences.COMPILER_OUTPUT_ASM, "Enable solidity asm output",
-				composite));
-		addField(new BooleanFieldEditor(SolidityPreferences.COMPILER_OUTPUT_ABI, "Enable solidity abi output",
-				composite));
-		addField(new StringFieldEditor(SolidityPreferences.COMPILER_OUTPUT_PATH, "Compiler output path", composite));
+		addField(new BooleanFieldEditor(COMPILER_ENABLED, "Enable solidity compiler", composite));
+		addField(new BooleanFieldEditor(COMPILER_OUTPUT_BIN, "Enable solidity bin output", composite));
+		addField(new BooleanFieldEditor(COMPILER_OUTPUT_ASM, "Enable solidity asm output", composite));
+		addField(new BooleanFieldEditor(COMPILER_OUTPUT_ABI, "Enable solidity abi output", composite));
+		addField(new StringFieldEditor(COMPILER_OUTPUT_PATH, "Compiler output path", composite));
 	}
 
 	protected Composite createPageLayout(Composite parent) {
@@ -119,6 +125,6 @@ public class SolidityCompilerPreferencePage extends FieldEditorPreferencePage im
 	}
 
 	public void init(IWorkbench workbench) {
-		setPreferenceStore(SolidityActivator.getInstance().getPreferenceStore());
+		setPreferenceStore(new ScopedPreferenceStore(InstanceScope.INSTANCE, SolidityCompilerActivator.PLUGIN_ID));
 	}
 }

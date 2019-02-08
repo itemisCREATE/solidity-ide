@@ -7,7 +7,7 @@ Bundle-SymbolicName: com.yakindu.solidity; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext,
  org.eclipse.equinox.common,
- org.yakindu.base.expressions,
+ org.yakindu.base.expressions;visibility:=reexport,
  org.eclipse.emf.ecore,
  org.eclipse.xtext.util,
  org.eclipse.xtend.lib,
@@ -28,8 +28,8 @@ Export-Package: com.yakindu.solidity,
  com.yakindu.solidity.solidity.impl,
  com.yakindu.solidity.solidity.util,
  com.yakindu.solidity.typesystem,
- com.yakindu.solidity.typesystem.builtin,
  com.yakindu.solidity.validation
 Import-Package: org.apache.log4j,
  com.google.inject.multibindings,
  org.eclipse.core.runtime.preferences
+Automatic-Module-Name: com.yakindu.solidity

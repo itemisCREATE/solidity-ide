@@ -1,0 +1,34 @@
+{
+  "name": "xtext-dsl-extension",
+  "keywords": [
+    "theia-extension"
+  ],
+  "version": "0.1.0",
+  "author": "itemis AG",
+  "license": "EPL-1.0",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "@theia/core": "next",
+    "@theia/languages": "next"
+  },
+  "devDependencies": {
+    "rimraf": "latest",
+    "typescript": "latest"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn run build",
+    "copy-ls": "rm -rf ./lsp && mkdir lsp && cp -r ./../../../plugins/com.yakindu.solidity.ide/target/languageserver/* ./lsp/",
+    "clean": "rimraf lib",
+    "build": "tsc && yarn run copy-ls",
+    "watch": "tsc -w"
+  },
+  "theiaExtensions": [
+    {
+      "frontend": "lib/browser/frontend-extension",
+      "backend": "lib/node/backend-extension"
+    }
+  ]
+}

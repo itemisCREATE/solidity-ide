@@ -72,7 +72,7 @@ StateVariableDefinition returns types::Property:
 	initialValue=Expression)? ';';
 
 enum StorageLocation:
-	MEMORY='memory' | STORAGE='storage';
+	MEMORY='memory' | STORAGE='storage' | CALLDATA='calldata';
 
 VariableDeclaration returns types::Property:
 	{VariableDefinition} typeSpecifier=TypeSpecifier (storage=StorageLocation)? name=ID;
@@ -350,7 +350,7 @@ ParenthesizedExpression returns expressions::Expression:
 	{expressions::ParenthesizedExpression} '(' expression=Expression ')';
 
 TypeSpecifier returns types::TypeSpecifier:
-	SimpleTypeSpecifier | MappingTypeSpecifier | ArrayTypeSpecifier;
+	SimpleTypeSpecifier ('payable')?| MappingTypeSpecifier | ArrayTypeSpecifier;
 
 MappingTypeSpecifier:
 	{MappingTypeSpecifier} 'mapping' '(' key=TypeSpecifier '=>' value=TypeSpecifier ')';

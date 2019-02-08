@@ -7,4 +7,5 @@ Fragment-Host: com.yakindu.solidity.compiler
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.yakindu.solidity.compiler.builder
 Bundle-Vendor: YAKINDU
+Automatic-Module-Name: com.yakindu.solidity.compiler.linux.fragment
 

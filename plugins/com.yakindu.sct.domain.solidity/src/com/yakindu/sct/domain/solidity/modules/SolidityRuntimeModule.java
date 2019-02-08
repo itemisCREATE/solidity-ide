@@ -27,6 +27,7 @@ import com.yakindu.solidity.scoping.SolidityScopeProvider;
 import com.yakindu.solidity.solidity.SolidityFactory;
 import com.yakindu.solidity.typesystem.SolidityTypeInferrer;
 import com.yakindu.solidity.typesystem.SolidityTypeSystem;
+
 /**
  * 
  * @author Andreas Muelder - Initial contribution and API
@@ -43,6 +44,7 @@ public class SolidityRuntimeModule extends STextRuntimeModule {
 		binder.bind(TypesFactory.class).toInstance(TypesFactory.eINSTANCE);
 		binder.bind(SolidityFactory.class).toInstance(SolidityFactory.eINSTANCE);
 		binder.bind(ITypeSystem.class).toInstance(getTypeSystem());
+		binder.bind(com.yakindu.solidity.typesystem.BuiltInDeclarations.class);
 	}
 
 	public Class<? extends IPackageImport2URIMapper> bindIPackageImport2URIMapper() {
@@ -69,7 +71,7 @@ public class SolidityRuntimeModule extends STextRuntimeModule {
 	public Class<? extends IScopeProvider> bindIScopeProvider() {
 		return SolidityScopeProvider.class;
 	}
-	
+
 	@Override
 	public Class<? extends IGlobalScopeProvider> bindIGlobalScopeProvider() {
 		return SolidityGlobalScopeProvider.class;

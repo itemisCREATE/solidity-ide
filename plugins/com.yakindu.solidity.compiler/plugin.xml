@@ -3,7 +3,13 @@
 <plugin>
  <extension point="org.eclipse.xtext.builder.participant">
 		<participant
-			class="com.yakindu.solidity.compiler.SolidityCompilerExecutableExtensionFactory:com.yakindu.solidity.compiler.builder.SolidityBuilderParticipant"
+			class="com.yakindu.solidity.compiler.SolidityBuilderParticipantFactory:com.yakindu.solidity.compiler.builder.SolidityBuilderParticipant"
 			fileExtensions="sol"/>
+	</extension>
+		<extension
+			point="org.eclipse.core.runtime.preferences">
+		<initializer
+				class="com.yakindu.solidity.compiler.preferences.CompilerPreferenceInitializer">
+		</initializer>
 	</extension>
 </plugin>

@@ -1,0 +1,103 @@
+buildscript {
+  repositories {
+  jcenter()
+  maven {
+    url "https://plugins.gradle.org/m2/"
+  }
+  }
+  dependencies {
+  classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
+  classpath 'net.researchgate:gradle-release:2.6.0'
+  }
+}
+
+apply plugin: 'net.researchgate.release'
+apply plugin: 'com.moowork.node'
+node {
+  version = '8.11.1'
+  npmVersion = '5.6.0'
+  download = true
+}
+
+// Workaround for issue https://github.com/researchgate/gradle-release/issues/144
+task build {
+  dependsOn subprojects.findResults { it.tasks.findByName('build') }
+}
+
+task npmInstallVsce(type: NpmTask, dependsOn: npmSetup) {
+  description 'Installs the NodeJS package "Visual Studio Code Extension Manager"'
+  group 'Node'
+  ext.destPath = "$rootProject.projectDir/node_modules/vsce" 
+  outputs.dir(destPath)
+  args = [ 'install', 'vsce' ]
+}
+
+task copyApplication(type: Sync) {
+  description 'Copies the language server distribution from com.yakindu.solidity.ide to src/ls'
+  group 'Build'
+  from '../../plugins/com.yakindu.solidity.ide/target/languageserver'
+  into 'src/ls'
+}
+
+task clean(type: Delete) {
+  description 'Deletes the local repositories'
+  group 'Build'
+  delete copyApplication.outputs
+}
+
+def inputFiles = fileTree(
+  dir: projectDir, 
+  excludes: [ 
+    '.gitignore', 
+    '.project', 
+    'out/**', 
+    '*gradle/**', 
+    '*gradle*', 
+    'build/**',
+  ]
+)
+
+npmInstall {
+  inputs.files(inputFiles)
+  outputs.dir('out')
+}
+
+task vscodeExtension(dependsOn: [copyApplication, npmInstall, npmInstallVsce], type: NodeTask) {
+  group 'Code'
+  ext.destDir = new File(buildDir, 'vscode')
+  ext.archiveName = "$project.name-${project.version}.vsix"
+  ext.destPath = "$destDir/$archiveName"
+  inputs.with {
+    files inputFiles
+    dir npmInstallVsce.destPath
+  }
+  outputs.dir destDir
+  doFirst {
+    destDir.mkdirs()
+  }
+  script = file("$npmInstallVsce.destPath/out/vsce")
+  args = [ 'package', '--out', destPath ]
+  execOverrides {
+    workingDir = projectDir
+  }
+}
+
+task installExtension(type: Exec, dependsOn: vscodeExtension) {
+  group 'Code'
+  if (System.properties['os.name'].toLowerCase().contains('windows')) {
+    commandLine 'code.cmd'
+  } else {
+    commandLine 'code'
+  }
+  args '--install-extension', vscodeExtension.destPath
+}
+
+task startCode(type:Exec, dependsOn: installExtension) {
+  group 'Code'
+  if (System.properties['os.name'].toLowerCase().contains('windows')) {
+    commandLine 'code.cmd'
+  } else {
+    commandLine 'code'
+  }
+  args "$rootProject.projectDir/demo/", '--new-window'
+}
