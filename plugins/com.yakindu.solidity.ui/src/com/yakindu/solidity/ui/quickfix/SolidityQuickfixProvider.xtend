@@ -135,6 +135,25 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			})
 	}
 
+	@Fix(ERROR_INTERFACE_FUNCTIONS_CAN_NOT_HAVE_MODIFIERS)
+	def removeDisallowedModifiers(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(
+			issue,
+			'Remove all disallowed modifiers.',
+			'Remove all disallowed modifiers.',
+			null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof FunctionDefinition) {
+						element.modifier.filter[!(it instanceof BuildInModifier)].toList.forEach [
+							element.modifier.remove(it)
+						]
+					}
+				}
+			}
+		)
+	}
+
 	@Fix(ERROR_DATA_LOCATION_MUST_BE_CALLDATA_FOR_EXTERNAL_PARAMETER)
 	def changeStorageModifierToCalldata(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(

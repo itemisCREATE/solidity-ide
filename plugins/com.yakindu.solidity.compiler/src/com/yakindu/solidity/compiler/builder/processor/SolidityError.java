@@ -20,6 +20,7 @@ public enum SolidityError {
 	ERROR_NO_VISIBILITY_SPECIFIED("No visibility specified."),
 	ERROR_DEPRECATED_SUICIDE("\"suicide\" has been deprecated in favour of \"selfdestruct\""),
 	ERROR_DEPRECATED_SHA3("\"sha3\" has been deprecated in favour of \"keccak256\""),
+	ERROR_INTERFACE_FUNCTIONS_CAN_NOT_HAVE_MODIFIERS("Functions without implementation cannot have modifiers."),
 	ERROR_MSG_VALUE_ONLY_ALLOWED_IN_PAYABLE("\"msg.value\" can only be used in payable public functions.");
 	
 	private final String message;
