@@ -19,7 +19,8 @@ public enum SolidityError {
 	ERROR_STATE_MUTABILITY_ONLY_ALLOWED_FOR_ADDRESS("State mutability can only be specified for address types."),
 	ERROR_NO_VISIBILITY_SPECIFIED("No visibility specified."),
 	ERROR_DEPRECATED_SUICIDE("\"suicide\" has been deprecated in favour of \"selfdestruct\""),
-	ERROR_DEPRECATED_SHA3("\"sha3\" has been deprecated in favour of \"keccak256\"");
+	ERROR_DEPRECATED_SHA3("\"sha3\" has been deprecated in favour of \"keccak256\""),
+	ERROR_MSG_VALUE_ONLY_ALLOWED_IN_PAYABLE("\"msg.value\" can only be used in payable public functions.");
 	
 	private final String message;
 	

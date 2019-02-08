@@ -145,7 +145,6 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element instanceof ArrayTypeSpecifier || element instanceof MappingTypeSpecifier) {
-						(element.eContainer as Parameter).fixDeclaration(StorageLocation.CALLDATA, issue, context)
 					}
 				}
 			}
@@ -500,7 +499,8 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			})
 	}
 
-	@Fix(WARNING_MSG_VALUE_IN_NON_PAYABLE)
+	@Fixes(@Fix(WARNING_MSG_VALUE_IN_NON_PAYABLE), 
+		@Fix(ERROR_MSG_VALUE_ONLY_ALLOWED_IN_PAYABLE))
 	def makeFunctionPayable(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Add payable to function', 'Add payable.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
