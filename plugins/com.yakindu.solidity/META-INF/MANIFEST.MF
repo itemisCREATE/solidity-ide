@@ -32,3 +32,4 @@ Export-Package: com.yakindu.solidity,
 Import-Package: org.apache.log4j,
  com.google.inject.multibindings,
  org.eclipse.core.runtime.preferences
+Automatic-Module-Name: com.yakindu.solidity
