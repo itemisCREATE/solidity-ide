@@ -60,6 +60,7 @@ class BuiltInDeclarations {
 	protected Property tx
 	protected Property block
 	protected Property length
+	protected Property abi
 	protected Operation push
 	protected Operation gas
 	protected Operation value
@@ -121,7 +122,10 @@ class BuiltInDeclarations {
 		]
 
 		keccak256 = createOperation("keccak256", BYTES32) => [
-			parameters += createParameter("argument", ANY) => [varArgs = true]
+			parameters += createParameter("argument", SolidityTypeSystem.BYTES.typeForName) => [
+				optional = false
+				varArgs = false
+			]
 		]
 
 		sha256 = createOperation("sha256", BYTES32) => [
@@ -156,6 +160,8 @@ class BuiltInDeclarations {
 		selfdestruct = createOperation("selfdestruct", VOID) => [
 			parameters += createParameter("address", ADDRESS)
 		]
+
+		abi = createConstant("abi", ABI.typeForName)
 
 		msg = createConstant("msg", MESSAGE.typeForName)
 
@@ -218,8 +224,8 @@ class BuiltInDeclarations {
 	}
 
 	def all() {
-		#[msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, push, ripemd160, ecrecover,
-			block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]
+		#[msg, abi, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, push, ripemd160,
+			ecrecover, block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]
 	}
 
 	def protected Type getTypeForName(String typeName) {
