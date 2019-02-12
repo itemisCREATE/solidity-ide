@@ -114,7 +114,7 @@ public class SoliditySemanticHighlighter
 
 	private void provideHighLightForNamedElement(NamedElement namedElement, INode nextNode, String textStyle,
 			IHighlightedPositionAcceptor acceptor) {
-		acceptor.addPosition(nextNode.getOffset(), nextNode.getLength() + 1, textStyle);
+		acceptor.addPosition(nextNode.getOffset(), nextNode.getLength(), textStyle);
 		List<ElementReferenceExpression> references = EcoreUtil2.getAllContentsOfType(namedElement.eContainer(),
 				ElementReferenceExpression.class);
 		for (ElementReferenceExpression elementReferenceExpression : references) {
