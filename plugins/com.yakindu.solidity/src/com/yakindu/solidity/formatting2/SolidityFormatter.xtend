@@ -132,17 +132,30 @@ class SolidityFormatter extends AbstractFormatter2 {
 
 	def dispatch void format(FunctionDefinition it, extension IFormattableDocument document) {
 		prepend[newLines(2, 2, 3)]
-		regionFor.keyword(",").append[oneSpace].prepend[noSpace]
-		allRegionsFor.keywordPairs('(', ')').forEach [
-			key.append[noSpace]
-			value.prepend[noSpace]
-		]
-		parameters.forEach [
-			p | p.typeSpecifier.append[oneSpace; priority = IHiddenRegionFormatter.HIGH_PRIORITY;]
-		]
-		modifier.forEach [
-			prepend[oneSpace]
-		]
+		val int functionSignatureLength = getLengthOfFunctionSignature
+		if (functionSignatureLength > 80) {
+			allRegionsFor.keyword('(').append[newLines]
+			for (parameter : parameters) {
+				parameter.prepend[newLines]
+			}
+			allRegionsFor.keyword(')').prepend[newLines].append[newLines]
+			allRegionsFor.keywordPairs('(',')').forEach[ pair | pair.interior[indent]]
+			for (var i = 0;i < modifier.size; i++) {
+				if (i != 0) {
+					modifier.get(i).prepend[oneSpace]
+				}
+			}
+			
+		} else {
+			allRegionsFor.keywordPairs('(', ')').forEach [ p |
+				p.key.append[noSpace]
+				p.value.prepend[noSpace]
+			]
+			regionFor.keyword(",").append[oneSpace].prepend[noSpace]
+			modifier.forEach [
+				prepend[oneSpace]
+			]
+		}
 		block.format
 	}
 
@@ -208,8 +221,8 @@ class SolidityFormatter extends AbstractFormatter2 {
 			key.prepend[oneSpace]
 			value.prepend[noSpace]
 		]
-
-		statements.forEach[format; prepend[noSpace]; append[newLines()];]
+		
+		statements.forEach[format; prepend[noSpace]; append[newLines(1,1,2); priority = IHiddenRegionFormatter.HIGH_PRIORITY]; ]
 	}
 
 	def dispatch void format(AssignmentExpression it, extension IFormattableDocument document) {
@@ -425,5 +438,22 @@ class SolidityFormatter extends AbstractFormatter2 {
 		noSpace
 		setNewLines(min, lines, max)
 	}
-
+	
+	protected def int getLengthOfFunctionSignature(FunctionDefinition it) {
+		val int functionKeywordLength = regionFor.keyword("function").length + 1
+		val int nameLength = name.length
+		var int parametersLength = 0
+		for (parameter : parameters) {
+			parametersLength += parameter.regionForEObject.length
+		}
+		var int modifiersLength = 0
+		for (modi : modifier) {
+			modifiersLength += modi.regionForEObject.length
+		}
+		var int returnParametersLength = 0
+		for (returnParam : returnParameters) {
+			returnParametersLength += returnParam.regionForEObject.length
+		}
+		return (functionKeywordLength + nameLength + parametersLength + modifiersLength + returnParametersLength)
+	}
 }
