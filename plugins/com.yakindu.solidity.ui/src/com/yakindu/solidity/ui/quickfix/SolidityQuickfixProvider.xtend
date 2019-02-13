@@ -188,19 +188,28 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		)
 	}
 
-	@Fixes(@Fix(ERROR_DATA_LOCATION_MUST_BE_STORAGE_OR_MEMORY_FOR_PARAMETER),
-	@Fix(ERROR_DATA_LOCATION_MUST_BE_MEMORY_OR_STORAGE_FOR_RETURN_PARAMETER))
-	def addStorageModifierSorageOrMemoryForParameter(Issue issue, IssueResolutionAcceptor acceptor) {
-		changeStorageModifierToMemory(issue, acceptor)
-		acceptor.accept(issue, 'Add \'storage\' modifier.', 'Add \'storage\' modifier.', null,
+	@Fix(ERROR_DATALOCATION_MUST_BE_STORAGE)
+	def changeStorageModifierToStorage(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(
+			issue,
+			'Add \'storage\' modifier.',
+			'Data location must be "storage" here. Add \'storage\' modifier.',
+			null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
-					if (element instanceof ArrayTypeSpecifier || element instanceof MappingTypeSpecifier) {
-						// TODO FIXME: This is only valid IF there is no initial value, or the 'return type' of the initial value has the same storage modifier e.g. in the case of a function call. 
-						(element.eContainer as Parameter).fixDeclaration(StorageLocation.STORAGE, issue, context)
+					if (element instanceof TypeSpecifier || element instanceof MappingTypeSpecifier) {
+						element.eContainer.fixDeclaration(StorageLocation.STORAGE, issue, context)
 					}
 				}
-			})
+			}
+		)
+	}
+
+	@Fixes(@Fix(ERROR_DATA_LOCATION_MUST_BE_STORAGE_OR_MEMORY_FOR_PARAMETER),
+	@Fix(ERROR_DATA_LOCATION_MUST_BE_MEMORY_OR_STORAGE_FOR_RETURN_PARAMETER))
+	def addStorageModifierStorageOrMemoryForParameter(Issue issue, IssueResolutionAcceptor acceptor) {
+		changeStorageModifierToMemory(issue, acceptor)
+		changeStorageModifierToStorage(issue, acceptor)
 	}
 
 	@Fixes(@Fix(ERROR_DATA_LOCATION_MUST_BE_SPECIFIED_FOR_VARIABLE))
@@ -209,8 +218,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element instanceof ArrayTypeSpecifier || element instanceof MappingTypeSpecifier) {
-						(element.eContainer as VariableDefinition).fixDeclaration(StorageLocation.MEMORY, issue,
-							context)
+						element.eContainer.fixDeclaration(StorageLocation.MEMORY, issue, context)
 					}
 				}
 			})
@@ -219,8 +227,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element instanceof ArrayTypeSpecifier || element instanceof MappingTypeSpecifier) {
 						// TODO FIXME: This is only valid IF there is no initial value, or the 'return type' of the initial value has the same storage modifier e.g. in the case of a function call. 
-						(element.eContainer as VariableDefinition).fixDeclaration(StorageLocation.STORAGE, issue,
-							context)
+						element.eContainer.fixDeclaration(StorageLocation.STORAGE, issue, context)
 					}
 				}
 			})

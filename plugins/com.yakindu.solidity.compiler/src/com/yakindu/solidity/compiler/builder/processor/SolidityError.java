@@ -4,6 +4,7 @@ public enum SolidityError {
 	ERROR_VAR_KEYWORD_DISALLOWED("Use of the \"var\" keyword is disallowed."),
 	ERROR_FUNCTION_NAME_EQUALS_CONTRACT_NAME_DISALLOWED("Functions are not allowed to have the same name as the contract."),
 	ERROR_CONSTANT_MODIFIER_WAS_REMOVED("The state mutability modifier \"constant\" was removed in version 0.5.0."),
+	ERROR_DATALOCATION_MUST_BE_STORAGE("Data location must be \"storage\" for variable"),
 	ERROR_THROW_KEYWORD_DISALLOWED("\"throw\" is deprecated in favour of \"revert()\", \"require()\" and \"assert()\""),
 	ERROR_INVALID_IMPLICID_CONVERSION_TO_ADDRESS_PAYABLE("Invalid type for argument in function call. Invalid implicit conversion from address to address payable requested."),
 	ERROR_FUNCTION_DECLARED_AS_PURE_BUT_MUST_BE_VIEW("Function declared as pure, but this expression (potentially) reads from the environment or state and thus requires \"view\"."),
