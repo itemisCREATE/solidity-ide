@@ -21,14 +21,13 @@ env:
   - TARGET=Oxygen.target
 before_install:
 - sh -e /etc/init.d/xvfb start - sleep 10
+- chmod +x $TRAVIS_BUILD_DIR/extensions/vscode/gradlew
 script:
 - cd releng/com.yakindu.solidity.releng
 - mvn clean verify -P$TARGET,tests
 - cd ../com.yakindu.solidity.repository/target
 - zip -r repository.zip repository
-- cd $TRAVIS_BUILD_DIR
-- cd extensions/vscode
-- pwd
+- cd $TRAVIS_BUILD_DIR/extensions/vscode && pwd
 - ./gradlew vscodeExtension
 - cd $TRAVIS_BUILD_DIR
 deploy:
