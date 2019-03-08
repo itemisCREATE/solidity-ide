@@ -56,6 +56,8 @@ import org.yakindu.base.expressions.expressions.NumericalMultiplyDivideExpressio
 import org.yakindu.base.expressions.expressions.PostFixUnaryExpression
 import org.yakindu.base.expressions.expressions.ShiftExpression
 import org.yakindu.base.types.EnumerationType
+import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegion
+import org.eclipse.emf.ecore.EObject
 
 /**
  * Code formatter for Solidity according to 
@@ -98,7 +100,10 @@ class SolidityFormatter extends AbstractFormatter2 {
 	def dispatch void format(ContractDefinition it, extension IFormattableDocument document) {
 		interior[indent]
 		regionFor.keywordPairs('{', '}').forEach [
-			key.append[newLine; priority = IHiddenRegionFormatter.LOW_PRIORITY;].prepend[oneSpace]
+			key.append[newLine; priority = IHiddenRegionFormatter.LOW_PRIORITY;].prepend [
+				oneSpace;
+				priority = IHiddenRegionFormatter.LOW_PRIORITY;
+			]
 			value.surround[newLines; priority = IHiddenRegionFormatter.LOW_PRIORITY;]
 		]
 
@@ -134,18 +139,35 @@ class SolidityFormatter extends AbstractFormatter2 {
 		prepend[newLines(2, 2, 3)]
 		val int functionSignatureLength = getLengthOfFunctionSignature
 		if (functionSignatureLength > 80) {
-			allRegionsFor.keyword('(').append[newLines]
+			allRegionsFor.keywordPairs('(', ')').forEach[pair|pair.interior[indent];]
+			allRegionsFor.keywordPairs('(', ')').head.key.append[newLines(1, 1, 1)];
+			allRegionsFor.keywordPairs('(', ')').head.value.prepend[newLines(1, 1, 1)].append [
+				newLines(1, 1, 1);
+				priority = IHiddenRegionFormatter.HIGH_PRIORITY
+			];
+			allRegionsFor.keywordPairs('(', ')').head.key.prepend[noSpace]
 			for (parameter : parameters) {
-				parameter.prepend[newLines]
+				parameter.prepend[newLines(1, 1, 1); priority = IHiddenRegionFormatter.HIGH_PRIORITY]
 			}
-			allRegionsFor.keyword(')').prepend[newLines].append[newLines]
-			allRegionsFor.keywordPairs('(',')').forEach[ pair | pair.interior[indent]]
-			for (var i = 0;i < modifier.size; i++) {
-				if (i != 0) {
-					modifier.get(i).prepend[oneSpace]
-				}
+			for (modifier : modifier) {
+				modifier.prepend[newLines(1, 1, 1)]
+				modifier.indent(document)
 			}
-			
+			if (regionFor.keyword("returns") !== null) {
+				regionFor.keyword("returns").indent(document).append[oneSpace]
+			}
+			allRegionsFor.keywordPairs('(', ')').get(1).key.prepend[oneSpace]
+			allRegionsFor.keywordPairs('(', ')').get(1).key.append[newLines(1, 1, 1)];
+			allRegionsFor.keywordPairs('(', ')').get(1).value.prepend[newLines(1, 1, 1)].append [
+				newLines(1, 1, 1);
+				priority = IHiddenRegionFormatter.HIGH_PRIORITY
+			];
+			allRegionsFor.keywordPairs('(', ')').get(1).value.indent(document)
+			for (returnParam : returnParameters) {
+				returnParam.prepend[newLines(1, 1, 1)]
+				returnParam.indent(document)
+			}
+
 		} else {
 			allRegionsFor.keywordPairs('(', ')').forEach [ p |
 				p.key.append[noSpace]
@@ -221,8 +243,12 @@ class SolidityFormatter extends AbstractFormatter2 {
 			key.prepend[oneSpace]
 			value.prepend[noSpace]
 		]
-		
-		statements.forEach[format; prepend[noSpace]; append[newLines(1,1,2); priority = IHiddenRegionFormatter.HIGH_PRIORITY]; ]
+
+		statements.forEach [
+			format;
+			prepend[noSpace];
+			append[newLines(1, 1, 2); priority = IHiddenRegionFormatter.HIGH_PRIORITY];
+		]
 	}
 
 	def dispatch void format(AssignmentExpression it, extension IFormattableDocument document) {
@@ -438,7 +464,30 @@ class SolidityFormatter extends AbstractFormatter2 {
 		noSpace
 		setNewLines(min, lines, max)
 	}
-	
+
+	protected def ISemanticRegion previousSemanticRegion(EObject it) {
+		return it.regionForEObject.previousSemanticRegion
+	}
+
+	protected def ISemanticRegion nextSemanticRegion(EObject it) {
+		return it.regionForEObject.nextSemanticRegion
+	}
+
+	protected def void indent(EObject it, extension IFormattableDocument document) {
+		val Pair<ISemanticRegion, ISemanticRegion> pair = new Pair(previousSemanticRegion, nextSemanticRegion)
+		pair.interior[indent]
+	}
+
+	protected def ISemanticRegion indent(ISemanticRegion it, extension IFormattableDocument document) {
+		val Pair<ISemanticRegion, ISemanticRegion> pair = new Pair(it.previousSemanticRegion, it.nextSemanticRegion)
+		pair.interior[indent]
+		return it
+	}
+
+	protected def Pair<ISemanticRegion, ISemanticRegion> interior(EObject key, EObject value) {
+		return new Pair(key.previousSemanticRegion, value.nextSemanticRegion)
+	}
+
 	protected def int getLengthOfFunctionSignature(FunctionDefinition it) {
 		val int functionKeywordLength = regionFor.keyword("function").length + 1
 		val int nameLength = name.length
