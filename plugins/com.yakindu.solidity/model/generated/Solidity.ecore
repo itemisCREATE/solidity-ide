@@ -260,8 +260,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TupleExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
-        containment="true"/>
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PrimitiveValueExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//PrimitiveValueExpression"/>
 </ecore:EPackage>
