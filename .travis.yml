@@ -18,7 +18,6 @@ env:
   matrix:
   - TARGET=Latest.target
   - TARGET=Photon.target
-  - TARGET=Oxygen.target
 before_install:
 - sh -e /etc/init.d/xvfb start - sleep 10
 - chmod +x $TRAVIS_BUILD_DIR/extensions/vscode/gradlew
