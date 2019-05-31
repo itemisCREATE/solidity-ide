@@ -3,3 +3,4 @@
 *.csv
 /node_modules/*
 /gen/*
+/files/*

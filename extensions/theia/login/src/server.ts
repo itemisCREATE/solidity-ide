@@ -1,7 +1,8 @@
 import * as func from './function';
 
+const sleep = require('sleep');
+
 const express = require('express');
-const path = require('path');
 const port = process.env.PORT || 4242;
 
 const app = express();
@@ -11,15 +12,14 @@ app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 app.use(express.static("public"));
 
 app.get("/workspace", (req, res) => {
-  func.handleWorkspace()
-  .catch(() => {
-    res.status(501).send();
-  })
-  .then((hash: string) => {
-    func.waitForCreation(req.protocol + '://' + req.get('host'), hash)
-    .then(() => res.redirect("/" + hash));
-  });
-})
+  let ideName: string = func.handleWorkspace();
+  if (ideName === undefined) {
+    res.status(501).send("501 Internal Server Error");
+  } else {
+    sleep.sleep(3);
+    res.redirect("/" + ideName + "/");
+  }
+});
 
 app.listen(port);
 

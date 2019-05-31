@@ -9,6 +9,10 @@
     "lerna": "2.4.0"
   },
   "workspaces": [
-    "xtext-dsl-extension", "app"
-  ]
+    "xtext-dsl-extension",
+    "app"
+  ],
+  "dependencies": {
+    "webkit": "0.0.0"
+  }
 }

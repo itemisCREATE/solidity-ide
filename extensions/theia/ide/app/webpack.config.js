@@ -1,17 +1,21 @@
 // @ts-check
 const path = require('path');
 const webpack = require('webpack');
+const yargs = require('yargs');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 const outputPath = path.resolve(__dirname, 'lib');
-const development = process.env.NODE_ENV === 'development';
+const { mode }  = yargs.option('mode', {
+    description: "Mode to use",
+    choices: ["development", "production"],
+    default: "production"
+}).argv;
+const development = mode === 'development';
 
-const monacoEditorPath = development ? '/mnt/c/programmieren/yakindu/solidity-ide/extensions/theia/node_modules/monaco-editor-core/dev/vs' : '/mnt/c/programmieren/yakindu/solidity-ide/extensions/theia/node_modules/monaco-editor-core/min/vs';
-const monacoLanguagesPath = '/mnt/c/programmieren/yakindu/solidity-ide/extensions/theia/node_modules/monaco-languages/release';
-const monacoCssLanguagePath = '/mnt/c/programmieren/yakindu/solidity-ide/extensions/theia/node_modules/monaco-css/release/min';
-const monacoJsonLanguagePath = '/mnt/c/programmieren/yakindu/solidity-ide/extensions/theia/node_modules/monaco-json/release/min';
-const monacoHtmlLanguagePath = '/mnt/c/programmieren/yakindu/solidity-ide/extensions/theia/node_modules/monaco-html/release/min';
+const monacoEditorCorePath = development ? '/mnt/c/programmieren/yakindu/solidity-ide/extensions/theia/ide/node_modules/@typefox/monaco-editor-core/dev/vs' : '/mnt/c/programmieren/yakindu/solidity-ide/extensions/theia/ide/node_modules/@typefox/monaco-editor-core/min/vs';
+const monacoCssLanguagePath = '/mnt/c/programmieren/yakindu/solidity-ide/extensions/theia/ide/node_modules/monaco-css/release/min';
+const monacoHtmlLanguagePath = '/mnt/c/programmieren/yakindu/solidity-ide/extensions/theia/ide/node_modules/monaco-html/release/min';
 
 module.exports = {
     entry: path.resolve(__dirname, 'src-gen/frontend/index.js'),
@@ -20,6 +24,7 @@ module.exports = {
         path: outputPath
     },
     target: 'web',
+    mode,
     node: {
         fs: 'empty',
         child_process: 'empty',
@@ -29,20 +34,36 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /worker-main\.js$/,
+                loader: 'worker-loader',
+                options: {
+                    name: 'worker-ext.[hash].js'
+                }
+            },
+            {
                 test: /\.css$/,
                 exclude: /\.useable\.css$/,
                 loader: 'style-loader!css-loader'
             },
             {
                 test: /\.useable\.css$/,
-                loader: 'style-loader/useable!css-loader'
+                use: [
+                  {
+                    loader: 'style-loader/useable',
+                    options: {
+                      singleton: true,
+                      attrs: { id: 'theia-theme' },
+                    }
+                  },
+                  'css-loader'
+                ]
             },
             {
                 test: /\.(ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
                 loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
             },
             {
-                test: /.(jpg|png|gif)$/,
+                test: /\.(jpg|png|gif)$/,
                 loader: 'file-loader',
                 options: {
                     name: '[path][name].[hash].[ext]',
@@ -57,7 +78,7 @@ module.exports = {
                 test: /\.js$/,
                 enforce: 'pre',
                 loader: 'source-map-loader',
-                exclude: /jsonc-parser/
+                exclude: /jsonc-parser|fast-plist|onigasm|(monaco-editor.*)/
             },
             {
                 test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -66,34 +87,35 @@ module.exports = {
             {
                 test: /node_modules[\\|/](vscode-languageserver-types|vscode-uri|jsonc-parser)/,
                 use: { loader: 'umd-compat-loader' }
-            }
+            },
+            {
+                test: /\.wasm$/,
+                loader: "file-loader",
+                type: "javascript/auto",
+            },
+            {
+                test: /\.plist$/,
+                loader: "file-loader",
+            },
         ]
     },
     resolve: {
         extensions: ['.js'],
         alias: {
-            'vs': path.resolve(outputPath, monacoEditorPath)
+            'vs': path.resolve(outputPath, monacoEditorCorePath),
+            'vscode': require.resolve('monaco-languageclient/lib/vscode-compatibility')
         }
     },
     devtool: 'source-map',
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
         new CopyWebpackPlugin([
             {
-                from: monacoEditorPath,
+                from: monacoEditorCorePath,
                 to: 'vs'
-            },
-            {
-                from: monacoLanguagesPath,
-                to: 'vs/basic-languages'
             },
             {
                 from: monacoCssLanguagePath,
                 to: 'vs/language/css'
-            },
-            {
-                from: monacoJsonLanguagePath,
-                to: 'vs/language/json'
             },
             {
                 from: monacoHtmlLanguagePath,
@@ -103,7 +125,7 @@ module.exports = {
         new CircularDependencyPlugin({
             exclude: /(node_modules|examples)\/./,
             failOnError: false // https://github.com/nodejs/readable-stream/issues/280#issuecomment-297076462
-        })
+        }),
     ],
     stats: {
         warnings: true

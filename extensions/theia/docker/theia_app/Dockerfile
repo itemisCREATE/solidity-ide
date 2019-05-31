@@ -9,22 +9,25 @@ WORKDIR /
 RUN apt-get update
 RUN apt-get install openjdk-8-jdk --assume-yes
 RUN apt-get install maven --assume-yes
-RUN npm install yarn
+RUN npm install --global yarn
 
-#Switch to User docker
-RUN chmod -R 777 /usr/local && useradd -ms /bin/bash docker
-USER docker
-WORKDIR /home/docker
+#Switch to User node
+USER node
+WORKDIR /home/node
 
 # Get & build theia IDE (After pull Request switch to main repository)
-RUN git clone https://github.com/fspiekermann/solidity-ide.git --branch feature/theia_integration
-RUN cd solidity-ide/releng/com.yakindu.solidity.releng && mvn clean install
-RUN cp -r solidity-ide/plugins/com.yakindu.solidity.ide/target/languageserver ./lsp
-RUN cp -r solidity-ide/extensions/theia ./theia
-RUN sed -i -r 's;(.*)cp -r .\/..\/..\/..\/plugins\/com.yakindu.solidity.ide\/target\/languageserver\/\* .\/lsp\/",;\1cp -r /home/docker/lsp/* ./lsp",;' /home/docker/theia/xtext-dsl-extension/package.json
-RUN rm -rf solidity-ide/
-RUN cd theia/ && yarn install
+RUN git clone https://github.com/Yakindu/solidity-ide.git \
+    && cd solidity-ide/releng/com.yakindu.solidity.releng \
+    && mvn clean install \
+    && cd ../../.. \
+    && cp -r solidity-ide/plugins/com.yakindu.solidity.ide/target/languageserver ./lsp\
+    && cp -r solidity-ide/extensions/theia/ide ./theia\
+    && sed -i -r 's;(.*)cp -r ..\/..\/..\/..\/plugins\/com.yakindu.solidity.ide\/target\/languageserver\/\* .\/lsp\/",;\1cp -r /home/node/lsp/* ./lsp",;' /home/node/theia/xtext-dsl-extension/package.json\
+    && rm -rf solidity-ide/
+
+WORKDIR /home/node/theia
+RUN yarn install
 
 # Startup
 EXPOSE 8080 
-CMD cd /home/docker/theia/app && yarn start
+CMD cd ./app && yarn start
