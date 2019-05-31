@@ -320,8 +320,12 @@ EmitExpression returns expressions::FeatureCall:
 	arguments+=Argument)*)? ')';
 
 TupleExpression returns expressions::Expression:
-	{TupleExpression} (('(' (expressions+=Expression (',' expressions+=Expression)*)? ')') | ('['
-	(expressions+=Expression (',' expressions+=Expression)*)? ']'));
+	{TupleExpression} 
+	(
+		('(' (expressions+=(VariableDeclaration | Expression)? (',' (expressions+=(VariableDeclaration | Expression))? )* ) ')') 
+		| 
+		('[' (expressions+=(VariableDeclaration | Expression) (',' (expressions+=(VariableDeclaration | Expression))? )* ) ']')
+	);
 
 PrimitiveValueExpression returns expressions::PrimitiveValueExpression:
 	{PrimitiveValueExpression} value=Literal;
