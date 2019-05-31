@@ -34,6 +34,7 @@ import org.yakindu.base.expressions.expressions.Expression
 import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.EnumerationType
+import org.yakindu.base.types.Operation
 import org.yakindu.base.types.PrimitiveType
 import org.yakindu.base.types.TypeSpecifier
 import org.yakindu.base.types.TypedElement
@@ -92,6 +93,11 @@ class FeatureCallScope extends AbstractScope {
 	def dispatch List<? extends EObject> getLocalElements(TypeSpecifier it) {
 		type?.getLocalElements
 	}
+	
+	def dispatch getLocalElements(Operation it){
+		newArrayList(declarations.value, declarations.gas)
+	}
+	
 
 	def dispatch List<? extends EObject> getLocalElements(ArrayTypeSpecifier it) {
 		return if (context.owner.isOperationCall) {
