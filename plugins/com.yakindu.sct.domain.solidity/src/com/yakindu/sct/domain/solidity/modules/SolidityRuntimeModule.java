@@ -27,6 +27,7 @@ import com.yakindu.solidity.scoping.SolidityScopeProvider;
 import com.yakindu.solidity.solidity.SolidityFactory;
 import com.yakindu.solidity.typesystem.SolidityTypeInferrer;
 import com.yakindu.solidity.typesystem.SolidityTypeSystem;
+import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations;
 
 /**
  * 
@@ -44,7 +45,7 @@ public class SolidityRuntimeModule extends STextRuntimeModule {
 		binder.bind(TypesFactory.class).toInstance(TypesFactory.eINSTANCE);
 		binder.bind(SolidityFactory.class).toInstance(SolidityFactory.eINSTANCE);
 		binder.bind(ITypeSystem.class).toInstance(getTypeSystem());
-		binder.bind(com.yakindu.solidity.typesystem.BuiltInDeclarations.class);
+		binder.bind(BuiltInDeclarations.class);
 	}
 
 	public Class<? extends IPackageImport2URIMapper> bindIPackageImport2URIMapper() {

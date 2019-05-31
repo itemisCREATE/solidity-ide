@@ -21,6 +21,7 @@ import com.yakindu.solidity.solidity.Identifier
 import com.yakindu.solidity.solidity.MappingTypeSpecifier
 import com.yakindu.solidity.solidity.VariableDefinition
 import com.yakindu.solidity.typesystem.SolidityTypeSystem
+import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations
 import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
@@ -38,7 +39,6 @@ import org.yakindu.base.types.TypeSpecifier
 import org.yakindu.base.types.TypedElement
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
-import com.yakindu.solidity.typesystem.BuiltInDeclarations
 
 /**
  * 
@@ -97,7 +97,7 @@ class FeatureCallScope extends AbstractScope {
 		return if (context.owner.isOperationCall) {
 			type?.getLocalElements
 		} else
-			newArrayList(declarations.length, declarations.push)
+			newArrayList(declarations.length, declarations.push, declarations.pop)
 	}
 
 	def dispatch List<? extends EObject> getLocalElements(MappingTypeSpecifier it) {
@@ -117,7 +117,7 @@ class FeatureCallScope extends AbstractScope {
 
 	def dispatch List<? extends EObject> getLocalElements(TypedElement it) {
 		return if (typeSystem.isSuperType(it.type, typeSystem.getType(SolidityTypeSystem.BYTES))) {
-			newArrayList(declarations.length, declarations.push)
+			newArrayList(declarations.length, declarations.push, declarations.pop)
 		} else if (typeSpecifier === null && it instanceof VariableDefinition) {
 			inferrer.infer(it)?.type?.localElements
 		} else if (it instanceof FunctionDefinition) {
@@ -142,7 +142,7 @@ class FeatureCallScope extends AbstractScope {
 
 	def dispatch List<? extends EObject> getLocalElements(PrimitiveType it) {
 		return if (typeSystem.isSuperType(it, typeSystem.getType(SolidityTypeSystem.BYTES))) {
-			newArrayList(declarations.length, declarations.push)
+			newArrayList(declarations.length, declarations.push, declarations.pop)
 		} else {
 			newArrayList()
 		}

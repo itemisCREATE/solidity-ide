@@ -37,8 +37,8 @@ import com.yakindu.solidity.solidity.ThrowStatement
 import com.yakindu.solidity.solidity.TypeSpecifier
 import com.yakindu.solidity.solidity.Unit
 import com.yakindu.solidity.solidity.VariableDefinition
-import com.yakindu.solidity.typesystem.BuiltInDeclarations
 import com.yakindu.solidity.typesystem.SolidityTypeSystem
+import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations
 import java.math.BigDecimal
 import javax.inject.Named
 import org.eclipse.emf.ecore.EObject
