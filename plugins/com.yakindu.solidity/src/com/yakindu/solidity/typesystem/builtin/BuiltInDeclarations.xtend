@@ -59,6 +59,7 @@ class BuiltInDeclarations {
 	protected Operation ecrecover
 	protected Operation suicide
 	protected Operation selfdestruct
+	protected Property abi
 	protected Property msg
 	protected Property this_
 	protected Property super_
@@ -102,7 +103,7 @@ class BuiltInDeclarations {
 		initialize
 	}
 
-	def protected void  initialize() {
+	def protected void initialize() {
 		/************************
 		 *     ERROR HANDLING 
 		 ************************/
@@ -124,6 +125,7 @@ class BuiltInDeclarations {
 		/************************
 		 * CONSTANTS & GLOBALS
 		 ************************/
+		abi = abi()
 		now = now()
 		this_ = this_()
 		super_ = super_()
@@ -154,8 +156,8 @@ class BuiltInDeclarations {
 	}
 
 	def List<PackageMember> all() {
-		#[msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, push, pop, ripemd160, ecrecover,
-			block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]
+		#[abi, msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, push, pop, ripemd160,
+			ecrecover, block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]
 	}
 
 	def protected Operation assert_() {
@@ -240,7 +242,7 @@ class BuiltInDeclarations {
 			parameters += createParameter("element", ANY)
 		]
 	}
-	
+
 	def protected Operation pop() {
 		createOperation("pop", VOID)
 	}
@@ -250,10 +252,15 @@ class BuiltInDeclarations {
 			parameters += createParameter("amount", UINT265)
 		]
 	}
+
 	def protected Operation value() {
 		createOperation("value", VOID) => [
 			parameters += createParameter("amount", UINT265)
 		]
+	}
+
+	def protected Property abi() {
+		createConstant("abi", ABI.typeForName)
 	}
 
 	def protected Property now() {
