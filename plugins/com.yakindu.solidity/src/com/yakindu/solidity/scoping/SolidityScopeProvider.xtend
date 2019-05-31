@@ -21,8 +21,8 @@ import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.ModifierDefinition
 import com.yakindu.solidity.solidity.StructDefinition
 import com.yakindu.solidity.solidity.UsingForDeclaration
-import com.yakindu.solidity.typesystem.BuiltInDeclarations
 import com.yakindu.solidity.typesystem.SolidityTypeSystem
+import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations
 import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference

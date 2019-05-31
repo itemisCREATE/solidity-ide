@@ -32,13 +32,15 @@ import org.yakindu.base.types.typesystem.AbstractTypeSystem
 import org.yakindu.base.types.typesystem.ITypeSystem
 
 import static com.yakindu.solidity.typesystem.SolidityTypeSystem.*
+import com.google.inject.Inject
 
 /**
- * @author Florian Antony - initial contribution and API.
- * 
+ * @author andreas muelder - Initial contribution and API
+ * @author Florian Antony
+ * @author Karsten Thoms
  */
 @Accessors(PUBLIC_GETTER)
-abstract class BuiltInDeclarations {
+class BuiltInDeclarations {
 
 	protected ITypeSystem typeSystem
 	protected TypesFactory typesFactory
@@ -65,6 +67,7 @@ abstract class BuiltInDeclarations {
 	protected Property block
 	protected Property length
 	protected Operation push
+	protected Operation pop
 	protected Operation gas
 	protected Operation value
 	protected ContractDefinition owned
@@ -81,6 +84,7 @@ abstract class BuiltInDeclarations {
 	protected Type UINT265
 	protected Type VOID
 
+	@Inject
 	protected new(ITypeSystem typeSystem, TypesFactory typesFactory, SolidityFactory solidityFactory) {
 		this.typeSystem = typeSystem
 		this.typesFactory = typesFactory
@@ -130,6 +134,7 @@ abstract class BuiltInDeclarations {
 		gas = gas()
 		value = value()
 		push = push()
+		pop = pop()
 
 		/************************
 		 *     DESTRUCTION
@@ -149,7 +154,7 @@ abstract class BuiltInDeclarations {
 	}
 
 	def List<PackageMember> all() {
-		#[msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, push, ripemd160, ecrecover,
+		#[msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, push, pop, ripemd160, ecrecover,
 			block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]
 	}
 
@@ -234,6 +239,10 @@ abstract class BuiltInDeclarations {
 		createOperation("push", INT) => [
 			parameters += createParameter("element", ANY)
 		]
+	}
+	
+	def protected Operation pop() {
+		createOperation("pop", VOID)
 	}
 
 	def protected Operation gas() {
