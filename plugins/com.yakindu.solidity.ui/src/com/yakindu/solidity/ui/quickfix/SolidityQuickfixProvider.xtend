@@ -15,13 +15,19 @@
 package com.yakindu.solidity.ui.quickfix
 
 import com.google.inject.Inject
+import com.yakindu.solidity.SolidityVersion
+import com.yakindu.solidity.solidity.ArrayTypeSpecifier
 import com.yakindu.solidity.solidity.Block
 import com.yakindu.solidity.solidity.BuildInModifier
 import com.yakindu.solidity.solidity.ConstructorDefinition
 import com.yakindu.solidity.solidity.ContractDefinition
+import com.yakindu.solidity.solidity.ContractType
+import com.yakindu.solidity.solidity.DecimalNumberLiteral
 import com.yakindu.solidity.solidity.FunctionDefinition
 import com.yakindu.solidity.solidity.FunctionModifier
 import com.yakindu.solidity.solidity.IfStatement
+import com.yakindu.solidity.solidity.MappingTypeSpecifier
+import com.yakindu.solidity.solidity.Modifier
 import com.yakindu.solidity.solidity.Parameter
 import com.yakindu.solidity.solidity.PragmaSolidityDirective
 import com.yakindu.solidity.solidity.SolidityFactory
@@ -29,15 +35,21 @@ import com.yakindu.solidity.solidity.SourceUnit
 import com.yakindu.solidity.solidity.StorageLocation
 import com.yakindu.solidity.solidity.ThrowStatement
 import com.yakindu.solidity.solidity.TypeSpecifier
+import com.yakindu.solidity.solidity.Unit
 import com.yakindu.solidity.solidity.VariableDefinition
+import com.yakindu.solidity.typesystem.BuiltInDeclarations
 import com.yakindu.solidity.typesystem.SolidityTypeSystem
-import com.yakindu.solidity.typesystem.builtin.IBuiltInDeclarationsProvider
+import java.math.BigDecimal
 import javax.inject.Named
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
+import org.eclipse.xtext.EcoreUtil2
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils
+import org.eclipse.xtext.ui.editor.model.IXtextDocument
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
 import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification
 import org.eclipse.xtext.ui.editor.quickfix.Fix
+import org.eclipse.xtext.ui.editor.quickfix.Fixes
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
 import org.eclipse.xtext.validation.Issue
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
@@ -46,11 +58,11 @@ import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.expressions.ui.quickfix.ExpressionsQuickfixProvider
 import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.Operation
+import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 
 import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import com.yakindu.solidity.typesystem.builtin.SolidityVersions
 
 /** 
  * @author andreas muelder - Initial contribution and API
@@ -59,11 +71,11 @@ import com.yakindu.solidity.typesystem.builtin.SolidityVersions
  */
 class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 
-	@Inject IBuiltInDeclarationsProvider buildInDeclarationsProvider
+	@Inject BuiltInDeclarations declarations
 	@Inject extension SolidityFactory
-	@Inject @Named(SolidityVersions.SOLIDITY_VERSION) String solcVersion
-
-	extension ExpressionsFactory factory = ExpressionsFactory.eINSTANCE
+	@Inject ITypeSystemInferrer typeInferrer
+	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) String solcVersion
+	ExpressionsFactory factory = ExpressionsFactory.eINSTANCE
 
 	@Fix(WARNING_SOLIDITY_VERSION_NOT_THE_DEFAULT)
 	def changeToDefaultPragma(Issue issue, IssueResolutionAcceptor acceptor) {
@@ -77,7 +89,287 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			})
 	}
 
-	@Fix(WARNING_DEPRECATED_FUNCTION_CONSTRUCTOR)
+	@Fix(ERROR_STATE_MUTABILITY_ONLY_ALLOWED_FOR_ADDRESS)
+	def removePayableToNonAddressDeclaration(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Remove payable declaration', 'Remove payable declaration', null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof Parameter) {
+						val param = (element as Parameter)
+						val document = context.xtextDocument
+						val node = NodeModelUtils.getNode(param)
+						val fixed = document.get(node.offset, node.length).replace("payable", "")
+						document.replace(node.offset, node.length, fixed)
+					}
+				}
+			})
+	}
+
+	@Fixes(@Fix(ERROR_MEMBER_TRANSFER_NOT_FOUND_OR_VISIBLE),
+	@Fix(ERROR_INVALID_IMPLICID_CONVERSION_TO_ADDRESS_PAYABLE))
+	def addPayableToAddressDeclaration(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Add payable to declaration', 'Add payable to declaration', null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof ElementReferenceExpression) {
+						if (element.reference instanceof Parameter) {
+							val typeSpecifier = (element.reference as Parameter).typeSpecifier
+							if (typeSpecifier.type.name === SolidityTypeSystem.ADDRESS) {
+								val document = context.xtextDocument
+								val node = NodeModelUtils.getNode(typeSpecifier)
+								val fixed = document.get(node.offset, node.length) + " payable"
+								document.replace(node.offset, node.length, fixed)
+							}
+						}
+						if (element.reference instanceof VariableDefinition) {
+							val typeSpecifier = (element.reference as VariableDefinition).typeSpecifier
+							if (typeSpecifier.type.name === SolidityTypeSystem.ADDRESS) {
+								val document = context.xtextDocument
+								val node = NodeModelUtils.getNode(typeSpecifier)
+								val fixed = document.get(node.offset, node.length) + " payable"
+								document.replace(node.offset, node.length, fixed)
+							}
+						}
+					}
+				}
+			})
+	}
+
+	@Fix(ERROR_INTERFACE_FUNCTIONS_CAN_NOT_HAVE_MODIFIERS)
+	def removeDisallowedModifiers(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(
+			issue,
+			'Remove all disallowed modifiers.',
+			'Remove all disallowed modifiers.',
+			null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof FunctionDefinition) {
+						element.modifier.filter[!(it instanceof BuildInModifier)].toList.forEach [
+							element.modifier.remove(it)
+						]
+					}
+				}
+			}
+		)
+	}
+
+	@Fix(ERROR_DATA_LOCATION_MUST_BE_CALLDATA_FOR_EXTERNAL_PARAMETER)
+	def changeStorageModifierToCalldata(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(
+			issue,
+			'Add \'calldata\' modifier.',
+			'Data location must be \"calldata\" for parameter in external function.',
+			null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof ArrayTypeSpecifier || element instanceof MappingTypeSpecifier) {
+					}
+				}
+			}
+		)
+	}
+
+	@Fixes(@Fix(ERROR_DATA_LOCATION_MUST_BE_MEMORY_FOR_PARAMETER),		
+	@Fix(ERROR_DATA_LOCATION_MUST_BE_MEMORY_FOR_RETURN_PARAMETER))
+	def changeStorageModifierToMemory(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(
+			issue,
+			'Add \'memory\' modifier.',
+			'Data location must be "memory" here. Add \'memory\' modifier.',
+			null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof TypeSpecifier) {
+						(element.eContainer as Parameter).fixDeclaration(StorageLocation.MEMORY, issue, context)
+					}
+				}
+			}
+		)
+	}
+
+	@Fix(ERROR_DATALOCATION_MUST_BE_STORAGE)
+	def changeStorageModifierToStorage(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(
+			issue,
+			'Add \'storage\' modifier.',
+			'Data location must be "storage" here. Add \'storage\' modifier.',
+			null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof TypeSpecifier || element instanceof MappingTypeSpecifier) {
+						element.eContainer.fixDeclaration(StorageLocation.STORAGE, issue, context)
+					}
+				}
+			}
+		)
+	}
+
+	@Fixes(@Fix(ERROR_DATA_LOCATION_MUST_BE_STORAGE_OR_MEMORY_FOR_PARAMETER),
+	@Fix(ERROR_DATA_LOCATION_MUST_BE_MEMORY_OR_STORAGE_FOR_RETURN_PARAMETER))
+	def addStorageModifierStorageOrMemoryForParameter(Issue issue, IssueResolutionAcceptor acceptor) {
+		changeStorageModifierToMemory(issue, acceptor)
+		changeStorageModifierToStorage(issue, acceptor)
+	}
+
+	@Fixes(@Fix(ERROR_DATA_LOCATION_MUST_BE_SPECIFIED_FOR_VARIABLE))
+	def addStorageModifierSorageOrMemoryForVariable(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Add \'memory\' modifier.', 'Add \'memory\' modifier.', null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof ArrayTypeSpecifier || element instanceof MappingTypeSpecifier) {
+						element.eContainer.fixDeclaration(StorageLocation.MEMORY, issue, context)
+					}
+				}
+			})
+		acceptor.accept(issue, 'Add \'storage\' modifier.', 'Add \'storage\' modifier.', null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof ArrayTypeSpecifier || element instanceof MappingTypeSpecifier) {
+						// TODO FIXME: This is only valid IF there is no initial value, or the 'return type' of the initial value has the same storage modifier e.g. in the case of a function call. 
+						element.eContainer.fixDeclaration(StorageLocation.STORAGE, issue, context)
+					}
+				}
+			})
+	}
+
+	def dispatch fixDeclaration(VariableDefinition definition, StorageLocation location, Issue issue,
+		IModificationContext context) {
+		if (definition.storage != location) {
+			definition.storage = location
+		} else {
+			context.getXtextDocument().fixNamedDeclaration(definition.name, location, issue, context)
+		}
+	}
+
+	def dispatch fixDeclaration(Parameter param, StorageLocation location, Issue issue, IModificationContext context) {
+		if (param.storage != location) {
+			param.storage = location
+		} else {
+			context.getXtextDocument().fixNamedDeclaration(param.name, location, issue, context)
+		}
+	}
+
+	def void fixNamedDeclaration(IXtextDocument document, String name, StorageLocation location, Issue issue,
+		IModificationContext context) {
+		if (name === null) {
+			val fixed = document.get(issue.offset, issue.length) + " " + location.literal
+			document.replace(issue.offset, issue.length, fixed)
+		} else {
+			val issueString = document.get(issue.offset, issue.length)
+			val index = document.get(issue.offset, issue.length).lastIndexOf(name)
+			val fixed = issueString.substring(0, index) + location.literal + " " + name;
+			document.replace(issue.offset, issue.length, fixed)
+		}
+	}
+
+	/**
+	 * FROM THE COMPILER
+	 */
+	@Fix(ERROR_VAR_KEYWORD_DISALLOWED)
+	def replaceVarKeyword(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Inferr type information', 'Inferr type information', null, new ISemanticModification() {
+			override apply(EObject element, IModificationContext context) throws Exception {
+				if (element instanceof VariableDefinition) {
+					val definition = element as VariableDefinition
+					val inferredType = typeInferrer.infer(definition).type
+					val block = definition.eContainer as Block
+					val index = block.statements.indexOf(definition)
+					block.statements.remove(definition)
+					block.statements.add(index, createVariableDefinition => [
+						var identifier = definition.identifier.identifier
+						if (identifier.size == 1) {
+							name = identifier.get(0).name
+						} else {
+							// FIXME this relates to #230 tuple expressions have multiple identifiers
+							name = "x"
+						}
+						visibility = definition.visibility
+						initialValue = definition.initialValue
+						storage = definition.storage
+						typeSpecifier = createTypeSpecifier => [
+							type = inferredType
+						]
+					])
+				}
+			}
+		})
+	}
+
+	def changeFunctionModifierTo(Modifier modifierToChange, FunctionModifier modifier) {
+		val function = modifierToChange.eContainer as FunctionDefinition
+		val index = function.modifier.indexOf(modifierToChange);
+		function.modifier.remove(index)
+		function.modifier.add(index, createBuildInModifier => [
+			type = modifier
+		])
+	}
+
+	@Fix(ERROR_YEARS_IS_DISALLOWED)
+	def replaceYearsUnit(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Change years unit denomination to days', 'Change years unit denomination to days', null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof DecimalNumberLiteral) {
+						element.unit = Unit.DAYS
+						element.value = element.value.multiply(new BigDecimal(365))
+					}
+				}
+			})
+	}
+
+	@Fix(ERROR_FUNCTION_DECLARED_AS_PURE_BUT_MUST_BE_VIEW)
+	def declareFunctionAsView(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Use "view" instead.', 'Use "view" instead.', null, new ISemanticModification() {
+			override apply(EObject element, IModificationContext context) throws Exception {
+				val functionDefinition = EcoreUtil2.getContainerOfType(element, FunctionDefinition)
+				val pure = functionDefinition.modifier.findFirst [
+					it instanceof BuildInModifier && (it as BuildInModifier).type === FunctionModifier.PURE
+				]
+				pure?.changeFunctionModifierTo(FunctionModifier.VIEW)
+			}
+		})
+	}
+
+	@Fix(ERROR_FUNCTION_DECLARED_AS_VIEW_BUT_MUST_BE_PAYABLE_OR_NON_PAYABLE)
+	def declareFunctionAsPayableOrNonPayable(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Change to "payable".', 'Change to "payable".', null, new ISemanticModification() {
+			override apply(EObject element, IModificationContext context) throws Exception {
+				val functionDefinition = EcoreUtil2.getContainerOfType(element, FunctionDefinition)
+				val view = functionDefinition.modifier.findFirst [
+					it instanceof BuildInModifier && (it as BuildInModifier).type === FunctionModifier.VIEW
+				]
+				view?.changeFunctionModifierTo(FunctionModifier.PAYABLE)
+			}
+		})
+		acceptor.accept(issue, 'Remove \"view\" and make function non-payable.',
+			'Remove \"view\" and make function non-payable.', null, new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					val functionDefinition = EcoreUtil2.getContainerOfType(element, FunctionDefinition)
+					val view = functionDefinition.modifier.findFirst [
+						it instanceof BuildInModifier && (it as BuildInModifier).type === FunctionModifier.VIEW
+					]
+					if (view !== null) {
+						functionDefinition.modifier.remove(view);
+					}
+				}
+			})
+	}
+
+	@Fix(ERROR_CONSTANT_MODIFIER_WAS_REMOVED)
+	def replaceConstantModifier(Issue issue, IssueResolutionAcceptor acceptor) {
+		declareFunctionAsView(issue, acceptor)
+		acceptor.accept(issue, 'Use "pure" instead.', 'Use "pure" instead.', null, new ISemanticModification() {
+			override apply(EObject element, IModificationContext context) throws Exception {
+				if (element instanceof BuildInModifier) {
+					element.changeFunctionModifierTo(FunctionModifier.VIEW)
+				}
+			}
+		})
+	}
+
+	@Fixes(@Fix(WARNING_DEPRECATED_FUNCTION_CONSTRUCTOR),
+	@Fix(ERROR_FUNCTION_NAME_EQUALS_CONTRACT_NAME_DISALLOWED))
 	def useConstructorKeywordInsteadOfFunction(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Use constructor keyword instead', 'contructor keyword', null,
 			new ISemanticModification() {
@@ -98,37 +390,51 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			})
 	}
 
-	@Fix(WARNING_FUNCTION_VISIBILITY)
+	@Fixes(@Fix(WARNING_FUNCTION_VISIBILITY),
+	@Fix(ERROR_NO_VISIBILITY_SPECIFIED))
 	def makeVisibilityExplicit(Issue issue, IssueResolutionAcceptor acceptor) {
-		val element = new ResourceSetImpl().getEObject(issue.uriToProblem, true);
-		if (!(element instanceof ConstructorDefinition)) {
-			acceptor.accept(issue, 'Make this function private', 'Private function.', null,
+		val operation = (new ResourceSetImpl().getEObject(issue.uriToProblem, true) as Operation);
+		val contract = (operation.eContainer as ContractDefinition)
+		if (contract.type != ContractType.INTERFACE && !operation.name.nullOrEmpty) {
+			if (!(operation instanceof ConstructorDefinition)) {
+
+				acceptor.accept(issue, 'Make this function private', 'Private function.', null,
+					new ISemanticModification() {
+						override apply(EObject element, IModificationContext context) throws Exception {
+							element.fixVisibility(createBuildInModifier => [
+								type = FunctionModifier.PRIVATE
+							])
+						}
+					})
+			}
+			acceptor.accept(issue, 'Make this function \'public\'', 'Public function.', null,
 				new ISemanticModification() {
 					override apply(EObject element, IModificationContext context) throws Exception {
 						element.fixVisibility(createBuildInModifier => [
-							type = FunctionModifier.PRIVATE
+							type = FunctionModifier.PUBLIC
+
+						])
+					}
+
+				})
+			acceptor.accept(issue, 'Make this function \'internal\'', 'Internal function.', null,
+				new ISemanticModification() {
+					override apply(EObject element, IModificationContext context) throws Exception {
+						element.fixVisibility(createBuildInModifier => [
+							type = FunctionModifier.INTERNAL
 						])
 					}
 				})
-
 		}
-		acceptor.accept(issue, 'Make this function public', 'Public function.', null, new ISemanticModification() {
-			override apply(EObject element, IModificationContext context) throws Exception {
-				element.fixVisibility(createBuildInModifier => [
-					type = FunctionModifier.PUBLIC
 
-				])
-			}
-
-		})
-
-		acceptor.accept(issue, 'Make this function internal', 'Internal function.', null, new ISemanticModification() {
-			override apply(EObject element, IModificationContext context) throws Exception {
-				element.fixVisibility(createBuildInModifier => [
-					type = FunctionModifier.INTERNAL
-				])
-			}
-		})
+		acceptor.accept(issue, 'Make this function \'external\'', 'External function.', null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					element.fixVisibility(createBuildInModifier => [
+						type = FunctionModifier.EXTERNAL
+					])
+				}
+			})
 	}
 
 	def dispatch fixVisibility(EObject element, BuildInModifier modifier) {
@@ -158,12 +464,13 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			})
 	}
 
-	@Fix(WARNING_DEPRECATED_SUICIDE)
+	@Fixes(@Fix(WARNING_DEPRECATED_SUICIDE),
+		@Fix(ERROR_DEPRECATED_SUICIDE))
 	def replaceDeprecatedSuicide(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Replace with selfdestruct', 'selfdestruct', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				if (element instanceof ElementReferenceExpression) {
-					element.reference = buildInDeclarationsProvider.provideFor(element).selfdestruct
+					element.reference = declarations.selfdestruct
 				}
 			}
 		})
@@ -218,7 +525,8 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			})
 	}
 
-	@Fix(WARNING_MSG_VALUE_IN_NON_PAYABLE)
+	@Fixes(@Fix(WARNING_MSG_VALUE_IN_NON_PAYABLE), 
+		@Fix(ERROR_MSG_VALUE_ONLY_ALLOWED_IN_PAYABLE))
 	def makeFunctionPayable(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Add payable to function', 'Add payable.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
@@ -243,24 +551,37 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		})
 	}
 
-	@Fix(WARNING_DEPRECATED_THROW)
+	@Fixes(@Fix(WARNING_DEPRECATED_THROW),
+	@Fix(ERROR_THROW_KEYWORD_DISALLOWED))
 	def replaceDeprecatedThrow(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, 'Replace with revert', 'revert(\'Something bad happened\').', null,
+		acceptor.accept(
+			issue,
+			'Replace with revert',
+			'revert(\'Something bad happened\').',
+			null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element instanceof ThrowStatement) {
 						val block = element.getContainerOfType(Block)
+						val index = block.statements.indexOf(element)
 						block.statements.remove(element)
-						block.statements += createExpressionStatement => [
-							expression = createElementReferenceExpression => [
-								val revert = buildInDeclarationsProvider.provideFor(element).revert
+						block.statements.add(index, createExpressionStatement => [
+							expression = factory.createElementReferenceExpression => [
 								operationCall = true
-								reference = revert
+								reference = declarations.revert
+								arguments += createSimpleArgument => [
+									value = createPrimitiveValueExpression => [
+										value = factory.createStringLiteral => [
+											value = "Something bad happened"
+										]
+									]
+								]
 							]
-						]
+						])
 					}
 				}
-			})
+			}
+		)
 
 		acceptor.accept(issue, 'Replace with assert', 'assert(condition)', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
@@ -268,57 +589,69 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 					val ifStatement = element.getContainerOfType(IfStatement)
 					if (ifStatement !== null) {
 						val condition = ifStatement.condition
-						val block = ifStatement.eContainer as Block
-						block.statements.set(
-							block.statements.indexOf(ifStatement),
-							createExpressionStatement => [
-								expression = createElementReferenceExpression => [
-									reference = buildInDeclarationsProvider.provideFor(element).assert_
-									operationCall = true
-									arguments += ExpressionsFactory.eINSTANCE.createArgument => [
-										value = createLogicalNotExpression => [
-											operand = createParenthesizedExpression => [
-												expression = condition
-
-											]
+						val thenBlock = ifStatement.then as Block
+						val elseBlock = ifStatement.^else as Block
+						// only fix this if the throw statement is the only statement in the if clause
+						if (thenBlock.statements.size == 1 && elseBlock === null) {
+							val containingBlock = ifStatement.eContainer as Block
+							val index = containingBlock.statements.indexOf(ifStatement);
+							containingBlock.statements.remove(ifStatement)
+							containingBlock.statements.add(
+								index,
+								createExpressionStatement => [
+									expression = factory.createElementReferenceExpression => [
+										operationCall = true
+										reference = declarations.assert_
+										arguments += createSimpleArgument => [
+											value = condition
 										]
 									]
 								]
-							]
-						)
+							)
+						}
 					}
 				}
 			}
 		})
 
-		acceptor.accept(issue, 'Replace with require', 'require(condition)', null, new ISemanticModification() {
-			override apply(EObject element, IModificationContext context) throws Exception {
-				if (element instanceof ThrowStatement) {
-					val ifStatement = element.getContainerOfType(IfStatement)
-					if (ifStatement !== null) {
-						val condition = ifStatement.condition
-						val block = ifStatement.eContainer as Block
-						block.statements.set(
-							block.statements.indexOf(ifStatement),
-							createExpressionStatement => [
-								expression = createElementReferenceExpression => [
-									reference = buildInDeclarationsProvider.provideFor(element).require
-									operationCall = true
-									arguments += ExpressionsFactory.eINSTANCE.createArgument => [
-										value = createLogicalNotExpression => [
-											operand = createParenthesizedExpression => [
-												expression = condition
-
+		acceptor.accept(issue, 'Replace with require', 'require(condition, \'Precondition are not met\')', null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					if (element instanceof ThrowStatement) {
+						val ifStatement = element.getContainerOfType(IfStatement)
+						if (ifStatement !== null) {
+							val condition = ifStatement.condition
+							val thenBlock = ifStatement.then as Block
+							val elseBlock = ifStatement.^else as Block
+							// only fix this if the throw statement is the only statement in the if clause
+							if (thenBlock.statements.size == 1 && elseBlock === null) {
+								val containingBlock = ifStatement.eContainer as Block
+								val index = containingBlock.statements.indexOf(ifStatement);
+								containingBlock.statements.remove(ifStatement)
+								containingBlock.statements.add(
+									index,
+									createExpressionStatement => [
+										expression = factory.createElementReferenceExpression => [
+											operationCall = true
+											reference = declarations.require
+											arguments += createSimpleArgument => [
+												value = condition
+											]
+											arguments += createSimpleArgument => [
+												value = createPrimitiveValueExpression => [
+													value = factory.createStringLiteral => [
+														value = "Preconditions are not satisfied"
+													]
+												]
 											]
 										]
 									]
-								]
-							]
-						)
+								)
+							}
+						}
 					}
 				}
-			}
-		})
+			})
 	}
 
 	@Fix(WARNING_DEPRECATED_CALLCODE)
@@ -334,13 +667,14 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		})
 	}
 
-	@Fix(WARNING_DEPRECATED_SHA3)
+	@Fixes(@Fix(ERROR_DEPRECATED_SHA3),	
+	@Fix(WARNING_DEPRECATED_SHA3))
 	def replaceDeprecatedSha3(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Replace Sha3 with keccak256', 'keccak256(...) returns (bytes32).', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element instanceof ElementReferenceExpression) {
-						element.reference = buildInDeclarationsProvider.provideFor(element).keccak256
+						element.reference = declarations.keccak256
 					}
 				}
 			})

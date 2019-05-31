@@ -28,7 +28,6 @@ Export-Package: com.yakindu.solidity,
  com.yakindu.solidity.solidity.impl,
  com.yakindu.solidity.solidity.util,
  com.yakindu.solidity.typesystem,
- com.yakindu.solidity.typesystem.builtin,
  com.yakindu.solidity.validation
 Import-Package: org.apache.log4j,
  com.google.inject.multibindings,

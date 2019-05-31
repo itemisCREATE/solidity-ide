@@ -16,7 +16,7 @@ package com.yakindu.solidity.ui.contentassist
 
 import com.google.common.base.Function
 import com.google.inject.name.Named
-import com.yakindu.solidity.typesystem.builtin.SolidityVersions
+import com.yakindu.solidity.SolidityVersion
 import java.util.Collections
 import java.util.HashSet
 import java.util.Set
@@ -51,16 +51,19 @@ import org.yakindu.base.types.Type
 class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 
 	val composedAdapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
-	
+
 	static final String EXTENSION = "sol"
-	
+
 	static final Set<String> IGNORED_KEYWORDS = Collections.unmodifiableSet(
 		#{"+", "-", "*", "/", "%", "&", "++", "--", "(", ")", "[", "]", "{", "}", ";", ",", ".", ":", "?", "!", "^",
 			"=", "==", "!=", "+=", "-=", "*=", "/=", "%=", "/=", "^=", "&&=", "||=", "&=", "|=", "|", "||", "|||", "or",
-			"&", "&&", "and", "<", ">", "<=", ">=", "<<", "=>", "event"}
+			"&", "&&", "and", "<", ">", "<=", ">=", "<<", "=>", "event", "var"}
+	);
+	static final Set<String> IGNORED_OPERATIONS = Collections.unmodifiableSet(
+		#{"sha3", "suicide"}
 	);
 
-	@Inject @Named(SolidityVersions.SOLIDITY_VERSION) String solcVersion
+	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) String solcVersion
 
 	override complete_VERSION(EObject model, RuleCall ruleCall, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
@@ -74,8 +77,9 @@ class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 		}
 		super.completeKeyword(keyword, contentAssistContext, new AcceptorDelegate(acceptor, hover))
 	}
-	
-	override completeImportDirective_ImportedNamespace(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+
+	override completeImportDirective_ImportedNamespace(EObject model, Assignment assignment,
+		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		val Set<IFile> result = new HashSet<IFile>();
 		val contextFile = WorkspaceSynchronizer.getFile(context.currentModel.eResource)
 		var workspace = contextFile.project
@@ -91,7 +95,10 @@ class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 			}
 		})
 		result.forEach [
-			acceptor.accept(createCompletionProposal("\"" + rawLocation.makeRelativeTo(contextFile.rawLocation).toString.replaceFirst("../","") + "\";", name, null, context))
+			acceptor.accept(
+				createCompletionProposal(
+					"\"" + rawLocation.makeRelativeTo(contextFile.rawLocation).toString.replaceFirst("../", "") + "\";",
+					name, null, context))
 		]
 	}
 
@@ -119,11 +126,16 @@ class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 					return proposal
 				}
 				if (eObjectOrProxy instanceof Operation) {
-					if (eObjectOrProxy.getParameters().size() > 0 &&
-						(proposal instanceof ConfigurableCompletionProposal)) {
-						val configurableProposal = proposal as ConfigurableCompletionProposal
-						configurableProposal.setReplacementString(configurableProposal.getReplacementString() + "()")
-						configurableProposal.setCursorPosition(configurableProposal.getCursorPosition() + 1)
+					if (!IGNORED_OPERATIONS.contains(eObjectOrProxy.name)) {
+						if (eObjectOrProxy.getParameters().size() > 0 &&
+							(proposal instanceof ConfigurableCompletionProposal)) {
+							val configurableProposal = proposal as ConfigurableCompletionProposal
+							configurableProposal.setReplacementString(configurableProposal.getReplacementString() +
+								"()")
+							configurableProposal.setCursorPosition(configurableProposal.getCursorPosition() + 1)
+						}
+					} else {
+						return null;
 					}
 				}
 				return proposal;

@@ -95,9 +95,11 @@ public class SolidityBuilderParticipant implements IXtextBuilderParticipant {
 		Set<IResource> filesToCompile = Sets.newHashSet();
 		for (URI uri : uris) {
 			IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(uri.toPlatformString(true));
-			if (resource.getFileExtension().equals("sol")) {
-				filesToCompile.add(resource);
-				filesToCompile.addAll(addImports(uri));
+			if(resource != null) {
+				if (resource.getFileExtension().equals("sol")) {
+					filesToCompile.add(resource);
+					filesToCompile.addAll(addImports(uri));
+				}
 			}
 		}
 		return filesToCompile;
