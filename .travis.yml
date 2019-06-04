@@ -23,6 +23,8 @@ before_install:
 - chmod +x $TRAVIS_BUILD_DIR/extensions/vscode/gradlew
 jobs:
   include:
+    - stage: unit tests
+      script: echo one
     - stage: compileTest
       script: 
       - cd releng/com.yakindu.solidity.releng
