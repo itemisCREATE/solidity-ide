@@ -56,4 +56,4 @@ jobs:
        file: extensions/vscode/build/vscode/*.vsix
        on:
          tags: Yakindu/solidity-ide
-         condition: "$TRAVIS_TAG =~ ^release.*$"
+         condition: "$TRAVIS_TAG =~ ^release.*$
