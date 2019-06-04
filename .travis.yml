@@ -23,9 +23,7 @@ before_install:
 - chmod +x $TRAVIS_BUILD_DIR/extensions/vscode/gradlew
 jobs:
   include:
-    - stage: unit tests
-      script: echo one
-    - stage: compileTest
+    - stage: compile and test
       script: 
       - cd releng/com.yakindu.solidity.releng
       - mvn clean verify -P$TARGET,tests
@@ -35,9 +33,9 @@ jobs:
       script: 
       - cd $TRAVIS_BUILD_DIR/extensions/vscode && pwd
       - ./gradlew vscodeExtension
+      script: 
       - cd $TRAVIS_BUILD_DIR
       - docker build extensions/theia/docker/theia_app/.
-      - cd $TRAVIS_BUILD_DIR
     - stage: deploy
       script: 
       - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && make push-image
