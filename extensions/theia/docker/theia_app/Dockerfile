@@ -15,12 +15,8 @@ RUN npm install --global yarn
 USER node
 WORKDIR /home/node
 
-# Get & build theia IDE (After pull Request switch to main repository)
-RUN git clone https://github.com/Yakindu/solidity-ide.git \
-    && cd solidity-ide/releng/com.yakindu.solidity.releng \
-    && mvn clean install \
-    && cd ../../.. \
-    && cp -r solidity-ide/plugins/com.yakindu.solidity.ide/target/languageserver ./lsp\
+# Get & build theia IDE
+RUN cp -r solidity-ide/plugins/com.yakindu.solidity.ide/target/languageserver ./lsp\
     && cp -r solidity-ide/extensions/theia/ide ./theia\
     && sed -i -r 's;(.*)cp -r ..\/..\/..\/..\/plugins\/com.yakindu.solidity.ide\/target\/languageserver\/\* .\/lsp\/",;\1cp -r /home/node/lsp/* ./lsp",;' /home/node/theia/xtext-dsl-extension/package.json\
     && rm -rf solidity-ide/
