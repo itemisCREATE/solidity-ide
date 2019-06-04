@@ -23,20 +23,19 @@ before_install:
 - chmod +x $TRAVIS_BUILD_DIR/extensions/vscode/gradlew
 jobs:
   include:
-    - stage: compile and test
+    - stage: Compile and Test
       script: 
       - cd releng/com.yakindu.solidity.releng
       - mvn clean verify -P$TARGET,tests
       - cd ../com.yakindu.solidity.repository/target
       - zip -r repository.zip repository
-    - stage: package
+    - stage: VS Code Extension
       script: 
       - cd $TRAVIS_BUILD_DIR/extensions/vscode && pwd
       - ./gradlew vscodeExtension
-    - stage: package
+    - stage: Docker Image
       script: 
       - cd $TRAVIS_BUILD_DIR
-      - docker build extensions/theia/docker/theia_app/.
-    - stage: deploy
-      script: 
-      - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && make push-image
+      - docker build extensions/theia/docker/theia_app/. -t solidity-ide
+      - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD 
+      - docker push solidity-ide
