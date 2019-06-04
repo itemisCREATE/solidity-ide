@@ -5,11 +5,12 @@ Bundle-Vendor: YAKINDU
 Bundle-Version: 0.7.3.qualifier
 Bundle-SymbolicName: com.yakindu.solidity.tests;singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: com.yakindu.solidity,
- org.eclipse.xtext.testing,
+Require-Bundle: org.eclipse.xtext.testing,
  org.eclipse.jdt.junit.runtime,
  org.eclipse.xtext.xbase.testing,
- org.junit
+ org.junit,
+ com.yakindu.solidity.model,
+ com.yakindu.solidity
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.yakindu.solidity.tests;x-internal=true
 Import-Package: org.hamcrest.core;version="1.3.0",

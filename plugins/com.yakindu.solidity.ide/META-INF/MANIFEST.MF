@@ -16,7 +16,9 @@ Require-Bundle: com.yakindu.solidity,
  org.eclipse.emf.ecore.change,
  com.yakindu.solidity.compiler
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: com.yakindu.solidity.ide.contentassist.antlr,
- com.yakindu.solidity.ide.contentassist.antlr.internal
+Export-Package: com.yakindu.solidity.ide,
+ com.yakindu.solidity.ide.contentassist.antlr,
+ com.yakindu.solidity.ide.contentassist.antlr.internal,
+ com.yakindu.solidity.ide.internal;x-internal:=true
 Automatic-Module-Name: com.yakindu.solidity.ide
 

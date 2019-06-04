@@ -3,14 +3,15 @@
  */
 package com.yakindu.solidity.tests;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.yakindu.solidity.SolidityRuntimeModule;
-import com.yakindu.solidity.SolidityStandaloneSetup;
 import org.eclipse.xtext.testing.GlobalRegistries;
 import org.eclipse.xtext.testing.GlobalRegistries.GlobalStateMemento;
 import org.eclipse.xtext.testing.IInjectorProvider;
 import org.eclipse.xtext.testing.IRegistryConfigurator;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.yakindu.solidity.SolidityRuntimeModule;
+import com.yakindu.solidity.SolidityStandaloneSetup;
 
 public class SolidityInjectorProvider implements IInjectorProvider, IRegistryConfigurator {
 

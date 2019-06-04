@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Solidity Tools Model
+Bundle-SymbolicName: com.yakindu.solidity.model;singleton:=true
+Bundle-Version: 0.7.3.qualifier
+Bundle-Vendor: YAKINDU
+Automatic-Module-Name: com.yakindu.solidity.model
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.yakindu.base.expressions,
+ org.yakindu.base.types
+Export-Package: com.yakindu.solidity.solidity,
+ com.yakindu.solidity.solidity.impl,
+ com.yakindu.solidity.solidity.util

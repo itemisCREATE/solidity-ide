@@ -21,7 +21,7 @@
  */
 grammar com.yakindu.solidity.Solidity with org.eclipse.xtext.common.Terminals
 
-generate solidity "http://www.yakindu.com/solidity/Solidity"
+import "http://www.yakindu.com/solidity/Solidity"
 import "http://www.yakindu.org/base/expressions/Expressions" as expressions
 import "http://www.eclipse.org/emf/2002/Ecore"
 import "http://www.yakindu.org/base/types/2.0.0" as types

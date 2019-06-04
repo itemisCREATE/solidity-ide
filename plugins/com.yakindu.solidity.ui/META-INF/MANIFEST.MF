@@ -22,13 +22,20 @@ Require-Bundle: com.yakindu.solidity,
  org.yakindu.base.xtext.utils.jface,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.emf.workspace,
- com.yakindu.solidity.compiler
+ com.yakindu.solidity.compiler,
+ com.yakindu.solidity.model
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: com.yakindu.solidity.ui.contentassist,
+Export-Package: com.yakindu.solidity.ui,
+ com.yakindu.solidity.ui.contentassist,
+ com.yakindu.solidity.ui.editor,
+ com.yakindu.solidity.ui.help,
  com.yakindu.solidity.ui.highlighting,
  com.yakindu.solidity.ui.internal,
+ com.yakindu.solidity.ui.labeling,
+ com.yakindu.solidity.ui.outline,
  com.yakindu.solidity.ui.preferences,
- com.yakindu.solidity.ui.quickfix
+ com.yakindu.solidity.ui.quickfix,
+ com.yakindu.solidity.ui.wizard
 Bundle-Activator: com.yakindu.solidity.ui.internal.SolidityActivator
 Automatic-Module-Name: com.yakindu.solidity.ui

@@ -14,7 +14,10 @@ Require-Bundle: org.yakindu.sct.domain,
  org.eclipse.xtend.lib,
  org.eclipse.xtend.lib.macro,
  org.yakindu.sct.model.stext,
+ com.yakindu.solidity.model,
  com.yakindu.solidity
-Export-Package: com.yakindu.sct.domain.solidity.modules
+Export-Package: com.yakindu.sct.domain.solidity.modules,
+ com.yakindu.sct.domain.solidity.scoping,
+ com.yakindu.sct.domain.solidity.validation
 Automatic-Module-Name: com.yakindu.sct.domain.solidity
 
