@@ -5,6 +5,8 @@ jdk:
 before_cache:
  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+services:
+  - docker
 cache:
   directories:
   - $HOME/.m2
@@ -28,6 +30,8 @@ script:
 - zip -r repository.zip repository
 - cd $TRAVIS_BUILD_DIR/extensions/vscode && pwd
 - ./gradlew vscodeExtension
+- cd $TRAVIS_BUILD_DIR
+- docker build extensions/theia/docker/theia_app/.
 - cd $TRAVIS_BUILD_DIR
 deploy:
   skip_cleanup: true
