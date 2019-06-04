@@ -33,6 +33,7 @@ jobs:
       script: 
       - cd $TRAVIS_BUILD_DIR/extensions/vscode && pwd
       - ./gradlew vscodeExtension
+    - stage: package
       script: 
       - cd $TRAVIS_BUILD_DIR
       - docker build extensions/theia/docker/theia_app/.
