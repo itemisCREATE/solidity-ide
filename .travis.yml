@@ -23,18 +23,29 @@ env:
 before_install:
 - sh -e /etc/init.d/xvfb start - sleep 10
 - chmod +x $TRAVIS_BUILD_DIR/extensions/vscode/gradlew
-script:
-- cd releng/com.yakindu.solidity.releng
-- mvn clean verify -P$TARGET,tests
-- cd ../com.yakindu.solidity.repository/target
-- zip -r repository.zip repository
-- cd $TRAVIS_BUILD_DIR/extensions/vscode && pwd
-- ./gradlew vscodeExtension
-- cd $TRAVIS_BUILD_DIR
-- docker build extensions/theia/docker/theia_app/.
-- cd $TRAVIS_BUILD_DIR
+
+jobs:
+  include:
+    - stage: compileTest
+      # Build language server and repository
+      script: 
+      - cd releng/com.yakindu.solidity.releng
+      - mvn clean verify -P$TARGET,tests
+      - cd ../com.yakindu.solidity.repository/target
+      - zip -r repository.zip repository
+    - stage: package
+      # Build Visual Studio Code Extension
+      - cd $TRAVIS_BUILD_DIR/extensions/vscode && pwd
+      - ./gradlew vscodeExtension
+     - cd $TRAVIS_BUILD_DIR
+    - stage: package
+     # Build Web IDE Docker container
+      - docker build extensions/theia/docker/theia_app/.
+      - cd $TRAVIS_BUILD_DIR
+      - stage: deploy
+     script: 
+     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && make push-image
 deploy:
-  script: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && make push-image
   skip_cleanup: true
   provider: releases
   api_key:
