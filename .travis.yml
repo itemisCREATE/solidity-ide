@@ -5,8 +5,6 @@ jdk:
 before_cache:
  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-services:
-  - docker
 cache:
   directories:
   - $HOME/.m2
@@ -17,37 +15,27 @@ env:
   - DISPLAY=:99.0
   - MAVEN_OPTS="-Xmx4g"
   - TERM=dumb
+  matrix:
   - TARGET=Latest.target
+  - TARGET=Photon.target
 before_install:
 - sh -e /etc/init.d/xvfb start - sleep 10
 - chmod +x $TRAVIS_BUILD_DIR/extensions/vscode/gradlew
-jobs:
-  include:
-    - stage: unit tests
-      script: echo one
-    - stage: compileTest
-      script: 
-      - cd releng/com.yakindu.solidity.releng
-      - mvn clean verify -P$TARGET,tests
-      - cd ../com.yakindu.solidity.repository/target
-      - zip -r repository.zip repository
-    - stage: package
-      script: 
-      - cd $TRAVIS_BUILD_DIR/extensions/vscode && pwd
-      - ./gradlew vscodeExtension
-      - cd $TRAVIS_BUILD_DIR
-      - docker build extensions/theia/docker/theia_app/.
-      - cd $TRAVIS_BUILD_DIR
-    - stage: deploy
-      script: 
-      - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && make push-image
-      deploy:
-        skip_cleanup: true
-        provider: releases
-        api_key:
-          secure: "YosqK8y9p5gkzdeN/b8LgooD6P8vzjfvhFfbO1NKPqNInXDbCuAxcsyDnwyFS6HNsOOgDh2Axd8p8xmlwcFkTkZM91Ot1PCtc6vP2OXmtcaVy1/2hSp0CaC/0BaGNdkiBwhAbvamLdiJRYG+kWlk/v9f153cQc9zMJKYH4hIFQ+qDtA3ctwZliW3e5Y3HRBFKxcU0WhKyu+eli0qBParWUVNJ3CTqcEAHosdfM2EnpGQvYH8nxhH3mE65SAEWv6IfrjnM5X+b7Csi8FtThmLIjvJOjafGbTbnTxrRhCisILG10GXAc90e/HB8rOA3FnBVqU4j0FCpv4iYaatN3bP3sfgqXZYIgU4cmMqVIyDJDMtlMBHb9rbqlD5Rs7Fs62RySvRmaWamwRFVJD0aWT9ZN7fGqyZTqgLOwxTHfLEs7IqW67bZI6/JCRzjrMW6WKaIACzxnis+IZpaQRa+d5zCS1if5KHZT62gH3L8CGP62ZuzYDzlzftZOw4DwzYkNnhvh6e+SMey3jVjR1gRixXX3eWdZt9HZ6WYZwtNEmmU2Y1QdhX4RyNKQvbNPBkthXVLMIhumMggmFUEdtKvtd4Tq53ZMf8kZ45dCSVBrr30SdtPVOcBk+BqjYKtA2FDFVJLh4CPOwy2I4o7hhEcYmDAJkUp48ZAnkOG+WQa4HWIUg="
-        file: releng/com.yakindu.solidity.repository/target/repository/repository.zip
-        file: extensions/vscode/build/vscode/*.vsix
-        on:
-          tags: Yakindu/solidity-ide
-          condition: "$TRAVIS_TAG =~ ^release.*$
+script:
+- cd releng/com.yakindu.solidity.releng
+- mvn clean verify -P$TARGET,tests
+- cd ../com.yakindu.solidity.repository/target
+- zip -r repository.zip repository
+- cd $TRAVIS_BUILD_DIR/extensions/vscode && pwd
+- ./gradlew vscodeExtension
+- cd $TRAVIS_BUILD_DIR
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: "YosqK8y9p5gkzdeN/b8LgooD6P8vzjfvhFfbO1NKPqNInXDbCuAxcsyDnwyFS6HNsOOgDh2Axd8p8xmlwcFkTkZM91Ot1PCtc6vP2OXmtcaVy1/2hSp0CaC/0BaGNdkiBwhAbvamLdiJRYG+kWlk/v9f153cQc9zMJKYH4hIFQ+qDtA3ctwZliW3e5Y3HRBFKxcU0WhKyu+eli0qBParWUVNJ3CTqcEAHosdfM2EnpGQvYH8nxhH3mE65SAEWv6IfrjnM5X+b7Csi8FtThmLIjvJOjafGbTbnTxrRhCisILG10GXAc90e/HB8rOA3FnBVqU4j0FCpv4iYaatN3bP3sfgqXZYIgU4cmMqVIyDJDMtlMBHb9rbqlD5Rs7Fs62RySvRmaWamwRFVJD0aWT9ZN7fGqyZTqgLOwxTHfLEs7IqW67bZI6/JCRzjrMW6WKaIACzxnis+IZpaQRa+d5zCS1if5KHZT62gH3L8CGP62ZuzYDzlzftZOw4DwzYkNnhvh6e+SMey3jVjR1gRixXX3eWdZt9HZ6WYZwtNEmmU2Y1QdhX4RyNKQvbNPBkthXVLMIhumMggmFUEdtKvtd4Tq53ZMf8kZ45dCSVBrr30SdtPVOcBk+BqjYKtA2FDFVJLh4CPOwy2I4o7hhEcYmDAJkUp48ZAnkOG+WQa4HWIUg="
+  file: releng/com.yakindu.solidity.repository/target/repository/repository.zip
+  file: extensions/vscode/build/vscode/*.vsix
+  on:
+    tags: Yakindu/solidity-ide
+    condition: "$TRAVIS_TAG =~ ^release.*$"
