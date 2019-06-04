@@ -27,7 +27,7 @@ before_install:
 jobs:
   include:
     - stage: compileTest
-      # Build language server and repository
+      #  Build language server and repository
       script: 
       - cd releng/com.yakindu.solidity.releng
       - mvn clean verify -P$TARGET,tests
