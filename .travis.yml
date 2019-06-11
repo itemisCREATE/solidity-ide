@@ -5,6 +5,8 @@ jdk:
 before_cache:
  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+services:
+ - docker
 cache:
   directories:
   - $HOME/.m2
@@ -29,14 +31,9 @@ jobs:
       - mvn clean verify -P$TARGET,tests
       - cd ../com.yakindu.solidity.repository/target
       - zip -r repository.zip repository
-    - stage: VS Code Extension
       script: 
       - cd $TRAVIS_BUILD_DIR/extensions/vscode && pwd
       - ./gradlew vscodeExtension
-    - stage: Docker Image
-      services:
-      - docker
-      cache: yarn
       script: 
       - cd $TRAVIS_BUILD_DIR
       - docker build extensions/theia/docker/theia_app/. -t solidity-ide
