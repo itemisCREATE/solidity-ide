@@ -24,7 +24,6 @@ before_install:
 jobs:
   include:
     - stage: Compile and Test
-      cache: npm
       script: 
       - cd releng/com.yakindu.solidity.releng
       - mvn clean verify -P$TARGET,tests
