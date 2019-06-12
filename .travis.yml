@@ -38,4 +38,4 @@ jobs:
       - cp -r extensions/theia/ide extensions/theia/docker/theia_app
       - docker build extensions/theia/docker/theia_app/. -t solidity-ide
       - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD 
-      - docker push solidity-ide
+      - docker push yakindu/solidity-ide
