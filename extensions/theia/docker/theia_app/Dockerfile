@@ -13,8 +13,8 @@ RUN npm install --global yarn
 #Switch to User node
 USER node
 WORKDIR /home/node
-COPY ide ./theia
-COPY languageserver ./theia/lsp
+COPY --chown=node:node ide ./theia
+COPY --chown=node:node languageserver ./theia/lsp
 
 
 # Get & build theia IDE
