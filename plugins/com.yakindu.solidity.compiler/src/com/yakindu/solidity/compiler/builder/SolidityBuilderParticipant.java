@@ -66,29 +66,29 @@ public class SolidityBuilderParticipant implements IXtextBuilderParticipant {
 
 	@Override
 	public void build(IBuildContext context, IProgressMonitor monitor) throws CoreException {
-		SubMonitor progress = SubMonitor.convert(monitor);
-		if (!prefs.isCompilerEnabled()) {
-			return;
-		}
-		final List<IResourceDescription.Delta> deltas = getRelevantDeltas(context);
-		if (deltas.isEmpty()) {
-			return;
-		}
-		if (progress.isCanceled()) {
-			throw new OperationCanceledException();
-		}
-		progress.beginTask("Compiling solidity...", deltas.size());
-		List<URI> uris = context.getResourceSet().getResources().stream().map(res -> res.getURI()).distinct()
-				.collect(Collectors.toList());
-		Set<IResource> resources = getFilesToCompile(uris);
-		Optional<CompilerOutput> output = compiler.compile(resources, progress);
-		if (output.isPresent()) {
-			markerCreator.createMarkers(output.get(), resources);
-			outputFileWriter.writeOutputFiles(output.get(), resources);
-		}
-
-		context.getBuiltProject().refreshLocal(IProject.DEPTH_INFINITE, progress);
-		progress.done();
+//		SubMonitor progress = SubMonitor.convert(monitor);
+//		if (!prefs.isCompilerEnabled()) {
+//			return;
+//		}
+//		final List<IResourceDescription.Delta> deltas = getRelevantDeltas(context);
+//		if (deltas.isEmpty()) {
+//			return;
+//		}
+//		if (progress.isCanceled()) {
+//			throw new OperationCanceledException();
+//		}
+//		progress.beginTask("Compiling solidity...", deltas.size());
+//		List<URI> uris = context.getResourceSet().getResources().stream().map(res -> res.getURI()).distinct()
+//				.collect(Collectors.toList());
+//		Set<IResource> resources = getFilesToCompile(uris);
+//		Optional<CompilerOutput> output = compiler.compile(resources, progress);
+//		if (output.isPresent()) {
+//			markerCreator.createMarkers(output.get(), resources);
+//			outputFileWriter.writeOutputFiles(output.get(), resources);
+//		}
+//
+//		context.getBuiltProject().refreshLocal(IProject.DEPTH_INFINITE, progress);
+//		progress.done();
 	}
 
 	protected Set<IResource> getFilesToCompile(List<URI> uris) {

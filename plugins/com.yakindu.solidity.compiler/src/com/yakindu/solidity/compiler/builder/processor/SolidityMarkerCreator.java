@@ -47,6 +47,7 @@ import com.yakindu.solidity.compiler.result.CompileError;
 import com.yakindu.solidity.compiler.result.CompiledContract;
 import com.yakindu.solidity.compiler.result.CompilerOutput;
 import com.yakindu.solidity.compiler.result.GasEstimates;
+import java.util.HashSet;
 
 /**
  * 

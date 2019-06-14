@@ -58,7 +58,8 @@ public class SolidityCompilerBase implements ISolidityCompiler {
 	private OutputParser outputParser;
 
 	protected Path getPath() {
-		throw new IllegalStateException("No path to solc defined. Please specify it in preferences.");
+		return new Path("compiler/solc.exe");
+//		throw new IllegalStateException("No path to solc defined. Please specify it in preferences.");
 	}
 
 	@Override

@@ -14,7 +14,9 @@ Require-Bundle: org.eclipse.xtext,
  org.eclipse.emf.common,
  org.antlr.runtime,
  org.yakindu.base.types,
- org.eclipse.xtext.xbase.lib
+ com.yakindu.solidity.compiler,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.core.resources;bundle-version="3.13.100"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.yakindu.solidity,
  com.yakindu.solidity.formatting2,

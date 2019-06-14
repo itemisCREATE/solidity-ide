@@ -22,6 +22,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 import com.google.inject.ImplementedBy;
 import com.yakindu.solidity.compiler.result.CompilerOutput;
+import java.util.HashSet;
+import org.eclipse.core.runtime.SubMonitor;
 
 /**
  * 
@@ -32,4 +34,5 @@ import com.yakindu.solidity.compiler.result.CompilerOutput;
 public interface ISolidityCompiler {
 
 	public Optional<CompilerOutput> compile(Set<IResource> resources, IProgressMonitor progress);
+
 }

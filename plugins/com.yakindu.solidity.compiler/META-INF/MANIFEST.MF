@@ -14,6 +14,9 @@ Require-Bundle: org.eclipse.xtext.builder,
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: com.yakindu.solidity.compiler.SolidityCompilerActivator
 Export-Package: com.yakindu.solidity.compiler,
+ com.yakindu.solidity.compiler.builder,
+ com.yakindu.solidity.compiler.builder.processor,
  com.yakindu.solidity.compiler.parameter,
- com.yakindu.solidity.compiler.preferences
+ com.yakindu.solidity.compiler.preferences,
+ com.yakindu.solidity.compiler.result
 Automatic-Module-Name: com.yakindu.solidity.compiler
