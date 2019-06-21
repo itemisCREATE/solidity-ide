@@ -60,7 +60,9 @@ class SolidityValidator extends ExpressionsJavaValidator {
 			val output = compiler.compile(resources, monitor).get
 			markerCreator.createMarkers(output, resources);
 			outputWriter.writeOutputFiles(output, resources);
-			ResourcesPlugin.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, monitor);
+			resources.forEach [
+				it.project.refreshLocal(IResource.DEPTH_ONE, monitor);
+			]
 		}
 	}
 

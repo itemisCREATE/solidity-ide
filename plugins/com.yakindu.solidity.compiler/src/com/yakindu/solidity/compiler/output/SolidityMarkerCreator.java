@@ -242,14 +242,20 @@ public class SolidityMarkerCreator extends MarkerCreator {
 
 	protected int calculateIssueLength(String errorLine, String issueDetails) {
 		if (spansOverMultipleLines(issueDetails)) {
-			if (errorLine.contains("function")) {
-				return errorLine.substring(errorLine.indexOf("function"), errorLine.indexOf(")") + 1).length();
-			}
-			if (errorLine.contains("constructor")) {
-				return errorLine.substring(errorLine.indexOf("constructor"), errorLine.indexOf(")") + 1).length();
-			}
-			if (errorLine.contains("contract")) {
-				return calculateIssueLength(issueDetails, this.issueContractNameLine);
+			try {
+
+				if (errorLine.contains("function")) {
+					return errorLine.substring(errorLine.indexOf("function"), errorLine.indexOf(")") + 1).length();
+				}
+				if (errorLine.contains("constructor")) {
+					return errorLine.substring(errorLine.indexOf("constructor"), errorLine.indexOf(")") + 1).length();
+				}
+				if (errorLine.contains("contract")) {
+					return calculateIssueLength(issueDetails, this.issueContractNameLine);
+				}
+			} catch (StringIndexOutOfBoundsException e) {
+				e.printStackTrace();
+				return 0;
 			}
 		} else {
 			return calculateIssueLength(issueDetails, this.issueLength);

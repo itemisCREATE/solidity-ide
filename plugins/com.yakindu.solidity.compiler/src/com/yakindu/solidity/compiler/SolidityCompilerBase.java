@@ -14,10 +14,8 @@
  */
 package com.yakindu.solidity.compiler;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
@@ -73,16 +71,6 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 
 			Process process = new ProcessBuilder(getCompilerPath(), "--standard-json").start();
 			sendInput(process.getOutputStream(), filesToCompile);
-			try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
-				String line = reader.readLine();
-				while (line != null) {
-					System.err.println(line);
-					line = reader.readLine();
-				}
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-
 			Optional<CompilerOutput> result = outputParser.parse(process.getInputStream(), filesToCompile);
 
 			if (process.waitFor(30, TimeUnit.SECONDS) && process.exitValue() != 0) {
