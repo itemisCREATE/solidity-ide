@@ -37,6 +37,7 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.ui.MarkerTypes;
 import org.eclipse.xtext.ui.editor.validation.MarkerCreator;
 import org.yakindu.base.types.Package;
 
@@ -47,7 +48,6 @@ import com.yakindu.solidity.compiler.result.CompileError;
 import com.yakindu.solidity.compiler.result.CompiledContract;
 import com.yakindu.solidity.compiler.result.CompilerOutput;
 import com.yakindu.solidity.compiler.result.GasEstimates;
-import java.util.HashSet;
 
 /**
  * 
@@ -64,8 +64,8 @@ public class SolidityMarkerCreator extends MarkerCreator {
 	@Inject
 	private EObjectAtOffsetHelper offsetHelper;
 
-	// NORMAL_VALIDATION
-	public final static String NORMAL_VALIDATION = "org.eclipse.xtext.ui.check.normal"; //$NON-NLS-1$
+//	// NORMAL_VALIDATION
+//	public final static String NORMAL_VALIDATION = "org.eclipse.xtext.ui.check.normal"; //$NON-NLS-1$
 
 	public void createMarkers(final CompilerOutput compilerOutput, final Set<IResource> filesToCompile) {
 		createErrorMarkers(compilerOutput.getErrors(), filesToCompile);
@@ -99,7 +99,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		solcIssue.setUriToProblem(EcoreUtil.getURI(element));
 
 		try {
-			super.createMarker(solcIssue, file, NORMAL_VALIDATION);
+			super.createMarker(solcIssue, file, MarkerTypes.EXPENSIVE_VALIDATION);
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
@@ -136,7 +136,7 @@ public class SolidityMarkerCreator extends MarkerCreator {
 		for (CompileError error : errors) {
 			SolcIssue issue = createSolcIssue(error, filesToCompile);
 			try {
-				super.createMarker(issue, issue.getIFile(), NORMAL_VALIDATION);
+				super.createMarker(issue, issue.getIFile(), MarkerTypes.EXPENSIVE_VALIDATION);
 			} catch (CoreException e) {
 				e.printStackTrace();
 			}

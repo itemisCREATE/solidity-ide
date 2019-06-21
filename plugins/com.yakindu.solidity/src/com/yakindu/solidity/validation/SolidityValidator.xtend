@@ -17,7 +17,6 @@ package com.yakindu.solidity.validation
 import com.google.common.collect.Sets
 import com.google.inject.Inject
 import com.yakindu.solidity.compiler.builder.ISolidityCompiler
-import com.yakindu.solidity.compiler.builder.processor.FileOutputProcessor
 import com.yakindu.solidity.compiler.builder.processor.SolidityMarkerCreator
 import com.yakindu.solidity.solidity.SolidityPackage
 import com.yakindu.solidity.solidity.SourceUnit
@@ -35,13 +34,10 @@ import org.yakindu.base.types.Operation
 class SolidityValidator extends ExpressionsJavaValidator {
 	val public SOLIDITY_VERSION_NOT_DEFAULT = "Solidity version does not match the default version"
 
+	@Inject(optional=true) ISolidityCompiler compiler;
+
 	@Inject
 	SolidityMarkerCreator markerCreator;
-
-	@Inject
-	FileOutputProcessor outputFileWriter;
-
-	@Inject(optional=true) ISolidityCompiler compiler;
 
 	override protected assertOperationArguments(Operation operation, List<Expression> args) {
 		// TODO Disabled, doesn't work with extension operations
@@ -51,14 +47,14 @@ class SolidityValidator extends ExpressionsJavaValidator {
 		// TODO Disables, doesn't work with Parameters
 	}
 
-	@Check
+	@Check(NORMAL)
 	def protected compilerValidations(SourceUnit unit) {
-		val Set<IResource> resources = Sets.newHashSet(
-			ResourcesPlugin.getWorkspace().getRoot().findMember(unit.eResource.URI.toPlatformString(true)))
-		val output = compiler.compile(resources, SubMonitor.convert(null)).get
-		markerCreator.createMarkers(output, resources);
-		outputFileWriter.writeOutputFiles(output, resources);
-
+		if (compiler !== null) {
+			val Set<IResource> resources = Sets.newHashSet(
+				ResourcesPlugin.getWorkspace().getRoot().findMember(unit.eResource.URI.toPlatformString(true)))
+			val output = compiler.compile(resources, SubMonitor.convert(null)).get
+			markerCreator.createMarkers(output, resources);
+		}
 	}
 
 	override getEPackages() {
