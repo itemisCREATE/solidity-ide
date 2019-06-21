@@ -12,11 +12,11 @@
  * 	committers of YAKINDU 
  * 
  */
-package com.yakindu.solidity.compiler.builder;
+package com.yakindu.solidity.compiler;
 
 import org.eclipse.core.runtime.Path;
 
-import com.yakindu.solidity.compiler.builder.SolidityCompilerBase;
+import com.yakindu.solidity.compiler.SolidityCompilerBase;
 
 /**
  * @author Florian Antony - Initial contribution and API

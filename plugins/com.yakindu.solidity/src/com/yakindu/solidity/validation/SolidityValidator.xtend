@@ -16,8 +16,9 @@ package com.yakindu.solidity.validation
 
 import com.google.common.collect.Sets
 import com.google.inject.Inject
-import com.yakindu.solidity.compiler.builder.ISolidityCompiler
-import com.yakindu.solidity.compiler.builder.processor.SolidityMarkerCreator
+import com.yakindu.solidity.compiler.ISolidityCompiler
+import com.yakindu.solidity.compiler.output.FileOutputProcessor
+import com.yakindu.solidity.compiler.output.SolidityMarkerCreator
 import com.yakindu.solidity.solidity.SolidityPackage
 import com.yakindu.solidity.solidity.SourceUnit
 import java.util.List
@@ -39,6 +40,9 @@ class SolidityValidator extends ExpressionsJavaValidator {
 	@Inject
 	SolidityMarkerCreator markerCreator;
 
+	@Inject
+	FileOutputProcessor outputWriter;
+
 	override protected assertOperationArguments(Operation operation, List<Expression> args) {
 		// TODO Disabled, doesn't work with extension operations
 	}
@@ -50,10 +54,13 @@ class SolidityValidator extends ExpressionsJavaValidator {
 	@Check(NORMAL)
 	def protected compilerValidations(SourceUnit unit) {
 		if (compiler !== null) {
+			val monitor = SubMonitor.convert(null);
 			val Set<IResource> resources = Sets.newHashSet(
 				ResourcesPlugin.getWorkspace().getRoot().findMember(unit.eResource.URI.toPlatformString(true)))
-			val output = compiler.compile(resources, SubMonitor.convert(null)).get
+			val output = compiler.compile(resources, monitor).get
 			markerCreator.createMarkers(output, resources);
+			outputWriter.writeOutputFiles(output, resources);
+			ResourcesPlugin.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, monitor);
 		}
 	}
 

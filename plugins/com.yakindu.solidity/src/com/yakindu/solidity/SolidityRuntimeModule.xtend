@@ -17,6 +17,7 @@ package com.yakindu.solidity
 
 import com.google.inject.Binder
 import com.google.inject.name.Names
+import com.yakindu.solidity.compiler.ISolidityCompiler
 import com.yakindu.solidity.scoping.SolidityGlobalScopeProvider
 import com.yakindu.solidity.scoping.SolidityImportedNamespaceAwareLocalScopeProvider
 import com.yakindu.solidity.scoping.SolidityResourceDescriptionStrategy
@@ -53,7 +54,9 @@ class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 		binder.bind(SolidityFactory).toInstance(SolidityFactory.eINSTANCE)
 		binder.bind(TypesPackage).toInstance(TypesPackage.eINSTANCE)
 		binder.bind(TypesFactory).toInstance(TypesFactory.eINSTANCE)
-		binder.bind(String).annotatedWith(Names.named(SolidityVersion.SOLIDITY_VERSION)).toInstance(SolidityVersion.DEFAULT_SOLIDITY_VERSION)
+		binder.bind(String).annotatedWith(Names.named(SolidityVersion.SOLIDITY_VERSION)).toInstance(
+			SolidityVersion.DEFAULT_SOLIDITY_VERSION)
+		binder.bind(ISolidityCompiler).to((Class.forName("com.yakindu.solidity.compiler.SolidityCompiler") as Class<? extends ISolidityCompiler>));
 	}
 
 	override bindIGlobalScopeProvider() {

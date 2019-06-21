@@ -34,3 +34,4 @@ public interface ISolidityCompiler {
 	public Optional<CompilerOutput> compile(Set<IResource> resources, IProgressMonitor progress);
 
 }
+ 

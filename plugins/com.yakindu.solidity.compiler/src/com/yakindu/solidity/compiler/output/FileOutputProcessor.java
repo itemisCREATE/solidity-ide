@@ -24,6 +24,7 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 
 import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
@@ -105,8 +106,7 @@ public class FileOutputProcessor {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-
+		}		
 	}
 
 	private IFile findFileForName(Set<IResource> filesToCompile, String fileName) {

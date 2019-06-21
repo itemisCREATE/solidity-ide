@@ -51,7 +51,7 @@ import com.yakindu.solidity.compiler.result.CompilerOutput;
  * @author Florian Antony - Initial contribution and API
  *
  */
-public class SolidityCompilerBase implements ISolidityCompiler {
+public abstract class SolidityCompilerBase implements ISolidityCompiler {
 
 	@Inject
 	private ICompilerPreferences prefs;
@@ -60,7 +60,6 @@ public class SolidityCompilerBase implements ISolidityCompiler {
 	private OutputParser outputParser;
 
 	protected Path getPath() {
-//		return new Path("compiler/solc.exe");
 		throw new IllegalStateException("No path to solc defined. Please specify it in preferences.");
 	}
 
