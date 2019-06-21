@@ -12,7 +12,7 @@
  * 	committers of YAKINDU 
  * 
  */
-package com.yakindu.solidity.compiler.builder.processor;
+package com.yakindu.solidity.compiler.output;
 
 import static com.yakindu.solidity.compiler.preferences.ICompilerPreferences.COMPILER_OUTPUT_ABI;
 import static com.yakindu.solidity.compiler.preferences.ICompilerPreferences.COMPILER_OUTPUT_ASM;

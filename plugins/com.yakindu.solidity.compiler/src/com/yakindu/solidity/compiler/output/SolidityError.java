@@ -1,4 +1,4 @@
-package com.yakindu.solidity.compiler.builder.processor;
+package com.yakindu.solidity.compiler.output;
 
 public enum SolidityError {
 	ERROR_VAR_KEYWORD_DISALLOWED("Use of the \"var\" keyword is disallowed."),

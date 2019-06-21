@@ -12,10 +12,12 @@
  * 	committers of YAKINDU 
  * 
  */
-package com.yakindu.solidity.compiler.builder;
+package com.yakindu.solidity.compiler;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
@@ -37,13 +39,13 @@ import org.osgi.framework.Bundle;
 
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
-import com.yakindu.solidity.compiler.SolidityCompilerActivator;
-import com.yakindu.solidity.compiler.builder.processor.CompileOutputType;
-import com.yakindu.solidity.compiler.builder.processor.OutputParser;
+import com.yakindu.solidity.compiler.output.CompileOutputType;
+import com.yakindu.solidity.compiler.output.OutputParser;
 import com.yakindu.solidity.compiler.parameter.ParameterBuilder;
 import com.yakindu.solidity.compiler.parameter.Source;
 import com.yakindu.solidity.compiler.preferences.ICompilerPreferences;
 import com.yakindu.solidity.compiler.result.CompilerOutput;
+
 /**
  * 
  * @author Florian Antony - Initial contribution and API
@@ -58,8 +60,8 @@ public class SolidityCompilerBase implements ISolidityCompiler {
 	private OutputParser outputParser;
 
 	protected Path getPath() {
-		return new Path("compiler/solc.exe");
-//		throw new IllegalStateException("No path to solc defined. Please specify it in preferences.");
+//		return new Path("compiler/solc.exe");
+		throw new IllegalStateException("No path to solc defined. Please specify it in preferences.");
 	}
 
 	@Override
@@ -69,8 +71,19 @@ public class SolidityCompilerBase implements ISolidityCompiler {
 		}
 		progress.beginTask("compiling ...", filesToCompile.size());
 		try {
+
 			Process process = new ProcessBuilder(getCompilerPath(), "--standard-json").start();
 			sendInput(process.getOutputStream(), filesToCompile);
+			try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
+				String line = reader.readLine();
+				while (line != null) {
+					System.err.println(line);
+					line = reader.readLine();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+
 			Optional<CompilerOutput> result = outputParser.parse(process.getInputStream(), filesToCompile);
 
 			if (process.waitFor(30, TimeUnit.SECONDS) && process.exitValue() != 0) {

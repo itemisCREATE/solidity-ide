@@ -12,7 +12,7 @@
  * 	committers of YAKINDU 
  * 
  */
-package com.yakindu.solidity.compiler.builder.processor;
+package com.yakindu.solidity.compiler.output;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;

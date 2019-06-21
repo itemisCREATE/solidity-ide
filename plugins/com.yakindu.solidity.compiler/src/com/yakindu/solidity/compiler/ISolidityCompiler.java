@@ -12,7 +12,7 @@
  * 	committers of YAKINDU 
  * 
  */
-package com.yakindu.solidity.compiler.builder;
+package com.yakindu.solidity.compiler;
 
 import java.util.Optional;
 import java.util.Set;
@@ -22,8 +22,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 import com.google.inject.ImplementedBy;
 import com.yakindu.solidity.compiler.result.CompilerOutput;
-import java.util.HashSet;
-import org.eclipse.core.runtime.SubMonitor;
 
 /**
  * 
