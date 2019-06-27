@@ -56,7 +56,19 @@ class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 		binder.bind(TypesFactory).toInstance(TypesFactory.eINSTANCE)
 		binder.bind(String).annotatedWith(Names.named(SolidityVersion.SOLIDITY_VERSION)).toInstance(
 			SolidityVersion.DEFAULT_SOLIDITY_VERSION)
-		binder.bind(ISolidityCompiler).to((Class.forName("com.yakindu.solidity.compiler.SolidityCompiler") as Class<? extends ISolidityCompiler>));
+		bindCompiler(binder)
+	}
+
+	def bindCompiler(Binder binder) {
+		try {
+			val clazz = (Class.forName(
+				"com.yakindu.solidity.compiler.SolidityCompiler") as Class<? extends ISolidityCompiler>)
+			if (clazz !== null) {
+				binder.bind(ISolidityCompiler).to(clazz);
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace
+		}
 	}
 
 	override bindIGlobalScopeProvider() {
