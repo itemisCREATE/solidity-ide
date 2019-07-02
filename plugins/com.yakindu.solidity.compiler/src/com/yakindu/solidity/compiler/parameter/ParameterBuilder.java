@@ -45,6 +45,7 @@ public class ParameterBuilder {
 	private Settings defaultSettings() {
 		Settings settings = new Settings();
 		settings.setOptimizer(defaultOptimizer());
+		settings.setParserErrorRecovery(true);
 		Map<String, Map<String, List<String>>> output = Maps.newHashMap();
 		HashMap<String, List<String>> internalOutputs = Maps.newHashMap();
 		internalOutputs.put("*", Lists.newArrayList());

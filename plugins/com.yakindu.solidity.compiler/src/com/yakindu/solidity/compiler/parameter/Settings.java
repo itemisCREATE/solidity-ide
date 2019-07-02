@@ -26,6 +26,8 @@ public class Settings {
 
 	private Optimizer optimizer;
 
+	private Boolean parserErrorRecovery;
+
 	private Map<String, Library> libraries;
 
 	private Map<String, Map<String, List<String>>> outputSelection;
@@ -53,4 +55,14 @@ public class Settings {
 	public void setOutputSelection(Map<String, Map<String, List<String>>> outputSelection) {
 		this.outputSelection = outputSelection;
 	}
+
+	public Boolean getParserErrorRecovery() {
+		return parserErrorRecovery;
+	}
+
+	public void setParserErrorRecovery(Boolean parserErrorRecovery) {
+		this.parserErrorRecovery = parserErrorRecovery;
+	}
+	
+	
 }
