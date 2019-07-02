@@ -39,7 +39,7 @@ PragmaDirective returns types::PackageMember:
 	PragmaSolidityDirective | PragmaExperimentalDirective;
 
 PragmaSolidityDirective returns PragmaDirective:
-	{PragmaSolidityDirective} 'pragma' 'solidity' version=VERSION ';';
+	{PragmaSolidityDirective} 'pragma' 'solidity' ('^'|'>'|'>='|'='|'<='|'<') minVersion=VERSION (('<='|'<') maxVersion=VERSION)?';';
 
 PragmaExperimentalDirective returns PragmaDirective:
 	{PragmaExperimentalDirective} 'pragma' 'experimental' value=STRING ';';
@@ -405,7 +405,7 @@ terminal DECIMAL returns EBigDecimal:
 	('0'..'9')+ ('.' ('0'..'9')*)? (('e' | 'E') ('0'..'9')+)?;
 
 terminal VERSION:
-	'^' INT . INT . INT;
+	INT . INT . INT;
 
 terminal BOOL returns EBoolean:
 	'true' | 'false';
