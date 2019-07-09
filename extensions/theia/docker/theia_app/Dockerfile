@@ -13,11 +13,12 @@ RUN npm install --global yarn
 #Switch to User node
 USER node
 WORKDIR /home/node
-COPY --chown=node:node languageserver ./lsp
 COPY --chown=node:node ide ./theia
+COPY --chown=node:node languageserver ./theia/xtext-dsl-extension/lsp
+
 
 # Get & build theia IDE
-RUN sed -i -r 's;(.*)cp -r ..\/..\/..\/..\/plugins\/com.yakindu.solidity.ide\/target\/languageserver\/\* .\/lsp\/",;\1cp -r /home/node/lsp/* ./lsp",;' /home/node/theia/xtext-dsl-extension/package.json
+#RUN sed -i -r 's;(.*)cp -r ..\/..\/..\/..\/plugins\/com.yakindu.solidity.ide\/target\/languageserver\/\* .\/lsp\/",;\1cp -r /home/node/lsp/* ./lsp",;' /home/node/theia/xtext-dsl-extension/package.json
 
 WORKDIR /home/node/theia
 RUN yarn install

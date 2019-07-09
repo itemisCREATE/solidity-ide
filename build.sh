@@ -1,6 +1,6 @@
 #!/bin/sh
 cd releng/com.yakindu.solidity.releng
-# mvn clean verify -P$TARGET,tests
+# mvn clean verify
 cd ../com.yakindu.solidity.repository/target
 zip -r repository.zip repository
 cd ../../../
