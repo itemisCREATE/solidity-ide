@@ -34,6 +34,7 @@ jobs:
       - cd $TRAVIS_BUILD_DIR
 deploy:
   skip_cleanup: true
+  all_branches: true
   github_token: $GITHUB_TOKEN
   provider: script
   script: 
