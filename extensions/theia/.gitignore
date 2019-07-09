@@ -6,3 +6,5 @@
 */lsp/
 */examples/
 /node_modules/
+/docker/theia_app/ide
+/docker/theia_app/languageserver
