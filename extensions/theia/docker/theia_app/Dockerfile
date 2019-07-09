@@ -1,4 +1,4 @@
-FROM node:8.14.0-stretch-slim AS com.yakindu.solidity.web.ide
+FROM node:10.16.0-stretch-slim AS com.yakindu.solidity.web.ide
 LABEL maintainer="itemis AG"
 
 RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list
