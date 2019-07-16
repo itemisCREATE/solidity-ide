@@ -22,11 +22,11 @@ import java.util.List
 import javax.inject.Inject
 import org.eclipse.xtext.validation.Check
 import org.yakindu.base.expressions.expressions.AssignmentExpression
-import org.yakindu.base.expressions.expressions.Expression
-import org.yakindu.base.expressions.validation.ExpressionsJavaValidator
+import org.yakindu.base.types.Expression
+import org.yakindu.base.expressions.validation.ExpressionsValidator
 import org.yakindu.base.types.Operation
 
-class SolidityValidator extends ExpressionsJavaValidator {
+class SolidityValidator extends ExpressionsValidator {
 	val public SOLIDITY_VERSION_NOT_DEFAULT = "Solidity version does not match the default version"
 
 	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) String solcVersion
