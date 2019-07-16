@@ -8,12 +8,12 @@
  */
 package com.yakindu.sct.domain.solidity.validation;
 
-import org.yakindu.sct.model.stext.validation.STextJavaValidator;
+import org.yakindu.sct.model.stext.validation.STextValidator;
 /**
  * 
  * @author Andreas Muelder - Initial contribution and API
  * 
  */
-public class SolidityJavaValidator extends STextJavaValidator {
+public class SolidityValidator extends STextValidator {
 
 }

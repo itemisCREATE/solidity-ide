@@ -23,7 +23,7 @@
    </url>
 
    <requires>
-      <import feature="org.yakindu.base" version="3.4.0.201808160934" match="perfect"/>
+      <import feature="org.yakindu.base" version="3.5.5.201906181009" match="perfect"/>
    </requires>
 
    <plugin
