@@ -14,6 +14,7 @@ import org.yakindu.sct.model.sexec.ExecutionFlow
 import org.yakindu.sct.model.sgen.GeneratorEntry
 import org.yakindu.sct.model.stext.stext.EventDefinition
 import org.yakindu.sct.model.stext.stext.VariableDefinition
+import org.yakindu.base.types.TypedDeclaration
 
 /**
  * 
@@ -46,15 +47,15 @@ class CombinedState implements Template {
 						
 					// Internal scope
 					«IF flow.internalScope !== null»
-						«FOR declaration : flow.internalScope.declarations»
-							«declaration.declaration»
+						«FOR declaration : flow.internalScope.declarations.filter[it instanceof TypedDeclaration]»
+							«(declaration as TypedDeclaration).declaration»
 						«ENDFOR»
 					«ENDIF»
 					«IF flow.interfaceScope !== null»
 						«FOR interfaceScope : flow.interfaceScopes»
 							//«interfaceScope.name» Scope
 							«FOR declaration : interfaceScope.declarations.filter[it instanceof VariableDefinition] »
-								«declaration.declaration»
+								«(declaration as VariableDefinition).declaration»
 							«ENDFOR»
 						«ENDFOR»
 					«ENDIF»
@@ -83,7 +84,7 @@ class CombinedState implements Template {
 					«FOR interfaceScope : flow.interfaceScopes»
 						//«interfaceScope.name» Scope
 						«FOR declaration : interfaceScope.declarations.filter[it instanceof EventDefinition] »
-							«declaration.declaration»
+							«(declaration as EventDefinition).declaration»
 							
 						«ENDFOR»
 					«ENDFOR»

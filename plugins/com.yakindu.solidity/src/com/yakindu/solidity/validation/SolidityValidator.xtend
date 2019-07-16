@@ -14,14 +14,20 @@
  */
 package com.yakindu.solidity.validation
 
+import com.google.inject.Inject
+import com.google.inject.name.Named
+import com.yakindu.solidity.SolidityVersion
 import com.yakindu.solidity.solidity.SolidityPackage
 import java.util.List
 import org.yakindu.base.expressions.expressions.AssignmentExpression
-import org.yakindu.base.expressions.expressions.Expression
-import org.yakindu.base.expressions.validation.ExpressionsJavaValidator
+import org.yakindu.base.expressions.validation.ExpressionsValidator
+import org.yakindu.base.types.Expression
 import org.yakindu.base.types.Operation
 
-class SolidityValidator extends ExpressionsJavaValidator {
+class SolidityValidator extends ExpressionsValidator {
+	val public SOLIDITY_VERSION_NOT_DEFAULT = "Solidity version does not match the default version"
+
+	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) String solcVersion
 
 	override protected assertOperationArguments(Operation operation, List<Expression> args) {
 		// TODO Disabled, doesn't work with extension operations

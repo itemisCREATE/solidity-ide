@@ -30,7 +30,7 @@ import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.AbstractScope
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
-import org.yakindu.base.expressions.expressions.Expression
+import org.yakindu.base.types.Expression
 import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.EnumerationType
@@ -123,7 +123,7 @@ class FeatureCallScope extends AbstractScope {
 		} else if (it instanceof FunctionDefinition) {
 			// TODO handle multi return parameters properly
 			val result = newArrayList()
-			result += it.returnParameters?.head?.getLocalElements.toList
+			result += it.returnParameters?.head?.getLocalElements ?: newArrayList
 			result += declarations.value
 			result += declarations.gas
 			result
