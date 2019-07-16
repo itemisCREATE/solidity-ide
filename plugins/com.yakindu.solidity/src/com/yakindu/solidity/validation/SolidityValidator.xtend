@@ -18,7 +18,7 @@ import com.google.common.collect.Sets
 import com.google.inject.Inject
 import com.yakindu.solidity.compiler.ISolidityCompiler
 import com.yakindu.solidity.compiler.output.FileOutputProcessor
-import com.yakindu.solidity.compiler.output.SolidityMarkerCreator
+import com.yakindu.solidity.compiler.output.SolidityIssueCreator
 import com.yakindu.solidity.solidity.SolidityPackage
 import com.yakindu.solidity.solidity.SourceUnit
 import java.util.List
@@ -28,17 +28,17 @@ import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.SubMonitor
 import org.eclipse.xtext.validation.Check
 import org.yakindu.base.expressions.expressions.AssignmentExpression
-import org.yakindu.base.expressions.expressions.Expression
-import org.yakindu.base.expressions.validation.ExpressionsJavaValidator
+import org.yakindu.base.expressions.validation.ExpressionsValidator
+import org.yakindu.base.types.Expression
 import org.yakindu.base.types.Operation
 
-class SolidityValidator extends ExpressionsJavaValidator {
+class SolidityValidator extends ExpressionsValidator {
 	val public SOLIDITY_VERSION_NOT_DEFAULT = "Solidity version does not match the default version"
 
 	@Inject(optional=true) ISolidityCompiler compiler;
 
 	@Inject
-	SolidityMarkerCreator markerCreator;
+	SolidityIssueCreator issueCreator;
 
 	@Inject
 	FileOutputProcessor outputWriter;
@@ -54,11 +54,12 @@ class SolidityValidator extends ExpressionsJavaValidator {
 	@Check(NORMAL)
 	def protected compilerValidations(SourceUnit unit) {
 		if (compiler !== null) {
-			val monitor = SubMonitor.convert(null);
+			val monitor = SubMonitor.convert(null)
 			val Set<IResource> resources = Sets.newHashSet(
 				ResourcesPlugin.getWorkspace().getRoot().findMember(unit.eResource.URI.toPlatformString(true)))
 			val output = compiler.compile(resources, monitor).get
-			markerCreator.createMarkers(output, resources);
+			issueCreator.createInfos(output.contracts, resources, currentObject, messageAcceptor)
+//			issueCreator.createErrors(output.errors, resources, currentObject, messageAcceptor)
 			outputWriter.writeOutputFiles(output, resources);
 			resources.forEach [
 				it.project.refreshLocal(IResource.DEPTH_ONE, monitor);

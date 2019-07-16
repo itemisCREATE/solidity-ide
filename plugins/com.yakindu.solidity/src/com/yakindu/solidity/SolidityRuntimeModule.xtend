@@ -59,7 +59,7 @@ class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 		bindCompiler(binder)
 	}
 
-	def bindCompiler(Binder binder) {
+	private def bindCompiler(Binder binder) {
 		try {
 			val clazz = (Class.forName(
 				"com.yakindu.solidity.compiler.SolidityCompiler") as Class<? extends ISolidityCompiler>)

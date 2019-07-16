@@ -38,6 +38,8 @@ import org.yakindu.base.types.ComplexType
 import org.yakindu.base.types.Operation
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
+import org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider
+import org.eclipse.xtext.naming.QualifiedName
 
 /**
  * 
@@ -50,6 +52,7 @@ class SolidityScopeProvider extends ExpressionsScopeProvider {
 	@Inject BuiltInDeclarations builtInDeclarations
 	@Inject ITypeSystem typeSystem
 	@Inject ITypeSystemInferrer inferrer;
+	@Inject ImportedNamespaceAwareLocalScopeProvider defaultDelegate
 
 	def scope_NamedArgument_reference(Argument object, EReference ref) {
 		var parameters = object?.eContainer?.elements
@@ -91,7 +94,7 @@ class SolidityScopeProvider extends ExpressionsScopeProvider {
 	def scope_ModifierInvocation_reference(FunctionDefinition context, EReference reference) {
 		var outerScope = IScope.NULLSCOPE;
 		if (context.constructor) {
-			val ctors = context.contract.superTypes.filter(ComplexType).map[allFeatures].flatten.filter(
+			val ctors = context.contract.superTypes.map[type].filter(ComplexType).map[allFeatures].flatten.filter(
 				FunctionDefinition).filter [
 				isConstructor
 			]
@@ -114,7 +117,7 @@ class SolidityScopeProvider extends ExpressionsScopeProvider {
 		if (context?.owner instanceof ElementReferenceExpression) {
 			var ref = (context.owner as ElementReferenceExpression).reference
 			if (ref instanceof NamedElement && ("super".equals((ref as NamedElement).name))) {
-				val features = EcoreUtil2.getContainerOfType(context, ContractDefinition)?.superTypes?.filter(
+				val features = EcoreUtil2.getContainerOfType(context, ContractDefinition)?.superTypes?.map[type].filter(
 					ComplexType).map[allFeatures].flatten
 				var address = typeSystem.getType(SolidityTypeSystem.ADDRESS) as ComplexType
 				return Scopes.scopeFor(features + address.allFeatures)
@@ -122,37 +125,41 @@ class SolidityScopeProvider extends ExpressionsScopeProvider {
 				val features = EcoreUtil2.getContainerOfType(context, ContractDefinition).allFeatures
 				var address = typeSystem.getType(SolidityTypeSystem.ADDRESS) as ComplexType
 				return Scopes.scopeFor(features + address.allFeatures)
-
 			}
 		}
-		return Scopes.scopeFor(usings(context),
-			new FeatureCallScope(context, reference, builtInDeclarations, typeSystem,
-				inferrer))
+		var contractsViaUsings = usings(context);
+		return Scopes.scopeFor(contractsViaUsings, [if(!it.getName().isNullOrEmpty) { QualifiedName.create(it.getName())}]
+			, Scopes.scopeFor(contractsViaUsings,
+			new FeatureCallScope(context, reference, builtInDeclarations, typeSystem, inferrer)));
 	}
 
 	def usings(EObject context) {
-		val root = EcoreUtil2.getContainerOfType(context, ContractDefinition)
+		val root = getContract(context);
 		if (root === null)
 			return newArrayList()
 		val List<ComplexType> contracts = newArrayList()
 		root.getAllSuperTypes(contracts)
-		contracts += root.superTypes.filter(ComplexType)
 		val elements = contracts.map[eAllContents.toList].flatten.filter(UsingForDeclaration).map[contract].map [
 			allFeatures
 		].toList.flatten.toList
 		return elements
 	}
 
-	def protected void getAllSuperTypes(ComplexType type, List<ComplexType> result) {
-		result += type
-		result += type.superTypes.filter(ComplexType)
-		type.superTypes.filter(ComplexType).forEach[it.getAllSuperTypes(result)]
+	def protected void getAllSuperTypes(ComplexType complexType, List<ComplexType> result) {
+		result += complexType
+		var superTypes = complexType.superTypes.map[type].filter(ComplexType)
+		result += superTypes
+		superTypes.forEach[it.getAllSuperTypes(result)]
 	}
 
-	def scope_ComplexType_superTypes(EObject context, EReference reference) {
-		val outer = delegate.getScope(context, reference)
-		Scopes.scopeFor(builtInDeclarations.superContracts, outer)
-
+	def scope_TypeSpecifier_type(EObject context, EReference reference) {
+		if (context instanceof ContractDefinition || context.eContainer instanceof ContractDefinition) {
+			val outer = defaultDelegate.getScope(context, reference)
+			Scopes.scopeFor(builtInDeclarations.superContracts, outer)
+		} else {
+			val outer = getDelegate.getScope(context, reference)
+			Scopes.scopeFor(builtInDeclarations.superContracts, outer)
+		}
 	}
 
 	def protected isConstructor(FunctionDefinition it) {

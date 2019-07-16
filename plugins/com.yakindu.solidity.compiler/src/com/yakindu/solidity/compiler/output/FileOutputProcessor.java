@@ -22,11 +22,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 
 import com.google.gson.GsonBuilder;
-import com.google.inject.Inject;
 import com.yakindu.solidity.compiler.preferences.ICompilerPreferences;
 import com.yakindu.solidity.compiler.result.Abi;
 import com.yakindu.solidity.compiler.result.Bytecode;
