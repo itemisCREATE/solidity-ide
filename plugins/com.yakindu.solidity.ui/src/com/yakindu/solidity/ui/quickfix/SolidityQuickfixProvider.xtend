@@ -82,9 +82,9 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		acceptor.accept(issue, 'Change version to ' + solcVersion, 'solidity version', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
-//					if (element instanceof PragmaSolidityDirective) {
-//						element.version = solcVersion
-//					}
+					if (element instanceof PragmaSolidityDirective) {
+						element.version = solcVersion
+					}
 				}
 			})
 	}
@@ -456,7 +456,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 					if (element.eContainer instanceof SourceUnit) {
 						val sourceUnit = element.eContainer as SourceUnit
 						val pragma = createPragmaSolidityDirective => [
-//							version = "^" + solcVersion
+						version = "^" + solcVersion
 						]
 						sourceUnit.pragma += pragma
 					}

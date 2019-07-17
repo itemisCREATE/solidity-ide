@@ -59,7 +59,6 @@ class SolidityValidator extends ExpressionsValidator {
 				ResourcesPlugin.getWorkspace().getRoot().findMember(unit.eResource.URI.toPlatformString(true)))
 			val output = compiler.compile(resources, monitor).get
 			issueCreator.createInfos(output.contracts, resources, currentObject, messageAcceptor)
-//			issueCreator.createErrors(output.errors, resources, currentObject, messageAcceptor)
 			outputWriter.writeOutputFiles(output, resources);
 			resources.forEach [
 				it.project.refreshLocal(IResource.DEPTH_ONE, monitor);
