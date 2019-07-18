@@ -34,8 +34,7 @@ jobs:
       - cd $TRAVIS_BUILD_DIR
       - cp -r plugins/com.yakindu.solidity.ide/target/languageserver extensions/theia/docker/theia_app
       - cp -r extensions/theia/ide extensions/theia/docker/theia_app
-      - docker build extensions/theia/docker/theia_app/. -t yakindu/solidity-ide
-     
+      - docker build extensions/theia/docker/theia_app/. -t yakindu/solidity-ide  
 deploy:
   skip_cleanup: true
   on:
