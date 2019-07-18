@@ -14,22 +14,34 @@
  */
 package com.yakindu.solidity.validation
 
-import com.google.inject.name.Named
-import com.yakindu.solidity.SolidityVersion
-import com.yakindu.solidity.solidity.PragmaSolidityDirective
+import com.google.common.collect.Sets
+import com.google.inject.Inject
+import com.yakindu.solidity.compiler.ISolidityCompiler
+import com.yakindu.solidity.compiler.output.FileOutputProcessor
+import com.yakindu.solidity.compiler.output.SolidityIssueCreator
 import com.yakindu.solidity.solidity.SolidityPackage
+import com.yakindu.solidity.solidity.SourceUnit
 import java.util.List
-import javax.inject.Inject
+import java.util.Set
+import org.eclipse.core.resources.IResource
+import org.eclipse.core.resources.ResourcesPlugin
+import org.eclipse.core.runtime.SubMonitor
 import org.eclipse.xtext.validation.Check
 import org.yakindu.base.expressions.expressions.AssignmentExpression
-import org.yakindu.base.types.Expression
 import org.yakindu.base.expressions.validation.ExpressionsValidator
+import org.yakindu.base.types.Expression
 import org.yakindu.base.types.Operation
 
 class SolidityValidator extends ExpressionsValidator {
 	val public SOLIDITY_VERSION_NOT_DEFAULT = "Solidity version does not match the default version"
 
-	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) String solcVersion
+	@Inject(optional=true) ISolidityCompiler compiler;
+
+	@Inject
+	SolidityIssueCreator issueCreator;
+
+	@Inject
+	FileOutputProcessor outputWriter;
 
 	override protected assertOperationArguments(Operation operation, List<Expression> args) {
 		// TODO Disabled, doesn't work with extension operations
@@ -39,12 +51,18 @@ class SolidityValidator extends ExpressionsValidator {
 		// TODO Disables, doesn't work with Parameters
 	}
 
-	@Check
-	def protected checkPragmaVersion(PragmaSolidityDirective pragma) {
-		if (!( solcVersion).equals(pragma.version)) {
-			warning(SOLIDITY_VERSION_NOT_DEFAULT + " (" + solcVersion + ")", pragma,
-				SolidityPackage.Literals.PRAGMA_SOLIDITY_DIRECTIVE__VERSION,
-				IssueCodes.WARNING_SOLIDITY_VERSION_NOT_THE_DEFAULT)
+	@Check(NORMAL)
+	def protected compilerValidations(SourceUnit unit) {
+		if (compiler !== null) {
+			val monitor = SubMonitor.convert(null)
+			val Set<IResource> resources = Sets.newHashSet(
+				ResourcesPlugin.getWorkspace().getRoot().findMember(unit.eResource.URI.toPlatformString(true)))
+			val output = compiler.compile(resources, monitor).get
+			issueCreator.createInfos(output.contracts, resources, currentObject, messageAcceptor)
+			outputWriter.writeOutputFiles(output, resources);
+			resources.forEach [
+				it.project.refreshLocal(IResource.DEPTH_ONE, monitor);
+			]
 		}
 	}
 

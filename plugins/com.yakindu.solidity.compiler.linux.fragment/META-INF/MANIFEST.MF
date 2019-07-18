@@ -5,7 +5,7 @@ Bundle-SymbolicName: com.yakindu.solidity.compiler.linux.fragment
 Bundle-Version: 0.7.3.qualifier
 Fragment-Host: com.yakindu.solidity.compiler
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: com.yakindu.solidity.compiler.builder
+Export-Package: com.yakindu.solidity.compiler
 Bundle-Vendor: YAKINDU
 Automatic-Module-Name: com.yakindu.solidity.compiler.linux.fragment
 

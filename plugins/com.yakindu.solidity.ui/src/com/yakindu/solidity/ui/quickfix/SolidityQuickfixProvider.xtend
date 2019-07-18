@@ -456,7 +456,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 					if (element.eContainer instanceof SourceUnit) {
 						val sourceUnit = element.eContainer as SourceUnit
 						val pragma = createPragmaSolidityDirective => [
-							version = "^" + solcVersion
+						version = "^" + solcVersion
 						]
 						sourceUnit.pragma += pragma
 					}
