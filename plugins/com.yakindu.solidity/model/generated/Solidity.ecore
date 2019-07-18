@@ -6,10 +6,10 @@
         eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Package"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PragmaDirective" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//PackageMember"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PragmaDirective" eSuperTypes="platform:/resource/org.yakindu.base.types/model/base.ecore#//DomainElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="SuperTypeArgumentList">
     <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+        eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Expression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ContractType">
@@ -68,17 +68,17 @@
   <eClassifiers xsi:type="ecore:EClass" name="SimpleStatement" eSuperTypes="#//Statement"/>
   <eClassifiers xsi:type="ecore:EClass" name="PlaceholderStatement" eSuperTypes="#//Statement"/>
   <eClassifiers xsi:type="ecore:EClass" name="ReturnStatement" eSuperTypes="#//Statement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Expression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DeleteStatement" eSuperTypes="#//Statement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Expression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ContinueStatement" eSuperTypes="#//Statement"/>
   <eClassifiers xsi:type="ecore:EClass" name="BreakStatement" eSuperTypes="#//Statement"/>
   <eClassifiers xsi:type="ecore:EClass" name="ExpressionStatement" eSuperTypes="#//SimpleStatement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Expression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InlineAssemblyStatement" eSuperTypes="#//Statement">
@@ -91,19 +91,17 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VariableDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Property #//SimpleStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visibility" eType="#//Visibility"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="initialValue" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="storage" eType="#//StorageLocation"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="identifier" eType="#//IdentifierList"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IdentifierList">
     <eStructuralFeatures xsi:type="ecore:EReference" name="identifier" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Declaration"
+        eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//TypedDeclaration"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IfStatement" eSuperTypes="#//Statement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Expression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="then" eType="#//Statement"
         containment="true"/>
@@ -111,7 +109,7 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WhileStatement" eSuperTypes="#//Statement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Expression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//Statement"
         containment="true"/>
@@ -119,9 +117,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="ForStatement" eSuperTypes="#//Statement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="initialization" eType="#//SimpleStatement"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Expression"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="afterthought" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="afterthought" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Expression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="statement" eType="#//Statement"
         containment="true"/>
@@ -184,10 +182,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SourceUnit" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Package">
     <eStructuralFeatures xsi:type="ecore:EReference" name="pragma" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//PackageMember"
+        eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/base.ecore#//DomainElement"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//PackageMember"
+        eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/base.ecore#//DomainElement"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PragmaSolidityDirective" eSuperTypes="#//PragmaDirective">
@@ -196,7 +194,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="PragmaExperimentalDirective" eSuperTypes="#//PragmaDirective">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ImportDirective" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//PackageMember">
+  <eClassifiers xsi:type="ecore:EClass" name="ImportDirective" eSuperTypes="platform:/resource/org.yakindu.base.types/model/base.ecore#//DomainElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="importedNamespace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="alias" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -207,9 +205,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UsingForDeclaration" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Declaration">
     <eStructuralFeatures xsi:type="ecore:EReference" name="contract" eType="#//ContractDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeSpecifier" eType="#//TypeSpecifier"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Declaration">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Type"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="definition" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//ComplexType"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StructDefinition" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//ComplexType"/>
@@ -239,16 +239,16 @@
   <eClassifiers xsi:type="ecore:EClass" name="IndexParameter" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Parameter">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="indexed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Identifier" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Declaration"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ExponentialExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="leftOperand" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+  <eClassifiers xsi:type="ecore:EClass" name="Identifier" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//TypedDeclaration"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ExponentialExpression" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="leftOperand" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Expression"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rightOperand" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rightOperand" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Expression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NumericalUnaryExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression">
+  <eClassifiers xsi:type="ecore:EClass" name="NumericalUnaryExpression" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Expression">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//UnaryOperator"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="operand" eType="ecore:EClass platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operand" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Expression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NewInstanceExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//FeatureCall">
@@ -258,9 +258,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="EmitExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//FeatureCall">
     <eStructuralFeatures xsi:type="ecore:EReference" name="event" eType="#//EventDefinition"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TupleExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//Expression">
+  <eClassifiers xsi:type="ecore:EClass" name="TupleExpression" eSuperTypes="platform:/resource/org.yakindu.base.types/model/types.ecore#//Expression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PrimitiveValueExpression" eSuperTypes="platform:/resource/org.yakindu.base.expressions/model/Expressions.ecore#//PrimitiveValueExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SimpleTypeSpecifier" eSuperTypes="#//TypeSpecifier"/>
 </ecore:EPackage>

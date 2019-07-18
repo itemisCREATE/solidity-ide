@@ -13,7 +13,7 @@ import java.util.List
 import org.yakindu.base.expressions.expressions.Argument
 import org.yakindu.base.expressions.expressions.ArgumentExpression
 import org.yakindu.base.expressions.expressions.ElementReferenceExpression
-import org.yakindu.base.expressions.expressions.Expression
+import org.yakindu.base.types.Expression
 import org.yakindu.base.expressions.expressions.FeatureCall
 import org.yakindu.base.expressions.expressions.TypeCastExpression
 import org.yakindu.base.types.Declaration
