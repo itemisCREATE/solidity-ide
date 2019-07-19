@@ -58,6 +58,7 @@ class SolidityValidator extends ExpressionsValidator {
 			val Set<IResource> resources = Sets.newHashSet(
 				ResourcesPlugin.getWorkspace().getRoot().findMember(unit.eResource.URI.toPlatformString(true)))
 			val output = compiler.compile(resources, monitor).get
+			issueCreator.createErrors(output.errors, resources, currentObject, messageAcceptor)
 			issueCreator.createInfos(output.contracts, resources, currentObject, messageAcceptor)
 			outputWriter.writeOutputFiles(output, resources);
 			resources.forEach [
