@@ -31,6 +31,7 @@ import org.yakindu.base.expressions.expressions.AssignmentExpression
 import org.yakindu.base.expressions.validation.ExpressionsValidator
 import org.yakindu.base.types.Expression
 import org.yakindu.base.types.Operation
+import com.yakindu.solidity.compiler.preferences.ICompilerPreferences
 
 class SolidityValidator extends ExpressionsValidator {
 	val public SOLIDITY_VERSION_NOT_DEFAULT = "Solidity version does not match the default version"
@@ -43,6 +44,9 @@ class SolidityValidator extends ExpressionsValidator {
 	@Inject
 	FileOutputProcessor outputWriter;
 
+	@Inject
+	ICompilerPreferences prefs;
+
 	override protected assertOperationArguments(Operation operation, List<Expression> args) {
 		// TODO Disabled, doesn't work with extension operations
 	}
@@ -53,7 +57,7 @@ class SolidityValidator extends ExpressionsValidator {
 
 	@Check(NORMAL)
 	def protected compilerValidations(SourceUnit unit) {
-		if (compiler !== null) {
+		if (compiler !== null && prefs.isCompilerEnabled) {
 			val monitor = SubMonitor.convert(null)
 			val Set<IResource> resources = Sets.newHashSet(
 				ResourcesPlugin.getWorkspace().getRoot().findMember(unit.eResource.URI.toPlatformString(true)))
