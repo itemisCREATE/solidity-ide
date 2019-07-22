@@ -21,7 +21,6 @@ env:
   - MAVEN_OPTS="-Xmx4g"
   - TERM=dumb
   - TARGET=Latest.target
-  - NODE_VERSION="10.16.0"
 before_install:
 - sh -e /etc/init.d/xvfb start - sleep 10
 - chmod +x $TRAVIS_BUILD_DIR/extensions/vscode/gradlew
