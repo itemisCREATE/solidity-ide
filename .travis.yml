@@ -1,4 +1,5 @@
 sudo: false
+dist: xenial
 language: generic
 jdk:
  - oraclejdk8
@@ -9,6 +10,7 @@ before_cache:
  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 services:
  - docker
+ - xvfb
 cache:
   directories:
   - $HOME/.m2
