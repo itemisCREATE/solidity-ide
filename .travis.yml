@@ -23,18 +23,24 @@ before_install:
 - chmod +x $TRAVIS_BUILD_DIR/extensions/vscode/gradlew
 jobs:
   include:
-    - stage: Compile and Test
+    - stage: Build YAKINDU Solidity IDE and language server
       script: 
       - cd releng/com.yakindu.solidity.releng
       - mvn clean verify -P$TARGET,tests
       - cd ../com.yakindu.solidity.repository/target
       - zip -r repository.zip repository
+    - stage: Build Theia extensions
+      script:
+      - cd $TRAVIS_BUILD_DIR/extensions/theia
+      - cp -r plugins/com.yakindu.solidity.ide/target/languageserver docker/theia_app/xtext-dsl-extension/lsp
+      - cp -r extensions/theia/ide docker/theia_app/ide
+      - cd docker/theia_app
+      - yarn install 
+      - docker build extensions/theia/docker/theia_app/. -t yakindu/solidity-ide  
+    - stage: 
+      script: 
       - cd $TRAVIS_BUILD_DIR/extensions/vscode
       - ./gradlew vscodeExtension
-      - cd $TRAVIS_BUILD_DIR
-      - cp -r plugins/com.yakindu.solidity.ide/target/languageserver extensions/theia/docker/theia_app
-      - cp -r extensions/theia/ide extensions/theia/docker/theia_app
-      - docker build extensions/theia/docker/theia_app/. -t yakindu/solidity-ide  
 deploy:
   skip_cleanup: true
   on:
