@@ -1,7 +1,8 @@
 sudo: false
+os: linux
 dist: xenial
 language: generic
-jdk: 
+jdk:
  - oraclejdk8
 node_js:
   - "10.16.0"
@@ -29,10 +30,10 @@ jobs:
   include:
     - stage: Build YAKINDU Solidity IDE and language server
       script: 
-      - cd releng/com.yakindu.solidity.releng
-      - mvn clean verify -P$TARGET,tests
-      - cd ../com.yakindu.solidity.repository/target
-      - zip -r repository.zip repository
+     # - cd releng/com.yakindu.solidity.releng
+     # - mvn clean verify -P$TARGET,tests
+     # - cd ../com.yakindu.solidity.repository/target
+     # - zip -r repository.zip repository
 #    - stage: VSCode extensions
 #      script: 
 #      - cd $TRAVIS_BUILD_DIR/extensions/vscode
@@ -40,7 +41,7 @@ jobs:
 #    - stage: Theia extensions
 #      script:
       - cd $TRAVIS_BUILD_DIR/extensions/theia
-      - cp -r $TRAVIS_BUILD_DIR/plugins/com.yakindu.solidity.ide/target/languageserver ide/xtext-dsl-extension/lsp
+     # - cp -r $TRAVIS_BUILD_DIR/plugins/com.yakindu.solidity.ide/target/languageserver ide/xtext-dsl-extension/lsp
       - cd ide
       - yarn install
 #      - docker build extensions/theia/docker/theia_app/. -t yakindu/solidity-ide
