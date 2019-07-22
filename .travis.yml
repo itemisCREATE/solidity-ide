@@ -32,20 +32,19 @@ jobs:
       - zip -r repository.zip repository
 #    - stage: VSCode extensions
 #      script: 
-      - cd $TRAVIS_BUILD_DIR/extensions/vscode
-      - ./gradlew vscodeExtension
+#      - cd $TRAVIS_BUILD_DIR/extensions/vscode
+#      - ./gradlew vscodeExtension
 #    - stage: Theia extensions
 #      script:
       - cd $TRAVIS_BUILD_DIR/extensions/theia
-      - cp -r $TRAVIS_BUILD_DIR/plugins/com.yakindu.solidity.ide/target/languageserver docker/theia_app/xtext-dsl-extension/lsp
-      - cp -r $TRAVIS_BUILD_DIR/extensions/theia/ide docker/theia_app/ide
-      - cd docker/theia_app
-      - yarn install 
-      - docker build extensions/theia/docker/theia_app/. -t yakindu/solidity-ide
-      deploy:
-        skip_cleanup: true
-        on:
-          all_branches: true
-        github_token: $GITHUB_TOKEN
-        provider: script
-        script: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && docker push yakindu/solidity-ide
+      - cp -r $TRAVIS_BUILD_DIR/plugins/com.yakindu.solidity.ide/target/languageserver ide/xtext-dsl-extension/lsp
+      - cd ide
+      - yarn install
+#      - docker build extensions/theia/docker/theia_app/. -t yakindu/solidity-ide
+#      deploy:
+#        skip_cleanup: true
+#        on:
+#          all_branches: true
+#        github_token: $GITHUB_TOKEN
+#        provider: script
+#        script: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && docker push yakindu/solidity-ide
