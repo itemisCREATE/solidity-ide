@@ -21,7 +21,8 @@
     "prepare": "yarn run clean && yarn run build",
     "copy-ls": "rimraf lsp && mkdir lsp && cp -r ../../../../plugins/com.yakindu.solidity.ide/target/languageserver/* ./lsp/",
     "clean": "rimraf lib",
-    "build": "tsc && yarn run copy-ls",
+    "build": "tsc",
+    "local": "tsc && yarn run copy-ls",
     "watch": "tsc -w"
   },
   "theiaExtensions": [

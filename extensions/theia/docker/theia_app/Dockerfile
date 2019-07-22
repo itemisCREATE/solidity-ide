@@ -1,29 +1,26 @@
-FROM node:8.14.0-stretch AS com.yakindu.solidity.web.ide
+FROM node:10.16.0-stretch-slim AS com.yakindu.solidity.web.ide
 LABEL maintainer="itemis AG"
 
-# Execute as root to run apt-get; can't use sudo
-USER root
-WORKDIR /
+RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list
+
+# see https://github.com/puckel/docker-airflow/issues/182#issuecomment-444683455
+# see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199
+RUN mkdir -p /usr/share/man/man1
 
 # Prepare image
-RUN apt-get update
-RUN apt-get install openjdk-8-jdk --assume-yes
-RUN apt-get install maven --assume-yes
-RUN npm install --global yarn
+RUN apt-get update; \
+  apt-get -t stretch-backports install \
+  -y --no-install-recommends \
+  openjdk-8-jre-headless \
+  make \
+  g++ \
+  python
 
 #Switch to User node
 USER node
 WORKDIR /home/node
-
-# Get & build theia IDE (After pull Request switch to main repository)
-RUN git clone https://github.com/Yakindu/solidity-ide.git \
-    && cd solidity-ide/releng/com.yakindu.solidity.releng \
-    && mvn clean install \
-    && cd ../../.. \
-    && cp -r solidity-ide/plugins/com.yakindu.solidity.ide/target/languageserver ./lsp\
-    && cp -r solidity-ide/extensions/theia/ide ./theia\
-    && sed -i -r 's;(.*)cp -r ..\/..\/..\/..\/plugins\/com.yakindu.solidity.ide\/target\/languageserver\/\* .\/lsp\/",;\1cp -r /home/node/lsp/* ./lsp",;' /home/node/theia/xtext-dsl-extension/package.json\
-    && rm -rf solidity-ide/
+COPY --chown=node:node ide ./theia
+COPY --chown=node:node languageserver ./theia/xtext-dsl-extension/lsp
 
 WORKDIR /home/node/theia
 RUN yarn install

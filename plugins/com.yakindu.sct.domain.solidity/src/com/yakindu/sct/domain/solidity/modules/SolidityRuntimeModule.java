@@ -16,12 +16,12 @@ import org.yakindu.base.types.typesystem.ITypeSystem;
 import org.yakindu.sct.domain.extension.DomainRegistry;
 import org.yakindu.sct.model.stext.STextRuntimeModule;
 import org.yakindu.sct.model.stext.scoping.IPackageImport2URIMapper;
-import org.yakindu.sct.model.stext.validation.STextJavaValidator;
+import org.yakindu.sct.model.stext.validation.STextValidator;
 
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
 import com.yakindu.sct.domain.solidity.scoping.SolidityImportUriMapper;
-import com.yakindu.sct.domain.solidity.validation.SolidityJavaValidator;
+import com.yakindu.sct.domain.solidity.validation.SolidityValidator;
 import com.yakindu.solidity.scoping.SolidityGlobalScopeProvider;
 import com.yakindu.solidity.scoping.SolidityScopeProvider;
 import com.yakindu.solidity.solidity.SolidityFactory;
@@ -44,23 +44,26 @@ public class SolidityRuntimeModule extends STextRuntimeModule {
 		binder.bind(String.class).annotatedWith(Names.named(DomainRegistry.DOMAIN_ID)).toInstance(DOMAIN_SOLIDITY);
 		binder.bind(TypesFactory.class).toInstance(TypesFactory.eINSTANCE);
 		binder.bind(SolidityFactory.class).toInstance(SolidityFactory.eINSTANCE);
-		binder.bind(ITypeSystem.class).toInstance(getTypeSystem());
 		binder.bind(BuiltInDeclarations.class);
 	}
 
+	@Override
+	public void configureITypeSystem(Binder binder) {
+		binder.bind(ITypeSystem.class).toInstance(getTypeSystem());
+	}
+	
 	public Class<? extends IPackageImport2URIMapper> bindIPackageImport2URIMapper() {
 		return SolidityImportUriMapper.class;
 	}
 
-	@Override
 	protected ITypeSystem getTypeSystem() {
 		return SolidityTypeSystem.getInstance();
 	}
 
 	@Override
 	@org.eclipse.xtext.service.SingletonBinding(eager = true)
-	public Class<? extends STextJavaValidator> bindSTextJavaValidator() {
-		return SolidityJavaValidator.class;
+	public Class<? extends STextValidator> bindSTextValidator() {
+		return SolidityValidator.class;
 	}
 
 	@Override

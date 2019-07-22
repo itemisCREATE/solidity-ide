@@ -24,6 +24,7 @@ grammar com.yakindu.solidity.Solidity with org.eclipse.xtext.common.Terminals
 generate solidity "http://www.yakindu.com/solidity/Solidity"
 import "http://www.yakindu.org/base/expressions/Expressions" as expressions
 import "http://www.eclipse.org/emf/2002/Ecore"
+import "http://www.yakindu.org/base/base/2.0.0" as base
 import "http://www.yakindu.org/base/types/2.0.0" as types
 
 SolidityModel:
@@ -35,7 +36,7 @@ SourceUnit returns types::Package:
 	(imports+=ImportDirective)*
 	member+=ContractDefinition);
 
-PragmaDirective returns types::PackageMember:
+PragmaDirective returns base::DomainElement:
 	PragmaSolidityDirective | PragmaExperimentalDirective;
 
 PragmaSolidityDirective returns PragmaDirective:
@@ -44,13 +45,13 @@ PragmaSolidityDirective returns PragmaDirective:
 PragmaExperimentalDirective returns PragmaDirective:
 	{PragmaExperimentalDirective} 'pragma' 'experimental' value=STRING ';';
 
-ImportDirective returns types::PackageMember:
+ImportDirective returns base::DomainElement:
 	{ImportDirective} 'import' importedNamespace=STRING ('as' alias=STRING)? ';';
 
 ContractDefinition returns types::ComplexType:
 	{ContractDefinition} type=ContractType name=ID
-	('is' superTypes+=[types::ComplexType|QID] (argumentList+=SuperTypeArgumentList)? (','
-	superTypes+=[types::ComplexType|QID] ((argumentList+=SuperTypeArgumentList)? ')')?)*)?
+	// FIXME: InheritanceSpecifier should be introduced so type arguments can be properly mapped
+	('is' superTypes+=TypeSpecifier (argumentList+=SuperTypeArgumentList)? (',' superTypes+=TypeSpecifier (argumentList+=SuperTypeArgumentList)?)*)?
 	'{' (features+=ContractPart)* '}';
 
 SuperTypeArgumentList:
@@ -178,7 +179,7 @@ VariableDefinition:
 IdentifierList:
 	{IdentifierList} (identifier+=Identifier | ('(' ((identifier+=Identifier)? (',' (identifier+=Identifier)?)*) ')'));
 
-Identifier returns types::Declaration:
+Identifier returns types::TypedDeclaration:
 	{Identifier} name=ID;
 
 IfStatement:
@@ -240,75 +241,75 @@ StringLiteral returns expressions::StringLiteral:
 NullLiteral returns expressions::NullLiteral:
 	{expressions::NullLiteral} 'null';
 
-Expression returns expressions::Expression:
+Expression returns types::Expression:
 	AssignmentExpression;
 
-AssignmentExpression returns expressions::Expression:
+AssignmentExpression returns types::Expression:
 	ConditionalExpression ({expressions::AssignmentExpression.varRef=current} operator=AssignmentOperator
 	expression=ConditionalExpression)*;
 
-ConditionalExpression returns expressions::Expression:
+ConditionalExpression returns types::Expression:
 	LogicalOrExpression ({expressions::ConditionalExpression.condition=current} '?' trueCase=LogicalOrExpression ':'
 	falseCase=LogicalOrExpression)?;
 
-LogicalOrExpression returns expressions::Expression:
+LogicalOrExpression returns types::Expression:
 	LogicalAndExpression ({expressions::LogicalOrExpression.leftOperand=current} '||'
 	rightOperand=LogicalAndExpression)*;
 
-LogicalAndExpression returns expressions::Expression:
+LogicalAndExpression returns types::Expression:
 	LogicalNotExpression ({expressions::LogicalAndExpression.leftOperand=current}
 	'&&' rightOperand=LogicalNotExpression)*;
 
-LogicalNotExpression returns expressions::Expression:
+LogicalNotExpression returns types::Expression:
 	LogicalRelationExpression | {expressions::LogicalNotExpression} '!'
 	operand=LogicalRelationExpression;
 
-LogicalRelationExpression returns expressions::Expression:
+LogicalRelationExpression returns types::Expression:
 	BitwiseOrExpression
 	({expressions::LogicalRelationExpression.leftOperand=current} operator=RelationalOperator
 	rightOperand=BitwiseOrExpression)*;
 
-BitwiseOrExpression returns expressions::Expression:
+BitwiseOrExpression returns types::Expression:
 	BitwiseXorExpression ({expressions::BitwiseOrExpression.leftOperand=current} '|'
 	rightOperand=BitwiseXorExpression)*;
 
-BitwiseXorExpression returns expressions::Expression:
+BitwiseXorExpression returns types::Expression:
 	BitwiseAndExpression ({expressions::BitwiseXorExpression.leftOperand=current} '^'
 	rightOperand=BitwiseAndExpression)*;
 
-BitwiseAndExpression returns expressions::Expression:
+BitwiseAndExpression returns types::Expression:
 	ShiftExpression ({expressions::BitwiseAndExpression.leftOperand=current} '&'
 	rightOperand=ShiftExpression)*;
 
-ShiftExpression returns expressions::Expression:
+ShiftExpression returns types::Expression:
 	NumericalAddSubtractExpression ({expressions::ShiftExpression.leftOperand=current} operator=ShiftOperator
 	rightOperand=NumericalAddSubtractExpression)*;
 
-NumericalAddSubtractExpression returns expressions::Expression:
+NumericalAddSubtractExpression returns types::Expression:
 	NumericalMultiplyDivideExpression
 	=> ({expressions::NumericalAddSubtractExpression.leftOperand=current}
 	operator=AdditiveOperator
 	rightOperand=NumericalMultiplyDivideExpression)*;
 
-NumericalMultiplyDivideExpression returns expressions::Expression:
+NumericalMultiplyDivideExpression returns types::Expression:
 	ExponentialExpression
 	=> ({expressions::NumericalMultiplyDivideExpression.leftOperand=current}
 	operator=MultiplicativeOperator
 	rightOperand=ExponentialExpression)*;
 
-ExponentialExpression returns expressions::Expression:
+ExponentialExpression returns types::Expression:
 	NumericalUnaryExpression
 	=> ({ExponentialExpression.leftOperand=current}
 	'**'
 	rightOperand=NumericalUnaryExpression)*;
 
-NumericalUnaryExpression returns expressions::Expression:
+NumericalUnaryExpression returns types::Expression:
 	PostFixUnaryExpression | {NumericalUnaryExpression} operator=UnaryOperator operand=PostFixUnaryExpression;
 
-PostFixUnaryExpression returns expressions::Expression:
+PostFixUnaryExpression returns types::Expression:
 	PrimaryExpression ({expressions::PostFixUnaryExpression.operand=current} operator=PostFixOperator)*;
 
-PrimaryExpression returns expressions::Expression:
+PrimaryExpression returns types::Expression:
 	PrimitiveValueExpression | FeatureCall | NewInstanceExpression | EmitExpression | TupleExpression;
 
 NewInstanceExpression returns expressions::FeatureCall:
@@ -319,7 +320,7 @@ EmitExpression returns expressions::FeatureCall:
 	{EmitExpression} 'emit' event=[EventDefinition|ID] operationCall?='(' (arguments+=Argument (','
 	arguments+=Argument)*)? ')';
 
-TupleExpression returns expressions::Expression:
+TupleExpression returns types::Expression:
 	{TupleExpression} 
 	(
 		('(' (expressions+=(VariableDeclaration | Expression)? (',' (expressions+=(VariableDeclaration | Expression))? )* ) ')') 
@@ -330,8 +331,8 @@ TupleExpression returns expressions::Expression:
 PrimitiveValueExpression returns expressions::PrimitiveValueExpression:
 	{PrimitiveValueExpression} value=Literal;
 
-FeatureCall returns expressions::Expression:
-	ElementReferenceExpression ({expressions::FeatureCall.owner=current} '.' feature=[EObject]
+FeatureCall returns expressions::ArgumentExpression:
+	ElementReferenceExpression ({expressions::FeatureCall.owner=current} '.' feature=[types::Declaration]
 	(=> operationCall?='(' (arguments+=Argument (',' arguments+=Argument)*)? ')'
 	|
 	=> (arrayAccess?='[' arraySelector+=Expression ']') => ('[' arraySelector+=Expression ']')*)?)*;
@@ -350,7 +351,7 @@ NamedArgument:
 SimpleArgument:
 	value=ConditionalExpression;
 
-ParenthesizedExpression returns expressions::Expression:
+ParenthesizedExpression returns types::Expression:
 	{expressions::ParenthesizedExpression} '(' expression=Expression ')';
 
 TypeSpecifier returns types::TypeSpecifier:
@@ -363,7 +364,7 @@ ArrayTypeSpecifier: //TODO index must be Expression
 	{ArrayTypeSpecifier} type=[types::Type|QID] ('[' (index+=PrimitiveValueExpression)? ']')+;
 
 SimpleTypeSpecifier returns TypeSpecifier:
-	type=[types::Type|QID];
+	{SimpleTypeSpecifier} type=[types::Type|QID];
 
 enum AssignmentOperator returns expressions::AssignmentOperator:
 	assign='='
