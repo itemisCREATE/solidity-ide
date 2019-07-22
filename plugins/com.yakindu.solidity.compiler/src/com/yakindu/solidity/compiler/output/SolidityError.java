@@ -38,7 +38,6 @@ public enum SolidityError {
 				}
 			}
 		}
-		new RuntimeException(message).printStackTrace();
 		return "UNKNOWN";
 	}
 }
