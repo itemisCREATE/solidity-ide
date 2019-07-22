@@ -1,6 +1,4 @@
 sudo: false
-os: linux
-dist: xenial
 language: generic
 jdk:
  - oraclejdk8
