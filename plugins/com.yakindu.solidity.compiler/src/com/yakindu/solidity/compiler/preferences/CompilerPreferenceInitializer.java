@@ -13,8 +13,8 @@ package com.yakindu.solidity.compiler.preferences;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
+import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.osgi.service.prefs.BackingStoreException;
 
 import com.yakindu.solidity.compiler.SolidityCompilerActivator;
@@ -25,26 +25,26 @@ import com.yakindu.solidity.compiler.SolidityCompilerActivator;
  */
 public class CompilerPreferenceInitializer extends AbstractPreferenceInitializer {
 
-	private static final String COMPILER_PLUGIN = "com.yakindu.solidity.compiler";
 	private static final String DEFAULT_OUTPUT_PATH = "solidity-gen";
 
 	@Override
 	public void initializeDefaultPreferences() {
-		boolean compilerInstalled = Platform.getBundle(COMPILER_PLUGIN) != null;
-		getPreferenceStore().putBoolean(ICompilerPreferences.COMPILER_ENABLED, compilerInstalled);
-		getPreferenceStore().putBoolean(ICompilerPreferences.COMPILER_OUTPUT_ABI, false);
-		getPreferenceStore().putBoolean(ICompilerPreferences.COMPILER_OUTPUT_BIN, true);
-		getPreferenceStore().putBoolean(ICompilerPreferences.COMPILER_OUTPUT_ASM, false);
-		getPreferenceStore().put(ICompilerPreferences.COMPILER_OUTPUT_PATH, DEFAULT_OUTPUT_PATH);
+		IEclipsePreferences preferenceStore = getPreferenceStore();
+		boolean compilerInstalled = Platform.getBundle(SolidityCompilerActivator.PLUGIN_ID) != null;
+		preferenceStore.putBoolean(ICompilerPreferences.COMPILER_ENABLED, compilerInstalled);
+		preferenceStore.putBoolean(ICompilerPreferences.COMPILER_OUTPUT_ABI, false);
+		preferenceStore.putBoolean(ICompilerPreferences.COMPILER_OUTPUT_BIN, true);
+		preferenceStore.putBoolean(ICompilerPreferences.COMPILER_OUTPUT_ASM, false);
+		preferenceStore.put(ICompilerPreferences.COMPILER_OUTPUT_PATH, DEFAULT_OUTPUT_PATH);
 		try {
-			getPreferenceStore().flush();
+			preferenceStore.flush();
 		} catch (BackingStoreException e) {
 			e.printStackTrace();
 		}
 	}
 
 	protected IEclipsePreferences getPreferenceStore() {
-		return InstanceScope.INSTANCE.getNode(SolidityCompilerActivator.PLUGIN_ID);
+		return DefaultScope.INSTANCE.getNode(SolidityCompilerActivator.PLUGIN_ID);
 	}
 
 }
