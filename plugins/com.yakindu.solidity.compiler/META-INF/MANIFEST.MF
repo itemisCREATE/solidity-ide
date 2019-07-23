@@ -5,15 +5,18 @@ Bundle-SymbolicName: com.yakindu.solidity.compiler;singleton:=true
 Bundle-Version: 0.7.3.qualifier
 Bundle-Vendor: YAKINDU
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: org.eclipse.xtext.builder,
- org.yakindu.base.types,
- com.google.inject,
+Require-Bundle: org.yakindu.base.types,
  com.google.gson,
  org.eclipse.core.runtime,
- org.eclipse.xtext.ui
+ org.eclipse.core.resources,
+ com.google.guava,
+ org.eclipse.xtext
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: com.yakindu.solidity.compiler.SolidityCompilerActivator
 Export-Package: com.yakindu.solidity.compiler,
+ com.yakindu.solidity.compiler.builder.processor,
+ com.yakindu.solidity.compiler.output,
  com.yakindu.solidity.compiler.parameter,
- com.yakindu.solidity.compiler.preferences
+ com.yakindu.solidity.compiler.preferences,
+ com.yakindu.solidity.compiler.result
 Automatic-Module-Name: com.yakindu.solidity.compiler

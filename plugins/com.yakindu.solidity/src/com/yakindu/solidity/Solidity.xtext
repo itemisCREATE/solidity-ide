@@ -161,7 +161,7 @@ BreakStatement:
 	{BreakStatement} 'break';
 
 ExpressionStatement:
-	expression=Expression;
+	{ExpressionStatement} expression=Expression;
 
 InlineAssemblyStatement:
 	'assembly' kind=AssemblyKind? block=InlineAssemblyBlock;
@@ -331,13 +331,13 @@ TupleExpression returns types::Expression:
 PrimitiveValueExpression returns expressions::PrimitiveValueExpression:
 	{PrimitiveValueExpression} value=Literal;
 
-FeatureCall returns expressions::ArgumentExpression:
+FeatureCall returns types::Expression:
 	ElementReferenceExpression ({expressions::FeatureCall.owner=current} '.' feature=[types::Declaration]
 	(=> operationCall?='(' (arguments+=Argument (',' arguments+=Argument)*)? ')'
 	|
 	=> (arrayAccess?='[' arraySelector+=Expression ']') => ('[' arraySelector+=Expression ']')*)?)*;
 
-ElementReferenceExpression returns expressions::ElementReferenceExpression:
+ElementReferenceExpression returns types::Expression:
 	{expressions::ElementReferenceExpression} reference=[EObject|ID] (=> operationCall?='(' (((arguments+=SimpleArgument
 	(',' arguments+=SimpleArgument)*)?) | ('{' (arguments+=NamedArgument (',' arguments+=NamedArgument)*)? '}')) ')')?
 	('[' arraySelector+=Expression ']')*;
@@ -361,10 +361,10 @@ MappingTypeSpecifier:
 	{MappingTypeSpecifier} 'mapping' '(' key=TypeSpecifier '=>' value=TypeSpecifier ')';
 
 ArrayTypeSpecifier: //TODO index must be Expression
-	{ArrayTypeSpecifier} type=[types::Type|QID] ('[' (index+=PrimitiveValueExpression)? ']')+;
+	{ArrayTypeSpecifier} type=[types::Type|ID] ('[' (index+=PrimitiveValueExpression)? ']')+;
 
 SimpleTypeSpecifier returns TypeSpecifier:
-	{SimpleTypeSpecifier} type=[types::Type|QID];
+	{SimpleTypeSpecifier} type=[types::Type|ID];
 
 enum AssignmentOperator returns expressions::AssignmentOperator:
 	assign='='
@@ -413,7 +413,3 @@ terminal BOOL returns EBoolean:
 
 terminal BINARY returns EInt:
 	('0') ('b' | 'B') ('0' | '1')+;
-
-QID:
-	ID ('.' ID)*;
-
