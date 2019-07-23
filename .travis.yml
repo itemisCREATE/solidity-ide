@@ -43,7 +43,7 @@ jobs:
       - cp -r $TRAVIS_BUILD_DIR/plugins/com.yakindu.solidity.ide/target/languageserver ide/xtext-dsl-extension/lsp
       - cd ide
       - yarn install
-#      - docker build extensions/theia/docker/theia_app/. -t yakindu/solidity-ide
+      - docker build docker/theia_app/. -t yakindu/solidity-ide
 #      deploy:
 #        skip_cleanup: true
 #        on:
