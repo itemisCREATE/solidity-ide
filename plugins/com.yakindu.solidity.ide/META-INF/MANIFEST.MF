@@ -13,7 +13,8 @@ Require-Bundle: com.yakindu.solidity,
  org.eclipse.lsp4j.jsonrpc;bundle-version="0.4.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
  com.google.gson,
- org.eclipse.emf.ecore.change
+ org.eclipse.emf.ecore.change,
+ org.slf4j.api;bundle-version="1.7.2"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.yakindu.solidity.ide.contentassist.antlr,
  com.yakindu.solidity.ide.contentassist.antlr.internal
