@@ -36,7 +36,7 @@ jobs:
       #- cd $TRAVIS_BUILD_DIR/extensions/vscode
       #- ./gradlew vscodeExtension
       - cd $TRAVIS_BUILD_DIR
-      - cp -r extensions/theia/ide extensions/theia/docker/theia_app
+      - cp -r extensions/theia/ide extensions/theia/docker/theia_app/ide
       - cp -r plugins/com.yakindu.solidity.ide/target/languageserver extensions/theia/docker/theia_app/ide/xtext-dsl-extension/lsp
       - cd extensions/theia/docker/theia_app/ide
       - yarn install --production
