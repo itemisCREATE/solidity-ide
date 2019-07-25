@@ -16,6 +16,14 @@ RUN apt-get update; \
   g++ \
   python
 
+#Switch to User node
+USER node
+WORKDIR /home/node
+COPY --chown=node:node ide ./theia
+
+WORKDIR /home/node/theia
+RUN yarn install
+
 # Startup
 EXPOSE 8080 
 CMD cd ./app && yarn start
