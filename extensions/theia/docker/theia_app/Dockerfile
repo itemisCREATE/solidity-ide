@@ -22,7 +22,7 @@ WORKDIR /home/node
 COPY --chown=node:node ide ./theia
 
 WORKDIR /home/node/theia
-#RUN yarn install
+RUN yarn install
 
 # Startup
 EXPOSE 8080 
