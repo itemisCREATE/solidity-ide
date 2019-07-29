@@ -33,8 +33,8 @@ jobs:
       - mvn clean verify -P$TARGET,tests
       - cd ../com.yakindu.solidity.repository/target
       - zip -r repository.zip repository
-      #- cd $TRAVIS_BUILD_DIR/extensions/vscode
-      #- ./gradlew vscodeExtension
+      - cd $TRAVIS_BUILD_DIR/extensions/vscode
+      - ./gradlew vscodeExtension
       - cd $TRAVIS_BUILD_DIR
       - cp -r extensions/theia/ide extensions/theia/docker/theia_app/ide
       - cp -r plugins/com.yakindu.solidity.ide/target/languageserver extensions/theia/docker/theia_app/ide/xtext-dsl-extension/lsp
@@ -45,7 +45,7 @@ jobs:
 deploy:
   skip_cleanup: true
   on:
-    all_branches: true
+    branch: master
   github_token: $GITHUB_TOKEN
   provider: script
   script: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && docker push yakindu/solidity-ide
