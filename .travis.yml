@@ -1,8 +1,8 @@
 sudo: false
-dist: trusty
+dist: xenial
 language: generic
 jdk:
- - oraclejdk8
+ - openjdk11
 node_js:
   - "10.16.0"
 before_cache:
