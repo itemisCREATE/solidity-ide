@@ -4,7 +4,7 @@ language: generic
 jdk:
  - openjdk11
 node_js:
-  - "10.16.0"
+ - "10.16.0"
 before_cache:
  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -24,13 +24,13 @@ env:
   - TERM=dumb
   - TARGET=Latest.target
 before_install:
-- chmod +x $TRAVIS_BUILD_DIR/extensions/vscode/gradlew
+ - chmod +x $TRAVIS_BUILD_DIR/extensions/vscode/gradlew
 jobs:
   include:
     - stage: Build YAKINDU Solidity IDE and language server
       script: 
       - cd releng/com.yakindu.solidity.releng
-      - mvn clean verify --debug -P$TARGET,tests
+      - mvn clean verify -P$TARGET,tests
       - cd ../com.yakindu.solidity.repository/target
       - zip -r repository.zip repository
       #- cd $TRAVIS_BUILD_DIR/extensions/vscode
