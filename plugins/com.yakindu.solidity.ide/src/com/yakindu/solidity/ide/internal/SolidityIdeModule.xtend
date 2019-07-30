@@ -15,8 +15,8 @@
 package com.yakindu.solidity.ide.internal
 
 import com.yakindu.solidity.ide.AbstractSolidityIdeModule
-import org.eclipse.xtext.ide.server.codeActions.ICodeActionService
 import org.eclipse.xtext.ide.server.contentassist.ContentAssistService
+import org.eclipse.xtext.ide.server.codeActions.ICodeActionService
 
 /**
  * 

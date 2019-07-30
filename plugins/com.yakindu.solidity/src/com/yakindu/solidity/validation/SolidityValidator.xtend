@@ -19,7 +19,6 @@ import com.google.inject.Inject
 import com.yakindu.solidity.compiler.ISolidityCompiler
 import com.yakindu.solidity.compiler.output.FileOutputProcessor
 import com.yakindu.solidity.compiler.output.SolidityIssueCreator
-import com.yakindu.solidity.compiler.preferences.ICompilerPreferences
 import com.yakindu.solidity.solidity.SolidityPackage
 import com.yakindu.solidity.solidity.SourceUnit
 import java.util.List
@@ -32,6 +31,7 @@ import org.yakindu.base.expressions.expressions.AssignmentExpression
 import org.yakindu.base.expressions.validation.ExpressionsValidator
 import org.yakindu.base.types.Expression
 import org.yakindu.base.types.Operation
+import com.yakindu.solidity.compiler.preferences.ICompilerPreferences
 
 class SolidityValidator extends ExpressionsValidator {
 	val public SOLIDITY_VERSION_NOT_DEFAULT = "Solidity version does not match the default version"

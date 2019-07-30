@@ -159,8 +159,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//SourceUnit/imports"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//PragmaSolidityDirective">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//PragmaSolidityDirective/minVersion"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//PragmaSolidityDirective/maxVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//PragmaSolidityDirective/version"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//PragmaExperimentalDirective">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//PragmaExperimentalDirective/value"/>
