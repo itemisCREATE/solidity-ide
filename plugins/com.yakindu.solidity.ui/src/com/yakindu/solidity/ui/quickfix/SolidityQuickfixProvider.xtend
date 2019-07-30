@@ -29,7 +29,6 @@ import com.yakindu.solidity.solidity.IfStatement
 import com.yakindu.solidity.solidity.MappingTypeSpecifier
 import com.yakindu.solidity.solidity.Modifier
 import com.yakindu.solidity.solidity.Parameter
-import com.yakindu.solidity.solidity.PragmaSolidityDirective
 import com.yakindu.solidity.solidity.SolidityFactory
 import com.yakindu.solidity.solidity.SourceUnit
 import com.yakindu.solidity.solidity.StorageLocation
@@ -76,18 +75,6 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	@Inject ITypeSystemInferrer typeInferrer
 	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) String solcVersion
 	ExpressionsFactory factory = ExpressionsFactory.eINSTANCE
-
-	@Fix(WARNING_SOLIDITY_VERSION_NOT_THE_DEFAULT)
-	def changeToDefaultPragma(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, 'Change version to ' + solcVersion, 'solidity version', null,
-			new ISemanticModification() {
-				override apply(EObject element, IModificationContext context) throws Exception {
-					if (element instanceof PragmaSolidityDirective) {
-						element.version = solcVersion
-					}
-				}
-			})
-	}
 
 	@Fix(ERROR_STATE_MUTABILITY_ONLY_ALLOWED_FOR_ADDRESS)
 	def removePayableToNonAddressDeclaration(Issue issue, IssueResolutionAcceptor acceptor) {
@@ -394,8 +381,9 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	@Fix(ERROR_NO_VISIBILITY_SPECIFIED))
 	def makeVisibilityExplicit(Issue issue, IssueResolutionAcceptor acceptor) {
 		val operation = (new ResourceSetImpl().getEObject(issue.uriToProblem, true) as Operation);
-		val contract = (operation.eContainer as ContractDefinition)
-		if (contract.type != ContractType.INTERFACE && !operation.name.nullOrEmpty) {
+		val contract = (operation?.eContainer as ContractDefinition)
+		
+		if (contract.type != ContractType.INTERFACE && (!operation.name.nullOrEmpty || operation instanceof ConstructorDefinition)) {
 			if (!(operation instanceof ConstructorDefinition)) {
 
 				acceptor.accept(issue, 'Make this function private', 'Private function.', null,
@@ -456,7 +444,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 					if (element.eContainer instanceof SourceUnit) {
 						val sourceUnit = element.eContainer as SourceUnit
 						val pragma = createPragmaSolidityDirective => [
-						version = "^" + solcVersion
+							minVersion = "^"+ solcVersion
 						]
 						sourceUnit.pragma += pragma
 					}

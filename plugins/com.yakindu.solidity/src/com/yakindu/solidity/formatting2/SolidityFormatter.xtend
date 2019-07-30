@@ -489,7 +489,11 @@ class SolidityFormatter extends AbstractFormatter2 {
 	}
 
 	protected def int getLengthOfFunctionSignature(FunctionDefinition it) {
-		val int functionKeywordLength = regionFor.keyword("function").length + 1
+		val functionKeyWord = regionFor?.keyword("function")
+		if (functionKeyWord === null) {
+			return 0
+		}
+		val int functionKeywordLength = regionFor?.keyword("function").length + 1
 		val int nameLength = name.length
 		var int parametersLength = 0
 		for (parameter : parameters) {
