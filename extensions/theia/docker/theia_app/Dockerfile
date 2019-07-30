@@ -20,10 +20,9 @@ RUN apt-get update; \
 USER node
 WORKDIR /home/node
 COPY --chown=node:node ide ./theia
-COPY --chown=node:node languageserver ./theia/xtext-dsl-extension/lsp
 
 WORKDIR /home/node/theia
-RUN yarn install
+RUN yarn install --production
 
 # Startup
 EXPOSE 8080 
