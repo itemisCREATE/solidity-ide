@@ -70,7 +70,11 @@ class SolidityLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	def dispatch String text(PragmaSolidityDirective it) {
-		'''pragma solidity «it.version»'''.toString
+		if(maxVersion === null){
+			'''pragma solidity ^«minVersion» '''.toString
+		}else{
+			'''pragma solidity ^«minVersion» < «maxVersion» '''.toString
+		}
 	}
 	
 	def dispatch String text(PragmaExperimentalDirective it) {

@@ -1,17 +1,22 @@
 sudo: false
-language: java
-jdk: 
- - oraclejdk8
+dist: xenial
+language: generic
+jdk:
+ - openjdk11
+node_js:
+ - "10.16.0"
 before_cache:
  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 services:
  - docker
+ - xvfb
 cache:
   directories:
   - $HOME/.m2
   - $HOME/.gradle/caches/
   - $HOME/.gradle/wrapper/
+  - $HOME/.cache/yarn
 env:
   global:
   - DISPLAY=:99.0
@@ -19,11 +24,10 @@ env:
   - TERM=dumb
   - TARGET=Latest.target
 before_install:
-- sh -e /etc/init.d/xvfb start - sleep 10
-- chmod +x $TRAVIS_BUILD_DIR/extensions/vscode/gradlew
+ - chmod +x $TRAVIS_BUILD_DIR/extensions/vscode/gradlew
 jobs:
   include:
-    - stage: Compile and Test
+    - stage: Build YAKINDU Solidity IDE and language server
       script: 
       - cd releng/com.yakindu.solidity.releng
       - mvn clean verify -P$TARGET,tests
@@ -32,13 +36,16 @@ jobs:
       - cd $TRAVIS_BUILD_DIR/extensions/vscode
       - ./gradlew vscodeExtension
       - cd $TRAVIS_BUILD_DIR
-      - cp -r plugins/com.yakindu.solidity.ide/target/languageserver extensions/theia/docker/theia_app
-      - cp -r extensions/theia/ide extensions/theia/docker/theia_app
-      - docker build extensions/theia/docker/theia_app/. -t yakindu/solidity-ide  
+      - cp -r extensions/theia/ide extensions/theia/docker/theia_app/ide
+      - cp -r plugins/com.yakindu.solidity.ide/target/languageserver extensions/theia/docker/theia_app/ide/xtext-dsl-extension/lsp
+      - cd extensions/theia/docker/theia_app/ide
+      - yarn install --production
+      - cd $TRAVIS_BUILD_DIR
+      - docker build extensions/theia/docker/theia_app/. -t yakindu/solidity-ide
 deploy:
   skip_cleanup: true
   on:
-    all_branches: true
+    branch: master
   github_token: $GITHUB_TOKEN
   provider: script
   script: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && docker push yakindu/solidity-ide
