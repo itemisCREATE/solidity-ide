@@ -9,13 +9,11 @@ import org.eclipse.lsp4j.jsonrpc.messages.Either
 import org.eclipse.xtext.ide.server.codeActions.ICodeActionService2
 import com.yakindu.solidity.SolidityVersion
 import com.google.inject.name.Named
-
 import static com.yakindu.solidity.validation.IssueCodes.*
 
 class SolidityIdeCodeActionService implements ICodeActionService2 {
 
 	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) String solcVersion
-
 	protected def addTextEdit(WorkspaceEdit edit, URI uri, TextEdit... textEdit) {
 		edit.changes.put(uri.toString, textEdit)
 	}
@@ -65,6 +63,6 @@ class SolidityIdeCodeActionService implements ICodeActionService2 {
 	def boolean hasSolution(String issueCode) {
 		return !issueCode.label.nullOrEmpty
 	}
-	
+
 
 }

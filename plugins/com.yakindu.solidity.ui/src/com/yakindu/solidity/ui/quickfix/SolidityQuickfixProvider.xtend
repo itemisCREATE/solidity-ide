@@ -63,6 +63,7 @@ import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import com.yakindu.solidity.ide.internal.CodeActionProvider
 
 /** 
  * @author andreas muelder - Initial contribution and API
@@ -75,6 +76,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	@Inject extension SolidityFactory
 	@Inject ITypeSystemInferrer typeInferrer
 	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) String solcVersion
+	@Inject extension CodeActionProvider
 	ExpressionsFactory factory = ExpressionsFactory.eINSTANCE
 
 	@Fix(WARNING_SOLIDITY_VERSION_NOT_THE_DEFAULT)
@@ -83,7 +85,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element instanceof PragmaSolidityDirective) {
-						element.version = solcVersion
+						element.version = issue.code.fix
 					}
 				}
 			})
