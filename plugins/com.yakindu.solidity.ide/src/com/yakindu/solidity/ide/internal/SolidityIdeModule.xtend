@@ -15,8 +15,8 @@
 package com.yakindu.solidity.ide.internal
 
 import com.yakindu.solidity.ide.AbstractSolidityIdeModule
+import org.eclipse.xtext.ide.server.codeActions.ICodeActionService2
 import org.eclipse.xtext.ide.server.contentassist.ContentAssistService
-import org.eclipse.xtext.ide.server.codeActions.ICodeActionService
 
 /**
  * 
@@ -31,7 +31,7 @@ class SolidityIdeModule extends AbstractSolidityIdeModule {
 		return CustomContentAssistService
 	}
 	
-	def Class<? extends ICodeActionService> bindICodeActionService() {
+	def Class<? extends ICodeActionService2> bindICodeActionService() {
 		return SolidityIdeCodeActionService
 	}
 }

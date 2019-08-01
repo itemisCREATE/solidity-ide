@@ -6,5 +6,5 @@
 */lsp/
 */examples/
 /node_modules/
-/xtext-dsl-extension/lsp
-/com.yakindu.solidity.web.ide.docker.tar.gz
+/docker/theia_app/ide
+/docker/theia_app/languageserver
