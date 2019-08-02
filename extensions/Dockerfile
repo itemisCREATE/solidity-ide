@@ -19,11 +19,13 @@ RUN apt-get update; \
 #Switch to User node
 USER node
 WORKDIR /home/node
-COPY --chown=node:node ide ./theia
+COPY --chown=node:node theia ./theia
 
 WORKDIR /home/node/theia
 RUN yarn install --production
 
+WORKDIR /home/node/
+
 # Startup
 EXPOSE 8080 
-CMD cd ./app && yarn start
+CMD cd ./theia/app && yarn start
