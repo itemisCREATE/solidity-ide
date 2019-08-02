@@ -45,7 +45,7 @@ jobs:
 deploy:
   skip_cleanup: true
   on:
-    branch: master
+    branch: master 
   github_token: $GITHUB_TOKEN
   provider: script
   script: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && docker push yakindu/solidity-ide
