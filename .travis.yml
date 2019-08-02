@@ -36,12 +36,11 @@ jobs:
       - cd $TRAVIS_BUILD_DIR/extensions/vscode
       - ./gradlew vscodeExtension
       - cd $TRAVIS_BUILD_DIR
-      - cp -r extensions/theia/ide extensions/theia/docker/theia_app/ide
-      - cp -r plugins/com.yakindu.solidity.ide/target/languageserver extensions/theia/docker/theia_app/ide/xtext-dsl-extension/lsp
-      - cd extensions/theia/docker/theia_app/ide
-      - yarn install --production
+      - cp -r plugins/com.yakindu.solidity.ide/target/languageserver extensions/theia/xtext-dsl-extension/lsp
+      - cd extensions/theia/
+      - yarn install
       - cd $TRAVIS_BUILD_DIR
-      - docker build extensions/theia/docker/theia_app/. -t yakindu/solidity-ide
+      - docker build extensions/. -t yakindu/solidity-ide
 deploy:
   skip_cleanup: true
   on:

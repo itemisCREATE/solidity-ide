@@ -1,8 +1,0 @@
-*.log
-*/node_modules/
-*/lib/
-*/src-gen/
-*/bin/
-*/lsp/
-*/examples/
-/node_modules/
