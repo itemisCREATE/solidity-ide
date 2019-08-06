@@ -718,21 +718,16 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	}
 
 	@Fix(WARNING_FUNCTION_STATE_MUTABILITY_PURE)
-	def addPureModifier(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, 'Add \'pure\' modifier', 'pure function', null, new ISemanticModification() {
+	def declareFunctionAsPure(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Use "pure" instead.', 'Use "pure" instead.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				if (element instanceof FunctionDefinition) {
 					val definition = element as FunctionDefinition
 					// Constant & pure exclude each other
 					val constant = definition.modifier.findFirst [ it |
-						it instanceof BuildInModifier && (it as BuildInModifier).type == FunctionModifier.CONSTANT
+						it instanceof BuildInModifier && (it as BuildInModifier).type == FunctionModifier.VIEW
 					]
-					if (constant !== null) {
-						definition.modifier.remove(constant)
-					}
-					definition.modifier += createBuildInModifier => [
-						type = FunctionModifier.PURE
-					]
+					constant?.changeFunctionModifierTo(FunctionModifier.PURE)
 				}
 			}
 		})
