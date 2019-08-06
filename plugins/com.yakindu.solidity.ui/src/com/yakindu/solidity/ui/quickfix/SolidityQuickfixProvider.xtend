@@ -63,7 +63,6 @@ import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import com.yakindu.solidity.ide.internal.CodeActionProvider
 
 /** 
  * @author andreas muelder - Initial contribution and API
@@ -76,16 +75,15 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	@Inject extension SolidityFactory
 	@Inject ITypeSystemInferrer typeInferrer
 	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) String solcVersion
-	@Inject extension CodeActionProvider
 	ExpressionsFactory factory = ExpressionsFactory.eINSTANCE
 
 	@Fix(WARNING_SOLIDITY_VERSION_NOT_THE_DEFAULT)
 	def changeToDefaultPragma(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, issue.code.label, 'solidity version', null,
+		acceptor.accept(issue, '''Change version to «solcVersion»''', 'solidity version', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element instanceof PragmaSolidityDirective) {
-						element.version = issue.code.fix
+						element.version = solcVersion
 					}
 				}
 			})
@@ -93,7 +91,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 
 	@Fix(ERROR_STATE_MUTABILITY_ONLY_ALLOWED_FOR_ADDRESS)
 	def removePayableToNonAddressDeclaration(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, issue.code.label, issue.code.label, null,
+		acceptor.accept(issue, '''Remove payable declaration''', '''Remove payable declaration''', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element instanceof Parameter) {
@@ -119,7 +117,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 							if (typeSpecifier.type.name === SolidityTypeSystem.ADDRESS) {
 								val document = context.xtextDocument
 								val node = NodeModelUtils.getNode(typeSpecifier)
-								val fixed = document.get(node.offset, node.length) + " payable"
+								val fixed = document.get(node.offset, node.length) + ''' payable'''
 								document.replace(node.offset, node.length, fixed)
 							}
 						}
@@ -128,7 +126,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 							if (typeSpecifier.type.name === SolidityTypeSystem.ADDRESS) {
 								val document = context.xtextDocument
 								val node = NodeModelUtils.getNode(typeSpecifier)
-								val fixed = document.get(node.offset, node.length) + " payable"
+								val fixed = document.get(node.offset, node.length) + ''' payable'''
 								document.replace(node.offset, node.length, fixed)
 							}
 						}
