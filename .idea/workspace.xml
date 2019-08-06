@@ -2,72 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a9713750-4343-436b-97e9-aa81a78396ce" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/extensions/vscode/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/com.yakindu.solidity.solc.feature/feature.xml" beforeDir="false" afterPath="$PROJECT_DIR$/features/com.yakindu.solidity.solc.feature/feature.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/.classpath" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/build.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/compiler/lllc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/compiler/solc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/src/com/yakindu/solidity/compiler/SolidityCompiler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/.classpath" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/build.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/compiler/msvcp140.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/compiler/msvcp140_1.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/compiler/msvcp140_2.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/compiler/solc.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/src/com/yakindu/solidity/compiler/SolidityCompiler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/.classpath" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/build.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/plugin.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/ISolidityCompiler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/SolidityCompilerActivator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/SolidityCompilerBase.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/builder/processor/OutputParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/output/CompileOutputType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/output/FileOutputProcessor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/output/OutputParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/output/SolidityError.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/output/SolidityIssueCreator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/output/SolidityWarning.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/parameter/Library.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/parameter/Optimizer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/parameter/OutputSelection.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/parameter/Parameter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/parameter/ParameterBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/parameter/Settings.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/parameter/Source.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/preferences/CompilerPreferenceInitializer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/preferences/ICompilerPreferences.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/Abi.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/Bytecode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/CompileError.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/CompiledContract.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/CompiledSource.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/CompilerOutput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/Documentation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/EvmOutput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/GasEstimates.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/SourceLocation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.ui/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.ui/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity/model/generated/Solidity.genmodel" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity/model/generated/Solidity.genmodel" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/releng/com.yakindu.solidity.releng/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/releng/com.yakindu.solidity.releng/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.ide/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.ide/pom.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -80,50 +16,7 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.travis.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="12" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/extensions/theia/code/.theia/tasks.json">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/lsp/bin/solidity-ls">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/extensions/theia/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" selection-start-line="10" selection-end-line="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/extensions/Dockerfile">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/extensions/theia/package.json">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -184,23 +77,6 @@
               <item name="theia" type="462c0819:PsiDirectoryNode" />
               <item name="xtext-dsl-extension" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="solidity-ide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="solidity-ide" type="462c0819:PsiDirectoryNode" />
-              <item name="extensions" type="462c0819:PsiDirectoryNode" />
-              <item name="theia" type="462c0819:PsiDirectoryNode" />
-              <item name="xtext-dsl-extension" type="462c0819:PsiDirectoryNode" />
-              <item name="lsp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="solidity-ide" type="b2602c69:ProjectViewProjectNode" />
-              <item name="solidity-ide" type="462c0819:PsiDirectoryNode" />
-              <item name="extensions" type="462c0819:PsiDirectoryNode" />
-              <item name="theia" type="462c0819:PsiDirectoryNode" />
-              <item name="xtext-dsl-extension" type="462c0819:PsiDirectoryNode" />
-              <item name="lsp" type="462c0819:PsiDirectoryNode" />
-              <item name="bin" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -210,6 +86,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -273,16 +150,15 @@
       <workItem from="1564043235799" duration="9908000" />
       <workItem from="1564733897876" duration="4394000" />
       <workItem from="1564991479488" duration="337000" />
-      <workItem from="1565073262338" duration="559000" />
+      <workItem from="1565073262338" duration="1030000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19381000" />
+    <option name="totallyTimeSpent" value="19852000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="972" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2014652" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -329,15 +205,18 @@
     <entry file="file://$PROJECT_DIR$/extensions/theia/login/package-lock.json" />
     <entry file="file://$PROJECT_DIR$/extensions/theia/docker/theia_app/.gitignore" />
     <entry file="file://$PROJECT_DIR$/extensions/theia/ide/.gitignore" />
+    <entry file="file://$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/lsp/bin/solidity-ls">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extensions/theia/code/.theia/tasks.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/.travis.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="12" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="12" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extensions/theia/code/.theia/tasks.json">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/extensions/theia/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
@@ -354,9 +233,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/extensions/theia/package.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/lsp/bin/solidity-ls">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>

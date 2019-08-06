@@ -24,6 +24,7 @@
 
    <requires>
       <import feature="org.yakindu.base" version="3.5.5.201906181009" match="perfect"/>
+      <import feature="com.yakindu.solidity.solc.feature" version="0.7.3.qualifier"/>
    </requires>
 
    <plugin
@@ -42,13 +43,6 @@
 
    <plugin
          id="com.yakindu.solidity.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.yakindu.solidity.compiler"
          download-size="0"
          install-size="0"
          version="0.0.0"
