@@ -1,4 +1,4 @@
-package com.yakindu.solidity.tests
+package com.yakindu.solidity.ui.tests
 
 import org.eclipse.xtext.ui.testing.AbstractQuickfixTest
 import org.junit.Before
@@ -10,7 +10,7 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.testing.InjectWith
 
 @RunWith(XtextRunner)
-@InjectWith(SolidityInjectorProvider)
+@InjectWith(SolidityUiInjectorProvider)
 class SolidityQuickfixTests extends AbstractQuickfixTest {
 
 	@Before
