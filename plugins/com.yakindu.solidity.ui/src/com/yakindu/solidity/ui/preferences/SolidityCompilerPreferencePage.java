@@ -14,12 +14,12 @@
  */
 package com.yakindu.solidity.ui.preferences;
 
-import static com.yakindu.solidity.compiler.preferences.ICompilerPreferences.COMPILER_ENABLED;
-import static com.yakindu.solidity.compiler.preferences.ICompilerPreferences.COMPILER_OUTPUT_ABI;
-import static com.yakindu.solidity.compiler.preferences.ICompilerPreferences.COMPILER_OUTPUT_ASM;
-import static com.yakindu.solidity.compiler.preferences.ICompilerPreferences.COMPILER_OUTPUT_BIN;
-import static com.yakindu.solidity.compiler.preferences.ICompilerPreferences.COMPILER_OUTPUT_PATH;
-import static com.yakindu.solidity.compiler.preferences.ICompilerPreferences.COMPILER_PATH;
+import static com.yakindu.solidity.solc.preferences.ICompilerPreferences.COMPILER_ENABLED;
+import static com.yakindu.solidity.solc.preferences.ICompilerPreferences.COMPILER_OUTPUT_ABI;
+import static com.yakindu.solidity.solc.preferences.ICompilerPreferences.COMPILER_OUTPUT_ASM;
+import static com.yakindu.solidity.solc.preferences.ICompilerPreferences.COMPILER_OUTPUT_BIN;
+import static com.yakindu.solidity.solc.preferences.ICompilerPreferences.COMPILER_OUTPUT_PATH;
+import static com.yakindu.solidity.solc.preferences.ICompilerPreferences.COMPILER_PATH;
 
 import java.io.File;
 
@@ -39,7 +39,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
-import com.yakindu.solidity.compiler.SolidityCompilerActivator;
+import com.yakindu.solidity.solc.SolidityCompilerActivator;
 
 /**
  * 

@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Solidity Tools Compiler
+Bundle-SymbolicName: com.yakindu.solidity.solc;singleton:=true
+Bundle-Version: 0.7.3.qualifier
+Bundle-Vendor: YAKINDU
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.yakindu.base.types,
+ com.google.gson,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ com.google.guava,
+ org.eclipse.xtext
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: com.yakindu.solidity.solc.SolidityCompilerActivator
+Export-Package: com.yakindu.solidity.solc,
+ com.yakindu.solidity.solc.builder.processor,
+ com.yakindu.solidity.solc.output,
+ com.yakindu.solidity.solc.parameter,
+ com.yakindu.solidity.solc.preferences,
+ com.yakindu.solidity.solc.result
+Automatic-Module-Name: com.yakindu.solidity.solc

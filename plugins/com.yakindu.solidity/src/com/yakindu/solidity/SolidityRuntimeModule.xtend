@@ -17,7 +17,7 @@ package com.yakindu.solidity
 
 import com.google.inject.Binder
 import com.google.inject.name.Names
-import com.yakindu.solidity.compiler.ISolidityCompiler
+import com.yakindu.solidity.solc.ISolidityCompiler
 import com.yakindu.solidity.scoping.SolidityGlobalScopeProvider
 import com.yakindu.solidity.scoping.SolidityImportedNamespaceAwareLocalScopeProvider
 import com.yakindu.solidity.scoping.SolidityResourceDescriptionStrategy
@@ -62,7 +62,7 @@ class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 	private def bindCompiler(Binder binder) {
 		try {
 			val clazz = (Class.forName(
-				"com.yakindu.solidity.compiler.SolidityCompiler") as Class<? extends ISolidityCompiler>)
+				"com.yakindu.solidity.solc.SolidityCompiler") as Class<? extends ISolidityCompiler>)
 			if (clazz !== null) {
 				binder.bind(ISolidityCompiler).to(clazz);
 			}

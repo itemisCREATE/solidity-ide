@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a9713750-4343-436b-97e9-aa81a78396ce" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/extensions/vscode/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/com.yakindu.solidity.solc.feature/feature.xml" beforeDir="false" afterPath="$PROJECT_DIR$/features/com.yakindu.solidity.solc.feature/feature.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/.classpath" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/build.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/compiler/lllc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/compiler/solc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.linux.fragment/src/com/yakindu/solidity/compiler/SolidityCompiler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/.classpath" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/build.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/compiler/msvcp140.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/compiler/msvcp140_1.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/compiler/msvcp140_2.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/compiler/solc.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler.win.fragment/src/com/yakindu/solidity/compiler/SolidityCompiler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/.classpath" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/build.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/plugin.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/ISolidityCompiler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/SolidityCompilerActivator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/SolidityCompilerBase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/builder/processor/OutputParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/output/CompileOutputType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/output/FileOutputProcessor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/output/OutputParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/output/SolidityError.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/output/SolidityIssueCreator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/output/SolidityWarning.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/parameter/Library.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/parameter/Optimizer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/parameter/OutputSelection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/parameter/Parameter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/parameter/ParameterBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/parameter/Settings.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/parameter/Source.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/preferences/CompilerPreferenceInitializer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/preferences/ICompilerPreferences.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/Abi.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/Bytecode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/CompileError.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/CompiledContract.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/CompiledSource.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/CompilerOutput.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/Documentation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/EvmOutput.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/GasEstimates.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.compiler/src/com/yakindu/solidity/compiler/result/SourceLocation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.ui/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.ui/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity/model/generated/Solidity.genmodel" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity/model/generated/Solidity.genmodel" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/releng/com.yakindu.solidity.releng/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/releng/com.yakindu.solidity.releng/pom.xml" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="delegatedBuild" value="true" />
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.travis.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="12" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/extensions/theia/code/.theia/tasks.json">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/lsp/bin/solidity-ls">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/extensions/theia/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/extensions/Dockerfile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/extensions/theia/package.json">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/extensions/theia/docker/theia_app/Dockerfile" />
+        <option value="$PROJECT_DIR$/extensions/theia/.gitignore" />
+        <option value="$PROJECT_DIR$/extensions/theia/Dockerfile" />
+        <option value="$PROJECT_DIR$/.travis.yml" />
+        <option value="$PROJECT_DIR$/extensions/Dockerfile" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectConfigurationFiles">
+    <option name="files">
+      <list>
+        <option value="$PROJECT_DIR$/.idea/solidity-ide.iml" />
+        <option value="$PROJECT_DIR$/.idea/misc.xml" />
+        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
+        <option value="$PROJECT_DIR$/.idea/modules.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="23" />
+    <option name="width" value="1680" />
+    <option name="height" value="973" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="solidity-ide" type="b2602c69:ProjectViewProjectNode" />
+              <item name="solidity-ide" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="solidity-ide" type="b2602c69:ProjectViewProjectNode" />
+              <item name="solidity-ide" type="462c0819:PsiDirectoryNode" />
+              <item name="extensions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="solidity-ide" type="b2602c69:ProjectViewProjectNode" />
+              <item name="solidity-ide" type="462c0819:PsiDirectoryNode" />
+              <item name="extensions" type="462c0819:PsiDirectoryNode" />
+              <item name="theia" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="solidity-ide" type="b2602c69:ProjectViewProjectNode" />
+              <item name="solidity-ide" type="462c0819:PsiDirectoryNode" />
+              <item name="extensions" type="462c0819:PsiDirectoryNode" />
+              <item name="theia" type="462c0819:PsiDirectoryNode" />
+              <item name="xtext-dsl-extension" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="solidity-ide" type="b2602c69:ProjectViewProjectNode" />
+              <item name="solidity-ide" type="462c0819:PsiDirectoryNode" />
+              <item name="extensions" type="462c0819:PsiDirectoryNode" />
+              <item name="theia" type="462c0819:PsiDirectoryNode" />
+              <item name="xtext-dsl-extension" type="462c0819:PsiDirectoryNode" />
+              <item name="lsp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="solidity-ide" type="b2602c69:ProjectViewProjectNode" />
+              <item name="solidity-ide" type="462c0819:PsiDirectoryNode" />
+              <item name="extensions" type="462c0819:PsiDirectoryNode" />
+              <item name="theia" type="462c0819:PsiDirectoryNode" />
+              <item name="xtext-dsl-extension" type="462c0819:PsiDirectoryNode" />
+              <item name="lsp" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/extensions" />
+      <recent name="$PROJECT_DIR$/extensions/theia" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a9713750-4343-436b-97e9-aa81a78396ce" name="Default Changelist" comment="" />
+      <created>1563800750946</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1563800750946</updated>
+      <workItem from="1563800754435" duration="4183000" />
+      <workItem from="1564043235799" duration="9908000" />
+      <workItem from="1564733897876" duration="4394000" />
+      <workItem from="1564991479488" duration="337000" />
+      <workItem from="1565073262338" duration="559000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="19381000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1680" height="972" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2014652" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="TypeScript" order="12" visible="true" weight="0.33894232" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="Palette&#9;" order="5" />
+      <window_info anchor="right" id="SciView" order="6" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/extensions/theia/ide/package.json" />
+    <entry file="file://$PROJECT_DIR$/extensions/theia/ide/xtext-dsl-extension/package.json" />
+    <entry file="file://$PROJECT_DIR$/extensions/theia/docker/login/Dockerfile" />
+    <entry file="file://$PROJECT_DIR$/extensions/theia/login/src/cleaner.ts" />
+    <entry file="file://$PROJECT_DIR$/extensions/theia/login/src/server.ts" />
+    <entry file="file://$PROJECT_DIR$/extensions/theia/login/package.json" />
+    <entry file="file://$PROJECT_DIR$/extensions/theia/login/public/index.html" />
+    <entry file="file://$PROJECT_DIR$/extensions/theia/login/tsconfig.json" />
+    <entry file="file://$PROJECT_DIR$/extensions/theia/login/src/function.ts" />
+    <entry file="file://$PROJECT_DIR$/extensions/theia/docker/theia_app/ide/.gitignore" />
+    <entry file="file://$PROJECT_DIR$/extensions/theia/ide/app/package.json" />
+    <entry file="file://$PROJECT_DIR$/extensions/theia/docker/theia_app/ide/yarn.lock" />
+    <entry file="file://$PROJECT_DIR$/extensions/theia/login/package-lock.json" />
+    <entry file="file://$PROJECT_DIR$/extensions/theia/docker/theia_app/.gitignore" />
+    <entry file="file://$PROJECT_DIR$/extensions/theia/ide/.gitignore" />
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="12" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extensions/theia/code/.theia/tasks.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extensions/theia/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extensions/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extensions/theia/package.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/lsp/bin/solidity-ls">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
