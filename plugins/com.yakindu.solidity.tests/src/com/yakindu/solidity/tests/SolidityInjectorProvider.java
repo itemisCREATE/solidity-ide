@@ -7,10 +7,15 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.yakindu.solidity.SolidityRuntimeModule;
 import com.yakindu.solidity.SolidityStandaloneSetup;
+import com.yakindu.solidity.ui.quickfix.SolidityQuickfixProvider;
+
 import org.eclipse.xtext.testing.GlobalRegistries;
 import org.eclipse.xtext.testing.GlobalRegistries.GlobalStateMemento;
 import org.eclipse.xtext.testing.IInjectorProvider;
 import org.eclipse.xtext.testing.IRegistryConfigurator;
+import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionProvider;
+import org.eclipse.xtext.ui.resource.IResourceSetProvider;
+import org.eclipse.xtext.ui.resource.XtextResourceSetProvider;
 
 public class SolidityInjectorProvider implements IInjectorProvider, IRegistryConfigurator {
 
@@ -49,6 +54,14 @@ public class SolidityInjectorProvider implements IInjectorProvider, IRegistryCon
 			public ClassLoader bindClassLoaderToInstance() {
 				return SolidityInjectorProvider.class
 						.getClassLoader();
+			}
+			
+			public Class<? extends IssueResolutionProvider> bindIssueResolutionProvider() {
+				return SolidityQuickfixProvider.class;
+			}
+			
+			public Class<? extends IResourceSetProvider> bindIResourceSetProvider() {
+				return XtextResourceSetProvider.class;
 			}
 		};
 	}
