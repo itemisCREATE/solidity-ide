@@ -38,6 +38,7 @@ import com.yakindu.solidity.solidity.StructDefinition
 import com.yakindu.solidity.solidity.TupleExpression
 import com.yakindu.solidity.solidity.VariableDefinition
 import com.yakindu.solidity.solidity.WhileStatement
+import com.yakindu.solidity.solidity.InlineAssemblyBlock
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import org.eclipse.xtext.formatting2.IHiddenRegionFormatter
@@ -450,6 +451,21 @@ class SolidityFormatter extends AbstractFormatter2 {
 		regionFor.keyword(":").surround[oneSpace]
 		surround[oneSpace; priority = IHiddenRegionFormatter.LOW_PRIORITY]
 		value.format
+	}
+
+	def dispatch void format(InlineAssemblyBlock it, extension IFormattableDocument document) {
+		interior[indent]
+		regionFor.keywordPairs('{', '}').forEach [
+			key.append[newLines]
+			key.prepend[oneSpace]
+			value.prepend[noSpace]
+		]
+
+		items.forEach [
+			format;
+			prepend[noSpace];
+			append[newLines(1, 1, 2); priority = IHiddenRegionFormatter.HIGH_PRIORITY];
+		]
 	}
 
 	protected def void newLines(IHiddenRegionFormatter it) {
