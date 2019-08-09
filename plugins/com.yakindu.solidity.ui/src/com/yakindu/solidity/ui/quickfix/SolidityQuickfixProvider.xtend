@@ -101,6 +101,13 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 						val fixed = document.get(node.offset, node.length).replace("payable", "")
 						document.replace(node.offset, node.length, fixed)
 					}
+					if (element instanceof VariableDefinition) {
+						val variable = (element as VariableDefinition)
+						val document = context.xtextDocument
+						val node = NodeModelUtils.getNode(variable)
+						val fixed = document.get(node.offset, node.length).replace(" payable", "")
+						document.replace(node.offset, node.length, fixed)
+					}
 				}
 			})
 	}
@@ -163,7 +170,8 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
-					if (element instanceof ArrayTypeSpecifier || element instanceof MappingTypeSpecifier) {
+					if (element instanceof MappingTypeSpecifier || element instanceof TypeSpecifier || element instanceof ArrayTypeSpecifier) {
+						(element.eContainer as Parameter).fixDeclaration(StorageLocation.CALLDATA, issue, context)
 					}
 				}
 			}
@@ -180,7 +188,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
-					if (element instanceof TypeSpecifier) {
+					if (element instanceof TypeSpecifier || element instanceof ArrayTypeSpecifier) {
 						(element.eContainer as Parameter).fixDeclaration(StorageLocation.MEMORY, issue, context)
 					}
 				}
@@ -258,8 +266,13 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		} else {
 			val issueString = document.get(issue.offset, issue.length)
 			val index = document.get(issue.offset, issue.length).lastIndexOf(name)
-			val fixed = issueString.substring(0, index) + location.literal + " " + name;
-			document.replace(issue.offset, issue.length, fixed)
+			if (index == -1 && !name.nullOrEmpty) {
+				val fixed = issueString + " " + location.literal;
+				document.replace(issue.offset, issue.length, fixed)
+			} else {
+				val fixed = issueString.substring(0, index) + location.literal + " " + name;
+				document.replace(issue.offset, issue.length, fixed)
+			}
 		}
 	}
 
@@ -284,6 +297,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 							// FIXME this relates to #230 tuple expressions have multiple identifiers
 							name = "x"
 						}
+						identifier = identifier
 						visibility = definition.visibility
 						initialValue = definition.initialValue
 						storage = definition.storage
@@ -323,10 +337,11 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		acceptor.accept(issue, 'Use "view" instead.', 'Use "view" instead.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				val functionDefinition = EcoreUtil2.getContainerOfType(element, FunctionDefinition)
-				val pure = functionDefinition.modifier.findFirst [
-					it instanceof BuildInModifier && (it as BuildInModifier).type === FunctionModifier.PURE
+				val modifier = functionDefinition.modifier.findFirst [
+					it instanceof BuildInModifier && ((it as BuildInModifier).type === FunctionModifier.PURE ||
+						(it as BuildInModifier).type === FunctionModifier.CONSTANT)
 				]
-				pure?.changeFunctionModifierTo(FunctionModifier.VIEW)
+				modifier?.changeFunctionModifierTo(FunctionModifier.VIEW)
 			}
 		})
 	}
@@ -362,7 +377,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		acceptor.accept(issue, 'Use "pure" instead.', 'Use "pure" instead.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				if (element instanceof BuildInModifier) {
-					element.changeFunctionModifierTo(FunctionModifier.VIEW)
+					element.changeFunctionModifierTo(FunctionModifier.PURE)
 				}
 			}
 		})
@@ -450,18 +465,23 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 
 	@Fix(WARNING_FILE_NO_PRAGMA_SOLIDITY)
 	def addDefaultSolidityPragma(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, 'Add default solidity pragma', 'Add solidity pragma ^' + solcVersion + '.', null,
+		acceptor.accept(issue, 'Add default solidity pragma', 'Add solidity pragma ' + solcVersion + '.', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
-					if (element.eContainer instanceof SourceUnit) {
-						val sourceUnit = element.eContainer as SourceUnit
-						val pragma = createPragmaSolidityDirective => [
-						version = solcVersion
-						]
-						sourceUnit.pragma += pragma
+					if (element instanceof SourceUnit) {
+						element.fixPragmaSolidityDirective
+					} else if (element.eContainer instanceof SourceUnit) {
+						(element.eContainer as SourceUnit).fixPragmaSolidityDirective
 					}
 				}
 			})
+	}
+
+	def fixPragmaSolidityDirective(SourceUnit sourceUnit) {
+		val pragma = createPragmaSolidityDirective => [
+			version = solcVersion
+		]
+		sourceUnit.pragma += pragma
 	}
 
 	@Fixes(@Fix(WARNING_DEPRECATED_SUICIDE),
@@ -723,11 +743,16 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				if (element instanceof FunctionDefinition) {
 					val definition = element as FunctionDefinition
-					// Constant & pure exclude each other
+					// Constant & pure exclude each other						
 					val constant = definition.modifier.findFirst [ it |
 						it instanceof BuildInModifier && (it as BuildInModifier).type == FunctionModifier.VIEW
 					]
 					constant?.changeFunctionModifierTo(FunctionModifier.PURE)
+					if (constant === null) {
+						definition.modifier.add(0, createBuildInModifier => [
+							type = FunctionModifier.PURE
+						])
+					}
 				}
 			}
 		})
