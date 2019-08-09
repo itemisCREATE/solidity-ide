@@ -470,10 +470,6 @@ class SolidityFormatter extends AbstractFormatter2 {
 		]
 	}
 
-	 /* com.yakindu.solidity.solidity.impl.AssemblyLocalBindingImpl@6a1b51a7 (label: size)
-com.yakindu.solidity.solidity.impl.AssemblyAssignmentImpl@5ea206bc (leftOperand: o_code, rightOpernd: null)
-com.yakindu.solidity.solidity.impl.FunctionalAssemblyExpressionImpl@7b6bcbee (label: extcodecopy)
-	 */
 	def dispatch void format(FunctionalAssemblyExpression it, extension IFormattableDocument document) {
 		parameters.forEach[
 			prepend[oneSpace]
