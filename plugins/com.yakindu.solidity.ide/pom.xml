@@ -33,6 +33,24 @@
 			<artifactId>asm-tree</artifactId>
 			<version>6.2.1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.yakindu.solidity</groupId>
+			<artifactId>com.yakindu.solidity.solc.mac.fragment</artifactId>
+			<version>0.7.3-SNAPSHOT</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.yakindu.solidity</groupId>
+			<artifactId>com.yakindu.solidity.solc.win.fragment</artifactId>
+			<version>0.7.3-SNAPSHOT</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.yakindu.solidity</groupId>
+			<artifactId>com.yakindu.solidity.solc.linux.fragment</artifactId>
+			<version>0.7.3-SNAPSHOT</version>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>
@@ -103,9 +121,6 @@
 								org.eclipse.core.contenttype,
 								org.eclipse.core.expressions,
 								org.eclipse.core.filesystem,
-								org.eclipse.core.jobs,
-								org.eclipse.core.resources,
-								org.eclipse.core.runtime,
 								org.eclipse.core.variables,
 								org.eclipse.debug.core,
 								org.eclipse.emf.codegen.ecore,
@@ -115,7 +130,6 @@
 								org.eclipse.emf.mwe2.lib,
 								org.eclipse.emf.mwe2.runtime,
 								org.eclipse.equinox.app,
-								org.eclipse.equinox.preferences,
 								org.eclipse.equinox.registry,
 								org.eclipse.jdt.core,
 								org.eclipse.jdt.debug,
