@@ -24,7 +24,7 @@ import org.osgi.framework.BundleContext;
  */
 public class SolidityCompilerActivator extends Plugin {
 
-	public static final String PLUGIN_ID = "com.yakindu.solidity.compiler";
+	public static final String PLUGIN_ID = "com.yakindu.solidity.solc";
 	
 	private static SolidityCompilerActivator INSTANCE;
 
