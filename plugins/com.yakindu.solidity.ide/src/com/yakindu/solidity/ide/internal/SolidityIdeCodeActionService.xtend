@@ -46,9 +46,6 @@ class SolidityIdeCodeActionService implements ICodeActionService2 {
 	def String getLabel(String issueCode) {
 		switch (issueCode) {
 			case WARNING_SOLIDITY_VERSION_NOT_THE_DEFAULT : '''Change version to «solcVersion»'''
-			case ERROR_STATE_MUTABILITY_ONLY_ALLOWED_FOR_ADDRESS : '''Remove payable declaration'''
-			case ERROR_MEMBER_TRANSFER_NOT_FOUND_OR_VISIBLE: '''Add payable to declaration'''
-			case ERROR_INVALID_IMPLICID_CONVERSION_TO_ADDRESS_PAYABLE: ''''''
 			default: ""
 		}
 	}
@@ -56,9 +53,6 @@ class SolidityIdeCodeActionService implements ICodeActionService2 {
 	def String getFix(String issueCode) {
 		switch (issueCode) {
 			case WARNING_SOLIDITY_VERSION_NOT_THE_DEFAULT : solcVersion
-			case ERROR_STATE_MUTABILITY_ONLY_ALLOWED_FOR_ADDRESS: ""
-			case ERROR_MEMBER_TRANSFER_NOT_FOUND_OR_VISIBLE : ''' payable'''
-			case ERROR_INVALID_IMPLICID_CONVERSION_TO_ADDRESS_PAYABLE : ''' payable'''
 			default: ""
 		}
 	}
