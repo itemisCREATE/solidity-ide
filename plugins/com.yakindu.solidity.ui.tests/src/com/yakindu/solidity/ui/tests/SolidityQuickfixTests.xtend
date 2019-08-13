@@ -708,4 +708,208 @@ class SolidityQuickfixTests extends AbstractQuickfixTest {
 			new Quickfix('Remove all disallowed modifiers.', 'Remove all disallowed modifiers.', expectedResult)
 		)
 	}
+
+	@Test
+	def void testFixForMissingParameterDataLocationSpecification() {
+		var modelToFix = '''
+			pragma solidity ^0.5.9;
+			
+			contract Test {
+			    function test(bytes data) pure internal returns (uint transactionId)
+			    {
+			        return 0;
+			    }
+			}
+		'''
+
+		var expectedResultMemory = '''
+			pragma solidity ^0.5.9;
+			
+			contract Test {
+			    function test(bytes memory data) pure internal returns (uint transactionId)
+			    {
+			        return 0;
+			    }
+			}
+		'''
+
+		var expectedResultStorage = '''
+			pragma solidity ^0.5.9;
+			
+			contract Test {
+			    function test(bytes storage data) pure internal returns (uint transactionId)
+			    {
+			        return 0;
+			    }
+			}
+		'''
+
+		testQuickfixesOn(
+			modelToFix,
+			ERROR_DATA_LOCATION_MUST_BE_STORAGE_OR_MEMORY_FOR_PARAMETER,
+			new Quickfix('Add \'memory\' modifier.', 'Data location must be "memory" here. Add \'memory\' modifier.',
+				expectedResultMemory),
+			new Quickfix('Add \'storage\' modifier.', 'Data location must be "storage" here. Add \'storage\' modifier.',
+				expectedResultStorage)
+		)
+	}
+
+	@Test
+	def void testFixForMissingVariableDataLocationSpecification() {
+		var modelToFix = '''
+			pragma solidity ^0.5.9;
+			
+			contract Test {
+			    function test() pure internal returns (uint transactionId)
+			    {
+			        bytes data;
+			        return 0;
+			    }
+			}
+		'''
+
+		var expectedResultMemory = '''
+			pragma solidity ^0.5.9;
+			
+			contract Test {
+			    function test() pure internal returns (uint transactionId)
+			    {
+			        bytes memory data;
+			        return 0;
+			    }
+			}
+		'''
+
+		var expectedResultStorage = '''
+			pragma solidity ^0.5.9;
+			
+			contract Test {
+			    function test() pure internal returns (uint transactionId)
+			    {
+			        bytes storage data;
+			        return 0;
+			    }
+			}
+		'''
+
+		testQuickfixesOn(
+			modelToFix,
+			ERROR_DATA_LOCATION_MUST_BE_SPECIFIED_FOR_VARIABLE,
+			new Quickfix('Add \'memory\' modifier.', 'Add \'memory\' modifier.',
+				expectedResultMemory),
+			new Quickfix('Add \'storage\' modifier.', 'Add \'storage\' modifier.',
+				expectedResultStorage)
+		)
+	}
+	
+	@Test
+	def void testFixForMissingReturnParameterDataLocationSpecification() {
+		var modelToFix = '''
+			pragma solidity ^0.5.9;
+			
+			contract Test {
+			    function test(bytes memory data) pure internal returns (bytes transactionId)
+			    {
+			        return data;
+			    }
+			}
+		'''
+
+		var expectedResultMemory = '''
+			pragma solidity ^0.5.9;
+			
+			contract Test {
+			    function test(bytes memory data) pure internal returns (bytes memory transactionId)
+			    {
+			        return data;
+			    }
+			}
+		'''
+
+		var expectedResultStorage = '''
+			pragma solidity ^0.5.9;
+			
+			contract Test {
+			    function test(bytes memory data) pure internal returns (bytes storage transactionId)
+			    {
+			        return data;
+			    }
+			}
+		'''
+
+		testQuickfixesOn(
+			modelToFix,
+			ERROR_DATA_LOCATION_MUST_BE_MEMORY_OR_STORAGE_FOR_RETURN_PARAMETER,
+			new Quickfix('Add \'memory\' modifier.', 'Data location must be "memory" here. Add \'memory\' modifier.',
+				expectedResultMemory),
+			new Quickfix('Add \'storage\' modifier.', 'Data location must be "storage" here. Add \'storage\' modifier.',
+				expectedResultStorage)
+		)
+	}
+	
+	@Test
+	def void testFixForMissingMemoryModifierForParameter() {
+		var modelToFix = '''
+			pragma solidity ^0.5.9;
+			
+			contract Test {
+			    string public name;
+			    function setName(string newName) public {
+			        name = newName;
+			
+			    }
+			}
+		'''
+
+		var expectedResult = '''
+			pragma solidity ^0.5.9;
+			
+			contract Test {
+			    string public name;
+			    function setName(string memory newName) public {
+			        name = newName;
+			
+			    }
+			}
+		'''
+
+		testQuickfixesOn(
+			modelToFix,
+			ERROR_DATA_LOCATION_MUST_BE_MEMORY_FOR_PARAMETER,
+			new Quickfix('Add \'memory\' modifier.', 'Data location must be "memory" here. Add \'memory\' modifier.',
+				expectedResult)
+		)
+	}
+	
+	@Test
+	def void testFixForDeprecatedSendFunction() {
+		var modelToFix = '''
+			pragma solidity ^0.5.9;
+			
+			contract Test {
+			    string public name;
+			    function setName(address payable _add) public payable{
+					_add.send(msg.value);
+			    }
+			}
+		'''
+
+		var expectedResult = '''
+			pragma solidity ^0.5.9;
+			
+			contract Test {
+			    string public name;
+			    function setName(address payable _add) public payable{
+					_add.transfer(msg.value);
+			    }
+			}
+		'''
+
+		testQuickfixesOn(
+			modelToFix,
+			WARNING_USSAGE_OF_SEND,
+			new Quickfix('Replace send with transfer', 'address.send(amount); -> address.transfer(amount);',
+				expectedResult)
+		)
+	}
 }

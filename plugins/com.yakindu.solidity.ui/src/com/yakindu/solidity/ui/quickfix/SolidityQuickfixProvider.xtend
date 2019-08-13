@@ -113,7 +113,8 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	}
 
 	@Fixes(@Fix(ERROR_MEMBER_TRANSFER_NOT_FOUND_OR_VISIBLE),
-	@Fix(ERROR_INVALID_IMPLICID_CONVERSION_TO_ADDRESS_PAYABLE))
+	@Fix(ERROR_INVALID_IMPLICID_CONVERSION_TO_ADDRESS_PAYABLE),
+	@Fix(ERROR_MSG_VALUE_ONLY_ALLOWED_IN_PAYABLE))
 	def addPayableToAddressDeclaration(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Add payable to declaration', 'Add payable to declaration', null,
 			new ISemanticModification() {
@@ -225,7 +226,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		acceptor.accept(issue, 'Add \'memory\' modifier.', 'Add \'memory\' modifier.', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
-					if (element instanceof ArrayTypeSpecifier || element instanceof MappingTypeSpecifier) {
+					if (element instanceof ArrayTypeSpecifier || element instanceof MappingTypeSpecifier || element instanceof TypeSpecifier) {
 						element.eContainer.fixDeclaration(StorageLocation.MEMORY, issue, context)
 					}
 				}
@@ -233,7 +234,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		acceptor.accept(issue, 'Add \'storage\' modifier.', 'Add \'storage\' modifier.', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
-					if (element instanceof ArrayTypeSpecifier || element instanceof MappingTypeSpecifier) {
+					if (element instanceof ArrayTypeSpecifier || element instanceof MappingTypeSpecifier || element instanceof TypeSpecifier) {
 						// TODO FIXME: This is only valid IF there is no initial value, or the 'return type' of the initial value has the same storage modifier e.g. in the case of a function call. 
 						element.eContainer.fixDeclaration(StorageLocation.STORAGE, issue, context)
 					}
