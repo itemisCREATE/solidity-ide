@@ -14,6 +14,7 @@
  */
 package com.yakindu.solidity.typesystem.builtin
 
+import com.google.inject.Inject
 import com.yakindu.solidity.solidity.ContractDefinition
 import com.yakindu.solidity.solidity.FunctionModifier
 import com.yakindu.solidity.solidity.SolidityFactory
@@ -22,8 +23,8 @@ import java.util.ArrayList
 import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.yakindu.base.types.Declaration
 import org.yakindu.base.types.Operation
-import org.yakindu.base.types.PackageMember
 import org.yakindu.base.types.Parameter
 import org.yakindu.base.types.Property
 import org.yakindu.base.types.Type
@@ -32,7 +33,6 @@ import org.yakindu.base.types.typesystem.AbstractTypeSystem
 import org.yakindu.base.types.typesystem.ITypeSystem
 
 import static com.yakindu.solidity.typesystem.SolidityTypeSystem.*
-import com.google.inject.Inject
 
 /**
  * @author andreas muelder - Initial contribution and API
@@ -155,7 +155,7 @@ class BuiltInDeclarations {
 		addAll(#[owned, mortal])
 	}
 
-	def List<PackageMember> all() {
+	def List<Declaration> all() {
 		#[abi, msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, push, pop, ripemd160,
 			ecrecover, block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]
 	}
@@ -318,7 +318,9 @@ class BuiltInDeclarations {
 		solidityFactory.createContractDefinition() => [
 			(typeSystem as AbstractTypeSystem).resource.contents += it
 			name = "mortal"
-			superTypes += owned
+			superTypes += solidityFactory.createTypeSpecifier() => [
+				type=owned
+			]
 			features += solidityFactory.createFunctionDefinition() => [
 				name = "close"
 				modifier += solidityFactory.createBuildInModifier() => [

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.yakindu.solidity</groupId>
+		<artifactId>com.yakindu.solidity.releng</artifactId>
+		<version>0.7.3-SNAPSHOT</version>
+		<relativePath>../../releng/com.yakindu.solidity.releng/pom.xml</relativePath>
+	</parent>
+	<artifactId>com.yakindu.solidity.solc.win.fragment</artifactId>
+	<groupId>com.yakindu.solidity</groupId>
+	<packaging>eclipse-plugin</packaging>
+	<build>
+		<plugins>
+			<!-- tycho is not able to automatically determine os/ws/arch of this bundle -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<configuration>
+					<resolver>p2</resolver>
+					<environments>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86_64</arch>
+						</environment>
+					</environments>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

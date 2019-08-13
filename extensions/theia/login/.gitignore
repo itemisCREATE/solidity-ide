@@ -1,6 +1,0 @@
-*.js
-*.js.map
-*.csv
-/node_modules/*
-/gen/*
-/files/*
