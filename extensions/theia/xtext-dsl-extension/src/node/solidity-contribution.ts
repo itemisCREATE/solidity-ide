@@ -77,7 +77,7 @@ export class SolidityContribution extends BaseLanguageServerContribution {
             const ops = os.platform();
             
             let command = path.resolve(__dirname, '../../lsp/bin/solidity-ls');
-            if (ops.toLowerCase().includes("win")){
+            if (ops == "win32"){
                 command += ".bat"
             }
     
