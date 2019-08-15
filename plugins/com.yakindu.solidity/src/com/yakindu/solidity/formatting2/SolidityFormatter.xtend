@@ -39,7 +39,6 @@ import com.yakindu.solidity.solidity.TupleExpression
 import com.yakindu.solidity.solidity.VariableDefinition
 import com.yakindu.solidity.solidity.WhileStatement
 import com.yakindu.solidity.solidity.InlineAssemblyBlock
-import com.yakindu.solidity.solidity.InlineAssemblyStatement
 import com.yakindu.solidity.solidity.FunctionalAssemblyExpression
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
