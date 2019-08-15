@@ -11,6 +11,24 @@
 	<artifactId>com.yakindu.solidity.ui.tests</artifactId>
 	<packaging>eclipse-test-plugin</packaging>
 
+	<dependencies>
+		<dependency>
+			<groupId>com.yakindu.solidity</groupId>
+			<artifactId>com.yakindu.solidity.solc.win.fragment</artifactId>
+			<version>0.7.3-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.yakindu.solidity</groupId>
+			<artifactId>com.yakindu.solidity.solc.linux.fragment</artifactId>
+			<version>0.7.3-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.yakindu.solidity</groupId>
+			<artifactId>com.yakindu.solidity.solc.mac.fragment</artifactId>
+			<version>0.7.3-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -41,23 +59,6 @@
 						to system package from bundle's BREE JavaSE-1.8) -->
 					<executionEnvironment>JavaSE-11</executionEnvironment>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>com.yakindu.solidity</groupId>
-						<artifactId>com.yakindu.solidity.solc.win.fragment</artifactId>
-						<version>0.7.3-SNAPSHOT</version>
-					</dependency>
-					<dependency>
-						<groupId>com.yakindu.solidity</groupId>
-						<artifactId>com.yakindu.solidity.solc.linux.fragment</artifactId>
-						<version>0.7.3-SNAPSHOT</version>
-					</dependency>
-					<dependency>
-						<groupId>com.yakindu.solidity</groupId>
-						<artifactId>com.yakindu.solidity.solc.mac.fragment</artifactId>
-						<version>0.7.3-SNAPSHOT</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
