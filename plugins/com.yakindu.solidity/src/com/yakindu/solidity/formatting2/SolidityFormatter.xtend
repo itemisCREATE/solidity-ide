@@ -39,6 +39,7 @@ import com.yakindu.solidity.solidity.TupleExpression
 import com.yakindu.solidity.solidity.VariableDefinition
 import com.yakindu.solidity.solidity.WhileStatement
 import com.yakindu.solidity.solidity.InlineAssemblyBlock
+import com.yakindu.solidity.solidity.FunctionalAssemblyExpression
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import org.eclipse.xtext.formatting2.IHiddenRegionFormatter
@@ -468,6 +469,28 @@ class SolidityFormatter extends AbstractFormatter2 {
 		]
 	}
 
+	def dispatch void format(FunctionalAssemblyExpression it, extension IFormattableDocument document) {
+		val int assemblyExpressionLength = getLengthOfAssemblyExpression
+		if (assemblyExpressionLength >= 80) {
+			regionFor.keywordPairs('(', ')').forEach [
+				key.prepend[noSpace]
+				key.append[newLine]
+				value.prepend[newLine]
+			]
+			parameters.forEach [
+				prepend[newLine]
+				indent(document)
+				append[noSpace]
+			]
+		} else {
+			parameters.forEach [
+				prepend[oneSpace]
+				append[noSpace]
+			]
+			regionFor.keyword(",").append[oneSpace].prepend[noSpace]
+		}
+	}
+
 	protected def void newLines(IHiddenRegionFormatter it) {
 		newLines(1, 2, 3)
 	}
@@ -520,5 +543,18 @@ class SolidityFormatter extends AbstractFormatter2 {
 			returnParametersLength += returnParam.regionForEObject.length
 		}
 		return (functionKeywordLength + nameLength + parametersLength + modifiersLength + returnParametersLength)
+	}
+
+	protected def int getLengthOfAssemblyExpression(FunctionalAssemblyExpression it) {
+		var int labelLength = label.length
+		
+		var int parametersLength = 0// + 2(for open/close brackets) - 2(the last parameter is not followed by comma and space)
+		for (parameter : parameters) {
+			parametersLength += parameter.regionForEObject.length
+			parametersLength += 2//for each comma+space after parameter
+		}
+		
+		var sum = labelLength + parametersLength;
+		return sum;
 	}
 }
