@@ -472,10 +472,9 @@ class SolidityFormatter extends AbstractFormatter2 {
 
 	def dispatch void format(FunctionalAssemblyExpression it, extension IFormattableDocument document) {
 		val int assemblyExpressionLength = getLengthOfAssemblyExpression
-
-		if (assemblyExpressionLength >= 80) {//setOnAutoWrap
+		if (assemblyExpressionLength >= 80) {
 			regionFor.keywordPairs('(', ')').forEach [
-				key.prepend[oneSpace]
+				key.prepend[noSpace]
 				key.append[newLine]
 				value.prepend[newLine]
 			]
@@ -489,8 +488,8 @@ class SolidityFormatter extends AbstractFormatter2 {
 				prepend[oneSpace]
 				append[noSpace]
 			]
+			regionFor.keyword(",").append[oneSpace].prepend[noSpace]
 		}
-
 	}
 
 	protected def void newLines(IHiddenRegionFormatter it) {
@@ -548,14 +547,15 @@ class SolidityFormatter extends AbstractFormatter2 {
 	}
 
 	protected def int getLengthOfAssemblyExpression(FunctionalAssemblyExpression it) {
-		val int labelLength = label.toString.length
-		val int parametersLength = 0
+		var int labelLength = label.length
 		
+		var int parametersLength = 0// + 2(for open/close brackets) - 2(the last parameter is not followed by comma and space)
 		for (parameter : parameters) {
-			//parametersLength += parameter.regionForEObject.length
-			//parametersLength += 2;
+			parametersLength += parameter.regionForEObject.length
+			parametersLength += 2//for each comma+space after parameter
 		}
-
-		return labelLength + parametersLength;
+		
+		var sum = labelLength + parametersLength;
+		return sum;
 	}
 }
