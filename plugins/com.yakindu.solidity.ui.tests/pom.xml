@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.yakindu.solidity</groupId>
+		<artifactId>com.yakindu.solidity.releng</artifactId>
+		<version>0.7.3-SNAPSHOT</version>
+		<relativePath>../../releng/com.yakindu.solidity.releng/pom.xml</relativePath>
+	</parent>
+	<artifactId>com.yakindu.solidity.ui.tests</artifactId>
+	<packaging>eclipse-test-plugin</packaging>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.xtend</groupId>
+				<artifactId>xtend-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<includes>
+						<include>**/AllTests.class</include>
+					</includes> 
+					<useUIHarness>false</useUIHarness>
+					<useUIThread>false</useUIThread>
+					<testFailureIgnore>${testFailureIgnore}</testFailureIgnore>
+					<argLine>${test.vmargs}</argLine>
+					<!--workaround bug 532302: set EE to JavASE-11 to make sure we resolve Import-Package: javax.annoation against bundle javax.annotation 
+          				(as opposed to system package from bundle's BREE JavaSE-1.8) -->
+        			 <executionEnvironment>JavaSE-11</executionEnvironment> 
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
