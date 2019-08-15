@@ -68,6 +68,7 @@ import static extension org.eclipse.xtext.EcoreUtil2.*
  * @author andreas muelder - Initial contribution and API
  * @author Florian Antony
  * @author Karsten Thoms
+ * @author Jonathan Thoene
  */
 class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 

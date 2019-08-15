@@ -12,6 +12,10 @@ import com.google.inject.name.Named
 
 import static com.yakindu.solidity.validation.IssueCodes.*
 
+
+/**
+ * @author Jonathan Thoene - Initial contribution and API
+ */
 class SolidityIdeCodeActionService implements ICodeActionService2 {
 
 	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) String solcVersion
