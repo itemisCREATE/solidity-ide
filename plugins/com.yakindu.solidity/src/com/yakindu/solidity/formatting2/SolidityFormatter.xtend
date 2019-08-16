@@ -125,7 +125,7 @@ class SolidityFormatter extends AbstractFormatter2 {
 	}
 
 	def dispatch void format(ConstructorDefinition it, extension IFormattableDocument document) {
-		prepend[newLines(1, 2, 3)]
+		prepend[newLines(2, 2, 3)]
 		
 		
 		allRegionsFor.keywords("constructor", ",").forEach [
