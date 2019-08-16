@@ -92,7 +92,7 @@ class SolidityFormatter extends AbstractFormatter2 {
 	}
 
 	def dispatch void format(PragmaDirective it, extension IFormattableDocument document) {
-		prepend[noSpace]
+		append[newLine]
 	}
 
 	def dispatch void format(ImportDirective it, extension IFormattableDocument document) {
