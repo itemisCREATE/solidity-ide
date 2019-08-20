@@ -10,25 +10,15 @@
 	</parent>
 	<artifactId>com.yakindu.solidity.ui.tests</artifactId>
 	<packaging>eclipse-test-plugin</packaging>
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>com.yakindu.solidity</groupId>
-			<artifactId>com.yakindu.solidity.solc.win.fragment</artifactId>
-			<version>0.7.3-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.yakindu.solidity</groupId>
-			<artifactId>com.yakindu.solidity.solc.linux.fragment</artifactId>
-			<version>0.7.3-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.yakindu.solidity</groupId>
-			<artifactId>com.yakindu.solidity.solc.mac.fragment</artifactId>
+			<artifactId>com.yakindu.solidity.solc</artifactId>
 			<version>0.7.3-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
-
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -43,6 +33,15 @@
 					<useUIThread>true</useUIThread>
 					<testFailureIgnore>${testFailureIgnore}</testFailureIgnore>
 					<argLine>${test.vmargs}</argLine>
+					<dependency-resolution>
+				      <extraRequirements>
+				        <requirement>
+				          <type>eclipse-feature</type>
+				          <id>com.yakindu.solidity.solc.feature</id>
+				          <versionRange>0.0.0</versionRange>
+				        </requirement>
+				      </extraRequirements>
+				    </dependency-resolution>
 				</configuration>
 			</plugin>
 			<plugin>
