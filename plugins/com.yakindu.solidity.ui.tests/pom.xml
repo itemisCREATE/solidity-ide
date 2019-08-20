@@ -43,10 +43,6 @@
 					<useUIThread>true</useUIThread>
 					<testFailureIgnore>${testFailureIgnore}</testFailureIgnore>
 					<argLine>${test.vmargs}</argLine>
-					<!--workaround bug 532302: set EE to JavASE-11 to make sure we resolve 
-						Import-Package: javax.annoation against bundle javax.annotation (as opposed 
-						to system package from bundle's BREE JavaSE-1.8) -->
-					<executionEnvironment>JavaSE-11</executionEnvironment>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -75,24 +71,6 @@
 						</goals>
 					</execution>
 				</executions>
-				<!-- workaround https://github.com/eclipse/xtext/issues/1231 -->
-				<dependencies>
-					<dependency>
-						<groupId>org.eclipse.jdt</groupId>
-						<artifactId>org.eclipse.jdt.core</artifactId>
-						<version>3.10.0</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.jdt</groupId>
-						<artifactId>org.eclipse.jdt.launching</artifactId>
-						<version>3.10.0</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.jdt</groupId>
-						<artifactId>org.eclipse.jdt.debug</artifactId>
-						<version>3.10.1</version>
-					</dependency>
-				</dependencies>
 				<configuration>
 					<encoding>${project.build.sourceEncoding}</encoding>
 					<outputDirectory>xtend-gen</outputDirectory>
