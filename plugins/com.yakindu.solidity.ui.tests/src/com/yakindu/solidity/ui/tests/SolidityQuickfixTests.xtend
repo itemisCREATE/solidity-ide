@@ -14,18 +14,17 @@
  */
 package com.yakindu.solidity.ui.tests
 
-import org.eclipse.xtext.ui.testing.AbstractQuickfixTest
-import org.junit.Before
-import org.junit.Test
-
-import static com.yakindu.solidity.validation.IssueCodes.*
-import org.junit.runner.RunWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.testing.InjectWith
 import com.google.inject.Inject
 import com.google.inject.name.Named
 import com.yakindu.solidity.SolidityVersion
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.ui.testing.AbstractQuickfixTest
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
 
+import static com.yakindu.solidity.validation.IssueCodes.*
 
 /**
  * This class tests the quickfixes for the solidity ide
@@ -99,7 +98,7 @@ class SolidityQuickfixTests extends AbstractQuickfixTest {
 		'''
 
 		var expectedResult = '''
-			pragma solidity «solcVersion» ; contract MyContract {
+			pragma solidity Â«solcVersionÂ» ; contract MyContract {
 			    constructor() public{}
 			}
 			
@@ -108,7 +107,7 @@ class SolidityQuickfixTests extends AbstractQuickfixTest {
 		testQuickfixesOn(
 			modelToFix,
 			WARNING_FILE_NO_PRAGMA_SOLIDITY,
-			new Quickfix("Add default solidity pragma", '''Add solidity pragma «solcVersion».''', expectedResult)
+			new Quickfix("Add default solidity pragma", '''Add solidity pragma Â«solcVersionÂ».''', expectedResult)
 		)
 	}
 
