@@ -7,7 +7,7 @@ import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
+import org.apache.commons.lang.SystemUtils;
 import org.eclipse.xtext.ide.server.ServerLauncher;
 import org.eclipse.xtext.ide.server.ServerModule;
 import org.eclipse.xtext.util.Modules2;
@@ -22,7 +22,7 @@ import com.yakindu.solidity.solc.preferences.ICompilerPreferences;
 public class LanguageServerLauncher {
 
 	public static final String COMPILER = "-compiler";
-	
+
 	public static void main(String[] args) throws InterruptedException, IOException {
 		try {
 			Options o = new Options();
@@ -33,14 +33,14 @@ public class LanguageServerLauncher {
 			CommandLineParser p = new BasicParser();
 			CommandLine cmd = p.parse(o, args);
 			if (cmd.hasOption(COMPILER.substring(1))) {
-				String compilerPath = cmd.getOptionValue(COMPILER.substring(1));
-				ICompilerPreferences prefs = Guice.createInjector(Modules2.mixin(new SolidityRuntimeModule(), new SolidityIdeModule())).getInstance(ICompilerPreferences.class);
-				String appDir = new File( "." ).getCanonicalPath();
-				String theiaDir = appDir.substring(0, appDir.indexOf("app"));
-				String absoluteCompilerPath = theiaDir + compilerPath;
+				String compilerPath = cmd.getOptionValue(COMPILER.substring(1)).replace("${os}", getOS());
+				String absoluteCompilerPath = getWorkDir() + compilerPath;
+				ICompilerPreferences prefs = Guice
+						.createInjector(Modules2.mixin(new SolidityRuntimeModule(), new SolidityIdeModule()))
+						.getInstance(ICompilerPreferences.class);
 				prefs.getPreferences().put(ICompilerPreferences.COMPILER_PATH, absoluteCompilerPath);
 			}
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		ServerLauncher.launch(LanguageServerLauncher.class.getName(), args, new ServerModule());
@@ -57,6 +57,25 @@ public class LanguageServerLauncher {
 		 * launcher.startListening(); while (!future.isDone()) { Thread.sleep(10_000l);
 		 * }
 		 */
+	}
+
+	private static String getWorkDir() throws IOException {
+		// TODO: app workdir should be configured in Maven to be language server dir,
+		// not theia app dir, so we do not have to compensate this here.
+		String appDir = new File(".").getCanonicalPath();
+		return appDir.substring(0, appDir.indexOf("app")) + "xtext-dsl-extension/languageserver/";
+	}
+
+	private static CharSequence getOS() {
+		if (SystemUtils.IS_OS_LINUX) {
+			return "linux";
+		} else if (SystemUtils.IS_OS_WINDOWS) {
+			return "win32";
+		} else if (SystemUtils.IS_OS_MAC || SystemUtils.IS_OS_MAC_OSX) {
+			return "macosx";
+		} else {
+			throw new IllegalArgumentException("Unsupported OS");
+		}
 	}
 
 	/*

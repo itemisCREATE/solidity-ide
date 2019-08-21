@@ -124,7 +124,7 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 		File file = new File(compilerPath);
 		if (!file.canExecute()) {
 			if(!file.setExecutable(true)) {
-				throw new IllegalStateException("Compiler is not executabel and cannot be set to be.");
+				throw new IllegalStateException("Compiler " + pathToCompiler + " is not executabel and cannot be set to be.");
 			};			
 		}
 		return compilerPath;

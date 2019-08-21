@@ -21,7 +21,6 @@ import com.yakindu.solidity.solc.ISolidityCompiler
 import com.yakindu.solidity.solc.output.FileOutputProcessor
 import com.yakindu.solidity.solc.output.SolidityIssueCreator
 import com.yakindu.solidity.solc.preferences.ICompilerPreferences
-import com.yakindu.solidity.solidity.PragmaSolidityDirective
 import com.yakindu.solidity.solidity.SolidityPackage
 import com.yakindu.solidity.solidity.SourceUnit
 import java.io.File
@@ -57,14 +56,6 @@ class SolidityValidator extends ExpressionsValidator {
 
 	override checkLeftHandAssignment(AssignmentExpression expression) {
 		// TODO Disables, doesn't work with Parameters
-	}
-	
-	@Check
-	def protected checkPragmaVersion(PragmaSolidityDirective pragma) {
-		warning(SOLIDITY_VERSION_NOT_DEFAULT + " (BULLSHIT)", pragma,
-				SolidityPackage.Literals.PRAGMA_SOLIDITY_DIRECTIVE__VERSION,
-				IssueCodes.WARNING_SOLIDITY_VERSION_NOT_THE_DEFAULT)
-		
 	}
 
 	@Check(NORMAL)

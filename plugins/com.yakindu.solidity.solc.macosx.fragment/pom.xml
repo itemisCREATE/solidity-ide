@@ -9,7 +9,7 @@
 		<version>0.7.3-SNAPSHOT</version>
 		<relativePath>../../releng/com.yakindu.solidity.releng/pom.xml</relativePath>
 	</parent>
-	<artifactId>com.yakindu.solidity.solc.mac.fragment</artifactId>
+	<artifactId>com.yakindu.solidity.solc.macosx.fragment</artifactId>
 	<groupId>com.yakindu.solidity</groupId>
 	<packaging>eclipse-plugin</packaging>
 	<build>

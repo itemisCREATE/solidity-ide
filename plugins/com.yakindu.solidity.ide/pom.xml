@@ -36,13 +36,13 @@
 		</dependency>
 		<dependency>
 			<groupId>com.yakindu.solidity</groupId>
-			<artifactId>com.yakindu.solidity.solc.mac.fragment</artifactId>
+			<artifactId>com.yakindu.solidity.solc.macosx.fragment</artifactId>
 			<version>0.7.3-SNAPSHOT</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>com.yakindu.solidity</groupId>
-			<artifactId>com.yakindu.solidity.solc.win.fragment</artifactId>
+			<artifactId>com.yakindu.solidity.solc.win32.fragment</artifactId>
 			<version>0.7.3-SNAPSHOT</version>
 			<optional>true</optional>
 		</dependency>
@@ -110,19 +110,21 @@
 							<projectArtifactFirstInClassPath>true</projectArtifactFirstInClassPath>
 							<assembleDirectory>${project.build.directory}/languageserver</assembleDirectory>
 							<repositoryLayout>flat</repositoryLayout>
-							<!--  <extraJvmArguments>-Xdebug -Xnoagent -Djava.compiler=NONE
-								-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000</extraJvmArguments>-->
+							<!--<extraJvmArguments>-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000</extraJvmArguments>-->
 							<programs>
 								<program>
 									<id>solidity-ls</id>
 									<!-- Use RunServer for Socket connection -->
 									<mainClass>com.yakindu.solidity.ide.LanguageServerLauncher</mainClass>
-									<!--  <mainClass>org.eclipse.xtext.ide.server.ServerLauncher</mainClass> -->
+									<!-- <mainClass>org.eclipse.xtext.ide.server.ServerLauncher</mainClass> -->
 									<commandLineArguments>
 										<commandLineArgument>-trace</commandLineArgument>
 										<commandLineArgument>-log</commandLineArgument>
 										<!-- <commandLineArgument>-noValidate</commandLineArgument> -->
-										<commandLineArgument>-compiler xtext-dsl-extension/lsp/repo/com.yakindu.solidity.solc.linux.fragment/compiler/solc</commandLineArgument>
+										<!-- Compiler path is given with ${os} variable, so the respective 
+											os-specific compiler can be located. The language server will resolve the 
+											variable. -->
+										<commandLineArgument>-compiler repo/com.yakindu.solidity.solc.\${os}.fragment/compiler/solc</commandLineArgument>
 									</commandLineArguments>
 								</program>
 							</programs>
@@ -143,7 +145,7 @@
 									<fileset
 										dir="${project.build.directory}/languageserver/repo/">
 										<include
-											name="com.yakindu.solidity.solc.mac.fragment-**-SNAPSHOT.jar" />
+											name="com.yakindu.solidity.solc.macosx.fragment-**-SNAPSHOT.jar" />
 									</fileset>
 								</unzip>
 								<unzip
@@ -159,7 +161,7 @@
 									<fileset
 										dir="${project.build.directory}/languageserver/repo/">
 										<include
-											name="com.yakindu.solidity.solc.win.fragment-**-SNAPSHOT.jar" />
+											name="com.yakindu.solidity.solc.win32.fragment-**-SNAPSHOT.jar" />
 									</fileset>
 								</unzip>
 							</tasks>

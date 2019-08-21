@@ -1,10 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Solidity Tools Solc Compiler for Windows
-Bundle-SymbolicName: com.yakindu.solidity.solc.win.fragment
+Bundle-Name: Solidity Tools Solc Compiler for MacOSX
+Bundle-SymbolicName: com.yakindu.solidity.solc.macosx.fragment
 Bundle-Version: 0.7.3.qualifier
+Bundle-Vendor: YAKINDU
 Fragment-Host: com.yakindu.solidity.solc
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Bundle-Vendor: YAKINDU
-Automatic-Module-Name: com.yakindu.solidity.solc.win.fragment
+Automatic-Module-Name: com.yakindu.solidity.solc.mac.fragment
 Export-Package: com.yakindu.solidity.solc
+

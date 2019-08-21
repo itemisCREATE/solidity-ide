@@ -19,7 +19,7 @@
   },
   "scripts": {
     "prepare": "yarn run clean && yarn run build",
-    "copy-ls": "rimraf lsp && mkdir lsp && cp -r ../../../../plugins/com.yakindu.solidity.ide/target/languageserver/* ./lsp/",
+    "copy-ls": "rimraf lsp && mkdir languageserver && cp -r ../../../../plugins/com.yakindu.solidity.ide/target/languageserver/* ./languageserver/",
     "clean": "rimraf lib",
     "build": "tsc",
     "local": "tsc && yarn run copy-ls",
