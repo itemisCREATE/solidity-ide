@@ -24,9 +24,6 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
-
 import com.google.gson.GsonBuilder;
 import com.yakindu.solidity.solc.preferences.ICompilerPreferences;
 import com.yakindu.solidity.solc.result.Abi;
@@ -45,8 +42,7 @@ public class FileOutputProcessor {
 	private ICompilerPreferences prefs;
 	private final GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
 
-	public void writeOutputFiles(CompilerOutput compilerOutput, Set<IResource> filesToCompile) {
-
+	public void writeOutputFiles(CompilerOutput compilerOutput, Set<File> filesToCompile) {
 		for (Entry<String, Map<String, CompiledContract>> entry : compilerOutput.getContracts().entrySet()) {
 			String outputFileName = getOutputFileName(findFileForName(filesToCompile, entry.getKey()));
 			for (CompiledContract contract : entry.getValue().values()) {
@@ -62,9 +58,8 @@ public class FileOutputProcessor {
 		}
 	}
 
-	private String getOutputFileName(IFile file) {
-		String plainFileName = file.getName().replaceAll(".sol", "");
-		return file.getProject().getLocation().append(prefs.getCompilerOutputPath()).append(plainFileName).toOSString();
+	private String getOutputFileName(File file) {
+		return file.getPath().replaceAll(".sol", "");
 	}
 
 	private void writeASMFile(String outputFileName, String assembly) {
@@ -109,9 +104,9 @@ public class FileOutputProcessor {
 		}		
 	}
 
-	private IFile findFileForName(Set<IResource> filesToCompile, String fileName) {
-		IFile errorFile = filesToCompile.stream().filter(file -> file.getName().equals(fileName))
-				.map(file -> (IFile) file).findFirst().orElse(null);
+	private File findFileForName(Set<File> filesToCompile, String fileName) {
+		File errorFile = filesToCompile.stream().filter(file -> file.getName().equals(fileName))
+				.map(file -> (File) file).findFirst().orElse(null);
 		return errorFile;
 	}
 }

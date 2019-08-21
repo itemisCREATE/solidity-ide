@@ -17,11 +17,11 @@ package com.yakindu.solidity
 
 import com.google.inject.Binder
 import com.google.inject.name.Names
-import com.yakindu.solidity.solc.ISolidityCompiler
 import com.yakindu.solidity.scoping.SolidityGlobalScopeProvider
 import com.yakindu.solidity.scoping.SolidityImportedNamespaceAwareLocalScopeProvider
 import com.yakindu.solidity.scoping.SolidityResourceDescriptionStrategy
 import com.yakindu.solidity.scoping.SolidityScopeProvider
+import com.yakindu.solidity.solc.ISolidityCompiler
 import com.yakindu.solidity.solidity.SolidityFactory
 import com.yakindu.solidity.solidity.SolidityPackage
 import com.yakindu.solidity.terminals.SolidityValueConverterService

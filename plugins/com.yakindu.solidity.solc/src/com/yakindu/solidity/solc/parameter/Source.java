@@ -15,31 +15,26 @@
 package com.yakindu.solidity.solc.parameter;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.List;
-
-import org.eclipse.core.internal.utils.FileUtil;
-import org.eclipse.core.resources.IFile;
 
 /**
  * 
  * @author Florian Antony - Initial contribution and API
  *
  */
-@SuppressWarnings("restriction")
 public class Source {
 
 	String keccak256;
 	String content = "";
 	List<String> urls;
 
-	public Source(IFile file) {
-		String seperator = FileUtil.getLineSeparator(file);
-		try (BufferedReader reader = new BufferedReader(
-				new InputStreamReader(file.getContents(true), file.getCharset()));) {
+	public Source(File file) {
+		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 			String line = reader.readLine();
 			while (line != null) {
-				content += line + seperator;
+				content += line;
 				line = reader.readLine();
 			}
 		} catch (Exception e) {

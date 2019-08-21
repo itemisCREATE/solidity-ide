@@ -46,6 +46,8 @@ public interface ICompilerPreferences {
 	Optional<String> getCompilerPath();
 
 	boolean isCompilerEnabled();
+	
+	IEclipsePreferences getPreferences();
 
 	/**
 	 * 
