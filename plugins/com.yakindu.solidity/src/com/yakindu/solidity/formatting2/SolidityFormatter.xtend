@@ -92,7 +92,7 @@ class SolidityFormatter extends AbstractFormatter2 {
 	}
 
 	def dispatch void format(PragmaDirective it, extension IFormattableDocument document) {
-		prepend[noSpace]
+		append[newLines(1, 1, 1); priority = IHiddenRegionFormatter.LOW_PRIORITY;]
 	}
 
 	def dispatch void format(ImportDirective it, extension IFormattableDocument document) {
@@ -100,6 +100,8 @@ class SolidityFormatter extends AbstractFormatter2 {
 	}
 
 	def dispatch void format(ContractDefinition it, extension IFormattableDocument document) {
+		prepend[newLines(2, 3, 3)]
+		append[newLines(3, 3, 3); priority = IHiddenRegionFormatter.HIGH_PRIORITY;]
 		interior[indent]
 		regionFor.keywordPairs('{', '}').forEach [
 			key.append[newLine; priority = IHiddenRegionFormatter.LOW_PRIORITY;].prepend [
