@@ -6,5 +6,5 @@ Bundle-Version: 0.7.3.qualifier
 Fragment-Host: com.yakindu.solidity.solc
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: YAKINDU
-Automatic-Module-Name: com.yakindu.solidity.solc.win.fragment
+Automatic-Module-Name: com.yakindu.solidity.solc.win32.fragment
 Export-Package: com.yakindu.solidity.solc

@@ -712,7 +712,7 @@ Public License instead of this License.  But first, please read
          unpack="false"/>
 
    <plugin
-         id="com.yakindu.solidity.solc.win.fragment"
+         id="com.yakindu.solidity.solc.win32.fragment"
          os="win32"
          arch="x86_64"
          download-size="0"
@@ -722,7 +722,7 @@ Public License instead of this License.  But first, please read
          unpack="false"/>
 
    <plugin
-         id="com.yakindu.solidity.solc.mac.fragment"
+         id="com.yakindu.solidity.solc.macosx.fragment"
          os="macosx"
          arch="x86_64"
          download-size="0"
