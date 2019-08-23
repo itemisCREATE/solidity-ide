@@ -16,22 +16,22 @@ package com.yakindu.solidity.validation
 
 import com.google.common.collect.Sets
 import com.google.inject.Inject
+import com.yakindu.solidity.IWorkspaceResourceResolver
 import com.yakindu.solidity.solc.ISolidityCompiler
 import com.yakindu.solidity.solc.output.FileOutputProcessor
 import com.yakindu.solidity.solc.output.SolidityIssueCreator
+import com.yakindu.solidity.solc.preferences.ICompilerPreferences
 import com.yakindu.solidity.solidity.SolidityPackage
 import com.yakindu.solidity.solidity.SourceUnit
+import java.io.File
 import java.util.List
 import java.util.Set
-import org.eclipse.core.resources.IResource
-import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.SubMonitor
 import org.eclipse.xtext.validation.Check
 import org.yakindu.base.expressions.expressions.AssignmentExpression
 import org.yakindu.base.expressions.validation.ExpressionsValidator
 import org.yakindu.base.types.Expression
 import org.yakindu.base.types.Operation
-import com.yakindu.solidity.solc.preferences.ICompilerPreferences
 
 class SolidityValidator extends ExpressionsValidator {
 	val public SOLIDITY_VERSION_NOT_DEFAULT = "Solidity version does not match the default version"
@@ -43,10 +43,13 @@ class SolidityValidator extends ExpressionsValidator {
 
 	@Inject
 	FileOutputProcessor outputWriter;
+	
+	@Inject(optional=true)
+	IWorkspaceResourceResolver resourceResolver;
 
 	@Inject
 	ICompilerPreferences prefs;
-
+	
 	override protected assertOperationArguments(Operation operation, List<Expression> args) {
 		// TODO Disabled, doesn't work with extension operations
 	}
@@ -59,15 +62,17 @@ class SolidityValidator extends ExpressionsValidator {
 	def protected compilerValidations(SourceUnit unit) {
 		if (compiler !== null && prefs.isCompilerEnabled) {
 			val monitor = SubMonitor.convert(null)
-			val Set<IResource> resources = Sets.newHashSet(
-				ResourcesPlugin.getWorkspace().getRoot().findMember(unit.eResource.URI.toPlatformString(true)))
+			if(resourceResolver === null) {
+				throw new IllegalStateException("Resource resolver is mandatory for compiler adoption.");
+			}
+			val Set<File> resources = Sets.newHashSet(resourceResolver.resolve(unit.eResource));
 			val output = compiler.compile(resources, monitor).get
 			issueCreator.createErrors(output.errors, resources, currentObject, messageAcceptor)
 			issueCreator.createInfos(output.contracts, resources, currentObject, messageAcceptor)
 			outputWriter.writeOutputFiles(output, resources);
-			resources.forEach [
+			/*resources.forEach [
 				it.project.refreshLocal(IResource.DEPTH_ONE, monitor);
-			]
+			]*/
 		}
 	}
 

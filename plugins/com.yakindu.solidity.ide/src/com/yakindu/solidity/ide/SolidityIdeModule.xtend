@@ -3,9 +3,29 @@
  */
 package com.yakindu.solidity.ide
 
+import com.google.inject.Binder
+import com.yakindu.solidity.IWorkspaceResourceResolver
+import com.yakindu.solidity.ide.internal.CustomContentAssistService
+import com.yakindu.solidity.ide.internal.SolidityIdeCodeActionService
+import org.eclipse.xtext.ide.server.codeActions.ICodeActionService
+import org.eclipse.xtext.ide.server.contentassist.ContentAssistService
 
 /**
  * Use this class to register ide components.
  */
 class SolidityIdeModule extends AbstractSolidityIdeModule {
+
+	override configure(Binder binder) {
+		super.configure(binder);
+		binder.bind(IWorkspaceResourceResolver).to(WorkspaceManagerResourceResolver);
+	}
+	
+	// workaround for https://github.com/eclipse/xtext-eclipse/issues/834
+	def Class<? extends ContentAssistService> bindContentAssistService() {
+		return CustomContentAssistService
+	}
+	
+	def Class<? extends ICodeActionService> bindICodeActionService() {
+		return SolidityIdeCodeActionService
+	}
 }

@@ -15,16 +15,17 @@
 package com.yakindu.solidity.solc.output;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
-
-import org.eclipse.core.resources.IResource;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -143,7 +144,7 @@ public class OutputParser {
 		return (element == null) ? null : element.getAsString();
 	}
 
-	public Optional<CompilerOutput> parse(final InputStream stream, final Set<IResource> filesToCompile) {
+	public Optional<CompilerOutput> parse(final InputStream stream, final Set<File> filesToCompile) {
 		try (final InputStreamReader output = new InputStreamReader(stream, "UTF-8");
 				final BufferedReader out = new BufferedReader(output);) {
 			CompilerOutput compilerOutput = gson.create().fromJson(output, CompilerOutput.class);

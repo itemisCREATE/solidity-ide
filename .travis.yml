@@ -36,7 +36,7 @@ jobs:
       - cd $TRAVIS_BUILD_DIR/extensions/vscode
       - ./gradlew vscodeExtension
       - cd $TRAVIS_BUILD_DIR
-      - cp -r plugins/com.yakindu.solidity.ide/target/languageserver extensions/theia/xtext-dsl-extension/lsp
+      - cp -r plugins/com.yakindu.solidity.ide/target/languageserver extensions/theia/xtext-dsl-extension/languageserver
       - cd extensions/theia/
       - yarn install
       - cd $TRAVIS_BUILD_DIR

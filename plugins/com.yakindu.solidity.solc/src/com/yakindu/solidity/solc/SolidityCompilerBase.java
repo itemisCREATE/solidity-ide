@@ -20,14 +20,10 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -62,7 +58,7 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 	}
 
 	@Override
-	public Optional<CompilerOutput> compile(Set<IResource> filesToCompile, IProgressMonitor progress) {
+	public Optional<CompilerOutput> compile(Set<File> filesToCompile, IProgressMonitor progress) {
 		if (filesToCompile.isEmpty() || progress.isCanceled()) {
 			return Optional.empty();
 		}
@@ -84,25 +80,14 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 			progress.done();
 			return Optional.empty();
 		}
-
 	}
 
-	protected Set<IResource> getFilesToCompile(List<URI> uris) {
-		Set<IResource> filesToCompile = Sets.newHashSet();
-		for (URI uri : uris) {
-			IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(uri.toPlatformString(true));
-			filesToCompile.add(resource);
-			filesToCompile.addAll(addImports(uri));
-		}
-		return filesToCompile;
-	}
-
-	protected Set<IResource> addImports(URI uri) {
+	protected Set<File> addImports(URI uri) {
 		// TODO resolve uris to imported contracts
 		return Sets.newHashSet();
 	}
 
-	protected void sendInput(OutputStream stream, Set<IResource> filesToCompile) {
+	protected void sendInput(OutputStream stream, Set<File> filesToCompile) {
 		try (OutputStreamWriter writer = new OutputStreamWriter(stream, Charset.forName("UTF-8"));) {
 			ParameterBuilder builder = new ParameterBuilder();
 			if (prefs.isWriteBINFile()) {
@@ -114,10 +99,9 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 			if (prefs.isWriteASMFile()) {
 				builder.addOutput(CompileOutputType.ASM.COMPILER_KEY);
 			}
-			for (IResource resource : filesToCompile) {
-				if (resource instanceof IFile) {
-					IFile file = (IFile) resource;
-					builder.addSource(file.getLocation().lastSegment(), new Source(file));
+			for (File resource : filesToCompile) {
+				if (resource.isFile()) {
+					builder.addSource(resource.getName(), new Source(resource));
 				}
 			}
 			builder.addOutput(CompileOutputType.GAS.COMPILER_KEY);
@@ -131,10 +115,19 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 
 	protected String getCompilerPath() {
 		Optional<String> pathToCompiler = prefs.getCompilerPath();
+		String compilerPath;
 		if (pathToCompiler.isPresent()) {
-			return pathToCompiler.get();
+			compilerPath = pathToCompiler.get();
+		} else {
+			compilerPath = getBuiltInCompilerPath();
 		}
-		return getBuiltInCompilerPath();
+		File file = new File(compilerPath);
+		if (!file.canExecute()) {
+			if(!file.setExecutable(true)) {
+				throw new IllegalStateException("Compiler " + pathToCompiler + " is not executabel and cannot be set to be.");
+			};			
+		}
+		return compilerPath;
 	}
 
 	protected String getBuiltInCompilerPath() {
@@ -142,9 +135,6 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 		URL url = FileLocator.find(bundle, getPath(), null);
 		try {
 			URL fileURL = FileLocator.toFileURL(url);
-			File file = new File(fileURL.toURI());
-			if (!file.canExecute())
-				file.setExecutable(true);
 			return fileURL.getFile();
 		} catch (Exception e) {
 			throw new IllegalStateException(e);

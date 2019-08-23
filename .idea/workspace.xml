@@ -2,8 +2,39 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a9713750-4343-436b-97e9-aa81a78396ce" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.macosx.fragment/.project" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win32.fragment/.project" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extensions/theia/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/extensions/theia/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/src/node/solidity-contribution.ts" beforeDir="false" afterPath="$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/src/node/solidity-contribution.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.ide/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.ide/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.ide/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.ide/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.ide/src/com/yakindu/solidity/ide/LanguageServerLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.ide/src/com/yakindu/solidity/ide/LanguageServerLauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.mac.fragment/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.macosx.fragment/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.mac.fragment/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.mac.fragment/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.macosx.fragment/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.mac.fragment/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.macosx.fragment/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.mac.fragment/build.properties" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.macosx.fragment/build.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.mac.fragment/compiler/solc" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.macosx.fragment/compiler/solc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.mac.fragment/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.macosx.fragment/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.mac.fragment/src/com/yakindu/solidity/solc/SolidityCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.macosx.fragment/src/com/yakindu/solidity/solc/SolidityCompiler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win.fragment/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win32.fragment/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win.fragment/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win.fragment/.settings/org.eclipse.core.resources.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win32.fragment/.settings/org.eclipse.core.resources.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win.fragment/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win32.fragment/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win.fragment/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win32.fragment/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win.fragment/build.properties" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win32.fragment/build.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win.fragment/compiler/msvcp140.dll" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win32.fragment/compiler/msvcp140.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win.fragment/compiler/msvcp140_1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win32.fragment/compiler/msvcp140_1.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win.fragment/compiler/msvcp140_2.dll" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win32.fragment/compiler/msvcp140_2.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win.fragment/compiler/solc.exe" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win32.fragment/compiler/solc.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win.fragment/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win32.fragment/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win.fragment/src/com/yakindu/solidity/solc/SolidityCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc.win32.fragment/src/com/yakindu/solidity/solc/SolidityCompiler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc/src/com/yakindu/solidity/solc/SolidityCompilerBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity.solc/src/com/yakindu/solidity/solc/SolidityCompilerBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/com.yakindu.solidity/src/com/yakindu/solidity/validation/SolidityValidator.xtend" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/com.yakindu.solidity/src/com/yakindu/solidity/validation/SolidityValidator.xtend" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/releng/com.yakindu.solidity.releng/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/releng/com.yakindu.solidity.releng/pom.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,7 +47,82 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/src/node/solidity-backend-module.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="22" column="48" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/src/node/solidity-contribution.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1080">
+              <caret line="78" column="71" selection-start-line="78" selection-start-column="71" selection-end-line="78" selection-end-column="71" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.travis.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="38" column="120" selection-start-line="38" selection-start-column="120" selection-end-line="38" selection-end-column="120" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/extensions/Dockerfile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="338">
+              <caret line="23" selection-start-line="23" selection-end-line="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/extensions/theia/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="35" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/extensions/theia/lerna.json">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/extensions/theia/package.json">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="21" column="145" selection-start-line="21" selection-start-column="145" selection-end-line="21" selection-end-column="145" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/tsconfig.json">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/src/node/index.ts">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -25,10 +131,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/extensions/theia/docker/theia_app/Dockerfile" />
-        <option value="$PROJECT_DIR$/extensions/theia/.gitignore" />
         <option value="$PROJECT_DIR$/extensions/theia/Dockerfile" />
         <option value="$PROJECT_DIR$/.travis.yml" />
+        <option value="$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/package.json" />
+        <option value="$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/src/node/solidity-contribution.ts" />
         <option value="$PROJECT_DIR$/extensions/Dockerfile" />
+        <option value="$PROJECT_DIR$/extensions/theia/.gitignore" />
       </list>
     </option>
   </component>
@@ -43,15 +151,16 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="23" />
+    <option name="y" value="413" />
     <option name="width" value="1680" />
-    <option name="height" value="973" />
+    <option name="height" value="975" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -75,6 +184,13 @@
               <item name="solidity-ide" type="462c0819:PsiDirectoryNode" />
               <item name="extensions" type="462c0819:PsiDirectoryNode" />
               <item name="theia" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="solidity-ide" type="b2602c69:ProjectViewProjectNode" />
+              <item name="solidity-ide" type="462c0819:PsiDirectoryNode" />
+              <item name="extensions" type="462c0819:PsiDirectoryNode" />
+              <item name="theia" type="462c0819:PsiDirectoryNode" />
               <item name="xtext-dsl-extension" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -82,7 +198,6 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -151,16 +266,18 @@
       <workItem from="1564733897876" duration="4394000" />
       <workItem from="1564991479488" duration="337000" />
       <workItem from="1565073262338" duration="1030000" />
+      <workItem from="1566311169242" duration="2186000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19852000" />
+    <option name="totallyTimeSpent" value="22728000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="972" extended-state="6" />
+    <frame x="0" y="23" width="1680" height="950" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2014652" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20634921" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -176,7 +293,7 @@
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="bottom" id="TypeScript" order="12" visible="true" weight="0.33894232" />
+      <window_info anchor="bottom" id="TypeScript" order="12" visible="true" weight="0.33772454" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -211,29 +328,71 @@
     <entry file="file://$PROJECT_DIR$/extensions/theia/code/.theia/tasks.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/lib/node/solidity-contribution.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/lib/node/solidity-backend-module.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/lib/node/index.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extensions/theia/app/webpack.config.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extensions/theia/lerna.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/.travis.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="12" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extensions/theia/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extensions/Dockerfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+        <state relative-caret-position="540">
+          <caret line="38" column="120" selection-start-line="38" selection-start-column="120" selection-end-line="38" selection-end-column="120" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/extensions/theia/package.json">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="145" selection-start-line="21" selection-start-column="145" selection-end-line="21" selection-end-column="145" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/tsconfig.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/src/node/index.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/src/node/solidity-backend-module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="22" column="48" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extensions/theia/xtext-dsl-extension/src/node/solidity-contribution.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1080">
+          <caret line="78" column="71" selection-start-line="78" selection-start-column="71" selection-end-line="78" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extensions/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extensions/theia/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="35" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">

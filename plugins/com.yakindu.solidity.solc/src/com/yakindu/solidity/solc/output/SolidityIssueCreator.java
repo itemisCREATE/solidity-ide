@@ -1,7 +1,6 @@
 package com.yakindu.solidity.solc.output;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -9,9 +8,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.eclipse.core.internal.utils.FileUtil;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -21,13 +17,12 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
 import org.yakindu.base.types.Package;
 
-import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.yakindu.solidity.solc.result.CompileError;
 import com.yakindu.solidity.solc.result.CompiledContract;
 import com.yakindu.solidity.solc.result.GasEstimates;
+import com.yakindu.solidity.solc.result.SourceLocation;
 
-@SuppressWarnings("restriction")
 public class SolidityIssueCreator {
 
 	private static final String INFO = "info";
@@ -39,7 +34,7 @@ public class SolidityIssueCreator {
 	@Inject
 	private EObjectAtOffsetHelper offsetHelper;
 
-	public void createErrors(final List<CompileError> errors, final Set<IResource> filesToCompile,
+	public void createErrors(final List<CompileError> errors, final Set<File> filesToCompile,
 			EObject currentObject, ValidationMessageAcceptor acceptor) {
 		if (errors == null) {
 			return;
@@ -49,7 +44,7 @@ public class SolidityIssueCreator {
 		}
 	}
 
-	public void createInfos(Map<String, Map<String, CompiledContract>> contracts, Set<IResource> filesToCompile,
+	public void createInfos(Map<String, Map<String, CompiledContract>> contracts, Set<File> filesToCompile,
 			EObject currentObject, ValidationMessageAcceptor acceptor) {
 		if (contracts == null) {
 			return;
@@ -59,11 +54,16 @@ public class SolidityIssueCreator {
 						findFileForName(filesToCompile, entry.getKey()), currentObject, acceptor)));
 	}
 
-	protected void createSolcIssue(CompileError error, Set<IResource> filesToCompile, EObject currentObject,
+	protected void createSolcIssue(CompileError error, Set<File> filesToCompile, EObject currentObject,
 			ValidationMessageAcceptor acceptor) {
-		String fileName = error.getSourceLocation().getFile();
-		IFile errorFile = findFileForName(filesToCompile, fileName);
-		int offset = error.getSourceLocation().getStart();
+		SourceLocation sourceLocation = error.getSourceLocation();
+		if(sourceLocation == null) {
+			return;
+		}
+		
+		String fileName = sourceLocation.getFile();
+		File errorFile = findFileForName(filesToCompile, fileName);
+		int offset = sourceLocation.getStart();
 		String message = error.getMessage();
 		EObject element = getEObject(errorFile, offset, currentObject);
 		String severity = error.getSeverity();
@@ -74,7 +74,7 @@ public class SolidityIssueCreator {
 		}
 	}
 
-	protected void createInfoIssue(CompiledContract contract, IFile file, EObject currentObject,
+	protected void createInfoIssue(CompiledContract contract, File file, EObject currentObject,
 			ValidationMessageAcceptor acceptor) {
 		if (contract.getEvm() == null || contract.getEvm().getGasEstimates() == null) {
 			return;
@@ -85,9 +85,9 @@ public class SolidityIssueCreator {
 		acceptor.acceptInfo(message, element.eContainer(), 0, 0, createErrorCodeFromMessage(INFO, message));
 	}
 
-	protected IFile findFileForName(Set<IResource> filesToCompile, String fileName) {
-		IFile errorFile = filesToCompile.stream().filter(file -> file.getName().equals(fileName))
-				.map(file -> (IFile) file).findFirst().orElse((IFile) filesToCompile.stream().findFirst().orElse(null));
+	protected File findFileForName(Set<File> filesToCompile, String fileName) {
+		File errorFile = filesToCompile.stream().filter(file -> file.getName().equals(fileName))
+				.map(file -> (File) file).findFirst().orElse((File) filesToCompile.stream().findFirst().orElse(null));
 		return errorFile;
 	}
 
@@ -143,7 +143,7 @@ public class SolidityIssueCreator {
 		return 0;
 	}
 
-	protected EObject getEObject(IFile errorFile, int offset, EObject currentObject) {
+	protected EObject getEObject(File errorFile, int offset, EObject currentObject) {
 		Resource resource = currentObject.eResource();
 		if (offset == 0) {
 			EList<EObject> resourceContent = resource.getContents();
@@ -182,24 +182,6 @@ public class SolidityIssueCreator {
 				builder.append("\t\t" + entry.getKey() + ": " + entry.getValue() + "\n");
 			}
 		}
-	}
-
-	protected Map<Integer, String> getFileContent(IFile file) {
-		String fileEnding = FileUtil.getLineSeparator(file);
-		Map<Integer, String> content = Maps.newHashMap();
-		try (BufferedReader reader = new BufferedReader(
-				new InputStreamReader(file.getContents(true), file.getCharset()));) {
-			String line = reader.readLine();
-			int lastLineNumber = 1;
-			while (line != null) {
-				content.put(lastLineNumber, line + fileEnding);
-				line = reader.readLine();
-				lastLineNumber++;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return content;
 	}
 
 	protected String createErrorCodeFromMessage(String severity, String message) {

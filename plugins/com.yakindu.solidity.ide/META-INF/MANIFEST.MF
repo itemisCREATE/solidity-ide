@@ -6,6 +6,7 @@ Bundle-Version: 0.7.3.qualifier
 Bundle-SymbolicName: com.yakindu.solidity.ide;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: com.yakindu.solidity,
+ com.yakindu.solidity.solc;bundle-version="0.7.3",
  org.eclipse.xtext.ide,
  org.eclipse.xtend.lib,
  org.eclipse.xtext.xbase.lib,
@@ -14,7 +15,9 @@ Require-Bundle: com.yakindu.solidity,
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
  com.google.gson,
  org.eclipse.emf.ecore.change,
- org.slf4j.api;bundle-version="1.7.2"
+ org.slf4j.api;bundle-version="1.7.2",
+ org.eclipse.equinox.preferences;bundle-version="3.7.400",
+ org.apache.commons.lang;bundle-version="2.6.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.yakindu.solidity.ide.contentassist.antlr,
  com.yakindu.solidity.ide.contentassist.antlr.internal

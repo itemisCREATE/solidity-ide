@@ -112,8 +112,8 @@
 		
 		<module>../../plugins/com.yakindu.solidity.solc</module>
 		<module>../../plugins/com.yakindu.solidity.solc.linux.fragment</module>
-		<module>../../plugins/com.yakindu.solidity.solc.win.fragment</module>
-		<module>../../plugins/com.yakindu.solidity.solc.mac.fragment</module>
+		<module>../../plugins/com.yakindu.solidity.solc.win32.fragment</module>
+		<module>../../plugins/com.yakindu.solidity.solc.macosx.fragment</module>
 		<module>../../features/com.yakindu.solidity.solc.feature</module>
 	</modules>
 	<build>

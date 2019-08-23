@@ -16,6 +16,7 @@ package com.yakindu.solidity.ui
 
 import com.google.inject.Binder
 import com.google.inject.name.Names
+import com.yakindu.solidity.IWorkspaceResourceResolver
 import com.yakindu.solidity.ui.contentassist.SolidityContentProposalPriorities
 import com.yakindu.solidity.ui.editor.SolidityFoldingRegionProvider
 import com.yakindu.solidity.ui.editor.SolidityHyperlinkHelper
@@ -27,6 +28,7 @@ import com.yakindu.solidity.ui.highlighting.SoliditySemanticHighlighter
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider
 import org.eclipse.xtext.formatting.IIndentationInformation
+import org.eclipse.xtext.ide.editor.syntaxcoloring.ISemanticHighlightingCalculator
 import org.eclipse.xtext.ui.editor.contentassist.IContentProposalPriorities
 import org.eclipse.xtext.ui.editor.folding.IFoldingRegionProvider
 import org.eclipse.xtext.ui.editor.hover.DispatchingEObjectTextHover
@@ -45,13 +47,13 @@ class SolidityUiModule extends AbstractSolidityUiModule {
 
 	override configure(Binder binder) {
 		super.configure(binder)
-		binder.bind(org.eclipse.xtext.ide.editor.syntaxcoloring.ISemanticHighlightingCalculator).to(SoliditySemanticHighlighter)
+		binder.bind(ISemanticHighlightingCalculator).to(SoliditySemanticHighlighter)
 		binder.bind(IHighlightingConfiguration).to(SolidityHighlightingConfiguration)
 		binder.bind(IEObjectDocumentationProvider).to(SolidityUserHelpDocumentationProvider)
 		binder.bind(DispatchingEObjectTextHover).to(CrossRefObjectTextHover)
 		binder.bind(String).annotatedWith(Names.named("stylesheet")).toInstance("/sphinx_rtd_theme.css")
 		binder.bind(IEObjectHoverProvider).to(CustomCSSHelpHoverProvider)
-
+		binder.bind(IWorkspaceResourceResolver).to(WorkspaceResourceResolver);
 	}
 
 	override bindIEObjectHover() {

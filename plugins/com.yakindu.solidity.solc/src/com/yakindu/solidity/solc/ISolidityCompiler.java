@@ -14,10 +14,10 @@
  */
 package com.yakindu.solidity.solc;
 
+import java.io.File;
 import java.util.Optional;
 import java.util.Set;
 
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import com.google.inject.ImplementedBy;
@@ -31,7 +31,7 @@ import com.yakindu.solidity.solc.result.CompilerOutput;
 @ImplementedBy(SolidityCompilerBase.class)
 public interface ISolidityCompiler {
 
-	public Optional<CompilerOutput> compile(Set<IResource> resources, IProgressMonitor progress);
+	public Optional<CompilerOutput> compile(Set<File> resources, IProgressMonitor progress);
 
 }
  
