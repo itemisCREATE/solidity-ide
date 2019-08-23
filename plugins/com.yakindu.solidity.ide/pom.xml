@@ -107,10 +107,10 @@
 						</goals>
 						<configuration>
 							<useAllProjectDependencies>true</useAllProjectDependencies>
-							<projectArtifactFirstInClassPath>true</projectArtifactFirstInClassPath>
 							<assembleDirectory>${project.build.directory}/languageserver</assembleDirectory>
 							<repositoryLayout>flat</repositoryLayout>
-							<!--<extraJvmArguments>-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000</extraJvmArguments>-->
+							<useWildcardClassPath>true</useWildcardClassPath>
+							<!-- <extraJvmArguments>-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000</extraJvmArguments> -->
 							<programs>
 								<program>
 									<id>solidity-ls</id>
