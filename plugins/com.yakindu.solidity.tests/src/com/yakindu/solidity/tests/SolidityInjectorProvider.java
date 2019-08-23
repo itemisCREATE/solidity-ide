@@ -7,11 +7,13 @@ import org.eclipse.xtext.testing.GlobalRegistries;
 import org.eclipse.xtext.testing.GlobalRegistries.GlobalStateMemento;
 import org.eclipse.xtext.testing.IInjectorProvider;
 import org.eclipse.xtext.testing.IRegistryConfigurator;
+import org.eclipse.xtext.util.Modules2;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.yakindu.solidity.SolidityRuntimeModule;
 import com.yakindu.solidity.SolidityStandaloneSetup;
+import com.yakindu.solidity.ide.SolidityIdeModule;
 
 public class SolidityInjectorProvider implements IInjectorProvider, IRegistryConfigurator {
 
@@ -37,7 +39,7 @@ public class SolidityInjectorProvider implements IInjectorProvider, IRegistryCon
 		return new SolidityStandaloneSetup() {
 			@Override
 			public Injector createInjector() {
-				return Guice.createInjector(createRuntimeModule());
+				return Guice.createInjector(Modules2.mixin(createRuntimeModule(), new SolidityIdeModule()));
 			}
 		}.createInjectorAndDoEMFRegistration();
 	}

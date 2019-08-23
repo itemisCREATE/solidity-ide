@@ -22,3 +22,4 @@ Require-Bundle: org.eclipse.ui,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: com.yakindu.sct.domain.solidity.ui
+Export-Package: com.yakindu.sct.domain.solidity.ui
