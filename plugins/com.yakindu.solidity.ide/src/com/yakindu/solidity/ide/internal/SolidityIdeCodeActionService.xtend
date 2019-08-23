@@ -10,7 +10,6 @@ import org.eclipse.xtext.ide.server.codeActions.ICodeActionService2
 import com.yakindu.solidity.SolidityVersion
 import com.google.inject.name.Named
 
-
 import static com.yakindu.solidity.validation.IssueCodes.*
 
 
