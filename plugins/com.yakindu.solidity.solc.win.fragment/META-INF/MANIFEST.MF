@@ -8,3 +8,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: YAKINDU
 Automatic-Module-Name: com.yakindu.solidity.solc.win.fragment
 Export-Package: com.yakindu.solidity.solc
+Eclipse-PlatformFilter: (& (osgi.ws=win32) (osgi.os=win32) (osgi.arch=x86_64) )
+Eclipse-BundleShape: dir

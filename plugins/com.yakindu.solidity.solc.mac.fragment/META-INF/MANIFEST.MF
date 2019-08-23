@@ -8,4 +8,5 @@ Fragment-Host: com.yakindu.solidity.solc
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: com.yakindu.solidity.solc.mac.fragment
 Export-Package: com.yakindu.solidity.solc
-
+Eclipse-PlatformFilter: (& (osgi.ws=cocoa) (osgi.os=macosx) (osgi.arch=x86_64) )
+Eclipse-BundleShape: dir
