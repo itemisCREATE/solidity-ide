@@ -10,15 +10,33 @@
 	</parent>
 	<artifactId>com.yakindu.solidity.ui.tests</artifactId>
 	<packaging>eclipse-test-plugin</packaging>
-	
-	<dependencies>
-		<dependency>
-			<groupId>com.yakindu.solidity</groupId>
-			<artifactId>com.yakindu.solidity.solc</artifactId>
-			<version>0.7.3-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
-	
+
+	<profiles>
+		<profile>
+			<id>macosx</id>
+			<activation>
+				<os>
+					<family>mac</family>
+				</os>
+			</activation>
+			<properties>
+				<test.vmargs>-Xmx1024m -Xss2m -XX:MaxPermSize=256m
+					-XstartOnFirstThread</test.vmargs>
+			</properties>
+		</profile>
+		<profile>
+			<id>other-os</id>
+			<activation>
+				<os>
+					<family>!mac</family>
+				</os>
+			</activation>
+			<properties>
+				<test.vmargs>-Xmx1024m -Xss2m -XX:MaxPermSize=256m</test.vmargs>
+			</properties>
+		</profile>
+	</profiles>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -34,14 +52,30 @@
 					<testFailureIgnore>${testFailureIgnore}</testFailureIgnore>
 					<argLine>${test.vmargs}</argLine>
 					<dependency-resolution>
-				      <extraRequirements>
-				        <requirement>
-				          <type>eclipse-feature</type>
-				          <id>com.yakindu.solidity.solc.feature</id>
-				          <versionRange>0.0.0</versionRange>
-				        </requirement>
-				      </extraRequirements>
-				    </dependency-resolution>
+						<extraRequirements>
+							<requirement>
+								<type>eclipse-feature</type>
+								<id>com.yakindu.solidity.solc.feature</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+						</extraRequirements>
+					</dependency-resolution>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<dependency-resolution>
+						<extraRequirements>
+							<requirement>
+								<type>eclipse-feature</type>
+								<id>com.yakindu.solidity.solc.feature</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+						</extraRequirements>
+					</dependency-resolution>
 				</configuration>
 			</plugin>
 			<plugin>

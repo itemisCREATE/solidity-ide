@@ -19,4 +19,5 @@ Require-Bundle:
  org.eclipse.xtext.ui.testing,
  com.yakindu.solidity,
  org.eclipse.jdt.junit.runtime,
- org.junit
+ org.junit,
+ com.yakindu.solidity.solc

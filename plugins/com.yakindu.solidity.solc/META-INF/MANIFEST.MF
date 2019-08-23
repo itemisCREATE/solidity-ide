@@ -19,3 +19,4 @@ Export-Package: com.yakindu.solidity.solc,
  com.yakindu.solidity.solc.preferences,
  com.yakindu.solidity.solc.result
 Automatic-Module-Name: com.yakindu.solidity.solc
+Eclipse-ExtensibleAPI: true
