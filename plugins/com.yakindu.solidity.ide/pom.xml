@@ -110,6 +110,7 @@
 							<assembleDirectory>${project.build.directory}/languageserver</assembleDirectory>
 							<repositoryLayout>flat</repositoryLayout>
 							<useWildcardClassPath>true</useWildcardClassPath>
+							<escapeString>\</escapeString>
 							<!-- <extraJvmArguments>-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000</extraJvmArguments> -->
 							<programs>
 								<program>
