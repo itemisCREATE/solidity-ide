@@ -1,6 +1,7 @@
 package com.yakindu.solidity.ide;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
@@ -36,7 +37,7 @@ public class LanguageServerLauncher {
 		
 		try {
 			// jvm options
-			String baseDir = System.getProperty("basedir");
+			String baseDir = Paths.get(System.getProperty("basedir")).normalize().toString();
 			
 			CommandLineParser p = new BasicParser();
 			CommandLine cmd = p.parse(o, args);
