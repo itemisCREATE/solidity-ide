@@ -141,7 +141,7 @@
 						<configuration>
 							<tasks>
 								<unzip
-									dest="${project.build.directory}/languageserver/repo/com.yakindu.solidity.solc.mac.fragment">
+									dest="${project.build.directory}/languageserver/repo/com.yakindu.solidity.solc.macosx.fragment">
 									<fileset
 										dir="${project.build.directory}/languageserver/repo/">
 										<include
@@ -157,7 +157,7 @@
 									</fileset>
 								</unzip>
 								<unzip
-									dest="${project.build.directory}/languageserver/repo/com.yakindu.solidity.solc.win.fragment">
+									dest="${project.build.directory}/languageserver/repo/com.yakindu.solidity.solc.win32.fragment">
 									<fileset
 										dir="${project.build.directory}/languageserver/repo/">
 										<include
