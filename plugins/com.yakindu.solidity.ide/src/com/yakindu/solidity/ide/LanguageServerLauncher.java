@@ -1,13 +1,16 @@
 package com.yakindu.solidity.ide;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang.SystemUtils;
+import org.eclipse.xtend.lib.macro.file.Path;
 import org.eclipse.xtext.ide.server.ServerLauncher;
 import org.eclipse.xtext.ide.server.ServerModule;
 import org.eclipse.xtext.util.Modules2;
@@ -24,26 +27,37 @@ public class LanguageServerLauncher {
 	public static final String COMPILER = "-compiler";
 
 	public static void main(String[] args) throws InterruptedException, IOException {
+		
+		// Define program options
+		Options o = new Options();		
+		o.addOption(ServerLauncher.LOG.substring(1), false, "Log");
+		o.addOption(ServerLauncher.TRACE.substring(1), false, "Trace");
+		o.addOption(ServerLauncher.NO_VALIDATE.substring(1), false, "No Validate");
+		o.addOption(COMPILER.substring(1), true, "Path to Solc Compiler (relative to working dir)");
+		
 		try {
-			Options o = new Options();
-			o.addOption(ServerLauncher.LOG.substring(1), false, "Log");
-			o.addOption(ServerLauncher.TRACE.substring(1), false, "Trace");
-			o.addOption(ServerLauncher.NO_VALIDATE.substring(1), false, "No Validate");
-			o.addOption(COMPILER.substring(1), true, "Path to Solc Compiler (relative to working dir)");
+			// jvm options
+			String baseDir = Paths.get(System.getProperty("basedir")).normalize().toString();
+			
 			CommandLineParser p = new BasicParser();
 			CommandLine cmd = p.parse(o, args);
 			if (cmd.hasOption(COMPILER.substring(1))) {
 				String compilerPath = cmd.getOptionValue(COMPILER.substring(1)).replace("${os}", getOS());
-				String absoluteCompilerPath = getWorkDir() + compilerPath;
+				String absoluteCompilerPath = baseDir + Path.SEGMENT_SEPARATOR + compilerPath;
 				ICompilerPreferences prefs = Guice
 						.createInjector(Modules2.mixin(new SolidityRuntimeModule(), new SolidityIdeModule()))
 						.getInstance(ICompilerPreferences.class);
 				prefs.getPreferences().put(ICompilerPreferences.COMPILER_PATH, absoluteCompilerPath);
 			}
-		} catch (Exception e) {
+			ServerLauncher.launch(LanguageServerLauncher.class.getName(), args, new ServerModule());
+		} 
+		catch( ParseException e) {
+			HelpFormatter formatter = new HelpFormatter();
+			formatter.printHelp("YAKINDU solidity language server", o, true);
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
-		ServerLauncher.launch(LanguageServerLauncher.class.getName(), args, new ServerModule());
 		/*
 		 * Injector injector = Guice.createInjector(new ServerModule());
 		 * LanguageServerImpl languageServer =
@@ -57,13 +71,6 @@ public class LanguageServerLauncher {
 		 * launcher.startListening(); while (!future.isDone()) { Thread.sleep(10_000l);
 		 * }
 		 */
-	}
-
-	private static String getWorkDir() throws IOException {
-		// TODO: app workdir should be configured in Maven to be language server dir,
-		// not theia app dir, so we do not have to compensate this here.
-		String appDir = new File(".").getCanonicalPath();
-		return appDir.substring(0, appDir.indexOf("app")) + "xtext-dsl-extension/languageserver/";
 	}
 
 	private static CharSequence getOS() {
