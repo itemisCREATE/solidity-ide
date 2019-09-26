@@ -8,9 +8,9 @@
  */
 package com.yakindu.sct.domain.solidity.modules;
 
-import org.eclipse.xtext.scoping.IGlobalScopeProvider;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.yakindu.base.types.TypesFactory;
+import org.yakindu.base.types.TypesPackage;
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer;
 import org.yakindu.base.types.typesystem.ITypeSystem;
 import org.yakindu.sct.domain.extension.DomainRegistry;
@@ -21,10 +21,10 @@ import org.yakindu.sct.model.stext.validation.STextValidator;
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
 import com.yakindu.sct.domain.solidity.scoping.SolidityImportUriMapper;
+import com.yakindu.sct.domain.solidity.scoping.SoliditySCTScopeProvider;
 import com.yakindu.sct.domain.solidity.validation.SolidityValidator;
-import com.yakindu.solidity.scoping.SolidityGlobalScopeProvider;
-import com.yakindu.solidity.scoping.SolidityScopeProvider;
 import com.yakindu.solidity.solidity.SolidityFactory;
+import com.yakindu.solidity.solidity.SolidityPackage;
 import com.yakindu.solidity.typesystem.SolidityTypeInferrer;
 import com.yakindu.solidity.typesystem.SolidityTypeSystem;
 import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations;
@@ -45,6 +45,10 @@ public class SolidityRuntimeModule extends STextRuntimeModule {
 		binder.bind(TypesFactory.class).toInstance(TypesFactory.eINSTANCE);
 		binder.bind(SolidityFactory.class).toInstance(SolidityFactory.eINSTANCE);
 		binder.bind(BuiltInDeclarations.class);
+		binder.bind(SolidityPackage.class).toInstance(SolidityPackage.eINSTANCE);
+		binder.bind(SolidityFactory.class).toInstance(SolidityFactory.eINSTANCE);
+		binder.bind(TypesPackage.class).toInstance(TypesPackage.eINSTANCE);
+		binder.bind(TypesFactory.class).toInstance(TypesFactory.eINSTANCE);
 	}
 
 	@Override
@@ -73,11 +77,11 @@ public class SolidityRuntimeModule extends STextRuntimeModule {
 
 	@Override
 	public Class<? extends IScopeProvider> bindIScopeProvider() {
-		return SolidityScopeProvider.class;
+		return SoliditySCTScopeProvider.class;
 	}
-
-	@Override
-	public Class<? extends IGlobalScopeProvider> bindIGlobalScopeProvider() {
-		return SolidityGlobalScopeProvider.class;
-	}
+//
+//	@Override
+//	public Class<? extends IGlobalScopeProvider> bindIGlobalScopeProvider() {
+//		return SolidityGlobalScopeProvider.class;
+//	}
 }

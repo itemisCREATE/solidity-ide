@@ -42,7 +42,7 @@ class Naming {
 	}
 
 	def dispatch String toName(ExecutionState state) {
-		(state.sourceElement as State).fullyQualifiedName.toString.toName;
+		(state.sourceElement as Vertex).fullyQualifiedName.toString.toName;
 	}
 
 	def dispatch String toName(String string) {

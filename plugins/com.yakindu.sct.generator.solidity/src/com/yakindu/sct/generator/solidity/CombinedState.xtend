@@ -30,7 +30,7 @@ class CombinedState implements Template {
 
 	override content(ExecutionFlow flow, GeneratorEntry entry) {
 		'''
-			pragma solidity ^0.4.18;
+			pragma solidity ^0.5.10;
 				contract «flow.toName» {
 					«flow.generateStateEnum»
 					

@@ -33,7 +33,7 @@ class SolidityTypeSystemAccess implements ICodegenTypeSystemAccess{
 			case isSame(originalType, getType(REAL)): 'int32'
 			case isSame(originalType, getType(BOOLEAN)): 'bool'
 			case isSame(originalType, getType(STRING)): 'string'
-			default: throw new IllegalArgumentException("Target language name could not be inferred for type " + type)
+			default:type.name
 		}
 	}
 	
