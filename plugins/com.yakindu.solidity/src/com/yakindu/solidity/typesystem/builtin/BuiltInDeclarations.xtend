@@ -33,6 +33,7 @@ import org.yakindu.base.types.typesystem.AbstractTypeSystem
 import org.yakindu.base.types.typesystem.ITypeSystem
 
 import static com.yakindu.solidity.typesystem.SolidityTypeSystem.*
+import org.yakindu.base.types.AnnotationType
 
 /**
  * @author andreas muelder - Initial contribution and API
@@ -85,6 +86,8 @@ class BuiltInDeclarations {
 	protected Type UINT265
 	protected Type VOID
 
+	protected AnnotationType payable
+	
 	@Inject
 	protected new(ITypeSystem typeSystem, TypesFactory typesFactory, SolidityFactory solidityFactory) {
 		this.typeSystem = typeSystem
@@ -149,6 +152,11 @@ class BuiltInDeclarations {
 		 ************************/
 		owned = owned()
 		mortal = mortal()
+
+		/************************
+		 *     ANNOTATIONS
+		 ************************/
+		payable = payable()
 	}
 
 	def create new ArrayList<EObject>() superContracts() {
@@ -157,7 +165,7 @@ class BuiltInDeclarations {
 
 	def List<Declaration> all() {
 		#[abi, msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, push, pop, ripemd160,
-			ecrecover, block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]
+			ecrecover, block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal, payable]
 	}
 
 	def protected Operation assert_() {
@@ -332,6 +340,12 @@ class BuiltInDeclarations {
 					]
 				]
 			]
+		]
+	}
+	
+	def protected AnnotationType payable() {
+		typesFactory.createAnnotationType => [
+			name = "payable"
 		]
 	}
 
