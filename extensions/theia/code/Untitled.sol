@@ -1,22 +1,16 @@
 pragma solidity ^0.5.8;
 
 contract MyContract {
-    address creator;
+    address payable creator;
     
-
-    function MyContract () {
+    constructor () public {
         creator = msg.sender;
         kill();
     }
-
-    // TODO Add functions
-
-    /**********
-     Standard kill() function to recover funds 
-     **********/
-    function kill() {
+	
+    function kill() public {
         if (msg.sender == creator) {
-            suicide(creator); // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator); 
         }
     }
 }
