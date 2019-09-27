@@ -16,7 +16,9 @@
     "@theia/typescript": "next",
     "xtext-dsl-extension": "0.1.0",
     "glob": "^7.1.2",
-    "@types/glob": "^5.0.30",
+    "@types/glob": "^5.0.30"
+  },
+  "devDependencies": {
     "@theia/cli": "next"
   },
   "scripts": {

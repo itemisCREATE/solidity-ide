@@ -13,9 +13,9 @@ const { mode }  = yargs.option('mode', {
 }).argv;
 const development = mode === 'development';
 
-const monacoEditorCorePath = development ? '/Users/nyssen/git/solidity-ide/extensions/theia/node_modules/@typefox/monaco-editor-core/dev/vs' : '/Users/nyssen/git/solidity-ide/extensions/theia/node_modules/@typefox/monaco-editor-core/min/vs';
-const monacoCssLanguagePath = '/Users/nyssen/git/solidity-ide/extensions/theia/node_modules/monaco-css/release/min';
-const monacoHtmlLanguagePath = '/Users/nyssen/git/solidity-ide/extensions/theia/node_modules/monaco-html/release/min';
+const monacoEditorCorePath = development ? '/mnt/c/programmieren/yakindu/solidity-ide/extensions/theia/node_modules/@typefox/monaco-editor-core/dev/vs' : '/mnt/c/programmieren/yakindu/solidity-ide/extensions/theia/node_modules/@typefox/monaco-editor-core/min/vs';
+const monacoCssLanguagePath = '/mnt/c/programmieren/yakindu/solidity-ide/extensions/theia/node_modules/monaco-css/release/min';
+const monacoHtmlLanguagePath = '/mnt/c/programmieren/yakindu/solidity-ide/extensions/theia/node_modules/monaco-html/release/min';
 
 module.exports = {
     entry: path.resolve(__dirname, 'src-gen/frontend/index.js'),
