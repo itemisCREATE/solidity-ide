@@ -1,4 +1,5 @@
 *.log
+*.config.js
 */node_modules/
 */lib/
 */src-gen/
