@@ -22,7 +22,7 @@ WORKDIR /home/node
 COPY --chown=node:node theia ./theia
 
 WORKDIR /home/node/theia
-RUN yarn install --production
+RUN yarn install
 
 WORKDIR /home/node/
 
