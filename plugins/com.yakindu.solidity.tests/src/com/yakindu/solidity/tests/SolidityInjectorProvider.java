@@ -3,14 +3,14 @@
  */
 package com.yakindu.solidity.tests;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.yakindu.solidity.SolidityRuntimeModule;
-import com.yakindu.solidity.SolidityStandaloneSetup;
 import org.eclipse.xtext.testing.GlobalRegistries;
 import org.eclipse.xtext.testing.GlobalRegistries.GlobalStateMemento;
 import org.eclipse.xtext.testing.IInjectorProvider;
 import org.eclipse.xtext.testing.IRegistryConfigurator;
+
+import com.google.inject.Injector;
+import com.yakindu.solidity.SolidityStandaloneSetup;
+import com.yakindu.solidity.ui.internal.SolidityActivator;
 
 public class SolidityInjectorProvider implements IInjectorProvider, IRegistryConfigurator {
 
@@ -36,21 +36,9 @@ public class SolidityInjectorProvider implements IInjectorProvider, IRegistryCon
 		return new SolidityStandaloneSetup() {
 			@Override
 			public Injector createInjector() {
-				return Guice.createInjector(createRuntimeModule());
+				return SolidityActivator.getInstance().getInjector("com.yakindu.solidity.Solidity");
 			}
 		}.createInjectorAndDoEMFRegistration();
-	}
-
-	protected SolidityRuntimeModule createRuntimeModule() {
-		// make it work also with Maven/Tycho and OSGI
-		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=493672
-		return new SolidityRuntimeModule() {
-			@Override
-			public ClassLoader bindClassLoaderToInstance() {
-				return SolidityInjectorProvider.class
-						.getClassLoader();
-			}
-		};
 	}
 
 	@Override

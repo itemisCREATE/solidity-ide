@@ -35,6 +35,7 @@ import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.TypesPackage
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
+import com.yakindu.solidity.solc.SolidityCompiler
 
 /**
  * 
@@ -60,15 +61,7 @@ class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 	}
 
 	private def bindCompiler(Binder binder) {
-		try {
-			val clazz = (Class.forName(
-				"com.yakindu.solidity.solc.SolidityCompiler") as Class<? extends ISolidityCompiler>)
-			if (clazz !== null) {
-				binder.bind(ISolidityCompiler).to(clazz);
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace
-		}
+		binder.bind(ISolidityCompiler).to(SolidityCompiler);
 	}
 
 	override bindIGlobalScopeProvider() {

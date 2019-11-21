@@ -45,7 +45,10 @@ Workflow {
 				}
 				createEclipseMetaData = true
 				runtimeTest = {
-					enabled = false
+					enabled = true
+				}
+				eclipsePluginTest = {
+					enabled = true
 				}
 			}
 			code = {

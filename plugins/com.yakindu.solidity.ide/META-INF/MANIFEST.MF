@@ -19,9 +19,9 @@ Require-Bundle: com.yakindu.solidity,
  org.eclipse.equinox.preferences;bundle-version="3.7.400",
  org.apache.commons.lang;bundle-version="2.6.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: com.yakindu.solidity.ide.contentassist.antlr,
+Export-Package: com.yakindu.solidity.ide,
+ com.yakindu.solidity.ide.contentassist.antlr,
  com.yakindu.solidity.ide.contentassist.antlr.internal
 Automatic-Module-Name: com.yakindu.solidity.ide
-Bundle-ClassPath: lib/Java-WebSocket-1.4.0.jar,
- .
+Bundle-ClassPath: lib/Java-WebSocket-1.4.0.jar,.
 

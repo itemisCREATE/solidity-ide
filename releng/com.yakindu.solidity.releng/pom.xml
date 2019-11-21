@@ -25,6 +25,7 @@
 			<modules>
 				<!-- test plugins -->
 				<module>../../plugins/com.yakindu.solidity.tests</module>
+				<module>../../plugins/com.yakindu.solidity.ui.tests</module>
 			</modules>
 		</profile>
 		<profile>

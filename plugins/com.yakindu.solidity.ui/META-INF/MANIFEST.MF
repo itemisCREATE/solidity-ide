@@ -25,7 +25,8 @@ Require-Bundle: com.yakindu.solidity,
  com.yakindu.solidity.solc
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: com.yakindu.solidity.ui.contentassist,
+Export-Package: com.yakindu.solidity.ui,
+ com.yakindu.solidity.ui.contentassist,
  com.yakindu.solidity.ui.highlighting,
  com.yakindu.solidity.ui.internal,
  com.yakindu.solidity.ui.preferences,
