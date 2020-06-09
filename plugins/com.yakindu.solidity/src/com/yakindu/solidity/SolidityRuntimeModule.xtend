@@ -35,6 +35,7 @@ import org.yakindu.base.types.TypesFactory
 import org.yakindu.base.types.TypesPackage
 import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
+import com.yakindu.solidity.solidity.PragmaVersion
 
 /**
  * 
@@ -54,7 +55,7 @@ class SolidityRuntimeModule extends AbstractSolidityRuntimeModule {
 		binder.bind(SolidityFactory).toInstance(SolidityFactory.eINSTANCE)
 		binder.bind(TypesPackage).toInstance(TypesPackage.eINSTANCE)
 		binder.bind(TypesFactory).toInstance(TypesFactory.eINSTANCE)
-		binder.bind(String).annotatedWith(Names.named(SolidityVersion.SOLIDITY_VERSION)).toInstance(
+		binder.bind(PragmaVersion).annotatedWith(Names.named(SolidityVersion.SOLIDITY_VERSION)).toInstance(
 			SolidityVersion.DEFAULT_SOLIDITY_VERSION)
 		bindCompiler(binder)
 	}

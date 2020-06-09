@@ -7,6 +7,25 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PragmaDirective" eSuperTypes="platform:/resource/org.yakindu.base.types/model/base.ecore#//DomainElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PragmaVersion">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="minorConstraint" eType="#//PragmaVersionConstraint"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="majorConstraint" eType="#//PragmaVersionConstraint"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PragmaVersionConstraint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="versionOperator" eType="#//VersionOperator"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="VersionOperator">
+    <eLiterals name="ROOF" literal="^"/>
+    <eLiterals name="WAVE" value="1" literal="~"/>
+    <eLiterals name="GREATEREQUAL" value="2" literal=">="/>
+    <eLiterals name="SMALLER" value="3" literal="&lt;"/>
+    <eLiterals name="GREATER" value="4" literal=">"/>
+    <eLiterals name="SMALLEREQUAL" value="5" literal="&lt;="/>
+    <eLiterals name="EQUAL" value="6" literal="="/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SuperTypeArgumentList">
     <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"
         eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Expression"
@@ -56,6 +75,8 @@
     <eLiterals name="CONSTANT" value="5" literal="constant"/>
     <eLiterals name="VIEW" value="6" literal="view"/>
     <eLiterals name="PAYABLE" value="7" literal="payable"/>
+    <eLiterals name="OVERRIDE" value="8" literal="override"/>
+    <eLiterals name="VIRTUAL" value="9" literal="virtual"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModifierInvocation" eSuperTypes="#//Modifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="ecore:EClass platform:/resource/org.yakindu.base.types/model/types.ecore#//Operation"/>
@@ -189,7 +210,8 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PragmaSolidityDirective" eSuperTypes="#//PragmaDirective">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="version" eType="#//PragmaVersion"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PragmaExperimentalDirective" eSuperTypes="#//PragmaDirective">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
