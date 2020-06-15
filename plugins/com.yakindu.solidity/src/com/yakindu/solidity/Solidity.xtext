@@ -40,7 +40,19 @@ PragmaDirective returns base::DomainElement:
 	PragmaSolidityDirective | PragmaExperimentalDirective;
 
 PragmaSolidityDirective returns PragmaDirective:
-	{PragmaSolidityDirective} 'pragma' 'solidity' version=VERSION ';';
+	{PragmaSolidityDirective} 'pragma' 'solidity' version=PragmaVersion ';';
+	
+PragmaVersion:
+	minorConstraint=PragmaVersionConstraint (majorConstraint=PragmaVersionConstraint)?
+;
+
+PragmaVersionConstraint:
+	(versionOperator=VersionOperator)? version=VERSION
+;
+
+enum VersionOperator :
+	ROOF='^' | WAVE='~' | GREATEREQUAL='>=' | SMALLER='<' | GREATER='>' | SMALLEREQUAL='<=' | EQUAL='='
+;
 
 PragmaExperimentalDirective returns PragmaDirective:
 	{PragmaExperimentalDirective} 'pragma' 'experimental' value=STRING ';';
@@ -49,7 +61,7 @@ ImportDirective returns base::DomainElement:
 	{ImportDirective} 'import' importedNamespace=STRING ('as' alias=STRING)? ';';
 
 ContractDefinition returns types::ComplexType:
-	{ContractDefinition} type=ContractType name=ID
+	{ContractDefinition} (abstract?='abstract')? type=ContractType name=ID
 	// FIXME: InheritanceSpecifier should be introduced so type arguments can be properly mapped
 	('is' superTypes+=TypeSpecifier (argumentList+=SuperTypeArgumentList)? (',' superTypes+=TypeSpecifier (argumentList+=SuperTypeArgumentList)?)*)?
 	'{' (features+=ContractPart)* '}';
@@ -124,7 +136,7 @@ BuildInModifier:
 
 enum FunctionModifier:
 	EXTERNAL='external' | PUBLIC='public' | INTERNAL='internal' | PRIVATE='private' | PURE='pure' | CONSTANT='constant' |
-	VIEW='view' | PAYABLE='payable';
+	VIEW='view' | PAYABLE='payable' | OVERRIDE='override' | VIRTUAL='virtual';
 
 ModifierInvocation:
 	{ModifierInvocation} reference=[types::Operation|ID] ('(' (arguments+=Argument (',' arguments+=Argument)*)? ')')?;
@@ -406,7 +418,7 @@ terminal DECIMAL returns EBigDecimal:
 	('0'..'9')+ ('.' ('0'..'9')*)? (('e' | 'E') ('0'..'9')+)?;
 
 terminal VERSION:
-	'^' INT . INT . INT;
+	'^' INT . INT (. INT)?;
 
 terminal BOOL returns EBoolean:
 	'true' | 'false';

@@ -63,6 +63,7 @@ import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import com.yakindu.solidity.solidity.PragmaVersion
 
 /** 
  * @author andreas muelder - Initial contribution and API
@@ -74,7 +75,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	@Inject BuiltInDeclarations declarations
 	@Inject extension SolidityFactory
 	@Inject ITypeSystemInferrer typeInferrer
-	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) String solcVersion
+	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) PragmaVersion solcVersion
 	ExpressionsFactory factory = ExpressionsFactory.eINSTANCE
 
 	@Fix(WARNING_SOLIDITY_VERSION_NOT_THE_DEFAULT)
@@ -456,7 +457,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 					if (element.eContainer instanceof SourceUnit) {
 						val sourceUnit = element.eContainer as SourceUnit
 						val pragma = createPragmaSolidityDirective => [
-						version = "^" + solcVersion
+						version = solcVersion
 						]
 						sourceUnit.pragma += pragma
 					}
