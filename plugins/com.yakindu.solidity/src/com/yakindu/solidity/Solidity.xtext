@@ -75,7 +75,7 @@ enum ContractType:
 
 ContractPart returns types::Declaration:
 	StateVariableDefinition | UsingForDeclaration | ModifierDefinition | FunctionDefinition | ConstructorDefinition |
-	EventDefinition |
+	EventDefinition | FallbackDefinition | ReceiveDefinition |
 	TypeDefinition;
 
 UsingForDeclaration returns types::Declaration:
@@ -128,6 +128,16 @@ FunctionDefinition returns types::Operation:
 	{FunctionDefinition} 'function' name=ID? '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')'
 	(modifier+=Modifier)* ('returns' '(' (returnParameters+=Parameter (',' returnParameters+=Parameter)*)? ')')? (';' |
 	(block=Block));
+
+FallbackDefinition returns types::Operation:
+	{FallbackDefinition} 'fallback' '('')'(modifier+=Modifier)*
+	block=Block
+;
+
+ReceiveDefinition returns types::Operation:
+	{ReceiveDefinition} 'receive' '('')'(modifier+=Modifier)*
+	block=Block
+;
 
 Modifier:
 	ModifierInvocation | BuildInModifier;
