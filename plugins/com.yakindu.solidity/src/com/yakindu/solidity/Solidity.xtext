@@ -34,6 +34,7 @@ SourceUnit returns types::Package:
 	{SourceUnit}
 	((pragma+=PragmaDirective)*
 	(imports+=ImportDirective)*
+	(enums+=EnumDefinition | structs+=StructDefinition)*
 	member+=ContractDefinition);
 
 PragmaDirective returns base::DomainElement:
