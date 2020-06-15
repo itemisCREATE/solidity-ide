@@ -14,8 +14,7 @@ public interface SolidityVersion {
 		SolidityFactory factory = SolidityFactory.eINSTANCE;
 		final PragmaVersion defaultVersion = factory.createPragmaVersion();
 		final PragmaVersionConstraint minorConstraint = factory.createPragmaVersionConstraint();
-		minorConstraint.setVersionOperator(VersionOperator.ROOF);
-		minorConstraint.setVersion("0.6.9");
+		minorConstraint.setVersion("^0.6.9");
 		defaultVersion.setMinorConstraint(minorConstraint);
 		
 		return defaultVersion;
@@ -25,8 +24,7 @@ public interface SolidityVersion {
 		SolidityFactory factory = SolidityFactory.eINSTANCE;
 		final PragmaVersion defaultVersion = factory.createPragmaVersion();
 		final PragmaVersionConstraint minorConstraint = factory.createPragmaVersionConstraint();
-		minorConstraint.setVersionOperator(VersionOperator.ROOF);
-		minorConstraint.setVersion("0.6.0");
+		minorConstraint.setVersion("^0.6.0");
 		defaultVersion.setMinorConstraint(minorConstraint);
 		
 		return defaultVersion;
