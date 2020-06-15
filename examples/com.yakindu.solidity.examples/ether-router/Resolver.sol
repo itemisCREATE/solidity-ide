@@ -3,7 +3,7 @@ pragma solidity ^0.4.8;
 contract Resolver {
   struct Pointer { address destination; uint outsize; }
   mapping (bytes4 => Pointer) public pointers;
-  address public fallback;
+  address public faillback;
   address public admin;
   Resolver public replacement;
 
@@ -19,7 +19,7 @@ contract Resolver {
 
   function Resolver(address _fallback) {
     admin = msg.sender;
-    fallback = _fallback;
+    faillback = _fallback;
   }
 
   // Public API
@@ -48,8 +48,8 @@ contract Resolver {
   }
 
   function setFallback(address _fallback) onlyAdmin {
-    FallbackChanged(fallback, _fallback);
-    fallback = _fallback;
+    FallbackChanged(faillback, _fallback);
+    faillback = _fallback;
   }
 
   // Helpers
@@ -59,7 +59,7 @@ contract Resolver {
     if (storedDestination != 0) {
       return storedDestination;
     } else {
-      return fallback;
+      return faillback;
     }
   }
 
