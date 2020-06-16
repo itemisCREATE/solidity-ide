@@ -132,6 +132,17 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ForStatement/afterthought"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ForStatement/statement"/>
     </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//TryStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//TryStatement/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//TryStatement/returnParameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//TryStatement/block"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//TryStatement/catchClauses"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//CatchClause">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//CatchClause/identifier"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//CatchClause/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//CatchClause/block"/>
+    </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//InlineAssemblyBlock">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//InlineAssemblyBlock/items"/>
     </genClasses>
@@ -176,8 +187,7 @@
     <genClasses ecoreClass="Solidity.ecore#//SourceUnit">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//SourceUnit/pragma"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//SourceUnit/imports"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//SourceUnit/enums"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//SourceUnit/structs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//SourceUnit/typeDefinitions"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//PragmaSolidityDirective">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//PragmaSolidityDirective/version"/>
