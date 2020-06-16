@@ -34,7 +34,7 @@ SourceUnit returns types::Package:
 	{SourceUnit}
 	((pragma+=PragmaDirective)*
 	(imports+=ImportDirective)*
-	(enums+=EnumDefinition | structs+=StructDefinition)*
+	(typeDefinitions+=TypeDefinition)*
 	member+=ContractDefinition);
 
 PragmaDirective returns base::DomainElement:
@@ -159,7 +159,7 @@ IndexParameter returns types::Parameter:
 	{IndexParameter} typeSpecifier=TypeSpecifier (indexed?="indexed")? (name=ID)?;
 
 Statement:
-	IfStatement | WhileStatement | ForStatement | Block | InlineAssemblyStatement | (ThrowStatement | ReturnStatement |
+	IfStatement | WhileStatement | ForStatement | Block | InlineAssemblyStatement | TryStatement | (ThrowStatement | ReturnStatement |
 	DeleteStatement | ContinueStatement | BreakStatement | SimpleStatement | PlaceholderStatement) ';';
 
 ThrowStatement:
@@ -214,6 +214,16 @@ WhileStatement:
 ForStatement:
 	'for' '(' (initialization=SimpleStatement)? ';' (condition=Expression)? ';' (afterthought=Expression)? ')'
 	statement=Statement;
+
+TryStatement:
+	'try' expression=Expression ('returns' '('returnParameters+=Parameter (',' returnParameters+=Parameter)* ')')?
+	block=Block
+	(catchClauses+=CatchClause)+
+;
+CatchClause:
+	'catch' ((identifier=Identifier)? '('parameters+=Parameter (',' parameters+=Parameter)*')')?
+	block=Block
+;
 
 InlineAssemblyBlock:
 	{InlineAssemblyBlock} '{' (items+=AssemblyItem)* '}';
