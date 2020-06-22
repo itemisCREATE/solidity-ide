@@ -40,6 +40,7 @@ import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import org.yakindu.base.types.typesystem.ITypeSystem
 import org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider
 import org.eclipse.xtext.naming.QualifiedName
+import com.yakindu.solidity.solidity.NamedArgument
 
 /**
  * 
@@ -131,6 +132,15 @@ class SolidityScopeProvider extends ExpressionsScopeProvider {
 		return Scopes.scopeFor(contractsViaUsings, [if(!it.getName().isNullOrEmpty) { QualifiedName.create(it.getName())}]
 			, Scopes.scopeFor(contractsViaUsings,
 			new FeatureCallScope(context, reference, builtInDeclarations, typeSystem, inferrer)));
+	}
+	
+	def scope_NamedArgument_reference(NamedArgument context, EReference reference) {
+		if (context.eContainer instanceof FeatureCall) {
+			val result = newArrayList()
+			result += builtInDeclarations.gasProperty
+			result += builtInDeclarations.valueProperty
+			return Scopes.scopeFor(result)
+		}	
 	}
 
 	def usings(EObject context) {

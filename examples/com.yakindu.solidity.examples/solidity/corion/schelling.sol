@@ -46,7 +46,6 @@ contract schellingDB is safeMath, schellingVars {
         Constructor
     */
     function schellingDB() {
-        rounds.length = 2;
         rounds[0].blockHeight = block.number;
         currentSchellingRound = 1;
     }
@@ -313,10 +312,10 @@ contract schelling is module, announcementTypes, schellingVars {
     function sendVote(string vote) isReady noContract external {
         /*
             Check vote (Envelope opening)
-            Only the sent “envelopes” can be opened.
+            Only the sent â€œenvelopesâ€� can be opened.
             Envelope opening only in the next Schelling round.
             If the vote invalid, the deposit will be lost.
-            If the “envelope” was opened later than 1,5 Schelling round, the vote is automatically invalid, and deposit can be lost.
+            If the â€œenvelopeâ€� was opened later than 1,5 Schelling round, the vote is automatically invalid, and deposit can be lost.
             Lost deposits will be 100% burned.
             
             @vote      Hash of the content of the vote.
@@ -419,7 +418,7 @@ contract schelling is module, announcementTypes, schellingVars {
     }
     function checkReward() public constant returns (uint256 reward) {
         /*
-            Withdraw of the amount of the prize (it’s only information).
+            Withdraw of the amount of the prize (itâ€™s only information).
             
             @reward         Prize
         */
@@ -484,7 +483,7 @@ contract schelling is module, announcementTypes, schellingVars {
     function getFunds() isReady noContract external {
         /*
             Deposit withdrawn.
-            If the deposit isn’t lost, it can be withdrawn.
+            If the deposit isnâ€™t lost, it can be withdrawn.
             By withdrawn, the deposit will be sent from Schelling address to the users address, charged with transaction fee..
         */
         var voter = getVoter(msg.sender);
@@ -570,7 +569,7 @@ contract schelling is module, announcementTypes, schellingVars {
     
     modifier noContract {
         /*
-            Contract can’t call this function, only a natural address.
+            Contract canâ€™t call this function, only a natural address.
         */
         require( msg.sender == tx.origin ); _;
     }

@@ -126,6 +126,8 @@ class FeatureCallScope extends AbstractScope {
 			result += it.returnParameters?.head?.getLocalElements ?: newArrayList
 			result += declarations.value
 			result += declarations.gas
+			result += declarations.address
+			result += declarations.selector
 			result
 		} else {
 			typeSpecifier?.getLocalElements

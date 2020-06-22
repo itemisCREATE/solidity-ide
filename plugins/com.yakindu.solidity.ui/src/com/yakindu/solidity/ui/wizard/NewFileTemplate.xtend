@@ -16,6 +16,8 @@ package com.yakindu.solidity.ui.wizard
 
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
 import com.google.common.base.CaseFormat
+import com.yakindu.solidity.solidity.PragmaVersion
+import static extension com.yakindu.solidity.SolidityVersion.*
 
 /** 
  * 
@@ -24,10 +26,10 @@ import com.google.common.base.CaseFormat
 @FinalFieldsConstructor
 class NewFileTemplate {
 	val String fileName
-	val String solidityVersion
+	val PragmaVersion solidityVersion
 
 	def generate() '''
-		pragma solidity «solidityVersion»;
+		pragma solidity «toString(solidityVersion)»;
 		
 		contract «contractName» {
 		    address creator;
