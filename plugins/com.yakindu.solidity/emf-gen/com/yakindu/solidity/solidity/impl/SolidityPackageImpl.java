@@ -3,6 +3,16 @@
  */
 package com.yakindu.solidity.solidity.impl;
 
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.yakindu.base.base.BasePackage;
+import org.yakindu.base.expressions.expressions.ExpressionsPackage;
+import org.yakindu.base.types.TypesPackage;
+
 import com.yakindu.solidity.solidity.AddressLiteral;
 import com.yakindu.solidity.solidity.ArrayTypeSpecifier;
 import com.yakindu.solidity.solidity.AssemblyAssignment;
@@ -77,20 +87,6 @@ import com.yakindu.solidity.solidity.VariableDefinition;
 import com.yakindu.solidity.solidity.VersionOperator;
 import com.yakindu.solidity.solidity.Visibility;
 import com.yakindu.solidity.solidity.WhileStatement;
-
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-
-import org.eclipse.emf.ecore.impl.EPackageImpl;
-
-import org.yakindu.base.base.BasePackage;
-
-import org.yakindu.base.expressions.expressions.ExpressionsPackage;
-
-import org.yakindu.base.types.TypesPackage;
 
 /**
  * <!-- begin-user-doc -->

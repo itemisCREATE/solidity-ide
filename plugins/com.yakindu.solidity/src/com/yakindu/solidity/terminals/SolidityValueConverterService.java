@@ -32,11 +32,14 @@ public class SolidityValueConverterService extends ExpressionsValueConverterServ
 
 	public static final String DECIMAL = "DECIMAL";
 	public static final String ADDRESS = "ADDRESS";
+	public static final String VERSION = "VERSION";
 
 	@Inject
 	private DECIMALValueConverter decimalConverter;
 	@Inject
 	private ADDRESSValueConverter addressConverter;
+	@Inject
+	private VERSIONValueConverter versionConverter;
 
 	@ValueConverter(rule = DECIMAL)
 	public IValueConverter<BigDecimal> BIGINT() {
@@ -46,6 +49,11 @@ public class SolidityValueConverterService extends ExpressionsValueConverterServ
 	@ValueConverter(rule = ADDRESS)
 	public IValueConverter<BigInteger> ADDRESS() {
 		return addressConverter;
+	}
+	
+	@ValueConverter(rule = VERSION)
+	public IValueConverter<String> VERSION() {
+		return versionConverter;
 	}
 
 }

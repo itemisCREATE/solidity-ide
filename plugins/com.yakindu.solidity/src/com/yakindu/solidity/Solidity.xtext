@@ -436,14 +436,22 @@ enum PostFixOperator returns expressions::PostFixOperator:
 terminal ADDRESS returns EBigInteger:
 	('0x') ('0'..'9' | 'a'..'f' | 'A'..'F')+;
 
-terminal DECIMAL returns EBigDecimal:
-	('0'..'9')+ ('.' ('0'..'9')*)? (('e' | 'E') ('0'..'9')+)?;
+VERSION:
+	DECIMALTERMINAL ('.' INT)?;
 
-terminal VERSION:
-	'^' INT . INT (. INT)?;
+DECIMAL returns EBigDecimal:
+	INT | DECIMALTERMINAL
+;
 
-terminal BOOL returns EBoolean:
-	'true' | 'false';
+@Override 
+terminal INT returns EInt: ('0'..'9')+(('e' | 'E') ('0'..'9')+)?;
+
+terminal DECIMALTERMINAL returns EBigDecimal:
+	('0'..'9')+ ('.' ('0'..'9')*) (('e' | 'E') ('0'..'9')+)?;
 
 terminal BINARY returns EInt:
 	('0') ('b' | 'B') ('0' | '1')+;
+	
+terminal BOOL returns EBoolean:
+	'true' | 'false';
+

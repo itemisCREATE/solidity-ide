@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity >=^0.6.2 <^0.7.0;
+pragma solidity >=0.6.2 <0.7.0;
 
 contract Test {
     // This function is called for all messages sent to
