@@ -38,6 +38,7 @@ class SolidityTypeSystem extends GenericTypeSystem {
 	public static val String BYTES20 = "bytes20"
 	public static val String BYTES32 = "bytes32"
 	public static val String ADDRESS = "address"
+	public static val String ADDRESS_PAYABLE = "address payable"
 	public static val String BALANCE = "balance"
 
 	public static val String ABI = "abi"
@@ -103,10 +104,15 @@ class SolidityTypeSystem extends GenericTypeSystem {
 		declareSuperType(getType(SolidityTypeSystem.BYTES), getType(INTEGER))
 		declareSuperType(getType(SolidityTypeSystem.BYTE), getType(INTEGER))
 		SolidityTypeSystem.BYTES.declareExplicitSizeTypes(1);
-
+		
 		var abi = createAbi()
 		declareType(abi, ABI)
 		resource.getContents().add(abi)
+		
+		var address_payable = createAddressPayable()
+		declareType(address_payable, ADDRESS_PAYABLE)
+		resource.getContents().add(address_payable)
+		declareSuperType(getType(ADDRESS_PAYABLE), getType(INTEGER))
 
 		var address = createAddress()
 		declareType(address, ADDRESS)
@@ -140,7 +146,7 @@ class SolidityTypeSystem extends GenericTypeSystem {
 	override getDirectSuperTypes(Type type) {
 		var superTypes = super.getDirectSuperTypes(type)
 		if (type instanceof ContractDefinition)
-			superTypes += getType(ADDRESS)
+			superTypes += getType(ADDRESS_PAYABLE)
 		return superTypes
 	}
 
@@ -231,7 +237,7 @@ class SolidityTypeSystem extends GenericTypeSystem {
 			type.features += createProperty => [
 				name = SENDER
 				typeSpecifier = createTypeSpecifier => [
-					type = getType(ADDRESS)
+					type = getType(ADDRESS_PAYABLE)
 				]
 			]
 			type.features += createProperty => [
@@ -335,6 +341,82 @@ class SolidityTypeSystem extends GenericTypeSystem {
 	def createAddress() {
 		createComplexType => [ type |
 			type.name = ADDRESS
+			type.features += createProperty => [
+				name = BALANCE
+				typeSpecifier = createTypeSpecifier => [
+					type = getType(INTEGER)
+				]
+				readonly = true
+			]
+			type.features += createOperation => [
+				name = TRANSFER
+				typeSpecifier = createTypeSpecifier => [
+					type = getType(VOID)
+				]
+				parameters += createParameter => [
+					typeSpecifier = createTypeSpecifier => [
+						type = getType(UINT + "256")
+					]
+					name = AMOUNT
+				]
+			]
+			type.features += createOperation => [
+				name = SEND
+				typeSpecifier = createTypeSpecifier => [
+					type = getType(BOOL)
+				]
+				parameters += createParameter => [
+					typeSpecifier = createTypeSpecifier => [
+						type = getType(UINT + "256")
+					]
+					name = AMOUNT
+				]
+			]
+			type.features += createOperation => [
+				parameters += createParameter => [
+					typeSpecifier = createTypeSpecifier => [
+						type = getType(ANY)
+					]
+					name = "target"
+					varArgs = true;
+				]
+				name = CALL
+				typeSpecifier = createTypeSpecifier => [
+					type = getType(BOOL)
+				]
+			]
+			type.features += createOperation => [
+				parameters += createParameter => [
+					typeSpecifier = createTypeSpecifier => [
+						type = getType(ANY)
+					]
+					name = "target"
+					varArgs = true;
+				]
+				name = CALLCODE
+				typeSpecifier = createTypeSpecifier => [
+					type = getType(BOOL)
+				]
+			]
+			type.features += createOperation => [
+				parameters += createParameter => [
+					typeSpecifier = createTypeSpecifier => [
+						type = getType(ANY)
+					]
+					name = "target"
+					varArgs = true
+				]
+				name = DELEGATECALL
+				typeSpecifier = createTypeSpecifier => [
+					type = getType(BOOL)
+				]
+			]
+		]
+	}
+	
+	def createAddressPayable() {
+		createComplexType => [ type |
+			type.name = ADDRESS_PAYABLE
 			type.features += createProperty => [
 				name = BALANCE
 				typeSpecifier = createTypeSpecifier => [

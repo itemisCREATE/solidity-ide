@@ -66,17 +66,24 @@ class BuiltInDeclarations {
 	protected Property now
 	protected Property tx
 	protected Property block
+	protected Property address
+	protected Property selector
+	protected Property gasProperty
+	protected Property valueProperty
 	protected Property length
 	protected Operation push
 	protected Operation pop
 	protected Operation gas
 	protected Operation value
+	protected Operation payable
 	protected ContractDefinition owned
 	protected ContractDefinition mortal
 
+	protected Type ADRESS_PAYABLE
 	protected Type ADDRESS
 	protected Type ANY
 	protected Type BOOL
+	protected Type BYTES4
 	protected Type BYTES20
 	protected Type BYTES32
 	protected Type INT
@@ -90,9 +97,11 @@ class BuiltInDeclarations {
 		this.typeSystem = typeSystem
 		this.typesFactory = typesFactory
 		this.solidityFactory = solidityFactory
+		ADRESS_PAYABLE = SolidityTypeSystem.ADDRESS_PAYABLE.typeForName
 		ADDRESS = SolidityTypeSystem.ADDRESS.typeForName
 		ANY = SolidityTypeSystem.ANY.typeForName
 		BOOL = SolidityTypeSystem.BOOL.typeForName
+		BYTES4 = SolidityTypeSystem.BYTES4.typeForName
 		BYTES20 = SolidityTypeSystem.BYTES20.typeForName
 		BYTES32 = SolidityTypeSystem.BYTES32.typeForName
 		INT = SolidityTypeSystem.INT.typeForName
@@ -129,14 +138,19 @@ class BuiltInDeclarations {
 		now = now()
 		this_ = this_()
 		super_ = super_()
+		address = address()
+		selector = selector()
 		msg = msg()
 		tx = tx()
 		block = block()
 		length = length()
 		gas = gas()
+		gasProperty = gasProperty()
 		value = value()
+		valueProperty = valueProperty()
 		push = push()
 		pop = pop()
+		payable = payable()
 
 		/************************
 		 *     DESTRUCTION
@@ -156,8 +170,9 @@ class BuiltInDeclarations {
 	}
 
 	def List<Declaration> all() {
-		#[abi, msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, push, pop, ripemd160,
-			ecrecover, block, suicide, selfdestruct, this_, super_, now, tx, owned, mortal]
+		#[abi, msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, address, selector,
+			gasProperty, valueProperty, push, pop, payable, ripemd160, ecrecover, block, suicide, selfdestruct, this_,
+			super_, now, tx, owned, mortal]
 	}
 
 	def protected Operation assert_() {
@@ -238,8 +253,14 @@ class BuiltInDeclarations {
 	}
 
 	def protected Operation push() {
-		createOperation("push", INT) => [
+		createOperation("push", VOID) => [
 			parameters += createParameter("element", ANY)
+		]
+	}
+
+	def protected Operation payable() {
+		createOperation("payable", ADRESS_PAYABLE) => [
+			parameters += createParameter("address", ADDRESS)
 		]
 	}
 
@@ -287,8 +308,24 @@ class BuiltInDeclarations {
 		createConstant("block", BLOCK.typeForName)
 	}
 
+	def protected Property address() {
+		createConstant("address", ADRESS_PAYABLE)
+	}
+
+	def protected Property selector() {
+		createConstant("selector", BYTES4)
+	}
+
+	def protected Property gasProperty() {
+		createConstant("gas", UINT)
+	}
+
+	def protected Property valueProperty() {
+		createConstant("value", UINT)
+	}
+
 	def protected Property length() {
-		createProperty("length", INT)
+		createConstant("length", INT)
 	}
 
 	def protected owned() {
@@ -319,7 +356,7 @@ class BuiltInDeclarations {
 			(typeSystem as AbstractTypeSystem).resource.contents += it
 			name = "mortal"
 			superTypes += solidityFactory.createTypeSpecifier() => [
-				type=owned
+				type = owned
 			]
 			features += solidityFactory.createFunctionDefinition() => [
 				name = "close"

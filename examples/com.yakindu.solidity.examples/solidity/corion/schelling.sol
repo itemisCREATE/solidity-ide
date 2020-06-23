@@ -46,7 +46,6 @@ contract schellingDB is safeMath, schellingVars {
         Constructor
     */
     function schellingDB() {
-        rounds.length = 2;
         rounds[0].blockHeight = block.number;
         currentSchellingRound = 1;
     }

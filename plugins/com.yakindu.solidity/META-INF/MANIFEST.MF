@@ -28,6 +28,7 @@ Export-Package: com.yakindu.solidity,
  com.yakindu.solidity.solidity,
  com.yakindu.solidity.solidity.impl,
  com.yakindu.solidity.solidity.util,
+ com.yakindu.solidity.terminals,
  com.yakindu.solidity.typesystem,
  com.yakindu.solidity.typesystem.builtin,
  com.yakindu.solidity.validation

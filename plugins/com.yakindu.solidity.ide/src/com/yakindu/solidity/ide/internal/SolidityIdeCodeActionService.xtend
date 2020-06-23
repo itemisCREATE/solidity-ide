@@ -3,6 +3,7 @@ package com.yakindu.solidity.ide.internal
 import com.google.inject.Inject
 import com.google.inject.name.Named
 import com.yakindu.solidity.SolidityVersion
+import com.yakindu.solidity.solidity.PragmaVersion
 import com.yakindu.solidity.validation.IssueCodes
 import java.util.List
 import org.eclipse.emf.common.util.URI
@@ -19,7 +20,7 @@ import org.eclipse.xtext.util.CancelIndicator
 
 class SolidityIdeCodeActionService implements ICodeActionService {
 
-	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) String solcVersion
+	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) PragmaVersion solcVersion
 
 	override List<Either<Command, CodeAction>> getCodeActions(Document document, XtextResource resource,
 		CodeActionParams params, CancelIndicator indicator) {
@@ -32,7 +33,7 @@ class SolidityIdeCodeActionService implements ICodeActionService {
 					edit = new WorkspaceEdit() => [
 						addTextEdit(resource.URI, new TextEdit => [
 							range = d.range
-							newText = solcVersion
+							newText = SolidityVersion.toString(solcVersion)
 						])
 					]
 				])

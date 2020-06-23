@@ -32,7 +32,6 @@ contract Bytes32Passer {
     	uint8 x = 0;
     	while(x < 32)
     	{
-    		savedbytes.length++;
     		savedbytes[x] = savedvar[x];
     		x++;
     	}	

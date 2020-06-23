@@ -38,6 +38,7 @@ import org.eclipse.xtext.ui.IImageHelper.IImageDescriptorHelper;
 import org.eclipse.xtext.util.StringInputStream;
 
 import com.yakindu.solidity.SolidityVersion;
+import com.yakindu.solidity.solidity.PragmaVersion;
 
 /**
  * 
@@ -49,7 +50,7 @@ public class NewFileWizard extends BasicNewResourceWizard {
 	@Inject @Named(Constants.FILE_EXTENSIONS)
 	String fileExtensions;
 	@Inject @Named(SolidityVersion.SOLIDITY_VERSION)
-	String solidityVersion;	
+	PragmaVersion solidityVersion;	
 
 	private WizardNewFileCreationPage mainPage;
 

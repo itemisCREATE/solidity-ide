@@ -42,6 +42,8 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 import org.eclipse.xtext.ui.editor.hover.IEObjectHover
 import org.yakindu.base.types.Operation
 import org.yakindu.base.types.Type
+import com.yakindu.solidity.solidity.PragmaVersion
+import static extension com.yakindu.solidity.SolidityVersion.*
 
 /**
  * @author Andreas Muelder - Initial contribution and API
@@ -63,11 +65,11 @@ class SolidityProposalProvider extends AbstractSolidityProposalProvider {
 		#{"sha3", "suicide"}
 	);
 
-	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) String solcVersion
+	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) PragmaVersion solcVersion
 
 	override complete_VERSION(EObject model, RuleCall ruleCall, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
-		acceptor.accept(createCompletionProposal(solcVersion, solcVersion, null, context));
+		acceptor.accept(createCompletionProposal(toString(solcVersion), toString(solcVersion), null, context));
 	}
 
 	override completeKeyword(Keyword keyword, ContentAssistContext contentAssistContext,

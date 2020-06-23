@@ -21,11 +21,12 @@
  */
 grammar com.yakindu.solidity.Solidity with org.eclipse.xtext.common.Terminals
 
-generate solidity "http://www.yakindu.com/solidity/Solidity"
+//generate solidity "http://www.yakindu.com/solidity/Solidity"
 import "http://www.yakindu.org/base/expressions/Expressions" as expressions
 import "http://www.eclipse.org/emf/2002/Ecore"
 import "http://www.yakindu.org/base/base/2.0.0" as base
 import "http://www.yakindu.org/base/types/2.0.0" as types
+import "http://www.yakindu.com/solidity/Solidity"
 
 SolidityModel:
 	(sourceunit+=SourceUnit)*;
@@ -343,7 +344,7 @@ PostFixUnaryExpression returns types::Expression:
 	PrimaryExpression ({expressions::PostFixUnaryExpression.operand=current} operator=PostFixOperator)*;
 
 PrimaryExpression returns types::Expression:
-	PrimitiveValueExpression | FeatureCall | NewInstanceExpression | EmitExpression | TupleExpression;
+	PrimitiveValueExpression | SolidityFeatureCall | NewInstanceExpression | EmitExpression | TupleExpression;
 
 NewInstanceExpression returns expressions::FeatureCall:
 	{NewInstanceExpression} 'new' type=TypeSpecifier operationCall?='(' (arguments+=Argument (',' arguments+=Argument)*)?
@@ -364,9 +365,9 @@ TupleExpression returns types::Expression:
 PrimitiveValueExpression returns expressions::PrimitiveValueExpression:
 	{PrimitiveValueExpression} value=Literal;
 
-FeatureCall returns types::Expression:
-	ElementReferenceExpression ({expressions::FeatureCall.owner=current} '.' feature=[types::Declaration]
-	(=> operationCall?='(' (arguments+=Argument (',' arguments+=Argument)*)? ')'
+SolidityFeatureCall returns types::Expression:
+	ElementReferenceExpression ({SolidityFeatureCall.owner=current} '.' feature=[types::Declaration]
+	((=>'{' calloptions+=NamedArgument (',' calloptions+=NamedArgument)* '}')? =>operationCall?= '(' (arguments+=Argument (',' arguments+=Argument)*)? ')'
 	|
 	=> (arrayAccess?='[' arraySelector+=Expression ']') => ('[' arraySelector+=Expression ']')*)?)*;
 

@@ -5,6 +5,6 @@
 		<package 
 			uri = "http://www.yakindu.com/solidity/Solidity"
 			class = "com.yakindu.solidity.solidity.SolidityPackage"
-			genModel = "model/generated/Solidity.genmodel" />
+			genModel = "model/Solidity.genmodel" />
 	</extension>
 </plugin>
