@@ -23,7 +23,7 @@ public class SolidityCompiler extends SolidityCompilerBase {
 
 	@Override
 	protected Path getPath() {
-		return new Path("compiler/solc");
+		return new Path("compiler/solc-macos");
 	}
 
 }

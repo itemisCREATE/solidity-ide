@@ -32,6 +32,9 @@ import org.yakindu.base.expressions.expressions.AssignmentExpression
 import org.yakindu.base.expressions.validation.ExpressionsValidator
 import org.yakindu.base.types.Expression
 import org.yakindu.base.types.Operation
+import com.yakindu.solidity.solidity.PragmaVersion
+import com.yakindu.solidity.solidity.PragmaVersionConstraint
+import com.yakindu.solidity.solidity.VersionOperator
 
 class SolidityValidator extends ExpressionsValidator {
 	val public SOLIDITY_VERSION_NOT_DEFAULT = "Solidity version does not match the default version"
@@ -73,6 +76,24 @@ class SolidityValidator extends ExpressionsValidator {
 			/*resources.forEach [
 				it.project.refreshLocal(IResource.DEPTH_ONE, monitor);
 			]*/
+		}
+	}
+	
+	@Check
+	def protected checkSolidityVersion(PragmaVersion pragmaVersion) {
+		val PragmaVersionConstraint minorConstraint = pragmaVersion.minorConstraint
+		val String version = minorConstraint.version 
+		val String[] splittedVersion = version.split("\\.")
+		val int major = Integer.parseInt(splittedVersion.get(0))
+		val int minor = Integer.parseInt(splittedVersion.get(1))
+		val int micro = splittedVersion.length > 2 ? Integer.parseInt(splittedVersion.get(2)) : 0
+		if (major == 0 && minor < 6) {
+			error("Yakindu Solidity Tools only works with Solidity version 0.6 or higher", pragmaVersion, SolidityPackage.Literals.PRAGMA_VERSION__MINOR_CONSTRAINT)
+		}
+		if (minorConstraint.versionOperator == VersionOperator.SMALLER) {
+			if (major == 0 && minor == 6 && micro == 0) {
+				error("Yakindu Solidity Tools only works with Solidity version 0.6 or higher", pragmaVersion, SolidityPackage.Literals.PRAGMA_VERSION__MINOR_CONSTRAINT)
+			}
 		}
 	}
 
