@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.6.0;
+pragma solidity 0.6.10;
 
 abstract contract Feline {
     function utterance() public virtual returns (bytes32);

@@ -1,4 +1,4 @@
-pragma solidity ^0.5.4 ;
+pragma solidity 0.6.10 ;
 
 contract C {
     uint[] data;

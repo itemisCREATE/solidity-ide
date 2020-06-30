@@ -1,5 +1,5 @@
 
-pragma solidity ^0.4.18;
+pragma solidity ^0.6.10;
 
 import "../solidity/zeppelin/math/SafeMath.sol";
 

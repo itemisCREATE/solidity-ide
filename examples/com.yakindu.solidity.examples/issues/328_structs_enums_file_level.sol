@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity >=0.6.0 <0.7.0;
+pragma solidity >=0.6.10 <0.7.0;
 
 // Defines a new type with two fields.
 // Declaring a struct outside of a contract allows
