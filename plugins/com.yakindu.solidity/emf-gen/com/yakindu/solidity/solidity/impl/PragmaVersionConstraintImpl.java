@@ -3,16 +3,14 @@
  */
 package com.yakindu.solidity.solidity.impl;
 
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 import com.yakindu.solidity.solidity.PragmaVersionConstraint;
 import com.yakindu.solidity.solidity.SolidityPackage;
 import com.yakindu.solidity.solidity.VersionOperator;
-
-import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.ecore.EClass;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
