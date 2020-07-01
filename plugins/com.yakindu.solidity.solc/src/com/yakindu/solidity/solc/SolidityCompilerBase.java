@@ -14,8 +14,10 @@
  */
 package com.yakindu.solidity.solc;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
@@ -24,6 +26,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -47,6 +51,10 @@ import com.yakindu.solidity.solc.result.CompilerOutput;
  */
 public abstract class SolidityCompilerBase implements ISolidityCompiler {
 
+	public static final String STANDARD_JSON_OPTION = "--standard-json";
+	public static final String BASE_PATH_OPTION = "--base-path";
+	public static final String ALLOW_PATHS_OPTION = "--allow-paths";
+
 	@Inject
 	private ICompilerPreferences prefs;
 
@@ -59,20 +67,25 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 
 	@Override
 	public Optional<CompilerOutput> compile(Set<File> filesToCompile, IProgressMonitor progress) {
-		if (filesToCompile.isEmpty() || progress.isCanceled()) {
-			return Optional.empty();
-		}
-		progress.beginTask("compiling ...", filesToCompile.size());
+//		if (filesToCompile.isEmpty() || progress.isCanceled()) {
+//			return Optional.empty();
+//		}
+		progress.beginTask("compiling ...", 1);
 		try {
-
-			Process process = new ProcessBuilder(getCompilerPath(), "--standard-json").start();
-			sendInput(process.getOutputStream(), filesToCompile);
-			Optional<CompilerOutput> result = outputParser.parse(process.getInputStream(), filesToCompile);
-
-			if (process.waitFor(30, TimeUnit.SECONDS) && process.exitValue() != 0) {
-				throw new Exception("Solidity compiler invocation failed with exit code " + process.exitValue() + ".");
+			Optional<CompilerOutput> result = Optional.empty();
+			for (File file : filesToCompile) {				
+				Process process = new ProcessBuilder(getCompilerPath(), STANDARD_JSON_OPTION, BASE_PATH_OPTION, file.getAbsolutePath(), ALLOW_PATHS_OPTION,
+						getWorkspacePath()).start();
+				sendInput(process.getOutputStream(), filesToCompile);
+				BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+				result = outputParser.parse(process.getInputStream(), filesToCompile);
+	
+				if (process.waitFor(30, TimeUnit.SECONDS) && process.exitValue() != 0) {
+					errorReader.lines().forEach(l -> System.err.println(l));
+					throw new Exception("Solidity compiler invocation failed with exit code " + process.exitValue() + ".");
+				}
+				progress.done();
 			}
-			progress.done();
 			return result;
 
 		} catch (Exception e) {
@@ -80,6 +93,12 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 			progress.done();
 			return Optional.empty();
 		}
+	}
+
+	protected String getWorkspacePath() {
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		String workspacePath = workspace.getRoot().getLocation().toString();
+		return workspacePath;
 	}
 
 	protected Set<File> addImports(URI uri) {
@@ -123,9 +142,11 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 		}
 		File file = new File(compilerPath);
 		if (!file.canExecute()) {
-			if(!file.setExecutable(true)) {
-				throw new IllegalStateException("Compiler " + pathToCompiler + " is not executabel and cannot be set to be.");
-			};			
+			if (!file.setExecutable(true)) {
+				throw new IllegalStateException(
+						"Compiler " + pathToCompiler + " is not executabel and cannot be set to be.");
+			}
+			;
 		}
 		return compilerPath;
 	}

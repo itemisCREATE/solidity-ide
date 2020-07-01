@@ -61,16 +61,19 @@ public class SolidityIssueCreator {
 			return;
 		}
 		
-		String fileName = sourceLocation.getFile();
+		String formattedMessage = error.getFormattedMessage();
+		String fileName = formattedMessage.split(":")[0];
 		File errorFile = findFileForName(filesToCompile, fileName);
-		int offset = sourceLocation.getStart();
-		String message = error.getMessage();
-		EObject element = getEObject(errorFile, offset, currentObject);
-		String severity = error.getSeverity();
-		if (severity.equals(ERROR)) {
-			acceptor.acceptError(message, element, null, offset, createErrorCodeFromMessage(severity, message));
-		} else if (severity.equals(WARNING)) {
-			acceptor.acceptWarning(message, element, null, offset, createErrorCodeFromMessage(severity, message));
+		if (errorFile != null) {
+			int offset = sourceLocation.getStart() == -1 ? 0 : sourceLocation.getStart();
+			String message = error.getMessage();
+			EObject element = getEObject(errorFile, offset, currentObject);
+			String severity = error.getSeverity();
+			if (severity.equals(ERROR)) {
+				acceptor.acceptError(message, element, null, offset, createErrorCodeFromMessage(severity, message));
+			} else if (severity.equals(WARNING)) {
+				acceptor.acceptWarning(message, element, null, offset, createErrorCodeFromMessage(severity, message));
+			}
 		}
 	}
 
@@ -87,7 +90,7 @@ public class SolidityIssueCreator {
 
 	protected File findFileForName(Set<File> filesToCompile, String fileName) {
 		File errorFile = filesToCompile.stream().filter(file -> file.getName().equals(fileName))
-				.map(file -> (File) file).findFirst().orElse((File) filesToCompile.stream().findFirst().orElse(null));
+				.map(file -> (File) file).findFirst().orElse((null));
 		return errorFile;
 	}
 

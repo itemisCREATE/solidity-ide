@@ -35,6 +35,7 @@ public class Source {
 			String line = reader.readLine();
 			while (line != null) {
 				content += line;
+				content += System.lineSeparator();
 				line = reader.readLine();
 			}
 		} catch (Exception e) {

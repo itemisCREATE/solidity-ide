@@ -1,7 +1,6 @@
-pragma solidity ^0.6.10;
+pragma solidity ^0.6.9;
 
-
-import './payment/PullPayment.sol';
+import '../payment/PullPayment.sol';
 import './lifecycle/Destructible.sol';
 
 
@@ -14,27 +13,6 @@ contract Bounty is PullPayment, Destructible {
   mapping(address => address) public researchers;
 
   event TargetCreated(address createdAddress);
-
-  /**
-   * @dev Fallback function allowing the contract to recieve funds, if they haven't already been claimed.
-   */
-  function() payable {
-    if (claimed) {
-      throw;
-    }
-  }
-
-  /**
-   * @dev Create and deploy the target contract (extension of Target contract), and sets the 
-   * msg.sender as a researcher
-   * @return A target contract
-   */
-  function createTarget() returns(Target) {
-    Target target = Target(deployContract());
-    researchers[target] = msg.sender;
-    TargetCreated(target);
-    return target;
-  }
 
   /**
    * @dev Internal function to deploy the target contract.
