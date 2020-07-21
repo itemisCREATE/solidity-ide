@@ -55,6 +55,8 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 	public static final String BASE_PATH_OPTION = "--base-path";
 	public static final String ALLOW_PATHS_OPTION = "--allow-paths";
 
+	public static final String SPLITTER = File.separator.replace("\\", "\\\\");
+
 	@Inject
 	private ICompilerPreferences prefs;
 
@@ -73,19 +75,17 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 		progress.beginTask("compiling ...", 1);
 		try {
 			Optional<CompilerOutput> result = Optional.empty();
-			for (File file : filesToCompile) {				
-				Process process = new ProcessBuilder(getCompilerPath(), STANDARD_JSON_OPTION, BASE_PATH_OPTION, file.getAbsolutePath(), ALLOW_PATHS_OPTION,
-						getWorkspacePath()).start();
-				sendInput(process.getOutputStream(), filesToCompile);
-				BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-				result = outputParser.parse(process.getInputStream(), filesToCompile);
-	
-				if (process.waitFor(30, TimeUnit.SECONDS) && process.exitValue() != 0) {
-					errorReader.lines().forEach(l -> System.err.println(l));
-					throw new Exception("Solidity compiler invocation failed with exit code " + process.exitValue() + ".");
-				}
-				progress.done();
+			Process process = new ProcessBuilder(getCompilerPath(), STANDARD_JSON_OPTION, ALLOW_PATHS_OPTION,
+					getWorkspacePath()).start();
+			sendInput(process.getOutputStream(), filesToCompile);
+			BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+			result = outputParser.parse(process.getInputStream(), filesToCompile);
+
+			if (process.waitFor(30, TimeUnit.SECONDS) && process.exitValue() != 0) {
+				errorReader.lines().forEach(l -> System.err.println(l));
+				throw new Exception("Solidity compiler invocation failed with exit code " + process.exitValue() + ".");
 			}
+			progress.done();
 			return result;
 
 		} catch (Exception e) {
@@ -120,11 +120,12 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 			}
 			for (File resource : filesToCompile) {
 				if (resource.isFile()) {
-					builder.addSource(resource.getName(), new Source(resource));
+					builder.addSource(resource.getAbsolutePath().replaceAll(SPLITTER, "/"), new Source(resource));
 				}
 			}
 			builder.addOutput(CompileOutputType.GAS.COMPILER_KEY);
-			writer.write(builder.buildJson());
+			String jsonString = builder.buildJson();
+			writer.write(new String(jsonString));
 			writer.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
