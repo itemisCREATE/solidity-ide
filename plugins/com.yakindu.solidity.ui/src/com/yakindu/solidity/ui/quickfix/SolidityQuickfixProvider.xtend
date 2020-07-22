@@ -30,6 +30,7 @@ import com.yakindu.solidity.solidity.MappingTypeSpecifier
 import com.yakindu.solidity.solidity.Modifier
 import com.yakindu.solidity.solidity.Parameter
 import com.yakindu.solidity.solidity.PragmaSolidityDirective
+import com.yakindu.solidity.solidity.PragmaVersion
 import com.yakindu.solidity.solidity.SolidityFactory
 import com.yakindu.solidity.solidity.SourceUnit
 import com.yakindu.solidity.solidity.StorageLocation
@@ -63,7 +64,6 @@ import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import com.yakindu.solidity.solidity.PragmaVersion
 
 /** 
  * @author andreas muelder - Initial contribution and API
@@ -454,9 +454,9 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		acceptor.accept(issue, 'Add default solidity pragma', 'Add solidity pragma ^' + solcVersion + '.', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
-					if (element.eContainer instanceof SourceUnit) {
-						val sourceUnit = element.eContainer as SourceUnit
-						val pragma = createPragmaSolidityDirective => [
+					if (element.eContainer instanceof SourceUnit || element instanceof SourceUnit) {
+						val SourceUnit sourceUnit = (element.eContainer instanceof SourceUnit) ? element.eContainer as SourceUnit : element as SourceUnit
+						val PragmaSolidityDirective pragma = createPragmaSolidityDirective => [
 						version = solcVersion
 						]
 						sourceUnit.pragma += pragma
