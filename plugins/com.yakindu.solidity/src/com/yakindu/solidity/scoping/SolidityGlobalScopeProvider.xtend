@@ -15,12 +15,8 @@
 package com.yakindu.solidity.scoping
 
 import com.google.common.base.Predicate
-import com.yakindu.solidity.solidity.ImportDirective
 import com.yakindu.solidity.typesystem.builtin.BuiltInDeclarations
-import java.util.LinkedHashSet
-import java.util.Set
 import javax.inject.Inject
-import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.naming.IQualifiedNameProvider
@@ -46,6 +42,8 @@ class SolidityGlobalScopeProvider extends ImportUriGlobalScopeProvider {
 	protected IResourceScopeCache cache;
 	@Inject
 	protected BuiltInDeclarations buildInDeclarations
+	@Inject
+	protected ImportedUrisResolver uriResolver
 
 	override getScope(Resource resource, EReference reference, Predicate<IEObjectDescription> filter) {
 		val libraryScope = resource.getScopeWithLibrary(reference)
@@ -53,49 +51,7 @@ class SolidityGlobalScopeProvider extends ImportUriGlobalScopeProvider {
 	}
 
 	override protected getImportedUris(Resource resource) {
-		return cache.get(
-			SolidityGlobalScopeProvider.name,
-			resource,
-			[
-				val LinkedHashSet<URI> result = new LinkedHashSet<URI>()
-				getTransientImportUris(resource, result)
-				result
-			]
-		);
-	}
-
-	def protected void getTransientImportUris(Resource resource, Set<URI> result) {
-		resource.allContents.filter(ImportDirective).forEach [
-			val normalizedURI = createNormalizedURI(it, resource)
-			if (resource.resourceSet.URIConverter.exists(normalizedURI, null) && !result.contains(normalizedURI)) {
-				result += normalizedURI
-				getTransientImportUris(resource.resourceSet.getResource(normalizedURI, true), result)
-			}
-		]
-	}
-
-	def createNormalizedURI(ImportDirective it, Resource resource) {
-		val URI uri = URI.createURI(resource.URI.trimSegments(1).toString + "/" +
-			if(importedNamespace.toLowerCase.endsWith(".sol")) importedNamespace else importedNamespace + ".sol")
-		return resource.normalize(uri)
-	}
-
-	/**
-	 * removes dot segments of the uri
-	 */
-	def protected normalize(Resource resource, URI uri) {
-		var normalizedURI = resource.resourceSet.URIConverter.normalize(uri)
-		val newSegments = newArrayList()
-		normalizedURI.segmentsList.filter[it != "."].forEach [
-			if (it == "..") {
-				newSegments.remove(it)
-				newSegments.remove(newSegments.size - 1)
-			} else
-				newSegments.add(it)
-		]
-		normalizedURI = normalizedURI.trimSegments(normalizedURI.segmentCount)
-		normalizedURI = normalizedURI.appendSegments(newSegments.toArray(#[]))
-		normalizedURI
+		return uriResolver.getImportedUris(resource)
 	}
 
 	private def IScope getScopeWithLibrary(Resource resource, EReference reference) {

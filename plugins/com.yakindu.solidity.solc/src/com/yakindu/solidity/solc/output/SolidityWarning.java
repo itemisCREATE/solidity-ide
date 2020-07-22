@@ -38,7 +38,9 @@ public enum SolidityWarning {
 	WARNING_VARIABLE_STORAGE_POINTER("Variable is declared as a storage pointer."),
 	WARNING_FUNCTION_STATE_MUTABILITY_VIEW("Function state mutability can be restricted to view"),
 	WARNING_FUNCTION_STATE_MUTABILITY_PURE("Function state mutability can be restricted to pure"),
-	WARNING_SHADOWED_DECLARATION("This declaration shadows an existing declaration.");
+	WARNING_SHADOWED_DECLARATION("This declaration shadows an existing declaration."),
+	WARNING_SPDX_LICENSE_IDENTIFIER_NOT_PROVIDER("SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing \"SPDX-License-Identifier: <SPDX-License>\" to each source file. Use \"SPDX-License-Identifier: UNLICENSED\" for non-open-source code. Please see https://spdx.org for more information."),
+	WARNING_DOCSTRING_ONLY_IN_STATE_VARIABLES("Only state variables can have a docstring. This will be disallowed in 0.7.0.");
 
 	private final String message;
 

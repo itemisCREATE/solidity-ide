@@ -28,6 +28,8 @@ public class Settings {
 
 	private Map<String, Library> libraries;
 
+	private List<String> remappings;
+	
 	private Map<String, Map<String, List<String>>> outputSelection;
 	
 	public Optimizer getOptimizer() {
@@ -52,5 +54,13 @@ public class Settings {
 
 	public void setOutputSelection(Map<String, Map<String, List<String>>> outputSelection) {
 		this.outputSelection = outputSelection;
+	}
+	
+	public List<String> getRemappings() {
+		return remappings;
+	}
+	
+	public void setRemappings(List<String> remappings) {
+		this.remappings = remappings;
 	}
 }

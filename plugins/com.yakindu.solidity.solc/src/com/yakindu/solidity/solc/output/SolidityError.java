@@ -32,9 +32,9 @@ public enum SolidityError {
 
 	public static String getCodeForMessage(String message) {
 		if (message != null) {
-			for (SolidityError warning : values()) {
-				if (message.startsWith(warning.message)) {
-					return warning.name();
+			for (SolidityError error : values()) {
+				if (message.startsWith(error.message)) {
+					return error.name();
 				}
 			}
 		}

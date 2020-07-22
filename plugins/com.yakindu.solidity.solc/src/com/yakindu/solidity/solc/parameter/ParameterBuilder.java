@@ -61,7 +61,12 @@ public class ParameterBuilder {
 	}
 
 	public String buildJson() {
-		return gsonBuilder.create().toJson(parameter);
+		return gsonBuilder.disableHtmlEscaping().create().toJson(parameter);
+	}
+	
+	public ParameterBuilder setRemappings(List<String> remappings) {
+		parameter.getSettings().setRemappings(remappings);
+		return this;
 	}
 
 	public ParameterBuilder addOutput(String key) {
