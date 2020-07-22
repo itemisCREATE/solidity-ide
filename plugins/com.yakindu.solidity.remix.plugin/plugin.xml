@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+               <view
+            class="com.yakindu.solidity.remix.plugin.RemixPluginManager"
+            id="com.yakindu.solidity.remix.plugin.RemixPluginManager"
+            name="Remix Plugin Manager"
+            restorable="true"/>
+               <view
+            class="com.yakindu.solidity.remix.plugin.RemixPluginView"
+            id="com.yakindu.solidity.remix.plugin.RemixPluginView"
+            name="Remix Plugin View"
+            restorable="true"/>
+   </extension>
+</plugin>

@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Solidity Tools Remix Plugin
+Bundle-Vendor: YAKINDU
+Bundle-Version: 0.7.3.qualifier
+Bundle-SymbolicName: com.yakindu.solidity.remix.plugin;singleton:=true
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ com.google.gson,
+ com.google.guava
+Import-Package: org.apache.log4j
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: com.yakindu.solidity.ui
