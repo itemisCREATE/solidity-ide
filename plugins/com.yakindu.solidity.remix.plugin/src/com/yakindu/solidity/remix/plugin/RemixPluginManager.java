@@ -7,6 +7,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.yakindu.solidity.remix.plugin.functions.RemixMessage;
 import com.yakindu.solidity.remix.plugin.functions.RemixPlugin;
@@ -17,6 +18,7 @@ public class RemixPluginManager extends RemixViewPart {
 	private static final String PLUGIN_MANAGER = "http://localhost:4200/#/manager";
 
 	private Map<String, RemixPluginView> activePlugins;
+	private RemixFileManager filemanager;
 
 	@Override
 	public void createPartControl(Composite root) {
@@ -38,12 +40,16 @@ public class RemixPluginManager extends RemixViewPart {
 	}
 
 	public String connect(RemixPlugin plugin) {
-		RemixPluginView view = this.activePlugins.get(plugin.getName());
-		if (view == null) {
-			this.activePlugins.put(plugin.getName(), createPluginView(plugin));
-		} else {
-			view.setFocus();
+		if (plugin.getName().equals("fileManager")) {
+			this.filemanager = new RemixFileManager();
 		}
+
+//		RemixPluginView view = this.activePlugins.get(plugin.getName());
+//		if (view == null) {
+//			this.activePlugins.put(plugin.getName(), createPluginView(plugin));
+//		} else {
+//			view.setFocus();
+//		}
 		return plugin.getName();
 	}
 
@@ -59,11 +65,18 @@ public class RemixPluginManager extends RemixViewPart {
 	}
 
 	public void dispatch(RemixMessage message) {
-		if (message.getRequestInfo().getPath().equals(MANAGER)) {
-			this.dispatchMessage(message);
+		if (message.getAction().equals("request")) {
+			if (message.getName().equals("fileManager")) {
+				String file = this.filemanager.getCurrentFile();
+				message.setName("YAKINDU");
+				message.setAction("response");
+				message.setKey("doIt");
+				message.setPayload(Lists.newArrayList(file));
+				message.getRequestInfo().setFrom("fileManager");
+				message.getRequestInfo().setPath("YAKINDU");
+				this.dispatchMessage(message);
+			}
 		}
-		RemixPluginView pluginView = this.activePlugins.get(message.getName());
-		pluginView.dispatchMessage(message);
 	}
 
 	private RemixPluginView createPluginView(RemixPlugin plugin) {

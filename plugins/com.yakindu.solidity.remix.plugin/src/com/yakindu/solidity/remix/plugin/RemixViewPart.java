@@ -38,7 +38,7 @@ public abstract class RemixViewPart extends ViewPart {
 		browser.setJavascriptEnabled(true);
 		this.connectFunction = new ConnectFunction(getPluginManager(), browser);
 		this.disconnectFunction = new DisconnectFunction(getPluginManager(), browser);
-		this.sendFunction = new SendFunction(getPluginManager(), browser, pluginName);
+		this.sendFunction = new SendFunction(getPluginManager(), browser);
 		return browser;
 
 	}
