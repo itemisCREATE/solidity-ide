@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 // import { EclipseInPlugin } from './plugins/eclipse-plugin';
-import { Engine, Plugin, PluginManager } from '@remixproject/engine';
+import { Engine, Plugin, PluginManager, Message } from '@remixproject/engine';
 import { EclipseService } from '../eclipse/eclipse-api';
-import { EclipsePluginConnector } from './plugins/eclipse-plugin';
+import { EclipsePluginConnector, EclipseClientConnector } from './plugins/eclipse-plugin';
+import { Yakindu, YakinduClient } from './plugins/yakindu';
+
 
 const solidityProfile = {
   name: 'solidity',
@@ -51,6 +53,7 @@ export class PluginManagerComponent implements OnInit {
 
   @Input()
   engine: Engine;
+  yakinduClient: YakinduClient;
 
   constructor(private eclipseService: EclipseService) { }
 
@@ -58,9 +61,13 @@ export class PluginManagerComponent implements OnInit {
     this.engine.register(new Plugin(solidityProfile));
     this.engine.register(new EclipsePluginConnector(editorProfile, this.eclipseService.nativeEclipse));
     this.engine.register(new EclipsePluginConnector(fileManagerPofile, this.eclipseService.nativeEclipse));
+    const yakindu = new Yakindu(this.eclipseService.nativeEclipse);
+    this.engine.register(yakindu);
     this.manager.activatePlugin(solidityProfile.name);
     this.manager.activatePlugin(editorProfile.name);
     this.manager.activatePlugin(fileManagerPofile.name);
+    this.manager.activatePlugin(yakindu.name).then(() => {
+      yakindu.doIt();
+    });
   }
-
 }

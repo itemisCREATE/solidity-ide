@@ -2,6 +2,7 @@ import { PluginConnector, Profile, ExternalProfile } from '@remixproject/engine'
 import { ClientConnector, Message } from '@remixproject/plugin';
 import stringify from 'fast-stringify';
 import { EclipseIDE } from 'src/app/eclipse/eclipse-api';
+import { Yakindu } from './yakindu';
 
 export class EclipsePluginConnector extends PluginConnector {
 
@@ -15,10 +16,6 @@ export class EclipsePluginConnector extends PluginConnector {
     this.eclipse.eclipse_send(stringify(message));
   }
 
-  // on(cb: (message: Message) => void): void {
-
-  // }
-
   protected connect(url: string): void {
     this.eclipse.eclipse_connect(stringify(this.profile));
   }
@@ -28,19 +25,30 @@ export class EclipsePluginConnector extends PluginConnector {
   }
 }
 
-class EclipseClientConnector implements ClientConnector {
+export class EclipseClientConnector implements ClientConnector {
 
-  listener: (message: Partial<Message>) => void;
+  cb: (message: Partial<Message>) => void;
 
   constructor() {
-    document.addEventListener('on_eclipse', (event: CustomEvent) => this.listener.call((event.detail as Message)));
+    document.addEventListener('on_eclipse', (event: CustomEvent) => this.send(event.detail as Message));
   }
 
   send(message: Partial<Message>): void {
-    this.listener.call(message);
+    alert('ClientConnector#send ' + message.name);
+    this.cb.call(message);
   }
+
   on(cb: (message: Partial<Message>) => void): void {
-    this.listener = cb;
+    alert('registered callback');
+    this.cb = cb;
   }
+
+  // processEvent(message: Partial<Message>): void {
+  //   alert('EclipseClientConnector#processEvent');
+  //   if (message.name === this.plugin.name) {
+  //     alert('received');
+  //     this.plugin.call('solidity', 'compile');
+  //   }
+  // }
 
 }
