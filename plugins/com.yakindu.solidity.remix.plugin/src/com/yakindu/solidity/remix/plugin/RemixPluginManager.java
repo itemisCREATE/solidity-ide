@@ -38,7 +38,9 @@ public class RemixPluginManager extends RemixViewPart {
 		this.activePlugins.clear();
 		super.dispose();
 	}
-
+	
+	
+	
 	public String connect(RemixPlugin plugin) {
 		if (plugin.getName().equals("fileManager")) {
 			this.filemanager = new RemixFileManager();
