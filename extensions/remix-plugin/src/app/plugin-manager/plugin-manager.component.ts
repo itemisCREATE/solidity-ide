@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Engine, Plugin, PluginManager, Message } from '@remixproject/engine';
 import { EclipseService } from '../eclipse/eclipse-api';
 import { EclipsePluginConnector, EclipseClientConnector } from './plugins/eclipse-plugin';
-import { Yakindu, YakinduClient } from './plugins/yakindu';
+import { Yakindu } from './plugins/yakindu';
 
 
 const solidityProfile = {
@@ -52,8 +52,7 @@ export class PluginManagerComponent implements OnInit {
   manager: PluginManager;
 
   @Input()
-  engine: Engine;
-  yakinduClient: YakinduClient;
+  engine: Engine; 
 
   constructor(private eclipseService: EclipseService) { }
 

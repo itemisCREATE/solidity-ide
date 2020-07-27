@@ -1,5 +1,5 @@
-import { PluginConnector, Profile, ExternalProfile } from '@remixproject/engine';
-import { ClientConnector, Message } from '@remixproject/plugin';
+import { PluginConnector, Profile, ExternalProfile, Message } from '@remixproject/engine';
+import { ClientConnector } from '@remixproject/plugin';
 import stringify from 'fast-stringify';
 import { EclipseIDE } from 'src/app/eclipse/eclipse-api';
 import { Yakindu } from './yakindu';
@@ -35,7 +35,7 @@ export class EclipseClientConnector implements ClientConnector {
 
   send(message: Partial<Message>): void {
     alert('ClientConnector#send ' + message.name);
-    this.cb.call(message);
+    this.cb.call(this, message);
   }
 
   on(cb: (message: Partial<Message>) => void): void {

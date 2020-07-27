@@ -13,6 +13,7 @@ export class Yakindu extends EclipsePluginConnector {
 
     const connector = new EclipseClientConnector().on((message: Partial<Message>) => {
       alert('EclipseClientConnector#processEvent');
+      alert('Message name is ' + message?.name);
       this.call(message.name, message.key);
     });
   }
