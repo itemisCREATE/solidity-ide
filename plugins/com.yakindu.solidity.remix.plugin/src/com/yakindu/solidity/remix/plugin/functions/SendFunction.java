@@ -2,7 +2,7 @@ package com.yakindu.solidity.remix.plugin.functions;
 
 import org.eclipse.swt.browser.Browser;
 
-import com.yakindu.solidity.remix.plugin.RemixPluginManager;
+import com.yakindu.solidity.remix.plugin.view.RemixPluginManager;
 
 public class SendFunction extends SolidityBrowserFunction {
 

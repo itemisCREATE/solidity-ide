@@ -14,17 +14,14 @@
  */
 package com.yakindu.solidity.solc;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IWorkspace;
@@ -36,12 +33,9 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.osgi.framework.Bundle;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
-import com.yakindu.solidity.remix.plugin.RemixPluginManager;
-import com.yakindu.solidity.remix.plugin.functions.PluginRequest;
-import com.yakindu.solidity.remix.plugin.functions.RemixMessage;
+import com.yakindu.solidity.remix.plugin.RemixPluginEngine;
 import com.yakindu.solidity.solc.output.CompileOutputType;
 import com.yakindu.solidity.solc.output.OutputParser;
 import com.yakindu.solidity.solc.parameter.ParameterBuilder;
@@ -69,8 +63,8 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 	private OutputParser outputParser;
 
 	@Inject
-	private RemixPluginManager pluginManager;
-	
+	private RemixPluginEngine pluginEngine;
+
 	protected Path getPath() {
 		throw new IllegalStateException("No path to solc defined. Please specify it in preferences.");
 	}
@@ -83,27 +77,18 @@ public abstract class SolidityCompilerBase implements ISolidityCompiler {
 		progress.beginTask("compiling ...", 1);
 		try {
 			Optional<CompilerOutput> result = Optional.empty();
-			Process process = new ProcessBuilder(getCompilerPath(), STANDARD_JSON_OPTION, ALLOW_PATHS_OPTION,
-					getWorkspacePath()).start();
-			sendInput(process.getOutputStream(), filesToCompile);
-			BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-			result = outputParser.parse(process.getInputStream(), filesToCompile);
-			
-			RemixMessage remixMessage = new RemixMessage();
-			remixMessage.setAction("request");
-			PluginRequest pluginRequest = new PluginRequest();
-			pluginRequest.setFrom("YAKINDU");
-			pluginRequest.setPath("solidity");
-			remixMessage.setRequestInfo(pluginRequest);
-			remixMessage.setName("solidity");
-			remixMessage.setKey("compile");
-			remixMessage.setPayload(filesToCompile.stream().map(f->f.getAbsolutePath().replaceAll(SPLITTER, "/")).collect(Collectors.toList()));
-			pluginManager.dispatchMessage(remixMessage);
-			
-			if (process.waitFor(30, TimeUnit.SECONDS) && process.exitValue() != 0) {
-				errorReader.lines().forEach(l -> System.err.println(l));
-				throw new Exception("Solidity compiler invocation failed with exit code " + process.exitValue() + ".");
-			}
+//			Process process = new ProcessBuilder(getCompilerPath(), STANDARD_JSON_OPTION, ALLOW_PATHS_OPTION,
+//					getWorkspacePath()).start();
+//			sendInput(process.getOutputStream(), filesToCompile);
+//			BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+//			result = outputParser.parse(process.getInputStream(), filesToCompile);
+			String compilationResult = pluginEngine.compile(filesToCompile.stream().map(f -> f.getAbsolutePath().replaceAll(SPLITTER, "/"))
+					.collect(Collectors.toList()));
+
+//			if (process.waitFor(30, TimeUnit.SECONDS) && process.exitValue() != 0) {
+//				errorReader.lines().forEach(l -> System.err.println(l));
+//				throw new Exception("Solidity compiler invocation failed with exit code " + process.exitValue() + ".");
+//			}
 			progress.done();
 			return result;
 

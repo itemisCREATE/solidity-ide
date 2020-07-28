@@ -1,4 +1,4 @@
-package com.yakindu.solidity.remix.plugin;
+package com.yakindu.solidity.remix.plugin.view;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;

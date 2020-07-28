@@ -1,14 +1,17 @@
-package com.yakindu.solidity.remix.plugin;
+package com.yakindu.solidity.remix.plugin.view;
 
 import java.util.Map;
 
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.yakindu.solidity.remix.plugin.RemixFileManager;
 import com.yakindu.solidity.remix.plugin.functions.RemixMessage;
 import com.yakindu.solidity.remix.plugin.functions.RemixPlugin;
 

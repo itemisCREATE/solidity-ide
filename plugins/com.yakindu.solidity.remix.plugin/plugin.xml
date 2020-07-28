@@ -4,12 +4,12 @@
    <extension
          point="org.eclipse.ui.views">
                <view
-            class="com.yakindu.solidity.remix.plugin.RemixPluginManager"
+            class="com.yakindu.solidity.remix.plugin.view.RemixPluginManager"
             id="com.yakindu.solidity.remix.plugin.RemixPluginManager"
             name="Remix Plugin Manager"
             restorable="true"/>
                <view
-            class="com.yakindu.solidity.remix.plugin.RemixPluginView"
+            class="com.yakindu.solidity.remix.plugin.view.RemixPluginView"
             id="com.yakindu.solidity.remix.plugin.RemixPluginView"
             name="Remix Plugin View"
             restorable="true"/>

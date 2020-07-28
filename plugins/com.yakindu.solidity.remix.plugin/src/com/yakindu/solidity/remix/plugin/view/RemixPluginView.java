@@ -1,4 +1,4 @@
-package com.yakindu.solidity.remix.plugin;
+package com.yakindu.solidity.remix.plugin.view;
 
 import com.yakindu.solidity.remix.plugin.functions.RemixPlugin;
 

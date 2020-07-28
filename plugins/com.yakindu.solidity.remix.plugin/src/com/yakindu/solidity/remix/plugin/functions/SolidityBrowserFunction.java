@@ -5,7 +5,7 @@ import org.eclipse.swt.browser.BrowserFunction;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.yakindu.solidity.remix.plugin.RemixPluginManager;
+import com.yakindu.solidity.remix.plugin.view.RemixPluginManager;
 
 public abstract class SolidityBrowserFunction extends BrowserFunction {
 
