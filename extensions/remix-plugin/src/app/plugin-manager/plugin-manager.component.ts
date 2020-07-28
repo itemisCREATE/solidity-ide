@@ -66,7 +66,7 @@ export class PluginManagerComponent implements OnInit {
     this.manager.activatePlugin(editorProfile.name);
     this.manager.activatePlugin(fileManagerPofile.name);
     this.manager.activatePlugin(yakindu.name).then(() => {
-      yakindu.doIt();
+      yakindu.call('YAKINDU', 'doIt').then((result) => alert('Current file is: ' + result));
     });
   }
 }

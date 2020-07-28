@@ -3,15 +3,14 @@ package com.yakindu.solidity.remix.plugin.view;
 import java.util.Map;
 
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.yakindu.solidity.remix.plugin.IRemixPluginHandler;
 import com.yakindu.solidity.remix.plugin.RemixFileManager;
+import com.yakindu.solidity.remix.plugin.RemixPluginHandlerManager;
 import com.yakindu.solidity.remix.plugin.functions.RemixMessage;
 import com.yakindu.solidity.remix.plugin.functions.RemixPlugin;
 
@@ -22,11 +21,15 @@ public class RemixPluginManager extends RemixViewPart {
 
 	private Map<String, RemixPluginView> activePlugins;
 	private RemixFileManager filemanager;
+	private RemixPluginHandlerManager pluginHandlerManager;
+	
+	
 
 	@Override
 	public void createPartControl(Composite root) {
 		super.createPartControl(root);
 		this.activePlugins = Maps.newHashMap();
+		this.pluginHandlerManager = new RemixPluginHandlerManager();
 		initializeBrowser(PLUGIN_MANAGER, MANAGER);
 	}
 
@@ -45,8 +48,9 @@ public class RemixPluginManager extends RemixViewPart {
 	
 	
 	public String connect(RemixPlugin plugin) {
-		if (plugin.getName().equals("fileManager")) {
+		if (plugin.getName().equals("fileManager") && filemanager == null) {
 			this.filemanager = new RemixFileManager();
+			pluginHandlerManager.createFileManagerHandler(filemanager);
 		}
 
 //		RemixPluginView view = this.activePlugins.get(plugin.getName());
@@ -71,15 +75,10 @@ public class RemixPluginManager extends RemixViewPart {
 
 	public void dispatch(RemixMessage message) {
 		if (message.getAction().equals("request")) {
-			if (message.getName().equals("fileManager")) {
-				String file = this.filemanager.getCurrentFile();
-				message.setName("YAKINDU");
-				message.setAction("response");
-				message.setKey("doIt");
-				message.setPayload(Lists.newArrayList(file));
-				message.getRequestInfo().setFrom("fileManager");
-				message.getRequestInfo().setPath("YAKINDU");
-				this.dispatchMessage(message);
+			IRemixPluginHandler remixPluginHandler = pluginHandlerManager.getResponsibleHandler(message);
+			if (remixPluginHandler != null) {
+				RemixMessage responseMessage = remixPluginHandler.getResponseMessage(message);
+				this.dispatchMessage(responseMessage);
 			}
 		}
 	}

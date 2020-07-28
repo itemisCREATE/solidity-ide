@@ -23,6 +23,14 @@ export class EclipsePluginConnector extends PluginConnector {
   protected disconnect(): void {
     this.eclipse.eclipse_disconnect(this.profile.name);
   }
+
+  protected getMessage(message : Message): Promise<any> {
+    alert('EclipsePluginConnector#getMessage');
+    alert('payload is: ' + message.payload)
+    return new Promise((resolve, reject) => {
+      resolve(message.payload);
+    });
+  }
 }
 
 export class EclipseClientConnector implements ClientConnector {
@@ -34,7 +42,6 @@ export class EclipseClientConnector implements ClientConnector {
   }
 
   send(message: Partial<Message>): void {
-    alert('ClientConnector#send ' + message.name);
     this.cb.call(this, message);
   }
 
