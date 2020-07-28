@@ -2,7 +2,7 @@ import { PluginConnector, Profile, ExternalProfile, Message } from '@remixprojec
 import { ClientConnector } from '@remixproject/plugin';
 import stringify from 'fast-stringify';
 import { EclipseIDE } from 'src/app/eclipse/eclipse-api';
-import { Yakindu } from './yakindu';
+import { YakinduProxy } from './yakindu';
 
 export class EclipsePluginConnector extends PluginConnector {
 
