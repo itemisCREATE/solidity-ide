@@ -1019,13 +1019,13 @@ public interface SolidityPackage extends EPackage {
 	int ASSEMBLY_LOCAL_BINDING = 27;
 
 	/**
-	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * The feature id for the '<em><b>Labels</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ASSEMBLY_LOCAL_BINDING__LABEL = 0;
+	int ASSEMBLY_LOCAL_BINDING__LABELS = 0;
 
 	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -1157,6 +1157,320 @@ public interface SolidityPackage extends EPackage {
 	int FUNCTIONAL_ASSEMBLY_EXPRESSION_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.AssemblyExpressionImpl <em>Assembly Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.yakindu.solidity.solidity.impl.AssemblyExpressionImpl
+	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getAssemblyExpression()
+	 * @generated
+	 */
+	int ASSEMBLY_EXPRESSION = 31;
+
+	/**
+	 * The number of structural features of the '<em>Assembly Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_EXPRESSION_FEATURE_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.AssemblyIfExpressionImpl <em>Assembly If Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.yakindu.solidity.solidity.impl.AssemblyIfExpressionImpl
+	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getAssemblyIfExpression()
+	 * @generated
+	 */
+	int ASSEMBLY_IF_EXPRESSION = 32;
+
+	/**
+	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_IF_EXPRESSION__CONDITION = ASSEMBLY_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Body</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_IF_EXPRESSION__BODY = ASSEMBLY_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Assembly If Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_IF_EXPRESSION_FEATURE_COUNT = ASSEMBLY_EXPRESSION_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.AssemblyForExpressionImpl <em>Assembly For Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.yakindu.solidity.solidity.impl.AssemblyForExpressionImpl
+	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getAssemblyForExpression()
+	 * @generated
+	 */
+	int ASSEMBLY_FOR_EXPRESSION = 33;
+
+	/**
+	 * The feature id for the '<em><b>Prestatementblock</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_FOR_EXPRESSION__PRESTATEMENTBLOCK = ASSEMBLY_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_FOR_EXPRESSION__CONDITION = ASSEMBLY_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Loopstatementblock</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_FOR_EXPRESSION__LOOPSTATEMENTBLOCK = ASSEMBLY_EXPRESSION_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Body</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_FOR_EXPRESSION__BODY = ASSEMBLY_EXPRESSION_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Assembly For Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_FOR_EXPRESSION_FEATURE_COUNT = ASSEMBLY_EXPRESSION_FEATURE_COUNT + 4;
+
+	/**
+	 * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.AssemblySwitchExpressionImpl <em>Assembly Switch Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.yakindu.solidity.solidity.impl.AssemblySwitchExpressionImpl
+	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getAssemblySwitchExpression()
+	 * @generated
+	 */
+	int ASSEMBLY_SWITCH_EXPRESSION = 34;
+
+	/**
+	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_SWITCH_EXPRESSION__CONDITION = ASSEMBLY_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Cases</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_SWITCH_EXPRESSION__CASES = ASSEMBLY_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Default Case</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_SWITCH_EXPRESSION__DEFAULT_CASE = ASSEMBLY_EXPRESSION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Assembly Switch Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_SWITCH_EXPRESSION_FEATURE_COUNT = ASSEMBLY_EXPRESSION_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.AssemblyFunctionDefinitionImpl <em>Assembly Function Definition</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.yakindu.solidity.solidity.impl.AssemblyFunctionDefinitionImpl
+	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getAssemblyFunctionDefinition()
+	 * @generated
+	 */
+	int ASSEMBLY_FUNCTION_DEFINITION = 35;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_FUNCTION_DEFINITION__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_FUNCTION_DEFINITION__PARAMETERS = 1;
+
+	/**
+	 * The feature id for the '<em><b>Return Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_FUNCTION_DEFINITION__RETURN_PARAMETERS = 2;
+
+	/**
+	 * The feature id for the '<em><b>Body</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_FUNCTION_DEFINITION__BODY = 3;
+
+	/**
+	 * The number of structural features of the '<em>Assembly Function Definition</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_FUNCTION_DEFINITION_FEATURE_COUNT = 4;
+
+	/**
+	 * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.AssemblyParameterImpl <em>Assembly Parameter</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.yakindu.solidity.solidity.impl.AssemblyParameterImpl
+	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getAssemblyParameter()
+	 * @generated
+	 */
+	int ASSEMBLY_PARAMETER = 36;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_PARAMETER__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Type Specifier</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_PARAMETER__TYPE_SPECIFIER = 1;
+
+	/**
+	 * The number of structural features of the '<em>Assembly Parameter</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_PARAMETER_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.AssemblySwitchCaseImpl <em>Assembly Switch Case</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.yakindu.solidity.solidity.impl.AssemblySwitchCaseImpl
+	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getAssemblySwitchCase()
+	 * @generated
+	 */
+	int ASSEMBLY_SWITCH_CASE = 37;
+
+	/**
+	 * The feature id for the '<em><b>Literal</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_SWITCH_CASE__LITERAL = 0;
+
+	/**
+	 * The feature id for the '<em><b>Body</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_SWITCH_CASE__BODY = 1;
+
+	/**
+	 * The number of structural features of the '<em>Assembly Switch Case</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_SWITCH_CASE_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.AssemblyDefaultSwitchCaseImpl <em>Assembly Default Switch Case</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.yakindu.solidity.solidity.impl.AssemblyDefaultSwitchCaseImpl
+	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getAssemblyDefaultSwitchCase()
+	 * @generated
+	 */
+	int ASSEMBLY_DEFAULT_SWITCH_CASE = 38;
+
+	/**
+	 * The feature id for the '<em><b>Body</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_DEFAULT_SWITCH_CASE__BODY = 0;
+
+	/**
+	 * The number of structural features of the '<em>Assembly Default Switch Case</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_DEFAULT_SWITCH_CASE_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link com.yakindu.solidity.solidity.impl.IDLiteralImpl <em>ID Literal</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1164,7 +1478,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getIDLiteral()
 	 * @generated
 	 */
-	int ID_LITERAL = 31;
+	int ID_LITERAL = 39;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1192,7 +1506,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getDecimalNumberLiteral()
 	 * @generated
 	 */
-	int DECIMAL_NUMBER_LITERAL = 32;
+	int DECIMAL_NUMBER_LITERAL = 40;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1229,7 +1543,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getAddressLiteral()
 	 * @generated
 	 */
-	int ADDRESS_LITERAL = 33;
+	int ADDRESS_LITERAL = 41;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1257,7 +1571,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getNamedArgument()
 	 * @generated
 	 */
-	int NAMED_ARGUMENT = 34;
+	int NAMED_ARGUMENT = 42;
 
 	/**
 	 * The feature id for the '<em><b>Parameter</b></em>' reference.
@@ -1303,7 +1617,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getSimpleArgument()
 	 * @generated
 	 */
-	int SIMPLE_ARGUMENT = 35;
+	int SIMPLE_ARGUMENT = 43;
 
 	/**
 	 * The feature id for the '<em><b>Parameter</b></em>' reference.
@@ -1340,7 +1654,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getMappingTypeSpecifier()
 	 * @generated
 	 */
-	int MAPPING_TYPE_SPECIFIER = 36;
+	int MAPPING_TYPE_SPECIFIER = 44;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' reference.
@@ -1395,7 +1709,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getArrayTypeSpecifier()
 	 * @generated
 	 */
-	int ARRAY_TYPE_SPECIFIER = 37;
+	int ARRAY_TYPE_SPECIFIER = 45;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' reference.
@@ -1441,7 +1755,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getTypeSpecifier()
 	 * @generated
 	 */
-	int TYPE_SPECIFIER = 38;
+	int TYPE_SPECIFIER = 46;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' reference.
@@ -1478,7 +1792,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getSourceUnit()
 	 * @generated
 	 */
-	int SOURCE_UNIT = 39;
+	int SOURCE_UNIT = 47;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1605,7 +1919,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getPragmaSolidityDirective()
 	 * @generated
 	 */
-	int PRAGMA_SOLIDITY_DIRECTIVE = 40;
+	int PRAGMA_SOLIDITY_DIRECTIVE = 48;
 
 	/**
 	 * The feature id for the '<em><b>Domain ID</b></em>' attribute.
@@ -1642,7 +1956,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getPragmaExperimentalDirective()
 	 * @generated
 	 */
-	int PRAGMA_EXPERIMENTAL_DIRECTIVE = 41;
+	int PRAGMA_EXPERIMENTAL_DIRECTIVE = 49;
 
 	/**
 	 * The feature id for the '<em><b>Domain ID</b></em>' attribute.
@@ -1679,7 +1993,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getImportDirective()
 	 * @generated
 	 */
-	int IMPORT_DIRECTIVE = 42;
+	int IMPORT_DIRECTIVE = 50;
 
 	/**
 	 * The feature id for the '<em><b>Domain ID</b></em>' attribute.
@@ -1725,7 +2039,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getContractDefinition()
 	 * @generated
 	 */
-	int CONTRACT_DEFINITION = 43;
+	int CONTRACT_DEFINITION = 51;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1861,7 +2175,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getUsingForDeclaration()
 	 * @generated
 	 */
-	int USING_FOR_DECLARATION = 44;
+	int USING_FOR_DECLARATION = 52;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1952,7 +2266,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getTypeDefinition()
 	 * @generated
 	 */
-	int TYPE_DEFINITION = 45;
+	int TYPE_DEFINITION = 53;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2034,7 +2348,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getStructDefinition()
 	 * @generated
 	 */
-	int STRUCT_DEFINITION = 46;
+	int STRUCT_DEFINITION = 54;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2152,7 +2466,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getModifierDefinition()
 	 * @generated
 	 */
-	int MODIFIER_DEFINITION = 47;
+	int MODIFIER_DEFINITION = 55;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2279,7 +2593,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getConstructorDefinition()
 	 * @generated
 	 */
-	int CONSTRUCTOR_DEFINITION = 48;
+	int CONSTRUCTOR_DEFINITION = 56;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2415,7 +2729,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getEventDefinition()
 	 * @generated
 	 */
-	int EVENT_DEFINITION = 49;
+	int EVENT_DEFINITION = 57;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2533,7 +2847,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getFunctionDefinition()
 	 * @generated
 	 */
-	int FUNCTION_DEFINITION = 50;
+	int FUNCTION_DEFINITION = 58;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2678,7 +2992,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getFallbackDefinition()
 	 * @generated
 	 */
-	int FALLBACK_DEFINITION = 51;
+	int FALLBACK_DEFINITION = 59;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2814,7 +3128,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getReceiveDefinition()
 	 * @generated
 	 */
-	int RECEIVE_DEFINITION = 52;
+	int RECEIVE_DEFINITION = 60;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2950,7 +3264,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getParameter()
 	 * @generated
 	 */
-	int PARAMETER = 53;
+	int PARAMETER = 61;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' reference.
@@ -3050,7 +3364,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getIndexParameter()
 	 * @generated
 	 */
-	int INDEX_PARAMETER = 54;
+	int INDEX_PARAMETER = 62;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' reference.
@@ -3150,7 +3464,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getIdentifier()
 	 * @generated
 	 */
-	int IDENTIFIER = 55;
+	int IDENTIFIER = 63;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3241,7 +3555,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getExponentialExpression()
 	 * @generated
 	 */
-	int EXPONENTIAL_EXPRESSION = 56;
+	int EXPONENTIAL_EXPRESSION = 64;
 
 	/**
 	 * The feature id for the '<em><b>Left Operand</b></em>' containment reference.
@@ -3278,7 +3592,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getNumericalUnaryExpression()
 	 * @generated
 	 */
-	int NUMERICAL_UNARY_EXPRESSION = 57;
+	int NUMERICAL_UNARY_EXPRESSION = 65;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -3315,7 +3629,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getNewInstanceExpression()
 	 * @generated
 	 */
-	int NEW_INSTANCE_EXPRESSION = 58;
+	int NEW_INSTANCE_EXPRESSION = 66;
 
 	/**
 	 * The feature id for the '<em><b>Arguments</b></em>' containment reference list.
@@ -3397,7 +3711,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getEmitExpression()
 	 * @generated
 	 */
-	int EMIT_EXPRESSION = 59;
+	int EMIT_EXPRESSION = 67;
 
 	/**
 	 * The feature id for the '<em><b>Arguments</b></em>' containment reference list.
@@ -3479,7 +3793,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getTupleExpression()
 	 * @generated
 	 */
-	int TUPLE_EXPRESSION = 60;
+	int TUPLE_EXPRESSION = 68;
 
 	/**
 	 * The feature id for the '<em><b>Expressions</b></em>' containment reference list.
@@ -3507,7 +3821,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getPrimitiveValueExpression()
 	 * @generated
 	 */
-	int PRIMITIVE_VALUE_EXPRESSION = 61;
+	int PRIMITIVE_VALUE_EXPRESSION = 69;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -3535,7 +3849,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getSolidityFeatureCall()
 	 * @generated
 	 */
-	int SOLIDITY_FEATURE_CALL = 62;
+	int SOLIDITY_FEATURE_CALL = 70;
 
 	/**
 	 * The feature id for the '<em><b>Arguments</b></em>' containment reference list.
@@ -3617,7 +3931,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getSimpleTypeSpecifier()
 	 * @generated
 	 */
-	int SIMPLE_TYPE_SPECIFIER = 63;
+	int SIMPLE_TYPE_SPECIFIER = 71;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' reference.
@@ -3654,7 +3968,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getVersionOperator()
 	 * @generated
 	 */
-	int VERSION_OPERATOR = 64;
+	int VERSION_OPERATOR = 72;
 
 	/**
 	 * The meta object id for the '{@link com.yakindu.solidity.solidity.ContractType <em>Contract Type</em>}' enum.
@@ -3664,7 +3978,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getContractType()
 	 * @generated
 	 */
-	int CONTRACT_TYPE = 65;
+	int CONTRACT_TYPE = 73;
 
 	/**
 	 * The meta object id for the '{@link com.yakindu.solidity.solidity.StorageLocation <em>Storage Location</em>}' enum.
@@ -3674,7 +3988,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getStorageLocation()
 	 * @generated
 	 */
-	int STORAGE_LOCATION = 66;
+	int STORAGE_LOCATION = 74;
 
 	/**
 	 * The meta object id for the '{@link com.yakindu.solidity.solidity.Visibility <em>Visibility</em>}' enum.
@@ -3684,7 +3998,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getVisibility()
 	 * @generated
 	 */
-	int VISIBILITY = 67;
+	int VISIBILITY = 75;
 
 	/**
 	 * The meta object id for the '{@link com.yakindu.solidity.solidity.Unit <em>Unit</em>}' enum.
@@ -3694,7 +4008,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getUnit()
 	 * @generated
 	 */
-	int UNIT = 68;
+	int UNIT = 76;
 
 	/**
 	 * The meta object id for the '{@link com.yakindu.solidity.solidity.FunctionModifier <em>Function Modifier</em>}' enum.
@@ -3704,7 +4018,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getFunctionModifier()
 	 * @generated
 	 */
-	int FUNCTION_MODIFIER = 69;
+	int FUNCTION_MODIFIER = 77;
 
 	/**
 	 * The meta object id for the '{@link com.yakindu.solidity.solidity.AssemblyKind <em>Assembly Kind</em>}' enum.
@@ -3714,7 +4028,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getAssemblyKind()
 	 * @generated
 	 */
-	int ASSEMBLY_KIND = 70;
+	int ASSEMBLY_KIND = 78;
 
 	/**
 	 * The meta object id for the '{@link com.yakindu.solidity.solidity.UnaryOperator <em>Unary Operator</em>}' enum.
@@ -3724,7 +4038,7 @@ public interface SolidityPackage extends EPackage {
 	 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getUnaryOperator()
 	 * @generated
 	 */
-	int UNARY_OPERATOR = 71;
+	int UNARY_OPERATOR = 79;
 
 
 	/**
@@ -4404,15 +4718,15 @@ public interface SolidityPackage extends EPackage {
 	EClass getAssemblyLocalBinding();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.yakindu.solidity.solidity.AssemblyLocalBinding#getLabel <em>Label</em>}'.
+	 * Returns the meta object for the attribute list '{@link com.yakindu.solidity.solidity.AssemblyLocalBinding#getLabels <em>Labels</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Label</em>'.
-	 * @see com.yakindu.solidity.solidity.AssemblyLocalBinding#getLabel()
+	 * @return the meta object for the attribute list '<em>Labels</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyLocalBinding#getLabels()
 	 * @see #getAssemblyLocalBinding()
 	 * @generated
 	 */
-	EAttribute getAssemblyLocalBinding_Label();
+	EAttribute getAssemblyLocalBinding_Labels();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.AssemblyLocalBinding#getExpression <em>Expression</em>}'.
@@ -4520,6 +4834,284 @@ public interface SolidityPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFunctionalAssemblyExpression_Parameters();
+
+	/**
+	 * Returns the meta object for class '{@link com.yakindu.solidity.solidity.AssemblyExpression <em>Assembly Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Assembly Expression</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyExpression
+	 * @generated
+	 */
+	EClass getAssemblyExpression();
+
+	/**
+	 * Returns the meta object for class '{@link com.yakindu.solidity.solidity.AssemblyIfExpression <em>Assembly If Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Assembly If Expression</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyIfExpression
+	 * @generated
+	 */
+	EClass getAssemblyIfExpression();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.AssemblyIfExpression#getCondition <em>Condition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Condition</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyIfExpression#getCondition()
+	 * @see #getAssemblyIfExpression()
+	 * @generated
+	 */
+	EReference getAssemblyIfExpression_Condition();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.AssemblyIfExpression#getBody <em>Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Body</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyIfExpression#getBody()
+	 * @see #getAssemblyIfExpression()
+	 * @generated
+	 */
+	EReference getAssemblyIfExpression_Body();
+
+	/**
+	 * Returns the meta object for class '{@link com.yakindu.solidity.solidity.AssemblyForExpression <em>Assembly For Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Assembly For Expression</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyForExpression
+	 * @generated
+	 */
+	EClass getAssemblyForExpression();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.AssemblyForExpression#getPrestatementblock <em>Prestatementblock</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Prestatementblock</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyForExpression#getPrestatementblock()
+	 * @see #getAssemblyForExpression()
+	 * @generated
+	 */
+	EReference getAssemblyForExpression_Prestatementblock();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.AssemblyForExpression#getCondition <em>Condition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Condition</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyForExpression#getCondition()
+	 * @see #getAssemblyForExpression()
+	 * @generated
+	 */
+	EReference getAssemblyForExpression_Condition();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.AssemblyForExpression#getLoopstatementblock <em>Loopstatementblock</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Loopstatementblock</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyForExpression#getLoopstatementblock()
+	 * @see #getAssemblyForExpression()
+	 * @generated
+	 */
+	EReference getAssemblyForExpression_Loopstatementblock();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.AssemblyForExpression#getBody <em>Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Body</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyForExpression#getBody()
+	 * @see #getAssemblyForExpression()
+	 * @generated
+	 */
+	EReference getAssemblyForExpression_Body();
+
+	/**
+	 * Returns the meta object for class '{@link com.yakindu.solidity.solidity.AssemblySwitchExpression <em>Assembly Switch Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Assembly Switch Expression</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblySwitchExpression
+	 * @generated
+	 */
+	EClass getAssemblySwitchExpression();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.AssemblySwitchExpression#getCondition <em>Condition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Condition</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblySwitchExpression#getCondition()
+	 * @see #getAssemblySwitchExpression()
+	 * @generated
+	 */
+	EReference getAssemblySwitchExpression_Condition();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link com.yakindu.solidity.solidity.AssemblySwitchExpression#getCases <em>Cases</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Cases</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblySwitchExpression#getCases()
+	 * @see #getAssemblySwitchExpression()
+	 * @generated
+	 */
+	EReference getAssemblySwitchExpression_Cases();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.AssemblySwitchExpression#getDefaultCase <em>Default Case</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Default Case</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblySwitchExpression#getDefaultCase()
+	 * @see #getAssemblySwitchExpression()
+	 * @generated
+	 */
+	EReference getAssemblySwitchExpression_DefaultCase();
+
+	/**
+	 * Returns the meta object for class '{@link com.yakindu.solidity.solidity.AssemblyFunctionDefinition <em>Assembly Function Definition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Assembly Function Definition</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyFunctionDefinition
+	 * @generated
+	 */
+	EClass getAssemblyFunctionDefinition();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.yakindu.solidity.solidity.AssemblyFunctionDefinition#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyFunctionDefinition#getName()
+	 * @see #getAssemblyFunctionDefinition()
+	 * @generated
+	 */
+	EAttribute getAssemblyFunctionDefinition_Name();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link com.yakindu.solidity.solidity.AssemblyFunctionDefinition#getParameters <em>Parameters</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Parameters</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyFunctionDefinition#getParameters()
+	 * @see #getAssemblyFunctionDefinition()
+	 * @generated
+	 */
+	EReference getAssemblyFunctionDefinition_Parameters();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link com.yakindu.solidity.solidity.AssemblyFunctionDefinition#getReturnParameters <em>Return Parameters</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Return Parameters</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyFunctionDefinition#getReturnParameters()
+	 * @see #getAssemblyFunctionDefinition()
+	 * @generated
+	 */
+	EReference getAssemblyFunctionDefinition_ReturnParameters();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.AssemblyFunctionDefinition#getBody <em>Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Body</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyFunctionDefinition#getBody()
+	 * @see #getAssemblyFunctionDefinition()
+	 * @generated
+	 */
+	EReference getAssemblyFunctionDefinition_Body();
+
+	/**
+	 * Returns the meta object for class '{@link com.yakindu.solidity.solidity.AssemblyParameter <em>Assembly Parameter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Assembly Parameter</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyParameter
+	 * @generated
+	 */
+	EClass getAssemblyParameter();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.yakindu.solidity.solidity.AssemblyParameter#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyParameter#getName()
+	 * @see #getAssemblyParameter()
+	 * @generated
+	 */
+	EAttribute getAssemblyParameter_Name();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.AssemblyParameter#getTypeSpecifier <em>Type Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Type Specifier</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyParameter#getTypeSpecifier()
+	 * @see #getAssemblyParameter()
+	 * @generated
+	 */
+	EReference getAssemblyParameter_TypeSpecifier();
+
+	/**
+	 * Returns the meta object for class '{@link com.yakindu.solidity.solidity.AssemblySwitchCase <em>Assembly Switch Case</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Assembly Switch Case</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblySwitchCase
+	 * @generated
+	 */
+	EClass getAssemblySwitchCase();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.AssemblySwitchCase#getLiteral <em>Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Literal</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblySwitchCase#getLiteral()
+	 * @see #getAssemblySwitchCase()
+	 * @generated
+	 */
+	EReference getAssemblySwitchCase_Literal();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.AssemblySwitchCase#getBody <em>Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Body</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblySwitchCase#getBody()
+	 * @see #getAssemblySwitchCase()
+	 * @generated
+	 */
+	EReference getAssemblySwitchCase_Body();
+
+	/**
+	 * Returns the meta object for class '{@link com.yakindu.solidity.solidity.AssemblyDefaultSwitchCase <em>Assembly Default Switch Case</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Assembly Default Switch Case</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyDefaultSwitchCase
+	 * @generated
+	 */
+	EClass getAssemblyDefaultSwitchCase();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link com.yakindu.solidity.solidity.AssemblyDefaultSwitchCase#getBody <em>Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Body</em>'.
+	 * @see com.yakindu.solidity.solidity.AssemblyDefaultSwitchCase#getBody()
+	 * @see #getAssemblyDefaultSwitchCase()
+	 * @generated
+	 */
+	EReference getAssemblyDefaultSwitchCase_Body();
 
 	/**
 	 * Returns the meta object for class '{@link com.yakindu.solidity.solidity.IDLiteral <em>ID Literal</em>}'.
@@ -5962,12 +6554,12 @@ public interface SolidityPackage extends EPackage {
 		EClass ASSEMBLY_LOCAL_BINDING = eINSTANCE.getAssemblyLocalBinding();
 
 		/**
-		 * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Labels</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ASSEMBLY_LOCAL_BINDING__LABEL = eINSTANCE.getAssemblyLocalBinding_Label();
+		EAttribute ASSEMBLY_LOCAL_BINDING__LABELS = eINSTANCE.getAssemblyLocalBinding_Labels();
 
 		/**
 		 * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
@@ -6054,6 +6646,230 @@ public interface SolidityPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FUNCTIONAL_ASSEMBLY_EXPRESSION__PARAMETERS = eINSTANCE.getFunctionalAssemblyExpression_Parameters();
+
+		/**
+		 * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.AssemblyExpressionImpl <em>Assembly Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.yakindu.solidity.solidity.impl.AssemblyExpressionImpl
+		 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getAssemblyExpression()
+		 * @generated
+		 */
+		EClass ASSEMBLY_EXPRESSION = eINSTANCE.getAssemblyExpression();
+
+		/**
+		 * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.AssemblyIfExpressionImpl <em>Assembly If Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.yakindu.solidity.solidity.impl.AssemblyIfExpressionImpl
+		 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getAssemblyIfExpression()
+		 * @generated
+		 */
+		EClass ASSEMBLY_IF_EXPRESSION = eINSTANCE.getAssemblyIfExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_IF_EXPRESSION__CONDITION = eINSTANCE.getAssemblyIfExpression_Condition();
+
+		/**
+		 * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_IF_EXPRESSION__BODY = eINSTANCE.getAssemblyIfExpression_Body();
+
+		/**
+		 * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.AssemblyForExpressionImpl <em>Assembly For Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.yakindu.solidity.solidity.impl.AssemblyForExpressionImpl
+		 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getAssemblyForExpression()
+		 * @generated
+		 */
+		EClass ASSEMBLY_FOR_EXPRESSION = eINSTANCE.getAssemblyForExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Prestatementblock</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_FOR_EXPRESSION__PRESTATEMENTBLOCK = eINSTANCE.getAssemblyForExpression_Prestatementblock();
+
+		/**
+		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_FOR_EXPRESSION__CONDITION = eINSTANCE.getAssemblyForExpression_Condition();
+
+		/**
+		 * The meta object literal for the '<em><b>Loopstatementblock</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_FOR_EXPRESSION__LOOPSTATEMENTBLOCK = eINSTANCE.getAssemblyForExpression_Loopstatementblock();
+
+		/**
+		 * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_FOR_EXPRESSION__BODY = eINSTANCE.getAssemblyForExpression_Body();
+
+		/**
+		 * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.AssemblySwitchExpressionImpl <em>Assembly Switch Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.yakindu.solidity.solidity.impl.AssemblySwitchExpressionImpl
+		 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getAssemblySwitchExpression()
+		 * @generated
+		 */
+		EClass ASSEMBLY_SWITCH_EXPRESSION = eINSTANCE.getAssemblySwitchExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_SWITCH_EXPRESSION__CONDITION = eINSTANCE.getAssemblySwitchExpression_Condition();
+
+		/**
+		 * The meta object literal for the '<em><b>Cases</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_SWITCH_EXPRESSION__CASES = eINSTANCE.getAssemblySwitchExpression_Cases();
+
+		/**
+		 * The meta object literal for the '<em><b>Default Case</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_SWITCH_EXPRESSION__DEFAULT_CASE = eINSTANCE.getAssemblySwitchExpression_DefaultCase();
+
+		/**
+		 * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.AssemblyFunctionDefinitionImpl <em>Assembly Function Definition</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.yakindu.solidity.solidity.impl.AssemblyFunctionDefinitionImpl
+		 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getAssemblyFunctionDefinition()
+		 * @generated
+		 */
+		EClass ASSEMBLY_FUNCTION_DEFINITION = eINSTANCE.getAssemblyFunctionDefinition();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ASSEMBLY_FUNCTION_DEFINITION__NAME = eINSTANCE.getAssemblyFunctionDefinition_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_FUNCTION_DEFINITION__PARAMETERS = eINSTANCE.getAssemblyFunctionDefinition_Parameters();
+
+		/**
+		 * The meta object literal for the '<em><b>Return Parameters</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_FUNCTION_DEFINITION__RETURN_PARAMETERS = eINSTANCE.getAssemblyFunctionDefinition_ReturnParameters();
+
+		/**
+		 * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_FUNCTION_DEFINITION__BODY = eINSTANCE.getAssemblyFunctionDefinition_Body();
+
+		/**
+		 * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.AssemblyParameterImpl <em>Assembly Parameter</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.yakindu.solidity.solidity.impl.AssemblyParameterImpl
+		 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getAssemblyParameter()
+		 * @generated
+		 */
+		EClass ASSEMBLY_PARAMETER = eINSTANCE.getAssemblyParameter();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ASSEMBLY_PARAMETER__NAME = eINSTANCE.getAssemblyParameter_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Type Specifier</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_PARAMETER__TYPE_SPECIFIER = eINSTANCE.getAssemblyParameter_TypeSpecifier();
+
+		/**
+		 * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.AssemblySwitchCaseImpl <em>Assembly Switch Case</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.yakindu.solidity.solidity.impl.AssemblySwitchCaseImpl
+		 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getAssemblySwitchCase()
+		 * @generated
+		 */
+		EClass ASSEMBLY_SWITCH_CASE = eINSTANCE.getAssemblySwitchCase();
+
+		/**
+		 * The meta object literal for the '<em><b>Literal</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_SWITCH_CASE__LITERAL = eINSTANCE.getAssemblySwitchCase_Literal();
+
+		/**
+		 * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_SWITCH_CASE__BODY = eINSTANCE.getAssemblySwitchCase_Body();
+
+		/**
+		 * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.AssemblyDefaultSwitchCaseImpl <em>Assembly Default Switch Case</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.yakindu.solidity.solidity.impl.AssemblyDefaultSwitchCaseImpl
+		 * @see com.yakindu.solidity.solidity.impl.SolidityPackageImpl#getAssemblyDefaultSwitchCase()
+		 * @generated
+		 */
+		EClass ASSEMBLY_DEFAULT_SWITCH_CASE = eINSTANCE.getAssemblyDefaultSwitchCase();
+
+		/**
+		 * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_DEFAULT_SWITCH_CASE__BODY = eINSTANCE.getAssemblyDefaultSwitchCase_Body();
 
 		/**
 		 * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.IDLiteralImpl <em>ID Literal</em>}' class.

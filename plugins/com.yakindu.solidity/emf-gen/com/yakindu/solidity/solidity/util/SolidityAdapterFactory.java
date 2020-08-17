@@ -213,6 +213,38 @@ public class SolidityAdapterFactory extends AdapterFactoryImpl {
 				return createFunctionalAssemblyExpressionAdapter();
 			}
 			@Override
+			public Adapter caseAssemblyExpression(AssemblyExpression object) {
+				return createAssemblyExpressionAdapter();
+			}
+			@Override
+			public Adapter caseAssemblyIfExpression(AssemblyIfExpression object) {
+				return createAssemblyIfExpressionAdapter();
+			}
+			@Override
+			public Adapter caseAssemblyForExpression(AssemblyForExpression object) {
+				return createAssemblyForExpressionAdapter();
+			}
+			@Override
+			public Adapter caseAssemblySwitchExpression(AssemblySwitchExpression object) {
+				return createAssemblySwitchExpressionAdapter();
+			}
+			@Override
+			public Adapter caseAssemblyFunctionDefinition(AssemblyFunctionDefinition object) {
+				return createAssemblyFunctionDefinitionAdapter();
+			}
+			@Override
+			public Adapter caseAssemblyParameter(AssemblyParameter object) {
+				return createAssemblyParameterAdapter();
+			}
+			@Override
+			public Adapter caseAssemblySwitchCase(AssemblySwitchCase object) {
+				return createAssemblySwitchCaseAdapter();
+			}
+			@Override
+			public Adapter caseAssemblyDefaultSwitchCase(AssemblyDefaultSwitchCase object) {
+				return createAssemblyDefaultSwitchCaseAdapter();
+			}
+			@Override
 			public Adapter caseIDLiteral(IDLiteral object) {
 				return createIDLiteralAdapter();
 			}
@@ -879,6 +911,118 @@ public class SolidityAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFunctionalAssemblyExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.AssemblyExpression <em>Assembly Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.yakindu.solidity.solidity.AssemblyExpression
+	 * @generated
+	 */
+	public Adapter createAssemblyExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.AssemblyIfExpression <em>Assembly If Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.yakindu.solidity.solidity.AssemblyIfExpression
+	 * @generated
+	 */
+	public Adapter createAssemblyIfExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.AssemblyForExpression <em>Assembly For Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.yakindu.solidity.solidity.AssemblyForExpression
+	 * @generated
+	 */
+	public Adapter createAssemblyForExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.AssemblySwitchExpression <em>Assembly Switch Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.yakindu.solidity.solidity.AssemblySwitchExpression
+	 * @generated
+	 */
+	public Adapter createAssemblySwitchExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.AssemblyFunctionDefinition <em>Assembly Function Definition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.yakindu.solidity.solidity.AssemblyFunctionDefinition
+	 * @generated
+	 */
+	public Adapter createAssemblyFunctionDefinitionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.AssemblyParameter <em>Assembly Parameter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.yakindu.solidity.solidity.AssemblyParameter
+	 * @generated
+	 */
+	public Adapter createAssemblyParameterAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.AssemblySwitchCase <em>Assembly Switch Case</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.yakindu.solidity.solidity.AssemblySwitchCase
+	 * @generated
+	 */
+	public Adapter createAssemblySwitchCaseAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.yakindu.solidity.solidity.AssemblyDefaultSwitchCase <em>Assembly Default Switch Case</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.yakindu.solidity.solidity.AssemblyDefaultSwitchCase
+	 * @generated
+	 */
+	public Adapter createAssemblyDefaultSwitchCaseAdapter() {
 		return null;
 	}
 

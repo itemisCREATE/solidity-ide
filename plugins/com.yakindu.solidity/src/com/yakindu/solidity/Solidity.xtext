@@ -227,14 +227,45 @@ CatchClause:
 ;
 
 InlineAssemblyBlock:
-	{InlineAssemblyBlock} '{' (items+=AssemblyItem)* '}';
+	{InlineAssemblyBlock} '{' (items+=AssemblyStatement)* '}';
 
-AssemblyItem returns EObject:
-	(FunctionalAssemblyExpression | InlineAssemblyBlock | AssemblyLocalBinding | AssemblyAssignment | AssemblyLabel |
-	DecimalNumberLiteral | IDLiteral | AddressLiteral);
+AssemblyStatement returns EObject:
+	(FunctionalAssemblyExpression | AssemblyExpression |InlineAssemblyBlock | AssemblyLocalBinding | AssemblyFunctionDefinition | AssemblyAssignment | AssemblyLabel | DecimalNumberLiteral | IDLiteral | AddressLiteral);
+
+AssemblyExpression:
+	AssemblyIfExpression | AssemblyForExpression | AssemblySwitchExpression
+;
+
+AssemblyIfExpression:
+	'if' condition=FunctionalAssemblyExpression body=InlineAssemblyBlock
+;
+
+AssemblyForExpression:
+	'for' prestatementblock=InlineAssemblyBlock condition=FunctionalAssemblyExpression loopstatementblock=InlineAssemblyBlock body=InlineAssemblyBlock
+;
+
+AssemblySwitchExpression:
+	'switch' condition=FunctionalAssemblyExpression (((cases+=AssemblySwitchCase)+ (defaultCase=AssemblyDefaultSwitchCase)?)|defaultCase=AssemblyDefaultSwitchCase)
+;
+
+AssemblySwitchCase:
+	'case' literal=Literal body=InlineAssemblyBlock
+;
+
+AssemblyDefaultSwitchCase:
+	'default' body=InlineAssemblyBlock
+;
+
+AssemblyFunctionDefinition:
+	'function' name=ID '('(parameters+=AssemblyParameter (',' parameters+=AssemblyParameter)*)?')' ('->' returnParameters+=AssemblyParameter(',' returnParameters+=AssemblyParameter)*)? body=InlineAssemblyBlock
+;
+
+AssemblyParameter:
+	name=ID (':' typeSpecifier=TypeSpecifier)?
+;
 
 AssemblyLocalBinding:
-	'let' label=AssemblyID ':=' expression=(FunctionalAssemblyExpression | DecimalNumberLiteral);
+	'let' labels+=AssemblyID (',' labels+=AssemblyID)* ':=' expression=(FunctionalAssemblyExpression | DecimalNumberLiteral);
 
 AssemblyAssignment:
 	(leftOperand=AssemblyID ':=' expression=FunctionalAssemblyExpression) | ('=:' rightOpernd=AssemblyID);
@@ -243,7 +274,7 @@ AssemblyLabel:
 	label=AssemblyID ':';
 
 FunctionalAssemblyExpression:
-	=> label=AssemblyID ('(' (parameters+=AssemblyItem (',' parameters+=AssemblyItem)*)? ')')?;
+	=> label=AssemblyID ('(' (parameters+=AssemblyStatement (',' parameters+=AssemblyStatement)*)? ')')?;
 
 IDLiteral:
 	value=AssemblyID;
@@ -252,7 +283,7 @@ AssemblyID:
 	ID | Keyword;
 
 Keyword:
-	'return';
+	'return' | 'leave' | 'break' | 'continue';
 
 Literal returns expressions::Literal:
 	BoolLiteral | DecimalNumberLiteral | AddressLiteral | BinaryLiteral | StringLiteral | NullLiteral;

@@ -89,6 +89,14 @@ public class SolidityFactoryImpl extends EFactoryImpl implements SolidityFactory
 			case SolidityPackage.ASSEMBLY_ASSIGNMENT: return createAssemblyAssignment();
 			case SolidityPackage.ASSEMBLY_LABEL: return createAssemblyLabel();
 			case SolidityPackage.FUNCTIONAL_ASSEMBLY_EXPRESSION: return createFunctionalAssemblyExpression();
+			case SolidityPackage.ASSEMBLY_EXPRESSION: return createAssemblyExpression();
+			case SolidityPackage.ASSEMBLY_IF_EXPRESSION: return createAssemblyIfExpression();
+			case SolidityPackage.ASSEMBLY_FOR_EXPRESSION: return createAssemblyForExpression();
+			case SolidityPackage.ASSEMBLY_SWITCH_EXPRESSION: return createAssemblySwitchExpression();
+			case SolidityPackage.ASSEMBLY_FUNCTION_DEFINITION: return createAssemblyFunctionDefinition();
+			case SolidityPackage.ASSEMBLY_PARAMETER: return createAssemblyParameter();
+			case SolidityPackage.ASSEMBLY_SWITCH_CASE: return createAssemblySwitchCase();
+			case SolidityPackage.ASSEMBLY_DEFAULT_SWITCH_CASE: return createAssemblyDefaultSwitchCase();
 			case SolidityPackage.ID_LITERAL: return createIDLiteral();
 			case SolidityPackage.DECIMAL_NUMBER_LITERAL: return createDecimalNumberLiteral();
 			case SolidityPackage.ADDRESS_LITERAL: return createAddressLiteral();
@@ -524,6 +532,94 @@ public class SolidityFactoryImpl extends EFactoryImpl implements SolidityFactory
 	public FunctionalAssemblyExpression createFunctionalAssemblyExpression() {
 		FunctionalAssemblyExpressionImpl functionalAssemblyExpression = new FunctionalAssemblyExpressionImpl();
 		return functionalAssemblyExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AssemblyExpression createAssemblyExpression() {
+		AssemblyExpressionImpl assemblyExpression = new AssemblyExpressionImpl();
+		return assemblyExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AssemblyIfExpression createAssemblyIfExpression() {
+		AssemblyIfExpressionImpl assemblyIfExpression = new AssemblyIfExpressionImpl();
+		return assemblyIfExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AssemblyForExpression createAssemblyForExpression() {
+		AssemblyForExpressionImpl assemblyForExpression = new AssemblyForExpressionImpl();
+		return assemblyForExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AssemblySwitchExpression createAssemblySwitchExpression() {
+		AssemblySwitchExpressionImpl assemblySwitchExpression = new AssemblySwitchExpressionImpl();
+		return assemblySwitchExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AssemblyFunctionDefinition createAssemblyFunctionDefinition() {
+		AssemblyFunctionDefinitionImpl assemblyFunctionDefinition = new AssemblyFunctionDefinitionImpl();
+		return assemblyFunctionDefinition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AssemblyParameter createAssemblyParameter() {
+		AssemblyParameterImpl assemblyParameter = new AssemblyParameterImpl();
+		return assemblyParameter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AssemblySwitchCase createAssemblySwitchCase() {
+		AssemblySwitchCaseImpl assemblySwitchCase = new AssemblySwitchCaseImpl();
+		return assemblySwitchCase;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AssemblyDefaultSwitchCase createAssemblyDefaultSwitchCase() {
+		AssemblyDefaultSwitchCaseImpl assemblyDefaultSwitchCase = new AssemblyDefaultSwitchCaseImpl();
+		return assemblyDefaultSwitchCase;
 	}
 
 	/**

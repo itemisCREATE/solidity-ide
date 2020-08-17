@@ -6,15 +6,18 @@ package com.yakindu.solidity.solidity.impl;
 import com.yakindu.solidity.solidity.AssemblyLocalBinding;
 import com.yakindu.solidity.solidity.SolidityPackage;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,7 +27,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.yakindu.solidity.solidity.impl.AssemblyLocalBindingImpl#getLabel <em>Label</em>}</li>
+ *   <li>{@link com.yakindu.solidity.solidity.impl.AssemblyLocalBindingImpl#getLabels <em>Labels</em>}</li>
  *   <li>{@link com.yakindu.solidity.solidity.impl.AssemblyLocalBindingImpl#getExpression <em>Expression</em>}</li>
  * </ul>
  *
@@ -32,24 +35,14 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  */
 public class AssemblyLocalBindingImpl extends MinimalEObjectImpl.Container implements AssemblyLocalBinding {
 	/**
-	 * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
+	 * The cached value of the '{@link #getLabels() <em>Labels</em>}' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getLabel()
+	 * @see #getLabels()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String LABEL_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLabel()
-	 * @generated
-	 * @ordered
-	 */
-	protected String label = LABEL_EDEFAULT;
+	protected EList<String> labels;
 
 	/**
 	 * The cached value of the '{@link #getExpression() <em>Expression</em>}' containment reference.
@@ -86,21 +79,11 @@ public class AssemblyLocalBindingImpl extends MinimalEObjectImpl.Container imple
 	 * @generated
 	 */
 	@Override
-	public String getLabel() {
-		return label;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setLabel(String newLabel) {
-		String oldLabel = label;
-		label = newLabel;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SolidityPackage.ASSEMBLY_LOCAL_BINDING__LABEL, oldLabel, label));
+	public EList<String> getLabels() {
+		if (labels == null) {
+			labels = new EDataTypeUniqueEList<String>(String.class, this, SolidityPackage.ASSEMBLY_LOCAL_BINDING__LABELS);
+		}
+		return labels;
 	}
 
 	/**
@@ -170,8 +153,8 @@ public class AssemblyLocalBindingImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case SolidityPackage.ASSEMBLY_LOCAL_BINDING__LABEL:
-				return getLabel();
+			case SolidityPackage.ASSEMBLY_LOCAL_BINDING__LABELS:
+				return getLabels();
 			case SolidityPackage.ASSEMBLY_LOCAL_BINDING__EXPRESSION:
 				return getExpression();
 		}
@@ -183,11 +166,13 @@ public class AssemblyLocalBindingImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case SolidityPackage.ASSEMBLY_LOCAL_BINDING__LABEL:
-				setLabel((String)newValue);
+			case SolidityPackage.ASSEMBLY_LOCAL_BINDING__LABELS:
+				getLabels().clear();
+				getLabels().addAll((Collection<? extends String>)newValue);
 				return;
 			case SolidityPackage.ASSEMBLY_LOCAL_BINDING__EXPRESSION:
 				setExpression((EObject)newValue);
@@ -204,8 +189,8 @@ public class AssemblyLocalBindingImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case SolidityPackage.ASSEMBLY_LOCAL_BINDING__LABEL:
-				setLabel(LABEL_EDEFAULT);
+			case SolidityPackage.ASSEMBLY_LOCAL_BINDING__LABELS:
+				getLabels().clear();
 				return;
 			case SolidityPackage.ASSEMBLY_LOCAL_BINDING__EXPRESSION:
 				setExpression((EObject)null);
@@ -222,8 +207,8 @@ public class AssemblyLocalBindingImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case SolidityPackage.ASSEMBLY_LOCAL_BINDING__LABEL:
-				return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
+			case SolidityPackage.ASSEMBLY_LOCAL_BINDING__LABELS:
+				return labels != null && !labels.isEmpty();
 			case SolidityPackage.ASSEMBLY_LOCAL_BINDING__EXPRESSION:
 				return expression != null;
 		}
@@ -240,8 +225,8 @@ public class AssemblyLocalBindingImpl extends MinimalEObjectImpl.Container imple
 		if (eIsProxy()) return super.toString();
 
 		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (label: ");
-		result.append(label);
+		result.append(" (labels: ");
+		result.append(labels);
 		result.append(')');
 		return result.toString();
 	}

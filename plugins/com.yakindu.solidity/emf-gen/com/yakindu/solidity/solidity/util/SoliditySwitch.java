@@ -300,6 +300,57 @@ public class SoliditySwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case SolidityPackage.ASSEMBLY_EXPRESSION: {
+				AssemblyExpression assemblyExpression = (AssemblyExpression)theEObject;
+				T result = caseAssemblyExpression(assemblyExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SolidityPackage.ASSEMBLY_IF_EXPRESSION: {
+				AssemblyIfExpression assemblyIfExpression = (AssemblyIfExpression)theEObject;
+				T result = caseAssemblyIfExpression(assemblyIfExpression);
+				if (result == null) result = caseAssemblyExpression(assemblyIfExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SolidityPackage.ASSEMBLY_FOR_EXPRESSION: {
+				AssemblyForExpression assemblyForExpression = (AssemblyForExpression)theEObject;
+				T result = caseAssemblyForExpression(assemblyForExpression);
+				if (result == null) result = caseAssemblyExpression(assemblyForExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SolidityPackage.ASSEMBLY_SWITCH_EXPRESSION: {
+				AssemblySwitchExpression assemblySwitchExpression = (AssemblySwitchExpression)theEObject;
+				T result = caseAssemblySwitchExpression(assemblySwitchExpression);
+				if (result == null) result = caseAssemblyExpression(assemblySwitchExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SolidityPackage.ASSEMBLY_FUNCTION_DEFINITION: {
+				AssemblyFunctionDefinition assemblyFunctionDefinition = (AssemblyFunctionDefinition)theEObject;
+				T result = caseAssemblyFunctionDefinition(assemblyFunctionDefinition);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SolidityPackage.ASSEMBLY_PARAMETER: {
+				AssemblyParameter assemblyParameter = (AssemblyParameter)theEObject;
+				T result = caseAssemblyParameter(assemblyParameter);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SolidityPackage.ASSEMBLY_SWITCH_CASE: {
+				AssemblySwitchCase assemblySwitchCase = (AssemblySwitchCase)theEObject;
+				T result = caseAssemblySwitchCase(assemblySwitchCase);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SolidityPackage.ASSEMBLY_DEFAULT_SWITCH_CASE: {
+				AssemblyDefaultSwitchCase assemblyDefaultSwitchCase = (AssemblyDefaultSwitchCase)theEObject;
+				T result = caseAssemblyDefaultSwitchCase(assemblyDefaultSwitchCase);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case SolidityPackage.ID_LITERAL: {
 				IDLiteral idLiteral = (IDLiteral)theEObject;
 				T result = caseIDLiteral(idLiteral);
@@ -1082,6 +1133,126 @@ public class SoliditySwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseFunctionalAssemblyExpression(FunctionalAssemblyExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Assembly Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Assembly Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAssemblyExpression(AssemblyExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Assembly If Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Assembly If Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAssemblyIfExpression(AssemblyIfExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Assembly For Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Assembly For Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAssemblyForExpression(AssemblyForExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Assembly Switch Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Assembly Switch Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAssemblySwitchExpression(AssemblySwitchExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Assembly Function Definition</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Assembly Function Definition</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAssemblyFunctionDefinition(AssemblyFunctionDefinition object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Assembly Parameter</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Assembly Parameter</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAssemblyParameter(AssemblyParameter object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Assembly Switch Case</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Assembly Switch Case</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAssemblySwitchCase(AssemblySwitchCase object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Assembly Default Switch Case</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Assembly Default Switch Case</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAssemblyDefaultSwitchCase(AssemblyDefaultSwitchCase object) {
 		return null;
 	}
 

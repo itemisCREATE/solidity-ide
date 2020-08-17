@@ -16,9 +16,17 @@ import org.yakindu.base.types.TypesPackage;
 import com.yakindu.solidity.solidity.AddressLiteral;
 import com.yakindu.solidity.solidity.ArrayTypeSpecifier;
 import com.yakindu.solidity.solidity.AssemblyAssignment;
+import com.yakindu.solidity.solidity.AssemblyDefaultSwitchCase;
+import com.yakindu.solidity.solidity.AssemblyExpression;
+import com.yakindu.solidity.solidity.AssemblyForExpression;
+import com.yakindu.solidity.solidity.AssemblyFunctionDefinition;
+import com.yakindu.solidity.solidity.AssemblyIfExpression;
 import com.yakindu.solidity.solidity.AssemblyKind;
 import com.yakindu.solidity.solidity.AssemblyLabel;
 import com.yakindu.solidity.solidity.AssemblyLocalBinding;
+import com.yakindu.solidity.solidity.AssemblyParameter;
+import com.yakindu.solidity.solidity.AssemblySwitchCase;
+import com.yakindu.solidity.solidity.AssemblySwitchExpression;
 import com.yakindu.solidity.solidity.Block;
 import com.yakindu.solidity.solidity.BreakStatement;
 import com.yakindu.solidity.solidity.BuildInModifier;
@@ -311,6 +319,62 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
 	 * @generated
 	 */
 	private EClass functionalAssemblyExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass assemblyExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass assemblyIfExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass assemblyForExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass assemblySwitchExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass assemblyFunctionDefinitionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass assemblyParameterEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass assemblySwitchCaseEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass assemblyDefaultSwitchCaseEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1311,7 +1375,7 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getAssemblyLocalBinding_Label() {
+	public EAttribute getAssemblyLocalBinding_Labels() {
 		return (EAttribute)assemblyLocalBindingEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1413,6 +1477,266 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
 	@Override
 	public EReference getFunctionalAssemblyExpression_Parameters() {
 		return (EReference)functionalAssemblyExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getAssemblyExpression() {
+		return assemblyExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getAssemblyIfExpression() {
+		return assemblyIfExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAssemblyIfExpression_Condition() {
+		return (EReference)assemblyIfExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAssemblyIfExpression_Body() {
+		return (EReference)assemblyIfExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getAssemblyForExpression() {
+		return assemblyForExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAssemblyForExpression_Prestatementblock() {
+		return (EReference)assemblyForExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAssemblyForExpression_Condition() {
+		return (EReference)assemblyForExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAssemblyForExpression_Loopstatementblock() {
+		return (EReference)assemblyForExpressionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAssemblyForExpression_Body() {
+		return (EReference)assemblyForExpressionEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getAssemblySwitchExpression() {
+		return assemblySwitchExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAssemblySwitchExpression_Condition() {
+		return (EReference)assemblySwitchExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAssemblySwitchExpression_Cases() {
+		return (EReference)assemblySwitchExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAssemblySwitchExpression_DefaultCase() {
+		return (EReference)assemblySwitchExpressionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getAssemblyFunctionDefinition() {
+		return assemblyFunctionDefinitionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getAssemblyFunctionDefinition_Name() {
+		return (EAttribute)assemblyFunctionDefinitionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAssemblyFunctionDefinition_Parameters() {
+		return (EReference)assemblyFunctionDefinitionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAssemblyFunctionDefinition_ReturnParameters() {
+		return (EReference)assemblyFunctionDefinitionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAssemblyFunctionDefinition_Body() {
+		return (EReference)assemblyFunctionDefinitionEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getAssemblyParameter() {
+		return assemblyParameterEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getAssemblyParameter_Name() {
+		return (EAttribute)assemblyParameterEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAssemblyParameter_TypeSpecifier() {
+		return (EReference)assemblyParameterEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getAssemblySwitchCase() {
+		return assemblySwitchCaseEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAssemblySwitchCase_Literal() {
+		return (EReference)assemblySwitchCaseEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAssemblySwitchCase_Body() {
+		return (EReference)assemblySwitchCaseEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getAssemblyDefaultSwitchCase() {
+		return assemblyDefaultSwitchCaseEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAssemblyDefaultSwitchCase_Body() {
+		return (EReference)assemblyDefaultSwitchCaseEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2345,7 +2669,7 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
 		createEReference(inlineAssemblyBlockEClass, INLINE_ASSEMBLY_BLOCK__ITEMS);
 
 		assemblyLocalBindingEClass = createEClass(ASSEMBLY_LOCAL_BINDING);
-		createEAttribute(assemblyLocalBindingEClass, ASSEMBLY_LOCAL_BINDING__LABEL);
+		createEAttribute(assemblyLocalBindingEClass, ASSEMBLY_LOCAL_BINDING__LABELS);
 		createEReference(assemblyLocalBindingEClass, ASSEMBLY_LOCAL_BINDING__EXPRESSION);
 
 		assemblyAssignmentEClass = createEClass(ASSEMBLY_ASSIGNMENT);
@@ -2359,6 +2683,40 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
 		functionalAssemblyExpressionEClass = createEClass(FUNCTIONAL_ASSEMBLY_EXPRESSION);
 		createEAttribute(functionalAssemblyExpressionEClass, FUNCTIONAL_ASSEMBLY_EXPRESSION__LABEL);
 		createEReference(functionalAssemblyExpressionEClass, FUNCTIONAL_ASSEMBLY_EXPRESSION__PARAMETERS);
+
+		assemblyExpressionEClass = createEClass(ASSEMBLY_EXPRESSION);
+
+		assemblyIfExpressionEClass = createEClass(ASSEMBLY_IF_EXPRESSION);
+		createEReference(assemblyIfExpressionEClass, ASSEMBLY_IF_EXPRESSION__CONDITION);
+		createEReference(assemblyIfExpressionEClass, ASSEMBLY_IF_EXPRESSION__BODY);
+
+		assemblyForExpressionEClass = createEClass(ASSEMBLY_FOR_EXPRESSION);
+		createEReference(assemblyForExpressionEClass, ASSEMBLY_FOR_EXPRESSION__PRESTATEMENTBLOCK);
+		createEReference(assemblyForExpressionEClass, ASSEMBLY_FOR_EXPRESSION__CONDITION);
+		createEReference(assemblyForExpressionEClass, ASSEMBLY_FOR_EXPRESSION__LOOPSTATEMENTBLOCK);
+		createEReference(assemblyForExpressionEClass, ASSEMBLY_FOR_EXPRESSION__BODY);
+
+		assemblySwitchExpressionEClass = createEClass(ASSEMBLY_SWITCH_EXPRESSION);
+		createEReference(assemblySwitchExpressionEClass, ASSEMBLY_SWITCH_EXPRESSION__CONDITION);
+		createEReference(assemblySwitchExpressionEClass, ASSEMBLY_SWITCH_EXPRESSION__CASES);
+		createEReference(assemblySwitchExpressionEClass, ASSEMBLY_SWITCH_EXPRESSION__DEFAULT_CASE);
+
+		assemblyFunctionDefinitionEClass = createEClass(ASSEMBLY_FUNCTION_DEFINITION);
+		createEAttribute(assemblyFunctionDefinitionEClass, ASSEMBLY_FUNCTION_DEFINITION__NAME);
+		createEReference(assemblyFunctionDefinitionEClass, ASSEMBLY_FUNCTION_DEFINITION__PARAMETERS);
+		createEReference(assemblyFunctionDefinitionEClass, ASSEMBLY_FUNCTION_DEFINITION__RETURN_PARAMETERS);
+		createEReference(assemblyFunctionDefinitionEClass, ASSEMBLY_FUNCTION_DEFINITION__BODY);
+
+		assemblyParameterEClass = createEClass(ASSEMBLY_PARAMETER);
+		createEAttribute(assemblyParameterEClass, ASSEMBLY_PARAMETER__NAME);
+		createEReference(assemblyParameterEClass, ASSEMBLY_PARAMETER__TYPE_SPECIFIER);
+
+		assemblySwitchCaseEClass = createEClass(ASSEMBLY_SWITCH_CASE);
+		createEReference(assemblySwitchCaseEClass, ASSEMBLY_SWITCH_CASE__LITERAL);
+		createEReference(assemblySwitchCaseEClass, ASSEMBLY_SWITCH_CASE__BODY);
+
+		assemblyDefaultSwitchCaseEClass = createEClass(ASSEMBLY_DEFAULT_SWITCH_CASE);
+		createEReference(assemblyDefaultSwitchCaseEClass, ASSEMBLY_DEFAULT_SWITCH_CASE__BODY);
 
 		idLiteralEClass = createEClass(ID_LITERAL);
 		createEAttribute(idLiteralEClass, ID_LITERAL__VALUE);
@@ -2529,6 +2887,9 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
 		whileStatementEClass.getESuperTypes().add(this.getStatement());
 		forStatementEClass.getESuperTypes().add(this.getStatement());
 		tryStatementEClass.getESuperTypes().add(this.getStatement());
+		assemblyIfExpressionEClass.getESuperTypes().add(this.getAssemblyExpression());
+		assemblyForExpressionEClass.getESuperTypes().add(this.getAssemblyExpression());
+		assemblySwitchExpressionEClass.getESuperTypes().add(this.getAssemblyExpression());
 		decimalNumberLiteralEClass.getESuperTypes().add(theExpressionsPackage.getLiteral());
 		addressLiteralEClass.getESuperTypes().add(theExpressionsPackage.getLiteral());
 		namedArgumentEClass.getESuperTypes().add(theExpressionsPackage.getArgument());
@@ -2654,7 +3015,7 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
 		initEReference(getInlineAssemblyBlock_Items(), ecorePackage.getEObject(), null, "items", null, 0, -1, InlineAssemblyBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(assemblyLocalBindingEClass, AssemblyLocalBinding.class, "AssemblyLocalBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAssemblyLocalBinding_Label(), ecorePackage.getEString(), "label", null, 0, 1, AssemblyLocalBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAssemblyLocalBinding_Labels(), ecorePackage.getEString(), "labels", null, 0, -1, AssemblyLocalBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAssemblyLocalBinding_Expression(), ecorePackage.getEObject(), null, "expression", null, 0, 1, AssemblyLocalBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(assemblyAssignmentEClass, AssemblyAssignment.class, "AssemblyAssignment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2668,6 +3029,40 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
 		initEClass(functionalAssemblyExpressionEClass, FunctionalAssemblyExpression.class, "FunctionalAssemblyExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFunctionalAssemblyExpression_Label(), ecorePackage.getEString(), "label", null, 0, 1, FunctionalAssemblyExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFunctionalAssemblyExpression_Parameters(), ecorePackage.getEObject(), null, "parameters", null, 0, -1, FunctionalAssemblyExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(assemblyExpressionEClass, AssemblyExpression.class, "AssemblyExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(assemblyIfExpressionEClass, AssemblyIfExpression.class, "AssemblyIfExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAssemblyIfExpression_Condition(), this.getFunctionalAssemblyExpression(), null, "condition", null, 0, 1, AssemblyIfExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAssemblyIfExpression_Body(), this.getInlineAssemblyBlock(), null, "body", null, 0, 1, AssemblyIfExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(assemblyForExpressionEClass, AssemblyForExpression.class, "AssemblyForExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAssemblyForExpression_Prestatementblock(), this.getInlineAssemblyBlock(), null, "prestatementblock", null, 0, 1, AssemblyForExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAssemblyForExpression_Condition(), this.getFunctionalAssemblyExpression(), null, "condition", null, 0, 1, AssemblyForExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAssemblyForExpression_Loopstatementblock(), this.getInlineAssemblyBlock(), null, "loopstatementblock", null, 0, 1, AssemblyForExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAssemblyForExpression_Body(), this.getInlineAssemblyBlock(), null, "body", null, 0, 1, AssemblyForExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(assemblySwitchExpressionEClass, AssemblySwitchExpression.class, "AssemblySwitchExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAssemblySwitchExpression_Condition(), this.getFunctionalAssemblyExpression(), null, "condition", null, 0, 1, AssemblySwitchExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAssemblySwitchExpression_Cases(), this.getAssemblySwitchCase(), null, "cases", null, 0, -1, AssemblySwitchExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAssemblySwitchExpression_DefaultCase(), this.getAssemblyDefaultSwitchCase(), null, "defaultCase", null, 0, 1, AssemblySwitchExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(assemblyFunctionDefinitionEClass, AssemblyFunctionDefinition.class, "AssemblyFunctionDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAssemblyFunctionDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, AssemblyFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAssemblyFunctionDefinition_Parameters(), this.getAssemblyParameter(), null, "parameters", null, 0, -1, AssemblyFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAssemblyFunctionDefinition_ReturnParameters(), this.getAssemblyParameter(), null, "returnParameters", null, 0, -1, AssemblyFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAssemblyFunctionDefinition_Body(), this.getInlineAssemblyBlock(), null, "body", null, 0, 1, AssemblyFunctionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(assemblyParameterEClass, AssemblyParameter.class, "AssemblyParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAssemblyParameter_Name(), ecorePackage.getEString(), "name", null, 0, 1, AssemblyParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAssemblyParameter_TypeSpecifier(), theTypesPackage.getTypeSpecifier(), null, "typeSpecifier", null, 0, 1, AssemblyParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(assemblySwitchCaseEClass, AssemblySwitchCase.class, "AssemblySwitchCase", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAssemblySwitchCase_Literal(), theExpressionsPackage.getLiteral(), null, "literal", null, 0, 1, AssemblySwitchCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAssemblySwitchCase_Body(), this.getInlineAssemblyBlock(), null, "body", null, 0, 1, AssemblySwitchCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(assemblyDefaultSwitchCaseEClass, AssemblyDefaultSwitchCase.class, "AssemblyDefaultSwitchCase", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAssemblyDefaultSwitchCase_Body(), this.getInlineAssemblyBlock(), null, "body", null, 0, 1, AssemblyDefaultSwitchCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(idLiteralEClass, IDLiteral.class, "IDLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getIDLiteral_Value(), ecorePackage.getEString(), "value", null, 0, 1, IDLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
