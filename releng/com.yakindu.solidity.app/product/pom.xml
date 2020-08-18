@@ -15,6 +15,13 @@
 	<properties>
 		<tycho-version>1.7.0</tycho-version>
 	</properties>
+		<repositories>
+		<repository>
+			<id>JustJ JRE Bundles</id>
+			<url>https://download.eclipse.org/justj/sandbox/jres/11/updates/release</url>
+			<layout>p2</layout>
+		</repository>
+	</repositories>
 	<build>
 		<finalName>YST-${project.version}</finalName>
 		<plugins>

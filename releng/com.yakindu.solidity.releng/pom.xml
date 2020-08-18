@@ -40,36 +40,6 @@
 			</modules>
 		</profile>
 		<profile>
-			<id>Photon.target</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<properties>
-				<mwe-version>2.9.1.201705291010</mwe-version>
-				<xtext-version>2.15.0</xtext-version>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.eclipse.tycho</groupId>
-						<artifactId>target-platform-configuration</artifactId>
-						<version>${tycho-version}</version>
-						<configuration>
-							<includePackedArtifacts>true</includePackedArtifacts>
-							<target>
-								<artifact>
-									<groupId>com.yakindu.solidity</groupId>
-									<artifactId>com.yakindu.solidity.target</artifactId>
-									<version>${project.version}</version>
-									<classifier>Photon</classifier>
-								</artifact>
-							</target>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
 			<id>Latest.target</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
@@ -254,6 +224,11 @@
 					<artifactId>target-platform-configuration</artifactId>
 					<version>${tycho-version}</version>
 					<configuration>
+					 <dependency-resolution>
+              				<profileProperties>
+               					 <org.eclipse.justj.buildtime>true</org.eclipse.justj.buildtime>
+             				 </profileProperties>
+            			</dependency-resolution>
 						<environments>
 							<environment>
 								<os>linux</os>

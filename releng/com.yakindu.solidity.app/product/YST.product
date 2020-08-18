@@ -62,22 +62,10 @@
       <feature id="com.yakindu.solidity.feature" installMode="root"/>
       <feature id="com.yakindu.solidity.app.feature" installMode="root"/>
       <feature id="com.yakindu.solidity.solc.feature" installMode="root"/>
+      <feature id="org.eclipse.xtext.redist" installMode="root"/>
       <feature id="org.eclipse.platform" installMode="root"/>
-      <feature id="org.eclipse.emf.ecore" installMode="root"/>
-      <feature id="org.eclipse.equinox.p2.user.ui" installMode="root"/>
-      <feature id="org.eclipse.ecf.filetransfer.httpclient4.feature" installMode="root"/>
-      <feature id="org.eclipse.help" installMode="root"/>
-      <feature id="org.eclipse.ecf.filetransfer.httpclient4.ssl.feature" installMode="root"/>
-      <feature id="org.eclipse.equinox.p2.extras.feature" installMode="root"/>
-      <feature id="org.eclipse.rcp" installMode="root"/>
-      <feature id="org.eclipse.emf.common" installMode="root"/>
-      <feature id="org.eclipse.equinox.p2.core.feature" installMode="root"/>
-      <feature id="org.eclipse.ecf.core.feature" installMode="root"/>
-      <feature id="org.eclipse.equinox.p2.rcp.feature" installMode="root"/>
-      <feature id="org.eclipse.ecf.filetransfer.feature" installMode="root"/>
-      <feature id="org.eclipse.ecf.core.ssl.feature" installMode="root"/>
-      <feature id="org.eclipse.ecf.filetransfer.ssl.feature" installMode="root"/>
-      <feature id="org.eclipse.e4.rcp" installMode="root"/>
+      <feature id="org.eclipse.epp.mpc" installMode="root"/>
+      <feature id="org.eclipse.justj.openjdk.hotspot.jre.full" installMode="root"/>
    </features>
 
    <configurations>
