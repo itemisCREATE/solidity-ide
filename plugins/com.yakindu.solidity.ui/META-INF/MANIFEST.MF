@@ -20,7 +20,7 @@ Require-Bundle: com.yakindu.solidity,
  org.yakindu.base.expressions.ui,
  org.yakindu.base.types,
  org.yakindu.base.xtext.utils.jface,
- org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.eclipse.xtext.xbase.lib,
  org.eclipse.emf.workspace,
  com.yakindu.solidity.solc
 Import-Package: org.apache.log4j

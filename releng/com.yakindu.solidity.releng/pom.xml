@@ -45,8 +45,8 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<mwe-version>2.10.0</mwe-version>
-				<xtext-version>2.18.0</xtext-version>
+				<mwe-version>2.11.3</mwe-version>
+				<xtext-version>2.22.0</xtext-version>
 			</properties>
 			<build>
 				<plugins>
