@@ -68,28 +68,25 @@
       <feature id="org.eclipse.justj.openjdk.hotspot.jre.full" installMode="root"/>
    </features>
 
-   <configurations>
+  <configurations>
+      <plugin id="org.apache.felix.scr" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
-      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
       <plugin id="org.eclipse.update.configurator" autoStart="true" startLevel="3" />
-      <property name="eclipse.buildId" value="${unqualifiedVersion}.${buildQualifier}" />
+      <property name="osgi.instance.area.default" value="@user.home/yakindu-solidity/ws" />
       <property name="org.eclipse.update.reconcile" value="false" />
       <property name="osgi.bundles.defaultStartLevel" value="4" />
-      <property name="osgi.instance.area.default" value="@user.home/solidity/ws" />
-      <property name="preferenceCustomization" value="plugin_customization.ini" />
+      <property name="eclipse.buildId" value="${unqualifiedVersion}.${buildQualifier}" />
    </configurations>
 
    <repositories>
-      <repository location="http://updates.yakindu.com/solidity/releases/" enabled="true" />
-      <repository location="http://updates.yakindu.com/statecharts/releases/" enabled="true" />
-      <repository location="http://updates.yakindu.com/solidity/releases/" enabled="true" />
-      <repository location="http://updates.yakindu.com/statecharts/releases/" enabled="true" />
-      <repository location="http://updates.yakindu.com/solidity/releases/" enabled="true" />
-      <repository location="http://updates.yakindu.com/statecharts/releases/" enabled="true" />
+      <repository location="https://updates.yakindu.com/solidity/releases/" enabled="true" />
+      <repository location="https://updates.yakindu.com/statecharts/releases/" enabled="true" />
+	  <repository location="https://download.eclipse.org/eclipse/updates/4.16" enabled="true" />
+	  <repository location="https://download.eclipse.org/releases/2020-06" enabled="true" />
    </repositories>
 
    <preferencesInfo>
