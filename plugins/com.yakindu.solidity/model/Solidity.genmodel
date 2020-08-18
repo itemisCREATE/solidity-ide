@@ -147,7 +147,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//InlineAssemblyBlock/items"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//AssemblyLocalBinding">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AssemblyLocalBinding/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AssemblyLocalBinding/labels"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblyLocalBinding/expression"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//AssemblyAssignment">
@@ -161,6 +161,39 @@
     <genClasses ecoreClass="Solidity.ecore#//FunctionalAssemblyExpression">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//FunctionalAssemblyExpression/label"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//FunctionalAssemblyExpression/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//AssemblyExpression"/>
+    <genClasses ecoreClass="Solidity.ecore#//AssemblyIfExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblyIfExpression/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblyIfExpression/body"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//AssemblyForExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblyForExpression/prestatementblock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblyForExpression/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblyForExpression/loopstatementblock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblyForExpression/body"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//AssemblySwitchExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblySwitchExpression/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblySwitchExpression/cases"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblySwitchExpression/defaultCase"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//AssemblyFunctionDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AssemblyFunctionDefinition/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblyFunctionDefinition/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblyFunctionDefinition/returnParameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblyFunctionDefinition/body"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//AssemblyParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//AssemblyParameter/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblyParameter/typeSpecifier"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//AssemblySwitchCase">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblySwitchCase/literal"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblySwitchCase/body"/>
+    </genClasses>
+    <genClasses ecoreClass="Solidity.ecore#//AssemblyDefaultSwitchCase">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//AssemblyDefaultSwitchCase/body"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//IDLiteral">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//IDLiteral/value"/>
