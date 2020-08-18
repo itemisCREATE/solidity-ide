@@ -7,7 +7,7 @@ import com.google.inject.Binder
 import com.yakindu.solidity.IWorkspaceResourceResolver
 import com.yakindu.solidity.ide.internal.CustomContentAssistService
 import com.yakindu.solidity.ide.internal.SolidityIdeCodeActionService
-import org.eclipse.xtext.ide.server.codeActions.ICodeActionService
+import org.eclipse.xtext.ide.server.codeActions.ICodeActionService2
 import org.eclipse.xtext.ide.server.contentassist.ContentAssistService
 
 /**
@@ -25,7 +25,7 @@ class SolidityIdeModule extends AbstractSolidityIdeModule {
 		return CustomContentAssistService
 	}
 	
-	def Class<? extends ICodeActionService> bindICodeActionService() {
+	def Class<? extends ICodeActionService2> bindICodeActionService() {
 		return SolidityIdeCodeActionService
 	}
 }

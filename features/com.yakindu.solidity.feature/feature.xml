@@ -23,8 +23,8 @@
    </url>
 
    <requires>
-      <import feature="org.yakindu.base" version="3.5.5.201906181009" match="perfect"/>
       <import feature="com.yakindu.solidity.solc.feature" version="0.7.3.qualifier"/>
+      <import feature="org.yakindu.base" version="3.5.12.202006150950"/>
    </requires>
 
    <plugin
