@@ -302,6 +302,78 @@ public interface SolidityFactory extends EFactory {
 	FunctionalAssemblyExpression createFunctionalAssemblyExpression();
 
 	/**
+	 * Returns a new object of class '<em>Assembly Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Assembly Expression</em>'.
+	 * @generated
+	 */
+	AssemblyExpression createAssemblyExpression();
+
+	/**
+	 * Returns a new object of class '<em>Assembly If Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Assembly If Expression</em>'.
+	 * @generated
+	 */
+	AssemblyIfExpression createAssemblyIfExpression();
+
+	/**
+	 * Returns a new object of class '<em>Assembly For Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Assembly For Expression</em>'.
+	 * @generated
+	 */
+	AssemblyForExpression createAssemblyForExpression();
+
+	/**
+	 * Returns a new object of class '<em>Assembly Switch Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Assembly Switch Expression</em>'.
+	 * @generated
+	 */
+	AssemblySwitchExpression createAssemblySwitchExpression();
+
+	/**
+	 * Returns a new object of class '<em>Assembly Function Definition</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Assembly Function Definition</em>'.
+	 * @generated
+	 */
+	AssemblyFunctionDefinition createAssemblyFunctionDefinition();
+
+	/**
+	 * Returns a new object of class '<em>Assembly Parameter</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Assembly Parameter</em>'.
+	 * @generated
+	 */
+	AssemblyParameter createAssemblyParameter();
+
+	/**
+	 * Returns a new object of class '<em>Assembly Switch Case</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Assembly Switch Case</em>'.
+	 * @generated
+	 */
+	AssemblySwitchCase createAssemblySwitchCase();
+
+	/**
+	 * Returns a new object of class '<em>Assembly Default Switch Case</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Assembly Default Switch Case</em>'.
+	 * @generated
+	 */
+	AssemblyDefaultSwitchCase createAssemblyDefaultSwitchCase();
+
+	/**
 	 * Returns a new object of class '<em>ID Literal</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

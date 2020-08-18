@@ -3,6 +3,7 @@
  */
 package com.yakindu.solidity.solidity;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -14,7 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.yakindu.solidity.solidity.AssemblyLocalBinding#getLabel <em>Label</em>}</li>
+ *   <li>{@link com.yakindu.solidity.solidity.AssemblyLocalBinding#getLabels <em>Labels</em>}</li>
  *   <li>{@link com.yakindu.solidity.solidity.AssemblyLocalBinding#getExpression <em>Expression</em>}</li>
  * </ul>
  *
@@ -24,26 +25,16 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface AssemblyLocalBinding extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Label</b></em>' attribute.
+	 * Returns the value of the '<em><b>Labels</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Label</em>' attribute.
-	 * @see #setLabel(String)
-	 * @see com.yakindu.solidity.solidity.SolidityPackage#getAssemblyLocalBinding_Label()
+	 * @return the value of the '<em>Labels</em>' attribute list.
+	 * @see com.yakindu.solidity.solidity.SolidityPackage#getAssemblyLocalBinding_Labels()
 	 * @model
 	 * @generated
 	 */
-	String getLabel();
-
-	/**
-	 * Sets the value of the '{@link com.yakindu.solidity.solidity.AssemblyLocalBinding#getLabel <em>Label</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Label</em>' attribute.
-	 * @see #getLabel()
-	 * @generated
-	 */
-	void setLabel(String value);
+	EList<String> getLabels();
 
 	/**
 	 * Returns the value of the '<em><b>Expression</b></em>' containment reference.
