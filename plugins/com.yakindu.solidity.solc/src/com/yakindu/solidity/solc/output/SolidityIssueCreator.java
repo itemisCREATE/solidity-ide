@@ -68,8 +68,7 @@ public class SolidityIssueCreator {
 			return;
 		}
 
-		String formattedMessage = error.getFormattedMessage();
-		String fileName = formattedMessage.split(": ")[0];
+		String fileName = sourceLocation.getFile();
 		File errorFile = findFileForName(filesToCompile, fileName);
 		if (errorFileMatchesCurrentFile(errorFile, currentObject)) {
 			if (errorFile != null) {
