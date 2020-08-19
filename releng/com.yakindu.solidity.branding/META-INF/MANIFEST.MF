@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Solidity Tools Branding Plugin
 Bundle-SymbolicName: com.yakindu.solidity.branding
-Bundle-Version: 0.7.3.qualifier
+Bundle-Version: 0.8.0.qualifier
 Bundle-Vendor: YAKINDU
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: com.yakindu.solidity.branding

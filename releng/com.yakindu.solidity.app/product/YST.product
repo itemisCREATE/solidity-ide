@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="YAKINDU SOLIDITY TOOLS" uid="com.yakindu.solidity.app.YST" id="com.yakindu.solidity.app.YST" application="org.eclipse.ui.ide.workbench" version="0.7.3.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="YAKINDU SOLIDITY TOOLS" uid="com.yakindu.solidity.app.YST" id="com.yakindu.solidity.app.YST" application="org.eclipse.ui.ide.workbench" version="0.8.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="/com.yakindu.solidity.app/images/icon_128x128.png"/>
@@ -51,7 +51,7 @@
 
    <license>
         <text>
-   (c) itemis AG, 2018. All rights reserved.
+   (c) itemis AG, 2020. All rights reserved.
          </text>
    </license>
 
@@ -62,42 +62,31 @@
       <feature id="com.yakindu.solidity.feature" installMode="root"/>
       <feature id="com.yakindu.solidity.app.feature" installMode="root"/>
       <feature id="com.yakindu.solidity.solc.feature" installMode="root"/>
+      <feature id="org.eclipse.xtext.redist" installMode="root"/>
       <feature id="org.eclipse.platform" installMode="root"/>
-      <feature id="org.eclipse.emf.ecore" installMode="root"/>
-      <feature id="org.eclipse.equinox.p2.user.ui" installMode="root"/>
-      <feature id="org.eclipse.ecf.filetransfer.httpclient4.feature" installMode="root"/>
-      <feature id="org.eclipse.help" installMode="root"/>
-      <feature id="org.eclipse.ecf.filetransfer.httpclient4.ssl.feature" installMode="root"/>
-      <feature id="org.eclipse.equinox.p2.extras.feature" installMode="root"/>
-      <feature id="org.eclipse.rcp" installMode="root"/>
-      <feature id="org.eclipse.emf.common" installMode="root"/>
-      <feature id="org.eclipse.equinox.p2.core.feature" installMode="root"/>
-      <feature id="org.eclipse.ecf.core.feature" installMode="root"/>
-      <feature id="org.eclipse.equinox.p2.rcp.feature" installMode="root"/>
-      <feature id="org.eclipse.ecf.filetransfer.feature" installMode="root"/>
-      <feature id="org.eclipse.ecf.core.ssl.feature" installMode="root"/>
-      <feature id="org.eclipse.ecf.filetransfer.ssl.feature" installMode="root"/>
-      <feature id="org.eclipse.e4.rcp" installMode="root"/>
+      <feature id="org.eclipse.epp.mpc" installMode="root"/>
+      <feature id="org.eclipse.justj.openjdk.hotspot.jre.full" installMode="root"/>
    </features>
 
-   <configurations>
+  <configurations>
+      <plugin id="org.apache.felix.scr" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
-      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
       <plugin id="org.eclipse.update.configurator" autoStart="true" startLevel="3" />
-      <property name="eclipse.buildId" value="${unqualifiedVersion}.${buildQualifier}" />
+      <property name="osgi.instance.area.default" value="@user.home/yakindu-solidity/ws" />
       <property name="org.eclipse.update.reconcile" value="false" />
       <property name="osgi.bundles.defaultStartLevel" value="4" />
-      <property name="osgi.instance.area.default" value="@user.home/solidity/ws" />
-      <property name="preferenceCustomization" value="plugin_customization.ini" />
+      <property name="eclipse.buildId" value="${unqualifiedVersion}.${buildQualifier}" />
    </configurations>
 
    <repositories>
-      <repository location="http://updates.yakindu.com/solidity/releases/" enabled="true" />
-      <repository location="http://updates.yakindu.com/statecharts/releases/" enabled="true" />
+      <repository location="https://updates.yakindu.com/solidity/releases/" enabled="true" />
+      <repository location="https://updates.yakindu.com/statecharts/releases/" enabled="true" />
+	  <repository location="https://download.eclipse.org/eclipse/updates/4.16" enabled="true" />
+	  <repository location="https://download.eclipse.org/releases/2020-06" enabled="true" />
    </repositories>
 
    <preferencesInfo>

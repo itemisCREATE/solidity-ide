@@ -170,7 +170,8 @@
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AssemblyLocalBinding">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="labels" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
         containment="true"/>
   </eClassifiers>
@@ -187,6 +188,57 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssemblyExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AssemblyIfExpression" eSuperTypes="#//AssemblyExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//FunctionalAssemblyExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//InlineAssemblyBlock"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssemblyForExpression" eSuperTypes="#//AssemblyExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="prestatementblock" eType="#//InlineAssemblyBlock"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//FunctionalAssemblyExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="loopstatementblock" eType="#//InlineAssemblyBlock"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//InlineAssemblyBlock"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssemblySwitchExpression" eSuperTypes="#//AssemblyExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//FunctionalAssemblyExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cases" upperBound="-1"
+        eType="#//AssemblySwitchCase" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultCase" eType="#//AssemblyDefaultSwitchCase"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssemblyFunctionDefinition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//AssemblyParameter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="returnParameters" upperBound="-1"
+        eType="#//AssemblyParameter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//InlineAssemblyBlock"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssemblyParameter">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeSpecifier" eType="ecore:EClass ../../org.yakindu.base.types/model/types.ecore#//TypeSpecifier"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssemblySwitchCase">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="literal" eType="ecore:EClass ../../org.yakindu.base.expressions/model/Expressions.ecore#//Literal"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//InlineAssemblyBlock"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssemblyDefaultSwitchCase">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//InlineAssemblyBlock"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IDLiteral">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

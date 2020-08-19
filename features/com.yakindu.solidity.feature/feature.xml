@@ -2,7 +2,7 @@
 <feature
       id="com.yakindu.solidity.feature"
       label="Solidity Editor Feature"
-      version="0.7.3.qualifier"
+      version="0.8.0.qualifier"
       provider-name="YAKINDU"
       plugin="com.yakindu.solidity.branding">
 
@@ -23,8 +23,8 @@
    </url>
 
    <requires>
-      <import feature="org.yakindu.base" version="3.5.5.201906181009" match="perfect"/>
-      <import feature="com.yakindu.solidity.solc.feature" version="0.7.3.qualifier"/>
+      <import feature="com.yakindu.solidity.solc.feature" version="0.8.0.qualifier"/>
+      <import feature="org.yakindu.base" version="3.5.12.202006150950"/>
    </requires>
 
    <plugin
