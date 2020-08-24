@@ -13,7 +13,7 @@ public interface SolidityVersion {
 		SolidityFactory factory = SolidityFactory.eINSTANCE;
 		final PragmaVersion defaultVersion = factory.createPragmaVersion();
 		final PragmaVersionConstraint minorConstraint = factory.createPragmaVersionConstraint();
-		minorConstraint.setVersion("^0.6.9");
+		minorConstraint.setVersion("0.6.9");
 		defaultVersion.setMinorConstraint(minorConstraint);
 
 		return defaultVersion;
@@ -23,16 +23,16 @@ public interface SolidityVersion {
 		SolidityFactory factory = SolidityFactory.eINSTANCE;
 		final PragmaVersion defaultVersion = factory.createPragmaVersion();
 		final PragmaVersionConstraint minorConstraint = factory.createPragmaVersionConstraint();
-		minorConstraint.setVersion("^0.6.0");
+		minorConstraint.setVersion("0.6.0");
 		defaultVersion.setMinorConstraint(minorConstraint);
 
 		return defaultVersion;
 	}
 
 	public static String toString(PragmaVersion version) {
-		String result = version.getMinorConstraint().getVersionOperator().getLiteral() + "^" + version.getMinorConstraint().getVersion();
+		String result = version.getMinorConstraint().getVersionOperator().getLiteral() + version.getMinorConstraint().getVersion();
 		if (version.getMajorConstraint() != null) {
-			result += " " + version.getMajorConstraint().getVersionOperator().getLiteral() + "^" + version.getMajorConstraint().getVersion();
+			result += " " + version.getMajorConstraint().getVersionOperator().getLiteral() + version.getMajorConstraint().getVersion();
 		}
 		return result;
 	}

@@ -29,10 +29,11 @@ class NewFileTemplate {
 	val PragmaVersion solidityVersion
 
 	def generate() '''
+		//SPDX-License-Identifier: UNLICENSED
 		pragma solidity «toString(solidityVersion)»;
 		
 		contract «contractName» {
-		    address creator;
+		    address payable creator;
 		
 		    constructor() public{
 		        creator = msg.sender;
