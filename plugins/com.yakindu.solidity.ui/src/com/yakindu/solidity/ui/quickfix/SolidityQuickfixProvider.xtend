@@ -32,6 +32,7 @@ import com.yakindu.solidity.solidity.Parameter
 import com.yakindu.solidity.solidity.PragmaSolidityDirective
 import com.yakindu.solidity.solidity.PragmaVersion
 import com.yakindu.solidity.solidity.SolidityFactory
+import com.yakindu.solidity.solidity.SolidityModel
 import com.yakindu.solidity.solidity.SourceUnit
 import com.yakindu.solidity.solidity.StorageLocation
 import com.yakindu.solidity.solidity.ThrowStatement
@@ -47,6 +48,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.ui.editor.model.IXtextDocument
+import org.eclipse.xtext.ui.editor.model.edit.IModification
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
 import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification
 import org.eclipse.xtext.ui.editor.quickfix.Fix
@@ -64,6 +66,9 @@ import org.yakindu.base.types.inferrer.ITypeSystemInferrer
 import static com.yakindu.solidity.validation.IssueCodes.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import com.yakindu.solidity.solidity.FallbackDefinition
+import com.yakindu.solidity.solidity.ReceiveDefinition
+import org.yakindu.base.base.DomainElement
 
 /** 
  * @author andreas muelder - Initial contribution and API
@@ -78,16 +83,28 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	@Inject @Named(SolidityVersion.SOLIDITY_VERSION) PragmaVersion solcVersion
 	ExpressionsFactory factory = ExpressionsFactory.eINSTANCE
 
-	@Fix(WARNING_SOLIDITY_VERSION_NOT_THE_DEFAULT)
+	@Fixes(@Fix(WARNING_SOLIDITY_VERSION_NOT_THE_DEFAULT), @Fix(ERROR_SOLIDITY_DEMANDS_HIGHER_COMPILER_VERSION), @Fix(ERROR_DIFFERENT_COMPILER_REQUIRED))
 	def changeToDefaultPragma(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, 'Change version to ' + solcVersion, 'solidity version', null,
+		acceptor.accept(issue, 'Change version to ' + SolidityVersion.toString(solcVersion), 'solidity version', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
 					if (element instanceof PragmaSolidityDirective) {
-						element.version = solcVersion
+						val pragma = (element as PragmaSolidityDirective)
+						pragma.changePragmaVersion(context)
+					} else if (element instanceof SourceUnit) {
+						val unit = element as SourceUnit
+						val DomainElement pragma = unit.pragma.head
+						pragma.changePragmaVersion(context)
 					}
 				}
 			})
+	}
+
+	def protected changePragmaVersion(DomainElement pragma, IModificationContext context) {
+		val document = context.xtextDocument
+		val node = NodeModelUtils.getNode(pragma)
+		val fixed = "pragma solidity " + SolidityVersion.toString(solcVersion) + ";"
+		document.replace(node.offset, node.length, fixed)
 	}
 
 	@Fix(ERROR_STATE_MUTABILITY_ONLY_ALLOWED_FOR_ADDRESS)
@@ -101,6 +118,25 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 						val node = NodeModelUtils.getNode(param)
 						val fixed = document.get(node.offset, node.length).replace("payable", "")
 						document.replace(node.offset, node.length, fixed)
+					}
+				}
+			})
+	}
+
+	@Fix(ERROR_MEMBER_BALANCE_NOT_FOUND_OR_VISIBLE)
+	def fixBalanceAccess(Issue issue, IssueResolutionAcceptor acceptor) {
+
+		acceptor.accept(issue, 'Use "address" conversion to access this member',
+			'Use "address" conversion to access this member', null, new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					val document = context.xtextDocument
+					val issueString = document.get(issue.offset, issue.length)
+					if (issueString.equals("this")) {
+						val fixed = "address(this)"
+						document.replace(issue.offset, issue.length, fixed)
+					} else if (issueString.equals("super")) {
+						val fixed = "address(super)"
+						document.replace(issue.offset, issue.length, fixed)
 					}
 				}
 			})
@@ -214,7 +250,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	}
 
 	@Fixes(@Fix(ERROR_DATA_LOCATION_MUST_BE_SPECIFIED_FOR_VARIABLE))
-	def addStorageModifierSorageOrMemoryForVariable(Issue issue, IssueResolutionAcceptor acceptor) {
+	def addStorageModifierStorageOrMemoryForVariable(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Add \'memory\' modifier.', 'Add \'memory\' modifier.', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
@@ -259,7 +295,12 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		} else {
 			val issueString = document.get(issue.offset, issue.length)
 			val index = document.get(issue.offset, issue.length).lastIndexOf(name)
-			val fixed = issueString.substring(0, index) + location.literal + " " + name;
+			var String fixed
+			if (index == -1) {
+				fixed = issueString + " " + location.literal
+			} else {
+				fixed = issueString.substring(0, index) + location.literal + " " + name;
+			}
 			document.replace(issue.offset, issue.length, fixed)
 		}
 	}
@@ -269,7 +310,7 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 	 */
 	@Fix(ERROR_VAR_KEYWORD_DISALLOWED)
 	def replaceVarKeyword(Issue issue, IssueResolutionAcceptor acceptor) {
-		acceptor.accept(issue, 'Inferr type information', 'Inferr type information', null, new ISemanticModification() {
+		acceptor.accept(issue, 'Infer type information', 'Infer type information', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				if (element instanceof VariableDefinition) {
 					val definition = element as VariableDefinition
@@ -357,16 +398,97 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			})
 	}
 
+	@Fix(ERROR_USE_FALLBACK_OR_RECEIVE)
+	def declareFunctionAsFallbackOrReceive(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Use the "fallback" keyword.', 'Use the "fallback" keyword.', null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					element.changeFunctionDefinitionKeyword(context, "fallback")
+				}
+			})
+		acceptor.accept(issue, 'Use the "receive" keyword.', 'Use the "receive" keyword.', null,
+			new ISemanticModification() {
+				override apply(EObject element, IModificationContext context) throws Exception {
+					element.changeFunctionDefinitionKeyword(context, "receive")
+				}
+			})
+	}
+
+	def protected changeFunctionDefinitionKeyword(EObject element, IModificationContext context, String newKeyword) {
+		val document = context.xtextDocument
+		val functionDefinition = EcoreUtil2.getContainerOfType(element, FunctionDefinition)
+		val String functionKeyword = "function"
+		val node = NodeModelUtils.getNode(functionDefinition)
+		val functionString = document.get(node.offset, node.length)
+		val index = functionString.indexOf(functionKeyword)
+		if (index > -1) {
+			val int offset = node.offset + index
+			document.replace(offset, functionKeyword.length, newKeyword)
+		}
+	}
+
+	@Fix(ERROR_ADD_EMIT)
+	def addEmitToEventInvocation(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Add "emit" to event invocation', 'Add "emit" to event invocation', null,
+			new IModification() {
+				override apply(IModificationContext context) throws Exception {
+					val document = context.xtextDocument
+					val issueString = document.get(issue.offset, issue.length)
+					val String replacement = "emit " + issueString
+					document.replace(issue.offset, issue.length, replacement)
+				}
+			})
+	}
+
 	@Fix(ERROR_CONSTANT_MODIFIER_WAS_REMOVED)
 	def replaceConstantModifier(Issue issue, IssueResolutionAcceptor acceptor) {
 		declareFunctionAsView(issue, acceptor)
 		acceptor.accept(issue, 'Use "pure" instead.', 'Use "pure" instead.', null, new ISemanticModification() {
 			override apply(EObject element, IModificationContext context) throws Exception {
 				if (element instanceof BuildInModifier) {
+					element.changeFunctionModifierTo(FunctionModifier.PURE)
+				}
+			}
+		})
+
+		acceptor.accept(issue, 'Use "view" instead.', 'Use "view" instead.', null, new ISemanticModification() {
+			override apply(EObject element, IModificationContext context) throws Exception {
+				if (element instanceof BuildInModifier) {
 					element.changeFunctionModifierTo(FunctionModifier.VIEW)
 				}
 			}
 		})
+	}
+
+	@Fix(ERROR_DATA_LOCATION_MUST_BE_MEMORY_OR_CALLDATA)
+	def addMemoryOrCalldata(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Use memory as data location', 'Use memory', null, new ISemanticModification() {
+
+			override apply(EObject element, IModificationContext context) throws Exception {
+				element.fixStorageDeclarationOfMember(StorageLocation.MEMORY, issue, context)
+			}
+
+		})
+		acceptor.accept(issue, 'Use calldata as data location', 'Use calldata', null, new ISemanticModification() {
+
+			override apply(EObject element, IModificationContext context) throws Exception {
+				element.fixStorageDeclarationOfMember(StorageLocation.CALLDATA, issue, context)
+			}
+
+		})
+	}
+
+	def protected fixStorageDeclarationOfMember(EObject element, StorageLocation storage, Issue issue,
+		IModificationContext context) {
+		val VariableDefinition varDef = element.getContainerOfType(VariableDefinition)
+		if (varDef !== null) {
+			varDef.fixDeclaration(storage, issue, context)
+		} else {
+			val Parameter paramDef = element.getContainerOfType(Parameter)
+			if (paramDef !== null) {
+				paramDef.fixDeclaration(storage, issue, context)
+			}
+		}
 	}
 
 	@Fixes(@Fix(WARNING_DEPRECATED_FUNCTION_CONSTRUCTOR),
@@ -428,6 +550,27 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 				})
 		}
 
+		if (contract.type != ContractType.INTERFACE && operation.name.nullOrEmpty) {
+			acceptor.accept(issue, 'Make this function \'public\'', 'Public function.', null,
+				new ISemanticModification() {
+					override apply(EObject element, IModificationContext context) throws Exception {
+						element.fixVisibility(createBuildInModifier => [
+							type = FunctionModifier.PUBLIC
+
+						])
+					}
+
+				})
+			acceptor.accept(issue, 'Make this function \'internal\'', 'Internal function.', null,
+				new ISemanticModification() {
+					override apply(EObject element, IModificationContext context) throws Exception {
+						element.fixVisibility(createBuildInModifier => [
+							type = FunctionModifier.INTERNAL
+						])
+					}
+				})
+		}
+
 		acceptor.accept(issue, 'Make this function \'external\'', 'External function.', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
@@ -449,17 +592,51 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 		constructor.modifier += modifier
 	}
 
+	def dispatch fixVisibility(FallbackDefinition fallback, BuildInModifier modifier) {
+		fallback.modifier += modifier
+	}
+
+	def dispatch fixVisibility(ReceiveDefinition receive, BuildInModifier modifier) {
+		receive.modifier += modifier
+	}
+
+	@Fix(WARNING_SPDX_LICENSE_IDENTIFIER_NOT_PROVIDER)
+	def addSpdxIdentifier(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Add Unlicensed SPDX License Identifier", "Add Unlicensed SPDX License Identifier", null,
+			new IModification() {
+				override apply(IModificationContext context) {
+					val IXtextDocument xtextDocument = context.getXtextDocument();
+					xtextDocument.replace(issue.getOffset(), issue.getOffset(),
+						"//SPDX-License-Identifier: UNLICENSED" + System.lineSeparator);
+				}
+			})
+	}
+
 	@Fix(WARNING_FILE_NO_PRAGMA_SOLIDITY)
 	def addDefaultSolidityPragma(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, 'Add default solidity pragma', 'Add solidity pragma ^' + solcVersion + '.', null,
 			new ISemanticModification() {
 				override apply(EObject element, IModificationContext context) throws Exception {
-					if (element.eContainer instanceof SourceUnit || element instanceof SourceUnit) {
-						val SourceUnit sourceUnit = (element.eContainer instanceof SourceUnit) ? element.eContainer as SourceUnit : element as SourceUnit
-						val PragmaSolidityDirective pragma = createPragmaSolidityDirective => [
-						version = solcVersion
-						]
-						sourceUnit.pragma += pragma
+					if (element.eContainer instanceof SourceUnit || element instanceof SourceUnit ||
+						element instanceof SolidityModel) {
+						if (!(element instanceof SolidityModel)) {
+							val SourceUnit sourceUnit = (element.eContainer instanceof SourceUnit)
+									? element.eContainer as SourceUnit
+									: element as SourceUnit
+							val PragmaSolidityDirective pragma = createPragmaSolidityDirective => [
+								version = solcVersion
+							]
+							sourceUnit.pragma += pragma
+						} else {
+							val SolidityModel model = element as SolidityModel
+							val SourceUnit firstSourceUnit = model.sourceunit.head as SourceUnit
+							if (firstSourceUnit !== null) {
+								val PragmaSolidityDirective pragma = createPragmaSolidityDirective => [
+									version = solcVersion
+								]
+								firstSourceUnit.pragma += pragma
+							}
+						}
 					}
 				}
 			})

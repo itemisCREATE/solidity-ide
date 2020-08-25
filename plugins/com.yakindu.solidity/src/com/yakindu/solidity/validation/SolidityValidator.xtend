@@ -118,7 +118,7 @@ class SolidityValidator extends ExpressionsValidator {
 		if (minorConstraint.versionOperator == VersionOperator.SMALLER) {
 			if (major == 0 && minor == 6 && micro == 0) {
 				error("Yakindu Solidity Tools only works with Solidity version 0.6 or higher", pragmaVersion,
-					SolidityPackage.Literals.PRAGMA_VERSION__MINOR_CONSTRAINT)
+					SolidityPackage.Literals.PRAGMA_VERSION__MINOR_CONSTRAINT, IssueCodes.ERROR_SOLIDITY_DEMANDS_HIGHER_COMPILER_VERSION)
 			}
 		}
 	}

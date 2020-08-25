@@ -13,7 +13,7 @@ public interface SolidityVersion {
 		SolidityFactory factory = SolidityFactory.eINSTANCE;
 		final PragmaVersion defaultVersion = factory.createPragmaVersion();
 		final PragmaVersionConstraint minorConstraint = factory.createPragmaVersionConstraint();
-		minorConstraint.setVersion("0.6.9");
+		minorConstraint.setVersion("0.6.10");
 		defaultVersion.setMinorConstraint(minorConstraint);
 
 		return defaultVersion;

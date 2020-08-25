@@ -640,7 +640,7 @@ class SolidityFormatter extends AbstractFormatter2 {
 		} else if (regionFor.keyword("receive") !== null) {
 			functionKeywordLength = regionFor.keyword("receive").length + 1
 		}
-		val int nameLength = !name.nullOrEmpty ? name.length : 0
+		val int nameLength = !name.nullOrEmpty? name.length : 0
 		var int parametersLength = 0
 		for (parameter : parameters) {
 			parametersLength += parameter.regionForEObject.length
