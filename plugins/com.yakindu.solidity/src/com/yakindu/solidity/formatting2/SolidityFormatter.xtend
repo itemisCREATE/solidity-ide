@@ -15,6 +15,7 @@
 package com.yakindu.solidity.formatting2
 
 import com.yakindu.solidity.solidity.ArrayTypeSpecifier
+import com.yakindu.solidity.solidity.AssemblyForExpression
 import com.yakindu.solidity.solidity.Block
 import com.yakindu.solidity.solidity.ConstructorDefinition
 import com.yakindu.solidity.solidity.ContractDefinition
@@ -23,8 +24,10 @@ import com.yakindu.solidity.solidity.EventDefinition
 import com.yakindu.solidity.solidity.ExponentialExpression
 import com.yakindu.solidity.solidity.ForStatement
 import com.yakindu.solidity.solidity.FunctionDefinition
+import com.yakindu.solidity.solidity.FunctionalAssemblyExpression
 import com.yakindu.solidity.solidity.IfStatement
 import com.yakindu.solidity.solidity.ImportDirective
+import com.yakindu.solidity.solidity.InlineAssemblyBlock
 import com.yakindu.solidity.solidity.MappingTypeSpecifier
 import com.yakindu.solidity.solidity.ModifierDefinition
 import com.yakindu.solidity.solidity.NamedArgument
@@ -38,11 +41,11 @@ import com.yakindu.solidity.solidity.StructDefinition
 import com.yakindu.solidity.solidity.TupleExpression
 import com.yakindu.solidity.solidity.VariableDefinition
 import com.yakindu.solidity.solidity.WhileStatement
-import com.yakindu.solidity.solidity.InlineAssemblyBlock
-import com.yakindu.solidity.solidity.FunctionalAssemblyExpression
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import org.eclipse.xtext.formatting2.IHiddenRegionFormatter
+import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegion
 import org.yakindu.base.expressions.expressions.AssignmentExpression
 import org.yakindu.base.expressions.expressions.BitwiseAndExpression
 import org.yakindu.base.expressions.expressions.BitwiseOrExpression
@@ -58,8 +61,16 @@ import org.yakindu.base.expressions.expressions.NumericalMultiplyDivideExpressio
 import org.yakindu.base.expressions.expressions.PostFixUnaryExpression
 import org.yakindu.base.expressions.expressions.ShiftExpression
 import org.yakindu.base.types.EnumerationType
-import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegion
-import org.eclipse.emf.ecore.EObject
+
+import static org.eclipse.xtext.EcoreUtil2.getContainerOfType
+import com.yakindu.solidity.solidity.AssemblyIfExpression
+import com.yakindu.solidity.solidity.AssemblySwitchExpression
+import com.yakindu.solidity.solidity.AssemblySwitchCase
+import com.yakindu.solidity.solidity.AssemblyDefaultSwitchCase
+import com.yakindu.solidity.solidity.AssemblyFunctionDefinition
+import com.yakindu.solidity.solidity.AssemblyLocalBinding
+import com.yakindu.solidity.solidity.SolidityPackage
+import com.yakindu.solidity.solidity.AssemblyAssignment
 
 /**
  * Code formatter for Solidity according to 
@@ -459,9 +470,11 @@ class SolidityFormatter extends AbstractFormatter2 {
 	def dispatch void format(InlineAssemblyBlock it, extension IFormattableDocument document) {
 		interior[indent]
 		regionFor.keywordPairs('{', '}').forEach [
-			key.append[newLines]
-			key.prepend[oneSpace]
-			value.prepend[noSpace]
+			if (getContainerOfType(key.semanticElement, AssemblyForExpression) === null ){
+				key.append[newLines]
+				key.prepend[oneSpace]
+				value.prepend[noSpace]
+			}
 		]
 
 		items.forEach [
@@ -485,14 +498,100 @@ class SolidityFormatter extends AbstractFormatter2 {
 				append[noSpace]
 			]
 		} else {
-			parameters.forEach [
-				prepend[oneSpace]
-				append[noSpace]
-			]
-			regionFor.keyword(",").append[oneSpace].prepend[noSpace]
+			regionFor.keywords(",").forEach[append[oneSpace].prepend[noSpace]]
 		}
 	}
+	
+	def dispatch void format(AssemblyIfExpression it, extension IFormattableDocument document) {
+		regionFor.keyword("if").append[oneSpace]
+		regionFor.keyword("else").surround[oneSpace; priority = IHiddenRegionFormatter.HIGH_PRIORITY]
+		condition.format
+		body.format
+		append[newLines()]
+	}
+	
+	def dispatch void format(AssemblyFunctionDefinition it, extension IFormattableDocument document) {
+		val int functionSignatureLength = getLengthOfFunctionSignature
+		if (functionSignatureLength > 80) {
+			allRegionsFor.keywordPairs('(', ')').forEach[pair|pair.interior[indent];]
+			allRegionsFor.keywordPairs('(', ')').head.key.append[newLines(1, 1, 1)];
+			allRegionsFor.keywordPairs('(', ')').head.value.prepend[newLines(1, 1, 1)].append [
+				newLines(1, 1, 1);
+				priority = IHiddenRegionFormatter.HIGH_PRIORITY
+			];
+			allRegionsFor.keywordPairs('(', ')').head.key.prepend[noSpace]
+			for (parameter : parameters) {
+				parameter.prepend[newLines(1, 1, 1); priority = IHiddenRegionFormatter.HIGH_PRIORITY]
+			}
+			if (regionFor.keyword("->") !== null) {
+				regionFor.keyword("->").indent(document).append[oneSpace]
+			}
+			allRegionsFor.keywordPairs('(', ')').get(1).key.prepend[oneSpace]
+			allRegionsFor.keywordPairs('(', ')').get(1).key.append[newLines(1, 1, 1)];
+			allRegionsFor.keywordPairs('(', ')').get(1).value.prepend[newLines(1, 1, 1)].append [
+				newLines(1, 1, 1);
+				priority = IHiddenRegionFormatter.HIGH_PRIORITY
+			];
+			allRegionsFor.keywordPairs('(', ')').get(1).value.indent(document)
+			for (returnParam : returnParameters) {
+				returnParam.prepend[newLines(1, 1, 1)]
+				returnParam.indent(document)
+			}
 
+		} else {
+			allRegionsFor.keywordPairs('(', ')').forEach [ p |
+				p.key.append[noSpace]
+				p.value.prepend[noSpace]
+			]
+			regionFor.keyword("->").append[oneSpace].prepend[oneSpace]
+			regionFor.keywords(",").forEach[append[oneSpace].prepend[noSpace]]
+		}
+		body.format
+	}
+	
+	def dispatch void format(AssemblyLocalBinding it, extension IFormattableDocument document) {
+		regionFor.keyword('let').append[oneSpace]
+		regionFor.keyword(',').append[oneSpace]
+		regionFor.feature(SolidityPackage.Literals.ASSEMBLY_LOCAL_BINDING__LABELS).prepend[oneSpace]
+		regionFor.keyword(':=').prepend[oneSpace].append[oneSpace]
+		expression.prepend[oneSpace]
+		expression.format
+	}
+	
+	def dispatch void format (AssemblyAssignment it, extension IFormattableDocument document) {
+		regionFor.keyword(':=').append[oneSpace].prepend[oneSpace]
+		regionFor.feature(SolidityPackage.Literals.ASSEMBLY_ASSIGNMENT__LEFT_OPERAND).append[oneSpace]
+		regionFor.keyword('=:').append[oneSpace].prepend[oneSpace]
+		regionFor.feature(SolidityPackage.Literals.ASSEMBLY_ASSIGNMENT__RIGHT_OPERND).prepend[oneSpace]
+		expression.prepend[oneSpace]
+		expression.format
+	}
+	
+	def dispatch void format(AssemblyForExpression it, extension IFormattableDocument document) {
+		body.regionFor.keywordPairs('{','}').head => [
+			key.append[newLines]
+			key.prepend[oneSpace]
+			interior[indent]
+			value.prepend[newLines]
+		]
+		body.format
+	}
+	
+	def dispatch void format(AssemblySwitchExpression it, extension IFormattableDocument document) {
+		condition.prepend[oneSpace].append[newLine]
+		cases.forEach[format]
+	}
+	
+	def dispatch void format(AssemblySwitchCase it, extension IFormattableDocument document) {
+		body.regionFor.keyword('case').append[oneSpace]
+		literal.prepend[oneSpace].append[oneSpace]
+		body.format
+	}
+	
+	def dispatch void format(AssemblyDefaultSwitchCase it, extension IFormattableDocument document) {
+		
+	}
+	
 	protected def void newLines(IHiddenRegionFormatter it) {
 		newLines(1, 2, 3)
 	}
@@ -528,6 +627,7 @@ class SolidityFormatter extends AbstractFormatter2 {
 	protected def Pair<ISemanticRegion, ISemanticRegion> interior(EObject key, EObject value) {
 		return new Pair(key.previousSemanticRegion, value.nextSemanticRegion)
 	}
+	
 
 	protected def int getLengthOfFunctionSignature(FunctionDefinition it) {
 		var int functionKeywordLength = 1
@@ -555,16 +655,39 @@ class SolidityFormatter extends AbstractFormatter2 {
 		}
 		return (functionKeywordLength + nameLength + parametersLength + modifiersLength + returnParametersLength)
 	}
+	
+	protected def int getLengthOfFunctionSignature(AssemblyFunctionDefinition it) {
+		var int functionKeywordLength = 1
+		if (regionFor.keyword("function") !== null) {
+			functionKeywordLength = regionFor.keyword("function").length + 1
+		} else if (regionFor.keyword("fallback") !== null) {
+			functionKeywordLength = regionFor.keyword("fallback").length + 1
+		} else if (regionFor.keyword("constructor") !== null) {
+			functionKeywordLength = regionFor.keyword("constructor").length + 1
+		} else if (regionFor.keyword("receive") !== null) {
+			functionKeywordLength = regionFor.keyword("receive").length + 1
+		}
+		val int nameLength = !name.nullOrEmpty ? name.length : 0
+		var int parametersLength = 0
+		for (parameter : parameters) {
+			parametersLength += parameter.regionForEObject.length
+		}
+		var int returnParametersLength = 0
+		for (returnParam : returnParameters) {
+			returnParametersLength += returnParam.regionForEObject.length
+		}
+		return (functionKeywordLength + nameLength + parametersLength + returnParametersLength)
+	}
 
 	protected def int getLengthOfAssemblyExpression(FunctionalAssemblyExpression it) {
 		var int labelLength = label.length
-		
-		var int parametersLength = 0// + 2(for open/close brackets) - 2(the last parameter is not followed by comma and space)
+
+		var int parametersLength = 0 // + 2(for open/close brackets) - 2(the last parameter is not followed by comma and space)
 		for (parameter : parameters) {
 			parametersLength += parameter.regionForEObject.length
-			parametersLength += 2//for each comma+space after parameter
+			parametersLength += 2 // for each comma+space after parameter
 		}
-		
+
 		var sum = labelLength + parametersLength;
 		return sum;
 	}
