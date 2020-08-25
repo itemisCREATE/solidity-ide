@@ -1,0 +1,8 @@
+
+<ngb-tabset [destroyOnHide]="false">
+  <ngb-tab *ngFor="let plugin of manager.getActiveProfileNames()" title="{{plugin}}">
+    <ng-template ngbTabContent>
+      <app-plugin [manager]="manager" pluginName="{{plugin}}"></app-plugin>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>

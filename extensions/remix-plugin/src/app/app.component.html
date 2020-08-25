@@ -1,4 +1,4 @@
-<div *ngIf="loading | async; then thenBlock; else elseBlock"></div>
+<div *ngIf="(loading | async); then thenBlock; else elseBlock"></div>
 <ng-template #thenBlock>
   <div class="container-fluid">
     <div class="row">
@@ -8,7 +8,12 @@
           [engine]="engine"
         ></app-plugin-manager>
       </div>
-      <div class="col col-10">ActivePlugins</div>
+      <div class="col col-10">
+        <app-plugin-view
+          [manager]="manager"
+          [engine]="engine"
+        ></app-plugin-view>
+      </div>
     </div>
   </div>
 </ng-template>

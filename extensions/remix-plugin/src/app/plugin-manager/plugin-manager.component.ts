@@ -1,10 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-// import { EclipseInPlugin } from './plugins/eclipse-plugin';
-import { Engine, Plugin, PluginManager, Message } from '@remixproject/engine';
+import { Engine, Plugin, Profile } from '@remixproject/engine';
+import { Observable } from 'rxjs';
 import { EclipseService } from '../eclipse/eclipse-api';
-import { EclipsePluginConnector, EclipseClientConnector } from './plugins/eclipse-plugin';
+import { YakinduPluginManager } from './plugin-manager';
+import { EclipsePluginConnector } from './plugins/eclipse-plugin';
 import { YakinduProxy } from './plugins/yakindu';
 
+const PLUGIN_DIRECTORY = 'https://raw.githubusercontent.com/ethereum/remix-plugins-directory/master/build/metadata.json';
 
 const solidityProfile = {
   name: 'solidity',
@@ -18,6 +21,7 @@ const solidityProfile = {
   version: '0.0.1',
   methods: ['getCompilationResult', 'compile', 'compileWithParameters', 'setCompilerConfig'],
   url: 'ipfs://QmNgz8ecPPbdvjjzy1UfRTeuN5jN2fTeAJB93zU8FtFrqF'
+  // url: 'https://ipfs.io/ipfs/QmNgz8ecPPbdvjjzy1UfRTeuN5jN2fTeAJB93zU8FtFrqF'
 };
 
 const editorProfile = {
@@ -49,14 +53,19 @@ const fileManagerPofile = {
 export class PluginManagerComponent implements OnInit {
 
   @Input()
-  manager: PluginManager;
+  manager: YakinduPluginManager;
 
   @Input()
   engine: Engine;
 
-  constructor(private eclipseService: EclipseService) { }
+  profiles: Observable<Profile[]>;
+
+  constructor(private eclipseService: EclipseService, private http: HttpClient) {
+    this.profiles = this.http.get<Profile[]>(PLUGIN_DIRECTORY);
+  }
 
   ngOnInit(): void {
+    // createIframeClient(solidityProfile);
     this.engine.register(new Plugin(solidityProfile));
     this.engine.register(new EclipsePluginConnector(editorProfile, this.eclipseService.nativeEclipse));
     this.engine.register(new EclipsePluginConnector(fileManagerPofile, this.eclipseService.nativeEclipse));
@@ -65,8 +74,28 @@ export class PluginManagerComponent implements OnInit {
     this.manager.activatePlugin(solidityProfile.name);
     this.manager.activatePlugin(editorProfile.name);
     this.manager.activatePlugin(fileManagerPofile.name);
-    this.manager.activatePlugin(yakindu.name).then(() => {
-      yakindu.call('YAKINDU', 'doIt').then((result) => alert('Current file is: ' + result));
+    this.manager.activatePlugin(yakindu.name);
+    // .then(() => {
+    //   yakindu.call('YAKINDU', 'doIt').then((result) => alert('Current file is: ' + result));
+    // });
+  }
+
+  isActive(name: string): Observable<boolean> {
+    return new Observable<boolean>((observer) => {
+      observer.next(false);
+      this.isRegistered(name).subscribe((registered) => {
+        if (registered) {
+          this.manager.isActive(name).then((value) => observer.next(value));
+        }
+      });
     });
   }
+
+  isRegistered(name: string): Observable<boolean> {
+    return new Observable<boolean>((observer) => {
+      const registered = this.engine.isRegistered(name);
+      observer.next(registered);
+    });
+  }
+
 }

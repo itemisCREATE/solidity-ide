@@ -1,4 +1,24 @@
-<p>plugin-manager works!</p>
-<div class="alert alert-warning" role="alert">
-  This is a warning alert—check it out!
+<h2>Available Plugins</h2>
+<div *ngFor="let profile of profiles | async">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{ profile.displayName }}</h5>
+      <div *ngIf="!(isRegistered(profile.name) | async)">
+        <div *ngIf="!(isActive(profile.name) | async)">
+          <button>Register & Activate</button>
+        </div>
+        <div *ngIf="isActive(profile.name) | async">
+          <button>Deactivate</button>
+        </div>
+      </div>
+      <div
+        *ngIf="
+          (isRegistered(profile.name) | async) &&
+          !(isActive(profile.name) | async)
+        "
+      >
+        <button>Activate</button>
+      </div>
+    </div>
+  </div>
 </div>

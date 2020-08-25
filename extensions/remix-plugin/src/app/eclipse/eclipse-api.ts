@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Message } from '@remixproject/engine';
 
 export interface EclipseIDE extends Window {
   // Ask Eclipse to create a Browser instance. Return the id of the browser instance

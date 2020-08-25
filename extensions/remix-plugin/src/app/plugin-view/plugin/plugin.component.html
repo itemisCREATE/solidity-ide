@@ -1,0 +1,7 @@
+<iframe
+  id="pluginFrame"
+  style="height: 100vh; width: 100%;"
+  [src]="(profile |async)?.url | safe"
+>
+  <p>This Iframe is dooing some nasty stuff, at least IE11 thinks so</p>
+</iframe>
