@@ -68,6 +68,35 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>2019-06.target</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<xtext-version>2.18.0</xtext-version>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>target-platform-configuration</artifactId>
+						<version>${tycho-version}</version>
+						<configuration>
+							<includePackedArtifacts>true</includePackedArtifacts>
+							<target>
+								<artifact>
+									<groupId>com.yakindu.solidity</groupId>
+									<artifactId>com.yakindu.solidity.target</artifactId>
+									<version>${project.version}</version>
+									<classifier>2019-06</classifier>
+								</artifact>
+							</target>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 	<modules>
 		<module>../com.yakindu.solidity.target</module>
