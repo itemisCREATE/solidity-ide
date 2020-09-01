@@ -24,14 +24,14 @@ env:
   - TERM=dumb
 matrix:
   include:
-    - env: TARGET=2019-06.target
+    - env: MVNCALL="mvn clean verify -P2019-06.target,tests -Dtycho.disableP2Mirrors=true"
       if: branch = master
-    - env: TARGET=Latest.target
+    - env: MVNCALL="mvn clean verify -PLatest.target,tests -Dtycho.disableP2Mirrors=true"
 before_install:
  - chmod +x $TRAVIS_BUILD_DIR/extensions/vscode/gradlew
 script: 
  - cd releng/com.yakindu.solidity.releng
- - mvn clean verify -P$TARGET,tests -Dtycho.disableP2Mirrors=true
+ - $MVNCALL
  - cd ../com.yakindu.solidity.repository/target
  - zip -r repository.zip repository
  - cd $TRAVIS_BUILD_DIR/extensions/vscode
