@@ -22,11 +22,13 @@ env:
   - DISPLAY=:99.0
   - MAVEN_OPTS="-Xmx4g"
   - TERM=dumb
-  - TARGET=Latest.target
 before_install:
  - chmod +x $TRAVIS_BUILD_DIR/extensions/vscode/gradlew
 jobs:
   include:
+    - env: TARGET=2019-06.target
+      if: branch = master
+    - env: TARGET=Latest.target
     - stage: Build YAKINDU Solidity IDE and language server
       script: 
       - cd releng/com.yakindu.solidity.releng
