@@ -75,6 +75,7 @@
 			</activation>
 			<properties>
 				<xtext-version>2.18.0</xtext-version>
+				<tycho.disableP2Mirrors>true</tycho.disableP2Mirrors>
 			</properties>
 			<build>
 				<plugins>
