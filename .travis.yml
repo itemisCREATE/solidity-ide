@@ -32,7 +32,7 @@ before_install:
 script: 
  - cd releng/com.yakindu.solidity.releng
  - mvn clean verify -P$TARGET,tests
- - cd ../com.yakindu.solidity.repository/target
+ - cd ../com.yakindu.solidity.repository/target -Dtycho.disableP2Mirrors=true
  - zip -r repository.zip repository
  - cd $TRAVIS_BUILD_DIR/extensions/vscode
  - ./gradlew vscodeExtension
