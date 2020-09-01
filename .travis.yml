@@ -22,7 +22,6 @@ env:
   - DISPLAY=:99.0
   - MAVEN_OPTS="-Xmx4g"
   - TERM=dumb
-  - MIRROR=" -Dtycho.disableP2Mirrors=true"
 matrix:
   include:
     - env: TARGET=2019-06.target
@@ -32,7 +31,7 @@ before_install:
  - chmod +x $TRAVIS_BUILD_DIR/extensions/vscode/gradlew
 script: 
  - cd releng/com.yakindu.solidity.releng
- - mvn clean verify -P$TARGET,tests$MIRROR
+ - mvn clean verify -P$TARGET,tests -Dtycho.disableP2Mirrors=true
  - cd ../com.yakindu.solidity.repository/target
  - zip -r repository.zip repository
  - cd $TRAVIS_BUILD_DIR/extensions/vscode
