@@ -26,7 +26,7 @@ matrix:
   include:
     - env: MVNCALL="mvn clean verify -P2019-06.target,tests -Dtycho.disableP2Mirrors=true"
       if: branch = master
-    - env: MVNCALL="mvn clean verify -PLatest.target,tests -Dtycho.disableP2Mirrors=true"
+    - env: MVNCALL="mvn clean verify -PLatest.target,tests"
 before_install:
  - chmod +x $TRAVIS_BUILD_DIR/extensions/vscode/gradlew
 script: 
