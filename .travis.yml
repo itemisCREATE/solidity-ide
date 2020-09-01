@@ -25,7 +25,7 @@ env:
 matrix:
   include:
     - env: TARGET=2019-06.target
-       if: branch = master
+      if: branch = master
     - env: TARGET=Latest.target
 before_install:
  - chmod +x $TRAVIS_BUILD_DIR/extensions/vscode/gradlew
