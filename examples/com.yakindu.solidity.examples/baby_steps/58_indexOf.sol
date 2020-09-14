@@ -1,15 +1,17 @@
+//SPDX-License-Identifier: UNLICENSED
+
+pragma solidity ^0.6.10;
 contract IndexOf {
 
-    address creator;
+    address payable creator;
 
-    function IndexOf() 
-    {
+	constructor () public {
         creator = msg.sender;
     }
     
     int whatwastheval = -10; // -2 = not yet tested, as separate from -1, tested but error
     
-    function indexOf(string _a, string _b) returns (int) // _a = string to search, _b = string we want to find
+    function indexOf(string memory _a, string memory _b) public returns (int) // _a = string to search, _b = string we want to find
     {
     	bytes memory a = bytes(_a);  
         bytes memory b = bytes(_b);
@@ -48,7 +50,7 @@ contract IndexOf {
     	}	
     }
     
-    function whatWasTheVal() constant returns (int)
+    function whatWasTheVal() view public returns (int)
     {
     	return whatwastheval;
     }
@@ -57,11 +59,13 @@ contract IndexOf {
      Standard kill() function to recover funds 
      **********/
     
-    function kill()
+    function kill() public
     { 
         if (msg.sender == creator)
         {
-            suicide(creator);  // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator);  // kills this contract and sends remaining funds back to creator
         }
     }
 }
+
+

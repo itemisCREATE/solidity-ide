@@ -74,6 +74,7 @@ public class ReferenceExamplesTest {
 			, "MultisigWallet.sol"
 			, "VestedToken.sol"
 			, "179_gas_value.sol"
+			, "shouldContainErrors.sol"
 	);
 
 	
@@ -98,7 +99,8 @@ public class ReferenceExamplesTest {
 			fail("Errors in resource: " + path + ": " + issues);
 	
 	}
-	 @Parameters
+	
+	@Parameters
 	public static Iterable<Path> getReferenceFiles() throws IOException {
 		Path baseDir = Paths.get("../../examples/com.yakindu.solidity.examples");
 		Assert.assertTrue(baseDir.toFile().exists());

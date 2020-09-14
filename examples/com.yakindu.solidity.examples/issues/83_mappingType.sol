@@ -1,3 +1,4 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 contract MappingType {
@@ -6,7 +7,7 @@ contract MappingType {
         mapping (address => bool) m;
     }
 
-    function _grantPrivilege(STRUCT s, address a) private{
+    function _grantPrivilege(STRUCT storage s, address a) private view {
         require(!s.m[a]); // error!! 
     }
 

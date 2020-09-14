@@ -1,31 +1,31 @@
-/* 
-	The following is an extremely basic example of a solidity contract. 
-	It takes a string upon creation and then repeats it when greet() is called.
-*/
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.6.10;
 
-
-contract Greeter          // The contract definition. A constructor of the same name will be automatically called on contract creation. 
+contract Greeter          
 {
-    address creator;     // At first, an empty "address"-type variable of the name "creator". Will be set in the constructor.
-    string greeting;     // At first, an empty "string"-type variable of the name "greeting". Will be set in constructor and can be changed.
- 
-    function Greeter(string _greeting) public   // The constructor. It accepts a string input and saves it to the contract's "greeting" variable.
-    {
+    // At first, an empty "address"-type variable of the name "creator". Will be set in the constructor.
+    address payable creator;     
+    // At first, an empty "string"-type variable of the name "greeting". Will be set in constructor and can be changed.
+    string greeting;
+
+	constructor (string memory _greeting) public {
     	creator = msg.sender;
         greeting = _greeting; 
     }
 
-    function greet() constant returns (string)          
+    function greet() view public returns (string memory)          
     {
         return greeting;
     }
-    
-    function getBlockNumber() constant returns (uint) // this doesn't have anything to do with the act of greeting
-    {													// just demonstrating return of some global variable
+   
+    // this doesn't have anything to do with the act of greeting
+    // just demonstrating return of some global variable
+    function getBlockNumber() view public returns (uint) 
+    {													
         return block.number;
     }
     
-    function setGreeting(string _newgreeting) 
+    function setGreeting(string memory _newgreeting) public 
     {
         greeting = _newgreeting;
     }
@@ -34,10 +34,20 @@ contract Greeter          // The contract definition. A constructor of the same 
      Standard kill() function to recover funds 
      **********/
     
-    function kill()
+    function kill() public 
     { 
-        if (msg.sender == creator)  // only allow this action if the account sending the signal is the creator
-            suicide(creator);       // kills this contract and sends remaining funds back to creator
+        if (msg.sender == creator) 
+        { 
+            // only allow this action if the account sending the signal is the creator
+            // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator);       
+		}    
     }
 
 }
+
+
+
+
+
+

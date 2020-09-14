@@ -1,3 +1,4 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 import '../token/MintableToken.sol';
@@ -22,7 +23,7 @@ contract Crowdsale {
   uint256 public endBlock;
 
   // address where funds are collected
-  address public wallet;
+  address payable public wallet;
 
   // how many token units a buyer gets per wei
   uint256 public rate;
@@ -39,12 +40,10 @@ contract Crowdsale {
    */ 
   event TokenPurchase(address indexed purchaser, address indexed beneficiary, uint256 value, uint256 amount);
 
-
-  function Crowdsale(uint256 _startBlock, uint256 _endBlock, uint256 _rate, address _wallet) {
+	constructor (uint256 _startBlock , uint256 _endBlock , uint256 _rate , address payable _wallet) public {
     require(_startBlock >= block.number);
     require(_endBlock >= _startBlock);
     require(_rate > 0);
-    require(_wallet != 0x0);
 
     token = createTokenContract();
     startBlock = _startBlock;
@@ -61,13 +60,13 @@ contract Crowdsale {
 
 
   // fallback function can be used to buy tokens
-  function () payable {
+  fallback () payable external {
     buyTokens(msg.sender);
   }
 
   // low level token purchase function
-  function buyTokens(address beneficiary) payable {
-    require(beneficiary != 0x0);
+  function buyTokens(address beneficiary) payable public {
+    require(beneficiary != address(0x0));
     require(validPurchase());
 
     uint256 weiAmount = msg.value;
@@ -92,7 +91,7 @@ contract Crowdsale {
   }
 
   // @return true if the transaction can buy tokens
-  function validPurchase() internal constant returns (bool) {
+  function validPurchase() internal view returns (bool) {
     uint256 current = block.number;
     bool withinPeriod = current >= startBlock && current <= endBlock;
     bool nonZeroPurchase = msg.value != 0;
@@ -100,9 +99,12 @@ contract Crowdsale {
   }
 
   // @return true if crowdsale event has ended
-  function hasEnded() public constant returns (bool) {
+  function hasEnded() public view returns (bool) {
     return block.number > endBlock;
   }
 
 
 }
+
+
+

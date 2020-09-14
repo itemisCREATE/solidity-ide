@@ -3,6 +3,7 @@ package com.yakindu.solidity.solc.output;
 import static com.yakindu.solidity.solc.SolidityCompilerBase.SPLITTER;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -113,8 +114,15 @@ public class SolidityIssueCreator {
 	}
 	
 	protected boolean errorFileMatchesCurrentFile(File errorFile, EObject currentObject) {
-		IFile currentFile = getCurrentFile(currentObject);
-		return errorFile.getAbsolutePath().replaceAll(SPLITTER, "/").endsWith(currentFile.getFullPath().toString());
+		if (currentObject.eResource().getURI().toPlatformString(true) != null) {			
+			IFile currentFile = getCurrentFile(currentObject);
+			return errorFile.getAbsolutePath().replaceAll(SPLITTER, "/").endsWith(currentFile.getFullPath().toString());
+		} else {
+			// only necessary for plugin-tests
+			String fileString = currentObject.eResource().getURI().toFileString();
+			File currentFile = Paths.get(fileString).toFile();
+			return errorFile.getAbsolutePath().equals(currentFile.getAbsolutePath());
+		}
 	}
 
 	protected File findFileForName(Set<File> filesToCompile, String fileName) {

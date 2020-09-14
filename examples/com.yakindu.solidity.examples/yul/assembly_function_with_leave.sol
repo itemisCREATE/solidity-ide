@@ -9,17 +9,17 @@ contract MyContract {
     }
 
     // TODO Add functions
-    function assembly_function_with_leave(uint n, uint value) public pure returns (uint) {
+    function assembly_function_with_leave() public pure returns (uint) {
 
         assembly {
-    
-		    function allocate(length) -> pos {
-		        pos := mload(0x40)
-		        mstore(0x40, add(pos, length))
-		        leave
-		    }
-		    let free_memory_pointer := allocate(64)
-		}
+
+            function allocate(length) -> pos {
+                pos := mload(0x40)
+                mstore(0x40, add(pos, length))
+                leave
+            }
+            let free_memory_pointer := allocate(64)
+        }
     }
 }
 

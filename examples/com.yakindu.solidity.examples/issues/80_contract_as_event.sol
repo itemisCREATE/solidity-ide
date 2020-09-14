@@ -1,15 +1,27 @@
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity 0.6.10 ;
 
 contract Contract {
     
     event E(address a);
 
-    function f(){
+    function f() public {
        
-        Contract c = new Contract();
+        Contract2 c = new Contract2();
         
-        E(c); // error: Incompatible Types    
+        emit E(address(c)); // error: Incompatible Types    
          
-        E(new Contract()); // OK   
+        emit E(address(new Contract2())); // OK   
     } 
 
-} 
+}
+
+contract Contract2 {
+    
+    event E(address a);
+
+    function f() public {
+    } 
+
+}
+ 

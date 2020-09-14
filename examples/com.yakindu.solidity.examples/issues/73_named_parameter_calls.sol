@@ -1,3 +1,4 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 
@@ -8,7 +9,7 @@ contract Test7 {
     }
     Proposal[] public proposals;
 
-    function init(){
+    function init() public {
         proposals.push(Proposal({
                 voteCount: 0,
                 name: "Test"

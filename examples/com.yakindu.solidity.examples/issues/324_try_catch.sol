@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity 0.6.10;
+pragma solidity ^0.6.0;
 
 interface DataFeed { function getData(address token) external returns (uint value); }
 

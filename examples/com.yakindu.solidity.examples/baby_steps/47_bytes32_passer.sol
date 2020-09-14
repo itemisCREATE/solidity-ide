@@ -4,9 +4,11 @@
 // but I don't currently understand why, and would like to know how to 
 // convert that hex back into "tencharsme"
 
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.6.10;
 contract Descriptor {
     
-	function getDescription() constant returns (bytes32){	
+	function getDescription() pure public returns (bytes32){	
 		bytes32 somevar;
 		somevar = "tencharsme"; 
 		return somevar;
@@ -15,18 +17,17 @@ contract Descriptor {
 
 contract Bytes32Passer {
 
-    address creator;
+    address payable creator;
     bytes savedbytes;
     bytes32 savedvar;
     string savedstring;
     Descriptor descriptor;
 
-    function Bytes32Passer() 
-    {
+	constructor () public {
         creator = msg.sender;
     }
     
-    function getDescription()
+    function getDescription() public
     {
     	savedvar = descriptor.getDescription();  // get the description from the descriptor
     	uint8 x = 0;
@@ -39,17 +40,17 @@ contract Bytes32Passer {
     	return; 
     }
     
-    function getSavedVar() constant returns (bytes32)
+    function getSavedVar() view public returns (bytes32)
     {
     	return savedvar;
     }
     
-    function getSavedBytes() constant returns (bytes)
+    function getSavedBytes() view public returns (bytes memory)
     {
     	return savedbytes;
     }
     
-    function getSavedString() constant returns (string)
+    function getSavedString() view public returns (string memory)
     {
     	return savedstring;
     }
@@ -57,11 +58,14 @@ contract Bytes32Passer {
     /**********
      Standard kill() function to recover funds 
      **********/
-    function kill()
+    function kill() public
     { 
         if (msg.sender == creator)
         {
-            suicide(creator);  // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator);  // kills this contract and sends remaining funds back to creator
         }
     }
 }
+
+
+

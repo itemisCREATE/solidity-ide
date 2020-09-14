@@ -10,19 +10,16 @@ contract MyContract {
 
     // TODO Add functions
     function for_loop_assembly(uint n, uint value) public pure returns (uint) {
-         
-     assembly {
-             
-       for { let i := 0 } lt(i, n) { i := add(i, 1) } { 
-           value := mul(2, value) 
-       }
-           
-       mstore(0x0, value)
-       return(0x0, 32)
-           
-   }
-         
-}
+
+        assembly {
+
+            for { let i := 0 } lt(i, n) { i := add(i, 1) } {
+                value := mul(2, value)
+            }
+            mstore(0x0, value)
+            return(0x0, 32)
+        }
+    }
 }
 
 

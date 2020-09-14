@@ -1,3 +1,4 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 
@@ -6,54 +7,44 @@ import './FinalizableCrowdsale.sol';
 import './RefundVault.sol';
 
 
-/**
- * @title RefundableCrowdsale
- * @dev Extension of Crowdsale contract that adds a funding goal, and
- * the possibility of users getting a refund if goal is not met.
- * Uses a RefundVault as the crowdsale's vault.
- */
-contract RefundableCrowdsale is FinalizableCrowdsale {
-  using SafeMath for uint256;
+abstract contract RefundableCrowdsale is FinalizableCrowdsale {
+    using SafeMath for uint256;
 
-  // minimum amount of funds to be raised in weis
-  uint256 public goal;
+    uint256 public goal;
 
-  // refund vault used to hold funds while crowdsale is running
-  RefundVault public vault;
+    RefundVault public vault;
 
-  function RefundableCrowdsale(uint256 _goal) {
-    vault = new RefundVault(wallet);
-    goal = _goal;
-  }
-
-  // We're overriding the fund forwarding from Crowdsale.
-  // In addition to sending the funds, we want to call
-  // the RefundVault deposit function
-  function forwardFunds() internal {
-    vault.deposit.value(msg.value)(msg.sender);
-  }
-
-  // if crowdsale is unsuccessful, investors can claim refunds here
-  function claimRefund() {
-    require(isFinalized);
-    require(!goalReached());
-
-    vault.refund(msg.sender);
-  }
-
-  // vault finalization task, called when owner calls finalize()
-  function finalization() internal {
-    if (goalReached()) {
-      vault.close();
-    } else {
-      vault.enableRefunds();
+    constructor (uint256 _goal) public {
+        vault = new RefundVault(wallet);
+        goal = _goal;
     }
 
-    super.finalization();
-  }
+    function forwardFunds() internal override {
+        vault.deposit.value(msg.value) ;
+        (msg.sender);
+    }
 
-  function goalReached() public constant returns (bool) {
-    return weiRaised >= goal;
-  }
+    function claimRefund() public {
+        require(isFinalized);
+        require(!goalReached());
+
+        vault.refund(msg.sender);
+    }
+
+    function finalization() internal override {
+        if (goalReached()) {
+            vault.close();
+        } else {
+            vault.enableRefunds();
+        }
+
+        super.finalization();
+    }
+
+    function goalReached() public view returns (bool) {
+        return weiRaised >= goal;
+    }
 
 }
+
+

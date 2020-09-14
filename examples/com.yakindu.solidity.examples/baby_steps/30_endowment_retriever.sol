@@ -1,38 +1,40 @@
-
-
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity 0.6.10 ;
 contract EndowmentRetriever {
-    address creator;
+    address payable creator;
     uint contract_creation_value; // original endowment
     int x;
 
-    function EndowmentRetriever() public 
-    {
+	constructor () payable public {
         x = 5;
         creator=msg.sender;
         contract_creation_value = msg.value; // the endowment of this contract in wei 
     }
 
-    function getContractCreationValue() constant returns (uint) // returns the original endowment of the contract
+    function getContractCreationValue() view public returns (uint) // returns the original endowment of the contract
     { // set at creation time with "value: <someweivalue>"	
         return contract_creation_value; // this was the "balance" of the contract at creation time
     }
 
     function sendOneEtherHome() public         	
     {
-        creator.send(1000000000000000000); // send 1 ETH home
+        creator.transfer(1000000000000000000); // send 1 ETH home
     }
 
     /**********
      *  Standard kill() function to recover funds 
      **********/
-    function kill()
+    function kill() public
     {
         if (msg.sender== creator)
         {
-            suicide(creator); // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator); // kills this contract and sends remaining funds back to creator
         }
     }
 }
+
+
+
 
 /*
 

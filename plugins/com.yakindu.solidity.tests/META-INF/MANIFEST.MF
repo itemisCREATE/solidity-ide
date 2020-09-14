@@ -8,7 +8,10 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: com.yakindu.solidity,
  org.eclipse.xtext.testing,
  org.eclipse.jdt.junit.runtime,
- org.junit
+ org.junit,
+ org.eclipse.xtext.junit4,
+ com.yakindu.solidity.ui,
+ org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.yakindu.solidity.tests;x-internal=true
 Import-Package: org.hamcrest.core;version="1.3.0",

@@ -1,11 +1,13 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 import "./safeMath.sol";
 import "./token.sol";
 import "./premium.sol";
 import "./moduleHandler.sol";
+import "../../baby_steps/mortal.sol";
 
-contract ico is mortal {
+contract ico is mortal, safeMath {
     
     struct icoLevels_s {
         uint256 block;
@@ -27,12 +29,11 @@ contract ico is mortal {
     
     uint256 constant oneSegment = 40320;
     
-    address public owner;
     address public tokenAddr;
     address public premiumAddr;
     uint256 public startBlock;
     uint256 public icoDelay;
-    address public foundationAddress;
+    address payable public foundationAddress;
     address public icoEtcPriceAddr;
     uint256 public icoExchangeRate;
     uint256 public icoExchangeRateSetBlock;
@@ -49,8 +50,8 @@ contract ico is mortal {
     mapping (address => mapping(uint256 => interest_s)) public interestDB;
     uint256 public totalMint;
     uint256 public totalPremiumMint;
-    
-    function ico(address foundation, address priceSet, uint256 exchangeRate, uint256 startBlockNum, address[] genesisAddr, uint256[] genesisValue) {
+
+	constructor (address payable foundation , address priceSet , uint256 exchangeRate , uint256 startBlockNum , address[] memory genesisAddr , uint256[] memory genesisValue) public {
         /*
             Installation function.
             
@@ -81,7 +82,7 @@ contract ico is mortal {
         }
     }
     
-    function ICObonus() public constant returns(uint256 bonus) {
+    function ICObonus() public view returns(uint256 bonus) {
         /*
             Query of current bonus
             
@@ -113,7 +114,7 @@ contract ico is mortal {
         return true;
     }
     
-    function checkInterest(address addr) public constant returns(uint256 amount) {
+    function checkInterest(address addr) public view returns(uint256 amount) {
         /*
             Query of compound interest
             
@@ -162,7 +163,7 @@ contract ico is mortal {
         interest_s memory _idb;
         address _addr = beneficiary;
         uint256 _to = (block.number - startBlock) / interestBlockDelay;
-        if ( _addr == 0x00 ) { _addr = msg.sender; }
+        if ( _addr.balance == 0x00 ) { _addr = msg.sender; }
         
         require( block.number > icoDelay );
         require( ! aborted );
@@ -231,7 +232,7 @@ contract ico is mortal {
         require( ! aborted );
         require( token(tokenAddr).mint(foundationAddress, token(tokenAddr).totalSupply() * 96 / 100) );
         require( premium(premiumAddr).mint(foundationAddress, totalMint / 5000 - totalPremiumMint) );
-        require( foundationAddress.send(this.balance) );
+        require( foundationAddress.send(address(this).balance) );
         require( token(tokenAddr).closeIco() );
         require( premium(premiumAddr).closeIco() );
     }
@@ -257,7 +258,7 @@ contract ico is mortal {
             @premiumContractAddr    Address of the corion premium token contract
         */
         require( msg.sender == owner );
-        require( tokenAddr == 0x00 && premiumAddr == 0x00 );
+        require( tokenAddr.balance == 0x00 && premiumAddr.balance == 0x00 );
         tokenAddr = tokenContractAddr;
         premiumAddr = premiumContractAddr;
     }
@@ -275,16 +276,17 @@ contract ico is mortal {
         require( msg.sender.send(_val) );
     }
     
-    function () payable {
+    fallback () payable external {
         /*
             Callback function. Simply calls the buy function as a beneficiary and there is no affilate address.
             If they call the contract without any function then this process will be taken place.
         */
         require( isICO() );
-        require( buy(msg.sender, 0x00) );
+        require( buy(msg.sender, address(0x00)) );
     }
     
-    function buy(address beneficiaryAddress, address affilateAddress) payable returns (bool success) {
+    function buy(address payable beneficiaryAddress, address affilateAddress) payable public returns (
+		bool success) {
         /*
             Buying a token
             
@@ -300,16 +302,16 @@ contract ico is mortal {
             @affilateAddress        The address of the person who offered who will get the referral reward. It can not be equal with the beneficiaryAddress.
         */
         require( isICO() );
-        if ( beneficiaryAddress == 0x00) { beneficiaryAddress = msg.sender; }
+        if ( beneficiaryAddress == address(0x00)) { beneficiaryAddress = msg.sender; }
         if ( beneficiaryAddress == affilateAddress ) {
-            affilateAddress = 0x00;
+            affilateAddress = address(0x00);
         }
         uint256 _value = msg.value;
         if ( beneficiaryAddress.balance < 0.2 ether ) { 
             require( beneficiaryAddress.send(0.2 ether) );
             _value = safeSub(_value, 0.2 ether);
         }
-        var _reward = getIcoReward(_value);
+        uint256 _reward = getIcoReward(_value);
         require( _reward > 0 );
         require( token(tokenAddr).mint(beneficiaryAddress, _reward) );
         brought[beneficiaryAddress].eth = safeAdd(brought[beneficiaryAddress].eth, _value);
@@ -317,7 +319,7 @@ contract ico is mortal {
         totalMint = safeAdd(totalMint, _reward);
         require( foundationAddress.send(_value * 10 / 100) );
         uint256 extra;
-        if ( affilateAddress != 0x00 && ( brought[affilateAddress].eth > 0 || interestDB[affilateAddress][0].amount > 0 ) ) {
+        if ( affilateAddress != address(0x00) && ( brought[affilateAddress].eth > 0 || interestDB[affilateAddress][0].amount > 0 ) ) {
             affiliate[affilateAddress].weight = safeAdd(affiliate[affilateAddress].weight, _reward);
             extra = affiliate[affilateAddress].weight;
             uint256 rate;
@@ -355,7 +357,7 @@ contract ico is mortal {
         }
     }
     
-    function getIcoReward(uint256 value) public constant returns (uint256 reward) {
+    function getIcoReward(uint256 value) public view returns (uint256 reward) {
         /*
             Expected token volume at token purchase
             
@@ -368,9 +370,12 @@ contract ico is mortal {
         if ( reward < 5e6) { return 0; }
     }
     
-    function isICO() public constant returns (bool success) {
+    function isICO() public view returns (bool success) {
         return startBlock <= block.number && block.number <= icoDelay && ( ! aborted ) && ( ! closed );
     }
     
     event EICO(address indexed Address, uint256 indexed value, address Affilate, uint256 AffilateValue);
 }
+
+
+

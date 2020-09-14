@@ -1,3 +1,4 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 contract ownedDB {
@@ -14,15 +15,12 @@ contract ownedDB {
         return true;
     }
     
-    function isOwner() internal returns(bool) {
+    function isOwner() internal view returns (bool) {
         /*
             Check of owner address.
             
             @bool   Owner has called the contract or not 
         */
-        if ( owner == 0x00 ) {
-            return true;
-        }
         return owner == msg.sender;
     }
 }

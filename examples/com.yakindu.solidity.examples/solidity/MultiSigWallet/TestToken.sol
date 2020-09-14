@@ -1,7 +1,7 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 
-/// @title Test token contract - Allows testing of token transfers with multisig wallet.
 contract TestToken {
 
     event Transfer(address indexed from, address indexed to, uint256 value);
@@ -27,11 +27,11 @@ contract TestToken {
         returns (bool success)
     {
         if (balances[msg.sender] < _value) {
-            throw;
+            revert("Something bad happened!");
         }
         balances[msg.sender] -= _value;
         balances[_to] += _value;
-        Transfer(msg.sender, _to, _value);
+        emit Transfer(msg.sender, _to, _value);
         return true;
     }
 
@@ -40,12 +40,12 @@ contract TestToken {
         returns (bool success)
     {
         if (balances[_from] < _value || allowed[_from][msg.sender] < _value) {
-            throw;
+            revert("Something bad happened!");
         }
         balances[_to] += _value;
         balances[_from] -= _value;
         allowed[_from][msg.sender] -= _value;
-        Transfer(_from, _to, _value);
+   		emit Transfer(_from, _to, _value);
         return true;
     }
 
@@ -58,17 +58,13 @@ contract TestToken {
         return true;
     }
 
-    function allowance(address _owner, address _spender)
-        constant
-        public
+    function allowance(address _owner, address _spender) view public
         returns (uint256 remaining)
     {
         return allowed[_owner][_spender];
     }
 
-    function balanceOf(address _owner)
-        constant
-        public
+    function balanceOf(address _owner) view public
         returns (uint256 balance)
     {
         return balances[_owner];

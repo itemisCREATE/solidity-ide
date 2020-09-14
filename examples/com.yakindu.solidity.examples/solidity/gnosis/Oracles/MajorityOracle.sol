@@ -1,9 +1,8 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 import "../Oracles/Oracle.sol";
 
 
-/// @title Majority oracle contract - Allows to resolve an event based on multiple oracles with majority vote
-/// @author Stefan George - <stefan@gnosis.pm>
 contract MajorityOracle is Oracle {
 
     /*
@@ -11,25 +10,15 @@ contract MajorityOracle is Oracle {
      */
     Oracle[] public oracles;
 
-    /*
-     *  Public functions
-     */
-    /// @dev Allows to create an oracle for a majority vote based on other oracles
-    /// @param _oracles List of oracles taking part in the majority vote
-    function MajorityOracle(Oracle[] _oracles)
-        public
-    {
+	constructor (Oracle[] memory _oracles) public {
         // At least 2 oracles should be defined
         require(_oracles.length > 2);
         for (uint i = 0; i < _oracles.length; i++)
             // Oracle address cannot be null
-            require(address(_oracles[i]) != 0);
+            require(address(_oracles[i]) != address(0));
         oracles = _oracles;
     }
 
-    /// @dev Allows to registers oracles for a majority vote
-    /// @return Is outcome set?
-    /// @return Outcome
     function getStatusAndOutcome()
         public
         returns (bool outcomeSet, int outcome)
@@ -65,25 +54,22 @@ contract MajorityOracle is Oracle {
         }
     }
 
-    /// @dev Returns if winning outcome is set
-    /// @return Is outcome set?
     function isOutcomeSet()
-        public
-        constant
+        public override
         returns (bool)
     {
-        var (outcomeSet, ) = getStatusAndOutcome();
+        (bool outcomeSet, int outcome)= getStatusAndOutcome();
         return outcomeSet;
     }
 
-    /// @dev Returns winning outcome
-    /// @return Outcome
     function getOutcome()
-        public
-        constant
+        public override
         returns (int)
     {
-        var (, winningOutcome) = getStatusAndOutcome();
+        (bool outcomeSet, int winningOutcome)= getStatusAndOutcome();
         return winningOutcome;
     }
 }
+
+
+

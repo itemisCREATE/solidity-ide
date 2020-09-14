@@ -79,10 +79,10 @@
     <eLiterals name="VIRTUAL" value="9" literal="virtual"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModifierInvocation" eSuperTypes="#//Modifier">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="ecore:EClass ../../org.yakindu.base.types/model/types.ecore#//Operation"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"
         eType="ecore:EClass ../../org.yakindu.base.expressions/model/Expressions.ecore#//Argument"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Statement"/>
   <eClassifiers xsi:type="ecore:EClass" name="ThrowStatement" eSuperTypes="#//Statement"/>

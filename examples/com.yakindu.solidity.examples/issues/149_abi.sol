@@ -1,4 +1,5 @@
-pragma solidity 0.6.10;
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.6.10;
 
 
 contract MyContract {
@@ -7,7 +8,7 @@ contract MyContract {
     }
     string  signature ="";
 
-    function test() internal {
+    function test() internal view {
         bytes memory one = abi.encode("test");
         bytes memory two = abi.encodePacked("test");
         bytes4 selector;

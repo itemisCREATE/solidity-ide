@@ -4,10 +4,8 @@
 package com.yakindu.solidity.solidity;
 
 import org.eclipse.emf.common.util.EList;
-
+import org.eclipse.emf.ecore.EObject;
 import org.yakindu.base.expressions.expressions.Argument;
-
-import org.yakindu.base.types.Operation;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,8 +16,8 @@ import org.yakindu.base.types.Operation;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.yakindu.solidity.solidity.ModifierInvocation#getReference <em>Reference</em>}</li>
  *   <li>{@link com.yakindu.solidity.solidity.ModifierInvocation#getArguments <em>Arguments</em>}</li>
+ *   <li>{@link com.yakindu.solidity.solidity.ModifierInvocation#getReference <em>Reference</em>}</li>
  * </ul>
  *
  * @see com.yakindu.solidity.solidity.SolidityPackage#getModifierInvocation()
@@ -27,28 +25,6 @@ import org.yakindu.base.types.Operation;
  * @generated
  */
 public interface ModifierInvocation extends Modifier {
-	/**
-	 * Returns the value of the '<em><b>Reference</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Reference</em>' reference.
-	 * @see #setReference(Operation)
-	 * @see com.yakindu.solidity.solidity.SolidityPackage#getModifierInvocation_Reference()
-	 * @model
-	 * @generated
-	 */
-	Operation getReference();
-
-	/**
-	 * Sets the value of the '{@link com.yakindu.solidity.solidity.ModifierInvocation#getReference <em>Reference</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Reference</em>' reference.
-	 * @see #getReference()
-	 * @generated
-	 */
-	void setReference(Operation value);
-
 	/**
 	 * Returns the value of the '<em><b>Arguments</b></em>' containment reference list.
 	 * The list contents are of type {@link org.yakindu.base.expressions.expressions.Argument}.
@@ -60,5 +36,27 @@ public interface ModifierInvocation extends Modifier {
 	 * @generated
 	 */
 	EList<Argument> getArguments();
+
+	/**
+	 * Returns the value of the '<em><b>Reference</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Reference</em>' reference.
+	 * @see #setReference(EObject)
+	 * @see com.yakindu.solidity.solidity.SolidityPackage#getModifierInvocation_Reference()
+	 * @model
+	 * @generated
+	 */
+	EObject getReference();
+
+	/**
+	 * Sets the value of the '{@link com.yakindu.solidity.solidity.ModifierInvocation#getReference <em>Reference</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Reference</em>' reference.
+	 * @see #getReference()
+	 * @generated
+	 */
+	void setReference(EObject value);
 
 } // ModifierInvocation

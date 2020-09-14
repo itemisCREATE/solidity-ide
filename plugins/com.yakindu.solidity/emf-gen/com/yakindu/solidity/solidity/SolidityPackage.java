@@ -326,22 +326,22 @@ public interface SolidityPackage extends EPackage {
 	int MODIFIER_INVOCATION = 8;
 
 	/**
-	 * The feature id for the '<em><b>Reference</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODIFIER_INVOCATION__REFERENCE = MODIFIER_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Arguments</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODIFIER_INVOCATION__ARGUMENTS = MODIFIER_FEATURE_COUNT + 1;
+	int MODIFIER_INVOCATION__ARGUMENTS = MODIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Reference</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODIFIER_INVOCATION__REFERENCE = MODIFIER_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Modifier Invocation</em>' class.
@@ -4220,17 +4220,6 @@ public interface SolidityPackage extends EPackage {
 	EClass getModifierInvocation();
 
 	/**
-	 * Returns the meta object for the reference '{@link com.yakindu.solidity.solidity.ModifierInvocation#getReference <em>Reference</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Reference</em>'.
-	 * @see com.yakindu.solidity.solidity.ModifierInvocation#getReference()
-	 * @see #getModifierInvocation()
-	 * @generated
-	 */
-	EReference getModifierInvocation_Reference();
-
-	/**
 	 * Returns the meta object for the containment reference list '{@link com.yakindu.solidity.solidity.ModifierInvocation#getArguments <em>Arguments</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4240,6 +4229,17 @@ public interface SolidityPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getModifierInvocation_Arguments();
+
+	/**
+	 * Returns the meta object for the reference '{@link com.yakindu.solidity.solidity.ModifierInvocation#getReference <em>Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Reference</em>'.
+	 * @see com.yakindu.solidity.solidity.ModifierInvocation#getReference()
+	 * @see #getModifierInvocation()
+	 * @generated
+	 */
+	EReference getModifierInvocation_Reference();
 
 	/**
 	 * Returns the meta object for class '{@link com.yakindu.solidity.solidity.Statement <em>Statement</em>}'.
@@ -6140,20 +6140,20 @@ public interface SolidityPackage extends EPackage {
 		EClass MODIFIER_INVOCATION = eINSTANCE.getModifierInvocation();
 
 		/**
-		 * The meta object literal for the '<em><b>Reference</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference MODIFIER_INVOCATION__REFERENCE = eINSTANCE.getModifierInvocation_Reference();
-
-		/**
 		 * The meta object literal for the '<em><b>Arguments</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference MODIFIER_INVOCATION__ARGUMENTS = eINSTANCE.getModifierInvocation_Arguments();
+
+		/**
+		 * The meta object literal for the '<em><b>Reference</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODIFIER_INVOCATION__REFERENCE = eINSTANCE.getModifierInvocation_Reference();
 
 		/**
 		 * The meta object literal for the '{@link com.yakindu.solidity.solidity.impl.StatementImpl <em>Statement</em>}' class.

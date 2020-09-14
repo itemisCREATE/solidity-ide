@@ -1,41 +1,33 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 
 import './ERC20Basic.sol';
 
-/**
- * @title TokenTimelock
- * @dev TokenTimelock is a token holder contract that will allow a 
- * beneficiary to extract the tokens after a given release time
- */
 contract TokenTimelock {
-  
-  // ERC20 basic token contract being held
-  ERC20Basic token;
 
-  // beneficiary of tokens after they are released
-  address beneficiary;
+    ERC20Basic token;
 
-  // timestamp when token release is enabled
-  uint releaseTime;
+    address beneficiary;
 
-  function TokenTimelock(ERC20Basic _token, address _beneficiary, uint _releaseTime) {
-    require(_releaseTime > now);
-    token = _token;
-    beneficiary = _beneficiary;
-    releaseTime = _releaseTime;
-  }
+    uint releaseTime;
 
-  /**
-   * @dev beneficiary claims tokens held by time lock
-   */
-  function claim() {
-    require(msg.sender == beneficiary);
-    require(now >= releaseTime);
+    constructor (ERC20Basic _token , address _beneficiary , uint _releaseTime) public {
+        require(_releaseTime > now);
+        token = _token;
+        beneficiary = _beneficiary;
+        releaseTime = _releaseTime;
+    }
 
-    uint amount = token.balanceOf(this);
-    require(amount > 0);
+    function claim() public {
+        require(msg.sender == beneficiary);
+        require(now >= releaseTime);
 
-    token.transfer(beneficiary, amount);
-  }
+        uint amount = token.balanceOf(address(this));
+        require(amount > 0);
+
+        token.transfer(beneficiary, amount);
+    }
 }
+
+

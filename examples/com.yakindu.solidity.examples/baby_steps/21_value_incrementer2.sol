@@ -1,22 +1,19 @@
-// This contract demonstrates a simple non-constant (transactional) function you can call from geth.
-// increment() takes ONE parameter and merely increments the "iteration" value by that much. 
-// see below for the geth command to send the parameter to the increment(int howmuch) function. 
-
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity 0.6.10;
 contract Incrementer2 {
 
-    address creator;
+    address payable creator;
     int iteration;
     string whathappened;
 
-    function Incrementer2() 
-    {
+	constructor () public {
         creator = msg.sender; 								
         iteration = 0;
         whathappened = "constructor executed";
     }
 
 	// call this in geth like so: > incrementer2.increment.sendTransaction(3, {from:eth.coinbase});  // where 3 is the howmuch parameter
-    function increment(int howmuch) 
+    function increment(int howmuch) public 
     {
     	if(howmuch == 0)
     	{
@@ -31,12 +28,12 @@ contract Incrementer2 {
         return;
     }
     
-    function getWhatHappened() constant returns (string)
+    function getWhatHappened() view public returns (string memory)
     {
     	return whathappened;
     }
     
-    function getIteration() constant returns (int) 
+    function getIteration() view public returns (int) 
     {
         return iteration;
     }
@@ -45,13 +42,19 @@ contract Incrementer2 {
      Standard kill() function to recover funds 
     **********/
     
-    function kill()
+    function kill() public
     { 
         if (msg.sender == creator)
-            suicide(creator);  // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator);  // kills this contract and sends remaining funds back to creator
     }
     
 }
+
+
+
+
+
+
 
 /*
 

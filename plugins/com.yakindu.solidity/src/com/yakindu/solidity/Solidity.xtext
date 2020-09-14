@@ -151,7 +151,7 @@ enum FunctionModifier:
 	VIEW='view' | PAYABLE='payable' | OVERRIDE='override' | VIRTUAL='virtual';
 
 ModifierInvocation:
-	{ModifierInvocation} reference=[types::Operation|ID] ('(' (arguments+=Argument (',' arguments+=Argument)*)? ')')?;
+	{ModifierInvocation} reference=[EObject|ID] ('(' (arguments+=Argument (',' arguments+=Argument)*)? ')')?;
 
 Parameter returns types::Parameter:
 	{Parameter} typeSpecifier=TypeSpecifier (storage=StorageLocation)? (name=ID)?;

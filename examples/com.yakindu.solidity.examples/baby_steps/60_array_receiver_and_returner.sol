@@ -1,12 +1,13 @@
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.6.10;
 contract ArrayRR {
 
-    address creator;
+    address payable creator;
     uint8 arraylength = 10;
     uint8[10] integers; // NOTE 1 see below
-    int8 setarraysuccessful = -1; // 1 success, 0 fail, -1 not yet tried
+    int8 setarraysuccessful = -1;
 
-    function ArrayRR() 
-    {
+	constructor () public {
         creator = msg.sender;
         uint8 x = 0;
         while(x < integers.length)
@@ -16,7 +17,7 @@ contract ArrayRR {
         }
     }
     
-    function setArray(uint8[10] incoming)  // NOTE 2 see below. Also, use enough gas.
+    function setArray(uint8[10] memory incoming) public  // NOTE 2 see below. Also, use enough gas.
     {
     	setarraysuccessful = 0;
     	uint8 x = 0;
@@ -29,17 +30,17 @@ contract ArrayRR {
     	return;
     }
     
-    function getArraySettingResult() constant returns (int8)
+    function getArraySettingResult() view public returns (int8)
     {
     	return setarraysuccessful;
     }
     
-    function getArray() constant returns (uint8[10])  // NOTE 3 see below
+    function getArray() view public returns (uint8[10] memory)  // NOTE 3 see below
     {
     	return integers;
     }
     
-    function getValue(uint8 x) constant returns (uint8)
+    function getValue(uint8 x) view public returns (uint8)
     {
     	return integers[x];
     }
@@ -48,14 +49,17 @@ contract ArrayRR {
      Standard kill() function to recover funds 
      **********/
     
-    function kill()
+    function kill() public
     { 
         if (msg.sender == creator)
         {
-            suicide(creator);  // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator);  // kills this contract and sends remaining funds back to creator
         }
     }
 }
+
+
+
 
 // NOTES 1, 2, 3
 // because "integers" is declared as uint8[10], getArray() must return type uint8[10].

@@ -1,10 +1,9 @@
-// This is supposed to allow for examination of msgs, but it proved less than informative. 
-// I'd just skip this for now.
-
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity 0.6.10 ;
 contract msgExaminer {
 
-    address creator;
-    address miner;
+    address payable creator;
+    address payable miner;
   
     bytes contract_creation_data;
     uint contract_creation_gas;
@@ -12,41 +11,38 @@ contract msgExaminer {
     uint contract_creation_tx_gasprice;
     address contract_creation_tx_origin;
 
-
-    function msgExaminer() public 
-    {
+	constructor () payable public {
         creator = msg.sender; 								// msg is a global variable
        
-        miner = 0x910561dc5921131ee5de1e9748976a4b9c8c1e80;
         contract_creation_data = msg.data;
-        contract_creation_gas = msg.gas;
+        contract_creation_gas = gasleft();
         contract_creation_value = msg.value;  				// the endowment of this contract in wei 
         
         contract_creation_tx_gasprice = tx.gasprice;
         contract_creation_tx_origin = tx.origin;
     }
 	
-	function getContractCreationData() constant returns (bytes) 		
+	function getContractCreationData() view public returns (bytes memory) 		
     {										              			
     	return contract_creation_data;
     }
 	
-	function getContractCreationGas() constant returns (uint) 	// returned 732117 for me. Must be the gas expended 
+	function getContractCreationGas() view public returns (uint) 	// returned 732117 for me. Must be the gas expended 
     {										              		// the creation of this contract. msg.gas should be msg.gasExpended	
     	return contract_creation_gas;
     }
 	
-    function getContractCreationValue() constant returns (uint) // returns the original endowment of the contract
+    function getContractCreationValue() view public returns (uint) // returns the original endowment of the contract
     {										              		// set at creation time with "value: <someweivalue>"	
     	return contract_creation_value;                         // this is now the "balance" of the contract
     }
     
-    function getContractCreationTxGasprice() constant returns (uint) // returned 50000000000 for me. Must be the gasprice 	
+    function getContractCreationTxGasprice() view public returns (uint) // returned 50000000000 for me. Must be the gasprice 	
     {											     				 // the sender is willing to pay. msg.gasPrice should be msg.gasLimit
     	return contract_creation_tx_gasprice;
     }
     
-    function getContractCreationTxOrigin() constant returns (address) // returned my coinbase address.
+    function getContractCreationTxOrigin() view public returns (address) // returned my coinbase address.
     {											     				  //  Not sure if a chain of transactions would return the same.
     	return contract_creation_tx_origin;
     }
@@ -58,59 +54,59 @@ contract msgExaminer {
   	uint msg_value_before_creator_send;
     uint msg_value_after_creator_send;
     
-    function sendOneEtherToMiner() returns (bool success)      	
+    function sendOneEtherToMiner() payable public returns (bool success)      	
     {						
-    	msg_gas_before_creator_send = msg.gas;			// save msg values
+    	msg_gas_before_creator_send = gasleft();			// save msg values
     	msg_data_before_creator_send = msg.data;	
     	msg_value_before_creator_send = msg.value;			  
     	bool returnval = miner.send(1000000000000000000);				// do something gassy
-    	msg_gas_after_creator_send = msg.gas;			// save them again
+    	msg_gas_after_creator_send = gasleft();			// save them again
     	msg_data_after_creator_send = msg.data;
     	msg_value_after_creator_send = msg.value;		// did anything change? Use getters below.
     	return returnval;
     }
     
-    function sendOneEtherToHome() returns (bool success)         	
+    function sendOneEtherToHome() payable public returns (bool success)         	
     {						
-    	msg_gas_before_creator_send = msg.gas;			// save msg values
+    	msg_gas_before_creator_send = gasleft();			// save msg values
     	msg_data_before_creator_send = msg.data;	
     	msg_value_before_creator_send = msg.value;			  
     	bool returnval = creator.send(1000000000000000000);				// do something gassy
-    	msg_gas_after_creator_send = msg.gas;			// save them again
+    	msg_gas_after_creator_send = gasleft();			// save them again
     	msg_data_after_creator_send = msg.data;
     	msg_value_after_creator_send = msg.value;		// did anything change? Use getters below.
     	return returnval;
     }
     
     
-    function getMsgDataBefore() constant returns (bytes)          
+    function getMsgDataBefore() view public returns (bytes memory)          
     {						
     	return msg_data_before_creator_send;							  
     }
     
-    function getMsgDataAfter() constant returns (bytes)         
+    function getMsgDataAfter() view public returns (bytes memory)         
     {						
     	return msg_data_after_creator_send;							  
     }
     
     
-    function getMsgGasBefore() constant returns (uint)          
+    function getMsgGasBefore() view public returns (uint)          
     {						
     	return msg_gas_before_creator_send;							  
     }
     
-    function getMsgGasAfter() constant returns (uint)         
+    function getMsgGasAfter() view public returns (uint)         
     {						
     	return msg_gas_after_creator_send;							  
     }
     
    
-    function getMsgValueBefore() constant returns (uint)          
+    function getMsgValueBefore() view public returns (uint)          
     {						
     	return msg_value_before_creator_send;							  
     }
     
-    function getMsgValueAfter() constant returns (uint)         
+    function getMsgValueAfter() view public returns (uint)         
     {						
     	return msg_value_after_creator_send;							  
     }
@@ -121,10 +117,10 @@ contract msgExaminer {
      Standard kill() function to recover funds 
      **********/
     
-    function kill()
+    function kill() public
     { 
         if (msg.sender == creator)
-            suicide(creator);  // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator);  // kills this contract and sends remaining funds back to creator
     }
         
 }

@@ -3,9 +3,11 @@
 // 
 // In the constructor, the elevations are set to standard values via for loops.
 
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.6.10;
 contract StructAndFor {
 
-    address creator;
+    address payable creator;
     uint8 mapsize = 9;
     Tile[9][9] tiles; 
     
@@ -15,9 +17,8 @@ contract StructAndFor {
         address descriptorContract;
         uint8 elevation;
     }
-    
-    function StructAndFor() 
-    {
+
+	constructor () public {
         creator = msg.sender;
         for(uint8 y = 0; y < mapsize; y++)
     	{
@@ -28,7 +29,7 @@ contract StructAndFor {
         }	
     }
     
-    function getElevation(uint8 x, uint8 y) constant returns (uint8)
+    function getElevation(uint8 x, uint8 y) view public returns (uint8)
     {
     	return tiles[x][y].elevation;
     }
@@ -37,11 +38,13 @@ contract StructAndFor {
      Standard kill() function to recover funds 
      **********/
     
-    function kill()
+    function kill() public
     { 
         if (msg.sender == creator)
         {
-            suicide(creator);  // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator);  // kills this contract and sends remaining funds back to creator
         }
     }
 }
+
+

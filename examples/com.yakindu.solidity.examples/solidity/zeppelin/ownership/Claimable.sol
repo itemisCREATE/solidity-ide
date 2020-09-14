@@ -1,40 +1,24 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
-
 
 import './Ownable.sol';
 
-
-/**
- * @title Claimable
- * @dev Extension for the Ownable contract, where the ownership needs to be claimed. 
- * This allows the new owner to accept the transfer.
- */
 contract Claimable is Ownable {
-  address public pendingOwner;
+  address payable public pendingOwner;
 
-  /**
-   * @dev Modifier throws if called by any account other than the pendingOwner. 
-   */
   modifier onlyPendingOwner() {
     if (msg.sender != pendingOwner) {
-      throw;
+      revert("Something bad happened!");
     }
     _;
   }
 
-  /**
-   * @dev Allows the current owner to set the pendingOwner address. 
-   * @param newOwner The address to transfer ownership to. 
-   */
-  function transferOwnership(address newOwner) onlyOwner {
+  function transferOwnership(address payable newOwner) onlyOwner public override {
     pendingOwner = newOwner;
   }
 
-  /**
-   * @dev Allows the pendingOwner address to finalize the transfer.
-   */
-  function claimOwnership() onlyPendingOwner {
+  function claimOwnership() onlyPendingOwner public {
     owner = pendingOwner;
-    pendingOwner = 0x0;
+    pendingOwner = address(0x0);
   }
 }

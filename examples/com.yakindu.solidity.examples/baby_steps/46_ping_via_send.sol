@@ -14,17 +14,15 @@
 // 3. Call Ping.touchPong() using a <pongaddress>.send()
 // 4. ... which does... something ...
 
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.6.10;
 contract Ping {
 
-	address pvr;
-    address creator;
-    int8 sendval = -2; // -2 == initialized, -1 == error, 0 == pong returned false. 1 == pong returned true 
+	address payable pvr;
+    address payable creator;
+    int8 sendval = -2;
 
-	/*********
- 	 Step 2: Deploy Ping, giving it the address of Pong.
- 	 *********/
-    function Ping(address _pongAddress) 
-    {
+	constructor (address payable _pongAddress) public {
         creator = msg.sender; 	
         pvr = _pongAddress;
     }
@@ -33,7 +31,7 @@ contract Ping {
      Step 3: Touch pong with a 3,000,000 wei "send" call and see what happens. 
      *********/
 
-	function send3MilWeiToPong() 
+	function send3MilWeiToPong() public 
 	{
 		sendval = -1;  // at least we reached this function
 		bool retval = false;
@@ -46,13 +44,13 @@ contract Ping {
   
 // -----------------------------------------------------------------------------------------------------------------	
 	
-	function getBalance() public constant returns (uint)
+	function getBalance() public view returns (uint)
 	{
-		return this.balance;
+		return address(this).balance;
 	}
 	
 
-	function getSendVal() public constant returns (int8)
+	function getSendVal() public view returns (int8)
 	{
 		return sendval;
 	}
@@ -61,12 +59,12 @@ contract Ping {
      Functions to get and set pongAddress just in case
      *********/
     
-    function setPongAddress(address _pongAddress)
+    function setPongAddress(address payable _pongAddress) public
 	{
 		pvr = _pongAddress;
 	}
 	
-	function getPongAddress() constant returns (address)
+	function getPongAddress() view public returns (address)
 	{
 		return pvr;
 	}
@@ -74,18 +72,21 @@ contract Ping {
     /****
 	 For double-checking this contract's address
 	 ****/
-	function getAddress() returns (address)
+	function getAddress() public view returns (address)
 	{
-		return this;
+		return address(this);
 	}
     
     /*********
      Standard kill() function to recover funds 
      *********/
     
-    function kill()
+    function kill() public
     { 
         if (msg.sender == creator)
-            suicide(creator);  // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator);  // kills this contract and sends remaining funds back to creator
     }
 }
+
+
+

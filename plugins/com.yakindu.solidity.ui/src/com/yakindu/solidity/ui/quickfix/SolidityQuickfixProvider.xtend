@@ -606,8 +606,11 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 			new IModification() {
 				override apply(IModificationContext context) {
 					val IXtextDocument xtextDocument = context.getXtextDocument();
-					xtextDocument.replace(issue.getOffset(), issue.getOffset(),
-						"//SPDX-License-Identifier: UNLICENSED" + System.lineSeparator);
+					val String content = xtextDocument.get(issue.offset, issue.length)
+					val String identifier = "//SPDX-License-Identifier: UNLICENSED"
+					val String replacement = identifier + System.lineSeparator + content
+					xtextDocument.replace(issue.getOffset(), issue.getLength,
+						replacement);
 				}
 			})
 	}
@@ -620,28 +623,26 @@ class SolidityQuickfixProvider extends ExpressionsQuickfixProvider {
 					if (element.eContainer instanceof SourceUnit || element instanceof SourceUnit ||
 						element instanceof SolidityModel) {
 						if (!(element instanceof SolidityModel)) {
-							val SourceUnit sourceUnit = (element.eContainer instanceof SourceUnit)
-									? element.eContainer as SourceUnit
-									: element as SourceUnit
-							val PragmaSolidityDirective pragma = createPragmaSolidityDirective => [
-								version = solcVersion
-							]
-							sourceUnit.pragma += pragma
+							val SolidityModel model = getContainerOfType(element, SolidityModel)
+							model.addPragma(context)
 						} else {
 							val SolidityModel model = element as SolidityModel
-							val SourceUnit firstSourceUnit = model.sourceunit.head as SourceUnit
-							if (firstSourceUnit !== null) {
-								val PragmaSolidityDirective pragma = createPragmaSolidityDirective => [
-									version = solcVersion
-								]
-								firstSourceUnit.pragma += pragma
-							}
+							model.addPragma(context)
 						}
 					}
 				}
 			})
 	}
-
+	
+	def protected addPragma(SolidityModel model, IModificationContext context) {
+		val document = context.xtextDocument
+		val node = NodeModelUtils.getNode(model)
+		val modelContent = document.get(node.offset, node.length);
+		val pragma = "pragma solidity " + SolidityVersion.toString(solcVersion) + ";"
+		val replacement = pragma + System.lineSeparator + modelContent
+		document.replace(node.offset, node.length, replacement)
+	}
+	
 	@Fixes(@Fix(WARNING_DEPRECATED_SUICIDE),
 		@Fix(ERROR_DEPRECATED_SUICIDE))
 	def replaceDeprecatedSuicide(Issue issue, IssueResolutionAcceptor acceptor) {

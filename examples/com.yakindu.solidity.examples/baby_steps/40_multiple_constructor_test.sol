@@ -1,13 +1,14 @@
-// Just testing to see if you can have multiple constructors. Nope!
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity 0.6.10 ;
+
 
 contract MultipleConstructorTest {
 
-    address creator;
+    address payable creator;
     bool first = false;
     bool second = false;
 
-    function MultipleConstructorTest() 
-    {
+	constructor () public {
         creator = msg.sender; 								
         first = true;
     }
@@ -36,12 +37,12 @@ contract MultipleConstructorTest {
 //        second = true;
 //    }
 	
-	function getFirst() constant returns (bool)
+	function getFirst() view public returns (bool)
 	{
 		return first;
 	}
 	
-	function getSecond() constant returns (bool)
+	function getSecond() view public returns (bool)
 	{
 		return second;
 	}
@@ -50,9 +51,15 @@ contract MultipleConstructorTest {
      Standard kill() function to recover funds 
      **********/
     
-    function kill()
+    function kill() public
     { 
         if (msg.sender == creator)
-            suicide(creator);  // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator);  // kills this contract and sends remaining funds back to creator
     }
 }
+
+
+
+
+
+

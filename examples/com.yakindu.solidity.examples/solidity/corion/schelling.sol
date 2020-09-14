@@ -1,3 +1,4 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 import "./announcementTypes.sol";
@@ -36,16 +37,14 @@ contract schellingDB is safeMath, schellingVars {
         Schelling database contract.
     */
     address private owner;
-    function replaceOwner(address newOwner) external returns(bool) {
-        require( owner == 0x00 || msg.sender == owner );
+    function replaceOwner(address payable newOwner) external returns(bool) {
+        require( owner.balance == 0x00 || msg.sender == owner );
         owner = newOwner;
         return true;
     }
     modifier isOwner { require( msg.sender == owner ); _; }
-    /*
-        Constructor
-    */
-    function schellingDB() {
+
+	constructor () public {
         rounds[0].blockHeight = block.number;
         currentSchellingRound = 1;
     }
@@ -53,7 +52,7 @@ contract schellingDB is safeMath, schellingVars {
         Funds
     */
     mapping(address => uint256) private funds;
-    function getFunds(address _owner) constant returns(bool, uint256) {
+    function getFunds(address _owner) view public returns (bool, uint256) {
         return (true, funds[_owner]);
     }
     function setFunds(address _owner, uint256 _amount) isOwner external returns(bool) {
@@ -64,25 +63,28 @@ contract schellingDB is safeMath, schellingVars {
         Rounds
     */
     _rounds[] private rounds;
-    function getRound(uint256 _id) constant returns(bool, uint256, uint256, uint256, uint256, bool) {
+    function getRound(uint256 _id) view public returns (bool, uint256, uint256, uint256, uint256, bool) {
         if ( rounds.length <= _id ) { return (false, 0, 0, 0, 0, false); }
         else { return (true, rounds[_id].totalAboveWeight, rounds[_id].totalBelowWeight, rounds[_id].reward, rounds[_id].blockHeight, rounds[_id].voted); }
     }
-    function pushRound(uint256 _totalAboveWeight, uint256 _totalBelowWeight, uint256 _reward, uint256 _blockHeight, bool _voted) isOwner external returns(bool, uint256) {
-        return (true, rounds.push(_rounds(_totalAboveWeight, _totalBelowWeight, _reward, _blockHeight, _voted)));
+    function pushRound(uint256 _totalAboveWeight, uint256 _totalBelowWeight, uint256 _reward, uint256 _blockHeight, bool _voted) isOwner external returns(bool) {
+        rounds.push(_rounds(_totalAboveWeight, _totalBelowWeight, _reward, _blockHeight, _voted));
+        return true;
     }
     function setRound(uint256 _id, uint256 _totalAboveWeight, uint256 _totalBelowWeight, uint256 _reward, uint256 _blockHeight, bool _voted) isOwner external returns(bool) {
         rounds[_id] = _rounds(_totalAboveWeight, _totalBelowWeight, _reward, _blockHeight, _voted);
         return true;
     }
-    function getCurrentRound() constant returns(bool, uint256) {
+    function getCurrentRound() view public returns (bool, uint256) {
         return (true, rounds.length-1);
     }
     /*
         Voter
     */
     mapping(address => _voter) private voter;
-    function getVoter(address _owner) constant returns(bool success, uint256 roundID,
+    function getVoter(address _owner)
+	view public returns (
+		bool success, uint256 roundID,
         bytes32 hash, voterStatus status, bool voteResult, uint256 rewards) {
         roundID         = voter[_owner].roundID;
         hash            = voter[_owner].hash;
@@ -105,7 +107,7 @@ contract schellingDB is safeMath, schellingVars {
         Schelling Token emission
     */
     mapping(uint256 => uint256) private schellingExpansion;
-    function getSchellingExpansion(uint256 _id) constant returns(bool, uint256) {
+    function getSchellingExpansion(uint256 _id) view public returns (bool, uint256) {
         return (true, schellingExpansion[_id]);
     }
     function setSchellingExpansion(uint256 _id, uint256 _expansion) isOwner external returns(bool) {
@@ -120,10 +122,13 @@ contract schellingDB is safeMath, schellingVars {
         currentSchellingRound = _id;
         return true;
     }
-    function getCurrentSchellingRound() constant returns(bool, uint256) {
+    function getCurrentSchellingRound() view public returns (bool, uint256) {
         return (true, currentSchellingRound);
     }
 }
+
+
+
 
 contract schelling is module, announcementTypes, schellingVars {
     /*
@@ -132,7 +137,7 @@ contract schelling is module, announcementTypes, schellingVars {
     /*
         module callbacks
     */
-    function replaceModule(address addr) external returns (bool) {
+    function replaceModule(address payable addr) external override returns (bool) {
         require( super.isModuleHandler(msg.sender) );
         require( db.replaceOwner(addr) );
         super._replaceModule(addr);
@@ -150,15 +155,15 @@ contract schelling is module, announcementTypes, schellingVars {
         */
         require( super.isModuleHandler(msg.sender) );
         if ( to == address(this) ) {
-            var currentRound = getCurrentRound();
-            var round = getRound(currentRound);
+            uint256 currentRound = getCurrentRound();
+            _rounds memory round= getRound(currentRound);
             round.reward += value;
             setRound(currentRound, round);
         }
         return true;
     }
     modifier isReady {
-        var (_success, _active) = super.isActive();
+        (bool _success, bool _active) = super.isActive();
         require( _success && _active ); 
         _;
     }
@@ -166,14 +171,14 @@ contract schelling is module, announcementTypes, schellingVars {
         Schelling database functions.
     */
     function getFunds(address addr) internal returns (uint256) {
-        var (a, b) = db.getFunds(addr);
+        (bool a, uint256 b) = db.getFunds(addr);
         require( a );
         return b;
     }
     function setFunds(address addr, uint256 amount) internal {
         require( db.setFunds(addr, amount) );
     }
-    function setVoter(address owner, _voter voter) internal {
+    function setVoter(address owner, _voter memory voter) internal {
         require( db.setVoter(owner, 
             voter.roundID,
             voter.hash,
@@ -182,12 +187,12 @@ contract schelling is module, announcementTypes, schellingVars {
             voter.rewards
             ) );
     }    
-    function getVoter(address addr) internal returns (_voter) {
-        var (a, b, c, d, e, f) = db.getVoter(addr);
+    function getVoter(address addr) internal returns (_voter memory) {
+        (bool a, uint256 b, bytes32 c, voterStatus d, bool e, uint256 f) = db.getVoter(addr);
         require( a );
         return _voter(b, c, d, e, f);
     }
-    function setRound(uint256 id, _rounds round) internal {
+    function setRound(uint256 id, _rounds memory round) internal {
         require( db.setRound(id, 
             round.totalAboveWeight,
             round.totalBelowWeight,
@@ -196,24 +201,23 @@ contract schelling is module, announcementTypes, schellingVars {
             round.voted
             ) );
     }
-    function pushRound(_rounds round) internal returns (uint256) {
-        var (a, b) = db.pushRound( 
+    function pushRound(_rounds memory round) internal returns (bool) {
+        bool b = db.pushRound( 
             round.totalAboveWeight,
             round.totalBelowWeight,
             round.reward,
             round.blockHeight,
             round.voted
             );
-        require( a );
         return b;
     }
-    function getRound(uint256 id) internal returns (_rounds) {
-        var (a, b, c, d, e, f) = db.getRound(id);
+    function getRound(uint256 id) internal returns (_rounds memory) {
+        (bool a, uint256 b, uint256 c, uint256 d, uint256 e, bool f) = db.getRound(id);
         require( a );
         return _rounds(b, c, d, e, f);
     }
     function getCurrentRound() internal returns (uint256) {
-        var (a, b) = db.getCurrentRound();
+        (bool a, uint256 b) = db.getCurrentRound();
         require( a );
         return b;
     }
@@ -221,7 +225,7 @@ contract schelling is module, announcementTypes, schellingVars {
         require( db.setCurrentSchellingRound(id) );
     }
     function getCurrentSchellingRound() internal returns(uint256) {
-        var (a, b) = db.getCurrentSchellingRound();
+        (bool a, uint256 b) = db.getCurrentSchellingRound();
         require( a );
         return b;
     }
@@ -229,7 +233,7 @@ contract schelling is module, announcementTypes, schellingVars {
         require( db.setSchellingExpansion(id, amount) );
     }
     function getSchellingExpansion(uint256 id) internal returns(uint256) {
-        var (a, b) = db.getSchellingExpansion(id);
+        (bool a, uint256 b) = db.getSchellingExpansion(id);
         require( a );
         return b;
     }
@@ -245,8 +249,8 @@ contract schelling is module, announcementTypes, schellingVars {
     bytes1 public aboveChar = 0x31;
     bytes1 public belowChar = 0x30;
     schellingDB private db;
-    
-    function schelling(address _moduleHandler, address _db, bool _forReplace) {
+
+	constructor (address _moduleHandler , address _db , bool _forReplace) public {
         /*
             Installation function.
             
@@ -257,9 +261,6 @@ contract schelling is module, announcementTypes, schellingVars {
         */
         db = schellingDB(_db);
         super.registerModuleHandler(_moduleHandler);
-        if ( ! _forReplace ) {
-            require( db.replaceOwner(this) );
-        }
     }
     function configure(announcementType a, uint256 b) external returns(bool) {
         /*
@@ -288,8 +289,8 @@ contract schelling is module, announcementTypes, schellingVars {
         */
         nextRound();
         
-        var currentRound = getCurrentRound();
-        var round = getRound(currentRound);
+        uint256 currentRound = getCurrentRound();
+        _rounds memory round = getRound(currentRound);
         _voter memory voter;
         uint256 funds;
         
@@ -309,20 +310,20 @@ contract schelling is module, announcementTypes, schellingVars {
         
         setRound(currentRound, round);
     }
-    function sendVote(string vote) isReady noContract external {
+    function sendVote(string memory vote) isReady noContract external {
         /*
             Check vote (Envelope opening)
-            Only the sent “envelopes” can be opened.
+            Only the sent â€œenvelopesâ€� can be opened.
             Envelope opening only in the next Schelling round.
             If the vote invalid, the deposit will be lost.
-            If the “envelope” was opened later than 1,5 Schelling round, the vote is automatically invalid, and deposit can be lost.
+            If the â€œenvelopeâ€� was opened later than 1,5 Schelling round, the vote is automatically invalid, and deposit can be lost.
             Lost deposits will be 100% burned.
             
             @vote      Hash of the content of the vote.
         */
         nextRound();
         
-        var currentRound = getCurrentRound();
+        uint256 currentRound = getCurrentRound();
         _rounds memory round;
         _voter memory voter;
         uint256 funds;
@@ -334,7 +335,7 @@ contract schelling is module, announcementTypes, schellingVars {
         
         require( voter.status == voterStatus.afterPrepareVote );
         require( voter.roundID < currentRound );
-        if ( sha3(vote) == voter.hash ) {
+        if ( keccak256(abi.encodePacked(vote)) == voter.hash ) {
             delete voter.hash;
             if (round.blockHeight+roundBlockDelay/2 >= block.number) {
                 if ( bytes(vote)[0] == aboveChar ) {
@@ -368,7 +369,7 @@ contract schelling is module, announcementTypes, schellingVars {
         */
         nextRound();
         
-        var currentRound = getCurrentRound();
+        uint256 currentRound = getCurrentRound();
         _rounds memory round;
         _voter memory voter;
         uint256 funds;
@@ -388,7 +389,9 @@ contract schelling is module, announcementTypes, schellingVars {
             }
             delete voter.status;
             delete voter.roundID;
-        } else { throw; }
+        } else { 
+            revert("Something bad has happened!");
+        }
         
         setVoter(msg.sender, voter);
         setFunds(msg.sender, funds);
@@ -402,11 +405,11 @@ contract schelling is module, announcementTypes, schellingVars {
             
             @beneficiary        Address of the beneficiary
         */
-        var voter = getVoter(msg.sender);
-        var funds = getFunds(msg.sender);
+        _voter memory voter = getVoter(msg.sender);
+        uint256 funds = getFunds(msg.sender);
         
         address _beneficiary = msg.sender;
-        if (beneficiary != 0x0) { _beneficiary = beneficiary; }
+        if (beneficiary.balance != 0x0) { _beneficiary = beneficiary; }
         uint256 reward;
         require( voter.rewards > 0 );
         require( voter.status == voterStatus.base );
@@ -416,24 +419,24 @@ contract schelling is module, announcementTypes, schellingVars {
             
         setVoter(msg.sender, voter);
     }
-    function checkReward() public constant returns (uint256 reward) {
+    function checkReward() public view returns (uint256 reward) {
         /*
-            Withdraw of the amount of the prize (it’s only information).
+            Withdraw of the amount of the prize (itâ€™s only information).
             
             @reward         Prize
         */
-        var voter = getVoter(msg.sender);
+        _voter memory voter = getVoter(msg.sender);
         return voter.rewards;
     }
     function nextRound() internal returns (bool) {
         /*
             Inside function, checks the time of the Schelling round and if its needed, creates a new Schelling round.
         */
-        var currentRound = getCurrentRound();
-        var round = getRound(currentRound);
+        uint256 currentRound = getCurrentRound();
+        _rounds memory round = getRound(currentRound);
         _rounds memory newRound;
         _rounds memory prevRound;
-        var currentSchellingRound = getCurrentSchellingRound();
+        uint256 currentSchellingRound = getCurrentSchellingRound();
         
         if ( round.blockHeight+roundBlockDelay > block.number) { return false; }
         
@@ -468,10 +471,10 @@ contract schelling is module, announcementTypes, schellingVars {
             
             @amount          Amount of deposit.
         */
-        var voter = getVoter(msg.sender);
-        var funds = getFunds(msg.sender);
+        _voter memory voter = getVoter(msg.sender);
+        uint256 funds = getFunds(msg.sender);
         
-        var (a, b) = moduleHandler(moduleHandlerAddress).isICO();
+        (bool a, bool b) = moduleHandler(moduleHandlerAddress).isICO();
         require( b && b );
         require( voter.status == voterStatus.base );
         require( amount > 0 );
@@ -483,11 +486,11 @@ contract schelling is module, announcementTypes, schellingVars {
     function getFunds() isReady noContract external {
         /*
             Deposit withdrawn.
-            If the deposit isn’t lost, it can be withdrawn.
+            If the deposit isnâ€™t lost, it can be withdrawn.
             By withdrawn, the deposit will be sent from Schelling address to the users address, charged with transaction fee..
         */
-        var voter = getVoter(msg.sender);
-        var funds = getFunds(msg.sender);
+        _voter memory voter = getVoter(msg.sender);
+        uint256 funds = getFunds(msg.sender);
         
         require( funds > 0 );
         require( voter.status == voterStatus.base );
@@ -495,7 +498,7 @@ contract schelling is module, announcementTypes, schellingVars {
         
         require( moduleHandler(moduleHandlerAddress).transfer(address(this), msg.sender, funds, true) );
     }
-    function getCurrentSchellingRoundID() public constant returns (uint256) {
+    function getCurrentSchellingRoundID() public view returns (uint256) {
         /*
             Number of actual Schelling round.
             
@@ -503,7 +506,7 @@ contract schelling is module, announcementTypes, schellingVars {
         */
         return getCurrentSchellingRound();
     }
-    function getSchellingRound(uint256 id) public constant returns (uint256 expansion) {
+    function getSchellingRound(uint256 id) public view returns (uint256 expansion) {
         /*
             Amount of token emission of the Schelling round.
             
@@ -528,7 +531,7 @@ contract schelling is module, announcementTypes, schellingVars {
             return belowW;
         }
     }
-    function isWinner(_rounds round, bool aboveVote) internal returns (bool) {
+    function isWinner(_rounds memory round, bool aboveVote) internal returns (bool) {
         /*
             Inside function for calculating the result of the game.
             
@@ -549,7 +552,7 @@ contract schelling is module, announcementTypes, schellingVars {
             
             @uint256        Whole token amount
         */
-        var (_success, _amount) = moduleHandler(moduleHandlerAddress).totalSupply();
+        (bool _success, uint256 _amount) = moduleHandler(moduleHandlerAddress).totalSupply();
         require( _success );
         return _amount;
     }
@@ -562,15 +565,18 @@ contract schelling is module, announcementTypes, schellingVars {
             
             @balance    Balance of the address.
         */
-        var (_success, _balance) = moduleHandler(moduleHandlerAddress).balanceOf(addr);
+        (bool _success, uint256 _balance) = moduleHandler(moduleHandlerAddress).balanceOf(addr);
         require( _success );
         return _balance;
     }
     
     modifier noContract {
         /*
-            Contract can’t call this function, only a natural address.
+            Contract canâ€™t call this function, only a natural address.
         */
         require( msg.sender == tx.origin ); _;
     }
 }
+
+
+

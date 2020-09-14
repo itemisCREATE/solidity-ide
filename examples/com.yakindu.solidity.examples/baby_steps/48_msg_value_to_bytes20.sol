@@ -1,4 +1,6 @@
-import "mortal";
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.6.10;
+import "./mortal.sol";
 
 contract MsgValueToBytes20 is mortal {
 
@@ -6,27 +8,27 @@ contract MsgValueToBytes20 is mortal {
 	uint80 uint80val; 
 	bytes20 finalval;
     
-    function convertMsgValueToBytes20() 
+    function convertMsgValueToBytes20() payable public 
     {
     	initialval = msg.value;
     	if(msg.value > 0 || msg.value < 1208925819614629174706176) // 1 wei up to (2^80 - 1) wei is the valid uint80 range
     	{
     		uint80val = uint80(msg.value);
-    		finalval = bytes20(uint80val);
+//    		finalval = bytes20(uint80val);
     	}
     }
     
-    function getInitialval() constant returns (uint)
+    function getInitialval() view public returns (uint)
     {
     	return initialval;
     }
     
-    function getUint80val() constant returns (uint80)
+    function getUint80val() view public returns (uint80)
     {
     	return uint80val;
     }
     
-    function getFinalval() constant returns (bytes20)
+    function getFinalval() view public returns (bytes20)
     {
     	return finalval;
     }

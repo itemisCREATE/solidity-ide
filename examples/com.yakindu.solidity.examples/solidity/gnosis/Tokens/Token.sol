@@ -1,9 +1,10 @@
 /// Implements ERC 20 Token standard: https://github.com/ethereum/EIPs/issues/20
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 
 /// @title Abstract token contract - Functions to be implemented by token contracts
-contract Token {
+abstract contract Token {
 
     /*
      *  Events
@@ -14,10 +15,10 @@ contract Token {
     /*
      *  Public functions
      */
-    function transfer(address to, uint value) public returns (bool);
-    function transferFrom(address from, address to, uint value) public returns (bool);
-    function approve(address spender, uint value) public returns (bool);
-    function balanceOf(address owner) public constant returns (uint);
-    function allowance(address owner, address spender) public constant returns (uint);
-    function totalSupply() public constant returns (uint);
+    function transfer(address to, uint value) public virtual returns (bool);
+    function transferFrom(address from, address to, uint value) public virtual returns (bool);
+    function approve(address spender, uint value) public virtual returns (bool);
+    function balanceOf(address owner) public view virtual  returns (uint);
+    function allowance(address owner, address spender) public view virtual returns (uint);
+    function totalSupply() public view virtual returns (uint);
 }

@@ -3,10 +3,13 @@
  */
 package com.yakindu.solidity.tests;
 
+import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.yakindu.solidity.IWorkspaceResourceResolver;
 import com.yakindu.solidity.SolidityRuntimeModule;
 import com.yakindu.solidity.SolidityStandaloneSetup;
+
 import org.eclipse.xtext.testing.GlobalRegistries;
 import org.eclipse.xtext.testing.GlobalRegistries.GlobalStateMemento;
 import org.eclipse.xtext.testing.IInjectorProvider;
@@ -49,6 +52,11 @@ public class SolidityInjectorProvider implements IInjectorProvider, IRegistryCon
 			public ClassLoader bindClassLoaderToInstance() {
 				return SolidityInjectorProvider.class
 						.getClassLoader();
+			}
+			@Override
+			public void configure(Binder binder) {
+				super.configure(binder);
+				binder.bind(IWorkspaceResourceResolver.class).to(TestWorkspaceResolver.class);
 			}
 		};
 	}
