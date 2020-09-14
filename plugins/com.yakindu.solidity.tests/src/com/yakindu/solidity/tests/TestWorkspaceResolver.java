@@ -28,13 +28,13 @@ public class TestWorkspaceResolver implements IWorkspaceResourceResolver {
 		URI uri = resource.getURI();
 		for (String segment : uri.segments()) {
 			if(!uriPath.isEmpty()) {
-				uriPath += "\\"+segment;
+				uriPath += File.separator +segment;
 			}
 			else {				
 				if (segment.equals("..")) {
 					uriPath+=segment;
 				} else if (segment.equals("examples")) {
-					uriPath+= "..\\..\\" + segment;
+					uriPath+= ".." + File.separator + ".." + File.separator + segment;
 				}
 			}
 		}
