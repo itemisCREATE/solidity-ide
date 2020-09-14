@@ -33,6 +33,8 @@ public class TestWorkspaceResolver implements IWorkspaceResourceResolver {
 			else {				
 				if (segment.equals("..")) {
 					uriPath+=segment;
+				} else if (segment.equals("examples")) {
+					uriPath+= "..\\..\\" + segment;
 				}
 			}
 		}
