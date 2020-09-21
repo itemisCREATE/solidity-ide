@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Engine, Profile } from '@remixproject/engine';
-import { Observable } from 'rxjs';
-import { YakinduPluginManager } from '../plugin-manager/plugin-manager';
+import { YakinduPluginManager } from '../plugin-manager';
 
 @Component({
   selector: 'app-plugin-view',
@@ -16,10 +15,9 @@ export class PluginViewComponent implements OnInit {
   @Input()
   engine: Engine;
 
-
-
-  constructor() {}
-  ngOnInit(): void {
+  constructor() {
   }
 
+  ngOnInit(): void {
+  }
 }

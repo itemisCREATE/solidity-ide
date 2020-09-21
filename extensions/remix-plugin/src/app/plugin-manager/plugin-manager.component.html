@@ -5,7 +5,7 @@
       <h5 class="card-title">{{ profile.displayName }}</h5>
       <div *ngIf="!(isRegistered(profile.name) | async)">
         <div *ngIf="!(isActive(profile.name) | async)">
-          <button>Register & Activate</button>
+          <button (click)="activatePlugin(profile)">Register & Activate</button>
         </div>
         <div *ngIf="isActive(profile.name) | async">
           <button>Deactivate</button>

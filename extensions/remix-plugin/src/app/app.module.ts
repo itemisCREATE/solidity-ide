@@ -1,13 +1,13 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent, SafePipe } from './app.component';
 import { PluginManagerComponent } from './plugin-manager/plugin-manager.component';
-import { HttpClientModule } from '@angular/common/http';
 import { PluginViewComponent } from './plugin-view/plugin-view.component';
 import { PluginComponent } from './plugin-view/plugin/plugin.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     PluginManagerComponent,
     PluginViewComponent,
     SafePipe,
-    PluginComponent
+    PluginComponent,
   ],
   imports: [
     BrowserModule,

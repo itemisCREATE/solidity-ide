@@ -22,6 +22,7 @@
     "@angular/router": "~10.0.5",
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "@remixproject/engine": "^0.3.0-alpha.8",
+    "@remixproject/engine-web": "^0.3.0-beta.3",
     "@remixproject/plugin": "^0.3.0-alpha.8",
     "@remixproject/plugin-iframe": "^0.3.0-beta.3",
     "bootstrap": "^4.5.0",
