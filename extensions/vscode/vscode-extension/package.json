@@ -1,0 +1,62 @@
+{
+  "name": "yakindu-solidity-ls",
+  "displayName": "YAKINDU Solidity",
+  "description": "Solidity Language Server",
+  "version": "0.8.0",
+  "publisher": "itemis",
+  "icon": "images/yakindu.png",
+  "license": "EPL-1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yakindu/solidity-ide.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Yakindu/solidity-ide/issues"
+  },
+  "engines": {
+    "vscode": "^1.33.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "activationEvents": [
+    "onLanguage:Solidity"
+  ],
+  "main": "out/extension",
+  "contributes": {
+    "languages": [
+      {
+        "id": "Solidity",
+        "aliases": [
+          "Solidity"
+        ],
+        "extensions": [
+          ".sol"
+        ],
+        "configuration": "./solidity.configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "Solidity",
+        "scopeName": "text.sol",
+        "path": "./syntaxes/solidity.tmLanguage"
+      }
+    ]
+  },
+  "devDependencies": {
+    "vscode": "^1.1.33",
+    "typescript": "^3.3.400",
+    "@types/node": "^11.13.2"
+  },
+  "dependencies": {
+    "vsce": "^1.79.5",
+    "vscode-languageclient": "^5.2.1"
+  },
+  "scripts": {
+    "prepare": "node ./node_modules/vscode/bin/install && tsc -p ./src",
+    "compile": "tsc -p ./src",
+    "watch": "tsc -w -p ./src",
+    "update-vscode": "node ./node_modules/vscode/bin/install"
+  }
+}

@@ -1,0 +1,40 @@
+task copyApplication(type: Sync) {
+  description 'Copies the language server distribution from com.yakindu.solidity.ide to src/ls'
+  group 'Build'
+  from '../../../plugins/com.yakindu.solidity.ide/target/languageserver'
+  into 'src/ls'
+}
+
+clean {
+    doLast {
+        delete copyApplication.outputs
+    }
+}
+
+npmInstall.dependsOn copyApplication
+
+task installExtension(type: Exec, dependsOn: vscodeExtension) {
+    if (System.properties['os.name'].toLowerCase().contains('windows')) {
+        commandLine 'code.cmd'
+    } else {
+        commandLine 'code'
+    }
+    args '--install-extension', vscodeExtension.destPath
+}
+
+task startCode(type:Exec, dependsOn: installExtension) {
+    if (System.properties['os.name'].toLowerCase().contains('windows')) {
+        commandLine 'code.cmd'
+    } else {
+        commandLine 'code'
+    }
+    args "$rootProject.projectDir/demo/", '--new-window'
+}
+
+task publish(dependsOn: vscodeExtension, type: NodeTask) {
+    script = file("$rootProject.projectDir/node_modules/vsce/out/vsce")
+    args = [ 'publish', '-p', System.getenv('ACCESS_TOKEN'), "--packagePath", "${project.buildDir}/vscode/vscode-extension-self-contained-${project.version}.vsix"]
+    execOverrides {
+        workingDir = projectDir
+    }
+}

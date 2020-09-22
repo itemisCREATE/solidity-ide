@@ -1,0 +1,8 @@
+/node_modules/
+/lib/
+/src-gen/
+
+/desktop.ini
+/gen-webpack.config.js
+/webpack.config.js
+/yarn.lock
