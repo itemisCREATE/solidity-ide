@@ -35,11 +35,12 @@ script:
  - cd ../com.yakindu.solidity.repository/target
  - zip -r repository.zip repository
  - cd $TRAVIS_BUILD_DIR/extensions/vscode
- - ./gradlew vscodeExtension
+ - ./gradlew clean build vscodeExtension
  - cd $TRAVIS_BUILD_DIR
- - cp -r plugins/com.yakindu.solidity.ide/target/languageserver extensions/theia/xtext-dsl-extension/languageserver
- - cd extensions/theia/
- - yarn install
+ - cp -r extensions/vscode/vscode-extension-self-contained/build/vscode/ extensions/vscode-theia/plugins
+ - cd extensions/vscode-theia/
+ - yarn
+ - yarn build theia
  - cd $TRAVIS_BUILD_DIR
  - docker build extensions/. -t yakindu/solidity-ide
 deploy:
