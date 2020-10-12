@@ -37,7 +37,7 @@ script:
  - cd $TRAVIS_BUILD_DIR/extensions/vscode
  - ./gradlew clean build vscodeExtension
  - cd $TRAVIS_BUILD_DIR
- - cp -r extensions/vscode/vscode-extension-self-contained/build/vscode/extensions/vscode-theia/plugins
+ - cp -r extensions/vscode/vscode-extension-self-contained/build/vscode extensions/vscode-theia/plugins
  - cd extensions/vscode-theia/
  - yarn
  - yarn build theia
