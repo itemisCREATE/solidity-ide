@@ -59,6 +59,8 @@ class BuiltInDeclarations {
 	protected Operation ecrecover
 	protected Operation suicide
 	protected Operation selfdestruct
+	protected Operation gasleft
+	protected Operation blockhash
 	protected Property abi
 	protected Property msg
 	protected Property this_
@@ -145,12 +147,14 @@ class BuiltInDeclarations {
 		block = block()
 		length = length()
 		gas = gas()
+		gasleft = gasleft()
 		gasProperty = gasProperty()
 		value = value()
 		valueProperty = valueProperty()
 		push = push()
 		pop = pop()
 		payable = payable()
+		blockhash = blockhash()
 
 		/************************
 		 *     DESTRUCTION
@@ -171,7 +175,7 @@ class BuiltInDeclarations {
 
 	def List<Declaration> all() {
 		#[abi, msg, assert_, require, revert, addmod, mulmod, keccak256, sha3, sha256, length, address, selector,
-			gasProperty, valueProperty, push, pop, payable, ripemd160, ecrecover, block, suicide, selfdestruct, this_,
+			gasProperty, gasleft, blockhash, valueProperty, push, pop, payable, ripemd160, ecrecover, block, suicide, selfdestruct, this_,
 			super_, now, tx, owned, mortal]
 	}
 
@@ -190,7 +194,17 @@ class BuiltInDeclarations {
 	def protected Operation revert() {
 		createOperation("revert", VOID)
 	}
-
+	
+	def protected Operation gasleft() {
+		createOperation("gasleft", UINT)
+	}
+	
+	def protected Operation blockhash() {
+		createOperation("blockhash", BYTES32) => [
+			parameters += createParameter("blockNumber", UINT)
+		]
+	}
+	
 	def protected Operation addmod() {
 		createOperation("addmod", UINT) => [
 			parameters += createParameter("x", UINT)
@@ -364,7 +378,7 @@ class BuiltInDeclarations {
 					type = FunctionModifier.PUBLIC
 				]
 				modifier += solidityFactory.createModifierInvocation() => [
-					reference = solidityFactory.createModifierDefinition() => [
+					reference = solidityFactory.createContractDefinition() => [
 						name = "onlyOwner"
 					]
 				]

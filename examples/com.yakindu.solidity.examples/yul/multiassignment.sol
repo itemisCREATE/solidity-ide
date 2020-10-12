@@ -9,7 +9,7 @@ contract MyContract {
     }
 
     // TODO Add functions
-    function multiassignment(uint n, uint value) public pure returns (uint) {
+    function multiassignment() public pure returns (uint) {
 
         assembly {    
 			function f() -> a, b {}

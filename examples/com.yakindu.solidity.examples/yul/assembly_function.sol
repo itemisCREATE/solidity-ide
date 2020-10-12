@@ -9,7 +9,7 @@ contract MyContract {
     }
 
     // TODO Add functions
-    function assembly_function(uint n, uint value) public pure returns (uint) {
+    function assembly_function() public pure returns (uint) {
 
         assembly {
     
@@ -21,5 +21,3 @@ contract MyContract {
 		}
     }
 }
-
-

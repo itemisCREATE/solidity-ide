@@ -1,3 +1,4 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 import "./announcementTypes.sol";
@@ -61,16 +62,17 @@ contract publisher is announcementTypes, module, safeMath {
     
     mapping (address => uint256[]) public opponents;
     
-    function publisher(address moduleHandler) {
+    constructor (address moduleHandlerParam) public {
         /*
             Installation function.  The installer will be registered in the admin list automatically
             
             @moduleHandler      Address of moduleHandler
         */
-        super.registerModuleHandler(moduleHandler);
+        super.registerModuleHandler(moduleHandlerParam);
     }
     
-    function Announcements(uint256 id) public constant returns (uint256 Type, uint256 Start, uint256 End, bool Closed, string Announcement, string Link, bool Opposited, string _str, uint256 _uint, address _addr) {
+    function Announcements(uint256 id) public
+	view returns (uint256 Type, uint256 Start, uint256 End, bool Closed, string memory Announcement, string memory Link, bool Opposited, string memory _str, uint256 _uint, address _addr) {
         /*
             Announcement data query
             
@@ -101,7 +103,7 @@ contract publisher is announcementTypes, module, safeMath {
         _addr = announcements[id]._addr;
     }
     
-    function checkOpposited(uint256 weight, bool oppositable) public constant returns (bool success) {
+    function checkOpposited(uint256 weight, bool oppositable) public view returns (bool success) {
         /*
             Veto check
             
@@ -111,12 +113,12 @@ contract publisher is announcementTypes, module, safeMath {
             @success        Opposed or not
         */
         if ( ! oppositable ) { return false; }
-        var (_success, _amount) = moduleHandler(moduleHandlerAddress).totalSupply();
+        (bool _success, uint256 _amount) = moduleHandler(moduleHandlerAddress).totalSupply();
         require( _success );
         return _amount * oppositeRate / 100 > weight;
     }
     
-    function newAnnouncement(announcementType Type, string Announcement, string Link, bool Oppositable, string _str, uint256 _uint, address _addr) onlyOwner external {
+    function newAnnouncement(announcementType Type, string memory Announcement, string memory Link, bool Oppositable, string memory _str, uint256 _uint, address _addr) onlyOwner external {
         /*
             New announcement. Can be called  only by those in the admin list
             
@@ -229,7 +231,7 @@ contract publisher is announcementTypes, module, safeMath {
                 newArrayID = a;
             }
         }
-        var (_success, _balance) = moduleHandler(moduleHandlerAddress).balanceOf(msg.sender);
+        (bool _success, uint256 _balance) = moduleHandler(moduleHandlerAddress).balanceOf(msg.sender);
         require( _success );
         require( _balance > 0);
         if ( foundEmptyArrayID ) {
@@ -266,7 +268,7 @@ contract publisher is announcementTypes, module, safeMath {
             Inner function to check the ICO status.
             @bool       Is the ICO in proccess or not?
         */
-        var (_success, _isICO) = moduleHandler(moduleHandlerAddress).isICO();
+        (bool _success, bool _isICO) = moduleHandler(moduleHandlerAddress).isICO();
         require( _success );
         return _isICO;
     }

@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -19,14 +20,30 @@
 				<configuration>
 					<includes>
 						<include>**/AllTests.class</include>
-					</includes> 
+					</includes>
 					<useUIHarness>false</useUIHarness>
 					<useUIThread>false</useUIThread>
 					<testFailureIgnore>${testFailureIgnore}</testFailureIgnore>
 					<argLine>${test.vmargs}</argLine>
-					<!--workaround bug 532302: set EE to JavASE-11 to make sure we resolve Import-Package: javax.annoation against bundle javax.annotation 
-          				(as opposed to system package from bundle's BREE JavaSE-1.8) -->
-        			 <executionEnvironment>JavaSE-11</executionEnvironment> 
+					<!--workaround bug 532302: set EE to JavASE-11 to make sure we resolve 
+						Import-Package: javax.annoation against bundle javax.annotation (as opposed 
+						to system package from bundle's BREE JavaSE-1.8) -->
+					<executionEnvironment>JavaSE-11</executionEnvironment>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<configuration>
+					<dependency-resolution>
+						<extraRequirements>
+							<requirement>
+								<type>eclipse-feature</type>
+								<id>com.yakindu.solidity.solc.feature</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+						</extraRequirements>
+					</dependency-resolution>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -32,6 +32,7 @@ import com.yakindu.solidity.solidity.BreakStatement;
 import com.yakindu.solidity.solidity.BuildInModifier;
 import com.yakindu.solidity.solidity.CatchClause;
 import com.yakindu.solidity.solidity.ConstructorDefinition;
+import com.yakindu.solidity.solidity.ConstructorInvocation;
 import com.yakindu.solidity.solidity.ContinueStatement;
 import com.yakindu.solidity.solidity.ContractDefinition;
 import com.yakindu.solidity.solidity.ContractType;
@@ -61,6 +62,7 @@ import com.yakindu.solidity.solidity.ModifierInvocation;
 import com.yakindu.solidity.solidity.NamedArgument;
 import com.yakindu.solidity.solidity.NewInstanceExpression;
 import com.yakindu.solidity.solidity.NumericalUnaryExpression;
+import com.yakindu.solidity.solidity.OperationInvocation;
 import com.yakindu.solidity.solidity.Parameter;
 import com.yakindu.solidity.solidity.PlaceholderStatement;
 import com.yakindu.solidity.solidity.PragmaDirective;
@@ -905,7 +907,7 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
 	 * @generated
 	 */
 	@Override
-	public EReference getModifierInvocation_Reference() {
+	public EReference getModifierInvocation_Arguments() {
 		return (EReference)modifierInvocationEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -915,7 +917,7 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
 	 * @generated
 	 */
 	@Override
-	public EReference getModifierInvocation_Arguments() {
+	public EReference getModifierInvocation_Reference() {
 		return (EReference)modifierInvocationEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -2603,8 +2605,8 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
 		createEAttribute(buildInModifierEClass, BUILD_IN_MODIFIER__TYPE);
 
 		modifierInvocationEClass = createEClass(MODIFIER_INVOCATION);
-		createEReference(modifierInvocationEClass, MODIFIER_INVOCATION__REFERENCE);
 		createEReference(modifierInvocationEClass, MODIFIER_INVOCATION__ARGUMENTS);
+		createEReference(modifierInvocationEClass, MODIFIER_INVOCATION__REFERENCE);
 
 		statementEClass = createEClass(STATEMENT);
 
@@ -2949,8 +2951,8 @@ public class SolidityPackageImpl extends EPackageImpl implements SolidityPackage
 		initEAttribute(getBuildInModifier_Type(), this.getFunctionModifier(), "type", null, 0, 1, BuildInModifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modifierInvocationEClass, ModifierInvocation.class, "ModifierInvocation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getModifierInvocation_Reference(), theTypesPackage.getOperation(), null, "reference", null, 0, 1, ModifierInvocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModifierInvocation_Arguments(), theExpressionsPackage.getArgument(), null, "arguments", null, 0, -1, ModifierInvocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModifierInvocation_Reference(), ecorePackage.getEObject(), null, "reference", null, 0, 1, ModifierInvocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(statementEClass, Statement.class, "Statement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

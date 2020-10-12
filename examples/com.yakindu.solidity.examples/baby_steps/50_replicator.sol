@@ -1,10 +1,12 @@
 
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.6.10;
 contract ReplicatorB {
 
-    address creator;
+    address payable creator;
     uint blockCreatedOn;
 
-    function Replicator() 
+    function Replicator() public 
     {
         creator = msg.sender;
        // next = new ReplicatorA();    // Replicator B can't instantiate A because it doesn't yet know about A
@@ -13,7 +15,7 @@ contract ReplicatorB {
         blockCreatedOn = block.number;
     }
 	
-	function getBlockCreatedOn() constant returns (uint)
+	function getBlockCreatedOn() view public returns (uint)
 	{
 		return blockCreatedOn;
 	}
@@ -22,34 +24,34 @@ contract ReplicatorB {
      Standard kill() function to recover funds 
      **********/
     
-    function kill()
+    function kill() public
     { 
         if (msg.sender == creator)
         {
-            suicide(creator);  // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator);  // kills this contract and sends remaining funds back to creator
         }
     }
 }
 
 contract ReplicatorA {
 
-    address creator;
+    address payable creator;
 	address baddress;
 	uint blockCreatedOn;
 
-    function Replicator() 
+    function Replicator() public 
     {
         creator = msg.sender;
-        baddress = new ReplicatorB();		 // This works just fine because A already knows about B
+        baddress = address(new ReplicatorB());		 // This works just fine because A already knows about B
         blockCreatedOn = block.number;
     }
 
-	function getBAddress() constant returns (address)
+	function getBAddress() view public returns (address)
 	{
 		return baddress;
 	}
 	
-	function getBlockCreatedOn() constant returns (uint)
+	function getBlockCreatedOn() view public returns (uint)
 	{
 		return blockCreatedOn;
 	}
@@ -58,11 +60,11 @@ contract ReplicatorA {
      Standard kill() function to recover funds 
      **********/
     
-    function kill()
+    function kill() public
     { 
         if (msg.sender == creator)
         {
-            suicide(creator);  // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator);  // kills this contract and sends remaining funds back to creator
         }
     }
 }

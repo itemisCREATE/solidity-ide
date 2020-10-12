@@ -1,3 +1,4 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 
@@ -5,7 +6,7 @@ pragma solidity ^0.6.10;
  * @title Multisig
  * @dev Interface contract for multisig proxy contracts; see below for docs.
  */
-contract Multisig {
+abstract contract Multisig {
   // EVENTS
 
   // logged events:
@@ -22,7 +23,7 @@ contract Multisig {
   // FUNCTIONS
 
   // TODO: document
-  function changeOwner(address _from, address _to) external;
-  function execute(address _to, uint256 _value, bytes _data) external returns (bytes32);
-  function confirm(bytes32 _h) returns (bool);
+  function changeOwner(address _from, address _to) external virtual;
+  function execute(address _to, uint256 _value, bytes memory _data) external virtual returns (bytes32);
+  function confirm(bytes32 _h) public virtual returns (bool);
 }

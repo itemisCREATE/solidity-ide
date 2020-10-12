@@ -1,9 +1,13 @@
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity 0.6.10 ;
 
 contract A {
-    function doStuff(){ }
-    function makeCall(address addressB){
+    function doStuff() public { }
+    function makeCall() public {
         this.doStuff();
-        this.balance;
-        super.balance;
+        address(this).balance;
     }
 }
+
+
+

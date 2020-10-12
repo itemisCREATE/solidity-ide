@@ -4,6 +4,7 @@
 package com.yakindu.solidity.solidity.impl;
 
 import com.yakindu.solidity.solidity.ContractDefinition;
+import com.yakindu.solidity.solidity.SimpleTypeSpecifier;
 import com.yakindu.solidity.solidity.SolidityPackage;
 import com.yakindu.solidity.solidity.TypeSpecifier;
 import com.yakindu.solidity.solidity.UsingForDeclaration;

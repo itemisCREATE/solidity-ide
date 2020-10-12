@@ -116,7 +116,7 @@
 		<module>../../features/com.yakindu.solidity.solc.feature</module>
 	</modules>
 	<build>
-		<defaultGoal>clean verify -P!tests,Photon.target</defaultGoal>
+		<defaultGoal>clean verify -P!tests,2019-06.target</defaultGoal>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

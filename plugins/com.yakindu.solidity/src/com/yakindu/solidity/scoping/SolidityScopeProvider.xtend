@@ -41,6 +41,7 @@ import org.yakindu.base.types.typesystem.ITypeSystem
 import org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider
 import org.eclipse.xtext.naming.QualifiedName
 import com.yakindu.solidity.solidity.NamedArgument
+import com.yakindu.solidity.solidity.ConstructorDefinition
 
 /**
  * 
@@ -103,6 +104,16 @@ class SolidityScopeProvider extends ExpressionsScopeProvider {
 		}
 		Scopes.scopeFor(context.contract.allFeatures.filter(ModifierDefinition), outerScope)
 	}
+	
+	def scope_ModifierInvocation_reference(ConstructorDefinition context, EReference reference) {
+		var outerScope = IScope.NULLSCOPE;
+		val superContracts = context.contract.superTypes.map[type].filter(ContractDefinition)
+		val superConstructors = superContracts.filter[t |
+			!t.allFeatures.filter(ConstructorDefinition).empty
+		]
+		outerScope = Scopes.scopeFor(superConstructors)
+		Scopes.scopeFor(context.contract.allFeatures.filter(ModifierDefinition), outerScope)
+	}
 
 	def scope_ElementReferenceExpression_reference(EObject context, EReference reference) {
 		var outer = delegate.getScope(context, reference)
@@ -147,7 +158,7 @@ class SolidityScopeProvider extends ExpressionsScopeProvider {
 		val root = getContract(context);
 		if (root === null)
 			return newArrayList()
-		val List<ComplexType> contracts = newArrayList()
+		val List<ComplexType> contracts = newArrayList
 		root.getAllSuperTypes(contracts)
 		val elements = contracts.map[eAllContents.toList].flatten.filter(UsingForDeclaration).map[contract].map [
 			allFeatures

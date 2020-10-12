@@ -16,17 +16,15 @@
 //	}
 //}
 
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.6.10;
 contract Pong {
 
-    address creator;
+    address payable creator;
     int8 pongval;
     int8 pongval_tx_retrieval_attempted = 0;
-    
-	/*********
- 	 Step 1: Deploy Pong
- 	 *********/
-    function Pong(int8 _pongval) 
-    {
+
+	constructor (int8 _pongval) public {
         creator = msg.sender; 
         pongval = _pongval;
     }
@@ -45,17 +43,17 @@ contract Pong {
     /*********
 	 pongval getter/setter, just in case.
 	 *********/
-	function getPongvalConstant() public constant returns (int8)
+	function getPongvalConstant() public view returns (int8)
     {
     	return pongval;
     } 
 	 	
-	function setPongval(int8 _pongval)
+	function setPongval(int8 _pongval) public
 	{
 		pongval = _pongval;
 	}
 	
-	function getPongvalTxRetrievalAttempted() constant returns (int8)
+	function getPongvalTxRetrievalAttempted() view public returns (int8)
 	{
 		return pongval_tx_retrieval_attempted;
 	}
@@ -63,21 +61,24 @@ contract Pong {
 	/****
 	 For double-checking this contract's address
 	 ****/
-	function getAddress() constant returns (address)
+	function getAddress() view public returns (address)
 	{
-		return this;
+		return address(this);
 	}
 	
     /**********
      Standard kill() function to recover funds 
      **********/
     
-    function kill()
+    function kill() public
     { 
         if (msg.sender == creator)
-            suicide(creator);  // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator);  // kills this contract and sends remaining funds back to creator
     }
 }
+
+
+
 
 /*
  var _pongval = -22;

@@ -1,3 +1,4 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 import "./announcementTypes.sol";
@@ -7,31 +8,26 @@ import "./moduleHandler.sol";
 import "./tokenDB.sol";
 
 contract thirdPartyContractAbstract {
-    function receiveCorionToken(address, uint256, bytes) external returns (bool, uint256) {}
-    function approvedCorionToken(address, uint256, bytes) external returns (bool) {}
+    function receiveCorionToken(address, uint256, bytes memory) external returns (bool, uint256) {}
+    function approvedCorionToken(address, uint256, bytes memory) external returns (bool) {}
 }
 
 contract token is safeMath, module, announcementTypes {
     /*
         module callbacks
     */
-    function replaceModule(address addr) external returns (bool success) {
+    function replaceModule(address payable addr) external override returns (bool success) {
         require( super.isModuleHandler(msg.sender) );
         require( db.replaceOwner(addr) );
         super._replaceModule(addr);
         return true;
     }
     modifier isReady {
-        var (_success, _active) = super.isActive();
+        (bool _success, bool _active) = super.isActive();
         require( _success && _active ); 
         _;
     }
-    /**
-    *
-    * @title Corion Platform Token
-    * @author iFA @ Corion Platform
-    *
-    */
+
     string public name = "Corion";
     string public symbol = "COR";
     uint8 public decimals = 6;
@@ -48,7 +44,7 @@ contract token is safeMath, module, announcementTypes {
     
     mapping(address => bool) public genesis;
     
-    function token(bool forReplace, address moduleHandler, address dbAddr, address icoContractAddr, address exchangeContractAddress, address[] genesisAddr, uint256[] genesisValue) payable {
+    constructor (bool forReplace, address moduleHandlerParam, address dbAddr, address icoContractAddr, address exchangeContractAddress, address[] memory genesisAddr, uint256[] memory genesisValue) payable public {
         /*
             Installation function
             
@@ -62,22 +58,20 @@ contract token is safeMath, module, announcementTypes {
             @genesisAddr                Array of Genesis addresses
             @genesisValue               Array of balance of genesis addresses
         */
-        super.registerModuleHandler(moduleHandler);
-        require( dbAddr != 0x00 );
-        require( icoContractAddr != 0x00 );
-        require( exchangeContractAddress != 0x00 );
+        super.registerModuleHandler(moduleHandlerParam);
+        require( dbAddr.balance != 0x00 );
+        require( icoContractAddr.balance != 0x00 );
+        require( exchangeContractAddress.balance != 0x00 );
         db = tokenDB(dbAddr);
         icoAddr = icoContractAddr;
         exchangeAddress = exchangeContractAddress;
         isICO = ! forReplace;
         if ( ! forReplace ) {
-            require( db.replaceOwner(this) );
             assert( genesisAddr.length == genesisValue.length );
-            require( this.balance >= genesisAddr.length * 0.2 ether );
+            require( address(this).balance >= genesisAddr.length * 0.2 ether );
             for ( uint256 a=0 ; a<genesisAddr.length ; a++ ) {
                 genesis[genesisAddr[a]] = true;
                 require( db.increase(genesisAddr[a], genesisValue[a]) );
-                if ( ! genesisAddr[a].send(0.2 ether) ) {}
                 Mint(genesisAddr[a], genesisValue[a]);
             }
         }
@@ -99,7 +93,7 @@ contract token is safeMath, module, announcementTypes {
      * @param spender The address of the account able to transfer the tokens
      * @param amount The amount of tokens to be approved for transfer
      * @param nonce The transaction count of the authorised address
-     * @return True if the approval was successful
+     * @return success True if the approval was successful
      */
     function approve(address spender, uint256 amount, uint256 nonce) isReady external returns (bool success) {
         /*
@@ -121,9 +115,9 @@ contract token is safeMath, module, announcementTypes {
      * @param amount The amount of tokens to be approved for transfer
      * @param nonce The transaction count of the authorised address
      * @param extraData Data to give forward to the receiver
-     * @return True if the approval was successful
+     * @return success True if the approval was successful
      */
-    function approveAndCall(address spender, uint256 amount, uint256 nonce, bytes extraData) isReady external returns (bool success) {
+    function approveAndCall(address spender, uint256 amount, uint256 nonce, bytes memory extraData) isReady external returns (bool success) {
         /*
             Authorise another address to use a certain quantity of the authorising  owner’s balance
             Following the transaction the receiver address `approvedCorionToken` function is called by the given data
@@ -155,7 +149,7 @@ contract token is safeMath, module, announcementTypes {
         Approval(msg.sender, spender, amount);
     }
     
-    function allowance(address owner, address spender) constant returns (uint256 remaining, uint256 nonce) {
+    function allowance(address owner, address spender) view public returns (uint256 remaining, uint256 nonce) {
         /*
             Get the quantity of tokens given to be used
             
@@ -165,7 +159,7 @@ contract token is safeMath, module, announcementTypes {
             @remaining     Tokens to be spent
             @nonce         Transaction count
         */
-        var (_success, _remaining, _nonce) = db.getAllowance(owner, spender);
+        (bool _success, uint256 _remaining, uint256 _nonce) = db.getAllowance(owner, spender);
         require( _success );
         return (_remaining, _nonce);
     }
@@ -174,7 +168,7 @@ contract token is safeMath, module, announcementTypes {
      * @notice Send `amount` Corion tokens to `to` from `msg.sender`
      * @param to The address of the recipient
      * @param amount The amount of tokens to be transferred
-     * @return Whether the transfer was successful or not
+     * @return success Whether the transfer was successful or not
      */
     function transfer(address to, uint256 amount) isReady external returns (bool success) {
         /*
@@ -202,7 +196,7 @@ contract token is safeMath, module, announcementTypes {
      * @param from The address holding the tokens being transferred
      * @param to The address of the recipient
      * @param amount The amount of tokens to be transferred
-     * @return True if the transfer was successful
+     * @return success True if the transfer was successful
      */
     function transferFrom(address from, address to, uint256 amount) isReady external returns (bool success) {
         /*
@@ -217,11 +211,11 @@ contract token is safeMath, module, announcementTypes {
             @success    Was the Function successful?
         */
         if ( from != msg.sender ) {
-            var (_success, _reamining, _nonce) = db.getAllowance(from, msg.sender);
+            (bool _success, uint256 _remaining, uint256 _nonce) = db.getAllowance(from, msg.sender);
             require( _success );
-            _reamining = safeSub(_reamining, amount);
+            _remaining = safeSub(_remaining, amount);
             _nonce = safeAdd(_nonce, 1);
-            require( db.setAllowance(from, msg.sender, _reamining, _nonce) );
+            require( db.setAllowance(from, msg.sender, _remaining, _nonce) );
             AllowanceUsed(msg.sender, from, amount);
         }
         bytes memory _data;
@@ -239,7 +233,7 @@ contract token is safeMath, module, announcementTypes {
      * @param from The address holding the tokens being transferred
      * @param to The address of the recipient
      * @param amount The amount of tokens to be transferred
-     * @return True if the transfer was successful
+     * @return success True if the transfer was successful
      */
     function transferFromByModule(address from, address to, uint256 amount, bool fee) isReady external returns (bool success) {
         /*
@@ -265,9 +259,9 @@ contract token is safeMath, module, announcementTypes {
      * @param to The contract address of the recipient
      * @param amount The amount of tokens to be transferred
      * @param extraData Data to give forward to the receiver
-     * @return Whether the transfer was successful or not
+     * @return success Whether the transfer was successful or not
      */
-    function transfer(address to, uint256 amount, bytes extraData) isReady external returns (bool success) {
+    function transfer(address to, uint256 amount, bytes memory extraData) isReady external returns (bool success) {
         /*
             Start transaction to send a quantity from a given address to another address
             After transaction the function `receiveCorionToken`of the receiver is called  by the given data
@@ -288,7 +282,7 @@ contract token is safeMath, module, announcementTypes {
         return true;
     }
     
-    function _transferToContract(address from, address to, uint256 amount, bytes extraData) internal {
+    function _transferToContract(address from, address to, uint256 amount, bytes memory extraData) internal {
         /*
             Internal function to start transactions to a contract
             
@@ -298,7 +292,7 @@ contract token is safeMath, module, announcementTypes {
             @extraData      Extra data the receiver will get
         */
         _transfer(from, to, amount, exchangeAddress == to);
-        var (_success, _back) = thirdPartyContractAbstract(to).receiveCorionToken(from, amount, extraData);
+        (bool _success, uint256 _back) = thirdPartyContractAbstract(to).receiveCorionToken(from, amount, extraData);
         require( _success );
         require( amount > _back );
         if ( _back > 0 ) {
@@ -321,19 +315,14 @@ contract token is safeMath, module, announcementTypes {
             @fee        Deduct transaction fee - yes or no?
         */
         if( fee ) {
-            var (success, _fee) = getTransactionFee(amount);
+            (bool success, uint256 _fee) = getTransactionFee(amount);
             require( success );
             require( db.balanceOf(from) >= amount + _fee );
         }
-        require( from != 0x00 && to != 0x00 && to != 0xa636a97578d26a3b76b060bbc18226d954cf3757 );
         require( ( ! isICO) || genesis[from] );
         require( db.decrease(from, amount) );
         require( db.increase(to, amount) );
         if ( fee ) { _processTransactionFee(from, amount); }
-        if ( isICO ) {
-            require( ico(icoAddr).setInterestDB(from, db.balanceOf(from)) );
-            require( ico(icoAddr).setInterestDB(to, db.balanceOf(to)) );
-        }
         require( moduleHandler(moduleHandlerAddress).broadcastTransfer(from, to, amount) );
     }
     
@@ -341,7 +330,7 @@ contract token is safeMath, module, announcementTypes {
      * @notice Transaction fee will be deduced from `owner` for transacting `value`
      * @param owner The address where will the transaction fee deduced
      * @param value The base for calculating the fee
-     * @return True if the transfer was successful
+     * @return success True if the transfer was successful
      */
     function processTransactionFee(address owner, uint256 value) isReady external returns (bool success) {
         /*
@@ -366,7 +355,7 @@ contract token is safeMath, module, announcementTypes {
             @value      Quantity to calculate the fee
         */
         if ( isICO ) { return; }
-        var (_success, _fee) = getTransactionFee(value);
+       (bool _success, uint256 _fee) = getTransactionFee(value);
         require( _success );
         uint256 _forBurn = _fee * transactionFeeBurn / 100;
         uint256 _forSchelling = _fee - _forBurn;
@@ -374,7 +363,7 @@ contract token is safeMath, module, announcementTypes {
         address _schellingAddr;
         (_success, _found, _schellingAddr) = moduleHandler(moduleHandlerAddress).getModuleAddressByName('Schelling');
         require( _success );
-        if ( _schellingAddr != 0x00 && _found) {
+        if ( _schellingAddr.balance != 0x00 && _found) {
             require( db.decrease(owner, _forSchelling) );
             require( db.increase(_schellingAddr, _forSchelling) );
             _burn(owner, _forBurn);
@@ -386,7 +375,7 @@ contract token is safeMath, module, announcementTypes {
         }
     }
     
-    function getTransactionFee(uint256 value) public constant returns (bool success, uint256 fee) {
+    function getTransactionFee(uint256 value) public view returns (bool success, uint256 fee) {
         /*
             Transaction fee query.
             
@@ -424,10 +413,6 @@ contract token is safeMath, module, announcementTypes {
             @value     Quantity
         */
         require( db.increase(owner, value) );
-        require( moduleHandler(moduleHandlerAddress).broadcastTransfer(0x00, owner, value) );
-        if ( isICO ) {
-            require( ico(icoAddr).setInterestDB(owner, db.balanceOf(owner)) );
-        }
         Mint(owner, value);
     }
     
@@ -453,7 +438,7 @@ contract token is safeMath, module, announcementTypes {
             @value     Quantity
         */
         require( db.decrease(owner, value) );
-        require( moduleHandler(moduleHandlerAddress).broadcastTransfer(owner, 0x00, value) );
+        require( moduleHandler(moduleHandlerAddress).broadcastTransfer(owner, address(0x00), value) );
         Burn(owner, value);
     }
     
@@ -472,7 +457,7 @@ contract token is safeMath, module, announcementTypes {
         return _codeLength > 0;
     }
     
-    function balanceOf(address owner) constant returns (uint256 value) {
+    function balanceOf(address owner) view public returns (uint256 value) {
         /*
             Token balance query
             
@@ -483,7 +468,7 @@ contract token is safeMath, module, announcementTypes {
         return db.balanceOf(owner);
     }
     
-    function totalSupply() constant returns (uint256 value) {
+    function totalSupply() view public returns (uint256 value) {
         /*
             Total token quantity query
             

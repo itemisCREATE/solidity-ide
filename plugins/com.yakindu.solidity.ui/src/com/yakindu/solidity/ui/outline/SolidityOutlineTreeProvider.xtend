@@ -18,18 +18,16 @@ import com.yakindu.solidity.SolidityVersion
 import com.yakindu.solidity.solidity.ConstructorDefinition
 import com.yakindu.solidity.solidity.ContractDefinition
 import com.yakindu.solidity.solidity.ImportDirective
+import com.yakindu.solidity.solidity.PragmaDirective
 import com.yakindu.solidity.solidity.PragmaVersion
 import com.yakindu.solidity.solidity.SolidityModel
 import com.yakindu.solidity.solidity.SourceUnit
+import com.yakindu.solidity.solidity.UsingForDeclaration
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode
-import org.yakindu.base.types.Declaration
-import com.yakindu.solidity.solidity.PragmaDirective
-import org.eclipse.xtext.ui.editor.outline.IOutlineNode
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode
-import com.yakindu.solidity.solidity.UsingForDeclaration
-import org.yakindu.base.types.AnnotatableElement
+import org.yakindu.base.types.Declaration
 
 /**
  * @author Florian Antony - Initial contribution and API

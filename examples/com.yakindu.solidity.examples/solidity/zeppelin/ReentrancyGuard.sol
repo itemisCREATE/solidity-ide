@@ -1,3 +1,4 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 /**
@@ -8,27 +9,29 @@ pragma solidity ^0.6.10;
  */
 contract ReentrancyGuard {
 
-  /**
-   * @dev We use a single lock for the whole contract. 
-   */
-  bool private rentrancy_lock = false;
+    /**
+     * @dev We use a single lock for the whole contract. 
+     */
+    bool private rentrancy_lock = false;
 
-  /**
-   * @dev Prevents a contract from calling itself, directly or indirectly.
-   * @notice If you mark a function `nonReentrant`, you should also
-   * mark it `external`. Calling one nonReentrant function from
-   * another is not supported. Instead, you can implement a
-   * `private` function doing the actual work, and a `external`
-   * wrapper marked as `nonReentrant`.
-   */
-  modifier nonReentrant() {
-    if(rentrancy_lock == false) {
-      rentrancy_lock = true;
-      _;
-      rentrancy_lock = false;
-    } else {
-      throw;
+    /**
+     * @dev Prevents a contract from calling itself, directly or indirectly.
+     * @notice If you mark a function `nonReentrant`, you should also
+     * mark it `external`. Calling one nonReentrant function from
+     * another is not supported. Instead, you can implement a
+     * `private` function doing the actual work, and a `external`
+     * wrapper marked as `nonReentrant`.
+     */
+    modifier nonReentrant() {
+        if (rentrancy_lock == false) {
+            rentrancy_lock = true;
+            _;
+            rentrancy_lock = false;
+        } else {
+            revert ("Something bad happened") ;
+        }
     }
-  }
 
 }
+
+

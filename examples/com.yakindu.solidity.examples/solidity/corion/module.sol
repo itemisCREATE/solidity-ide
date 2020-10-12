@@ -1,8 +1,9 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 contract abstractModuleHandler {
     function transfer(address from, address to, uint256 value, bool fee) external returns (bool success) {}
-    function balanceOf(address owner) public constant returns (bool success, uint256 value) {}
+    function balanceOf(address owner) public view returns (bool success, uint256 value) {}
 }
 
 contract module {
@@ -36,7 +37,7 @@ contract module {
         else { disabledUntil = block.number + 5760; }
     }
     
-    function replaceModuleHandler(address newModuleHandlerAddress) external onlyForModuleHandler returns (bool success) {
+    function replaceModuleHandler(address newModuleHandlerAddress) external virtual onlyForModuleHandler returns (bool success) {
         _replaceModuleHandler(newModuleHandlerAddress);
         return true;
     }
@@ -51,7 +52,7 @@ contract module {
         moduleHandlerAddress = newModuleHandlerAddress;
     }
     
-    function connectModule() external onlyForModuleHandler returns (bool success) {
+    function connectModule() external virtual onlyForModuleHandler returns (bool success) {
         _connectModule();
         return true;
     }
@@ -77,11 +78,11 @@ contract module {
         moduleStatus = status.Disconnected;
     }
     
-    function replaceModule(address newModuleAddress) external onlyForModuleHandler returns (bool success) {
+    function replaceModule(address payable newModuleAddress) external onlyForModuleHandler returns (bool success) {
         _replaceModule(newModuleAddress);
         return true;
     }
-    function _replaceModule(address newModuleAddress) internal {
+    function _replaceModule(address payable newModuleAddress) internal {
         /*
             Replace the module for an another new module.
             This function calls the Publisher module.
@@ -90,21 +91,21 @@ contract module {
             @newModuleAddress   New module handler address
         */
         require( moduleStatus != status.New && moduleStatus != status.Disconnected);
-        var (_success, _balance) = abstractModuleHandler(moduleHandlerAddress).balanceOf(address(this));
+        (bool _success, uint256 _balance) = abstractModuleHandler(moduleHandlerAddress).balanceOf(address(this));
         require( _success );
         if ( _balance > 0 ) {
             require( abstractModuleHandler(moduleHandlerAddress).transfer(address(this), newModuleAddress, _balance, false) );
         }
-        if ( this.balance > 0 ) {
-            require( newModuleAddress.send(this.balance) );
+        if ( address(this).balance > 0 ) {
+            require( newModuleAddress.send(address(this).balance) );
         }
         moduleStatus = status.Disconnected;
     }
     
-    function transferEvent(address from, address to, uint256 value) external onlyForModuleHandler returns (bool success) {
+    function transferEvent() external onlyForModuleHandler view returns (bool success) {
         return true;
     }
-    function newSchellingRoundEvent(uint256 roundID, uint256 reward) external onlyForModuleHandler returns (bool success) {
+    function newSchellingRoundEvent() external onlyForModuleHandler view returns (bool success) {
         return true;
     }
     
@@ -114,7 +115,7 @@ contract module {
         */
         moduleHandlerAddress = _moduleHandlerAddress;
     }
-    function isModuleHandler(address addr) internal returns (bool ret) {
+    function isModuleHandler(address addr) internal view returns (bool ret) {
         /*
             Test for ModuleHandler address.
             If the module is not connected then returns always false.
@@ -123,11 +124,10 @@ contract module {
             
             @ret    This is the module handler address or not
         */
-        if ( moduleHandlerAddress == 0x00 ) { return true; }
         if ( moduleStatus != status.Connected ) { return false; }
         return addr == moduleHandlerAddress;
     }
-    function isActive() public constant returns (bool success, bool active) {
+    function isActive() public view returns (bool success, bool active) {
         /*
             Check self for ready for functions or not.
             

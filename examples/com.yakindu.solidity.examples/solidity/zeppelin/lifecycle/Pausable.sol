@@ -1,3 +1,4 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 
@@ -19,7 +20,7 @@ contract Pausable is Ownable {
    * @dev modifier to allow actions only when the contract IS paused
    */
   modifier whenNotPaused() {
-    if (paused) throw;
+    if (paused) revert("Something bad happened!");
     _;
   }
 
@@ -27,25 +28,25 @@ contract Pausable is Ownable {
    * @dev modifier to allow actions only when the contract IS NOT paused
    */
   modifier whenPaused {
-    if (!paused) throw;
+    if (!paused) revert("Something bad happened!");
     _;
   }
 
   /**
    * @dev called by the owner to pause, triggers stopped state
    */
-  function pause() onlyOwner whenNotPaused returns (bool) {
+  function pause() onlyOwner whenNotPaused public returns (bool) {
     paused = true;
-    Pause();
+    emit Pause();
     return true;
   }
 
   /**
    * @dev called by the owner to unpause, returns to normal state
    */
-  function unpause() onlyOwner whenPaused returns (bool) {
+  function unpause() onlyOwner whenPaused public returns (bool) {
     paused = false;
-    Unpause();
+    emit Unpause();
     return true;
   }
 }

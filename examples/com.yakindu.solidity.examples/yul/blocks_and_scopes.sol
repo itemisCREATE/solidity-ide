@@ -9,13 +9,13 @@ contract MyContract {
     }
 
     // TODO Add functions
-    function addition(uint x, uint y) public {
+    function addition(uint x, uint y) pure public {
         assembly {
 
-            let x := 3 // x is visible everywhere
+            let alpha := 3 // x is visible everywhere
             // Scope 1           
             {
-                let y := x // ok
+                let beta := x // ok
             } // y is "deallocated" here
             // Scope 2    
             {

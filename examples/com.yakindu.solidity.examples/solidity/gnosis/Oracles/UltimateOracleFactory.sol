@@ -1,3 +1,4 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 import "../Oracles/UltimateOracle.sol";
 
@@ -23,14 +24,6 @@ contract UltimateOracleFactory {
     /*
      *  Public functions
      */
-    /// @dev Creates a new ultimate Oracle contract
-    /// @param oracle Oracle address
-    /// @param collateralToken Collateral token address
-    /// @param spreadMultiplier Defines the spread as a multiple of the money bet on other outcomes
-    /// @param challengePeriod Time to challenge oracle outcome
-    /// @param challengeAmount Amount to challenge the outcome
-    /// @param frontRunnerPeriod Time to overbid the front-runner
-    /// @return Oracle contract
     function createUltimateOracle(
         Oracle oracle,
         Token collateralToken,

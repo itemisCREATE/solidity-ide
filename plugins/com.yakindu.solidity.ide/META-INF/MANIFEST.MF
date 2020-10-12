@@ -12,7 +12,7 @@ Require-Bundle: com.yakindu.solidity,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.lsp4j,
  org.eclipse.lsp4j.jsonrpc,
- org.antlr.runtime,
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
  com.google.gson,
  org.eclipse.emf.ecore.change,
  org.slf4j.api,
@@ -25,4 +25,3 @@ Export-Package: com.yakindu.solidity.ide.contentassist.antlr,
 Automatic-Module-Name: com.yakindu.solidity.ide
 Bundle-ClassPath: lib/Java-WebSocket-1.4.0.jar,
  .
-

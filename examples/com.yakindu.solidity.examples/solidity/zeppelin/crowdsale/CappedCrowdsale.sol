@@ -1,33 +1,28 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 import '../math/SafeMath.sol';
 import './Crowdsale.sol';
 
-/**
- * @title CappedCrowdsale
- * @dev Extension of Crowsdale with a max amount of funds raised
- */
-contract CappedCrowdsale is Crowdsale {
-  using SafeMath for uint256;
+abstract contract CappedCrowdsale is Crowdsale {
+    using SafeMath for uint256;
 
-  uint256 public cap;
+    uint256 public cap;
 
-  function CappedCrowdsale(uint256 _cap) {
-    cap = _cap;
-  }
+    constructor (uint256 _cap) public {
+        cap = _cap;
+    }
 
-  // overriding Crowdsale#validPurchase to add extra cap logic
-  // @return true if investors can buy at the moment
-  function validPurchase() internal constant returns (bool) {
-    bool withinCap = weiRaised.add(msg.value) <= cap;
-    return super.validPurchase() && withinCap;
-  }
+    function validPurchase() internal view override returns (bool) {
+        bool withinCap = weiRaised.add(msg.value) <= cap;
+        return super.validPurchase() && withinCap;
+    }
 
-  // overriding Crowdsale#hasEnded to add cap logic
-  // @return true if crowdsale event has ended
-  function hasEnded() public constant returns (bool) {
-    bool capReached = weiRaised >= cap;
-    return super.hasEnded() || capReached;
-  }
+    function hasEnded() public view override returns (bool) {
+        bool capReached = weiRaised >= cap;
+        return super.hasEnded() || capReached;
+    }
 
 }
+
+

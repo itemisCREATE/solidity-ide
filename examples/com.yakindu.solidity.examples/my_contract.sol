@@ -1,9 +1,10 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 contract MyContract {
-    address creator;
+    address payable creator;
 
-    function MyContract () {
+	constructor () public {
         creator = msg.sender;
     }
 
@@ -12,9 +13,12 @@ contract MyContract {
     /**********
      Standard kill() function to recover funds 
      **********/
-    function kill() {
+    function kill() public {
         if (msg.sender == creator) {
-            suicide(creator); // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator); // kills this contract and sends remaining funds back to creator
         }
     }
 }
+
+
+

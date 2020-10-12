@@ -9,19 +9,15 @@ contract MyContract {
     }
 
     // TODO Add functions
-    function switch_assembly(uint n, uint value) public pure returns (uint) {
+    function switch_assembly() public payable returns (uint) {
 
         assembly {
             let x := 0
-            switch
-            calldataload(4)
-            case
-            0
-            {
+            switch calldataload(4)
+            case 0 {
                 x := calldataload(0x24)
             }
-            default
-            {
+            default {
                 x := calldataload(0x44)
             }
             sstore(0, div(x, 2))

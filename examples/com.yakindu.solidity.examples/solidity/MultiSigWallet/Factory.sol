@@ -1,3 +1,5 @@
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.6.10;
 contract Factory {
 
     event ContractInstantiation(address sender, address instantiation);
@@ -9,8 +11,7 @@ contract Factory {
     /// @param creator Contract creator.
     /// @return Returns number of instantiations by creator.
     function getInstantiationCount(address creator)
-        public
-        constant
+        public view
         returns (uint)
     {
         return instantiations[creator].length;
@@ -23,6 +24,6 @@ contract Factory {
     {
         isInstantiation[instantiation] = true;
         instantiations[msg.sender].push(instantiation);
-        ContractInstantiation(msg.sender, instantiation);
+        emit ContractInstantiation(msg.sender, instantiation);
     }
 }

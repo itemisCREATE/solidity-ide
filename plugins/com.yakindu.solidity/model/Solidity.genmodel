@@ -87,8 +87,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Solidity.ecore#//BuildInModifier/type"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//ModifierInvocation">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Solidity.ecore#//ModifierInvocation/reference"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Solidity.ecore#//ModifierInvocation/arguments"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Solidity.ecore#//ModifierInvocation/reference"/>
     </genClasses>
     <genClasses ecoreClass="Solidity.ecore#//Statement"/>
     <genClasses ecoreClass="Solidity.ecore#//ThrowStatement"/>

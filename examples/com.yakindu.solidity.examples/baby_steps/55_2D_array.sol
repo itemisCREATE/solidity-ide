@@ -1,11 +1,12 @@
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.6.10;
 contract TwoD {
 
-    address creator;
+    address payable creator;
     uint8 arraylength = 10;
-    uint8[10][10] integers; // compiler says this line can't yet know about arraylength variable in the line above
+    uint8[10][10] integers;
 
-    function TwoD() 
-    {
+	constructor () public {
         creator = msg.sender;
         uint8 x = 0;
         uint8 y = 0;
@@ -21,7 +22,7 @@ contract TwoD {
         }
     }
     
-    function getValue(uint8 x, uint8 y) constant returns (uint8)
+    function getValue(uint8 x, uint8 y) view public returns (uint8)
     {
     	return integers[x][y];
     }
@@ -30,11 +31,13 @@ contract TwoD {
      Standard kill() function to recover funds 
      **********/
     
-    function kill()
+    function kill() public
     { 
         if (msg.sender == creator)
         {
-            suicide(creator);  // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator);  // kills this contract and sends remaining funds back to creator
         }
     }
 }
+
+

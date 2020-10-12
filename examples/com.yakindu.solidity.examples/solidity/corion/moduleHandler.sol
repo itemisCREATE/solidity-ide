@@ -1,3 +1,4 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 import "./module.sol";
@@ -16,13 +17,13 @@ contract abstractModule {
     function disconnectModule() external returns (bool success) {}
     function replaceModule(address addr) external returns (bool success) {}
     function disableModule(bool forever) external returns (bool success) {}
-    function isActive() public constant returns (bool success) {}
+    function isActive() public view returns (bool success) {}
     function replaceModuleHandler(address newHandler) external returns (bool success) {}
     function transferEvent(address from, address to, uint256 value) external returns (bool success) {}
     function newSchellingRoundEvent(uint256 roundID, uint256 reward) external returns (bool success) {}
 }
 
-contract moduleHandler is multiOwner, announcementTypes {
+abstract contract moduleHandler is multiOwner, announcementTypes {
     
     struct modules_s {
         address addr;
@@ -34,10 +35,12 @@ contract moduleHandler is multiOwner, announcementTypes {
     modules_s[] public modules;
     address public foundationAddress;
     uint256 debugModeUntil = block.number + 1000000;
+
+	constructor (address[] memory newOwnersParam) public {
+        new multiOwner(newOwnersParam);
+    }
     
-    function moduleHandler(address[] newOwners) multiOwner(newOwners) {}
-    
-    function load(address foundation, bool forReplace, address Token, address Premium, address Publisher, address Schelling, address Provider) {
+    function load(address foundation, bool forReplace, address Token, address Premium, address Publisher, address Schelling, address Provider) public {
         /*
             Loading modulest to ModuleHandler.
             
@@ -54,13 +57,14 @@ contract moduleHandler is multiOwner, announcementTypes {
         require( owners[msg.sender] );
         require( modules.length == 0 );
         foundationAddress = foundation;
-        addModule( modules_s(Token,      sha3('Token'),      false, false),  ! forReplace);
-        addModule( modules_s(Premium,    sha3('Premium'),    false, false),  ! forReplace);
-        addModule( modules_s(Publisher,  sha3('Publisher'),  false, true),   ! forReplace);
-        addModule( modules_s(Schelling,  sha3('Schelling'),  false, true),   ! forReplace);
-        addModule( modules_s(Provider,   sha3('Provider'),   true, true),    ! forReplace);
+        addModule( modules_s(Token,      keccak256('Token'),      false, false),  ! forReplace);
+        addModule( modules_s(Premium,    keccak256('Premium'),    false, false),  ! forReplace);
+        addModule( modules_s(Publisher,  keccak256('Publisher'),  false, true),   ! forReplace);
+        addModule( modules_s(Schelling,  keccak256('Schelling'),  false, true),   ! forReplace);
+        addModule( modules_s(Provider,   keccak256('Provider'),   true, true),    ! forReplace);
     }
-    function addModule(modules_s input, bool call) internal {
+    
+    function addModule(modules_s memory input, bool call) internal {
         /*
             Inside function for registration of the modules in the database.
             If the call is false, wont happen any direct call.
@@ -69,19 +73,18 @@ contract moduleHandler is multiOwner, announcementTypes {
             @call   Is connect to the module or not.
         */
         if ( call ) { require( abstractModule(input.addr).connectModule() ); }
-        var (success, found, id) = getModuleIDByAddress(input.addr);
+        (bool success, bool found, uint256 id) = getModuleIDByAddress(input.addr);
         require( success && ! found );
         (success, found, id) = getModuleIDByHash(input.name);
         require( success && ! found );
-        (success, found, id) = getModuleIDByAddress(0x00);
         require( success );
         if ( ! found ) {
             id = modules.length;
-            modules.length++;
         }
         modules[id] = input;
     }
-    function getModuleAddressByName(string name) public constant returns( bool success, bool found, address addr ) {
+    
+    function getModuleAddressByName(string memory name) public view returns( bool success, bool found, address addr ) {
         /*
             Search by name for module. The result is an Ethereum address.
             
@@ -90,11 +93,12 @@ contract moduleHandler is multiOwner, announcementTypes {
             @found      Is there any result.
             @success    Was the transaction succesfull or not.
         */
-        var (_success, _found, _id) = getModuleIDByName(name);
+        (bool _success, bool _found, uint256 _id) = getModuleIDByName(name);
         if ( _success && _found ) { return (true, true, modules[_id].addr); }
-        return (true, false, 0x00);
+        return (true, false, address(0x00));
     }
-    function getModuleIDByHash(bytes32 hashOfName) public constant returns( bool success, bool found, uint256 id ) {
+    
+    function getModuleIDByHash(bytes32 hashOfName) public view returns( bool success, bool found, uint256 id ) {
         /*
             Search by hash of name in the module array. The result is an index array.
             
@@ -109,7 +113,8 @@ contract moduleHandler is multiOwner, announcementTypes {
         }
         return (true, false, 0);
     }
-    function getModuleIDByName(string name) public constant returns( bool success, bool found, uint256 id ) {
+    
+    function getModuleIDByName(string memory name) public view returns( bool success, bool found, uint256 id ) {
         /*
             Search by name for module. The result is an index array.
             
@@ -117,7 +122,7 @@ contract moduleHandler is multiOwner, announcementTypes {
             @id         Index of module.
             @found      Was there any result or not.
         */
-        bytes32 _name = sha3(name);
+        bytes32 _name = keccak256(abi.encodePacked(name));
         for ( uint256 a=0 ; a<modules.length ; a++ ) {
             if ( modules[a].name == _name ) {
                 return (true, true, a);
@@ -125,7 +130,8 @@ contract moduleHandler is multiOwner, announcementTypes {
         }
         return (true, false, 0);
     }
-    function getModuleIDByAddress(address addr) public constant returns( bool success, bool found, uint256 id ) {
+    
+    function getModuleIDByAddress(address addr) public view returns( bool success, bool found, uint256 id ) {
         /*
             Search by ethereum address for module. The result is an index array.
             
@@ -140,7 +146,8 @@ contract moduleHandler is multiOwner, announcementTypes {
         }
         return (true, false, 0);
     }
-    function replaceModule(string name, address addr, bool callCallback) external returns (bool success) {
+    
+    function replaceModule(string memory name, address addr, bool callCallback) external returns (bool success) {
         /*
             Module replace, can be called only by the Publisher contract.
             
@@ -149,11 +156,11 @@ contract moduleHandler is multiOwner, announcementTypes {
             @bool           Was there any result or not.
             @callCallback   Call the replaceable module to confirm replacement or not.
         */
-        var (_success, _found, _id) = getModuleIDByAddress(msg.sender);
+        (bool _success, bool _found, uint256 _id) = getModuleIDByAddress(msg.sender);
         require( _success );
-        if ( ! ( _found && modules[_id].name == sha3('Publisher') )) {
+        if ( ! ( _found && modules[_id].name == keccak256('Publisher') )) {
             require( block.number < debugModeUntil );
-            if ( ! insertAndCheckDo(calcDoHash("replaceModule", sha3(name, addr, callCallback))) ) {
+            if ( ! insertAndCheckDo(calcDoHash("replaceModule", keccak256(abi.encodePacked(name, addr, callCallback)))) ) {
                 return true;
             }
         }
@@ -167,18 +174,18 @@ contract moduleHandler is multiOwner, announcementTypes {
         return true;
     }
     
-    function callReplaceCallback(string moduleName, address newModule) external returns (bool success) {
+    function callReplaceCallback(string memory moduleName, address newModule) external returns (bool success) {
         require( block.number < debugModeUntil );
-        if ( ! insertAndCheckDo(calcDoHash("callReplaceCallback", sha3(moduleName, newModule))) ) {
+        if ( ! insertAndCheckDo(calcDoHash("callReplaceCallback", keccak256(abi.encodePacked(moduleName, newModule)))) ) {
             return true;
         }
-        var (_success, _found, _id) = getModuleIDByName(moduleName);
+        (bool _success, bool _found, uint256 _id) = getModuleIDByName(moduleName);
         require( _success);
         require( abstractModule(modules[_id].addr).replaceModule(newModule) );
         return true;
     }
     
-    function newModule(string name, address addr, bool schellingEvent, bool transferEvent) external returns (bool success) {
+    function newModule(string memory name, address addr, bool schellingEvent, bool transferEvent) external returns (bool success) {
         /*
             Adding new module to the database. Can be called only by the Publisher contract.
             
@@ -188,18 +195,19 @@ contract moduleHandler is multiOwner, announcementTypes {
             @transferEvent      Gets it new transaction notification?
             @bool               Was there any result or not.
         */
-        var (_success, _found, _id) = getModuleIDByAddress(msg.sender);
+        (bool _success, bool _found, uint256 _id) = getModuleIDByAddress(msg.sender);
         require( _success );
-        if ( ! ( _found && modules[_id].name == sha3('Publisher') )) {
+        if ( ! ( _found && modules[_id].name == keccak256('Publisher') )) {
             require( block.number < debugModeUntil );
-            if ( ! insertAndCheckDo(calcDoHash("newModule", sha3(name, addr, schellingEvent, transferEvent))) ) {
+            if ( ! insertAndCheckDo(calcDoHash("newModule", keccak256(abi.encodePacked(name, addr, schellingEvent, transferEvent)))) ) {
                 return true;
             }
         }
-        addModule( modules_s(addr, sha3(name), schellingEvent, transferEvent), true);
+        addModule( modules_s(addr, keccak256(abi.encodePacked(name)), schellingEvent, transferEvent), true);
         return true;
     }
-    function dropModule(string name, bool callCallback) external returns (bool success) {
+    
+    function dropModule(string memory name, bool callCallback) external returns (bool success) {
         /*
             Deleting module from the database. Can be called only by the Publisher contract.
             
@@ -207,11 +215,11 @@ contract moduleHandler is multiOwner, announcementTypes {
             @bool           Was the function successfull?
             @callCallback   Call the replaceable module to confirm replacement or not.
         */
-        var (_success, _found, _id) = getModuleIDByAddress(msg.sender);
+        (bool _success, bool _found, uint256 _id) = getModuleIDByAddress(msg.sender);
         require( _success );
-        if ( ! ( _found && modules[_id].name == sha3('Publisher') )) {
+        if ( ! ( _found && modules[_id].name == keccak256('Publisher') )) {
             require( block.number < debugModeUntil );
-            if ( ! insertAndCheckDo(calcDoHash("replaceModule", sha3(name, callCallback))) ) {
+            if ( ! insertAndCheckDo(calcDoHash("replaceModule", keccak256(abi.encodePacked(name, callCallback)))) ) {
                 return true;
             }
         }
@@ -224,12 +232,12 @@ contract moduleHandler is multiOwner, announcementTypes {
         return true;
     }
     
-    function callDisableCallback(string moduleName) external returns (bool success) {
+    function callDisableCallback(string memory moduleName) external returns (bool success) {
         require( block.number < debugModeUntil );
-        if ( ! insertAndCheckDo(calcDoHash("callDisableCallback", sha3(moduleName))) ) {
+        if ( ! insertAndCheckDo(calcDoHash("callDisableCallback", keccak256(abi.encodePacked(moduleName)))) ) {
             return true;
         }
-        var (_success, _found, _id) = getModuleIDByName(moduleName);
+        (bool _success, bool _found, uint256 _id) = getModuleIDByName(moduleName);
         require( _success);
         require( abstractModule(modules[_id].addr).disableModule(true) );
         return true;
@@ -247,8 +255,8 @@ contract moduleHandler is multiOwner, announcementTypes {
             @value      amount.
             @bool       Was the function successfull?
         */
-        var (_success, _found, _id) = getModuleIDByAddress(msg.sender);
-        require( _success && _found && modules[_id].name == sha3('Token') );
+        (bool _success, bool _found, uint256 _id) = getModuleIDByAddress(msg.sender);
+        require( _success && _found && modules[_id].name == keccak256('Token') );
         for ( uint256 a=0 ; a<modules.length ; a++ ) {
             if ( modules[a].transferEvent && abstractModule(modules[a].addr).isActive() ) {
                 require( abstractModule(modules[a].addr).transferEvent(from, to, value) );
@@ -256,6 +264,7 @@ contract moduleHandler is multiOwner, announcementTypes {
         }
         return true;
     }
+    
     function broadcastSchellingRound(uint256 roundID, uint256 reward) external returns (bool success) {
         /*
             Announcing new Schelling round for the modules.
@@ -266,8 +275,8 @@ contract moduleHandler is multiOwner, announcementTypes {
             @reward         Coin emission in this Schelling round.
             @bool           Was the function successfull?
         */
-        var (_success, _found, _id) = getModuleIDByAddress(msg.sender);
-        require( _success && _found && modules[_id].name == sha3('Schelling') );
+        (bool _success, bool _found, uint256 _id) = getModuleIDByAddress(msg.sender);
+        require( _success && _found && modules[_id].name == keccak256('Schelling') );
         for ( uint256 a=0 ; a<modules.length ; a++ ) {
             if ( modules[a].schellingEvent && abstractModule(modules[a].addr).isActive() ) {
                 require( abstractModule(modules[a].addr).newSchellingRoundEvent(roundID, reward) );
@@ -275,6 +284,7 @@ contract moduleHandler is multiOwner, announcementTypes {
         }
         return true;
     }
+    
     function replaceModuleHandler(address newHandler) external returns (bool success) {
         /*
             Replacing ModuleHandler.
@@ -285,11 +295,11 @@ contract moduleHandler is multiOwner, announcementTypes {
             @newHandler     Address of the new ModuleHandler.
             @bool           Was the function successfull?
         */
-        var (_success, _found, _id) = getModuleIDByAddress(msg.sender);
+        (bool _success, bool _found, uint256 _id) = getModuleIDByAddress(msg.sender);
         require( _success );
-        if ( ! ( _found && modules[_id].name == sha3('Publisher') )) {
+        if ( ! ( _found && modules[_id].name == keccak256('Publisher') )) {
             require( block.number < debugModeUntil );
-            if ( ! insertAndCheckDo(calcDoHash("replaceModuleHandler", sha3(newHandler))) ) {
+            if ( ! insertAndCheckDo(calcDoHash("replaceModuleHandler", keccak256(abi.encodePacked(newHandler)))) ) {
                 return true;
             }
         }
@@ -298,7 +308,8 @@ contract moduleHandler is multiOwner, announcementTypes {
         }
         return true;
     }
-    function balanceOf(address owner) public constant returns (bool success, uint256 value) {
+    
+    function balanceOf(address owner) public view returns (bool success, uint256 value) {
         /*
             Query of token balance.
             
@@ -306,43 +317,47 @@ contract moduleHandler is multiOwner, announcementTypes {
             @value      balance.
             @success    was the function successfull?
         */
-        var (_success, _found, _id) = getModuleIDByName('Token');
+        (bool _success, bool _found, uint256 _id) = getModuleIDByName('Token');
         require( _success && _found );
         return (true, token(modules[_id].addr).balanceOf(owner));
     }
-    function totalSupply() public constant returns (bool success, uint256 value) {
+    
+    function totalSupply() public view returns (bool success, uint256 value) {
         /*
             Query of the whole token amount.
             
             @value      amount.
             @success    was the function successfull?
         */
-        var (_success, _found, _id) = getModuleIDByName('Token');
+        (bool _success, bool _found, uint256 _id) = getModuleIDByName('Token');
         require( _success && _found );
         return (true, token(modules[_id].addr).totalSupply());
     }
-    function isICO() public constant returns (bool success, bool ico) {
+    
+    function isICO() public view returns (bool success, bool ico) {
         /*
             Query of ICO state
             
             @ico        Is ICO in progress?.
             @success    was the function successfull?
         */
-        var (_success, _found, _id) = getModuleIDByName('Token');
+        (bool _success, bool _found, uint256 _id) = getModuleIDByName('Token');
         require( _success && _found );
         return (true, token(modules[_id].addr).isICO());
     }
-    function getCurrentSchellingRoundID() public constant returns (bool success, uint256 round) {
+    
+    function getCurrentSchellingRoundID() public view returns (bool success, uint256 round) {
         /*
             Query of number of the actual Schelling round.
             
             @round      Schelling round.
             @success    was the function successfull?
         */
-        var (_success, _found, _id) = getModuleIDByName('Schelling');
+        (bool _success, bool _found, uint256 _id) = getModuleIDByName('Schelling');
         require( _success && _found );
         return (true, schelling(modules[_id].addr).getCurrentSchellingRoundID());
     }
+    
     function mint(address to, uint256 value) external returns (bool success) {
         /*
             Token emission request. Can be called only by the provider.
@@ -352,13 +367,14 @@ contract moduleHandler is multiOwner, announcementTypes {
             
             @success    Was the function successfull?
         */
-        var (_success, _found, _id) = getModuleIDByAddress(msg.sender);
-        require( _success && _found && modules[_id].name == sha3('Provider') );
+        (bool _success, bool _found, uint256 _id) = getModuleIDByAddress(msg.sender);
+        require( _success && _found && modules[_id].name == keccak256('Provider') );
         (_success, _found, _id) = getModuleIDByName('Token');
         require( _success && _found );
         require( token(modules[_id].addr).mint(to, value) );
         return true;
     }
+    
     function transfer(address from, address to, uint256 value, bool fee) external returns (bool success) {
         /*
             Token transaction request. Can be called only by a module.
@@ -369,13 +385,14 @@ contract moduleHandler is multiOwner, announcementTypes {
             @fee        Transaction fee will be charged or not?
             @success    Was the function successfull?
         */
-        var (_success, _found, _id) = getModuleIDByAddress(msg.sender);
+        (bool _success, bool _found, uint256 _id) = getModuleIDByAddress(msg.sender);
         require( _success && _found );
         (_success, _found, _id) = getModuleIDByName('Token');
         require( _success && _found );
         require( token(modules[_id].addr).transferFromByModule(from, to, value, fee) );
         return true;
     }
+    
     function processTransactionFee(address from, uint256 value) external returns (bool success) {
         /*
             Token transaction fee. Can be called only by the provider.
@@ -384,13 +401,14 @@ contract moduleHandler is multiOwner, announcementTypes {
             @value      Token amount.
             @success    Was the function successfull?
         */
-        var (_success, _found, _id) = getModuleIDByAddress(msg.sender);
-        require( _success && _found && modules[_id].name == sha3('Provider') );
+        (bool _success, bool _found, uint256 _id) = getModuleIDByAddress(msg.sender);
+        require( _success && _found && modules[_id].name == keccak256('Provider') );
         (_success, _found, _id) = getModuleIDByName('Token');
         require( _success && _found );
         require( token(modules[_id].addr).processTransactionFee(from, value) );
         return true;
     }
+    
     function burn(address from, uint256 value) external returns (bool success) {
         /*
             Token burn. Can be called only by Schelling.
@@ -399,14 +417,15 @@ contract moduleHandler is multiOwner, announcementTypes {
             @value      Token amount.
             @success    Was the function successfull?
         */
-        var (_success, _found, _id) = getModuleIDByAddress(msg.sender);
-        require( _success && _found && modules[_id].name == sha3('Schelling') );
+        (bool _success, bool _found, uint256 _id) = getModuleIDByAddress(msg.sender);
+        require( _success && _found && modules[_id].name == keccak256('Schelling') );
         (_success, _found, _id) = getModuleIDByName('Token');
         require( _success && _found );
         require( token(modules[_id].addr).burn(from, value) );
         return true;
     }
-    function configureModule(string moduleName, announcementType aType, uint256 value) external returns (bool success) {
+    
+    function configureModule(string memory moduleName, announcementType aType, uint256 value) external returns (bool success) {
         /*
             Changing configuration of a module. Can be called only by Publisher or while debug mode by owners.
             
@@ -415,11 +434,11 @@ contract moduleHandler is multiOwner, announcementTypes {
             @value      New value
             @success    Was the function successfull?
         */
-        var (_success, _found, _id) = getModuleIDByAddress(msg.sender);
+        (bool _success, bool _found, uint256 _id) = getModuleIDByAddress(msg.sender);
         require( _success );
-        if ( ! ( _found && modules[_id].name == sha3('Publisher') )) {
+        if ( ! ( _found && modules[_id].name == keccak256('Publisher') )) {
             require( block.number < debugModeUntil );
-            if ( ! insertAndCheckDo(calcDoHash("configureModule", sha3(moduleName, aType, value))) ) {
+            if ( ! insertAndCheckDo(calcDoHash("configureModule", keccak256(abi.encodePacked(moduleName, aType, value)))) ) {
                 return true;
             }
         }
@@ -428,6 +447,7 @@ contract moduleHandler is multiOwner, announcementTypes {
         require( schelling(modules[_id].addr).configure(aType, value) );
         return true;
     }
+    
     function freezing(bool forever) external {
         /*
             Freezing CORION Platform. Can be called only by the owner.
@@ -437,7 +457,7 @@ contract moduleHandler is multiOwner, announcementTypes {
         */
         require( owners[msg.sender] );
         if ( forever ) {
-            if ( ! insertAndCheckDo(calcDoHash("freezing", sha3(forever))) ) {
+            if ( ! insertAndCheckDo(calcDoHash("freezing", keccak256(abi.encodePacked(forever)))) ) {
                 return;
             }            
         }
@@ -446,3 +466,6 @@ contract moduleHandler is multiOwner, announcementTypes {
         }
     }
 }
+
+
+

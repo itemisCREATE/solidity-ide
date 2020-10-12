@@ -1,23 +1,21 @@
-// This contract demonstrates a simple non-constant (transactional) function you can call from geth.
-// increment() takes no parameters and merely increments the "iteration" value. 
-
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity 0.6.10 ;
 contract Incrementer {
 
-    address creator;
+    address payable creator;
     uint iteration;
 
-    function Incrementer() public 
-    {
+	constructor () public {
         creator = msg.sender; 
         iteration = 0;
     }
 
-    function increment() 
+    function increment() public 
     {
         iteration = iteration + 1;
     }
     
-    function getIteration() constant returns (uint) 
+    function getIteration() view public returns (uint) 
     {
         return iteration;
     }
@@ -26,10 +24,15 @@ contract Incrementer {
      Standard kill() function to recover funds 
     **********/
     
-    function kill() 
+    function kill() public 
     { 
         if (msg.sender == creator)
-            suicide(creator);  // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator);  // kills this contract and sends remaining funds back to creator
     }
     
 }
+
+
+
+
+

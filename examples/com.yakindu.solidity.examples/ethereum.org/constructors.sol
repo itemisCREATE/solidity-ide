@@ -1,11 +1,20 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 contract Base {
     uint x;
-    function Base(uint _x) { x = _x; }
+
+	constructor (uint _x) public { x = _x; }
 }
 
+
+
+
 contract Derived is Base(7) {
-    function Derived(uint _y) Base(_y * _y) {
+
+	constructor (uint _y) public {
+        Base(_y * _y);
     }
 }
+
+

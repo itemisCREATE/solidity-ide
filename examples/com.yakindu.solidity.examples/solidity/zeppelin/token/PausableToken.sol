@@ -1,21 +1,16 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 import './StandardToken.sol';
 import '../lifecycle/Pausable.sol';
 
-/**
- * Pausable token
- *
- * Simple ERC20 Token example, with pausable token creation
- **/
-
 contract PausableToken is StandardToken, Pausable {
 
-  function transfer(address _to, uint _value) whenNotPaused {
+  function transfer(address _to, uint _value) whenNotPaused public override {
     super.transfer(_to, _value);
   }
 
-  function transferFrom(address _from, address _to, uint _value) whenNotPaused {
+  function transferFrom(address _from, address _to, uint _value) whenNotPaused public override {
     super.transferFrom(_from, _to, _value);
   }
 }

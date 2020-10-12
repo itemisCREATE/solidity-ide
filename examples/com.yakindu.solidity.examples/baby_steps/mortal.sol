@@ -1,7 +1,12 @@
-import "owned";
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.6.10;
+import "./owned.sol";
 
 contract mortal is owned {
-  function kill() {
-    if (msg.sender == owner) suicide(owner); 
-  } 
+
+    function kill() public {
+        if (msg.sender == owner) selfdestruct(owner);
+    }
 }
+
+

@@ -3,6 +3,7 @@
  */
 package com.yakindu.solidity.solidity.impl;
 
+import com.yakindu.solidity.solidity.ContractDefinition;
 import com.yakindu.solidity.solidity.ModifierInvocation;
 import com.yakindu.solidity.solidity.SolidityPackage;
 
@@ -14,6 +15,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -33,23 +35,13 @@ import org.yakindu.base.types.Operation;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.yakindu.solidity.solidity.impl.ModifierInvocationImpl#getReference <em>Reference</em>}</li>
  *   <li>{@link com.yakindu.solidity.solidity.impl.ModifierInvocationImpl#getArguments <em>Arguments</em>}</li>
+ *   <li>{@link com.yakindu.solidity.solidity.impl.ModifierInvocationImpl#getReference <em>Reference</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ModifierInvocationImpl extends ModifierImpl implements ModifierInvocation {
-	/**
-	 * The cached value of the '{@link #getReference() <em>Reference</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getReference()
-	 * @generated
-	 * @ordered
-	 */
-	protected Operation reference;
-
 	/**
 	 * The cached value of the '{@link #getArguments() <em>Arguments</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -59,6 +51,16 @@ public class ModifierInvocationImpl extends ModifierImpl implements ModifierInvo
 	 * @ordered
 	 */
 	protected EList<Argument> arguments;
+
+	/**
+	 * The cached value of the '{@link #getReference() <em>Reference</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getReference()
+	 * @generated
+	 * @ordered
+	 */
+	protected EObject reference;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -85,10 +87,23 @@ public class ModifierInvocationImpl extends ModifierImpl implements ModifierInvo
 	 * @generated
 	 */
 	@Override
-	public Operation getReference() {
+	public EList<Argument> getArguments() {
+		if (arguments == null) {
+			arguments = new EObjectContainmentEList<Argument>(Argument.class, this, SolidityPackage.MODIFIER_INVOCATION__ARGUMENTS);
+		}
+		return arguments;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EObject getReference() {
 		if (reference != null && reference.eIsProxy()) {
 			InternalEObject oldReference = (InternalEObject)reference;
-			reference = (Operation)eResolveProxy(oldReference);
+			reference = eResolveProxy(oldReference);
 			if (reference != oldReference) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SolidityPackage.MODIFIER_INVOCATION__REFERENCE, oldReference, reference));
@@ -102,7 +117,7 @@ public class ModifierInvocationImpl extends ModifierImpl implements ModifierInvo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Operation basicGetReference() {
+	public EObject basicGetReference() {
 		return reference;
 	}
 
@@ -112,24 +127,11 @@ public class ModifierInvocationImpl extends ModifierImpl implements ModifierInvo
 	 * @generated
 	 */
 	@Override
-	public void setReference(Operation newReference) {
-		Operation oldReference = reference;
+	public void setReference(EObject newReference) {
+		EObject oldReference = reference;
 		reference = newReference;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, SolidityPackage.MODIFIER_INVOCATION__REFERENCE, oldReference, reference));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EList<Argument> getArguments() {
-		if (arguments == null) {
-			arguments = new EObjectContainmentEList<Argument>(Argument.class, this, SolidityPackage.MODIFIER_INVOCATION__ARGUMENTS);
-		}
-		return arguments;
 	}
 
 	/**
@@ -154,11 +156,11 @@ public class ModifierInvocationImpl extends ModifierImpl implements ModifierInvo
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case SolidityPackage.MODIFIER_INVOCATION__ARGUMENTS:
+				return getArguments();
 			case SolidityPackage.MODIFIER_INVOCATION__REFERENCE:
 				if (resolve) return getReference();
 				return basicGetReference();
-			case SolidityPackage.MODIFIER_INVOCATION__ARGUMENTS:
-				return getArguments();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -172,12 +174,12 @@ public class ModifierInvocationImpl extends ModifierImpl implements ModifierInvo
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case SolidityPackage.MODIFIER_INVOCATION__REFERENCE:
-				setReference((Operation)newValue);
-				return;
 			case SolidityPackage.MODIFIER_INVOCATION__ARGUMENTS:
 				getArguments().clear();
 				getArguments().addAll((Collection<? extends Argument>)newValue);
+				return;
+			case SolidityPackage.MODIFIER_INVOCATION__REFERENCE:
+				setReference((EObject)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -191,11 +193,11 @@ public class ModifierInvocationImpl extends ModifierImpl implements ModifierInvo
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case SolidityPackage.MODIFIER_INVOCATION__REFERENCE:
-				setReference((Operation)null);
-				return;
 			case SolidityPackage.MODIFIER_INVOCATION__ARGUMENTS:
 				getArguments().clear();
+				return;
+			case SolidityPackage.MODIFIER_INVOCATION__REFERENCE:
+				setReference((EObject)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -209,10 +211,10 @@ public class ModifierInvocationImpl extends ModifierImpl implements ModifierInvo
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case SolidityPackage.MODIFIER_INVOCATION__REFERENCE:
-				return reference != null;
 			case SolidityPackage.MODIFIER_INVOCATION__ARGUMENTS:
 				return arguments != null && !arguments.isEmpty();
+			case SolidityPackage.MODIFIER_INVOCATION__REFERENCE:
+				return reference != null;
 		}
 		return super.eIsSet(featureID);
 	}

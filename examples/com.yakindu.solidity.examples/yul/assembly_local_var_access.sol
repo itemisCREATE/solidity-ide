@@ -14,7 +14,7 @@ contract MyContract {
         assembly { // defined inside  an assembly block
             let x := add(2, 3)
             let y := 10
-            z := add(x, y)
+            let z := add(x, y)
         }
         assembly { // defined outside an assembly block
             let x := add(2, 3)

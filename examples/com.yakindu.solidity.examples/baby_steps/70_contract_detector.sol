@@ -13,25 +13,27 @@
  *   from Solidity. - fivedogit 9/14/2015                                              
  */
 
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.6.10;
 contract ContractDetector {
 
-    address creator;
+    address payable creator;
     string contract_or_normal = "not checked";
-    
-    function ContractDetector() 
-    {
+
+	constructor () public {
         creator = msg.sender;
     }
     
-    function testContractOrNormal(address inc_addr)
+    function testContractOrNormal(address inc_addr) public
     {
-    	if(inc_addr.call())
+        (bool success,) = inc_addr.call("");
+    	if(success)
     		contract_or_normal = "normal";
     	else
     		contract_or_normal = "contract";
     }
     
-    function getContractOrNormal(address inc_addr) constant returns (string)
+    function getContractOrNormal() view public returns (string memory)
     {
     	return contract_or_normal;
     }
@@ -40,11 +42,13 @@ contract ContractDetector {
      Standard kill() function to recover funds 
      **********/
     
-    function kill()
+    function kill() public
     { 
         if (msg.sender == creator)
         {
-            suicide(creator);  // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator);  // kills this contract and sends remaining funds back to creator
         }
     }
 }
+
+

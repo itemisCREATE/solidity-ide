@@ -1,4 +1,6 @@
-import "mortal";
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.6.10;
+import "./mortal.sol";
 
 // contract Descriptor {
 // 	function getDescription() constant returns (uint16[3]){	
@@ -16,28 +18,16 @@ contract Coin
 
 contract ArrayPasser is mortal {
     address creator;
-    
-    /***
-     * 1. Declare a 3x3 map of Tiles
-     ***/
     uint8 mapsize = 3;
     Tile[3][3] tiles; 
 
     struct Tile 
     {
-        /***
-         * 2. A tile is comprised of the owner, elevation and a pointer to a 
-         *      contract that explains what the tile looks like
-         ****/
         uint8 elevation;
     // Descriptor descriptor;
     }
 
-    /***
-     * 3. Upon construction, initialize the internal map elevations.
-     *      The Descriptors start uninitialized.
-     ***/
-    function ArrayPasser(uint8[9] incmap){
+	constructor (uint8[9] memory incmap) public {
         creator = msg.sender;
         uint8 counter = 0;
         for(uint8 y = 0; y < mapsize; y++)
@@ -53,7 +43,7 @@ contract ArrayPasser is mortal {
     /***
      * 4. After contract mined, check the map elevations
      ***/
-    function getElevations() constant returns (uint8[3][3]){
+    function getElevations() view public returns (uint8[3][3] memory){
         uint8[3][3] memory elevations;
         for(uint8 y = 0; y < mapsize; y++)
         {
@@ -65,4 +55,7 @@ contract ArrayPasser is mortal {
         return elevations;
     }
 }
+
+
+
 

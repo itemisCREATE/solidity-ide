@@ -9,14 +9,17 @@ contract MyContract {
     }
 
     // TODO Add functions
-    function if_condition_assembly(uint n, uint value) public pure returns (uint) {
-         
-     	assembly {
-    		if slt(x, 0) { x := sub(0, x) }  // Ok
-            
-    		if eq(value, 0) { revert(0, 0) }    // Error, curly braces needed
-		}
-	}
+    function if_condition_assembly(uint value) public pure returns (uint x) {
+
+        assembly {
+            if slt(x, 0) {
+                x := sub(0, x)
+            } // Ok
+            if eq(value, 0) {
+                revert(0, 0)
+            } // Error, curly braces needed
+        }
+    }
 }
 
 

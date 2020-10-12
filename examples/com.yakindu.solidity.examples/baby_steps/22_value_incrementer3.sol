@@ -1,24 +1,20 @@
-// This contract demonstrates a simple non-constant (transactional) function you can call from geth.
-// increment() takes TWO parameters and increments the interation value by howmuch and also sets an arbitrary customvalue.
-// See below for how to make the call in geth. (incrementer3.increment.sendTransaction(3,9, {from:eth.coinbase,gas:1000000});)
-// note that we needed more than the (geth) default gas of 90k this time. I chose 1 mil. (unused gas is refunded anyway)
-
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity 0.6.10 ;
 contract Incrementer3 {
 
-    address creator;
+    address payable creator;
     int iteration;
     string whathappened;
     int customvalue;
 
-    function Incrementer3() 
-    {
+	constructor () public {
         creator = msg.sender; 								
         iteration = 0;
         whathappened = "constructor executed";
     }
 
 	// call this in geth like so: > incrementer3.increment.sendTransaction(3, 8, {from:eth.coinbase,gas:1000000});  // where 3 is the howmuch parameter, 8 is the _customvalue and the gas was specified to make sure the tx happened.
-    function increment(int howmuch, int _customvalue) 
+    function increment(int howmuch, int _customvalue) public 
     {
     	customvalue = _customvalue;
     	if(howmuch == 0)
@@ -34,17 +30,17 @@ contract Incrementer3 {
         return;
     }
     
-    function getCustomValue() constant returns (int)
+    function getCustomValue() view public returns (int)
     {
     	return customvalue;
     }
     
-    function getWhatHappened() constant returns (string)
+    function getWhatHappened() view public returns (string memory)
     {
     	return whathappened;
     }
     
-    function getIteration() constant returns (int) 
+    function getIteration() view public returns (int) 
     {
         return iteration;
     }
@@ -53,13 +49,19 @@ contract Incrementer3 {
      Standard kill() function to recover funds 
     **********/
     
-    function kill()
+    function kill() public
     { 
         if (msg.sender == creator)
-            suicide(creator);  // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator);  // kills this contract and sends remaining funds back to creator
     }
     
 }
+
+
+
+
+
+
 
 /*
 

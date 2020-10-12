@@ -1,12 +1,6 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
-/**
-* @title RLPReader
-*
-* RLPReader is used to read and parse RLP encoded data in memory.
-*
-* @author Andreas Olofsson (androlo1980@gmail.com)
-*/
 library RLP {
 
  uint constant DATA_SHORT_START = 0x80;
@@ -30,36 +24,31 @@ library RLP {
 
  /* Iterator */
 
- function next(Iterator memory self) internal constant returns (RLPItem memory subItem) {
+ function next(Iterator memory self) internal pure returns (RLPItem memory subItem) {
      if(hasNext(self)) {
-         var ptr = self._unsafe_nextPtr;
-         var itemLength = _itemLength(ptr);
+         uint256 ptr = self._unsafe_nextPtr;
+         uint256 itemLength = _itemLength(ptr);
          subItem._unsafe_memPtr = ptr;
          subItem._unsafe_length = itemLength;
          self._unsafe_nextPtr = ptr + itemLength;
      }
      else
-         throw;
+         revert("Something bad happened!");
  }
 
- function next(Iterator memory self, bool strict) internal constant returns (RLPItem memory subItem) {
+ function next(Iterator memory self, bool strict) internal pure returns (RLPItem memory subItem) {
      subItem = next(self);
      if(strict && !_validate(subItem))
-         throw;
-     return;
+         revert("Something bad happened!");
+     return subItem;
  }
 
- function hasNext(Iterator memory self) internal constant returns (bool) {
-     var item = self._unsafe_item;
+ function hasNext(Iterator memory self) internal pure returns (bool) {
+     RLPItem memory item = self._unsafe_item;
      return self._unsafe_nextPtr < item._unsafe_memPtr + item._unsafe_length;
  }
 
- /* RLPItem */
-
- /// @dev Creates an RLPItem from an array of RLP encoded bytes.
- /// @param self The RLP encoded bytes.
- /// @return An RLPItem
- function toRLPItem(bytes memory self) internal constant returns (RLPItem memory) {
+ function toRLPItem(bytes memory self) internal pure returns (RLPItem memory) {
      uint len = self.length;
      if (len == 0) {
          return RLPItem(0, 0);
@@ -71,35 +60,25 @@ library RLP {
      return RLPItem(memPtr, len);
  }
 
- /// @dev Creates an RLPItem from an array of RLP encoded bytes.
- /// @param self The RLP encoded bytes.
- /// @param strict Will throw if the data is not RLP encoded.
- /// @return An RLPItem
- function toRLPItem(bytes memory self, bool strict) internal constant returns (RLPItem memory) {
-     var item = toRLPItem(self);
+ function toRLPItem(bytes memory self, bool strict) internal pure returns (RLPItem memory) {
+     RLPItem memory item = toRLPItem(self);
      if(strict) {
          uint len = self.length;
          if(_payloadOffset(item) > len)
-             throw;
+             revert("Something bad happened!");
          if(_itemLength(item._unsafe_memPtr) != len)
-             throw;
+             revert("Something bad happened!");
          if(!_validate(item))
-             throw;
+             revert("Something bad happened!");
      }
      return item;
  }
 
- /// @dev Check if the RLP item is null.
- /// @param self The RLP item.
- /// @return 'true' if the item is null.
- function isNull(RLPItem memory self) internal constant returns (bool ret) {
+ function isNull(RLPItem memory self) internal pure returns (bool ret) {
      return self._unsafe_length == 0;
  }
 
- /// @dev Check if the RLP item is a list.
- /// @param self The RLP item.
- /// @return 'true' if the item is a list.
- function isList(RLPItem memory self) internal constant returns (bool ret) {
+ function isList(RLPItem memory self) internal pure returns (bool ret) {
      if (self._unsafe_length == 0)
          return false;
      uint memPtr = self._unsafe_memPtr;
@@ -108,10 +87,7 @@ library RLP {
      }
  }
 
- /// @dev Check if the RLP item is data.
- /// @param self The RLP item.
- /// @return 'true' if the item is data.
- function isData(RLPItem memory self) internal constant returns (bool ret) {
+ function isData(RLPItem memory self) internal pure returns (bool ret) {
      if (self._unsafe_length == 0)
          return false;
      uint memPtr = self._unsafe_memPtr;
@@ -120,10 +96,7 @@ library RLP {
      }
  }
 
- /// @dev Check if the RLP item is empty (string or list).
- /// @param self The RLP item.
- /// @return 'true' if the item is null.
- function isEmpty(RLPItem memory self) internal constant returns (bool ret) {
+ function isEmpty(RLPItem memory self) internal pure returns (bool ret) {
      if(isNull(self))
          return false;
      uint b0;
@@ -134,10 +107,7 @@ library RLP {
      return (b0 == DATA_SHORT_START || b0 == LIST_SHORT_START);
  }
 
- /// @dev Get the number of items in an RLP encoded list.
- /// @param self The RLP item.
- /// @return The number of items.
- function items(RLPItem memory self) internal constant returns (uint) {
+ function items(RLPItem memory self) internal pure returns (uint) {
      if (!isList(self))
          return 0;
      uint b0;
@@ -155,50 +125,36 @@ library RLP {
      return itms;
  }
 
- /// @dev Create an iterator.
- /// @param self The RLP item.
- /// @return An 'Iterator' over the item.
- function iterator(RLPItem memory self) internal constant returns (Iterator memory it) {
+ function iterator(RLPItem memory self) internal pure returns (Iterator memory it) {
      if (!isList(self))
-         throw;
+         revert("Something bad happened!");
      uint ptr = self._unsafe_memPtr + _payloadOffset(self);
      it._unsafe_item = self;
      it._unsafe_nextPtr = ptr;
  }
 
- /// @dev Return the RLP encoded bytes.
- /// @param self The RLPItem.
- /// @return The bytes.
- function toBytes(RLPItem memory self) internal constant returns (bytes memory bts) {
-     var len = self._unsafe_length;
+ function toBytes(RLPItem memory self) internal view returns (bytes memory bts) {
+     uint256 len = self._unsafe_length;
      if (len == 0)
-         return;
+         return bts;
      bts = new bytes(len);
      _copyToBytes(self._unsafe_memPtr, bts, len);
  }
 
- /// @dev Decode an RLPItem into bytes. This will not work if the
- /// RLPItem is a list.
- /// @param self The RLPItem.
- /// @return The decoded string.
- function toData(RLPItem memory self) internal constant returns (bytes memory bts) {
+ function toData(RLPItem memory self) internal view returns (bytes memory bts) {
      if(!isData(self))
-         throw;
-     var (rStartPos, len) = _decode(self);
+         revert("Something bad happened!");
+     (uint256 rStartPos, uint256 len) = _decode(self);
      bts = new bytes(len);
      _copyToBytes(rStartPos, bts, len);
  }
 
- /// @dev Get the list of sub-items from an RLP encoded list.
- /// Warning: This is inefficient, as it requires that the list is read twice.
- /// @param self The RLP item.
- /// @return Array of RLPItems.
- function toList(RLPItem memory self) internal constant returns (RLPItem[] memory list) {
+ function toList(RLPItem memory self) internal pure returns (RLPItem[] memory list) {
      if(!isList(self))
-         throw;
-     var numItems = items(self);
+         revert("Something bad happened!");
+     uint256 numItems = items(self);
      list = new RLPItem[](numItems);
-     var it = iterator(self);
+     Iterator memory it = iterator(self);
      uint idx;
      while(hasNext(it)) {
          list[idx] = next(it);
@@ -206,103 +162,74 @@ library RLP {
      }
  }
 
- /// @dev Decode an RLPItem into an ascii string. This will not work if the
- /// RLPItem is a list.
- /// @param self The RLPItem.
- /// @return The decoded string.
- function toAscii(RLPItem memory self) internal constant returns (string memory str) {
+ function toAscii(RLPItem memory self) internal view returns (string memory str) {
      if(!isData(self))
-         throw;
-     var (rStartPos, len) = _decode(self);
+         revert("Something bad happened!");
+     (uint256 rStartPos, uint256 len) = _decode(self);
      bytes memory bts = new bytes(len);
      _copyToBytes(rStartPos, bts, len);
      str = string(bts);
  }
 
- /// @dev Decode an RLPItem into a uint. This will not work if the
- /// RLPItem is a list.
- /// @param self The RLPItem.
- /// @return The decoded string.
- function toUint(RLPItem memory self) internal constant returns (uint data) {
+ function toUint(RLPItem memory self) internal pure returns (uint data) {
      if(!isData(self))
-         throw;
-     var (rStartPos, len) = _decode(self);
+         revert("Something bad happened!");
+     (uint256 rStartPos, uint256 len) = _decode(self);
      if (len > 32 || len == 0)
-         throw;
+         revert("Something bad happened!");
      assembly {
          data := div(mload(rStartPos), exp(256, sub(32, len)))
      }
  }
 
- /// @dev Decode an RLPItem into a boolean. This will not work if the
- /// RLPItem is a list.
- /// @param self The RLPItem.
- /// @return The decoded string.
- function toBool(RLPItem memory self) internal constant returns (bool data) {
+ function toBool(RLPItem memory self) internal pure returns (bool data) {
      if(!isData(self))
-         throw;
-     var (rStartPos, len) = _decode(self);
+         revert("Something bad happened!");
+     (uint256 rStartPos, uint256 len) = _decode(self);
      if (len != 1)
-         throw;
+         revert("Something bad happened!");
      uint temp;
      assembly {
          temp := byte(0, mload(rStartPos))
      }
      if (temp > 1)
-         throw;
+         revert("Something bad happened!");
      return temp == 1 ? true : false;
  }
 
- /// @dev Decode an RLPItem into a byte. This will not work if the
- /// RLPItem is a list.
- /// @param self The RLPItem.
- /// @return The decoded string.
- function toByte(RLPItem memory self) internal constant returns (byte data) {
+ function toByte(RLPItem memory self) internal pure returns (byte data) {
      if(!isData(self))
-         throw;
-     var (rStartPos, len) = _decode(self);
+         revert("Something bad happened!");
+     (uint256 rStartPos, uint256 len) = _decode(self);
      if (len != 1)
-         throw;
+         revert("Something bad happened!");
      uint temp;
      assembly {
          temp := byte(0, mload(rStartPos))
      }
-     return byte(temp);
+     return data;
  }
 
- /// @dev Decode an RLPItem into an int. This will not work if the
- /// RLPItem is a list.
- /// @param self The RLPItem.
- /// @return The decoded string.
- function toInt(RLPItem memory self) internal constant returns (int data) {
+ function toInt(RLPItem memory self) internal pure returns (int data) {
      return int(toUint(self));
  }
 
- /// @dev Decode an RLPItem into a bytes32. This will not work if the
- /// RLPItem is a list.
- /// @param self The RLPItem.
- /// @return The decoded string.
- function toBytes32(RLPItem memory self) internal constant returns (bytes32 data) {
+ function toBytes32(RLPItem memory self) internal pure returns (bytes32 data) {
      return bytes32(toUint(self));
  }
 
- /// @dev Decode an RLPItem into an address. This will not work if the
- /// RLPItem is a list.
- /// @param self The RLPItem.
- /// @return The decoded string.
- function toAddress(RLPItem memory self) internal constant returns (address data) {
+ function toAddress(RLPItem memory self) internal pure returns (address data) {
      if(!isData(self))
-         throw;
-     var (rStartPos, len) = _decode(self);
+         revert("Something bad happened!");
+     (uint256 rStartPos, uint256 len) = _decode(self);
      if (len != 20)
-         throw;
+         revert("Something bad happened!");
      assembly {
          data := div(mload(rStartPos), exp(256, 12))
      }
  }
 
- // Get the payload offset.
- function _payloadOffset(RLPItem memory self) private constant returns (uint) {
+ function _payloadOffset(RLPItem memory self) private pure returns (uint) {
      if(self._unsafe_length == 0)
          return 0;
      uint b0;
@@ -319,8 +246,7 @@ library RLP {
      return b0 - LIST_LONG_OFFSET + 1;
  }
 
- // Get the full length of an RLP item.
- function _itemLength(uint memPtr) private constant returns (uint len) {
+ function _itemLength(uint memPtr) private pure returns (uint len) {
      uint b0;
      assembly {
          b0 := byte(0, mload(memPtr))
@@ -347,10 +273,9 @@ library RLP {
      }
  }
 
- // Get start position and length of the data.
- function _decode(RLPItem memory self) private constant returns (uint memPtr, uint len) {
+ function _decode(RLPItem memory self) private pure returns (uint memPtr, uint len) {
      if(!isData(self))
-         throw;
+         revert("Something bad happened!");
      uint b0;
      uint start = self._unsafe_memPtr;
      assembly {
@@ -359,7 +284,7 @@ library RLP {
      if (b0 < DATA_SHORT_START) {
          memPtr = start;
          len = 1;
-         return;
+         return (memPtr, len);
      }
      if (b0 < DATA_LONG_START) {
          len = self._unsafe_length - 1;
@@ -372,36 +297,13 @@ library RLP {
          len = self._unsafe_length - 1 - bLen;
          memPtr = start + bLen + 1;
      }
-     return;
+     return (memPtr, len);
  }
 
- // Assumes that enough memory has been allocated to store in target.
- function _copyToBytes(uint btsPtr, bytes memory tgt, uint btsLen) private constant {
-     // Exploiting the fact that 'tgt' was the last thing to be allocated,
-     // we can write entire words, and just overwrite any excess.
-     assembly {
-         {
-                 let i := 0 // Start at arr + 0x20
-                 let words := div(add(btsLen, 31), 32)
-                 let rOffset := btsPtr
-                 let wOffset := add(tgt, 0x20)
-             tag_loop:
-                 jumpi(end, eq(i, words))
-                 {
-                     let offset := mul(i, 0x20)
-                     mstore(add(wOffset, offset), mload(add(rOffset, offset)))
-                     i := add(i, 1)
-                 }
-                 jump(tag_loop)
-             end:
-                 mstore(add(tgt, add(0x20, mload(tgt))), 0)
-         }
-     }
+ function _copyToBytes(uint btsPtr, bytes memory tgt, uint btsLen) private view {
  }
 
- // Check that an RLP item is valid.
-     function _validate(RLPItem memory self) private constant returns (bool ret) {
-         // Check that RLP is well-formed.
+     function _validate(RLPItem memory self) private pure returns (bool ret) {
          uint b0;
          uint b1;
          uint memPtr = self._unsafe_memPtr;

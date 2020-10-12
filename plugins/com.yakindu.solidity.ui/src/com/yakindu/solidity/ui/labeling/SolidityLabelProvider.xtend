@@ -36,6 +36,7 @@ import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
 import org.yakindu.base.base.NamedElement
 import org.yakindu.base.types.EnumerationType
 import org.yakindu.base.types.TypeSpecifier
+import org.yakindu.base.types.Operation
 
 /**
  * Provides labels for EObjects.
@@ -108,7 +109,11 @@ class SolidityLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	def dispatch String text(ModifierInvocation it) {
-		'''«reference.name»'''
+		if (reference instanceof Operation) {			
+			'''«(reference as Operation).name»'''
+		} else if (reference instanceof ContractDefinition) {
+			'''«(reference as ContractDefinition).name»'''
+		}
 	}
 
 	def dispatch String text(FunctionModifier it) {

@@ -1,18 +1,21 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.6.10;
 
 contract Migrations {
-  address public admin;
-  uint public last_completed_migration;
+    address public admin;
+    uint public last_completed_migration;
 
-  modifier onlyAdmin() {
-    if (msg.sender == admin) _;
-  }
+    modifier onlyAdmin() {
+        if (msg.sender == admin) _;
+    }
 
-  function Migrations() {
-    admin = msg.sender;
-  }
+    constructor () public {
+        admin = msg.sender;
+    }
 
-  function setCompleted(uint completed) onlyAdmin {
-    last_completed_migration = completed;
-  }
+    function setCompleted(uint completed) onlyAdmin public {
+        last_completed_migration = completed;
+    }
 }
+
+

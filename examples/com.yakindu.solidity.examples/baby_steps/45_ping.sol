@@ -1,11 +1,5 @@
-// Contracts can get non-constant return values from functions in other contracts. (Whereas you can't from web3/geth.)
-// These two contracts are meant to test this. Like so:
-
-// 1. Deploy Pong with a pongval.
-// 2. Deploy Ping, giving it the address of Pong.
-// 3. Call Ping.getPongvalRemote() using a sendTransaction...
-// 4. ... which retreives the value of pongval from Pong.
-// 5. If successful Ping.getPongval() should return the value from step 1.
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity 0.6.10 ;
 
 contract PongvalRetriever {
  	int8 pongval_tx_retrieval_attempted = 0;
@@ -19,13 +13,9 @@ contract Ping is PongvalRetriever {
 
  	int8 pongval;
 	PongvalRetriever pvr;
-    address creator;
+    address payable creator;
 
-	/*********
- 	 Step 2: Deploy Ping, giving it the address of Pong.
- 	 *********/
-    function Ping(PongvalRetriever _pongAddress) 
-    {
+	constructor (PongvalRetriever _pongAddress) public {
         creator = msg.sender; 	
         pongval = -1;							
         pvr = _pongAddress;
@@ -35,7 +25,7 @@ contract Ping is PongvalRetriever {
      Step 3: Transactionally retrieve pongval from Pong. 
      *********/
 
-	function getPongvalRemote() 
+	function getPongvalRemote() public 
 	{
 		pongval = pvr.getPongvalTransactional();
 	}
@@ -44,7 +34,7 @@ contract Ping is PongvalRetriever {
      Step 5: Get pongval (which was previously retrieved from Pong via transaction)
      *********/
      
-    function getPongvalConstant() constant returns (int8)
+    function getPongvalConstant() view public returns (int8)
     {
     	return pongval;
     }
@@ -56,33 +46,36 @@ contract Ping is PongvalRetriever {
      Functions to get and set pongAddress just in case
      *********/
     
-    function setPongAddress(PongvalRetriever _pongAddress)
+    function setPongAddress(PongvalRetriever _pongAddress) public
 	{
 		pvr = _pongAddress;
 	}
 	
-	function getPongAddress() constant returns (address)
+	function getPongAddress() view public returns (address)
 	{
-		return pvr;
+		return address(pvr);
 	}
     
     /****
 	 For double-checking this contract's address
 	 ****/
-	function getAddress() returns (address)
+	function getAddress() public view returns (address)
 	{
-		return this;
+		return address(this);
 	}
     
     /*********
      Standard kill() function to recover funds 
      *********/
     
-    function kill()
+    function kill() public
     { 
         if (msg.sender == creator)
-            suicide(creator);  // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator);  // kills this contract and sends remaining funds back to creator
     }
 }
+
+
+
 
 // See Pong for deployment/use. 

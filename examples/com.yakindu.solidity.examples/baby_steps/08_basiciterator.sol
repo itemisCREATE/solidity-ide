@@ -1,12 +1,10 @@
-/*
- * 	This is a very simple demonstration of a while loops. Same as JS/c.
- */
-
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity 0.6.10 ;
 contract BasicIterator {
-    address creator;                  // reserve one "address"-type spot
-    uint8[10] integers;               // reserve a chunk of storage for 10 8-bit unsigned integers in an array
-    function BasicIterator() 
-    {
+    address payable creator;                  // reserve one "address"-type spot
+    uint8[10] integers;
+
+	constructor () public {
         creator = msg.sender;         // set the creator address
         uint8 x = 0;                  // initialize an 8-bit, unsigned integer to zero
         while(x < integers.length)    // the variable integers was initialized to length 10
@@ -15,7 +13,7 @@ contract BasicIterator {
         	x++;
         }
     }
-    function getSum() constant returns (uint)  // "constant" just means this function returns something to the caller
+    function getSum() view public returns (uint)  // "constant" just means this function returns something to the caller
     { // which is immediately followed by what type gets returned, in this case a full uint256
         uint8 sum = 0;
     	uint8 x = 0;
@@ -31,12 +29,13 @@ contract BasicIterator {
      Standard kill() function to recover funds 
      **********/
     
-    function kill(uint8 parameter)
+    function kill() public
     {
         if (msg.sender == creator)
         {
-            suicide(creator); // kills this contract and sends remaining funds back to creator
+            selfdestruct(creator); // kills this contract and sends remaining funds back to creator
         }
     }
 }
+
 
