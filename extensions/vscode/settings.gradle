@@ -1,0 +1,2 @@
+include 'vscode-extension'
+include 'vscode-extension-self-contained'

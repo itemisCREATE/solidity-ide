@@ -1,0 +1,8 @@
+*.jar
+*.vsix
+.vscode
+/node_modules/
+/out/
+/src/ls/
+/build/
+/package-lock.json
